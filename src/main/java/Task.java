@@ -1,41 +1,20 @@
 /**
- * Represents a task with a description and completion status.
+ * Represents information shared by every kind of task.
+ *
+ * <p>Subclasses provide their own type code and any date or time details.
  */
-public class Task {
+public abstract class Task {
     private final String description;
     private boolean complete;
-    private TaskClass taskType;
-
-    public enum TaskClass {
-        TODO("T"),
-        DEADLINE("D"),
-        EVENT("E");
-
-        private final String abbrev;
-
-        TaskClass(String abbrev) {
-            this.abbrev = abbrev;
-        }
-
-        public String helper() {
-            return abbrev;
-        }
-    }
 
     /**
-     * Creates an incomplete task with the provided description.
+     * Creates an incomplete task with the supplied description.
      *
      * @param description text describing the task
      */
-    public Task(String taskType, String description) {
-        try {
-            this.taskType = TaskClass.valueOf(taskType.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Please enter a valid task type");
-        }
-
+    protected Task(String description) {
         this.description = description;
-        this.complete = false;
+        complete = false;
     }
 
     /**
@@ -45,19 +24,37 @@ public class Task {
         complete = true;
     }
 
+    /**
+     * Marks this task as incomplete.
+     */
     public void markIncomplete() {
         complete = false;
     }
 
     /**
-     * Returns a display form that includes the task's completion status.
+     * Returns the single-letter code used to display this task type.
      *
-     * @return the task description prefixed with {@code [ ]} or {@code [X]}
+     * @return the type code
+     */
+    protected abstract String getTypeCode();
+
+    /**
+     * Returns any type-specific information that follows the description.
+     *
+     * @return displayable details, including any leading spacing
+     */
+    protected abstract String getDetails();
+
+    /**
+     * Returns a display form containing the task type, status, and details.
+     *
+     * @return the formatted task
      */
     @Override
     public String toString() {
-        return "[" + taskType.helper() + "]"
+        return "[" + getTypeCode() + "]"
                 + (complete ? "[X] " : "[ ] ")
-                + description;
+                + description
+                + getDetails();
     }
 }

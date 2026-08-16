@@ -1,30 +1,38 @@
 # Bibi User Guide
 
-// Update the title above to match the actual product name
+Bibi is a command-line task chatbot. It supports ToDos, deadlines, and events, and retains date/time information exactly as you enter it.
 
-// Product screenshot goes here
+## Add tasks
 
-// Product intro goes here
+Use one of these commands:
 
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
+```text
+todo borrow book
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
 ```
 
-## Feature ABC
+The date and time values are treated as text. For example, `deadline do homework /by no idea :-p` is valid.
 
-// Feature details
+## List tasks
 
+```text
+list
+```
 
-## Feature XYZ
+Task types are displayed as `[T]` (ToDo), `[D]` (deadline), and `[E]` (event). Completion state is `[ ]` for incomplete and `[X]` for complete.
 
-// Feature details
+## Change completion state
+
+```text
+mark 2
+unmark 2
+```
+
+Task numbers come from the list output.
+
+## Exit Bibi
+
+```text
+bye
+```
