@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Bibi {
     public static void main(String[] args) {
@@ -13,6 +13,7 @@ public class Bibi {
         System.out.println(banner);
 
         Scanner scan = new Scanner(System.in);
+        List<String> tasks = new ArrayList<>();
 
         while (true) {
             System.out.print("You: ");
@@ -21,12 +22,18 @@ public class Bibi {
             if (input.equals("bye") || input.equals("bye ")) {
                 System.out.println(exit);
                 break;
-            }
-
+            } else if (input.equals("list") || input.equals("list ")) {
+                for (int i = 0; i < tasks.size(); i++) {
+                    String s = (i + 1) + ". " + tasks.get(i); 
+                    System.out.println(s);
+                }
+            } 
             else {
-                System.out.println(input);
+                System.out.println("added: " + input);
+                tasks.add(input);
             }
         }
+        scan.close();
 
         
         
