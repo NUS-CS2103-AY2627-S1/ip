@@ -18,8 +18,8 @@ public class Bibi {
                 + "B       B  i    b       b  i\n"
                 + "B B B B  iii   b b b b  iii\n"
                 + "Greetings Comrade! I'm Bibi, your ever-present bot friend.\n"
-                + "Enter a task to add it, type list to view tasks, mark <number> to complete one, "
-                + "or bye to exit.";
+                + "Enter a task as <type> <description> (todo, deadline, or event).\n"
+                + "Type list to view tasks, mark <number> to complete one, or bye to exit.";
         List<Task> tasks = new ArrayList<>();
 
         System.out.println(banner);
@@ -42,10 +42,32 @@ public class Bibi {
                 else if (input.isEmpty()) {
                     System.out.println("Bibi: Please enter a task or command.");
                 } else {
-                    tasks.add(new Task(input));
-                    System.out.println("Bibi: Added: " + input);
+                    addTask(input, tasks);
                 }
             }
+        }
+    }
+
+    /**
+     * Creates and stores a task from input in the form {@code type description}.
+     *
+     * @param input the user's complete command
+     * @param tasks the task list to update
+     */
+    private static void addTask(String input, List<Task> tasks) {
+        String[] parts = input.split("\\s+", 2);
+
+        if (parts.length < 2 || parts[1].isBlank()) {
+            System.out.println("Bibi: Use a type and description, for example: todo buy groceries");
+            return;
+        }
+
+        try {
+            Task task = new Task(parts[0], parts[1]);
+            tasks.add(task);
+            System.out.println("Bibi: Added: " + task);
+        } catch (IllegalArgumentException exception) {
+            System.out.println("Bibi: Valid task types are todo, deadline, and event.");
         }
     }
 
@@ -85,7 +107,7 @@ public class Bibi {
             task.markComplete();
             System.out.println("Bibi: Marked task " + taskNumber + " as complete.");
         } catch (NumberFormatException exception) {
-            System.out.println("Bibi: Use unmark followed by a task number, for example: unmark 2");
+            System.out.println("Bibi: Use mark followed by a task number, for example: mark 2");
         }
     }
 
@@ -103,7 +125,7 @@ public class Bibi {
             task.markIncomplete();
             System.out.println("Bibi: Unmarked task " + taskNumber + ", now incomplete.");
         } catch (NumberFormatException exception) {
-            System.out.println("Bibi: Use mark followed by a task number, for example: mark 2");
+            System.out.println("Bibi: Use unmark followed by a task number, for example: unmark 2");
         }
     }
 }
