@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -15,7 +13,7 @@ public class Bibi {
      * @param args command-line arguments, which are not used
      */
     public static void main(String[] args) {
-        List<Task> tasks = new ArrayList<>();
+        TaskList tasks = new TaskList();
 
         printWelcomeMessage();
         try (Scanner scanner = new Scanner(System.in)) {
@@ -52,6 +50,21 @@ public class Bibi {
         System.out.println("Bibi: Type list, mark <number>, unmark <number>, or bye.");
     }
 
+    private static void printHelp() {
+        System.out.println(DIVIDER);
+        System.out.println("Bibi: Here are the commands I understand:");
+        System.out.println("  todo <description>");
+        System.out.println("  deadline <description> /by <time>");
+        System.out.println("  event <description> /from <start> /to <end>");
+        System.out.println("  list");
+        System.out.println("  mark <number>");
+        System.out.println("  unmark <number>");
+        System.out.println("  remove <number>");
+        System.out.println("  help");
+        System.out.println("  bye");
+        System.out.println(DIVIDER);
+    }
+
     /**
      * Routes one user command to the appropriate task operation.
      *
@@ -59,7 +72,7 @@ public class Bibi {
      * @param tasks the task list to update or display
      * @throws BibiException if the command is empty, unknown, or malformed
      */
-    private static void processCommand(String input, List<Task> tasks) throws BibiException {
+    private static void processCommand(String input, TaskList tasks) throws BibiException {
         String command = input.toLowerCase(Locale.ROOT); //Local.root uses user's local settings to determine case conversion
 
         if (input.isEmpty()) {
@@ -76,9 +89,13 @@ public class Bibi {
             markTask(input.substring(5).trim(), tasks);
         } else if (command.startsWith("unmark ")) {
             unmarkTask(input.substring(7).trim(), tasks);
+        } else if (command.startsWith("remove ")) {
+            removeTask(input.substring(7).trim(), tasks);
+        } else if (command.startsWith("help ")) {
+            printHelp();
         } else {
-            throw new BibiException("WHAT DAT MEAN? "
-                    + "Try todo, deadline, event, list, mark, unmark, or bye instead.");
+            throw new BibiException("I don't understand that command. "
+                    + "Try todo, deadline, event, list, mark, unmark, or bye.");
         }
     }
 
@@ -89,11 +106,7 @@ public class Bibi {
      * @param tasks the task list to update
      * @throws BibiException if the description is missing
      */
-    private static void addTodo(String description, List<Task> tasks) throws BibiException {
-        if (description.isEmpty()) {
-            throw new BibiException("Use todo followed by a description.");
-        }
-
+    private static void addTodo(String description, TaskList tasks) throws BibiException {
         addTask(new Todo(description), tasks);
     }
 
@@ -104,20 +117,16 @@ public class Bibi {
      * @param tasks the task list to update
      * @throws BibiException if the deadline is missing required information
      */
-    private static void addDeadline(String deadlineText, List<Task> tasks) throws BibiException {
+    private static void addDeadline(String deadlineText, TaskList tasks) throws BibiException {
         String normalizedText = deadlineText.toLowerCase(Locale.ROOT);
         int byIndex = normalizedText.indexOf(" /by ");
 
-        if (byIndex <= 0) {
+        if (byIndex < 0) {
             throw new BibiException("Use deadline <description> /by <time>.");
         }
 
         String description = deadlineText.substring(0, byIndex).trim();
         String by = deadlineText.substring(byIndex + 5).trim();
-        if (description.isEmpty() || by.isEmpty()) {
-            throw new BibiException("A deadline needs both a description and a /by time.");
-        }
-
         addTask(new Deadline(description, by), tasks);
     }
 
@@ -129,22 +138,18 @@ public class Bibi {
      * @param tasks the task list to update
      * @throws BibiException if the event is missing required information
      */
-    private static void addEvent(String eventText, List<Task> tasks) throws BibiException {
+    private static void addEvent(String eventText, TaskList tasks) throws BibiException {
         String normalizedText = eventText.toLowerCase(Locale.ROOT);
         int fromIndex = normalizedText.indexOf(" /from ");
         int toIndex = normalizedText.indexOf(" /to ");
 
-        if (fromIndex <= 0 || toIndex <= fromIndex + 7) {
+        if (fromIndex < 0 || toIndex < fromIndex + 7) {
             throw new BibiException("Use event <description> /from <start> /to <end>.");
         }
 
         String description = eventText.substring(0, fromIndex).trim();
         String from = eventText.substring(fromIndex + 7, toIndex).trim();
         String to = eventText.substring(toIndex + 5).trim();
-        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            throw new BibiException("An event needs a description, /from time, and /to time.");
-        }
-
         addTask(new Event(description, from, to), tasks);
     }
 
@@ -154,7 +159,7 @@ public class Bibi {
      * @param task the new task
      * @param tasks the task list to update
      */
-    private static void addTask(Task task, List<Task> tasks) {
+    private static void addTask(Task task, TaskList tasks) {
         tasks.add(task);
         System.out.println(DIVIDER);
         System.out.println("Bibi: Got it. I've added this task:");
@@ -168,14 +173,14 @@ public class Bibi {
      *
      * @param tasks tasks to print
      */
-    private static void printTasks(List<Task> tasks) {
+    private static void printTasks(TaskList tasks) throws BibiException {
         System.out.println(DIVIDER);
         if (tasks.isEmpty()) {
             System.out.println("Bibi: Your task list is empty.");
         } else {
             System.out.println("Bibi: Here are the tasks in your list:");
-            for (int index = 0; index < tasks.size(); index++) {
-                System.out.println((index + 1) + ". " + tasks.get(index));
+            for (int taskNumber = 1; taskNumber <= tasks.size(); taskNumber++) {
+                System.out.println(taskNumber + ". " + tasks.get(taskNumber));
             }
         }
         System.out.println(DIVIDER);
@@ -188,7 +193,7 @@ public class Bibi {
      * @param tasks the current task list
      * @throws BibiException if the supplied task number is invalid
      */
-    private static void markTask(String numberText, List<Task> tasks) throws BibiException {
+    private static void markTask(String numberText, TaskList tasks) throws BibiException {
         Task task = findTask(numberText, tasks, "mark");
         if (task != null) {
             task.markComplete();
@@ -203,7 +208,7 @@ public class Bibi {
      * @param tasks the current task list
      * @throws BibiException if the supplied task number is invalid
      */
-    private static void unmarkTask(String numberText, List<Task> tasks) throws BibiException {
+    private static void unmarkTask(String numberText, TaskList tasks) throws BibiException {
         Task task = findTask(numberText, tasks, "unmark");
         if (task != null) {
             task.markIncomplete();
@@ -220,18 +225,22 @@ public class Bibi {
      * @return the matching task
      * @throws BibiException if the task number is not a valid list entry
      */
-    private static Task findTask(String numberText, List<Task> tasks, String command)
+    private static Task findTask(String numberText, TaskList tasks, String command)
             throws BibiException {
         try {
-            int taskNumber = Integer.parseInt(numberText);
-            int taskIndex = taskNumber - 1;
-            if (taskIndex < 0 || taskIndex >= tasks.size()) {
-                throw new BibiException("That task number does not exist.");
-            }
-            return tasks.get(taskIndex);
+            return tasks.get(Integer.parseInt(numberText));
         } catch (NumberFormatException exception) {
             throw new BibiException("Use " + command + " followed by a task number, for example: "
                     + command + " 2");
+        }
+    }
+
+    private static void removeTask(String index, TaskList tasks) throws BibiException {
+        try {
+            tasks.remove(Integer.parseInt(index));
+            System.out.println("Bibi: Task " + index + " removed.");
+        } catch (NumberFormatException exception) {
+            throw new BibiException("Use remove followed by a task number, for example: remove 2");
         }
     }
 }

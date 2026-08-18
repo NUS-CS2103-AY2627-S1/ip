@@ -11,10 +11,30 @@ public abstract class Task {
      * Creates an incomplete task with the supplied description.
      *
      * @param description text describing the task
+     * @throws BibiException if the description is blank
      */
-    protected Task(String description) {
+    protected Task(String description) throws BibiException {
+        if (description == null || description.isBlank()) {
+            throw new BibiException("A task needs a description.");
+        }
         this.description = description;
         complete = false;
+    }
+
+    /**
+     * Checks a task description before it is stored in a subclass.
+     *
+     * @param description text supplied as the task description
+     * @param errorMessage explanation to show when the description is missing
+     * @return the supplied description when it is valid
+     * @throws BibiException if the description is blank
+     */
+    protected static String requireDescription(String description, String errorMessage)
+            throws BibiException {
+        if (description == null || description.isBlank()) {
+            throw new BibiException(errorMessage);
+        }
+        return description;
     }
 
     /**
