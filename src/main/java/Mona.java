@@ -1,12 +1,12 @@
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
  * Provides a command-line task manager named Mona.
  */
 public class Mona {
-    private static final int MAXIMUM_TASKS = 100;
     private static final String SEPARATOR = "____________________________________________________________";
     private static final String TODO_COMMAND = "todo";
     private static final String DEADLINE_COMMAND = "deadline";
@@ -34,8 +34,7 @@ public class Mona {
         // platform default.
         System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
 
-        Task[] tasks = new Task[MAXIMUM_TASKS];
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
         printFormatted(BANNER
                 + "\n✨ Hello, I'm Mona.\nThe constellations lie reflected in the water tonight. "
@@ -55,19 +54,19 @@ public class Mona {
                     printFormatted("✨ Farewell. May the stars guide you until we meet again.");
                     break;
                 } else if (userInput.equals("list")) {
-                    printTasks(tasks, taskCount);
+                    printTasks(tasks);
                 } else if (isCommand(userInput, MARK_COMMAND)) {
-                    markTask(tasks, taskCount, userInput, true);
+                    markTask(tasks, userInput, true);
                 } else if (isCommand(userInput, UNMARK_COMMAND)) {
-                    markTask(tasks, taskCount, userInput, false);
+                    markTask(tasks, userInput, false);
                 } else if (isCommand(userInput, DELETE_COMMAND)) {
-                    taskCount = deleteTask(tasks, taskCount, userInput);
+                    deleteTask(tasks, userInput);
                 } else if (isCommand(userInput, TODO_COMMAND)) {
-                    taskCount = addTodo(tasks, taskCount, userInput);
+                    addTodo(tasks, userInput);
                 } else if (isCommand(userInput, DEADLINE_COMMAND)) {
-                    taskCount = addDeadline(tasks, taskCount, userInput);
+                    addDeadline(tasks, userInput);
                 } else if (isCommand(userInput, EVENT_COMMAND)) {
-                    taskCount = addEvent(tasks, taskCount, userInput);
+                    addEvent(tasks, userInput);
                 } else {
                     throw MonaException.withHint(
                             "❌ That command is not written in the stars I can read. "
@@ -106,7 +105,7 @@ public class Mona {
         return userInput.length() == commandWord.length() ? "" : userInput.substring(commandWord.length() + 1);
     }
 
-    private static int addTodo(Task[] tasks, int taskCount, String userInput) throws MonaException {
+    private static void addTodo(ArrayList<Task> tasks, String userInput) throws MonaException {
         String description = extractArguments(userInput, TODO_COMMAND);
         if (description.trim().isEmpty()) {
             throw MonaException.withHint(
@@ -114,25 +113,16 @@ public class Mona {
                     "todo read book");
         }
 
-        return addTask(tasks, taskCount, new Todo(description));
+        addTask(tasks, new Todo(description));
     }
 
-    private static int addTask(Task[] tasks, int taskCount, Task task) throws MonaException {
-        if (taskCount >= tasks.length) {
-            throw MonaException.withHint(
-                    "❌ The list of fates overflows. No more tasks can be added.",
-                    "This starter list holds at most " + MAXIMUM_TASKS
-                            + " tasks; complete this session or restart Mona before adding more.");
-        }
-
-        tasks[taskCount] = task;
-        int updatedTaskCount = taskCount + 1;
+    private static void addTask(ArrayList<Task> tasks, Task task) {
+        tasks.add(task);
         printFormatted("✅ Your fate is rewritten. I've added this task:\n  " + task
-                + "\nNow you have " + updatedTaskCount + " tasks in the list.");
-        return updatedTaskCount;
+                + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
-    private static int addDeadline(Task[] tasks, int taskCount, String userInput) throws MonaException {
+    private static void addDeadline(ArrayList<Task> tasks, String userInput) throws MonaException {
         String arguments = extractArguments(userInput, DEADLINE_COMMAND);
         int separatorIndex = arguments.indexOf(DEADLINE_SEPARATOR);
         if (separatorIndex < 0) {
@@ -154,10 +144,10 @@ public class Mona {
                     "deadline return book /by Sunday");
         }
 
-        return addTask(tasks, taskCount, new Deadline(description, deadline));
+        addTask(tasks, new Deadline(description, deadline));
     }
 
-    private static int addEvent(Task[] tasks, int taskCount, String userInput) throws MonaException {
+    private static void addEvent(ArrayList<Task> tasks, String userInput) throws MonaException {
         String arguments = extractArguments(userInput, EVENT_COMMAND);
         int startSeparatorIndex = arguments.indexOf(EVENT_START_SEPARATOR);
         int endSeparatorIndex = arguments.indexOf(EVENT_END_SEPARATOR,
@@ -189,7 +179,7 @@ public class Mona {
                     "event project meeting /from Mon 2pm /to Mon 4pm");
         }
 
-        return addTask(tasks, taskCount, new Event(description, start, end));
+        addTask(tasks, new Event(description, start, end));
     }
 
     private static void printFormatted(String text) {
@@ -198,18 +188,18 @@ public class Mona {
         System.out.println(SEPARATOR);
     }
 
-    private static void printTasks(Task[] tasks, int taskCount) {
+    private static void printTasks(ArrayList<Task> tasks) {
         StringBuilder taskList = new StringBuilder("✨ Here is what the stars reveal:");
-        for (int index = 0; index < taskCount; index++) {
+        for (int index = 0; index < tasks.size(); index++) {
             taskList.append(System.lineSeparator())
                     .append(index + 1)
                     .append(".")
-                    .append(tasks[index]);
+                    .append(tasks.get(index));
         }
         printFormatted(taskList.toString());
     }
 
-    private static void markTask(Task[] tasks, int taskCount, String userInput, boolean shouldMarkAsDone)
+    private static void markTask(ArrayList<Task> tasks, String userInput, boolean shouldMarkAsDone)
             throws MonaException {
         String commandWord = shouldMarkAsDone ? MARK_COMMAND : UNMARK_COMMAND;
         String argument = extractArguments(userInput, commandWord).trim();
@@ -229,19 +219,19 @@ public class Mona {
                     commandWord + " 2");
         }
 
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             throw MonaException.withHint(
                     "❌ There are no tasks yet whose fate can be altered.",
                     "todo read book");
         }
 
-        if (taskNumber < 1 || taskNumber > taskCount) {
+        if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw MonaException.withHint(
                     "❌ No such fate is written in the constellations. Please enter a valid task number.",
                     "list");
         }
 
-        Task task = tasks[taskNumber - 1];
+        Task task = tasks.get(taskNumber - 1);
 
         if (shouldMarkAsDone) {
             task.markAsDone();
@@ -252,7 +242,7 @@ public class Mona {
         }
     }
 
-    private static int deleteTask(Task[] tasks, int taskCount, String userInput) throws MonaException {
+    private static void deleteTask(ArrayList<Task> tasks, String userInput) throws MonaException {
         String argument = extractArguments(userInput, DELETE_COMMAND).trim();
 
         if (argument.isEmpty()) {
@@ -270,27 +260,20 @@ public class Mona {
                     "delete 2");
         }
 
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             throw MonaException.withHint(
                     "❌ The constellations remain still. There are no tasks to be deleted.",
                     "todo read book");
         }
 
-        if (taskNumber < 1 || taskNumber > taskCount) {
+        if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw MonaException.withHint(
                     "❌ No such fate is written in the constellations. Please enter a valid task number.",
                     "list");
         }
 
-        Task deletedTask = tasks[taskNumber - 1];
-        for (int index = taskNumber; index < taskCount; index++) {
-            tasks[index - 1] = tasks[index];
-        }
-        tasks[taskCount - 1] = null;
-
-        int updatedTaskCount = taskCount - 1;
+        Task deletedTask = tasks.remove(taskNumber - 1);
         printFormatted("✅ A fate fades from the constellations. I've removed this task:\n  " + deletedTask
-                + "\nNow you have " + updatedTaskCount + " tasks in the list.");
-        return updatedTaskCount;
+                + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 }
