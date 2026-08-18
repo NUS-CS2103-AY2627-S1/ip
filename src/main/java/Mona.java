@@ -46,7 +46,11 @@ public class Mona {
             String userInput = scanner.nextLine().trim();
 
             try {
-                if (userInput.equals("bye")) {
+                if (userInput.isEmpty()) {
+                    throw MonaException.withHint(
+                            "❌ Silence carries no fate. Please enter a command.",
+                            "list");
+                } else if (userInput.equals("bye")) {
                     printFormatted("✨ Farewell. May the stars guide you until we meet again.");
                     break;
                 } else if (userInput.equals("list")) {
@@ -62,8 +66,12 @@ public class Mona {
                 } else if (isCommand(userInput, EVENT_COMMAND)) {
                     taskCount = addEvent(tasks, taskCount, userInput);
                 } else {
-                    throw new MonaException(
-                            "❌ That command is not written in the stars I can read. Try a todo, deadline, or event.");
+                    throw MonaException.withHint(
+                            "❌ That command is not written in the stars I can read. "
+                                    + "Try a todo, deadline, or event.",
+                            "list | todo <description> | deadline <description> /by <when> | "
+                                    + "event <description> /from <start> /to <end> | mark <number> | "
+                                    + "unmark <number> | bye");
                 }
             } catch (MonaException exception) {
                 printFormatted(exception.getMessage());
@@ -98,7 +106,9 @@ public class Mona {
     private static int addTodo(Task[] tasks, int taskCount, String userInput) throws MonaException {
         String description = extractArguments(userInput, TODO_COMMAND);
         if (description.trim().isEmpty()) {
-            throw new MonaException("❌ A todo needs a name before its fate can be charted.");
+            throw MonaException.withHint(
+                    "❌ A todo needs a name before its fate can be charted.",
+                    "todo read book");
         }
 
         return addTask(tasks, taskCount, new Todo(description));
@@ -106,7 +116,10 @@ public class Mona {
 
     private static int addTask(Task[] tasks, int taskCount, Task task) throws MonaException {
         if (taskCount >= tasks.length) {
-            throw new MonaException("❌ The list of fates overflows. No more tasks can be added.");
+            throw MonaException.withHint(
+                    "❌ The list of fates overflows. No more tasks can be added.",
+                    "This starter list holds at most " + MAXIMUM_TASKS
+                            + " tasks; complete this session or restart Mona before adding more.");
         }
 
         tasks[taskCount] = task;
@@ -120,16 +133,22 @@ public class Mona {
         String arguments = extractArguments(userInput, DEADLINE_COMMAND);
         int separatorIndex = arguments.indexOf(DEADLINE_SEPARATOR);
         if (separatorIndex < 0) {
-            throw new MonaException("❌ Even the stars need a fixed point. Specify the deadline using /by.");
+            throw MonaException.withHint(
+                    "❌ Even the stars need a fixed point. Specify the deadline using /by.",
+                    "deadline return book /by Sunday");
         }
 
         String description = arguments.substring(0, separatorIndex);
         String deadline = arguments.substring(separatorIndex + DEADLINE_SEPARATOR.length());
         if (description.trim().isEmpty()) {
-            throw new MonaException("❌ A deadline needs a name before its fate can be charted.");
+            throw MonaException.withHint(
+                    "❌ A deadline needs a name before its fate can be charted.",
+                    "deadline return book /by Sunday");
         }
         if (deadline.trim().isEmpty()) {
-            throw new MonaException("❌ A deadline needs a point in time. Tell me when it falls due after /by.");
+            throw MonaException.withHint(
+                    "❌ A deadline needs a point in time. Tell me when it falls due after /by.",
+                    "deadline return book /by Sunday");
         }
 
         return addTask(tasks, taskCount, new Deadline(description, deadline));
@@ -141,17 +160,30 @@ public class Mona {
         int endSeparatorIndex = arguments.indexOf(EVENT_END_SEPARATOR,
                 startSeparatorIndex + EVENT_START_SEPARATOR.length());
         if (startSeparatorIndex < 0 || endSeparatorIndex < 0) {
-            throw new MonaException("❌ Fate needs both a dawn and a dusk. Specify the event using /from and /to.");
+            // /from and /to are both present, but /to comes before /from: point the user at the
+            // ordering rather than reporting them as missing.
+            if (startSeparatorIndex >= 0 && arguments.indexOf(EVENT_END_SEPARATOR) >= 0) {
+                throw MonaException.withHint(
+                        "❌ Fate flows only forward. Place /from before /to.",
+                        "event project meeting /from Mon 2pm /to Mon 4pm");
+            }
+            throw MonaException.withHint(
+                    "❌ Fate needs both a dawn and a dusk. Specify the event using /from and /to.",
+                    "event project meeting /from Mon 2pm /to Mon 4pm");
         }
 
         String description = arguments.substring(0, startSeparatorIndex);
         String start = arguments.substring(startSeparatorIndex + EVENT_START_SEPARATOR.length(), endSeparatorIndex);
         String end = arguments.substring(endSeparatorIndex + EVENT_END_SEPARATOR.length());
         if (description.trim().isEmpty()) {
-            throw new MonaException("❌ An event needs a name before its fate can be charted.");
+            throw MonaException.withHint(
+                    "❌ An event needs a name before its fate can be charted.",
+                    "event project meeting /from Mon 2pm /to Mon 4pm");
         }
         if (start.trim().isEmpty() || end.trim().isEmpty()) {
-            throw new MonaException("❌ An event needs both a dawn and a dusk. Fill in /from and /to.");
+            throw MonaException.withHint(
+                    "❌ An event needs both a dawn and a dusk. Fill in /from and /to.",
+                    "event project meeting /from Mon 2pm /to Mon 4pm");
         }
 
         return addTask(tasks, taskCount, new Event(description, start, end));
@@ -179,17 +211,31 @@ public class Mona {
         String commandWord = shouldMarkAsDone ? MARK_COMMAND : UNMARK_COMMAND;
         String argument = extractArguments(userInput, commandWord).trim();
 
+        if (argument.isEmpty()) {
+            throw MonaException.withHint(
+                    "❌ Tell me which task's fate to alter.",
+                    commandWord + " 2");
+        }
+
         int taskNumber;
         try {
             taskNumber = Integer.parseInt(argument);
         } catch (NumberFormatException exception) {
-            throw new MonaException(
-                    "❌ No such fate is written in the constellations. Please enter a valid task number.");
+            throw MonaException.withHint(
+                    "❌ No such fate is written in the constellations. Please enter a valid task number.",
+                    commandWord + " 2");
+        }
+
+        if (taskCount == 0) {
+            throw MonaException.withHint(
+                    "❌ There are no tasks yet whose fate can be altered.",
+                    "todo read book");
         }
 
         if (taskNumber < 1 || taskNumber > taskCount) {
-            throw new MonaException(
-                    "❌ No such fate is written in the constellations. Please enter a valid task number.");
+            throw MonaException.withHint(
+                    "❌ No such fate is written in the constellations. Please enter a valid task number.",
+                    "list");
         }
 
         Task task = tasks[taskNumber - 1];
