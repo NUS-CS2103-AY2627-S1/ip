@@ -18,27 +18,27 @@ public class Mona {
      * @param args command-line arguments, which are not used.
      */
     public static void main(String[] args) {
-        String[] tasks = new String[MAXIMUM_TASKS];
+        Task[] tasks = new Task[MAXIMUM_TASKS];
         int taskCount = 0;
-        boolean shouldExit = false;
 
         printFormatted(BANNER + "\nHello! I'm Mona.\nWhat can I do for you?");
 
         Scanner scanner = new Scanner(System.in);
-        while (!shouldExit) {
+        while (true) {
             System.out.print("Mona > ");
             String userInput = scanner.nextLine();
 
-            switch (userInput) {
-            case "bye":
+            if (userInput.startsWith("mark ")) {
+                markTask(tasks, taskCount, userInput, true);
+            } else if (userInput.startsWith("unmark ")) {
+                markTask(tasks, taskCount, userInput, false);
+            } else if (userInput.equals("bye")) {
                 printFormatted("Bye. Hope to see you again soon!");
-                shouldExit = true;
                 break;
-            case "list":
+            } else if (userInput.equals("list")) {
                 printTasks(tasks, taskCount);
-                break;
-            default:
-                tasks[taskCount] = userInput;
+            } else {
+                tasks[taskCount] = new Task(userInput);
                 taskCount++;
                 printFormatted("added: " + userInput);
             }
@@ -51,16 +51,39 @@ public class Mona {
         System.out.println(SEPARATOR);
     }
 
-    private static void printTasks(String[] tasks, int taskCount) {
-        StringBuilder taskList = new StringBuilder();
+    private static void printTasks(Task[] tasks, int taskCount) {
+        StringBuilder taskList = new StringBuilder("Here are the tasks in your list:");
         for (int index = 0; index < taskCount; index++) {
-            if (index > 0) {
-                taskList.append(System.lineSeparator());
-            }
-            taskList.append(index + 1)
-                    .append(". ")
+            taskList.append(System.lineSeparator())
+                    .append(index + 1)
+                    .append(".")
                     .append(tasks[index]);
         }
         printFormatted(taskList.toString());
+    }
+
+    private static void markTask(Task[] tasks, int taskCount, String userInput, boolean shouldMarkAsDone) {
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(' ') + 1));
+        } catch (NumberFormatException exception) {
+            printFormatted("Please enter a valid task number.");
+            return;
+        }
+
+        if (taskNumber < 1 || taskNumber > taskCount) {
+            printFormatted("Please enter a valid task number.");
+            return;
+        }
+
+        Task task = tasks[taskNumber - 1];
+
+        if (shouldMarkAsDone) {
+            task.markAsDone();
+            printFormatted("Nice! I've marked this task as done:\n  " + task);
+        } else {
+            task.markAsNotDone();
+            printFormatted("OK, I've marked this task as not done yet:\n  " + task);
+        }
     }
 }
