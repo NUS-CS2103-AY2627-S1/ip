@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run documented console UI tests"
+  default_prompt: "Run the UI test plan and show the test session."
