@@ -1,3 +1,5 @@
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 /**
@@ -6,9 +8,11 @@ import java.util.Scanner;
 public class Mona {
     private static final int MAXIMUM_TASKS = 100;
     private static final String SEPARATOR = "____________________________________________________________";
-    private static final String TODO_COMMAND = "todo ";
-    private static final String DEADLINE_COMMAND = "deadline ";
-    private static final String EVENT_COMMAND = "event ";
+    private static final String TODO_COMMAND = "todo";
+    private static final String DEADLINE_COMMAND = "deadline";
+    private static final String EVENT_COMMAND = "event";
+    private static final String MARK_COMMAND = "mark";
+    private static final String UNMARK_COMMAND = "unmark";
     private static final String DEADLINE_SEPARATOR = " /by ";
     private static final String EVENT_START_SEPARATOR = " /from ";
     private static final String EVENT_END_SEPARATOR = " /to ";
@@ -24,6 +28,11 @@ public class Mona {
      * @param args command-line arguments, which are not used.
      */
     public static void main(String[] args) {
+        // The default console encoding on Windows cannot represent the emoji used in Mona's
+        // messages, so stdout is switched to UTF-8 explicitly rather than relying on the
+        // platform default.
+        System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
+
         Task[] tasks = new Task[MAXIMUM_TASKS];
         int taskCount = 0;
 
@@ -34,34 +43,70 @@ public class Mona {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print("Mona > ");
-            String userInput = scanner.nextLine();
+            String userInput = scanner.nextLine().trim();
 
-            if (userInput.startsWith("mark ")) {
-                markTask(tasks, taskCount, userInput, true);
-            } else if (userInput.startsWith("unmark ")) {
-                markTask(tasks, taskCount, userInput, false);
-            } else if (userInput.equals("bye")) {
-                printFormatted("✨ Farewell. May the stars guide you until we meet again.");
-                break;
-            } else if (userInput.equals("list")) {
-                printTasks(tasks, taskCount);
-            } else if (userInput.startsWith(TODO_COMMAND)) {
-                String description = userInput.substring(TODO_COMMAND.length());
-                taskCount = addTask(tasks, taskCount, new Todo(description));
-            } else if (userInput.startsWith(DEADLINE_COMMAND)) {
-                taskCount = addDeadline(tasks, taskCount, userInput);
-            } else if (userInput.startsWith(EVENT_COMMAND)) {
-                taskCount = addEvent(tasks, taskCount, userInput);
-            } else {
-                printFormatted("❌ That is not written in the stars I can read. Try a todo, deadline, or event.");
+            try {
+                if (userInput.equals("bye")) {
+                    printFormatted("✨ Farewell. May the stars guide you until we meet again.");
+                    break;
+                } else if (userInput.equals("list")) {
+                    printTasks(tasks, taskCount);
+                } else if (isCommand(userInput, MARK_COMMAND)) {
+                    markTask(tasks, taskCount, userInput, true);
+                } else if (isCommand(userInput, UNMARK_COMMAND)) {
+                    markTask(tasks, taskCount, userInput, false);
+                } else if (isCommand(userInput, TODO_COMMAND)) {
+                    taskCount = addTodo(tasks, taskCount, userInput);
+                } else if (isCommand(userInput, DEADLINE_COMMAND)) {
+                    taskCount = addDeadline(tasks, taskCount, userInput);
+                } else if (isCommand(userInput, EVENT_COMMAND)) {
+                    taskCount = addEvent(tasks, taskCount, userInput);
+                } else {
+                    throw new MonaException(
+                            "❌ That command is not written in the stars I can read. Try a todo, deadline, or event.");
+                }
+            } catch (MonaException exception) {
+                printFormatted(exception.getMessage());
             }
         }
     }
 
-    private static int addTask(Task[] tasks, int taskCount, Task task) {
+    /**
+     * Returns whether the given input invokes the given command word, either on its own
+     * (e.g. {@code "list"}) or followed by a space and further arguments (e.g. {@code "todo "}).
+     *
+     * @param userInput the trimmed line the user entered.
+     * @param commandWord the command word to check for, such as {@code "todo"}.
+     * @return {@code true} if {@code userInput} invokes {@code commandWord}.
+     */
+    private static boolean isCommand(String userInput, String commandWord) {
+        return userInput.equals(commandWord) || userInput.startsWith(commandWord + " ");
+    }
+
+    /**
+     * Returns the text following a command word, or an empty string if the command word was
+     * entered with no arguments at all.
+     *
+     * @param userInput the trimmed line the user entered.
+     * @param commandWord the command word the input starts with.
+     * @return the remaining text after the command word and its separating space.
+     */
+    private static String extractArguments(String userInput, String commandWord) {
+        return userInput.length() == commandWord.length() ? "" : userInput.substring(commandWord.length() + 1);
+    }
+
+    private static int addTodo(Task[] tasks, int taskCount, String userInput) throws MonaException {
+        String description = extractArguments(userInput, TODO_COMMAND);
+        if (description.trim().isEmpty()) {
+            throw new MonaException("❌ A todo needs a name before its fate can be charted.");
+        }
+
+        return addTask(tasks, taskCount, new Todo(description));
+    }
+
+    private static int addTask(Task[] tasks, int taskCount, Task task) throws MonaException {
         if (taskCount >= tasks.length) {
-            printFormatted("❌ The list of fates overflows. No more tasks can surface tonight.");
-            return taskCount;
+            throw new MonaException("❌ The list of fates overflows. No more tasks can be added.");
         }
 
         tasks[taskCount] = task;
@@ -71,30 +116,44 @@ public class Mona {
         return updatedTaskCount;
     }
 
-    private static int addDeadline(Task[] tasks, int taskCount, String userInput) {
-        int separatorIndex = userInput.indexOf(DEADLINE_SEPARATOR, DEADLINE_COMMAND.length());
+    private static int addDeadline(Task[] tasks, int taskCount, String userInput) throws MonaException {
+        String arguments = extractArguments(userInput, DEADLINE_COMMAND);
+        int separatorIndex = arguments.indexOf(DEADLINE_SEPARATOR);
         if (separatorIndex < 0) {
-            printFormatted("❌ Even the stars need a fixed point. Specify the deadline using /by.");
-            return taskCount;
+            throw new MonaException("❌ Even the stars need a fixed point. Specify the deadline using /by.");
         }
 
-        String description = userInput.substring(DEADLINE_COMMAND.length(), separatorIndex);
-        String deadline = userInput.substring(separatorIndex + DEADLINE_SEPARATOR.length());
+        String description = arguments.substring(0, separatorIndex);
+        String deadline = arguments.substring(separatorIndex + DEADLINE_SEPARATOR.length());
+        if (description.trim().isEmpty()) {
+            throw new MonaException("❌ A deadline needs a name before its fate can be charted.");
+        }
+        if (deadline.trim().isEmpty()) {
+            throw new MonaException("❌ A deadline needs a point in time. Tell me when it falls due after /by.");
+        }
+
         return addTask(tasks, taskCount, new Deadline(description, deadline));
     }
 
-    private static int addEvent(Task[] tasks, int taskCount, String userInput) {
-        int startSeparatorIndex = userInput.indexOf(EVENT_START_SEPARATOR, EVENT_COMMAND.length());
-        int endSeparatorIndex = userInput.indexOf(EVENT_END_SEPARATOR,
+    private static int addEvent(Task[] tasks, int taskCount, String userInput) throws MonaException {
+        String arguments = extractArguments(userInput, EVENT_COMMAND);
+        int startSeparatorIndex = arguments.indexOf(EVENT_START_SEPARATOR);
+        int endSeparatorIndex = arguments.indexOf(EVENT_END_SEPARATOR,
                 startSeparatorIndex + EVENT_START_SEPARATOR.length());
         if (startSeparatorIndex < 0 || endSeparatorIndex < 0) {
-            printFormatted("❌ Fate needs both a dawn and a dusk. Specify the event using /from and /to.");
-            return taskCount;
+            throw new MonaException("❌ Fate needs both a dawn and a dusk. Specify the event using /from and /to.");
         }
 
-        String description = userInput.substring(EVENT_COMMAND.length(), startSeparatorIndex);
-        String start = userInput.substring(startSeparatorIndex + EVENT_START_SEPARATOR.length(), endSeparatorIndex);
-        String end = userInput.substring(endSeparatorIndex + EVENT_END_SEPARATOR.length());
+        String description = arguments.substring(0, startSeparatorIndex);
+        String start = arguments.substring(startSeparatorIndex + EVENT_START_SEPARATOR.length(), endSeparatorIndex);
+        String end = arguments.substring(endSeparatorIndex + EVENT_END_SEPARATOR.length());
+        if (description.trim().isEmpty()) {
+            throw new MonaException("❌ An event needs a name before its fate can be charted.");
+        }
+        if (start.trim().isEmpty() || end.trim().isEmpty()) {
+            throw new MonaException("❌ An event needs both a dawn and a dusk. Fill in /from and /to.");
+        }
+
         return addTask(tasks, taskCount, new Event(description, start, end));
     }
 
@@ -115,18 +174,22 @@ public class Mona {
         printFormatted(taskList.toString());
     }
 
-    private static void markTask(Task[] tasks, int taskCount, String userInput, boolean shouldMarkAsDone) {
+    private static void markTask(Task[] tasks, int taskCount, String userInput, boolean shouldMarkAsDone)
+            throws MonaException {
+        String commandWord = shouldMarkAsDone ? MARK_COMMAND : UNMARK_COMMAND;
+        String argument = extractArguments(userInput, commandWord).trim();
+
         int taskNumber;
         try {
-            taskNumber = Integer.parseInt(userInput.substring(userInput.indexOf(' ') + 1));
+            taskNumber = Integer.parseInt(argument);
         } catch (NumberFormatException exception) {
-            printFormatted("❌ No such fate is written in the constellations. Please enter a valid task number.");
-            return;
+            throw new MonaException(
+                    "❌ No such fate is written in the constellations. Please enter a valid task number.");
         }
 
         if (taskNumber < 1 || taskNumber > taskCount) {
-            printFormatted("❌ No such fate is written in the constellations. Please enter a valid task number.");
-            return;
+            throw new MonaException(
+                    "❌ No such fate is written in the constellations. Please enter a valid task number.");
         }
 
         Task task = tasks[taskNumber - 1];
