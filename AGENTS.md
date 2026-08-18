@@ -109,7 +109,7 @@ and the
   under `[project root]/src` so the grading scripts can find the project.
 * The fork must contain the full repository, and GitHub Issues must be enabled.
 * Do not place the repository in a cloud-synced directory such as OneDrive or Dropbox.
-* Verify the setup by running `Duke.java`.
+* Verify the setup by running `Mona.java`.
 * Complete the Week 2 increments in order: `Level-0`, `Level-1`, `Level-2`, `Level-3`,
   `Level-4`, `Level-5`, `Level-6`, and `A-Enums`.
 * Commit at meaningful points and at least after every increment. Tag the completing
