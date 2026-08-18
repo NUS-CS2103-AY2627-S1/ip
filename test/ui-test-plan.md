@@ -107,3 +107,26 @@ bye
 Bibi: Use deadline <description> /by <time>.
 Bibi: Use event <description> /from <start> /to <end>.
 ```
+
+## Test 6: Reject empty, unknown, and incomplete commands
+
+Aim: Confirm that invalid input is reported without ending the program.
+
+### Input
+
+```text
+
+remind me
+todo
+mark two
+bye
+```
+
+### Expected output
+
+```text
+Bibi: Please enter a command.
+Bibi: I don't understand that command. Try todo, deadline, event, list, mark, unmark, or bye.
+Bibi: Use todo followed by a description.
+Bibi: Use mark followed by a task number, for example: mark 2
+```
