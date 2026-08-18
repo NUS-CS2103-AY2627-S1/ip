@@ -13,6 +13,7 @@ public class Mona {
     private static final String EVENT_COMMAND = "event";
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
+    private static final String DELETE_COMMAND = "delete";
     private static final String DEADLINE_SEPARATOR = " /by ";
     private static final String EVENT_START_SEPARATOR = " /from ";
     private static final String EVENT_END_SEPARATOR = " /to ";
@@ -59,6 +60,8 @@ public class Mona {
                     markTask(tasks, taskCount, userInput, true);
                 } else if (isCommand(userInput, UNMARK_COMMAND)) {
                     markTask(tasks, taskCount, userInput, false);
+                } else if (isCommand(userInput, DELETE_COMMAND)) {
+                    taskCount = deleteTask(tasks, taskCount, userInput);
                 } else if (isCommand(userInput, TODO_COMMAND)) {
                     taskCount = addTodo(tasks, taskCount, userInput);
                 } else if (isCommand(userInput, DEADLINE_COMMAND)) {
@@ -71,7 +74,7 @@ public class Mona {
                                     + "Try a todo, deadline, or event.",
                             "list | todo <description> | deadline <description> /by <when> | "
                                     + "event <description> /from <start> /to <end> | mark <number> | "
-                                    + "unmark <number> | bye");
+                                    + "unmark <number> | delete <number> | bye");
                 }
             } catch (MonaException exception) {
                 printFormatted(exception.getMessage());
@@ -247,5 +250,47 @@ public class Mona {
             task.markAsNotDone();
             printFormatted("❌ The constellation fades. I've marked this task as not done yet:\n  " + task);
         }
+    }
+
+    private static int deleteTask(Task[] tasks, int taskCount, String userInput) throws MonaException {
+        String argument = extractArguments(userInput, DELETE_COMMAND).trim();
+
+        if (argument.isEmpty()) {
+            throw MonaException.withHint(
+                    "❌ Tell me which task should be deleted.",
+                    "delete 2");
+        }
+
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(argument);
+        } catch (NumberFormatException exception) {
+            throw MonaException.withHint(
+                    "❌ No such fate is written in the constellations. Please enter a valid task number.",
+                    "delete 2");
+        }
+
+        if (taskCount == 0) {
+            throw MonaException.withHint(
+                    "❌ The constellations remain still. There are no tasks to be deleted.",
+                    "todo read book");
+        }
+
+        if (taskNumber < 1 || taskNumber > taskCount) {
+            throw MonaException.withHint(
+                    "❌ No such fate is written in the constellations. Please enter a valid task number.",
+                    "list");
+        }
+
+        Task deletedTask = tasks[taskNumber - 1];
+        for (int index = taskNumber; index < taskCount; index++) {
+            tasks[index - 1] = tasks[index];
+        }
+        tasks[taskCount - 1] = null;
+
+        int updatedTaskCount = taskCount - 1;
+        printFormatted("✅ A fate fades from the constellations. I've removed this task:\n  " + deletedTask
+                + "\nNow you have " + updatedTaskCount + " tasks in the list.");
+        return updatedTaskCount;
     }
 }
