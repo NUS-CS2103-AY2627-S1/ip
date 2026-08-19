@@ -1,6 +1,7 @@
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Scanner;
 
 /**
@@ -8,12 +9,6 @@ import java.util.Scanner;
  */
 public class Mona {
     private static final String SEPARATOR = "____________________________________________________________";
-    private static final String TODO_COMMAND = "todo";
-    private static final String DEADLINE_COMMAND = "deadline";
-    private static final String EVENT_COMMAND = "event";
-    private static final String MARK_COMMAND = "mark";
-    private static final String UNMARK_COMMAND = "unmark";
-    private static final String DELETE_COMMAND = "delete";
     private static final String DEADLINE_SEPARATOR = " /by ";
     private static final String EVENT_START_SEPARATOR = " /from ";
     private static final String EVENT_END_SEPARATOR = " /to ";
@@ -50,24 +45,10 @@ public class Mona {
                     throw MonaException.withHint(
                             "❌ Silence carries no fate. Please enter a command.",
                             "list");
-                } else if (userInput.equals("bye")) {
-                    printFormatted("✨ Farewell. May the stars guide you until we meet again.");
-                    break;
-                } else if (userInput.equals("list")) {
-                    printTasks(tasks);
-                } else if (isCommand(userInput, MARK_COMMAND)) {
-                    markTask(tasks, userInput, true);
-                } else if (isCommand(userInput, UNMARK_COMMAND)) {
-                    markTask(tasks, userInput, false);
-                } else if (isCommand(userInput, DELETE_COMMAND)) {
-                    deleteTask(tasks, userInput);
-                } else if (isCommand(userInput, TODO_COMMAND)) {
-                    addTodo(tasks, userInput);
-                } else if (isCommand(userInput, DEADLINE_COMMAND)) {
-                    addDeadline(tasks, userInput);
-                } else if (isCommand(userInput, EVENT_COMMAND)) {
-                    addEvent(tasks, userInput);
-                } else {
+                }
+
+                Optional<Command> parsedCommand = Command.from(userInput);
+                if (parsedCommand.isEmpty()) {
                     throw MonaException.withHint(
                             "❌ That command is not written in the stars I can read. "
                                     + "Try a todo, deadline, or event.",
@@ -75,38 +56,44 @@ public class Mona {
                                     + "event <description> /from <start> /to <end> | mark <number> | "
                                     + "unmark <number> | delete <number> | bye");
                 }
+
+                Command command = parsedCommand.get();
+                switch (command) {
+                case BYE:
+                    printFormatted("✨ Farewell. May the stars guide you until we meet again.");
+                    return;
+                case LIST:
+                    printTasks(tasks);
+                    break;
+                case MARK:
+                    markTask(tasks, userInput, true);
+                    break;
+                case UNMARK:
+                    markTask(tasks, userInput, false);
+                    break;
+                case DELETE:
+                    deleteTask(tasks, userInput);
+                    break;
+                case TODO:
+                    addTodo(tasks, userInput);
+                    break;
+                case DEADLINE:
+                    addDeadline(tasks, userInput);
+                    break;
+                case EVENT:
+                    addEvent(tasks, userInput);
+                    break;
+                default:
+                    throw new AssertionError("Unhandled command: " + command);
+                }
             } catch (MonaException exception) {
                 printFormatted(exception.getMessage());
             }
         }
     }
 
-    /**
-     * Returns whether the given input invokes the given command word, either on its own
-     * (e.g. {@code "list"}) or followed by a space and further arguments (e.g. {@code "todo "}).
-     *
-     * @param userInput the trimmed line the user entered.
-     * @param commandWord the command word to check for, such as {@code "todo"}.
-     * @return {@code true} if {@code userInput} invokes {@code commandWord}.
-     */
-    private static boolean isCommand(String userInput, String commandWord) {
-        return userInput.equals(commandWord) || userInput.startsWith(commandWord + " ");
-    }
-
-    /**
-     * Returns the text following a command word, or an empty string if the command word was
-     * entered with no arguments at all.
-     *
-     * @param userInput the trimmed line the user entered.
-     * @param commandWord the command word the input starts with.
-     * @return the remaining text after the command word and its separating space.
-     */
-    private static String extractArguments(String userInput, String commandWord) {
-        return userInput.length() == commandWord.length() ? "" : userInput.substring(commandWord.length() + 1);
-    }
-
     private static void addTodo(ArrayList<Task> tasks, String userInput) throws MonaException {
-        String description = extractArguments(userInput, TODO_COMMAND);
+        String description = Command.TODO.extractArguments(userInput);
         if (description.trim().isEmpty()) {
             throw MonaException.withHint(
                     "❌ A todo needs a name before its fate can be charted.",
@@ -123,7 +110,7 @@ public class Mona {
     }
 
     private static void addDeadline(ArrayList<Task> tasks, String userInput) throws MonaException {
-        String arguments = extractArguments(userInput, DEADLINE_COMMAND);
+        String arguments = Command.DEADLINE.extractArguments(userInput);
         int separatorIndex = arguments.indexOf(DEADLINE_SEPARATOR);
         if (separatorIndex < 0) {
             throw MonaException.withHint(
@@ -148,7 +135,7 @@ public class Mona {
     }
 
     private static void addEvent(ArrayList<Task> tasks, String userInput) throws MonaException {
-        String arguments = extractArguments(userInput, EVENT_COMMAND);
+        String arguments = Command.EVENT.extractArguments(userInput);
         int startSeparatorIndex = arguments.indexOf(EVENT_START_SEPARATOR);
         int endSeparatorIndex = arguments.indexOf(EVENT_END_SEPARATOR,
                 startSeparatorIndex + EVENT_START_SEPARATOR.length());
@@ -201,13 +188,13 @@ public class Mona {
 
     private static void markTask(ArrayList<Task> tasks, String userInput, boolean shouldMarkAsDone)
             throws MonaException {
-        String commandWord = shouldMarkAsDone ? MARK_COMMAND : UNMARK_COMMAND;
-        String argument = extractArguments(userInput, commandWord).trim();
+        Command command = shouldMarkAsDone ? Command.MARK : Command.UNMARK;
+        String argument = command.extractArguments(userInput).trim();
 
         if (argument.isEmpty()) {
             throw MonaException.withHint(
                     "❌ Tell me which task's fate to alter.",
-                    commandWord + " 2");
+                    command + " 2");
         }
 
         int taskNumber;
@@ -216,7 +203,7 @@ public class Mona {
         } catch (NumberFormatException exception) {
             throw MonaException.withHint(
                     "❌ No such fate is written in the constellations. Please enter a valid task number.",
-                    commandWord + " 2");
+                    command + " 2");
         }
 
         if (tasks.isEmpty()) {
@@ -243,7 +230,7 @@ public class Mona {
     }
 
     private static void deleteTask(ArrayList<Task> tasks, String userInput) throws MonaException {
-        String argument = extractArguments(userInput, DELETE_COMMAND).trim();
+        String argument = Command.DELETE.extractArguments(userInput).trim();
 
         if (argument.isEmpty()) {
             throw MonaException.withHint(
