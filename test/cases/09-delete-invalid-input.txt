@@ -1,0 +1,7 @@
+todo read book
+delete 2
+delete 0
+delete abc
+delete
+list
+bye
