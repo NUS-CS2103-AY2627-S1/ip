@@ -1,26 +1,26 @@
 package nelson.task;
 
-import nelson.exception.NelsonException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
+import nelson.exception.NelsonException;
+
 /**
  * Represents a task that occurs between a start and end time.
  */
 public class Event extends Task {
-    /** The event start date. */
-    protected LocalDate from;
-    /** The event end date. */
-    protected LocalDate to;
     /** The format used when displaying event dates to the user. */
     private static final DateTimeFormatter DISPLAY_FORMAT =
             DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH);
     /** The format used when writing event dates to storage. */
     private static final DateTimeFormatter STORAGE_FORMAT =
             DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    /** The event start date. */
+    protected LocalDate from;
+    /** The event end date. */
+    protected LocalDate to;
 
     /**
      * Creates an incomplete event task.

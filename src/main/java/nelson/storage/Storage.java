@@ -1,17 +1,17 @@
 package nelson.storage;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+
 import nelson.exception.NelsonException;
 import nelson.task.Deadline;
 import nelson.task.Event;
 import nelson.task.Task;
 import nelson.task.TaskList;
 import nelson.task.Todo;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
 
 /** Loads tasks from and saves tasks to Nelson's storage file. */
 public class Storage {
@@ -94,16 +94,16 @@ public class Storage {
      */
     private Task parseStoredTask(String[] parts) throws NelsonException {
         switch (parts[0]) {
-        case "T":
-            return parts.length == 3 && !parts[2].isBlank() ? new Todo(parts[2]) : null;
-        case "D":
-            return parts.length == 4 && !parts[2].isBlank() && !parts[3].isBlank()
-                    ? new Deadline(parts[2], parts[3]) : null;
-        case "E":
-            return parts.length == 5 && !parts[2].isBlank() && !parts[3].isBlank()
-                    && !parts[4].isBlank() ? new Event(parts[2], parts[3], parts[4]) : null;
-        default:
-            return null;
+            case "T":
+                return parts.length == 3 && !parts[2].isBlank() ? new Todo(parts[2]) : null;
+            case "D":
+                return parts.length == 4 && !parts[2].isBlank() && !parts[3].isBlank()
+                        ? new Deadline(parts[2], parts[3]) : null;
+            case "E":
+                return parts.length == 5 && !parts[2].isBlank() && !parts[3].isBlank()
+                        && !parts[4].isBlank() ? new Event(parts[2], parts[3], parts[4]) : null;
+            default:
+                return null;
         }
     }
 }

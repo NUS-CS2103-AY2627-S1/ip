@@ -68,11 +68,6 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-<<<<<<< HEAD
-     * Allows storage code to iterate over tasks without owning the collection.
-     * @return an iterator over the tasks in insertion order
-     */
-=======
      * Returns tasks whose descriptions contain the keyword, ignoring case.
      *
      * @param keyword text to search for.
@@ -90,7 +85,6 @@ public class TaskList implements Iterable<Task> {
     }
 
     /** Allows storage code to iterate over tasks without owning the collection. */
->>>>>>> branch-Level-9
     @Override
     public Iterator<Task> iterator() {
         return tasks.iterator();

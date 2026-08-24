@@ -1,7 +1,9 @@
 package nelson;
 
-import nelson.command.Parser;
+import java.nio.file.Paths;
+
 import nelson.command.FindCommand;
+import nelson.command.Parser;
 import nelson.exception.NelsonException;
 import nelson.storage.Storage;
 import nelson.task.Deadline;
@@ -10,8 +12,6 @@ import nelson.task.Task;
 import nelson.task.TaskList;
 import nelson.task.Todo;
 import nelson.ui.Ui;
-
-import java.nio.file.Paths;
 
 /**
  * Starts the Nelson chatbot application.
@@ -74,33 +74,33 @@ public class Nelson {
     public void processCommand(String command) throws NelsonException {
         Parser.Command parsed = parser.parse(command);
         switch (parsed.getType()) {
-        case LIST:
-            showTasks();
-            break;
-        case TODO:
-            addTypedTask(new Todo(parsed.getArgument(0)));
-            break;
-        case DEADLINE:
-            addTypedTask(new Deadline(parsed.getArgument(0), parsed.getArgument(1)));
-            break;
-        case EVENT:
-            addTypedTask(new Event(parsed.getArgument(0), parsed.getArgument(1), parsed.getArgument(2)));
-            break;
-        case MARK:
-            markTask(parsed.getArgument(0));
-            break;
-        case UNMARK:
-            unmarkTask(parsed.getArgument(0));
-            break;
-        case DELETE:
-            deleteTask(parsed.getArgument(0));
-            break;
-        case FIND:
-            FindCommand findCommand = (FindCommand) parsed;
-            ui.showMatchingTasks(tasks.find(findCommand.getKeyword()));
-            break;
-        default:
-            throw new NelsonException("Molo! I don't know what that means. Are you even playing the same game?");
+            case LIST:
+                showTasks();
+                break;
+            case TODO:
+                addTypedTask(new Todo(parsed.getArgument(0)));
+                break;
+            case DEADLINE:
+                addTypedTask(new Deadline(parsed.getArgument(0), parsed.getArgument(1)));
+                break;
+            case EVENT:
+                addTypedTask(new Event(parsed.getArgument(0), parsed.getArgument(1), parsed.getArgument(2)));
+                break;
+            case MARK:
+                markTask(parsed.getArgument(0));
+                break;
+            case UNMARK:
+                unmarkTask(parsed.getArgument(0));
+                break;
+            case DELETE:
+                deleteTask(parsed.getArgument(0));
+                break;
+            case FIND:
+                FindCommand findCommand = (FindCommand) parsed;
+                ui.showMatchingTasks(tasks.find(findCommand.getKeyword()));
+                break;
+            default:
+                throw new NelsonException("Molo! I don't know what that means. Are you even playing the same game?");
         }
     }
 

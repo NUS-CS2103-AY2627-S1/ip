@@ -3,8 +3,9 @@ package nelson.command;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import nelson.exception.NelsonException;
 import org.junit.jupiter.api.Test;
+
+import nelson.exception.NelsonException;
 
 /** Tests command recognition and argument extraction in {@link Parser}. */
 public class ParserTest {
@@ -78,32 +79,33 @@ public class ParserTest {
 
     @Test
     public void parseFindWithoutKeyword_throwsNelsonException() {
-        assertThrows(NelsonException.class, () -> parser.parse("find"));
+        assertThrows(
+            NelsonException.class, () -> parser.parse("find"));
     }
 
     @Test
     public void parseEmptyTodo_throwsNelsonException() {
         NelsonException exception = assertThrows(NelsonException.class, () -> parser.parse("todo"));
 
-        assertEquals("Molo! An empty move? You must provide a description, you amateur.",
-                exception.getMessage());
+        assertEquals(
+            "Molo! An empty move? You must provide a description, you amateur.", exception.getMessage());
     }
 
     @Test
     public void parseDeadlineWithoutDate_throwsNelsonException() {
-        assertThrows(NelsonException.class,
-                () -> parser.parse("deadline submit report"));
+        assertThrows(
+            NelsonException.class, () -> parser.parse("deadline submit report"));
     }
 
     @Test
     public void parseEventWithoutTimeParameters_throwsNelsonException() {
-        assertThrows(NelsonException.class,
-                () -> parser.parse("event team meeting"));
+        assertThrows(
+            NelsonException.class, () -> parser.parse("event team meeting"));
     }
 
     @Test
     public void parseUnknownCommand_throwsNelsonException() {
-        assertThrows(NelsonException.class,
-                () -> parser.parse("schedule meeting"));
+        assertThrows(
+            NelsonException.class, () -> parser.parse("schedule meeting"));
     }
 }
