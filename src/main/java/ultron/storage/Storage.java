@@ -102,7 +102,10 @@ public class Storage {
             throw new UltronException("Invalid saved deadline");
         }
         String description = savedDescription.substring(0, deadlineStart);
-        String[] deadline = savedDescription.substring(deadlineStart + 6, savedDescription.length() - 1).trim().split(" ");
+        String[] deadline = savedDescription
+                .substring(deadlineStart + 6, savedDescription.length() - 1)
+                .trim()
+                .split(" ");
         String time = deadline.length == 2 ? " " + deadline[1] : "";
         try {
             LocalDate date = LocalDate.parse(deadline[0], DateTimeFormatter.ofPattern("d/MMM/yyyy"));
