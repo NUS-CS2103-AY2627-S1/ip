@@ -78,6 +78,7 @@ public class Ultron {
                 case MARK:
                 case UNMARK:
                 case DELETE:
+                case FIND:
                     throw new UltronException("Invalid command");
                 }
             } catch (UltronException e) {

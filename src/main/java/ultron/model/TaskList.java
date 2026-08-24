@@ -71,4 +71,20 @@ public class TaskList {
     public List<Task> getTasks() {
         return List.copyOf(tasks);
     }
+
+    /**
+     * Returns tasks whose descriptions contain the given keyword.
+     *
+     * @param keyword the text to search for.
+     * @return matching tasks in their original list order.
+     */
+    public List<Task> getMatchingTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return List.copyOf(matchingTasks);
+    }
 }

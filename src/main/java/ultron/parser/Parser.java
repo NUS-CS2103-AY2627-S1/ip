@@ -3,6 +3,7 @@ package ultron.parser;
 import ultron.command.Command;
 import ultron.command.DeleteCommand;
 import ultron.command.ExitCommand;
+import ultron.command.FindCommand;
 import ultron.command.ListCommand;
 import ultron.command.MarkCommand;
 import ultron.command.UnmarkCommand;
@@ -14,7 +15,7 @@ public class Parser {
 
     /** Supported commands that can be entered by the user. */
     public enum CommandType {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN
+        BYE, LIST, MARK, UNMARK, DELETE, FIND, TODO, DEADLINE, EVENT, UNKNOWN
     }
 
     /**
@@ -34,6 +35,8 @@ public class Parser {
             return CommandType.UNMARK;
         } else if (input.startsWith("delete ")) {
             return CommandType.DELETE;
+        } else if (input.startsWith("find ")) {
+            return CommandType.FIND;
         } else if (input.equals("todo") || input.startsWith("todo ")) {
             return CommandType.TODO;
         } else if (input.startsWith("deadline ")) {
@@ -58,6 +61,7 @@ public class Parser {
         case MARK -> new MarkCommand(getArgument(input, commandType));
         case UNMARK -> new UnmarkCommand(getArgument(input, commandType));
         case DELETE -> new DeleteCommand(getArgument(input, commandType));
+        case FIND -> new FindCommand(getArgument(input, commandType));
         default -> null;
         };
     }
@@ -80,6 +84,7 @@ public class Parser {
         case MARK -> "mark";
         case UNMARK -> "unmark";
         case DELETE -> "delete";
+        case FIND -> "find";
         case TODO -> "todo";
         case DEADLINE -> "deadline";
         case EVENT -> "event";

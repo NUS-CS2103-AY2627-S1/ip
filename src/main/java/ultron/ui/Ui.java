@@ -1,5 +1,6 @@
 package ultron.ui;
 
+import java.util.List;
 import java.util.Scanner;
 
 import ultron.model.Task;
@@ -64,6 +65,21 @@ public class Ui {
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             System.out.println(" " + (i + 1) + ".[" + task.getType().getSymbol() + "] ["
+                    + task.getStatusIcon() + "] " + task.getDescription());
+        }
+        System.out.println(SEPARATOR);
+    }
+
+    /**
+     * Displays tasks whose descriptions match a search keyword.
+     *
+     * @param matchingTasks the matching tasks to display.
+     */
+    public void showMatchingTasks(List<Task> matchingTasks) {
+        System.out.println(" Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            Task task = matchingTasks.get(i);
+            System.out.println(" " + (i + 1) + ".[" + task.getType().getSymbol() + "]["
                     + task.getStatusIcon() + "] " + task.getDescription());
         }
         System.out.println(SEPARATOR);
