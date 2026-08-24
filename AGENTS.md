@@ -38,6 +38,7 @@ For every Java code creation, modification, or review in this project, use and f
 
 ## Git
 
+For every future branch creation, commit proposal, commit, or commit review in this project, use and follow the project-specific [`seedu-git-standard`](.codex/skills/seedu-git-standard/SKILL.md) skill.
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
