@@ -32,6 +32,10 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 
 Maintain JUnit coverage for approximately the top 50% highest-value methods, prioritizing complex, core, and critical business logic. Update or add the relevant JUnit tests whenever code changes, so the test suite continues to meet this target.
 
+## Java coding standard
+
+For every Java code creation, modification, or review in this project, use and follow the project-specific [`seedu-java-coding-standard`](.codex/skills/seedu-java-coding-standard/SKILL.md) skill.
+
 ## Git
 
 Use lightweight tags unless the user requests an annotated tag.
