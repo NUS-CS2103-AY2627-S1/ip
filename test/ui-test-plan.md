@@ -3,6 +3,10 @@
 Run `javac --release 25 -d build/classes src/main/java/*.java` before this plan.
 Each test starts a new copy of the program.
 
+Mona now saves tasks to `./data/mona.txt` and reloads them on startup. Delete the
+`data` directory before each test below (except Test 9, which relies on it) so tests
+start from an empty list, as their expected output assumes.
+
 ## Test 1: Exit the application
 
 **Aim:** Verify that the program accepts the `bye` command and prints a farewell.
@@ -425,6 +429,54 @@ ____________________________________________________________
 Mona > ____________________________________________________________
 ✨ Here is what the stars reveal:
 1.[T][ ] read book
+____________________________________________________________
+Mona > ____________________________________________________________
+✨ Farewell. May the stars guide you until we meet again.
+____________________________________________________________
+
+```
+
+## Test 9: Persist tasks across restarts
+
+**Aim:** Verify that tasks added and marked in one run are reloaded correctly when the
+program is started again, confirming the data file was saved and read back correctly.
+
+**Setup:** Delete the `data` directory so this test starts from an empty list.
+
+**Run (first launch):** `java -cp build/classes Mona`
+
+**Input:**
+```text
+todo read book
+deadline return book /by June 6th
+mark 1
+bye
+```
+
+**Run (second launch, same `data` directory):** `java -cp build/classes Mona`
+
+**Input:**
+```text
+list
+bye
+```
+
+**Expected output (second launch only):**
+```text
+____________________________________________________________
+ __  __  ___  _   _    _ 
+|  \/  |/ _ \| \ | |  / \
+| |\/| | | | |  \| | / _ \
+| |  | | |_| | |\  |/ ___ \
+|_|  |_|\___/|_| \_/_/   \_\
+
+✨ Hello, I'm Mona.
+The constellations lie reflected in the water tonight. What fate shall we divine?
+____________________________________________________________
+Mona > ____________________________________________________________
+✨ Here is what the stars reveal:
+1.[T][X] read book
+2.[D][ ] return book (by: June 6th)
 ____________________________________________________________
 Mona > ____________________________________________________________
 ✨ Farewell. May the stars guide you until we meet again.

@@ -19,6 +19,16 @@ public class Event extends Task {
     }
 
     @Override
+    protected String getTypeCode() {
+        return "E";
+    }
+
+    @Override
+    public String toSaveFormat() {
+        return super.toSaveFormat() + " | " + start + " | " + end;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
     }

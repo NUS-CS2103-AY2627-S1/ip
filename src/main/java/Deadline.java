@@ -16,6 +16,16 @@ public class Deadline extends Task {
     }
 
     @Override
+    protected String getTypeCode() {
+        return "D";
+    }
+
+    @Override
+    public String toSaveFormat() {
+        return super.toSaveFormat() + " | " + deadline;
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + deadline + ")";
     }
