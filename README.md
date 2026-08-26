@@ -29,6 +29,18 @@ With JDK 25 active, run Checkstyle from the project root:
 
 The broader `./gradlew check` command runs both the tests and Checkstyle checks.
 
+## Git message validation
+
+After cloning the repository, run this command once:
+
+```shell
+git config core.hooksPath .githooks
+```
+
+This tells Git to use the project's version-controlled hooks. The commit-message hook automatically rejects messages
+that violate mechanically verifiable rules, such as the 72-character line limit. The remaining semantic rules, such as
+using the imperative mood, still require author review.
+
 ## Use of generative AI
 
 OpenAI Codex was used extensively in the development of this project and produced most of the source code from written project requirements. Before each commit, a human reviewed the proposed changes and directed further revisions where necessary, often through several rounds, to keep the implementation aligned with the requirements and the project's overall design. The human author made the final decisions about which changes to accept and remains responsible for the submitted code.

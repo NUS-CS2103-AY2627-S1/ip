@@ -35,7 +35,3 @@ For every task that creates, modifies, refactors, reviews, or generates Java cod
 ## Git
 
 For every task that proposes, reviews, creates, or amends a commit or commit message, you must load and follow the project skill `$seedu-git-standard` at `.agents/skills/seedu-git-standard/SKILL.md`. Its rules are mandatory for all future commits in this repository. Use the same skill when naming or creating branches.
-
-Use lightweight tags unless the user requests an annotated tag.
-When proposing or creating a commit message, include enough detail to explain the rationale for the change.
-Do not commit or push unless explicitly asked.
