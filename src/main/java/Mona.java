@@ -1,5 +1,6 @@
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
@@ -65,39 +66,39 @@ public class Mona {
                     throw MonaException.withHint(
                             "❌ That command is not written in the stars I can read. "
                                     + "Try a todo, deadline, or event.",
-                            "list | todo <description> | deadline <description> /by <when> | "
-                                    + "event <description> /from <start> /to <end> | mark <number> | "
+                            "list | todo <description> | deadline <description> /by <yyyy-mm-dd> | "
+                                    + "event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd> | mark <number> | "
                                     + "unmark <number> | delete <number> | bye");
                 }
 
                 Command command = parsedCommand.get();
                 switch (command) {
-                case BYE:
-                    printFormatted("✨ Farewell. May the stars guide you until we meet again.");
-                    return;
-                case LIST:
-                    printTasks(tasks);
-                    break;
-                case MARK:
-                    markTask(tasks, userInput, true, storage);
-                    break;
-                case UNMARK:
-                    markTask(tasks, userInput, false, storage);
-                    break;
-                case DELETE:
-                    deleteTask(tasks, userInput, storage);
-                    break;
-                case TODO:
-                    addTodo(tasks, userInput, storage);
-                    break;
-                case DEADLINE:
-                    addDeadline(tasks, userInput, storage);
-                    break;
-                case EVENT:
-                    addEvent(tasks, userInput, storage);
-                    break;
-                default:
-                    throw new AssertionError("Unhandled command: " + command);
+                    case BYE:
+                        printFormatted("✨ Farewell. May the stars guide you until we meet again.");
+                        return;
+                    case LIST:
+                        printTasks(tasks);
+                        break;
+                    case MARK:
+                        markTask(tasks, userInput, true, storage);
+                        break;
+                    case UNMARK:
+                        markTask(tasks, userInput, false, storage);
+                        break;
+                    case DELETE:
+                        deleteTask(tasks, userInput, storage);
+                        break;
+                    case TODO:
+                        addTodo(tasks, userInput, storage);
+                        break;
+                    case DEADLINE:
+                        addDeadline(tasks, userInput, storage);
+                        break;
+                    case EVENT:
+                        addEvent(tasks, userInput, storage);
+                        break;
+                    default:
+                        throw new AssertionError("Unhandled command: " + command);
                 }
             } catch (MonaException exception) {
                 printFormatted(exception.getMessage());
@@ -132,22 +133,23 @@ public class Mona {
         if (separatorIndex < 0) {
             throw MonaException.withHint(
                     "❌ Even the stars need a fixed point. Specify the deadline using /by.",
-                    "deadline return book /by Sunday");
+                    "deadline return book /by 2019-10-15");
         }
 
         String description = arguments.substring(0, separatorIndex);
-        String deadline = arguments.substring(separatorIndex + DEADLINE_SEPARATOR.length());
+        String deadlineText = arguments.substring(separatorIndex + DEADLINE_SEPARATOR.length());
         if (description.trim().isEmpty()) {
             throw MonaException.withHint(
                     "❌ A deadline needs a name before its fate can be charted.",
-                    "deadline return book /by Sunday");
+                    "deadline return book /by 2019-10-15");
         }
-        if (deadline.trim().isEmpty()) {
+        if (deadlineText.trim().isEmpty()) {
             throw MonaException.withHint(
                     "❌ A deadline needs a point in time. Tell me when it falls due after /by.",
-                    "deadline return book /by Sunday");
+                    "deadline return book /by 2019-10-15");
         }
 
+        TaskDateTime deadline = parseDate(deadlineText.trim(), "deadline return book /by 2019-10-15");
         addTask(tasks, new Deadline(description, deadline), storage);
     }
 
@@ -162,28 +164,50 @@ public class Mona {
             if (startSeparatorIndex >= 0 && arguments.indexOf(EVENT_END_SEPARATOR) >= 0) {
                 throw MonaException.withHint(
                         "❌ Fate flows only forward. Place /from before /to.",
-                        "event project meeting /from Mon 2pm /to Mon 4pm");
+                        "event project meeting /from 2019-10-15 /to 2019-10-16");
             }
             throw MonaException.withHint(
                     "❌ Fate needs both a dawn and a dusk. Specify the event using /from and /to.",
-                    "event project meeting /from Mon 2pm /to Mon 4pm");
+                    "event project meeting /from 2019-10-15 /to 2019-10-16");
         }
 
         String description = arguments.substring(0, startSeparatorIndex);
-        String start = arguments.substring(startSeparatorIndex + EVENT_START_SEPARATOR.length(), endSeparatorIndex);
-        String end = arguments.substring(endSeparatorIndex + EVENT_END_SEPARATOR.length());
+        String startText = arguments.substring(
+                startSeparatorIndex + EVENT_START_SEPARATOR.length(), endSeparatorIndex);
+        String endText = arguments.substring(endSeparatorIndex + EVENT_END_SEPARATOR.length());
         if (description.trim().isEmpty()) {
             throw MonaException.withHint(
                     "❌ An event needs a name before its fate can be charted.",
-                    "event project meeting /from Mon 2pm /to Mon 4pm");
+                    "event project meeting /from 2019-10-15 /to 2019-10-16");
         }
-        if (start.trim().isEmpty() || end.trim().isEmpty()) {
+        if (startText.trim().isEmpty() || endText.trim().isEmpty()) {
             throw MonaException.withHint(
                     "❌ An event needs both a dawn and a dusk. Fill in /from and /to.",
-                    "event project meeting /from Mon 2pm /to Mon 4pm");
+                    "event project meeting /from 2019-10-15 /to 2019-10-16");
         }
 
+        TaskDateTime start = parseDate(startText.trim(), "event project meeting /from 2019-10-15 /to 2019-10-16");
+        TaskDateTime end = parseDate(endText.trim(), "event project meeting /from 2019-10-15 /to 2019-10-16");
         addTask(tasks, new Event(description, start, end), storage);
+    }
+
+    /**
+     * Parses user-entered text as a date, optionally with a time of day.
+     *
+     * @param dateText the text to parse, either {@code yyyy-mm-dd HHmm} or {@code yyyy-mm-dd}.
+     * @param hint an example command demonstrating the correct usage, shown if parsing fails.
+     * @return the parsed date.
+     * @throws MonaException if the text matches neither accepted format.
+     */
+    private static TaskDateTime parseDate(String dateText, String hint) throws MonaException {
+        try {
+            return TaskDateTime.parse(dateText);
+        } catch (DateTimeParseException exception) {
+            throw MonaException.withHint(
+                    "❌ The stars only read dates as yyyy-mm-dd, optionally followed by a "
+                            + "24-hour time, such as 2019-10-15 or 2019-10-15 1800.",
+                    hint);
+        }
     }
 
     private static void printFormatted(String text) {

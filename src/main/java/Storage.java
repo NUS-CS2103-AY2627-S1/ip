@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,9 @@ import java.util.List;
  * Loads and saves Mona's task list from and to a plain-text file on disk, so tasks
  * persist between runs. Each task is stored as one pipe-delimited line, e.g.
  * {@code T | 1 | read book} for a completed todo or
- * {@code D | 0 | return book | June 6th} for an incomplete deadline.
+ * {@code D | 0 | return book | 2019-06-06} for an incomplete deadline, whose date can
+ * optionally carry a time, e.g. {@code D | 0 | return book | 2019-06-06 1800}. See
+ * {@link TaskDateTime} for the exact formats read and written.
  */
 public class Storage {
     private static final String FIELD_SEPARATOR_REGEX = "\\s*\\|\\s*";
@@ -121,28 +124,43 @@ public class Storage {
 
         Task task;
         switch (typeCode) {
-        case "T":
-            task = new Todo(description);
-            break;
-        case "D":
-            if (fields.length < 4) {
-                throw new MonaException("Deadline is missing its /by field");
-            }
-            task = new Deadline(description, fields[3]);
-            break;
-        case "E":
-            if (fields.length < 5) {
-                throw new MonaException("Event is missing its /from or /to field");
-            }
-            task = new Event(description, fields[3], fields[4]);
-            break;
-        default:
-            throw new MonaException("Unknown task type: " + typeCode);
+            case "T":
+                task = new Todo(description);
+                break;
+            case "D":
+                if (fields.length < 4) {
+                    throw new MonaException("Deadline is missing its /by field");
+                }
+                task = new Deadline(description, parseDate(fields[3]));
+                break;
+            case "E":
+                if (fields.length < 5) {
+                    throw new MonaException("Event is missing its /from or /to field");
+                }
+                task = new Event(description, parseDate(fields[3]), parseDate(fields[4]));
+                break;
+            default:
+                throw new MonaException("Unknown task type: " + typeCode);
         }
 
         if (isDone) {
             task.markAsDone();
         }
         return task;
+    }
+
+    /**
+     * Parses a saved date field back into a {@link TaskDateTime}.
+     *
+     * @param dateField the {@code yyyy-mm-dd HHmm} or {@code yyyy-mm-dd} text read from the data file.
+     * @return the parsed date.
+     * @throws MonaException if the field matches neither accepted format.
+     */
+    private static TaskDateTime parseDate(String dateField) throws MonaException {
+        try {
+            return TaskDateTime.parse(dateField.trim());
+        } catch (DateTimeParseException exception) {
+            throw new MonaException("Invalid date: " + dateField);
+        }
     }
 }
