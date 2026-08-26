@@ -124,23 +124,23 @@ public class Storage {
 
         Task task;
         switch (typeCode) {
-        case "T":
-            task = new Todo(description);
-            break;
-        case "D":
-            if (fields.length < 4) {
-                throw new MonaException("Deadline is missing its /by field");
-            }
-            task = new Deadline(description, parseDate(fields[3]));
-            break;
-        case "E":
-            if (fields.length < 5) {
-                throw new MonaException("Event is missing its /from or /to field");
-            }
-            task = new Event(description, parseDate(fields[3]), parseDate(fields[4]));
-            break;
-        default:
-            throw new MonaException("Unknown task type: " + typeCode);
+            case "T":
+                task = new Todo(description);
+                break;
+            case "D":
+                if (fields.length < 4) {
+                    throw new MonaException("Deadline is missing its /by field");
+                }
+                task = new Deadline(description, parseDate(fields[3]));
+                break;
+            case "E":
+                if (fields.length < 5) {
+                    throw new MonaException("Event is missing its /from or /to field");
+                }
+                task = new Event(description, parseDate(fields[3]), parseDate(fields[4]));
+                break;
+            default:
+                throw new MonaException("Unknown task type: " + typeCode);
         }
 
         if (isDone) {

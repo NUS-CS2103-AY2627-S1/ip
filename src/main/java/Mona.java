@@ -73,32 +73,32 @@ public class Mona {
 
                 Command command = parsedCommand.get();
                 switch (command) {
-                case BYE:
-                    printFormatted("✨ Farewell. May the stars guide you until we meet again.");
-                    return;
-                case LIST:
-                    printTasks(tasks);
-                    break;
-                case MARK:
-                    markTask(tasks, userInput, true, storage);
-                    break;
-                case UNMARK:
-                    markTask(tasks, userInput, false, storage);
-                    break;
-                case DELETE:
-                    deleteTask(tasks, userInput, storage);
-                    break;
-                case TODO:
-                    addTodo(tasks, userInput, storage);
-                    break;
-                case DEADLINE:
-                    addDeadline(tasks, userInput, storage);
-                    break;
-                case EVENT:
-                    addEvent(tasks, userInput, storage);
-                    break;
-                default:
-                    throw new AssertionError("Unhandled command: " + command);
+                    case BYE:
+                        printFormatted("✨ Farewell. May the stars guide you until we meet again.");
+                        return;
+                    case LIST:
+                        printTasks(tasks);
+                        break;
+                    case MARK:
+                        markTask(tasks, userInput, true, storage);
+                        break;
+                    case UNMARK:
+                        markTask(tasks, userInput, false, storage);
+                        break;
+                    case DELETE:
+                        deleteTask(tasks, userInput, storage);
+                        break;
+                    case TODO:
+                        addTodo(tasks, userInput, storage);
+                        break;
+                    case DEADLINE:
+                        addDeadline(tasks, userInput, storage);
+                        break;
+                    case EVENT:
+                        addEvent(tasks, userInput, storage);
+                        break;
+                    default:
+                        throw new AssertionError("Unhandled command: " + command);
                 }
             } catch (MonaException exception) {
                 printFormatted(exception.getMessage());
