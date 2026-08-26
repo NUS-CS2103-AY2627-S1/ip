@@ -1,18 +1,18 @@
 /**
- * Represents a task that occurs between specified start and end dates or times.
+ * Represents a task that occurs between a specified start and end date, optionally with times.
  */
 public class Event extends Task {
-    private final String start;
-    private final String end;
+    private final TaskDateTime start;
+    private final TaskDateTime end;
 
     /**
      * Creates an incomplete event with the given description, start, and end.
      *
      * @param description the event description.
-     * @param start the date or time when the event starts.
-     * @param end the date or time when the event ends.
+     * @param start the date (and optional time) when the event starts.
+     * @param end the date (and optional time) when the event ends.
      */
-    public Event(String description, String start, String end) {
+    public Event(String description, TaskDateTime start, TaskDateTime end) {
         super(description);
         this.start = start;
         this.end = end;
@@ -25,7 +25,7 @@ public class Event extends Task {
 
     @Override
     public String toSaveFormat() {
-        return super.toSaveFormat() + " | " + start + " | " + end;
+        return super.toSaveFormat() + " | " + start.toSaveFormat() + " | " + end.toSaveFormat();
     }
 
     @Override
