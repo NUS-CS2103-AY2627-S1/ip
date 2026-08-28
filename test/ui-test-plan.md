@@ -17,15 +17,15 @@ The following test-only directives in Inputs are consumed by the helper, not sen
 
 The helper does not supply expected output; all console expectations remain in this plan.
 
-Task-list, storage, and date/time checks (including task numbering, malformed records, invalid dates, and failed writes)
+Parser, task-list, storage, and date/time checks (including command syntax, task numbering, invalid records, and failed writes)
 can also be run with the same JDK from the project root:
 
 ```bash
-javac -d /private/tmp/friday-storage-build src/main/java/*.java test/StorageTest.java test/DateTimeTest.java test/TaskListTest.java
-java -cp /private/tmp/friday-storage-build StorageTest
-java -cp /private/tmp/friday-storage-build DateTimeTest
-java -cp /private/tmp/friday-storage-build TaskListTest
+python3 test/run-unit-tests.py
 ```
+
+Both test runners use Python's platform-specific temporary directory and require `java` and `javac` on `PATH`.
+On Windows, use `python` or `py -3` if your Python installation does not provide `python3`.
 
 ## Test Case: Add and list todos
 - Aim: Verify that `todo` adds ToDo tasks and that `list` shows the ToDo prefix.
@@ -1038,6 +1038,56 @@ Here are the tasks in your list:
 Use the number shown here with mark/unmark.
 1.[T][ ] finished task
 2.[T][X] pending task
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
+## Test Case: Task-number syntax and range errors
+- Aim: Verify malformed numbers retain command-specific errors, out-of-range numbers do not change tasks, valid integer spellings still work, and input errors do not end the session.
+- Inputs:
+```text
+todo read book
+mark nope
+mark -1
+unmark 0
+delete 2147483648
+delete -2
+mark +1
+unmark 01
+list
+bye
+```
+- Expected output:
+```text
+____________________________________________________________
+Hello! I'm Friday.
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] read book
+Now you have 1 task in the list.
+____________________________________________________________
+Sir, Invalid mark format. Use: mark TASK_NUMBER
+____________________________________________________________
+Sir, Invalid mark format. Use: mark TASK_NUMBER
+____________________________________________________________
+Sir, The task number is invalid.
+____________________________________________________________
+Sir, Invalid delete format. Use: delete TASK_NUMBER
+____________________________________________________________
+Sir, The task number is invalid.
+____________________________________________________________
+Nice! I've marked this task as done:
+  [T][X] read book
+____________________________________________________________
+OK, I've marked this task as not done yet:
+  [T][ ] read book
+____________________________________________________________
+Here are the tasks in your list:
+Use the number shown here with mark/unmark.
+1.[T][ ] read book
 ____________________________________________________________
 Bye. Hope to see you again soon!
 ____________________________________________________________
