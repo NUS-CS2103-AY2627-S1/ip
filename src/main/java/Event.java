@@ -2,6 +2,10 @@
  * Represents a task with start and end time strings.
  */
 public class Event extends Task {
+    /** Shown when any of the three pieces of event text is missing. */
+    private static final String MISSING_FIELD_MESSAGE =
+            "An event needs a description, /from time, and /to time.";
+
     private final String from;
     private final String to;
 
@@ -14,13 +18,9 @@ public class Event extends Task {
      * @throws BibiException if the description, start time, or end time is blank
      */
     public Event(String description, String from, String to) throws BibiException {
-        super(requireDescription(description,
-                "An event needs a description, /from time, and /to time."));
-        if (from == null || from.isBlank() || to == null || to.isBlank()) {
-            throw new BibiException("An event needs a description, /from time, and /to time.");
-        }
-        this.from = from;
-        this.to = to;
+        super(requireTaskText(description, MISSING_FIELD_MESSAGE));
+        this.from = requireTaskText(from, MISSING_FIELD_MESSAGE);
+        this.to = requireTaskText(to, MISSING_FIELD_MESSAGE);
     }
 
     @Override

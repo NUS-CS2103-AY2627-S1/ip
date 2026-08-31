@@ -9,7 +9,7 @@ public class Todo extends Task {
      * @throws BibiException if the description is blank
      */
     public Todo(String description) throws BibiException {
-        super(requireDescription(description, "Use todo followed by a description."));
+        super(requireTaskText(description, "Use todo followed by a description."));
     }
 
     @Override

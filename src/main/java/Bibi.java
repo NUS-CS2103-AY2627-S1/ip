@@ -45,16 +45,39 @@ public class Bibi {
      */
     private static TaskList loadTasks(Storage storage) {
         try {
-            TaskList tasks = storage.load();
+            Storage.LoadReport report = storage.load();
+            TaskList tasks = report.tasks();
+
             if (!tasks.isEmpty()) {
                 System.out.println("Bibi: Loaded " + tasks.size() + " saved task(s).");
             }
+            if (!report.warnings().isEmpty()) {
+                System.out.println("Bibi: I had trouble reading part of your save file:");
+                for (String warning : report.warnings()) {
+                    System.out.println("  " + warning);
+                }
+                System.out.println("Bibi: Those entries are skipped, and will be dropped from the "
+                        + "file the next time your task list changes.");
+            }
             return tasks;
-        } catch (IOException | BibiException exception) {
-            System.out.println("Bibi: I could not read your saved tasks ("
-                    + exception.getMessage() + "). Starting with an empty list.");
+        } catch (IOException exception) {
+            // Reading failed outright, so continue with an empty list rather than
+            // refusing to start. Saving later replaces the unreadable file.
+            System.out.println("Bibi: I could not read your saved tasks from "
+                    + storage.getFilePath() + " (" + describe(exception)
+                    + "). Starting with an empty list.");
             return new TaskList();
         }
+    }
+
+    /**
+     * Describes a file error in a form short enough to show in the console.
+     *
+     * @param exception the file error to describe
+     * @return the error type followed by any detail it carries
+     */
+    private static String describe(IOException exception) {
+        return exception.getClass().getSimpleName() + ": " + exception.getMessage();
     }
 
     /**
@@ -305,8 +328,9 @@ public class Bibi {
         try {
             storage.save(tasks);
         } catch (IOException exception) {
-            System.out.println("Bibi: I could not save your tasks (" + exception.getMessage()
-                    + "). Changes made in this session will be lost when Bibi closes.");
+            System.out.println("Bibi: I could not save your tasks to " + storage.getFilePath()
+                    + " (" + describe(exception) + "). Changes made in this session will be lost "
+                    + "when Bibi closes.");
         }
     }
 }

@@ -207,3 +207,60 @@ Bibi: Loaded 4 saved task(s).
 3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 4. [T][X] join sports club
 ```
+
+## Test 10: Recover from a corrupted save file
+
+Aim: Confirm that damaged lines are reported and skipped while valid tasks still load.
+
+### Saved data
+
+```text
+T | 1 | read book
+this line is not a task
+X | 0 | unknown type
+D | 2 | return book | June 6th
+E | 0 | missing the end time
+
+T | 0 | join sports club
+```
+
+### Input
+
+```text
+list
+bye
+```
+
+### Expected output
+
+```text
+Bibi: Loaded 2 saved task(s).
+Bibi: I had trouble reading part of your save file:
+  Line 2: expected at least type, status, and description separated by '|'.
+  Line 3: unknown task type 'X'.
+  Line 4: status '2' should be 1 (done) or 0 (not done).
+  Line 5: expected 5 fields but found 3, for example: E | 0 | project meeting | Aug 6th 2pm | 4pm
+Bibi: Those entries are skipped, and will be dropped from the file the next time your task list changes.
+Bibi: Here are the tasks in your list:
+1. [T][X] read book
+2. [T][ ] join sports club
+```
+
+## Test 11: Reject task text containing the save-file separator
+
+Aim: Confirm that a description that would corrupt the save file is refused.
+
+### Input
+
+```text
+todo read | book
+list
+bye
+```
+
+### Expected output
+
+```text
+Bibi: Task text cannot contain '|' because that character separates the fields in the save file.
+Bibi: Your task list is empty.
+```

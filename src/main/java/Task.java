@@ -17,27 +17,31 @@ public abstract class Task {
      * @throws BibiException if the description is blank
      */
     protected Task(String description) throws BibiException {
-        if (description == null || description.isBlank()) {
-            throw new BibiException("A task needs a description.");
-        }
-        this.description = description;
+        this.description = requireTaskText(description, "A task needs a description.");
         complete = false;
     }
 
     /**
-     * Checks a task description before it is stored in a subclass.
+     * Checks a piece of task text before it is stored.
      *
-     * @param description text supplied as the task description
-     * @param errorMessage explanation to show when the description is missing
-     * @return the supplied description when it is valid
-     * @throws BibiException if the description is blank
+     * <p>The separator is rejected as well as blank text, because text containing
+     * it would be split into the wrong fields when the save file is read back.
+     *
+     * @param text text supplied for the description or a date or time
+     * @param errorMessage explanation to show when the text is missing
+     * @return the supplied text when it is valid
+     * @throws BibiException if the text is blank or contains the field separator
      */
-    protected static String requireDescription(String description, String errorMessage)
+    protected static String requireTaskText(String text, String errorMessage)
             throws BibiException {
-        if (description == null || description.isBlank()) {
+        if (text == null || text.isBlank()) {
             throw new BibiException(errorMessage);
         }
-        return description;
+        if (text.contains(FIELD_SEPARATOR)) {
+            throw new BibiException("Task text cannot contain '" + FIELD_SEPARATOR
+                    + "' because that character separates the fields in the save file.");
+        }
+        return text;
     }
 
     /**
