@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.List;
 import java.util.Locale;
 
@@ -36,13 +37,13 @@ public class TaskDateTime {
      * formats so that {@code 2/12/2019 1800} is not mistaken for a bad date.
      */
     private static final List<DateTimeFormatter> DATE_TIME_FORMATS = List.of(
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm", FORMAT_LOCALE),
-            DateTimeFormatter.ofPattern("d/M/yyyy HHmm", FORMAT_LOCALE));
+            strictFormat("uuuu-MM-dd HHmm"),
+            strictFormat("d/M/uuuu HHmm"));
 
     /** Input formats that give a date only. The first is also the saved form. */
     private static final List<DateTimeFormatter> DATE_FORMATS = List.of(
-            DateTimeFormatter.ofPattern("yyyy-MM-dd", FORMAT_LOCALE),
-            DateTimeFormatter.ofPattern("d/M/yyyy", FORMAT_LOCALE));
+            strictFormat("uuuu-MM-dd"),
+            strictFormat("d/M/uuuu"));
 
     /** Guidance repeated wherever a date fails to parse. */
     private static final String FORMAT_HELP =
@@ -63,6 +64,23 @@ public class TaskDateTime {
     private TaskDateTime(LocalDate date, LocalTime time) {
         this.date = date;
         this.time = time;
+    }
+
+    /**
+     * Builds a formatter that refuses dates which do not exist.
+     *
+     * <p>Java's default resolver quietly moves an impossible date such as
+     * 2019-02-30 back to the last real day of the month. Strict resolving
+     * rejects it instead, which is what a user who mistyped a date needs to see.
+     * Strict resolving also requires {@code uuuu} for the year rather than
+     * {@code yyyy}, because the latter is the year within an era.
+     *
+     * @param pattern the date pattern to accept
+     * @return a formatter for that pattern
+     */
+    private static DateTimeFormatter strictFormat(String pattern) {
+        return DateTimeFormatter.ofPattern(pattern, FORMAT_LOCALE)
+                .withResolverStyle(ResolverStyle.STRICT);
     }
 
     /**
