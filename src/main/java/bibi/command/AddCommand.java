@@ -1,3 +1,10 @@
+package bibi.command;
+
+import bibi.Storage;
+import bibi.Ui;
+import bibi.task.Task;
+import bibi.task.TaskList;
+
 /**
  * Adds one already-built task to the list.
  *

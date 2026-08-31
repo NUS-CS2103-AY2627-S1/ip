@@ -1,3 +1,9 @@
+package bibi;
+
+import bibi.task.Deadline;
+import bibi.task.Event;
+import bibi.task.Task;
+import bibi.task.Todo;
 import java.io.IOException;
 import java.nio.charset.MalformedInputException;
 import java.nio.file.Files;

@@ -1,3 +1,7 @@
+package bibi.task;
+
+import bibi.BibiException;
+
 /**
  * Represents a task with no date or time attached.
  */
