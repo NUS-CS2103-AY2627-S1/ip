@@ -28,7 +28,25 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
-## UI regression testing
+## Automated testing
+
+Two test suites guard this project, and both must pass before a change is considered done.
+
+### JUnit tests
+
+JUnit 5 tests live under `src/test/java`, mirroring the package of the class under test (e.g. `bibi.task.Task` is tested by `src/test/java/bibi/task/TaskTest.java`). Run them with:
+
+```
+./gradlew test
+```
+
+Coverage target: the top ~50% highest-value methods, prioritising complex, core, or critical logic. Currently that means `Parser`, `Storage`, `TaskList`, `TaskDateTime`, and the display, save, and date-matching behaviour of the task types. Simple getters, one-line delegations, and console output are deliberately left out.
+
+**JUnit tests must be updated after each code change to stay within that target.** When a change adds, removes, or alters behaviour in a covered method, update or add tests in the same commit. When a change introduces a new method that falls in the top ~50% by value, add tests for it.
+
+Name test methods `featureUnderTest_testScenario_expectedBehavior()`, e.g. `parse_emptyInput_exceptionThrown()`.
+
+### UI regression testing
 
 After each code update that changes Bibi's console interaction, update `test/ui-test-plan.md` when needed and invoke the project `test-ui` skill.
 
