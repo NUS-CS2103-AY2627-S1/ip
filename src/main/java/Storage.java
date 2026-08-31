@@ -56,4 +56,54 @@ public class Storage {
         }
         Files.write(filePath, lines);
     }
+
+    /**
+     * Reads the saved tasks back into a task list.
+     *
+     * <p>A missing save file is normal rather than an error: someone running a
+     * fresh copy of the project simply starts with an empty list.
+     *
+     * @return the stored tasks, or an empty list when nothing has been saved yet
+     * @throws IOException if the file exists but cannot be read
+     * @throws BibiException if a saved line is not in the expected format
+     */
+    public TaskList load() throws IOException, BibiException {
+        TaskList tasks = new TaskList();
+        if (!Files.exists(filePath)) {
+            return tasks;
+        }
+
+        for (String line : Files.readAllLines(filePath)) {
+            tasks.add(parseTask(line));
+        }
+        return tasks;
+    }
+
+    /**
+     * Rebuilds one task from its save-file line.
+     *
+     * @param line a line written by {@link Task#toFileFormat()}
+     * @return the task described by the line
+     * @throws BibiException if the line does not describe a valid task
+     */
+    private Task parseTask(String line) throws BibiException {
+        // Split on the separator and drop the spaces padding it, so the fields
+        // come back exactly as the user typed them.
+        String[] fields = line.trim().split("\\s*\\" + Task.FIELD_SEPARATOR + "\\s*");
+        String typeCode = fields[0];
+        boolean isComplete = fields[1].equals("1");
+        String description = fields[2];
+
+        Task task = switch (typeCode) {
+        case "T" -> new Todo(description);
+        case "D" -> new Deadline(description, fields[3]);
+        case "E" -> new Event(description, fields[3], fields[4]);
+        default -> throw new BibiException("Unknown task type '" + typeCode + "'.");
+        };
+
+        if (isComplete) {
+            task.markComplete();
+        }
+        return task;
+    }
 }

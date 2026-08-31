@@ -14,10 +14,10 @@ public class Bibi {
      * @param args command-line arguments, which are not used
      */
     public static void main(String[] args) {
-        TaskList tasks = new TaskList();
         Storage storage = new Storage();
 
         printWelcomeMessage();
+        TaskList tasks = loadTasks(storage);
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
                 System.out.print("You: ");
@@ -34,6 +34,26 @@ public class Bibi {
                     System.out.println("Bibi: " + exception.getMessage());
                 }
             }
+        }
+    }
+
+    /**
+     * Reads the tasks saved by an earlier session and reports what was restored.
+     *
+     * @param storage the save file to read from
+     * @return the restored task list, or an empty list when nothing was saved yet
+     */
+    private static TaskList loadTasks(Storage storage) {
+        try {
+            TaskList tasks = storage.load();
+            if (!tasks.isEmpty()) {
+                System.out.println("Bibi: Loaded " + tasks.size() + " saved task(s).");
+            }
+            return tasks;
+        } catch (IOException | BibiException exception) {
+            System.out.println("Bibi: I could not read your saved tasks ("
+                    + exception.getMessage() + "). Starting with an empty list.");
+            return new TaskList();
         }
     }
 
