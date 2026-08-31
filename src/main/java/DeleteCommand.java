@@ -1,0 +1,22 @@
+/**
+ * Removes one task from the list.
+ */
+public class DeleteCommand extends Command {
+    private final int taskNumber;
+
+    /**
+     * Creates a command that will remove the given task.
+     *
+     * @param taskNumber the one-based number shown to the user
+     */
+    public DeleteCommand(int taskNumber) {
+        this.taskNumber = taskNumber;
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws BibiException {
+        tasks.remove(taskNumber);
+        ui.showMessage("Task " + taskNumber + " removed.");
+        saveTasks(tasks, ui, storage);
+    }
+}

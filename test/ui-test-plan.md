@@ -373,3 +373,31 @@ Bibi: Here is what you have on Aug 11 2019:
 Bibi: You have nothing on Dec 25 2019.
 Bibi: I could not read the date 'someday'.
 ```
+
+## Test 16: Show the list of commands
+
+Aim: Confirm that help is recognised on its own, and lists every command.
+
+### Input
+
+```text
+help
+bye
+```
+
+### Expected output
+
+```text
+Bibi: Here are the commands I understand:
+  todo <description>
+  deadline <description> /by <time>
+  event <description> /from <start> /to <end>
+  list
+  on <date>
+  mark <number>
+  unmark <number>
+  remove <number>
+  help
+  bye
+Bibi: Goodbye! Till next time...
+```
