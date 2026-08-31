@@ -16,6 +16,18 @@ public class TaskList {
     }
 
     /**
+     * Creates a task list holding the supplied tasks, in the given order.
+     *
+     * <p>The tasks are copied, so later changes to this list do not disturb the
+     * list that was handed in, such as the one returned by {@link Storage}.
+     *
+     * @param initialTasks the tasks to start with
+     */
+    public TaskList(List<Task> initialTasks) {
+        tasks = new ArrayList<>(initialTasks);
+    }
+
+    /**
      * Adds a task to the end of this list.
      *
      * @param task the task to store
