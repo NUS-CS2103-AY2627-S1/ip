@@ -36,6 +36,8 @@ The rules are enforced by `config/checkstyle/checkstyle.xml`, which the Gradle `
 
 All commit messages **must** follow the SE-EDU Git conventions, captured in the project skill `seedu-git-standard`: imperative capitalised subject with no full stop, at most 72 characters, blank line before the body, body wrapped at 72 characters, explaining what and why rather than how. Invoke that skill before writing a commit message.
 
+Both skills exist twice, under `.claude/skills/` and `.codex/skills/`, because the two assistants read different folders. Edit both copies whenever a rule changes.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
