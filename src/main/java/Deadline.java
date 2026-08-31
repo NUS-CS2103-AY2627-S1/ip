@@ -9,9 +9,14 @@ public class Deadline extends Task {
      *
      * @param description text describing the deadline
      * @param by the deadline time, stored exactly as entered
+     * @throws BibiException if the description or deadline time is blank
      */
-    public Deadline(String description, String by) {
-        super(description);
+    public Deadline(String description, String by) throws BibiException {
+        super(requireDescription(description,
+                "A deadline needs both a description and a /by time."));
+        if (by == null || by.isBlank()) {
+            throw new BibiException("A deadline needs both a description and a /by time.");
+        }
         this.by = by;
     }
 

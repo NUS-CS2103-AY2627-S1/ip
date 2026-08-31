@@ -6,9 +6,10 @@ public class Todo extends Task {
      * Creates a ToDo with the supplied description.
      *
      * @param description text describing the ToDo
+     * @throws BibiException if the description is blank
      */
-    public Todo(String description) {
-        super(description);
+    public Todo(String description) throws BibiException {
+        super(requireDescription(description, "Use todo followed by a description."));
     }
 
     @Override

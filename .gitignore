@@ -19,3 +19,5 @@ _temp/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
+# VS Code
+/.vscode/
