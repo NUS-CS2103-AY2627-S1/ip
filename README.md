@@ -23,3 +23,25 @@ Prerequisites: JDK 25, update Intellij to the most recent version.
    ```
 
 **Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+
+## Building and running with Gradle
+
+The project uses the Gradle wrapper, so no separate Gradle install is needed.
+Run these from the project root, with JDK 25 selected.
+
+Compile everything:
+
+```
+./gradlew compileJava
+```
+
+Run the chatbot (`standardInput` is wired to the console, so Bibi can read your
+commands):
+
+```
+./gradlew run
+```
+
+On Windows `cmd`, use `gradlew.bat` instead of `./gradlew`.
+
+Tasks are saved to `./data/bibi.txt`, relative to the folder the build runs in.
