@@ -126,7 +126,7 @@ bye
 
 ```text
 Bibi: Please enter a command.
-Bibi: I don't understand that command. Try todo, deadline, event, list, mark, unmark, or bye.
+Bibi: I don't understand that command. Try todo, deadline, event, list, on, mark, unmark, or bye.
 Bibi: Use todo followed by a description.
 Bibi: Use mark followed by a task number, for example: mark 2
 ```
@@ -343,4 +343,33 @@ Bibi: I had trouble reading part of your save file:
   Line 2: I could not read the date 'Sunday'.
 Bibi: Here are the tasks in your list:
 1. [T][ ] read book
+```
+
+## Test 15: List what is happening on one date
+
+Aim: Confirm that the on command finds deadlines due that day and events running
+that day, keeps each task's number from the full list, and ignores ToDos.
+
+### Input
+
+```text
+todo read book
+deadline return book /by 2019-08-11
+event camp /from 2019-08-10 /to 2019-08-12
+event party /from 2019-08-11 1900 /to 2019-08-11 2300
+on 2019-08-11
+on 2019-12-25
+on someday
+bye
+```
+
+### Expected output
+
+```text
+Bibi: Here is what you have on Aug 11 2019:
+2. [D][ ] return book (by: Aug 11 2019)
+3. [E][ ] camp (from: Aug 10 2019 to: Aug 12 2019)
+4. [E][ ] party (from: Aug 11 2019 7:00PM to: Aug 11 2019 11:00PM)
+Bibi: You have nothing on Dec 25 2019.
+Bibi: I could not read the date 'someday'.
 ```

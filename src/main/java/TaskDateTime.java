@@ -98,6 +98,16 @@ public class TaskDateTime {
     }
 
     /**
+     * Returns a plain date in the same display form used by tasks.
+     *
+     * @param date the date to format
+     * @return the date as {@code Oct 15 2019}
+     */
+    public static String formatDate(LocalDate date) {
+        return date.format(DISPLAY_DATE);
+    }
+
+    /**
      * Returns the calendar date, ignoring any time of day.
      *
      * @return the date part of this value
