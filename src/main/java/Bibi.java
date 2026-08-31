@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Locale;
 
@@ -6,6 +8,11 @@ import java.util.Locale;
  * A command-line chatbot that stores ToDos, deadlines, and events.
  */
 public class Bibi {
+    /**
+     * Where the task list is kept, relative to the project root. Building the
+     * path from separate names keeps it correct on any operating system.
+     */
+    private static final Path SAVE_FILE_PATH = Paths.get("data", "bibi.txt");
 
     /**
      * Starts Bibi and processes commands until the user enters {@code bye}.
@@ -14,7 +21,7 @@ public class Bibi {
      */
     public static void main(String[] args) {
         Ui ui = new Ui();
-        Storage storage = new Storage();
+        Storage storage = new Storage(SAVE_FILE_PATH);
 
         ui.showWelcome();
         TaskList tasks = loadTasks(storage, ui);
@@ -48,7 +55,7 @@ public class Bibi {
     private static TaskList loadTasks(Storage storage, Ui ui) {
         try {
             Storage.LoadReport report = storage.load();
-            TaskList tasks = report.tasks();
+            TaskList tasks = new TaskList(report.tasks());
 
             if (!tasks.isEmpty()) {
                 ui.showLoaded(tasks.size());
@@ -338,7 +345,7 @@ public class Bibi {
      */
     private static void saveTasks(TaskList tasks, Storage storage, Ui ui) {
         try {
-            storage.save(tasks);
+            storage.save(tasks.getTasks());
         } catch (IOException exception) {
             ui.showSaveError(storage.getFilePath(), exception);
         }
