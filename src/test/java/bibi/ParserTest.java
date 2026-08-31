@@ -15,6 +15,7 @@ import bibi.command.AddCommand;
 import bibi.command.Command;
 import bibi.command.DeleteCommand;
 import bibi.command.ExitCommand;
+import bibi.command.FindCommand;
 import bibi.command.HelpCommand;
 import bibi.command.ListCommand;
 import bibi.command.MarkCommand;
@@ -70,6 +71,24 @@ public class ParserTest {
         assertInstanceOf(MarkCommand.class, Parser.parse("mark 2"));
         assertInstanceOf(UnmarkCommand.class, Parser.parse("unmark 2"));
         assertInstanceOf(DeleteCommand.class, Parser.parse("remove 2"));
+    }
+
+    @Test
+    public void parse_findCommand_matched() throws BibiException {
+        assertInstanceOf(FindCommand.class, Parser.parse("find book"));
+    }
+
+    @Test
+    public void parse_findKeywordWithSpaces_keptWhole() throws BibiException {
+        assertInstanceOf(FindCommand.class, Parser.parse("find sports club"));
+    }
+
+    @Test
+    public void parse_findWithoutKeyword_exceptionThrown() {
+        BibiException thrown = assertThrows(BibiException.class, () -> Parser.parse("find"));
+        assertEquals("Use find followed by a keyword, for example: find book",
+                thrown.getMessage());
+        assertThrows(BibiException.class, () -> Parser.parse("find    "));
     }
 
     @Test

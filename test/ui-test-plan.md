@@ -126,7 +126,7 @@ bye
 
 ```text
 Bibi: Please enter a command.
-Bibi: I don't understand that command. Try todo, deadline, event, list, on, mark, unmark, or bye.
+Bibi: I don't understand that command. Try todo, deadline, event, list, find, on, mark, unmark, or bye.
 Bibi: Use todo followed by a description.
 Bibi: Use mark followed by a task number, for example: mark 2
 ```
@@ -393,6 +393,7 @@ Bibi: Here are the commands I understand:
   deadline <description> /by <time>
   event <description> /from <start> /to <end>
   list
+  find <keyword>
   on <date>
   mark <number>
   unmark <number>
@@ -400,4 +401,35 @@ Bibi: Here are the commands I understand:
   help
   bye
 Bibi: Goodbye! Till next time...
+```
+
+## Test 17: Find tasks by keyword
+
+Aim: Confirm that find matches descriptions case-insensitively, keeps each
+task's number from the full list, and reports when nothing matches.
+
+### Input
+
+```text
+todo read book
+deadline return Book /by 2019-06-06
+todo join sports club
+mark 1
+find book
+find sports
+find zzz
+find
+bye
+```
+
+### Expected output
+
+```text
+Bibi: Here are the matching tasks in your list:
+1. [T][X] read book
+2. [D][ ] return Book (by: Jun 06 2019)
+Bibi: Here are the matching tasks in your list:
+3. [T][ ] join sports club
+Bibi: No tasks match 'zzz'.
+Bibi: Use find followed by a keyword, for example: find book
 ```

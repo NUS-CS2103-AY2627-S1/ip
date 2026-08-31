@@ -6,6 +6,7 @@ import bibi.command.AddCommand;
 import bibi.command.Command;
 import bibi.command.DeleteCommand;
 import bibi.command.ExitCommand;
+import bibi.command.FindCommand;
 import bibi.command.HelpCommand;
 import bibi.command.ListCommand;
 import bibi.command.MarkCommand;
@@ -68,13 +69,15 @@ public class Parser {
             return new UnmarkCommand(parseTaskNumber(argumentOf(input, "unmark"), "unmark"));
         } else if (isCommand(command, "remove")) {
             return new DeleteCommand(parseTaskNumber(argumentOf(input, "remove"), "remove"));
+        } else if (isCommand(command, "find")) {
+            return new FindCommand(requireKeyword(argumentOf(input, "find")));
         } else if (isCommand(command, "on")) {
             // Any time of day in the query is ignored, since the question is
             // which tasks belong to the day as a whole.
             return new OnCommand(TaskDateTime.parse(argumentOf(input, "on")).getDate());
         } else {
             throw new BibiException("I don't understand that command. "
-                    + "Try todo, deadline, event, list, on, mark, unmark, or bye.");
+                    + "Try todo, deadline, event, list, find, on, mark, unmark, or bye.");
         }
     }
 
@@ -139,6 +142,20 @@ public class Parser {
         String from = eventText.substring(fromIndex + 7, toIndex).trim();
         String to = eventText.substring(toIndex + 5).trim();
         return new Event(description, from, to);
+    }
+
+    /**
+     * Checks that a search was given something to look for.
+     *
+     * @param keyword the text supplied after {@code find}
+     * @return the keyword when it is usable
+     * @throws BibiException if no keyword was supplied
+     */
+    private static String requireKeyword(String keyword) throws BibiException {
+        if (keyword.isEmpty()) {
+            throw new BibiException("Use find followed by a keyword, for example: find book");
+        }
+        return keyword;
     }
 
     /**

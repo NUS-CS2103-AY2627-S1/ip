@@ -1,6 +1,7 @@
 package bibi.task;
 
 import java.time.LocalDate;
+import java.util.Locale;
 
 import bibi.BibiException;
 
@@ -62,6 +63,20 @@ public abstract class Task {
      */
     public void markIncomplete() {
         complete = false;
+    }
+
+    /**
+     * Reports whether this task's description contains the supplied keyword.
+     *
+     * <p>The comparison ignores case, so searching for "book" finds a task
+     * described as "Read Book". Only the description is searched, because that
+     * is the part of a task the user names it by.
+     *
+     * @param keyword the text being searched for
+     * @return {@code true} when the description contains the keyword
+     */
+    public boolean hasKeyword(String keyword) {
+        return description.toLowerCase(Locale.ROOT).contains(keyword.toLowerCase(Locale.ROOT));
     }
 
     /**
