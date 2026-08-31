@@ -5,6 +5,9 @@ description: The SE-EDU intermediate Java coding standard this project follows. 
 
 # SE-EDU Java coding standard (intermediate level)
 
+> This file is mirrored at `.claude/skills/seedu-java-coding-standard/SKILL.md`.
+> Update both copies together.
+
 Source: <https://se-education.org/guides/conventions/java/intermediate.html>
 
 Most of this is enforced mechanically by `config/checkstyle/checkstyle.xml`. Always finish with:

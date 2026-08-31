@@ -5,6 +5,9 @@ description: The SE-EDU Git conventions this project follows for commit messages
 
 # SE-EDU Git conventions
 
+> This file is mirrored at `.claude/skills/seedu-git-standard/SKILL.md`.
+> Update both copies together.
+
 Source: <https://se-education.org/guides/conventions/git.html>
 
 ## Subject line
