@@ -1,3 +1,5 @@
+package bibi;
+
 /**
  * Signals that a user command cannot be processed because its input is invalid.
  */

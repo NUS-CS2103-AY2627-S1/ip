@@ -11,6 +11,7 @@ from pathlib import Path
 
 
 DATA_FILE = Path("data") / "bibi.txt"
+MAIN_CLASS = "bibi.Bibi"
 RESTART_MARKER = "<<restart>>"
 
 
@@ -60,7 +61,8 @@ def ensure_java_25(command: str) -> None:
 def compile_application(project_root: Path, javac: str) -> None:
     """Compile all Java source files into the project's out directory."""
     source_dir = project_root / "src" / "main" / "java"
-    source_files = sorted(source_dir.glob("*.java"))
+    # Recursive, because the sources are organised into package folders.
+    source_files = sorted(source_dir.rglob("*.java"))
     if not source_files:
         raise RuntimeError(f"No Java source files found in {source_dir}")
 
@@ -98,7 +100,7 @@ def run_case(project_root: Path, java: str, case_input: str) -> str:
     output = []
     for segment in segments:
         result = subprocess.run(
-            [java, "-cp", str(project_root / "out"), "Bibi"],
+            [java, "-cp", str(project_root / "out"), MAIN_CLASS],
             cwd=project_root,
             input=segment + "\n",
             capture_output=True,

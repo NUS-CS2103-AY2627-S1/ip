@@ -1,3 +1,6 @@
+package bibi.task;
+
+import bibi.BibiException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +22,7 @@ public class TaskList {
      * Creates a task list holding the supplied tasks, in the given order.
      *
      * <p>The tasks are copied, so later changes to this list do not disturb the
-     * list that was handed in, such as the one returned by {@link Storage}.
+     * list that was handed in, such as one just read from the save file.
      *
      * @param initialTasks the tasks to start with
      */

@@ -1,3 +1,9 @@
+package bibi.command;
+
+import bibi.Storage;
+import bibi.Ui;
+import bibi.task.TaskList;
+
 /**
  * Says goodbye and ends the session.
  */
