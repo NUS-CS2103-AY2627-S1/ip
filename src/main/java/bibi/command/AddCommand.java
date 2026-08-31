@@ -8,7 +8,7 @@ import bibi.task.TaskList;
 /**
  * Adds one already-built task to the list.
  *
- * <p>The task arrives ready-made from {@link Parser}, so this command is the
+ * <p>The task arrives ready-made from {@link bibi.Parser Parser}, so this command is the
  * same whether the user typed a ToDo, a deadline, or an event.
  */
 public class AddCommand extends Command {
@@ -23,6 +23,9 @@ public class AddCommand extends Command {
         this.task = task;
     }
 
+    /**
+     * Adds the task to the list, confirms it, and saves the longer list.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(task);

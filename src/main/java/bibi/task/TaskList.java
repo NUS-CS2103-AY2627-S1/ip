@@ -60,7 +60,7 @@ public class TaskList {
     /**
      * Returns every task in list order.
      *
-     * <p>The returned list is unmodifiable so callers such as {@link Storage} can
+     * <p>The returned list is unmodifiable so callers such as {@link bibi.Storage Storage} can
      * read the tasks without accidentally changing them.
      *
      * @return a read-only view of the stored tasks

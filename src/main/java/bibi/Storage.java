@@ -19,7 +19,7 @@ import java.util.Locale;
  * first field is the task type code and the second field is {@code 1} when the
  * task is complete.
  *
- * <p>This class works with plain lists of tasks rather than with {@link TaskList},
+ * <p>This class works with plain lists of tasks rather than with {@link bibi.task.TaskList TaskList},
  * so that reading and writing files stays independent of how the running program
  * chooses to hold its tasks. The caller decides where the file lives.
  */

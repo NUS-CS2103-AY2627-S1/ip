@@ -16,11 +16,17 @@ public class Todo extends Task {
         super(requireTaskText(description, "Use todo followed by a description."));
     }
 
+    /**
+     * Returns the code T, which marks a ToDo in the list and in the save file.
+     */
     @Override
     protected String getTypeCode() {
         return "T";
     }
 
+    /**
+     * Returns no details, because a ToDo carries no date or time.
+     */
     @Override
     protected String getDetails() {
         return "";

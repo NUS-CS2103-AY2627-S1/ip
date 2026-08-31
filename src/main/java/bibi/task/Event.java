@@ -35,11 +35,18 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Returns the code E, which marks an event in the list and in the save file.
+     */
     @Override
     protected String getTypeCode() {
         return "E";
     }
 
+    /**
+     * Returns the start and end dates in brackets, for display after the
+     * description.
+     */
     @Override
     protected String getDetails() {
         return " (from: " + from + " to: " + to + ")";
