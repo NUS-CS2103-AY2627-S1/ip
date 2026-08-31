@@ -18,3 +18,9 @@ python .codex/skills/test-ui/scripts/run_ui_tests.py --project-root . --plan tes
 The script compiles the application, runs each case, checks expected output fragments in order, and records console input and output. Stop at the first failed case; report its expected and actual output without changing the test plan to hide the failure.
 
 Expected-output blocks contain ordered, non-empty output fragments. Do not include the You: prompt because piped test input is not echoed by the console.
+
+Because Bibi saves tasks to `data/bibi.txt`, each case starts from a known save file:
+
+- By default the save file is deleted before the case runs, so cases stay independent.
+- An optional `### Saved data` text block writes that content to `data/bibi.txt` first, which is how a case checks loading or a corrupted file.
+- A `<<restart>>` line inside the input block closes Bibi and starts it again, which is how a case checks that tasks survive between sessions.

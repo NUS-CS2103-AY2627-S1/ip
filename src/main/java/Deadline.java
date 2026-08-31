@@ -2,6 +2,10 @@
  * Represents a task that must be completed by a given time string.
  */
 public class Deadline extends Task {
+    /** Shown when either the description or the /by time is missing. */
+    private static final String MISSING_FIELD_MESSAGE =
+            "A deadline needs both a description and a /by time.";
+
     private final String by;
 
     /**
@@ -12,12 +16,8 @@ public class Deadline extends Task {
      * @throws BibiException if the description or deadline time is blank
      */
     public Deadline(String description, String by) throws BibiException {
-        super(requireDescription(description,
-                "A deadline needs both a description and a /by time."));
-        if (by == null || by.isBlank()) {
-            throw new BibiException("A deadline needs both a description and a /by time.");
-        }
-        this.by = by;
+        super(requireTaskText(description, MISSING_FIELD_MESSAGE));
+        this.by = requireTaskText(by, MISSING_FIELD_MESSAGE);
     }
 
     @Override
@@ -28,5 +28,13 @@ public class Deadline extends Task {
     @Override
     protected String getDetails() {
         return " (by: " + by + ")";
+    }
+
+    /**
+     * Returns the deadline time as the single extra save-file field.
+     */
+    @Override
+    protected String getSaveFields() {
+        return " " + FIELD_SEPARATOR + " " + by;
     }
 }
