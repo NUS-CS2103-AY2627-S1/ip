@@ -21,4 +21,12 @@ public class Todo extends Task {
     protected String getDetails() {
         return "";
     }
+
+    /**
+     * Returns no extra fields because a ToDo stores only its description.
+     */
+    @Override
+    protected String getSaveFields() {
+        return "";
+    }
 }

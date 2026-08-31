@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -39,6 +40,18 @@ public class TaskList {
      */
     public boolean isEmpty() {
         return tasks.isEmpty();
+    }
+
+    /**
+     * Returns every task in list order.
+     *
+     * <p>The returned list is unmodifiable so callers such as {@link Storage} can
+     * read the tasks without accidentally changing them.
+     *
+     * @return a read-only view of the stored tasks
+     */
+    public List<Task> getTasks() {
+        return Collections.unmodifiableList(tasks);
     }
 
     /**

@@ -32,4 +32,12 @@ public class Event extends Task {
     protected String getDetails() {
         return " (from: " + from + " to: " + to + ")";
     }
+
+    /**
+     * Returns the start and end times as the two extra save-file fields.
+     */
+    @Override
+    protected String getSaveFields() {
+        return " " + FIELD_SEPARATOR + " " + from + " " + FIELD_SEPARATOR + " " + to;
+    }
 }

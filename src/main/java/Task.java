@@ -4,6 +4,9 @@
  * <p>Subclasses provide their own type code and any date or time details.
  */
 public abstract class Task {
+    /** Separator between fields of a saved task, so it may not appear in task text. */
+    public static final String FIELD_SEPARATOR = "|";
+
     private final String description;
     private boolean complete;
 
@@ -64,6 +67,29 @@ public abstract class Task {
      * @return displayable details, including any leading spacing
      */
     protected abstract String getDetails();
+
+    /**
+     * Returns the type-specific fields appended to this task's save-file line.
+     *
+     * @return extra fields, each preceded by the field separator, or an empty
+     *     string when the task type stores no date or time
+     */
+    protected abstract String getSaveFields();
+
+    /**
+     * Returns this task encoded as a single save-file line.
+     *
+     * <p>The completion flag is written as {@code 1} or {@code 0} rather than the
+     * display form so that the file stays easy to read and to parse back.
+     *
+     * @return the encoded task, for example {@code D | 0 | return book | Sunday}
+     */
+    public String toFileFormat() {
+        return getTypeCode()
+                + " " + FIELD_SEPARATOR + " " + (complete ? "1" : "0")
+                + " " + FIELD_SEPARATOR + " " + description
+                + getSaveFields();
+    }
 
     /**
      * Returns a display form containing the task type, status, and details.

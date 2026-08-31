@@ -21,3 +21,6 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # VS Code
 /.vscode/
+
+# Task data saved at runtime
+/data/

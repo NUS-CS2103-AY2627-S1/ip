@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -14,6 +15,7 @@ public class Bibi {
      */
     public static void main(String[] args) {
         TaskList tasks = new TaskList();
+        Storage storage = new Storage();
 
         printWelcomeMessage();
         try (Scanner scanner = new Scanner(System.in)) {
@@ -27,7 +29,7 @@ public class Bibi {
                 }
 
                 try {
-                    processCommand(input, tasks);
+                    processCommand(input, tasks, storage);
                 } catch (BibiException exception) {
                     System.out.println("Bibi: " + exception.getMessage());
                 }
@@ -70,9 +72,11 @@ public class Bibi {
      *
      * @param input the user's complete command
      * @param tasks the task list to update or display
+     * @param storage the save file kept in step with the task list
      * @throws BibiException if the command is empty, unknown, or malformed
      */
-    private static void processCommand(String input, TaskList tasks) throws BibiException {
+    private static void processCommand(String input, TaskList tasks, Storage storage)
+            throws BibiException {
         String command = input.toLowerCase(Locale.ROOT); //Local.root uses user's local settings to determine case conversion
 
         if (input.isEmpty()) {
@@ -80,17 +84,17 @@ public class Bibi {
         } else if (command.equals("list")) {
             printTasks(tasks);
         } else if (command.equals("todo") || command.startsWith("todo ")) {
-            addTodo(input.substring(4).trim(), tasks);
+            addTodo(input.substring(4).trim(), tasks, storage);
         } else if (command.equals("deadline") || command.startsWith("deadline ")) {
-            addDeadline(input.substring(8).trim(), tasks);
+            addDeadline(input.substring(8).trim(), tasks, storage);
         } else if (command.equals("event") || command.startsWith("event ")) {
-            addEvent(input.substring(5).trim(), tasks);
+            addEvent(input.substring(5).trim(), tasks, storage);
         } else if (command.startsWith("mark ")) {
-            markTask(input.substring(5).trim(), tasks);
+            markTask(input.substring(5).trim(), tasks, storage);
         } else if (command.startsWith("unmark ")) {
-            unmarkTask(input.substring(7).trim(), tasks);
+            unmarkTask(input.substring(7).trim(), tasks, storage);
         } else if (command.startsWith("remove ")) {
-            removeTask(input.substring(7).trim(), tasks);
+            removeTask(input.substring(7).trim(), tasks, storage);
         } else if (command.startsWith("help ")) {
             printHelp();
         } else {
@@ -104,10 +108,12 @@ public class Bibi {
      *
      * @param description the ToDo description
      * @param tasks the task list to update
+     * @param storage the save file to update afterwards
      * @throws BibiException if the description is missing
      */
-    private static void addTodo(String description, TaskList tasks) throws BibiException {
-        addTask(new Todo(description), tasks);
+    private static void addTodo(String description, TaskList tasks, Storage storage)
+            throws BibiException {
+        addTask(new Todo(description), tasks, storage);
     }
 
     /**
@@ -115,9 +121,11 @@ public class Bibi {
      *
      * @param deadlineText the deadline text after the {@code deadline} command
      * @param tasks the task list to update
+     * @param storage the save file to update afterwards
      * @throws BibiException if the deadline is missing required information
      */
-    private static void addDeadline(String deadlineText, TaskList tasks) throws BibiException {
+    private static void addDeadline(String deadlineText, TaskList tasks, Storage storage)
+            throws BibiException {
         String normalizedText = deadlineText.toLowerCase(Locale.ROOT);
         int byIndex = normalizedText.indexOf(" /by ");
 
@@ -127,7 +135,7 @@ public class Bibi {
 
         String description = deadlineText.substring(0, byIndex).trim();
         String by = deadlineText.substring(byIndex + 5).trim();
-        addTask(new Deadline(description, by), tasks);
+        addTask(new Deadline(description, by), tasks, storage);
     }
 
     /**
@@ -136,9 +144,11 @@ public class Bibi {
      *
      * @param eventText the event text after the {@code event} command
      * @param tasks the task list to update
+     * @param storage the save file to update afterwards
      * @throws BibiException if the event is missing required information
      */
-    private static void addEvent(String eventText, TaskList tasks) throws BibiException {
+    private static void addEvent(String eventText, TaskList tasks, Storage storage)
+            throws BibiException {
         String normalizedText = eventText.toLowerCase(Locale.ROOT);
         int fromIndex = normalizedText.indexOf(" /from ");
         int toIndex = normalizedText.indexOf(" /to ");
@@ -150,22 +160,24 @@ public class Bibi {
         String description = eventText.substring(0, fromIndex).trim();
         String from = eventText.substring(fromIndex + 7, toIndex).trim();
         String to = eventText.substring(toIndex + 5).trim();
-        addTask(new Event(description, from, to), tasks);
+        addTask(new Event(description, from, to), tasks, storage);
     }
 
     /**
-     * Stores a newly created task and confirms the addition.
+     * Stores a newly created task, confirms the addition, and saves the list.
      *
      * @param task the new task
      * @param tasks the task list to update
+     * @param storage the save file to update afterwards
      */
-    private static void addTask(Task task, TaskList tasks) {
+    private static void addTask(Task task, TaskList tasks, Storage storage) {
         tasks.add(task);
         System.out.println(DIVIDER);
         System.out.println("Bibi: Got it. I've added this task:");
         System.out.println("  " + task);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println(DIVIDER);
+        saveTasks(tasks, storage);
     }
 
     /**
@@ -191,13 +203,16 @@ public class Bibi {
      *
      * @param numberText the task number supplied after {@code mark}
      * @param tasks the current task list
+     * @param storage the save file to update afterwards
      * @throws BibiException if the supplied task number is invalid
      */
-    private static void markTask(String numberText, TaskList tasks) throws BibiException {
+    private static void markTask(String numberText, TaskList tasks, Storage storage)
+            throws BibiException {
         Task task = findTask(numberText, tasks, "mark");
         if (task != null) {
             task.markComplete();
             System.out.println("Bibi: Marked task " + numberText + " as complete.");
+            saveTasks(tasks, storage);
         }
     }
 
@@ -206,13 +221,16 @@ public class Bibi {
      *
      * @param numberText the task number supplied after {@code unmark}
      * @param tasks the current task list
+     * @param storage the save file to update afterwards
      * @throws BibiException if the supplied task number is invalid
      */
-    private static void unmarkTask(String numberText, TaskList tasks) throws BibiException {
+    private static void unmarkTask(String numberText, TaskList tasks, Storage storage)
+            throws BibiException {
         Task task = findTask(numberText, tasks, "unmark");
         if (task != null) {
             task.markIncomplete();
             System.out.println("Bibi: Unmarked task " + numberText + ", now incomplete.");
+            saveTasks(tasks, storage);
         }
     }
 
@@ -235,12 +253,40 @@ public class Bibi {
         }
     }
 
-    private static void removeTask(String index, TaskList tasks) throws BibiException {
+    /**
+     * Removes the requested one-based task number and saves the shortened list.
+     *
+     * @param index the task number supplied after {@code remove}
+     * @param tasks the current task list
+     * @param storage the save file to update afterwards
+     * @throws BibiException if the supplied task number is invalid
+     */
+    private static void removeTask(String index, TaskList tasks, Storage storage)
+            throws BibiException {
         try {
             tasks.remove(Integer.parseInt(index));
             System.out.println("Bibi: Task " + index + " removed.");
+            saveTasks(tasks, storage);
         } catch (NumberFormatException exception) {
             throw new BibiException("Use remove followed by a task number, for example: remove 2");
+        }
+    }
+
+    /**
+     * Writes the current task list to the hard disk after every change to it.
+     *
+     * <p>A failed save is reported but does not stop Bibi, so the user can carry
+     * on working with the tasks held in memory for the rest of the session.
+     *
+     * @param tasks the task list to store
+     * @param storage the save file to write to
+     */
+    private static void saveTasks(TaskList tasks, Storage storage) {
+        try {
+            storage.save(tasks);
+        } catch (IOException exception) {
+            System.out.println("Bibi: I could not save your tasks (" + exception.getMessage()
+                    + "). Changes made in this session will be lost when Bibi closes.");
         }
     }
 }

@@ -29,4 +29,12 @@ public class Deadline extends Task {
     protected String getDetails() {
         return " (by: " + by + ")";
     }
+
+    /**
+     * Returns the deadline time as the single extra save-file field.
+     */
+    @Override
+    protected String getSaveFields() {
+        return " " + FIELD_SEPARATOR + " " + by;
+    }
 }

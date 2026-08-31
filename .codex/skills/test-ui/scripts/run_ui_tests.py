@@ -10,8 +10,12 @@ import sys
 from pathlib import Path
 
 
-def read_cases(plan_path: Path) -> list[tuple[str, str, str]]:
-    """Return the name, input, and expected output for every plan case."""
+DATA_FILE = Path("data") / "bibi.txt"
+RESTART_MARKER = "<<restart>>"
+
+
+def read_cases(plan_path: Path) -> list[tuple[str, str, str, str | None]]:
+    """Return the name, input, expected output, and seed data for every plan case."""
     text = plan_path.read_text(encoding="utf-8")
     sections = re.split(r"^## Test ", text, flags=re.MULTILINE)[1:]
     cases = []
@@ -23,13 +27,26 @@ def read_cases(plan_path: Path) -> list[tuple[str, str, str]]:
                                 flags=re.MULTILINE | re.DOTALL)
         expected_match = re.search(r"^### Expected output\s*\n```text\n(.*?)\n```", section,
                                    flags=re.MULTILINE | re.DOTALL)
+        data_match = re.search(r"^### Saved data\s*\n```text\n(.*?)\n```", section,
+                               flags=re.MULTILINE | re.DOTALL)
         if input_match is None or expected_match is None:
             raise ValueError(f"Test '{name}' needs Input and Expected output text blocks.")
-        cases.append((name, input_match.group(1), expected_match.group(1)))
+        seed = data_match.group(1) if data_match else None
+        cases.append((name, input_match.group(1), expected_match.group(1), seed))
 
     if not cases:
         raise ValueError("The test plan does not contain any '## Test' sections.")
     return cases
+
+
+def reset_data_file(project_root: Path, seed: str | None) -> None:
+    """Give a case a known starting save file so cases stay independent."""
+    data_path = project_root / DATA_FILE
+    if seed is None:
+        data_path.unlink(missing_ok=True)
+        return
+    data_path.parent.mkdir(parents=True, exist_ok=True)
+    data_path.write_text(seed + "\n", encoding="utf-8")
 
 
 def ensure_java_25(command: str) -> None:
@@ -70,16 +87,26 @@ def expected_lines_in_order(expected: str, actual: str) -> bool:
 
 
 def run_case(project_root: Path, java: str, case_input: str) -> str:
-    """Run Bibi with a test case's console input and return its output."""
-    result = subprocess.run(
-        [java, "-cp", str(project_root / "out"), "Bibi"],
-        cwd=project_root,
-        input=case_input + "\n",
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-    return result.stdout + result.stderr
+    """Run Bibi with a test case's console input and return its output.
+
+    A `<<restart>>` line splits the input into consecutive runs of the program,
+    which is how a case checks that tasks survive after Bibi is closed.
+    """
+    # Split on the marker together with the line break on each side of it, so a
+    # deliberately blank input line in a segment is still passed to the program.
+    segments = re.split(r"\n?" + re.escape(RESTART_MARKER) + r"\n?", case_input)
+    output = []
+    for segment in segments:
+        result = subprocess.run(
+            [java, "-cp", str(project_root / "out"), "Bibi"],
+            cwd=project_root,
+            input=segment + "\n",
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        output.append(result.stdout + result.stderr)
+    return "".join(output)
 
 
 def main() -> int:
@@ -102,7 +129,8 @@ def main() -> int:
         print(f"TEST SETUP FAILED: {error}", file=sys.stderr)
         return 1
 
-    for number, (name, case_input, expected) in enumerate(cases, start=1):
+    for number, (name, case_input, expected, seed) in enumerate(cases, start=1):
+        reset_data_file(project_root, seed)
         actual = run_case(project_root, args.java, case_input)
         print(f"\n=== Test {number}: {name} ===")
         print("Console input:")
