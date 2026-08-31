@@ -26,11 +26,18 @@ public class Deadline extends Task {
         this.by = TaskDateTime.parse(requireTaskText(by, MISSING_FIELD_MESSAGE));
     }
 
+    /**
+     * Returns the code D, which marks a deadline in the list and in the save
+     * file.
+     */
     @Override
     protected String getTypeCode() {
         return "D";
     }
 
+    /**
+     * Returns the due date in brackets, for display after the description.
+     */
     @Override
     protected String getDetails() {
         return " (by: " + by + ")";

@@ -22,6 +22,10 @@ public class OnCommand extends Command {
         this.queryDate = queryDate;
     }
 
+    /**
+     * Shows the tasks belonging to the queried date, or reports that there
+     * are none.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         String shownDate = TaskDateTime.formatDate(queryDate);

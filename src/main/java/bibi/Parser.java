@@ -24,6 +24,13 @@ import java.util.Locale;
  * {@code mark 2} becomes a number, so a command can assume its input is sound.
  */
 public class Parser {
+    /**
+     * Hides the constructor, because this class holds only static helpers and
+     * is never meant to be instantiated.
+     */
+    private Parser() {
+    }
+
 
     /**
      * Reads one line of user input and returns the command it describes.

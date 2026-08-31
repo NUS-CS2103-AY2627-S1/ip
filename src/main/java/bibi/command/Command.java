@@ -9,11 +9,17 @@ import java.io.IOException;
 /**
  * One action the user asked for, ready to be carried out.
  *
- * <p>{@link Parser} turns typed text into a {@code Command}, and the main loop
+ * <p>{@link bibi.Parser Parser} turns typed text into a {@code Command}, and the main loop
  * simply executes it. Adding a feature therefore means adding a subclass here
  * rather than adding another branch to a growing if-else chain.
  */
 public abstract class Command {
+    /**
+     * Creates a command. Subclasses hold whatever their action needs.
+     */
+    protected Command() {
+    }
+
 
     /**
      * Carries out this command.

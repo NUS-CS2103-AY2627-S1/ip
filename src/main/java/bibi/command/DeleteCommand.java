@@ -20,6 +20,9 @@ public class DeleteCommand extends Command {
         this.taskNumber = taskNumber;
     }
 
+    /**
+     * Removes the numbered task and saves the shortened list.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BibiException {
         tasks.remove(taskNumber);
