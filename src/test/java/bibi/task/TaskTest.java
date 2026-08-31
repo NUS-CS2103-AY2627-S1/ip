@@ -5,9 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import bibi.BibiException;
 import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
+
+import bibi.BibiException;
 
 /**
  * Tests the display form, save form, date matching, and validation shared by
@@ -104,8 +106,8 @@ public class TaskTest {
 
     @Test
     public void newEvent_endingBeforeItStarts_exceptionThrown() {
-        BibiException thrown = assertThrows(BibiException.class,
-                () -> new Event("camp", "2019-08-12", "2019-08-10"));
+        BibiException thrown = assertThrows(BibiException.class, () ->
+                new Event("camp", "2019-08-12", "2019-08-10"));
         assertEquals("An event cannot end before it starts.", thrown.getMessage());
     }
 

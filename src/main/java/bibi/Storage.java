@@ -1,9 +1,5 @@
 package bibi;
 
-import bibi.task.Deadline;
-import bibi.task.Event;
-import bibi.task.Task;
-import bibi.task.Todo;
 import java.io.IOException;
 import java.nio.charset.MalformedInputException;
 import java.nio.file.Files;
@@ -11,6 +7,11 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import bibi.task.Deadline;
+import bibi.task.Event;
+import bibi.task.Task;
+import bibi.task.Todo;
 
 /**
  * Saves tasks to, and later loads them from, a plain-text file on the hard disk.
@@ -144,20 +145,20 @@ public class Storage {
         String description = fields[2];
 
         Task task = switch (typeCode) {
-        case "T" -> {
-            requireFieldCount(fields, 3, "T | 1 | read book");
-            yield new Todo(description);
-        }
-        case "D" -> {
-            requireFieldCount(fields, 4, "D | 0 | return book | 2019-06-06");
-            yield new Deadline(description, fields[3]);
-        }
-        case "E" -> {
-            requireFieldCount(fields, 5,
-                    "E | 0 | project meeting | 2019-08-06 1400 | 2019-08-06 1600");
-            yield new Event(description, fields[3], fields[4]);
-        }
-        default -> throw new BibiException("unknown task type '" + fields[0] + "'.");
+            case "T" -> {
+                requireFieldCount(fields, 3, "T | 1 | read book");
+                yield new Todo(description);
+            }
+            case "D" -> {
+                requireFieldCount(fields, 4, "D | 0 | return book | 2019-06-06");
+                yield new Deadline(description, fields[3]);
+            }
+            case "E" -> {
+                requireFieldCount(fields, 5,
+                        "E | 0 | project meeting | 2019-08-06 1400 | 2019-08-06 1600");
+                yield new Event(description, fields[3], fields[4]);
+            }
+            default -> throw new BibiException("unknown task type '" + fields[0] + "'.");
         };
 
         if (isComplete) {

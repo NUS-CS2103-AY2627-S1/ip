@@ -1,11 +1,12 @@
 package bibi;
 
-import bibi.task.Task;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+
+import bibi.task.Task;
 
 /**
  * Handles everything Bibi shows to the user and reads back from them.

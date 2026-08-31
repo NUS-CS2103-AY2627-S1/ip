@@ -1,5 +1,7 @@
 package bibi;
 
+import java.util.Locale;
+
 import bibi.command.AddCommand;
 import bibi.command.Command;
 import bibi.command.DeleteCommand;
@@ -13,7 +15,6 @@ import bibi.task.Deadline;
 import bibi.task.Event;
 import bibi.task.TaskDateTime;
 import bibi.task.Todo;
-import java.util.Locale;
 
 /**
  * Turns a line of typed text into the {@link Command} it asks for.

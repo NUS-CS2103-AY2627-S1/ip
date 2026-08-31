@@ -1,7 +1,8 @@
 package bibi.task;
 
-import bibi.BibiException;
 import java.time.LocalDate;
+
+import bibi.BibiException;
 
 /**
  * Represents information shared by every kind of task.

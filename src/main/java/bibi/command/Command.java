@@ -1,10 +1,11 @@
 package bibi.command;
 
+import java.io.IOException;
+
 import bibi.BibiException;
 import bibi.Storage;
 import bibi.Ui;
 import bibi.task.TaskList;
-import java.io.IOException;
 
 /**
  * One action the user asked for, ready to be carried out.

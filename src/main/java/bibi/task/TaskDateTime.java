@@ -1,6 +1,5 @@
 package bibi.task;
 
-import bibi.BibiException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -9,6 +8,8 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.List;
 import java.util.Locale;
+
+import bibi.BibiException;
 
 /**
  * A date, optionally with a time of day, attached to a deadline or an event.

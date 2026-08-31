@@ -1,7 +1,8 @@
 package bibi.task;
 
-import bibi.BibiException;
 import java.time.LocalDate;
+
+import bibi.BibiException;
 
 /**
  * Represents a task that must be completed by a given date, and optionally a
