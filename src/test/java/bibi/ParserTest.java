@@ -6,6 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.nio.file.Path;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
 import bibi.command.AddCommand;
 import bibi.command.Command;
 import bibi.command.DeleteCommand;
@@ -16,9 +21,6 @@ import bibi.command.MarkCommand;
 import bibi.command.OnCommand;
 import bibi.command.UnmarkCommand;
 import bibi.task.TaskList;
-import java.nio.file.Path;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
 /**
  * Tests that typed input is turned into the right command, and that malformed
@@ -102,8 +104,8 @@ public class ParserTest {
 
     @Test
     public void parse_deadlineWithoutByMarker_exceptionThrown() {
-        BibiException thrown = assertThrows(BibiException.class,
-                () -> Parser.parse("deadline return book"));
+        BibiException thrown = assertThrows(BibiException.class, () ->
+                Parser.parse("deadline return book"));
         assertEquals("Use deadline <description> /by <time>.", thrown.getMessage());
     }
 
@@ -114,15 +116,15 @@ public class ParserTest {
 
     @Test
     public void parse_eventMissingToMarker_exceptionThrown() {
-        BibiException thrown = assertThrows(BibiException.class,
-                () -> Parser.parse("event camp /from 2019-08-10"));
+        BibiException thrown = assertThrows(BibiException.class, () ->
+                Parser.parse("event camp /from 2019-08-10"));
         assertEquals("Use event <description> /from <start> /to <end>.", thrown.getMessage());
     }
 
     @Test
     public void parse_eventEndingBeforeItStarts_exceptionThrown() {
-        BibiException thrown = assertThrows(BibiException.class,
-                () -> Parser.parse("event camp /from 2019-08-12 /to 2019-08-10"));
+        BibiException thrown = assertThrows(BibiException.class, () ->
+                Parser.parse("event camp /from 2019-08-12 /to 2019-08-10"));
         assertEquals("An event cannot end before it starts.", thrown.getMessage());
     }
 

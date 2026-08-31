@@ -1,9 +1,10 @@
 package bibi.task;
 
-import bibi.BibiException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import bibi.BibiException;
 
 /**
  * Stores the tasks managed by Bibi and provides safe indexed access to them.

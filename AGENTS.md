@@ -24,6 +24,18 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Coding and commit standards
+
+All Java code in this project **must** follow the SE-EDU intermediate Java coding standard, captured in the project skill `seedu-java-coding-standard`. Invoke that skill before writing or reviewing Java, and verify with:
+
+```
+./gradlew checkstyleMain checkstyleTest
+```
+
+The rules are enforced by `config/checkstyle/checkstyle.xml`, which the Gradle `checkstyle` plugin applies. A change is not finished while checkstyle reports violations.
+
+All commit messages **must** follow the SE-EDU Git conventions, captured in the project skill `seedu-git-standard`: imperative capitalised subject with no full stop, at most 72 characters, blank line before the body, body wrapped at 72 characters, explaining what and why rather than how. Invoke that skill before writing a commit message.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.

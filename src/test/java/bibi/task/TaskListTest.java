@@ -5,10 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import bibi.BibiException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.junit.jupiter.api.Test;
+
+import bibi.BibiException;
 
 /**
  * Tests the one-based numbering that the task list presents to the user, and
@@ -95,8 +97,8 @@ public class TaskListTest {
     public void getTasks_returnedList_cannotBeChanged() throws BibiException {
         TaskList tasks = new TaskList(List.of(todo("first")));
 
-        assertThrows(UnsupportedOperationException.class,
-                () -> tasks.getTasks().add(todo("sneaked in")));
+        assertThrows(UnsupportedOperationException.class, () ->
+                tasks.getTasks().add(todo("sneaked in")));
     }
 
     @Test

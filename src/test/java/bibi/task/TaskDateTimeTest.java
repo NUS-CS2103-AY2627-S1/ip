@@ -5,9 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import bibi.BibiException;
 import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
+
+import bibi.BibiException;
 
 /**
  * Tests the parsing, comparison, and formatting of task dates.
@@ -47,8 +49,8 @@ public class TaskDateTimeTest {
 
     @Test
     public void parse_unrecognisedText_exceptionThrown() {
-        BibiException thrown = assertThrows(BibiException.class,
-                () -> TaskDateTime.parse("next Tuesday"));
+        BibiException thrown = assertThrows(BibiException.class, () ->
+                TaskDateTime.parse("next Tuesday"));
         assertTrue(thrown.getMessage().contains("next Tuesday"));
         assertTrue(thrown.getMessage().contains("yyyy-MM-dd"));
     }
