@@ -32,7 +32,7 @@ Aim: Confirm that text after /by is retained and shown with a deadline.
 ### Input
 
 ```text
-deadline return book /by Sunday
+deadline return book /by 2019-10-15
 list
 bye
 ```
@@ -40,9 +40,9 @@ bye
 ### Expected output
 
 ```text
-[D][ ] return book (by: Sunday)
+[D][ ] return book (by: Oct 15 2019)
 Now you have 1 tasks in the list.
-1. [D][ ] return book (by: Sunday)
+1. [D][ ] return book (by: Oct 15 2019)
 ```
 
 ## Test 3: Add and list an event
@@ -52,7 +52,7 @@ Aim: Confirm that text after /from and /to is retained and shown with an event.
 ### Input
 
 ```text
-event project meeting /from Mon 2pm /to 4pm
+event project meeting /from 2019-08-06 1400 /to 2019-08-06 1600
 list
 bye
 ```
@@ -60,9 +60,9 @@ bye
 ### Expected output
 
 ```text
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
+[E][ ] project meeting (from: Aug 06 2019 2:00PM to: Aug 06 2019 4:00PM)
 Now you have 1 tasks in the list.
-1. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+1. [E][ ] project meeting (from: Aug 06 2019 2:00PM to: Aug 06 2019 4:00PM)
 ```
 
 ## Test 4: Mark and unmark a task
@@ -126,7 +126,7 @@ bye
 
 ```text
 Bibi: Please enter a command.
-Bibi: I don't understand that command. Try todo, deadline, event, list, mark, unmark, or bye.
+Bibi: I don't understand that command. Try todo, deadline, event, list, on, mark, unmark, or bye.
 Bibi: Use todo followed by a description.
 Bibi: Use mark followed by a task number, for example: mark 2
 ```
@@ -139,8 +139,8 @@ Aim: Confirm that tasks added in one session are saved and restored in the next.
 
 ```text
 todo read book
-deadline return book /by June 6th
-event project meeting /from Aug 6th 2pm /to 4pm
+deadline return book /by 2019-06-06
+event project meeting /from 2019-08-06 1400 /to 2019-08-06 1600
 mark 1
 bye
 <<restart>>
@@ -156,8 +156,8 @@ Bibi: Goodbye! Till next time...
 Bibi: Loaded 3 saved task(s).
 Bibi: Here are the tasks in your list:
 1. [T][X] read book
-2. [D][ ] return book (by: June 6th)
-3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+2. [D][ ] return book (by: Jun 06 2019)
+3. [E][ ] project meeting (from: Aug 06 2019 2:00PM to: Aug 06 2019 4:00PM)
 ```
 
 ## Test 8: Start with no save file
@@ -186,8 +186,8 @@ Aim: Confirm that an existing save file is read in the documented format.
 
 ```text
 T | 1 | read book
-D | 0 | return book | June 6th
-E | 0 | project meeting | Aug 6th 2pm | 4pm
+D | 0 | return book | 2019-06-06
+E | 0 | project meeting | 2019-08-06 1400 | 2019-08-06 1600
 T | 1 | join sports club
 ```
 
@@ -203,8 +203,8 @@ bye
 ```text
 Bibi: Loaded 4 saved task(s).
 1. [T][X] read book
-2. [D][ ] return book (by: June 6th)
-3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+2. [D][ ] return book (by: Jun 06 2019)
+3. [E][ ] project meeting (from: Aug 06 2019 2:00PM to: Aug 06 2019 4:00PM)
 4. [T][X] join sports club
 ```
 
@@ -239,7 +239,7 @@ Bibi: I had trouble reading part of your save file:
   Line 2: expected at least type, status, and description separated by '|'.
   Line 3: unknown task type 'X'.
   Line 4: status '2' should be 1 (done) or 0 (not done).
-  Line 5: expected 5 fields but found 3, for example: E | 0 | project meeting | Aug 6th 2pm | 4pm
+  Line 5: expected 5 fields but found 3, for example: E | 0 | project meeting | 2019-08-06 1400 | 2019-08-06 1600
 Bibi: Those entries are skipped, and will be dropped from the file the next time your task list changes.
 Bibi: Here are the tasks in your list:
 1. [T][X] read book
@@ -263,4 +263,113 @@ bye
 ```text
 Bibi: Task text cannot contain '|' because that character separates the fields in the save file.
 Bibi: Your task list is empty.
+```
+
+## Test 12: Understand dates and times in several formats
+
+Aim: Confirm that dates are parsed and shown in the display format, with the
+time kept only when one was given.
+
+### Input
+
+```text
+deadline return book /by 2/12/2019 1800
+deadline submit essay /by 2019-10-15
+event camp /from 2019-08-10 /to 2019-08-12
+list
+bye
+```
+
+### Expected output
+
+```text
+[D][ ] return book (by: Dec 02 2019 6:00PM)
+[D][ ] submit essay (by: Oct 15 2019)
+[E][ ] camp (from: Aug 10 2019 to: Aug 12 2019)
+Bibi: Here are the tasks in your list:
+1. [D][ ] return book (by: Dec 02 2019 6:00PM)
+2. [D][ ] submit essay (by: Oct 15 2019)
+3. [E][ ] camp (from: Aug 10 2019 to: Aug 12 2019)
+```
+
+## Test 13: Reject dates that cannot be understood
+
+Aim: Confirm that unreadable dates and impossible event ranges are refused with
+guidance instead of being stored as text.
+
+### Input
+
+```text
+deadline return book /by next Tuesday
+deadline return book /by 2019-13-45
+event camp /from 2019-08-12 /to 2019-08-10
+list
+bye
+```
+
+### Expected output
+
+```text
+Bibi: I could not read the date 'next Tuesday'. Use yyyy-MM-dd or d/M/yyyy, optionally followed by a 24-hour time, for example 2019-10-15 or 2/12/2019 1800.
+Bibi: I could not read the date '2019-13-45'.
+Bibi: An event cannot end before it starts.
+Bibi: Your task list is empty.
+```
+
+## Test 14: Report saved tasks whose dates predate this format
+
+Aim: Confirm that a save file written before dates were understood is reported
+rather than silently accepted.
+
+### Saved data
+
+```text
+T | 0 | read book
+D | 0 | return book | Sunday
+```
+
+### Input
+
+```text
+list
+bye
+```
+
+### Expected output
+
+```text
+Bibi: Loaded 1 saved task(s).
+Bibi: I had trouble reading part of your save file:
+  Line 2: I could not read the date 'Sunday'.
+Bibi: Here are the tasks in your list:
+1. [T][ ] read book
+```
+
+## Test 15: List what is happening on one date
+
+Aim: Confirm that the on command finds deadlines due that day and events running
+that day, keeps each task's number from the full list, and ignores ToDos.
+
+### Input
+
+```text
+todo read book
+deadline return book /by 2019-08-11
+event camp /from 2019-08-10 /to 2019-08-12
+event party /from 2019-08-11 1900 /to 2019-08-11 2300
+on 2019-08-11
+on 2019-12-25
+on someday
+bye
+```
+
+### Expected output
+
+```text
+Bibi: Here is what you have on Aug 11 2019:
+2. [D][ ] return book (by: Aug 11 2019)
+3. [E][ ] camp (from: Aug 10 2019 to: Aug 12 2019)
+4. [E][ ] party (from: Aug 11 2019 7:00PM to: Aug 11 2019 11:00PM)
+Bibi: You have nothing on Dec 25 2019.
+Bibi: I could not read the date 'someday'.
 ```

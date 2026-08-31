@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * Represents information shared by every kind of task.
  *
@@ -56,6 +58,19 @@ public abstract class Task {
      */
     public void markIncomplete() {
         complete = false;
+    }
+
+    /**
+     * Reports whether this task falls on the supplied date.
+     *
+     * <p>Task types that carry no date, such as a ToDo, are never on a
+     * particular date, so the default answer is {@code false}.
+     *
+     * @param queryDate the date being asked about
+     * @return {@code true} when this task belongs to that date
+     */
+    public boolean occursOn(LocalDate queryDate) {
+        return false;
     }
 
     /**

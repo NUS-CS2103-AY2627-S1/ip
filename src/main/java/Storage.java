@@ -150,11 +150,12 @@ public class Storage {
             yield new Todo(description);
         }
         case "D" -> {
-            requireFieldCount(fields, 4, "D | 0 | return book | June 6th");
+            requireFieldCount(fields, 4, "D | 0 | return book | 2019-06-06");
             yield new Deadline(description, fields[3]);
         }
         case "E" -> {
-            requireFieldCount(fields, 5, "E | 0 | project meeting | Aug 6th 2pm | 4pm");
+            requireFieldCount(fields, 5,
+                    "E | 0 | project meeting | 2019-08-06 1400 | 2019-08-06 1600");
             yield new Event(description, fields[3], fields[4]);
         }
         default -> throw new BibiException("unknown task type '" + fields[0] + "'.");

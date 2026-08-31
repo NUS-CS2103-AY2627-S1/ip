@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -92,7 +93,8 @@ public class Bibi {
         System.out.println(banner);
         System.out.println("Bibi: Enter todo <description>, deadline <description> /by <time>,");
         System.out.println("or event <description> /from <start> /to <end>.");
-        System.out.println("Bibi: Type list, mark <number>, unmark <number>, or bye.");
+        System.out.println("Bibi: Type list, on <date>, mark <number>, unmark <number>, or bye.");
+        System.out.println("Bibi: Dates look like 2019-10-15 or 2/12/2019 1800.");
     }
 
     private static void printHelp() {
@@ -102,6 +104,7 @@ public class Bibi {
         System.out.println("  deadline <description> /by <time>");
         System.out.println("  event <description> /from <start> /to <end>");
         System.out.println("  list");
+        System.out.println("  on <date>");
         System.out.println("  mark <number>");
         System.out.println("  unmark <number>");
         System.out.println("  remove <number>");
@@ -138,11 +141,13 @@ public class Bibi {
             unmarkTask(input.substring(7).trim(), tasks, storage);
         } else if (command.startsWith("remove ")) {
             removeTask(input.substring(7).trim(), tasks, storage);
+        } else if (command.equals("on") || command.startsWith("on ")) {
+            printTasksOn(input.substring(2).trim(), tasks);
         } else if (command.startsWith("help ")) {
             printHelp();
         } else {
             throw new BibiException("I don't understand that command. "
-                    + "Try todo, deadline, event, list, mark, unmark, or bye.");
+                    + "Try todo, deadline, event, list, on, mark, unmark, or bye.");
         }
     }
 
@@ -237,6 +242,41 @@ public class Bibi {
             for (int taskNumber = 1; taskNumber <= tasks.size(); taskNumber++) {
                 System.out.println(taskNumber + ". " + tasks.get(taskNumber));
             }
+        }
+        System.out.println(DIVIDER);
+    }
+
+    /**
+     * Prints the deadlines and events that fall on one particular date.
+     *
+     * <p>Each match keeps the number it has in the full list, so a task found
+     * this way can be marked or removed straight away.
+     *
+     * @param dateText the date supplied after {@code on}
+     * @param tasks the current task list
+     * @throws BibiException if the date cannot be understood
+     */
+    private static void printTasksOn(String dateText, TaskList tasks) throws BibiException {
+        // Any time of day in the query is ignored, since the question is which
+        // tasks belong to the day as a whole.
+        LocalDate queryDate = TaskDateTime.parse(dateText).getDate();
+        String shownDate = TaskDateTime.formatDate(queryDate);
+
+        System.out.println(DIVIDER);
+        boolean hasMatch = false;
+        for (int taskNumber = 1; taskNumber <= tasks.size(); taskNumber++) {
+            Task task = tasks.get(taskNumber);
+            if (!task.occursOn(queryDate)) {
+                continue;
+            }
+            if (!hasMatch) {
+                System.out.println("Bibi: Here is what you have on " + shownDate + ":");
+                hasMatch = true;
+            }
+            System.out.println(taskNumber + ". " + task);
+        }
+        if (!hasMatch) {
+            System.out.println("Bibi: You have nothing on " + shownDate + ".");
         }
         System.out.println(DIVIDER);
     }
