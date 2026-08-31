@@ -45,3 +45,29 @@ commands):
 On Windows `cmd`, use `gradlew.bat` instead of `./gradlew`.
 
 Tasks are saved to `./data/bibi.txt`, relative to the folder the build runs in.
+
+## Packaging as a runnable JAR
+
+The build uses the Shadow plugin to produce a *fat* JAR: one file containing the
+compiled classes and any dependencies, so nothing else needs to be installed
+alongside it.
+
+Create it:
+
+```
+./gradlew shadowJar
+```
+
+The result is written to `build/libs/bibi.jar`. That folder is ignored by Git,
+because generated binaries do not belong in the repository; publish the JAR
+through a GitHub release instead.
+
+Run it from any folder:
+
+```
+java -jar "bibi.jar"
+```
+
+Bibi creates its `data/bibi.txt` save file relative to the folder the command is
+run in, so copying the JAR into an empty folder gives it a fresh task list, and
+running it there again restores what was saved.
