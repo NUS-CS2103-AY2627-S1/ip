@@ -79,6 +79,37 @@ public class TaskTest {
     }
 
     @Test
+    public void hasKeyword_wordInTheDescription_matches() throws BibiException {
+        assertTrue(new Todo("read book").hasKeyword("book"));
+        assertTrue(new Todo("read book").hasKeyword("read"));
+    }
+
+    @Test
+    public void hasKeyword_differentCase_stillMatches() throws BibiException {
+        assertTrue(new Todo("Read Book").hasKeyword("book"));
+        assertTrue(new Todo("read book").hasKeyword("BOOK"));
+    }
+
+    @Test
+    public void hasKeyword_partOfAWord_matches() throws BibiException {
+        // Searching is a plain substring match, so a prefix finds the word.
+        assertTrue(new Todo("read book").hasKeyword("boo"));
+    }
+
+    @Test
+    public void hasKeyword_absentWord_doesNotMatch() throws BibiException {
+        assertFalse(new Todo("read book").hasKeyword("essay"));
+    }
+
+    @Test
+    public void hasKeyword_textOutsideTheDescription_doesNotMatch() throws BibiException {
+        // Only the description is searched, not the dates or the type code.
+        Deadline deadline = new Deadline("return book", "2019-06-06");
+        assertFalse(deadline.hasKeyword("2019"));
+        assertFalse(deadline.hasKeyword("Jun"));
+    }
+
+    @Test
     public void newTask_blankDescription_exceptionThrown() {
         assertThrows(BibiException.class, () -> new Todo(""));
         assertThrows(BibiException.class, () -> new Todo("   "));

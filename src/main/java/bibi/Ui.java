@@ -115,7 +115,7 @@ public class Ui {
         System.out.println(banner);
         showMessage("Enter todo <description>, deadline <description> /by <time>,");
         showPlain("or event <description> /from <start> /to <end>.");
-        showMessage("Type list, on <date>, mark <number>, unmark <number>, or bye.");
+        showMessage("Type list, find <keyword>, on <date>, mark <number>, or bye.");
         showMessage("Dates look like 2019-10-15 or 2/12/2019 1800.");
     }
 
@@ -128,6 +128,7 @@ public class Ui {
         showDetail("deadline <description> /by <time>");
         showDetail("event <description> /from <start> /to <end>");
         showDetail("list");
+        showDetail("find <keyword>");
         showDetail("on <date>");
         showDetail("mark <number>");
         showDetail("unmark <number>");
