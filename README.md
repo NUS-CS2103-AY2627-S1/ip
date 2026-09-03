@@ -1,6 +1,16 @@
 # Bibi project template
 
-This is a project template for a greenfield Java project. This project uses Bibi as its chatbot name.
+Bibi is your friendly neighbourhood clanker! 
+
+Use me to log your tasks _simply_ and _safely_. Privacy and confidentiality is at the core of our work. Created as part of CS2103T 26/27.
+
+All you need to do is:
+
+download it from the repo link.
+set up as below.
+add your tasks.
+let it manage your tasks for you 😉
+And it is FREE!
 
 ## Setting up in Intellij
 
