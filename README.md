@@ -56,6 +56,30 @@ On Windows `cmd`, use `gradlew.bat` instead of `./gradlew`.
 
 Tasks are saved to `./data/bibi.txt`, relative to the folder the build runs in.
 
+## Checking the coding standard
+
+The build applies [Checkstyle](https://checkstyle.org) to enforce the
+[SE-EDU intermediate Java coding standard](https://se-education.org/guides/conventions/java/intermediate.html)
+mechanically, so style is settled by the tool rather than by argument in review.
+The rules live in `config/checkstyle/checkstyle.xml`, with narrow exemptions in
+`config/checkstyle/suppressions.xml`.
+
+Run it on its own:
+
+```
+./gradlew checkstyleMain checkstyleTest
+```
+
+Checkstyle also runs as part of `./gradlew check` and `./gradlew build`, so a
+style violation fails the build the same way a failing test does.
+
+When something is flagged, the console names the file, line, and rule. A browsable
+report is written to `build/reports/checkstyle/main.html` (and `test.html`).
+
+Note that the build sets `maxWarnings = 0`. Most rules in the SE-EDU config carry
+severity `warning`, and Gradle fails a Checkstyle task on errors only, so without
+that setting those rules would be reported and then ignored.
+
 ## Packaging as a runnable JAR
 
 The build uses the Shadow plugin to produce a *fat* JAR: one file containing the

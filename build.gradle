@@ -9,6 +9,12 @@ plugins {
 // in config/checkstyle/checkstyle.xml.
 checkstyle {
     toolVersion = '10.21.4'
+
+    // Most rules in the SE-EDU config carry severity "warning", and a Gradle
+    // Checkstyle task fails on errors only. Left at the default, every one of
+    // those rules would be reported and then ignored, which is the same as not
+    // having them at all. Zero tolerated warnings is what makes them binding.
+    maxWarnings = 0
 }
 
 java {
