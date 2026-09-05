@@ -128,12 +128,19 @@ public class Ui {
     }
 
     /**
-     * Prints a supporting line that continues the message above it.
+     * Prints supporting lines that continue the message above them.
      *
-     * @param detail the text to indent
+     * <p>Takes varargs because the callers with several of these, {@link #showHelp()}
+     * above all, have them as a fixed list written out in place. One call listing
+     * them reads better than a run of near-identical calls, and the caller that
+     * has only one line to show is unaffected.
+     *
+     * @param details the lines to indent, shown in the order given
      */
-    public void showDetail(String detail) {
-        write("  " + detail);
+    public void showDetail(String... details) {
+        for (String detail : details) {
+            write("  " + detail);
+        }
     }
 
     /**
@@ -186,17 +193,18 @@ public class Ui {
      */
     public void showHelp() {
         showMessage("Here are the commands I understand:");
-        showDetail("todo <description>");
-        showDetail("deadline <description> /by <time>");
-        showDetail("event <description> /from <start> /to <end>");
-        showDetail("list");
-        showDetail("find <keyword>");
-        showDetail("on <date>");
-        showDetail("mark <number>");
-        showDetail("unmark <number>");
-        showDetail("remove <number>");
-        showDetail("help");
-        showDetail("bye");
+        showDetail(
+                "todo <description>",
+                "deadline <description> /by <time>",
+                "event <description> /from <start> /to <end>",
+                "list",
+                "find <keyword>",
+                "on <date>",
+                "mark <number>",
+                "unmark <number>",
+                "remove <number>",
+                "help",
+                "bye");
     }
 
     /**

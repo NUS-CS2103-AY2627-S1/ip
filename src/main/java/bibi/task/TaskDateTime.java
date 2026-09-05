@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -37,14 +38,12 @@ public class TaskDateTime {
      * Input formats that include a time of day, tried before the date-only
      * formats so that {@code 2/12/2019 1800} is not mistaken for a bad date.
      */
-    private static final List<DateTimeFormatter> DATE_TIME_FORMATS = List.of(
-            strictFormat("uuuu-MM-dd HHmm"),
-            strictFormat("d/M/uuuu HHmm"));
+    private static final List<DateTimeFormatter> DATE_TIME_FORMATS =
+            strictFormats("uuuu-MM-dd HHmm", "d/M/uuuu HHmm");
 
     /** Input formats that give a date only. The first is also the saved form. */
-    private static final List<DateTimeFormatter> DATE_FORMATS = List.of(
-            strictFormat("uuuu-MM-dd"),
-            strictFormat("d/M/uuuu"));
+    private static final List<DateTimeFormatter> DATE_FORMATS =
+            strictFormats("uuuu-MM-dd", "d/M/uuuu");
 
     /** Guidance repeated wherever a date fails to parse. */
     private static final String FORMAT_HELP =
@@ -68,7 +67,7 @@ public class TaskDateTime {
     }
 
     /**
-     * Builds a formatter that refuses dates which do not exist.
+     * Builds formatters that refuse dates which do not exist.
      *
      * <p>Java's default resolver quietly moves an impossible date such as
      * 2019-02-30 back to the last real day of the month. Strict resolving
@@ -76,12 +75,18 @@ public class TaskDateTime {
      * Strict resolving also requires {@code uuuu} for the year rather than
      * {@code yyyy}, because the latter is the year within an era.
      *
-     * @param pattern the date pattern to accept
-     * @return a formatter for that pattern
+     * <p>Takes the patterns as varargs so that a group of accepted formats is
+     * declared as the list of patterns it really is, rather than as a list of
+     * separately wrapped calls.
+     *
+     * @param patterns the date patterns to accept, in the order they are tried
+     * @return one strict formatter per pattern, in the same order
      */
-    private static DateTimeFormatter strictFormat(String pattern) {
-        return DateTimeFormatter.ofPattern(pattern, FORMAT_LOCALE)
-                .withResolverStyle(ResolverStyle.STRICT);
+    private static List<DateTimeFormatter> strictFormats(String... patterns) {
+        return Arrays.stream(patterns)
+                .map(pattern -> DateTimeFormatter.ofPattern(pattern, FORMAT_LOCALE)
+                        .withResolverStyle(ResolverStyle.STRICT))
+                .toList();
     }
 
     /**

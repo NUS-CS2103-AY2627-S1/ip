@@ -119,4 +119,19 @@ public class BibiTest {
         assertTrue(greeting.contains("I had trouble reading part of your save file:"));
         assertTrue(bibi.getResponse("list").contains("1. [T][ ] borrow book"));
     }
+
+    @Test
+    public void getResponse_help_listsEveryCommand(@TempDir Path tempDir) {
+        Bibi bibi = new Bibi(tempDir.resolve("bibi.txt"));
+
+        String response = bibi.getResponse("help");
+
+        // Ui.showDetail takes the whole list as varargs, so one missing entry
+        // would be a silently dropped argument rather than a missing call.
+        for (String commandWord : new String[] {
+            "todo", "deadline", "event", "list", "find", "on", "mark", "unmark", "remove",
+            "help", "bye"}) {
+            assertTrue(response.contains(commandWord), "help omitted " + commandWord);
+        }
+    }
 }
