@@ -28,6 +28,29 @@ repositories {
 
 dependencies {
     String jUnitVersion = '5.14.4'
+    String javaFxVersion = '25.0.3'
+
+    // JavaFX ships a separate native library per platform, so each module is
+    // declared once per platform rather than once in total. Listing them all
+    // means the fat JAR built on one operating system still runs on the others;
+    // naming only the platform it was built on is the usual reason a JAR works
+    // for its author and for nobody else.
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac-aarch64'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac-aarch64'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac-aarch64'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac-aarch64'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
 
     testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
 
@@ -50,7 +73,21 @@ test {
 }
 
 application {
+    // Launcher, not Main: see that class for why JavaFX will not start from a
+    // class that extends Application when its runtime is on the classpath.
+    mainClass = 'bibi.Launcher'
+}
+
+// The console interface outlived the arrival of the GUI because the scripted UI
+// tests drive it, and a console is far easier to feed a script than a window is.
+// This is how those tests, and anyone who prefers typing, start it.
+tasks.register('runCli', JavaExec) {
+    group = 'application'
+    description = 'Runs the text-based interface instead of the GUI.'
+
+    classpath = sourceSets.main.runtimeClasspath
     mainClass = 'bibi.Bibi'
+    standardInput = System.in
 }
 
 jar {

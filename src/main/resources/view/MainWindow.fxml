@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+  The transcript fills the window and the input row is pinned to the bottom, so
+  the conversation grows into whatever space the user gives it. The anchors, not
+  fixed sizes, are what make the window resizable.
+-->
+<AnchorPane prefHeight="600.0" prefWidth="450.0"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="bibi.MainWindow">
+  <children>
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" vvalue="1.0"
+                AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="42.0">
+      <content>
+        <VBox fx:id="dialogContainer" fillWidth="true" />
+      </content>
+    </ScrollPane>
+
+    <TextField fx:id="userInput" promptText="Type a command, then press Enter"
+               onAction="#handleUserInput" prefHeight="42.0"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="76.0"
+               AnchorPane.bottomAnchor="0.0" />
+
+    <Button fx:id="sendButton" text="Send" mnemonicParsing="false"
+            onAction="#handleUserInput" prefHeight="42.0" prefWidth="76.0"
+            AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+  </children>
+</AnchorPane>

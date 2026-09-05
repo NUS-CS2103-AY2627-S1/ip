@@ -59,15 +59,21 @@ def ensure_java_25(command: str) -> None:
 
 
 def compile_application(project_root: Path, javac: str) -> None:
-    """Compile all Java source files into the project's out directory."""
+    """Compile the console application into the project's out directory.
+
+    Only the console entry point is named. javac follows it to everything it
+    actually uses, which leaves the JavaFX classes out: they need the JavaFX
+    jars on the classpath, this script has no way to find them, and no console
+    test ever reaches them.
+    """
     source_dir = project_root / "src" / "main" / "java"
-    # Recursive, because the sources are organised into package folders.
-    source_files = sorted(source_dir.rglob("*.java"))
-    if not source_files:
-        raise RuntimeError(f"No Java source files found in {source_dir}")
+    entry_point = source_dir / "bibi" / "Bibi.java"
+    if not entry_point.exists():
+        raise RuntimeError(f"Console entry point not found at {entry_point}")
 
     result = subprocess.run(
-        [javac, "-d", str(project_root / "out"), *(str(path) for path in source_files)],
+        [javac, "-d", str(project_root / "out"), "--source-path", str(source_dir),
+         str(entry_point)],
         cwd=project_root,
         capture_output=True,
         text=True,

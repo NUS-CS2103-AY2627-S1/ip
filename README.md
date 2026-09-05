@@ -23,7 +23,8 @@ Prerequisites: JDK 25, update Intellij to the most recent version.
    1. If there are any further prompts, accept the defaults.
 1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/bibi/Bibi.java` file, right-click it, and choose `Run Bibi.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see Bibi's welcome banner and command instructions.
+1. After that, locate the `src/main/java/bibi/Launcher.java` file, right-click it, and choose `Run Launcher.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, a window opens showing Bibi's greeting, with a box to type commands into.
+1. The text-based interface is still there. Run `src/main/java/bibi/Bibi.java` the same way to get it, and it greets you in the console with the banner:
    ```
    B B B B    i    b b b    i
    B       B       b       b
@@ -31,6 +32,8 @@ Prerequisites: JDK 25, update Intellij to the most recent version.
    B       B  i    b       b  i
    B B B B  iii   b b b b  iii
    ```
+
+**Note:** always start the GUI from `Launcher`, never from `Main`. JavaFX refuses to start when the class holding `main` extends `Application` and the JavaFX runtime is on the classpath, which is how this project supplies it; the error reads `JavaFX runtime components are missing`.
 
 **Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
 
@@ -45,16 +48,23 @@ Compile everything:
 ./gradlew compileJava
 ```
 
-Run the chatbot (`standardInput` is wired to the console, so Bibi can read your
-commands):
+Run the chatbot. This opens the GUI:
 
 ```
 ./gradlew run
 ```
 
+The text-based interface has its own task. It is what the scripted UI tests
+drive, since a console is far easier to feed a script than a window is:
+
+```
+./gradlew runCli
+```
+
 On Windows `cmd`, use `gradlew.bat` instead of `./gradlew`.
 
-Tasks are saved to `./data/bibi.txt`, relative to the folder the build runs in.
+Both interfaces are the same chatbot underneath, and both save to
+`./data/bibi.txt`, relative to the folder the build runs in.
 
 ## Checking the coding standard
 
@@ -96,10 +106,16 @@ The result is written to `build/libs/bibi.jar`. That folder is ignored by Git,
 because generated binaries do not belong in the repository; publish the JAR
 through a GitHub release instead.
 
-Run it from any folder:
+Run it from any folder. This opens the GUI:
 
 ```
 java -jar "bibi.jar"
+```
+
+The same JAR still holds the text-based interface:
+
+```
+java -cp "bibi.jar" bibi.Bibi
 ```
 
 Bibi creates its `data/bibi.txt` save file relative to the folder the command is
