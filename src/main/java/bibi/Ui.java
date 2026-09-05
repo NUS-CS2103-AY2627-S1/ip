@@ -11,10 +11,15 @@ import bibi.task.Task;
 /**
  * Handles everything Bibi shows to the user and reads back from them.
  *
- * <p>This class owns the mechanics of the console conversation: the prompt, the
- * divider lines, the {@code Bibi:} prefix, and the numbering of listed tasks.
- * Wording that belongs to one particular operation is passed in by the caller,
- * so that adding a command does not mean adding a method here.
+ * <p>This class owns the mechanics of the conversation: the prompt, the divider
+ * lines, the {@code Bibi:} prefix, and the numbering of listed tasks. Wording
+ * that belongs to one particular operation is passed in by the caller, so that
+ * adding a command does not mean adding a method here.
+ *
+ * <p>Every line leaves through {@link #write(String)}, which either prints to the
+ * console or collects the line in memory. Collecting is what lets the GUI reuse
+ * the commands unchanged: it asks for the same work to be done, then takes the
+ * text that would have been printed and puts it in a dialog box instead.
  *
  * <p>Keeping all console access in one place means the rest of the program never
  * calls {@code System.out} directly, which is what makes the other classes
@@ -29,11 +34,55 @@ public class Ui {
 
     private final Scanner scanner;
 
+    /** Lines collected while capturing, in the order they were written. */
+    private final StringBuilder capturedText = new StringBuilder();
+
+    /** Whether output is being collected rather than printed. */
+    private boolean isCapturing;
+
     /**
      * Creates a user interface that reads from standard input.
      */
     public Ui() {
         scanner = new Scanner(System.in);
+    }
+
+    /**
+     * Starts collecting output instead of printing it, discarding anything held
+     * from an earlier collection.
+     *
+     * <p>Used by the GUI, which needs the words as a string rather than on the
+     * console.
+     */
+    public void startCapture() {
+        isCapturing = true;
+        capturedText.setLength(0);
+    }
+
+    /**
+     * Stops collecting and returns everything written since {@link #startCapture()}.
+     *
+     * @return the collected lines, separated by newlines and trimmed of blank ends
+     */
+    public String takeCapturedText() {
+        isCapturing = false;
+        return capturedText.toString().strip();
+    }
+
+    /**
+     * Sends one line to wherever output is currently going.
+     *
+     * <p>A newline is used rather than the platform separator because captured
+     * text is destined for a JavaFX label, which only breaks lines on {@code \n}.
+     *
+     * @param line the line to show, already formatted
+     */
+    private void write(String line) {
+        if (isCapturing) {
+            capturedText.append(line).append('\n');
+        } else {
+            System.out.println(line);
+        }
     }
 
     /**
@@ -64,7 +113,7 @@ public class Ui {
      * Prints the divider line used to separate blocks of output.
      */
     public void showLine() {
-        System.out.println(DIVIDER);
+        write(DIVIDER);
     }
 
     /**
@@ -73,7 +122,9 @@ public class Ui {
      * @param message the words to show, without the speaker prefix
      */
     public void showMessage(String message) {
-        System.out.println(SPEAKER + message);
+        // The GUI puts Bibi's picture beside every reply, so the prefix that names
+        // the speaker in the console would only be noise repeated down the window.
+        write(isCapturing ? message : SPEAKER + message);
     }
 
     /**
@@ -82,7 +133,7 @@ public class Ui {
      * @param detail the text to indent
      */
     public void showDetail(String detail) {
-        System.out.println("  " + detail);
+        write("  " + detail);
     }
 
     /**
@@ -91,7 +142,7 @@ public class Ui {
      * @param text the text to show
      */
     public void showPlain(String text) {
-        System.out.println(text);
+        write(text);
     }
 
     /**
@@ -101,19 +152,29 @@ public class Ui {
      * @param task the task to show
      */
     public void showNumberedTask(int taskNumber, Task task) {
-        System.out.println(taskNumber + ". " + task);
+        write(taskNumber + ". " + task);
     }
 
     /**
-     * Prints the opening banner and a summary of the supported commands.
+     * Prints the opening banner.
+     *
+     * <p>Kept apart from {@link #showWelcome()} because the letters are drawn out
+     * of spaced characters and only line up in the console's fixed-width font.
+     * The GUI shows the welcome without it.
      */
-    public void showWelcome() {
+    public void showBanner() {
         String banner = "B B B B    i    b b b    i\n"
                 + "B       B       b       b\n"
                 + "B B B B   iii   b b b b  iii\n"
                 + "B       B  i    b       b  i\n"
                 + "B B B B  iii   b b b b  iii\n";
-        System.out.println(banner);
+        write(banner);
+    }
+
+    /**
+     * Prints the greeting and a summary of the supported commands.
+     */
+    public void showWelcome() {
         showMessage("Enter todo <description>, deadline <description> /by <time>,");
         showPlain("or event <description> /from <start> /to <end>.");
         showMessage("Type list, find <keyword>, on <date>, mark <number>, or bye.");

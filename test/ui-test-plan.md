@@ -2,6 +2,8 @@
 
 Each expected-output block contains ordered output fragments. The test-ui skill checks that each fragment appears in the console output after the previous fragment.
 
+These cases drive the text-based interface (`./gradlew runCli`). They cover the GUI too, because both interfaces hand the same typed line to the same parser and commands; only the last step, printing versus putting the words in a dialog box, differs. What they do not cover is the window itself, which has to be checked by opening it.
+
 ## Test 1: Add and list a ToDo
 
 Aim: Confirm that a ToDo is stored without date or time details.
