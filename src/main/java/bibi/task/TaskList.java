@@ -13,17 +13,25 @@ public class TaskList {
     private final List<Task> tasks;
 
     /**
-     * Creates an empty task list.
+     * Creates a task list holding the tasks given, in the order given.
+     *
+     * <p>Varargs, so that both common cases read directly: {@code new TaskList()}
+     * for an empty list, and {@code new TaskList(todo, deadline)} where the tasks
+     * are known where the list is built, as they are throughout the tests. This
+     * replaces a separate no-argument constructor, which it already covers.
+     *
+     * @param initialTasks the tasks to start with, if any
      */
-    public TaskList() {
-        tasks = new ArrayList<>();
+    public TaskList(Task... initialTasks) {
+        tasks = new ArrayList<>(List.of(initialTasks));
     }
 
     /**
      * Creates a task list holding the supplied tasks, in the given order.
      *
-     * <p>The tasks are copied, so later changes to this list do not disturb the
-     * list that was handed in, such as one just read from the save file.
+     * <p>Kept alongside the varargs form for callers that already hold a list,
+     * such as the one just read from the save file. The tasks are copied, so
+     * later changes to this list do not disturb the list handed in.
      *
      * @param initialTasks the tasks to start with
      */

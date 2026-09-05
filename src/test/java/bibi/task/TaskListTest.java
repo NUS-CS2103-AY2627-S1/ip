@@ -30,8 +30,8 @@ public class TaskListTest {
     }
 
     @Test
-    public void newList_fromExistingTasks_holdsThemInOrder() throws BibiException {
-        TaskList tasks = new TaskList(List.of(todo("first"), todo("second")));
+    public void newList_severalTasks_holdsThemInOrder() throws BibiException {
+        TaskList tasks = new TaskList(todo("first"), todo("second"));
 
         assertEquals(2, tasks.size());
         assertFalse(tasks.isEmpty());
@@ -53,7 +53,7 @@ public class TaskListTest {
 
     @Test
     public void get_firstAndLastNumbers_returnsTheMatchingTask() throws BibiException {
-        TaskList tasks = new TaskList(List.of(todo("first"), todo("second"), todo("third")));
+        TaskList tasks = new TaskList(todo("first"), todo("second"), todo("third"));
 
         assertEquals("[T][ ] first", tasks.get(1).toString());
         assertEquals("[T][ ] third", tasks.get(3).toString());
@@ -61,7 +61,7 @@ public class TaskListTest {
 
     @Test
     public void get_numberOutsideTheList_exceptionThrown() throws BibiException {
-        TaskList tasks = new TaskList(List.of(todo("only")));
+        TaskList tasks = new TaskList(todo("only"));
 
         assertThrows(BibiException.class, () -> tasks.get(0));
         assertThrows(BibiException.class, () -> tasks.get(2));
@@ -76,7 +76,7 @@ public class TaskListTest {
 
     @Test
     public void remove_middleTask_laterTasksShiftDown() throws BibiException {
-        TaskList tasks = new TaskList(List.of(todo("first"), todo("second"), todo("third")));
+        TaskList tasks = new TaskList(todo("first"), todo("second"), todo("third"));
 
         Task removed = tasks.remove(2);
 
@@ -87,7 +87,7 @@ public class TaskListTest {
 
     @Test
     public void remove_numberOutsideTheList_listUnchanged() throws BibiException {
-        TaskList tasks = new TaskList(List.of(todo("only")));
+        TaskList tasks = new TaskList(todo("only"));
 
         assertThrows(BibiException.class, () -> tasks.remove(2));
         assertEquals(1, tasks.size());
@@ -95,7 +95,7 @@ public class TaskListTest {
 
     @Test
     public void getTasks_returnedList_cannotBeChanged() throws BibiException {
-        TaskList tasks = new TaskList(List.of(todo("first")));
+        TaskList tasks = new TaskList(todo("first"));
 
         assertThrows(UnsupportedOperationException.class, () ->
                 tasks.getTasks().add(todo("sneaked in")));
@@ -108,5 +108,26 @@ public class TaskListTest {
 
         assertEquals(1, tasks.getTasks().size());
         assertEquals("[T][ ] first", tasks.getTasks().get(0).toString());
+    }
+
+    @Test
+    public void newList_fromAList_holdsThemInOrder() throws BibiException {
+        // The List overload is still the one Bibi uses for tasks read from disk.
+        TaskList tasks = new TaskList(List.of(todo("first"), todo("second")));
+
+        assertEquals(2, tasks.size());
+        assertEquals("[T][ ] second", tasks.get(2).toString());
+    }
+
+    @Test
+    public void newList_fromAnArray_laterChangesDoNotAffectTheSource() throws BibiException {
+        // Varargs hands the constructor an array the caller still holds, so the
+        // copying the List overload does has to happen here too.
+        Task[] source = {todo("first"), todo("second")};
+        TaskList tasks = new TaskList(source);
+
+        source[0] = todo("swapped in");
+
+        assertEquals("[T][ ] first", tasks.get(1).toString());
     }
 }
