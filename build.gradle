@@ -88,6 +88,7 @@ tasks.register('runCli', JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     mainClass = 'bibi.Bibi'
     standardInput = System.in
+    enableAssertions = true
 }
 
 jar {
@@ -103,4 +104,10 @@ shadowJar {
 
 run {
     standardInput = System.in
+
+    // Assertions are off by default in the JVM, and Gradle leaves them off for
+    // JavaExec tasks, so without this the assert statements would be dead text
+    // whenever the app is run rather than tested. The test task enables them
+    // on its own.
+    enableAssertions = true
 }

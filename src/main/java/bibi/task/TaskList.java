@@ -112,6 +112,12 @@ public class TaskList {
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new BibiException("That task number does not exist.");
         }
+
+        // Every caller indexes the list with this result, so anything that got
+        // past the check above would surface as an IndexOutOfBoundsException far
+        // from the mistake that caused it.
+        assert taskIndex >= 0 && taskIndex < tasks.size()
+                : "toIndex returned " + taskIndex + " for a list of " + tasks.size();
         return taskIndex;
     }
 }
