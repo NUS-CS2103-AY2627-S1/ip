@@ -1,5 +1,8 @@
 package bibi.command;
 
+import java.util.List;
+import java.util.stream.IntStream;
+
 import bibi.Storage;
 import bibi.Ui;
 import bibi.task.Task;
@@ -31,25 +34,27 @@ public abstract class FilterCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        boolean hasMatch = false;
+        List<Task> allTasks = tasks.getTasks();
 
-        int taskNumber = 1;
-        for (Task task : tasks.getTasks()) {
-            if (matches(task)) {
-                // The heading is shown lazily, so that a search with no results
-                // does not announce a list it is about to leave empty.
-                if (!hasMatch) {
-                    ui.showMessage(getHeader());
-                    hasMatch = true;
-                }
-                ui.showNumberedTask(taskNumber, task);
-            }
-            taskNumber++;
-        }
+        // The numbers are streamed rather than the tasks, because the number a
+        // task carries in the full list is part of what is being shown, and
+        // filtering a stream of tasks would throw that position away.
+        List<Integer> matchNumbers = IntStream.rangeClosed(1, allTasks.size())
+                .filter(taskNumber -> matches(allTasks.get(taskNumber - 1)))
+                .boxed()
+                .toList();
 
-        if (!hasMatch) {
+        // Working out the matches before showing any of them is what lets the
+        // heading be decided up front, rather than by a flag carried through
+        // the walk to remember whether it had been printed yet.
+        if (matchNumbers.isEmpty()) {
             ui.showMessage(getNoMatchMessage());
+            return;
         }
+
+        ui.showMessage(getHeader());
+        matchNumbers.forEach(taskNumber ->
+                ui.showNumberedTask(taskNumber, allTasks.get(taskNumber - 1)));
     }
 
     /**
