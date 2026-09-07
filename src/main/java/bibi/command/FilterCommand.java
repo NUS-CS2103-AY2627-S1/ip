@@ -36,25 +36,27 @@ public abstract class FilterCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         List<Task> allTasks = tasks.getTasks();
 
-        // The numbers are streamed rather than the tasks, because the number a
-        // task carries in the full list is part of what is being shown, and
-        // filtering a stream of tasks would throw that position away.
-        List<Integer> matchNumbers = IntStream.rangeClosed(1, allTasks.size())
-                .filter(taskNumber -> matches(allTasks.get(taskNumber - 1)))
+        // Positions are streamed rather than the tasks, because where a task
+        // sits in the full list is part of what is being shown, and filtering a
+        // stream of tasks would throw that position away. They are kept as
+        // list indexes and turned into the numbers the user sees only at the
+        // point of display, so the conversion happens once.
+        List<Integer> matchIndexes = IntStream.range(0, allTasks.size())
+                .filter(index -> matches(allTasks.get(index)))
                 .boxed()
                 .toList();
 
         // Working out the matches before showing any of them is what lets the
         // heading be decided up front, rather than by a flag carried through
         // the walk to remember whether it had been printed yet.
-        if (matchNumbers.isEmpty()) {
+        if (matchIndexes.isEmpty()) {
             ui.showMessage(getNoMatchMessage());
             return;
         }
 
         ui.showMessage(getHeader());
-        matchNumbers.forEach(taskNumber ->
-                ui.showNumberedTask(taskNumber, allTasks.get(taskNumber - 1)));
+        matchIndexes.forEach(index ->
+                ui.showNumberedTask(index + 1, allTasks.get(index)));
     }
 
     /**
