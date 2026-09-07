@@ -1,6 +1,8 @@
 package bibi.command;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.IntStream;
 
 import bibi.Storage;
 import bibi.Ui;
@@ -30,24 +32,24 @@ public class OnCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         String shownDate = TaskDateTime.formatDate(queryDate);
-        boolean hasMatch = false;
+        List<Task> allTasks = tasks.getTasks();
 
         // Matches keep the number they have in the full list, so a task found
         // this way can be marked or removed without listing everything first.
-        int taskNumber = 1;
-        for (Task task : tasks.getTasks()) {
-            if (task.occursOn(queryDate)) {
-                if (!hasMatch) {
-                    ui.showMessage("Here is what you have on " + shownDate + ":");
-                    hasMatch = true;
-                }
-                ui.showNumberedTask(taskNumber, task);
-            }
-            taskNumber++;
+        // Streaming the numbers rather than the tasks is what keeps that number
+        // available after filtering.
+        List<Integer> matchNumbers = IntStream.rangeClosed(1, allTasks.size())
+                .filter(taskNumber -> allTasks.get(taskNumber - 1).occursOn(queryDate))
+                .boxed()
+                .toList();
+
+        if (matchNumbers.isEmpty()) {
+            ui.showMessage("You have nothing on " + shownDate + ".");
+            return;
         }
 
-        if (!hasMatch) {
-            ui.showMessage("You have nothing on " + shownDate + ".");
-        }
+        ui.showMessage("Here is what you have on " + shownDate + ":");
+        matchNumbers.forEach(taskNumber ->
+                ui.showNumberedTask(taskNumber, allTasks.get(taskNumber - 1)));
     }
 }

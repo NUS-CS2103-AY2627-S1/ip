@@ -61,10 +61,12 @@ public class Storage {
             Files.createDirectories(parentFolder);
         }
 
-        List<String> lines = new ArrayList<>();
-        for (Task task : tasks) {
-            lines.add(task.toFileFormat());
-        }
+        // Encoding the tasks is a straight one-to-one mapping, which a stream
+        // states directly instead of spreading over an empty list, a loop and
+        // an add.
+        List<String> lines = tasks.stream()
+                .map(Task::toFileFormat)
+                .toList();
         Files.write(filePath, lines);
     }
 

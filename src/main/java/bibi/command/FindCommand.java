@@ -1,5 +1,8 @@
 package bibi.command;
 
+import java.util.List;
+import java.util.stream.IntStream;
+
 import bibi.Storage;
 import bibi.Ui;
 import bibi.task.Task;
@@ -26,24 +29,24 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        boolean hasMatch = false;
+        List<Task> allTasks = tasks.getTasks();
 
         // Matches keep the number they have in the full list, as the on command
         // does, so a task found this way can be marked or removed straight away.
-        int taskNumber = 1;
-        for (Task task : tasks.getTasks()) {
-            if (task.hasKeyword(keyword)) {
-                if (!hasMatch) {
-                    ui.showMessage("Here are the matching tasks in your list:");
-                    hasMatch = true;
-                }
-                ui.showNumberedTask(taskNumber, task);
-            }
-            taskNumber++;
+        // Streaming the numbers rather than the tasks is what keeps that number
+        // available after filtering.
+        List<Integer> matchNumbers = IntStream.rangeClosed(1, allTasks.size())
+                .filter(taskNumber -> allTasks.get(taskNumber - 1).hasKeyword(keyword))
+                .boxed()
+                .toList();
+
+        if (matchNumbers.isEmpty()) {
+            ui.showMessage("No tasks match '" + keyword + "'.");
+            return;
         }
 
-        if (!hasMatch) {
-            ui.showMessage("No tasks match '" + keyword + "'.");
-        }
+        ui.showMessage("Here are the matching tasks in your list:");
+        matchNumbers.forEach(taskNumber ->
+                ui.showNumberedTask(taskNumber, allTasks.get(taskNumber - 1)));
     }
 }
