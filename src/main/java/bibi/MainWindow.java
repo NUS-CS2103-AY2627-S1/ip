@@ -72,6 +72,11 @@ public class MainWindow {
      */
     @FXML
     private void handleUserInput() {
+        // Main calls setBibi immediately after loading the FXML. Without it the
+        // next line would throw a NullPointerException from inside an FXML event
+        // handler, where JavaFX swallows the cause into a long trace.
+        assert bibi != null : "setBibi was not called before the window accepted input";
+
         String input = userInput.getText();
         if (input.isBlank()) {
             return;

@@ -123,6 +123,12 @@ public abstract class Task {
      * @return the encoded task, for example {@code D | 0 | return book | Sunday}
      */
     public String toFileFormat() {
+        // requireTaskText rejects the separator when a task is built, so this
+        // holds unless a subclass bypasses it. If one ever did, the file would
+        // still be written and would only fail confusingly on the next load.
+        assert !description.contains(FIELD_SEPARATOR)
+                : "description contains the field separator: " + description;
+
         return getTypeCode()
                 + " " + FIELD_SEPARATOR + " " + (complete ? "1" : "0")
                 + " " + FIELD_SEPARATOR + " " + description
