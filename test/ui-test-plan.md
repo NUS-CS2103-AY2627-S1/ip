@@ -128,7 +128,7 @@ bye
 
 ```text
 Bibi: Please enter a command.
-Bibi: I don't understand that command. Try todo, deadline, event, list, find, on, mark, unmark, or bye.
+Bibi: I don't understand that command. Try todo, deadline, event, list, sort, find, on, mark, unmark, or bye.
 Bibi: Use todo followed by a description.
 Bibi: Use mark followed by a task number, for example: mark 2
 ```
@@ -395,6 +395,7 @@ Bibi: Here are the commands I understand:
   deadline <description> /by <time>
   event <description> /from <start> /to <end>
   list
+  sort
   find <keyword>
   on <date>
   mark <number>
@@ -434,4 +435,57 @@ Bibi: Here are the matching tasks in your list:
 3. [T][ ] join sports club
 Bibi: No tasks match 'zzz'.
 Bibi: Use find followed by a keyword, for example: find book
+```
+
+## Test 18: Sort tasks by date
+
+Aim: Confirm that sort puts dated tasks in chronological order, places undated
+tasks last, and that the new order is saved rather than shown once.
+
+### Input
+
+```text
+todo borrow book
+deadline submit report /by 2019-12-01
+event orientation /from 2019-08-06 1400 /to 2019-08-06 1600
+deadline pay fees /by 2019-10-15
+sort
+<<restart>>
+list
+bye
+```
+
+### Expected output
+
+```text
+Bibi: Sorted your tasks, earliest first:
+1. [E][ ] orientation (from: Aug 06 2019 2:00PM to: Aug 06 2019 4:00PM)
+2. [D][ ] pay fees (by: Oct 15 2019)
+3. [D][ ] submit report (by: Dec 01 2019)
+4. [T][ ] borrow book
+Bibi: Here are the tasks in your list:
+1. [E][ ] orientation (from: Aug 06 2019 2:00PM to: Aug 06 2019 4:00PM)
+2. [D][ ] pay fees (by: Oct 15 2019)
+3. [D][ ] submit report (by: Dec 01 2019)
+4. [T][ ] borrow book
+Bibi: Goodbye! Till next time...
+```
+
+## Test 19: Sort an empty list
+
+Aim: Confirm that sorting with nothing stored says so instead of showing an
+empty list.
+
+### Input
+
+```text
+sort
+bye
+```
+
+### Expected output
+
+```text
+Bibi: Your task list is empty, so there is nothing to sort.
+Bibi: Goodbye! Till next time...
 ```

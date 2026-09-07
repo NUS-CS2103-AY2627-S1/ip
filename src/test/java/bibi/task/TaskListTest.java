@@ -130,4 +130,83 @@ public class TaskListTest {
 
         assertEquals("[T][ ] first", tasks.get(1).toString());
     }
+    private static Task deadline(String description, String by) throws BibiException {
+        return new Deadline(description, by);
+    }
+
+    private static Task event(String description, String from, String to) throws BibiException {
+        return new Event(description, from, to);
+    }
+
+    @Test
+    public void sortBySchedule_datedTasks_earliestFirst() throws BibiException {
+        TaskList tasks = new TaskList(
+                deadline("submit report", "2019-12-01"),
+                event("orientation", "2019-08-06 1400", "2019-08-06 1600"),
+                deadline("pay fees", "2019-10-15"));
+
+        tasks.sortBySchedule();
+
+        assertEquals("[E][ ] orientation (from: Aug 06 2019 2:00PM to: Aug 06 2019 4:00PM)",
+                tasks.get(1).toString());
+        assertEquals("[D][ ] pay fees (by: Oct 15 2019)", tasks.get(2).toString());
+        assertEquals("[D][ ] submit report (by: Dec 01 2019)", tasks.get(3).toString());
+    }
+
+    @Test
+    public void sortBySchedule_undatedTasks_placedLast() throws BibiException {
+        TaskList tasks = new TaskList(
+                todo("borrow book"),
+                deadline("pay fees", "2019-10-15"));
+
+        tasks.sortBySchedule();
+
+        assertEquals("[D][ ] pay fees (by: Oct 15 2019)", tasks.get(1).toString());
+        assertEquals("[T][ ] borrow book", tasks.get(2).toString());
+    }
+
+    @Test
+    public void sortBySchedule_sameMoment_keepsTheOrderTheyWereAddedIn() throws BibiException {
+        TaskList tasks = new TaskList(
+                deadline("first added", "2019-10-15"),
+                deadline("second added", "2019-10-15"));
+
+        tasks.sortBySchedule();
+
+        // The sort is stable, so tasks sharing a moment must not swap around.
+        assertEquals("[D][ ] first added (by: Oct 15 2019)", tasks.get(1).toString());
+        assertEquals("[D][ ] second added (by: Oct 15 2019)", tasks.get(2).toString());
+    }
+
+    @Test
+    public void sortBySchedule_severalUndatedTasks_keepTheirRelativeOrder() throws BibiException {
+        TaskList tasks = new TaskList(todo("first"), todo("second"), todo("third"));
+
+        tasks.sortBySchedule();
+
+        assertEquals("[T][ ] first", tasks.get(1).toString());
+        assertEquals("[T][ ] third", tasks.get(3).toString());
+    }
+
+    @Test
+    public void sortBySchedule_emptyList_stillEmpty() {
+        TaskList tasks = new TaskList();
+
+        tasks.sortBySchedule();
+
+        assertTrue(tasks.isEmpty());
+    }
+
+    @Test
+    public void sortBySchedule_wholeDayAgainstTimeOnSameDay_wholeDayComesFirst()
+            throws BibiException {
+        TaskList tasks = new TaskList(
+                deadline("has a time", "2019-10-15 1800"),
+                deadline("whole day", "2019-10-15"));
+
+        tasks.sortBySchedule();
+
+        // A whole-day value counts as the start of its day, matching isBefore.
+        assertEquals("[D][ ] whole day (by: Oct 15 2019)", tasks.get(1).toString());
+    }
 }

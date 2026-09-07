@@ -5,6 +5,7 @@ import java.io.IOException;
 import bibi.BibiException;
 import bibi.Storage;
 import bibi.Ui;
+import bibi.task.Task;
 import bibi.task.TaskList;
 
 /**
@@ -42,6 +43,23 @@ public abstract class Command {
      */
     public boolean isExit() {
         return false;
+    }
+
+    /**
+     * Shows every task in order, numbered as the user refers to them.
+     *
+     * <p>Shared by the commands that show the whole list rather than a selection
+     * of it, so the numbering is written once.
+     *
+     * @param tasks the tasks to show
+     * @param ui the interface used to show them
+     */
+    protected void showAllTasks(TaskList tasks, Ui ui) {
+        int taskNumber = 1;
+        for (Task task : tasks.getTasks()) {
+            ui.showNumberedTask(taskNumber, task);
+            taskNumber++;
+        }
     }
 
     /**

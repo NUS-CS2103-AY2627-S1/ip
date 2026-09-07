@@ -3,6 +3,7 @@ package bibi.task;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import bibi.BibiException;
 
@@ -98,6 +99,39 @@ public class TaskList {
      */
     public Task remove(int taskNumber) throws BibiException {
         return tasks.remove(toIndex(taskNumber));
+    }
+
+    /**
+     * Reorders this list so the earliest task comes first.
+     *
+     * <p>Tasks with no date go last rather than first, because a ToDo is
+     * something to do at some point and a dated task is something to be ready
+     * for; burying the dated ones under the undated ones would defeat sorting.
+     *
+     * <p>The sort is stable, so tasks that share a moment, and the undated ones
+     * at the end, keep the order the user added them in.
+     */
+    public void sortBySchedule() {
+        tasks.sort(TaskList::compareBySchedule);
+    }
+
+    /**
+     * Orders two tasks by when they are scheduled, putting undated tasks last.
+     *
+     * @param first the task on the left of the comparison
+     * @param second the task on the right of the comparison
+     * @return a negative number, zero, or a positive number as the first task
+     *     sorts before, with, or after the second
+     */
+    private static int compareBySchedule(Task first, Task second) {
+        Optional<TaskDateTime> firstTime = first.getScheduledTime();
+        Optional<TaskDateTime> secondTime = second.getScheduledTime();
+
+        if (firstTime.isEmpty() || secondTime.isEmpty()) {
+            // Both undated means neither moves, which stability then preserves.
+            return Boolean.compare(firstTime.isEmpty(), secondTime.isEmpty());
+        }
+        return TaskDateTime.EARLIEST_FIRST.compare(firstTime.get(), secondTime.get());
     }
 
     /**
