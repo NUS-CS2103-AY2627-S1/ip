@@ -2,6 +2,7 @@ package bibi.task;
 
 import java.time.LocalDate;
 import java.util.Locale;
+import java.util.Optional;
 
 import bibi.BibiException;
 
@@ -90,6 +91,20 @@ public abstract class Task {
      */
     public boolean occursOn(LocalDate queryDate) {
         return false;
+    }
+
+    /**
+     * Returns the moment this task is scheduled for, if it has one.
+     *
+     * <p>Sorting needs one moment per task, and the types disagree on what that
+     * is: a deadline is its due time, an event is when it starts, and a ToDo has
+     * none at all. An empty result is the honest answer for the last case, and
+     * is what lets undated tasks be placed deliberately rather than guessed at.
+     *
+     * @return the moment used to order this task, or empty when it has no date
+     */
+    public Optional<TaskDateTime> getScheduledTime() {
+        return Optional.empty();
     }
 
     /**

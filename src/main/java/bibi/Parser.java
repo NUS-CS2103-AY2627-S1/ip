@@ -11,6 +11,7 @@ import bibi.command.HelpCommand;
 import bibi.command.ListCommand;
 import bibi.command.MarkCommand;
 import bibi.command.OnCommand;
+import bibi.command.SortCommand;
 import bibi.command.UnmarkCommand;
 import bibi.task.Deadline;
 import bibi.task.Event;
@@ -55,6 +56,8 @@ public class Parser {
             return new ExitCommand();
         } else if (isCommand(command, "list")) {
             return new ListCommand();
+        } else if (isCommand(command, "sort")) {
+            return new SortCommand();
         } else if (isCommand(command, "help")) {
             return new HelpCommand();
         } else if (isCommand(command, "todo")) {
@@ -77,7 +80,7 @@ public class Parser {
             return new OnCommand(TaskDateTime.parse(argumentOf(input, "on")).getDate());
         } else {
             throw new BibiException("I don't understand that command. "
-                    + "Try todo, deadline, event, list, find, on, mark, unmark, or bye.");
+                    + "Try todo, deadline, event, list, sort, find, on, mark, unmark, or bye.");
         }
     }
 

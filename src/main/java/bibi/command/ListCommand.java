@@ -2,7 +2,6 @@ package bibi.command;
 
 import bibi.Storage;
 import bibi.Ui;
-import bibi.task.Task;
 import bibi.task.TaskList;
 
 /**
@@ -27,10 +26,6 @@ public class ListCommand extends Command {
         }
 
         ui.showMessage("Here are the tasks in your list:");
-        int taskNumber = 1;
-        for (Task task : tasks.getTasks()) {
-            ui.showNumberedTask(taskNumber, task);
-            taskNumber++;
-        }
+        showAllTasks(tasks, ui);
     }
 }

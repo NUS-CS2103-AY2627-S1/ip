@@ -1,6 +1,7 @@
 package bibi.task;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import bibi.BibiException;
 
@@ -60,6 +61,17 @@ public class Event extends Task {
     protected String getSaveFields() {
         return " " + FIELD_SEPARATOR + " " + from.toStorageString()
                 + " " + FIELD_SEPARATOR + " " + to.toStorageString();
+    }
+
+    /**
+     * Returns the moment this event starts, which is what it sorts by.
+     *
+     * <p>The start is used rather than the end because that is when the user
+     * needs to be ready for it.
+     */
+    @Override
+    public Optional<TaskDateTime> getScheduledTime() {
+        return Optional.of(from);
     }
 
     /**

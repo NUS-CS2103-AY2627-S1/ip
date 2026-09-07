@@ -134,4 +134,33 @@ public class BibiTest {
             assertTrue(response.contains(commandWord), "help omitted " + commandWord);
         }
     }
+    @Test
+    public void getResponse_sort_reordersAndPersists(@TempDir Path tempDir) {
+        Path saveFile = tempDir.resolve("bibi.txt");
+        Bibi bibi = new Bibi(saveFile);
+        bibi.getResponse("todo borrow book");
+        bibi.getResponse("deadline submit report /by 2019-12-01");
+        bibi.getResponse("deadline pay fees /by 2019-10-15");
+
+        String response = bibi.getResponse("sort");
+
+        assertTrue(response.contains("Sorted your tasks, earliest first:"));
+        assertTrue(response.contains("1. [D][ ] pay fees"));
+        assertTrue(response.contains("2. [D][ ] submit report"));
+        // The undated task goes last, not first.
+        assertTrue(response.contains("3. [T][ ] borrow book"));
+
+        // A new session proves the order was saved rather than only displayed.
+        // getGreeting is what loads the file, which is how the GUI starts up.
+        Bibi reopened = new Bibi(saveFile);
+        reopened.getGreeting();
+        assertTrue(reopened.getResponse("list").contains("1. [D][ ] pay fees"));
+    }
+
+    @Test
+    public void getResponse_sortEmptyList_saysThereIsNothingToSort(@TempDir Path tempDir) {
+        Bibi bibi = new Bibi(tempDir.resolve("bibi.txt"));
+
+        assertTrue(bibi.getResponse("sort").contains("nothing to sort"));
+    }
 }

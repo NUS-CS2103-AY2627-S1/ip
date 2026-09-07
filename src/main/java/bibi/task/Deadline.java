@@ -1,6 +1,7 @@
 package bibi.task;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import bibi.BibiException;
 
@@ -50,6 +51,14 @@ public class Deadline extends Task {
     @Override
     protected String getSaveFields() {
         return " " + FIELD_SEPARATOR + " " + by.toStorageString();
+    }
+
+    /**
+     * Returns the moment this deadline is due, which is what it sorts by.
+     */
+    @Override
+    public Optional<TaskDateTime> getScheduledTime() {
+        return Optional.of(by);
     }
 
     /**
