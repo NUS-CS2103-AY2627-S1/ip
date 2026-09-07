@@ -1,5 +1,7 @@
 # Bibi project template
 
+[![Java CI](https://github.com/joshmode/ip/actions/workflows/gradle.yml/badge.svg)](https://github.com/joshmode/ip/actions/workflows/gradle.yml)
+
 Bibi is your friendly neighbourhood clanker! 
 
 Use me to log your tasks _simply_ and _safely_. Privacy and confidentiality is at the core of our work. Created as part of CS2103T 26/27.
