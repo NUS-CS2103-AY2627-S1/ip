@@ -17,8 +17,9 @@ import bibi.task.TaskList;
  *
  * <p>Two front ends drive it. {@link #run()} is the console conversation loop.
  * {@link #getGreeting()} and {@link #getResponse(String)} serve the GUI, which
- * cannot loop on standard input because JavaFX owns the thread; they do the same
- * work and hand back the words instead of printing them.
+ * cannot loop on standard input because JavaFX owns the thread. Both routes run
+ * one command through {@link #executeCommand(String)}; only what happens to
+ * the words differs.
  */
 public class Bibi {
     /**
@@ -52,17 +53,10 @@ public class Bibi {
         greetAndLoad();
 
         while (!isExitRequested) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command command = Parser.parse(fullCommand);
-                command.execute(tasks, ui, storage);
-                isExitRequested = command.isExit();
-            } catch (BibiException exception) {
-                ui.showError(exception.getMessage());
-            } finally {
-                ui.showLine();
-            }
+            String fullCommand = ui.readCommand();
+            ui.showLine();
+            executeCommand(fullCommand);
+            ui.showLine();
         }
         ui.close();
     }
@@ -92,13 +86,7 @@ public class Bibi {
         assert fullCommand != null : "the GUI should pass the text field's contents, never null";
 
         ui.startCapture();
-        try {
-            Command command = Parser.parse(fullCommand);
-            command.execute(tasks, ui, storage);
-            isExitRequested = command.isExit();
-        } catch (BibiException exception) {
-            ui.showError(exception.getMessage());
-        }
+        executeCommand(fullCommand);
 
         String response = ui.takeCapturedText();
 
@@ -116,6 +104,26 @@ public class Bibi {
      */
     public boolean isExitRequested() {
         return isExitRequested;
+    }
+
+    /**
+     * Parses and carries out one typed command.
+     *
+     * <p>A command that fails is reported through {@link Ui} rather than thrown,
+     * because both front ends want the explanation shown to the user as ordinary
+     * output: the console prints it between its divider lines, and the GUI has
+     * nowhere useful to send an exception.
+     *
+     * @param fullCommand one line of input, exactly as the user typed it
+     */
+    private void executeCommand(String fullCommand) {
+        try {
+            Command command = Parser.parse(fullCommand);
+            command.execute(tasks, ui, storage);
+            isExitRequested = command.isExit();
+        } catch (BibiException exception) {
+            ui.showError(exception.getMessage());
+        }
     }
 
     /**

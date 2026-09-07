@@ -2,16 +2,13 @@ package bibi.command;
 
 import java.time.LocalDate;
 
-import bibi.Storage;
-import bibi.Ui;
 import bibi.task.Task;
 import bibi.task.TaskDateTime;
-import bibi.task.TaskList;
 
 /**
  * Shows the deadlines due on one date and the events running on it.
  */
-public class OnCommand extends Command {
+public class OnCommand extends FilterCommand {
     private final LocalDate queryDate;
 
     /**
@@ -23,31 +20,27 @@ public class OnCommand extends Command {
         this.queryDate = queryDate;
     }
 
-    /**
-     * Shows the tasks belonging to the queried date, or reports that there
-     * are none.
-     */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        String shownDate = TaskDateTime.formatDate(queryDate);
-        boolean hasMatch = false;
+    protected boolean matches(Task task) {
+        return task.occursOn(queryDate);
+    }
 
-        // Matches keep the number they have in the full list, so a task found
-        // this way can be marked or removed without listing everything first.
-        int taskNumber = 1;
-        for (Task task : tasks.getTasks()) {
-            if (task.occursOn(queryDate)) {
-                if (!hasMatch) {
-                    ui.showMessage("Here is what you have on " + shownDate + ":");
-                    hasMatch = true;
-                }
-                ui.showNumberedTask(taskNumber, task);
-            }
-            taskNumber++;
-        }
+    @Override
+    protected String getHeader() {
+        return "Here is what you have on " + getShownDate() + ":";
+    }
 
-        if (!hasMatch) {
-            ui.showMessage("You have nothing on " + shownDate + ".");
-        }
+    @Override
+    protected String getNoMatchMessage() {
+        return "You have nothing on " + getShownDate() + ".";
+    }
+
+    /**
+     * Returns the queried date in the form the user sees elsewhere.
+     *
+     * @return the formatted date
+     */
+    private String getShownDate() {
+        return TaskDateTime.formatDate(queryDate);
     }
 }

@@ -1,14 +1,11 @@
 package bibi.command;
 
-import bibi.Storage;
-import bibi.Ui;
 import bibi.task.Task;
-import bibi.task.TaskList;
 
 /**
  * Shows the tasks whose description contains a given keyword.
  */
-public class FindCommand extends Command {
+public class FindCommand extends FilterCommand {
     private final String keyword;
 
     /**
@@ -20,30 +17,18 @@ public class FindCommand extends Command {
         this.keyword = keyword;
     }
 
-    /**
-     * Shows every task whose description contains the keyword, or reports that
-     * none does.
-     */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        boolean hasMatch = false;
+    protected boolean matches(Task task) {
+        return task.hasKeyword(keyword);
+    }
 
-        // Matches keep the number they have in the full list, as the on command
-        // does, so a task found this way can be marked or removed straight away.
-        int taskNumber = 1;
-        for (Task task : tasks.getTasks()) {
-            if (task.hasKeyword(keyword)) {
-                if (!hasMatch) {
-                    ui.showMessage("Here are the matching tasks in your list:");
-                    hasMatch = true;
-                }
-                ui.showNumberedTask(taskNumber, task);
-            }
-            taskNumber++;
-        }
+    @Override
+    protected String getHeader() {
+        return "Here are the matching tasks in your list:";
+    }
 
-        if (!hasMatch) {
-            ui.showMessage("No tasks match '" + keyword + "'.");
-        }
+    @Override
+    protected String getNoMatchMessage() {
+        return "No tasks match '" + keyword + "'.";
     }
 }
