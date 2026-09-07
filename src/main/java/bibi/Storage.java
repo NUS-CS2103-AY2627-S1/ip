@@ -140,6 +140,10 @@ public class Storage {
                     + "separated by '" + Task.FIELD_SEPARATOR + "'.");
         }
 
+        // The check above is what makes the three fixed reads below safe; the
+        // per-type checks that follow cover the optional date fields.
+        assert fields.length >= 3 : "parseTask read fewer than three fields from: " + line;
+
         String typeCode = fields[0].toUpperCase(Locale.ROOT);
         boolean isComplete = parseStatus(fields[1]);
         String description = fields[2];

@@ -83,9 +83,18 @@ public class Bibi {
      * @return Bibi's reply, ready to be shown in a dialog box
      */
     public String getResponse(String fullCommand) {
+        assert fullCommand != null : "the GUI should pass the text field's contents, never null";
+
         ui.startCapture();
         executeCommand(fullCommand);
-        return ui.takeCapturedText();
+
+        String response = ui.takeCapturedText();
+
+        // Every command either reports its result or is reported as failing, so
+        // an empty reply means one returned in silence and the GUI would show an
+        // empty bubble with no hint of what went wrong.
+        assert !response.isEmpty() : "no reply was produced for: " + fullCommand;
+        return response;
     }
 
     /**
@@ -134,6 +143,8 @@ public class Bibi {
      * @return the restored task list, or an empty list when nothing was saved yet
      */
     private TaskList loadTasks() {
+        assert storage != null : "storage is set in the constructor and never cleared";
+
         try {
             Storage.LoadReport report = storage.load();
 

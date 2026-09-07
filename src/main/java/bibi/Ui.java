@@ -65,6 +65,11 @@ public class Ui {
      * @return the collected lines, separated by newlines and trimmed of blank ends
      */
     public String takeCapturedText() {
+        // Taking text without starting a capture would silently return whatever
+        // the previous capture left behind, so the GUI would show a stale reply
+        // rather than fail.
+        assert isCapturing : "takeCapturedText called without a matching startCapture";
+
         isCapturing = false;
         return capturedText.toString().strip();
     }
@@ -78,6 +83,8 @@ public class Ui {
      * @param line the line to show, already formatted
      */
     private void write(String line) {
+        assert line != null : "a null line would be printed as the text \"null\"";
+
         if (isCapturing) {
             capturedText.append(line).append('\n');
         } else {
