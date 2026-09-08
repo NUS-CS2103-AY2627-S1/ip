@@ -13,6 +13,8 @@ src/main/resources/docs/
 *.iml
 bin/
 
+docs/git-stuff.txt
+
 # Temp files
 _temp/
 

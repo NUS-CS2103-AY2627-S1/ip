@@ -1,0 +1,172 @@
+/* Look and feel of the chat window. Colors and fonts live here so the Java
+   side only has to name a style class.
+
+   Crack talks loud, so the window is dark and high contrast rather than
+   office-white, with a violet accent doing the shouting. */
+
+.root {
+    -fx-font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: #14161a;
+}
+
+/* Name plate, so it is obvious who you are talking to */
+
+.app-header {
+    -fx-alignment: center-left;
+    -fx-spacing: 8;
+    -fx-padding: 12 16 12 16;
+    -fx-background-color: #1a1d23;
+    -fx-border-color: #2b3038;
+    -fx-border-width: 0 0 1 0;
+}
+
+.app-name {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #a78bfa;
+}
+
+.app-tagline {
+    -fx-font-size: 11px;
+    -fx-text-fill: #6b7280;
+}
+
+/* Chat transcript */
+
+.chat-scroll,
+.chat-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.chat-scroll {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.chat-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.chat-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: #3a4049;
+    -fx-background-radius: 4;
+}
+
+.chat-scroll .scroll-bar:vertical .increment-button,
+.chat-scroll .scroll-bar:vertical .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 0;
+}
+
+.dialog-container {
+    -fx-padding: 14 6 14 6;
+    -fx-spacing: 10;
+}
+
+/* Messages. Crack gets an avatar and a name, the user gets neither, so the two
+   sides of the conversation never read as the same kind of speaker. */
+
+.dialog-row {
+    -fx-spacing: 8;
+}
+
+.speaker-name {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #8b93a1;
+    -fx-padding: 0 0 3 2;
+}
+
+.avatar {
+    -fx-min-width: 32px;
+    -fx-min-height: 32px;
+    -fx-max-width: 32px;
+    -fx-max-height: 32px;
+    -fx-alignment: center;
+    -fx-background-radius: 16;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(to bottom right, #8b5cf6, #ec4899);
+    -fx-text-fill: white;
+}
+
+.avatar-error {
+    -fx-background-color: linear-gradient(to bottom right, #f43f5e, #b91c1c);
+}
+
+.bubble {
+    -fx-padding: 9 13 9 13;
+    -fx-line-spacing: 2;
+}
+
+/* Crack speaks in a dark card with a squared-off corner next to the avatar. */
+.bubble-crack {
+    -fx-background-color: #1e2228;
+    -fx-text-fill: #e6e8ec;
+    -fx-background-radius: 3 14 14 14;
+    -fx-border-color: #2b3038;
+    -fx-border-radius: 3 14 14 14;
+}
+
+/* The user speaks in a solid accent bubble, mirrored to the other side. */
+.bubble-user {
+    -fx-background-color: #7c3aed;
+    -fx-text-fill: white;
+    -fx-background-radius: 14 3 14 14;
+}
+
+/* Anything that went wrong is tinted and rule-marked so it cannot be skimmed past. */
+.bubble-error {
+    -fx-background-color: #2c1418;
+    -fx-text-fill: #fca5a5;
+    -fx-border-color: #f43f5e;
+    -fx-border-width: 0 0 0 3;
+    -fx-background-radius: 3 14 14 14;
+    -fx-border-radius: 0;
+}
+
+/* Input row */
+
+.input-bar {
+    -fx-spacing: 8;
+    -fx-padding: 10 12 12 12;
+    -fx-background-color: #1a1d23;
+    -fx-border-color: #2b3038;
+    -fx-border-width: 1 0 0 0;
+}
+
+.input-field {
+    -fx-background-color: #24282f;
+    -fx-background-radius: 18;
+    -fx-padding: 9 14 9 14;
+    -fx-text-fill: #e6e8ec;
+    -fx-prompt-text-fill: #6b7280;
+    -fx-highlight-fill: #7c3aed;
+}
+
+.input-field:focused {
+    -fx-border-color: #8b5cf6;
+    -fx-border-radius: 18;
+}
+
+.send-button {
+    -fx-background-color: #7c3aed;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 18;
+    -fx-padding: 9 18 9 18;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: #8b5cf6;
+}
+
+.send-button:pressed {
+    -fx-background-color: #6d28d9;
+}
+
+.send-button:disabled {
+    -fx-opacity: 0.5;
+}
