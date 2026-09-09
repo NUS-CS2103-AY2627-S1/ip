@@ -1,0 +1,24 @@
+.dialog {
+    -fx-background-color: #2b2d31;
+    -fx-text-fill: #f2f3f5;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 14px;
+    -fx-background-radius: 14px 14px 14px 4px;
+}
+
+.reply-label {
+    -fx-background-color: #5865f2;
+    -fx-text-fill: white;
+    -fx-background-radius: 14px 14px 4px 14px;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(0, 0, 0, 0.35),
+            8,
+            0.3,
+            0,
+            2
+    );
+}
