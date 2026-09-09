@@ -109,6 +109,14 @@ public class Chin {
             ui.show("Now you have " + tasks.size() + " tasks in the list.");
             return;
         }
+        case SORT: {
+            tasks.sortByDeadline();
+            ui.show("Sorted tasks by deadline (earliest first, non-deadlines last).");
+            for (int i = 0; i < tasks.size(); i++) {
+                ui.show((i + 1) + "." + tasks.get(i));
+            }
+            return;
+        }
         case FIND: {
             String keyword = userInput.length() > 4 ? userInput.substring(5).trim() : "";
             if (keyword.isEmpty()) {

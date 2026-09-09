@@ -24,6 +24,11 @@ public class Deadline extends Task {
         }
     }
 
+    /** Returns the deadline date, used for sorting. */
+    public LocalDate getBy() {
+        return by;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by.format(DISPLAY_FORMAT) + ")";

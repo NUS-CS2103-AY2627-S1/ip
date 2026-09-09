@@ -5,7 +5,7 @@ package chin.util;
  * {@link #UNKNOWN} is returned for anything unrecognised.
  */
 public enum Command {
-    LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND, BYE, UNKNOWN;
+    LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND, SORT, BYE, UNKNOWN;
 
     /** Maps the first whitespace-delimited token of {@code input} to a command. */
     public static Command fromInput(String input) {
