@@ -63,7 +63,7 @@ jar {
 }
 
 shadowJar {
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'device-g.jar'
 }
 
 checkstyle {

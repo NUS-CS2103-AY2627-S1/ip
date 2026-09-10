@@ -39,7 +39,7 @@ public class MainWindow {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream(
             "/images/Kris (Art by JMK-Prime).png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream(
+    private Image assistantImage = new Image(this.getClass().getResourceAsStream(
             "/images/Double Green Gaster from Deltarune.png"));
 
     /** Initializes the animated background and automatic dialogue scrolling. */
@@ -60,12 +60,11 @@ public class MainWindow {
     public void setCommandProcessor(TaskCommandProcessor commandProcessor) {
         this.commandProcessor = commandProcessor;
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(Secret.getOpeningDialogue(), dukeImage));
+                DialogBox.getReplyDialog(Secret.getOpeningDialogue(), assistantImage));
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Displays the user's input and the application's reply, then clears the input field.
      */
     @FXML
     private void handleUserInput() {
@@ -78,7 +77,7 @@ public class MainWindow {
                 : Secret.getClosingDialogue();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage, result.replyType())
+                DialogBox.getReplyDialog(response, assistantImage, result.replyType())
         );
         userInput.clear();
 

@@ -65,27 +65,27 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Creates a dialog box for a reply from Duke.
+     * Creates a dialog box for an application reply.
      *
      * @param text reply to display
-     * @param img image representing Duke
-     * @return Duke reply dialog box
+     * @param img image representing the application
+     * @return application reply dialog box
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
-        return getDukeDialog(text, img, ReplyType.DEFAULT);
+    public static DialogBox getReplyDialog(String text, Image img) {
+        return getReplyDialog(text, img, ReplyType.DEFAULT);
     }
 
     /**
-     * Creates a categorized reply from Duke.
+     * Creates a categorized application reply.
      *
      * @param text reply to display
-     * @param img image representing Duke
+     * @param img image representing the application
      * @param replyType visual category of the reply
-     * @return Duke reply dialog box
+     * @return application reply dialog box
      */
-    public static DialogBox getDukeDialog(String text, Image img, ReplyType replyType) {
-        var db = new DialogBox(text, img);
-        db.flip(replyType);
-        return db;
+    public static DialogBox getReplyDialog(String text, Image img, ReplyType replyType) {
+        DialogBox dialogBox = new DialogBox(text, img);
+        dialogBox.flip(replyType);
+        return dialogBox;
     }
 }

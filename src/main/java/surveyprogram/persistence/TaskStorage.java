@@ -52,50 +52,74 @@ public class TaskStorage {
         if (!file.exists()) {
             return; // no previous data
         }
+
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            List<String> records = new ArrayList<>();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                records.add(line);
-            }
-
+            List<String> records = readRecords(reader);
             Map<String, Item> itemsById = new HashMap<>();
-            List<Item> parsedItems = new ArrayList<>();
-            for (int index = 0; index < records.size(); index++) {
-                Optional<Item> parsedItem = parseIndependentItem(records.get(index));
-                Item item = parsedItem.orElse(null);
-                parsedItems.add(item);
-                if (item != null) {
-                    itemsById.put(item.getId(), item);
-                }
-            }
-
-            boolean wasRelationshipResolved;
-            do {
-                wasRelationshipResolved = false;
-                for (int index = 0; index < records.size(); index++) {
-                    if (parsedItems.get(index) != null) {
-                        continue;
-                    }
-                    Optional<Item> parsedItem = parseDependentItem(records.get(index), itemsById);
-                    if (parsedItem.isPresent()) {
-                        parsedItems.set(index, parsedItem.get());
-                        wasRelationshipResolved = true;
-                    }
-                }
-            } while (wasRelationshipResolved);
-
-            for (Item item : parsedItems) {
-                if (item == null) {
-                    continue;
-                }
-                if (!taskList.restore(item)) {
-                    Secret.error(true);
-                    return;
-                }
-            }
+            List<Item> parsedItems = parseIndependentItems(records, itemsById);
+            resolveDependentItems(records, parsedItems, itemsById);
+            restoreItems(taskList, parsedItems);
         } catch (IOException exception) {
             Secret.error(false);
+        }
+    }
+
+    /** Returns all serialized records supplied by the reader. */
+    private static List<String> readRecords(BufferedReader reader) throws IOException {
+        List<String> records = new ArrayList<>();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            records.add(line);
+        }
+        return records;
+    }
+
+    /** Parses records that do not depend on another saved task. */
+    private static List<Item> parseIndependentItems(List<String> records, Map<String, Item> itemsById) {
+        List<Item> parsedItems = new ArrayList<>();
+        for (String record : records) {
+            Item item = parseIndependentItem(record).orElse(null);
+            parsedItems.add(item);
+            if (item != null) {
+                itemsById.put(item.getId(), item);
+            }
+        }
+        return parsedItems;
+    }
+
+    /** Resolves parent-dependent records after their parents have been parsed. */
+    private static void resolveDependentItems(List<String> records, List<Item> parsedItems,
+            Map<String, Item> itemsById) {
+        boolean wasRelationshipResolved;
+        do {
+            wasRelationshipResolved = resolveDependentItemsOnce(records, parsedItems, itemsById);
+        } while (wasRelationshipResolved);
+    }
+
+    /** Returns whether one pass resolved at least one parent-dependent record. */
+    private static boolean resolveDependentItemsOnce(List<String> records, List<Item> parsedItems,
+            Map<String, Item> itemsById) {
+        boolean wasRelationshipResolved = false;
+        for (int index = 0; index < records.size(); index++) {
+            if (parsedItems.get(index) != null) {
+                continue;
+            }
+            Optional<Item> parsedItem = parseDependentItem(records.get(index), itemsById);
+            if (parsedItem.isPresent()) {
+                parsedItems.set(index, parsedItem.get());
+                wasRelationshipResolved = true;
+            }
+        }
+        return wasRelationshipResolved;
+    }
+
+    /** Restores parsed items until the task list reaches capacity. */
+    private static void restoreItems(TaskList taskList, List<Item> parsedItems) {
+        for (Item item : parsedItems) {
+            if (item != null && !taskList.restore(item)) {
+                Secret.error(true);
+                return;
+            }
         }
     }
 
@@ -185,34 +209,40 @@ public class TaskStorage {
      * @return serialized task record
      */
     private static String itemToFileString(Item item) {
-        String type;
         String done = item.isDone() ? "y" : "n";
         String prefix = item.getId() + " | " + done + " | ";
-        if (item instanceof AfterTask) {
-            AfterTask afterTask = (AfterTask) item;
-            if (afterTask.hasParent()) {
-                return "A | " + prefix + afterTask.getName() + " | TASK | "
-                        + afterTask.getParent().getId();
-            }
-            return "A | " + prefix + afterTask.getName() + " | TIME | "
-                    + afterTask.getReleaseAt().format(FILE_FORMATTER);
-        } else if (item instanceof Todo) {
-            type = "T";
-            return type + " | " + prefix + item.getName();
-        } else if (item instanceof Deadline) {
-            type = "D";
-            Deadline deadline = (Deadline) item;
-            return type + " | " + prefix + deadline.getName() + " | "
-                    + deadline.getBy().format(FILE_FORMATTER);
-        } else if (item instanceof Event) {
-            type = "E";
-            Event event = (Event) item;
-            return type + " | " + prefix + event.getName() + " | "
-                    + event.getFrom().format(FILE_FORMATTER) + " | "
-                    + event.getTo().format(FILE_FORMATTER);
-        } else {
-            return "? | " + prefix + item.getName();
+        if (item instanceof AfterTask afterTask) {
+            return afterTaskToFileString(afterTask, prefix);
+        } else if (item instanceof Deadline deadline) {
+            return deadlineToFileString(deadline, prefix);
+        } else if (item instanceof Event event) {
+            return eventToFileString(event, prefix);
         }
+        String type = item instanceof Todo ? "T" : "?";
+        return type + " | " + prefix + item.getName();
+    }
+
+    /** Returns the serialized representation of a dependent task. */
+    private static String afterTaskToFileString(AfterTask afterTask, String prefix) {
+        if (afterTask.hasParent()) {
+            return "A | " + prefix + afterTask.getName() + " | TASK | "
+                    + afterTask.getParent().getId();
+        }
+        return "A | " + prefix + afterTask.getName() + " | TIME | "
+                + afterTask.getReleaseAt().format(FILE_FORMATTER);
+    }
+
+    /** Returns the serialized representation of a deadline. */
+    private static String deadlineToFileString(Deadline deadline, String prefix) {
+        return "D | " + prefix + deadline.getName() + " | "
+                + deadline.getBy().format(FILE_FORMATTER);
+    }
+
+    /** Returns the serialized representation of an event. */
+    private static String eventToFileString(Event event, String prefix) {
+        return "E | " + prefix + event.getName() + " | "
+                + event.getFrom().format(FILE_FORMATTER) + " | "
+                + event.getTo().format(FILE_FORMATTER);
     }
 
     /**

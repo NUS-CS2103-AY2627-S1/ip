@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import surveyprogram.DeviceG;
 
 /**
- * A GUI for Duke using FXML.
+ * Launches the application's FXML-based GUI.
  */
 public class Main extends Application {
 
