@@ -193,7 +193,7 @@ ORDER PROCESSED: [A][ ] ALREADY AVAILABLE (AFTER: SEP 01 2026, 12:00 AM)
 THEN, IT IS DONE.
 [A][X] already available (after: Sep 01 2026, 12:00 AM)
 ---
-TODO: REPLACE THIS MESSAGE FOR A TASK WHOSE AFTER-CONDITION IS UNMET.
+BUT, ITS CONDITIONS ARE NOT SATISFIED.
 ---
 THEN, IT IS DONE.
 [T][X] finish exam
@@ -205,7 +205,7 @@ THEN, IT IS DONE.
 2.[T][ ] finish exam
 3.[A][L][ ] return book (after task: finish exam)
 ---
-1 DEPENDENT TASKS WERE ALSO DELETED.
+AS WITH ITS 1 CHILDREN.
 ---
 1.[A][X] already available (after: Sep 01 2026, 12:00 AM)
 ```

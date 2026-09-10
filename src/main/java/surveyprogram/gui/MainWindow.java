@@ -1,13 +1,13 @@
 package surveyprogram.gui;
 
-import javafx.animation.PauseTransition;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import surveyprogram.processor.CommandResult;
@@ -17,9 +17,14 @@ import surveyprogram.ui.Secret;
 /**
  * Controller for the main GUI.
  */
-public class MainWindow extends AnchorPane {
-    private static final Duration CLOSING_DELAY = Duration.seconds(3);
+public class MainWindow {
+    private static final Duration OPENING_FADE_DURATION = Duration.seconds(1);
+    private static final Duration CLOSING_FADE_DURATION = Duration.seconds(3);
 
+    @FXML
+    private Pane backgroundPane;
+    @FXML
+    private Pane backgroundFadeOverlay;
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -30,15 +35,21 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private TaskCommandProcessor commandProcessor;
+    private DepthBackground depthBackground;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream(
             "/images/Kris (Art by JMK-Prime).png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream(
             "/images/Double Green Gaster from Deltarune.png"));
 
+    /** Initializes the animated background and automatic dialogue scrolling. */
     @FXML
     public void initialize() {
+        backgroundFadeOverlay.setOpacity(1);
+        depthBackground = new DepthBackground(backgroundPane);
+        depthBackground.start();
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        Platform.runLater(this::playOpeningFade);
     }
 
     /**
@@ -76,13 +87,22 @@ public class MainWindow extends AnchorPane {
         }
     }
 
-    /** Disables further interaction and closes the application after the farewell delay. */
+    private void playOpeningFade() {
+        FadeTransition openingFade = new FadeTransition(OPENING_FADE_DURATION, backgroundFadeOverlay);
+        openingFade.setFromValue(1);
+        openingFade.setToValue(0);
+        openingFade.play();
+    }
+
+    /** Disables further interaction, fades the interface out, and then closes the application. */
     private void closeAfterFarewell() {
         userInput.setDisable(true);
         sendButton.setDisable(true);
 
-        PauseTransition closingPause = new PauseTransition(CLOSING_DELAY);
-        closingPause.setOnFinished(event -> Platform.exit());
-        closingPause.play();
+        FadeTransition closingFade = new FadeTransition(CLOSING_FADE_DURATION, backgroundFadeOverlay);
+        closingFade.setFromValue(backgroundFadeOverlay.getOpacity());
+        closingFade.setToValue(1);
+        closingFade.setOnFinished(event -> Platform.exit());
+        closingFade.play();
     }
 }

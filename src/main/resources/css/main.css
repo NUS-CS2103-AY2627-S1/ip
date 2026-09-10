@@ -1,8 +1,10 @@
 .root {
     main-color: #6a7bc4;
     -fx-background-color: main-color;
-    -fx-background-image: url("../images/IMAGE_DEPTH_BG.png");
-    -fx-background-repeat: repeat;
+}
+
+.background-fade-overlay {
+    -fx-background-color: black;
 }
 
 .text-field {
