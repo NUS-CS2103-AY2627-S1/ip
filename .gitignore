@@ -20,3 +20,4 @@ _temp/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 DELTARUNE_IMAGE_DEPTH.md
+data/PERSIST.txt
