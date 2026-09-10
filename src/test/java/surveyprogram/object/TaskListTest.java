@@ -3,6 +3,7 @@ package surveyprogram.object;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
@@ -30,6 +31,29 @@ class TaskListTest {
         assertTrue(emptyResult.response().contains("IT IS BARREN AND CANNOT BE CREATED."));
         assertEquals(TaskListResult.Status.ERROR, fullResult.status());
         assertTrue(fullResult.response().contains("BUT, THERE IS NO MORE MEMORY TO ALLOCATE."));
+    }
+
+    @Test
+    void restore_fullList_rejectsExtraItemAndSnapshotCannotBeModified() {
+        TaskList list = newList(1);
+
+        assertTrue(list.restore(new Todo("first")));
+        assertFalse(list.restore(new Todo("second")));
+        assertThrows(UnsupportedOperationException.class, () -> list.getList().add(new Todo("third")));
+        assertEquals(1, list.getList().size());
+    }
+
+    @Test
+    void addAfterTask_invalidParentIndexes_rejectsTask() {
+        TaskList list = newList(2);
+        list.add(new Todo("parent"));
+
+        TaskListResult negativeResult = list.addAfterTask("child", -1);
+        TaskListResult pastEndResult = list.addAfterTask("child", 1);
+
+        assertEquals(TaskListResult.Status.ERROR, negativeResult.status());
+        assertEquals(TaskListResult.Status.ERROR, pastEndResult.status());
+        assertEquals(1, list.getList().size());
     }
 
     @Test

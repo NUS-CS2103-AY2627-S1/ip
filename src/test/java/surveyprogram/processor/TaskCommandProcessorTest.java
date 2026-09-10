@@ -182,6 +182,19 @@ class TaskCommandProcessorTest {
         assertEquals(ReplyType.ERROR, emptyProcessor.process("mark invalid").replyType());
     }
 
+    @Test
+    void process_missingSeparatorsAndArguments_returnsSpecificErrorsWithoutRouting() {
+        RecordingList list = new RecordingList();
+        TaskCommandProcessor processor = new TaskCommandProcessor(list);
+
+        assertEquals(ReplyType.ERROR, processor.process("").replyType());
+        assertEquals(ReplyType.ERROR, processor.process("todo").replyType());
+        assertTrue(processor.process("date ").response().contains("NOT A DATE"));
+        assertTrue(processor.process("delete ").response().contains("NOT SPECIFIED"));
+        assertTrue(processor.process("pending child /aftertask nope").response().contains("INVALID"));
+        assertTrue(list.addedItems.isEmpty());
+    }
+
     /** Minimal list double that records processor calls without touching persistence. */
     private static class RecordingList extends TaskList {
         private final ArrayList<Item> addedItems = new ArrayList<>();

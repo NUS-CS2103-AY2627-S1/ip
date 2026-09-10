@@ -3,15 +3,18 @@ package surveyprogram.persistence;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import surveyprogram.object.Deadline;
+import surveyprogram.object.Event;
 import surveyprogram.object.TaskList;
 import surveyprogram.object.Todo;
 
@@ -57,5 +60,45 @@ class TaskStorageTest {
         TaskStorage.save(new TaskList(10), file);
 
         assertEquals("", Files.readString(file));
+    }
+
+    @Test
+    void saveAndLoad_allIndependentTypes_preservesDetailsAndCompletion() {
+        Path file = temporaryDirectory.resolve("all-types.txt");
+        TaskList original = new TaskList(10);
+        original.restore(new Todo("todo"));
+        original.restore(new Deadline("deadline", LocalDateTime.of(2026, 9, 10, 17, 30)));
+        original.restore(new Event("event",
+                LocalDateTime.of(2026, 9, 11, 9, 0),
+                LocalDateTime.of(2026, 9, 11, 10, 0)));
+        original.getList().get(1).setDone(true);
+
+        TaskStorage.save(original, file);
+        TaskList restored = new TaskList(10);
+        TaskStorage.load(restored, file);
+
+        assertEquals(3, restored.getList().size());
+        assertInstanceOf(Todo.class, restored.getList().get(0));
+        assertInstanceOf(Deadline.class, restored.getList().get(1));
+        assertInstanceOf(Event.class, restored.getList().get(2));
+        assertTrue(restored.getList().get(1).isDone());
+        assertTrue(restored.getList().get(2).toString().contains("Sep 11 2026, 9:00 AM"));
+    }
+
+    @Test
+    void load_legacyRecords_restoresSupportedTypesAndCompletion() throws IOException {
+        Path file = temporaryDirectory.resolve("legacy.txt");
+        Files.writeString(file, String.join(System.lineSeparator(),
+                "T | y | old todo",
+                "D | n | old deadline | 2026-09-10T17:30:00",
+                "E | n | old event | 2026-09-11T09:00:00 | 2026-09-11T10:00:00"));
+        TaskList restored = new TaskList(10);
+
+        TaskStorage.load(restored, file);
+
+        assertEquals(3, restored.getList().size());
+        assertTrue(restored.getList().get(0).isDone());
+        assertInstanceOf(Deadline.class, restored.getList().get(1));
+        assertInstanceOf(Event.class, restored.getList().get(2));
     }
 }
