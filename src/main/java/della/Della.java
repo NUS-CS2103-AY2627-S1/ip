@@ -12,6 +12,7 @@ import della.storage.Storage;
 import della.task.Task;
 import della.task.TaskList;
 import della.ui.UI;
+import javafx.application.Platform;
 
 /**
  * Runs the Della task-management application.
@@ -81,7 +82,7 @@ public class Della {
     public String getResponse(String input) {
         command = Parser.parseCommand(input);
         return switch (command) {
-            case BYE -> UI.showFarewell();
+            case BYE -> handleBye();
             case LIST -> UI.showTasks(taskList.getTasks());
             case MARK -> handleMark(input, true);
             case UNMARK -> handleMark(input, false);
@@ -90,6 +91,13 @@ public class Della {
             case FIND -> handleFind(input);
             default -> UI.showError("I don't recognise this command :( Try again pls tyvm");
         };
+    }
+    /**
+     * Exits the application.
+     */
+    private String handleBye() {
+        Platform.exit();
+        return UI.showFarewell();
     }
 
     /**
