@@ -1,0 +1,12 @@
+# case-id<TAB>storage-group<TAB>console-inputs (literal \n separates lines)<TAB>required output fragments (literal \n, separated by ;;)
+core-task-flow	core	todo read book\ndeadline return book /by 2026-09-01\nevent team meeting /from Mon 2pm /to 4pm\nmark 2\nlist\nbye	[T][ ] read book;;[D][X] return book (by: Sep 1 2026);;[E][ ] team meeting (from: Mon 2pm to: 4pm);;Bye. Hope to see you again soon!
+errors-do-not-change-state	errors	todo\ndeadline bad /by next Thursday\nunknown command\nlist\nbye	The description of a todo cannot be empty.;;Use yyyy-MM-dd for deadline dates, for example 2026-09-01.;;I don't recognize that command yet.;;Here are the tasks in your list:
+persistence-and-separators	persistence	todo read | annotate book\nbye	Got it. I've added this task:;;[T][ ] read | annotate book
+persistence-and-separators-reload	persistence	list\nbye	1.[T][ ] read | annotate book;;Bye. Hope to see you again soon!
+state-after-error	state	todo buy bread\nmark 1\nmark 9\nlist\nunmark 1\ndelete 1\nlist\nbye	Nice! I've marked this task as done:;;That task number is not in your list.;;1.[T][X] buy bread;;OK, I've marked this task as not done yet:;;Now you have 0 tasks in the list.
+find-case-insensitive	find	todo Read Book\ntodo buy bread\nevent book club /from Fri 7pm /to 9pm\nfind BOOK\nfind calendar\nfind\nbye	Here are the matching tasks in your list:;;1.[T][ ] Read Book;;2.[E][ ] book club (from: Fri 7pm to: 9pm);;The keyword to find cannot be empty.;;Bye. Hope to see you again soon!
+help-command	help	help\nbye	Here are Lynn's commands:;;todo <description>;;find <keyword>;;help - show this help message.;;bye - exit Lynn.;;Bye. Hope to see you again soon!
+empty-command	empty	\nlist\nbye	Please enter a command. Try help to see what I can do.;;Here are the tasks in your list:;;Bye. Hope to see you again soon!
+personality-welcome	personality	bye	Hello! I'm Lynn, your upbeat study companion.;;Let's make progress one small step at a time!;;Bye. Hope to see you again soon!
+flexible-command-input	flexible	  DEADLINE  submit report   /BY   2026-10-15  \nLIST\nBYE	[D][ ] submit report (by: Oct 15 2026);;Bye. Hope to see you again soon!
+fresh-start	fresh	bye	Hello! I'm Lynn, your upbeat study companion.;;Bye. Hope to see you again soon!
