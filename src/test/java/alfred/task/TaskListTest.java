@@ -88,6 +88,21 @@ class TaskListTest {
         TaskList taskList = new TaskList();
 
         assertThrows(AssertionError.class, () -> taskList.add(null));
+        assertThrows(AssertionError.class, () -> taskList.add(0, null));
+    }
+
+    @Test
+    void addAtIndex_validAndInvalidIndices_insertsOrThrowsAssertionError() {
+        Todo firstTask = new Todo("first task");
+        Todo secondTask = new Todo("second task");
+        TaskList taskList = new TaskList(List.of(firstTask));
+
+        taskList.add(0, secondTask);
+
+        assertEquals(secondTask, taskList.get(0));
+        assertEquals(firstTask, taskList.get(1));
+        assertThrows(AssertionError.class, () -> taskList.add(-1, new Todo("invalid task")));
+        assertThrows(AssertionError.class, () -> taskList.add(3, new Todo("invalid task")));
     }
 
     @Test

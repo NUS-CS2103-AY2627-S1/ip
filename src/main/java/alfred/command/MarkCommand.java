@@ -25,8 +25,23 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AlfredException {
         Task task = tasks.get(taskIndex);
+        boolean wasDone = task.isDone();
         task.markAsDone();
-        storage.save(tasks);
+        try {
+            storage.save(tasks);
+        } catch (AlfredException e) {
+            restoreTaskStatus(task, wasDone);
+            throw e;
+        }
         ui.showTaskMarked(task);
+    }
+
+    /** Restores a task's completion status after an unsuccessful save. */
+    private void restoreTaskStatus(Task task, boolean wasDone) {
+        if (wasDone) {
+            task.markAsDone();
+        } else {
+            task.markAsNotDone();
+        }
     }
 }
