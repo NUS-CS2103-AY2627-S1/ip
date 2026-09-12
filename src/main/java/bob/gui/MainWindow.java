@@ -28,7 +28,6 @@ import javafx.util.Duration;
  * Controls the main chatbot window.
  */
 public class MainWindow {
-    private static final String USER_IMAGE_PATH = "/images/huahua.png";
     private static final String BOB_IMAGE_PATH = "/images/yuai.png";
     private static final String WELCOME_MESSAGE = "Hello! I'm Bob, your personal task assistant.\n\n"
             + "Try \"todo read a book\" to add your first task.";
@@ -75,7 +74,6 @@ public class MainWindow {
     @FXML
     private Label inputFeedback;
 
-    private final Image userImage = loadImage(USER_IMAGE_PATH);
     private final Image bobImage = loadImage(BOB_IMAGE_PATH);
     private final PauseTransition inputFeedbackDelay = new PauseTransition(INPUT_FEEDBACK_DURATION);
 
@@ -101,7 +99,7 @@ public class MainWindow {
      */
     public void setChatBot(ChatBot chatBot) {
         this.chatBot = Objects.requireNonNull(chatBot);
-        welcomeDialog = DialogBox.getBobDialog(WELCOME_MESSAGE, bobImage, ResponseType.INFO);
+        welcomeDialog = DialogBox.getBobDialog(WELCOME_MESSAGE, ResponseType.INFO);
         addDialog(welcomeDialog);
     }
 
@@ -119,9 +117,9 @@ public class MainWindow {
         setHelpPanelVisible(false);
 
         ChatResponse response = chatBot.processCommand(input);
-        DialogBox typingDialog = DialogBox.getTypingDialog(getTypingText(0), bobImage);
+        DialogBox typingDialog = DialogBox.getTypingDialog(getTypingText(0));
 
-        addDialog(DialogBox.getUserDialog(input, userImage));
+        addDialog(DialogBox.getUserDialog(input));
         addDialog(typingDialog);
 
         userInput.clear();
@@ -193,8 +191,7 @@ public class MainWindow {
 
     private void replaceTypingDialog(DialogBox typingDialog, ChatResponse response) {
         int dialogIndex = dialogContainer.getChildren().indexOf(typingDialog);
-        DialogBox responseDialog = DialogBox.getBobDialog(
-                response.text(), bobImage, response.responseType());
+        DialogBox responseDialog = DialogBox.getBobDialog(response.text(), response.responseType());
 
         if (dialogIndex >= 0) {
             dialogContainer.getChildren().set(dialogIndex, responseDialog);

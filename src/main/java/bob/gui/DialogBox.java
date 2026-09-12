@@ -1,21 +1,15 @@
 package bob.gui;
 
 import java.io.IOException;
-import java.util.Collections;
 
 import bob.ResponseType;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 
@@ -24,16 +18,13 @@ import javafx.util.Duration;
  */
 public class DialogBox extends HBox {
     private static final String DIALOG_BOX_FXML = "/view/DialogBox.fxml";
-    private static final double AVATAR_SIZE = 48.0;
+    private static final double MAX_DIALOG_WIDTH_RATIO = 0.84;
     private static final Duration ENTRANCE_DURATION = Duration.millis(180);
 
     @FXML
     private Label dialog;
 
-    @FXML
-    private ImageView displayPicture;
-
-    private DialogBox(String text, Image image) {
+    private DialogBox(String text) {
         FXMLLoader fxmlLoader = new FXMLLoader(DialogBox.class.getResource(DIALOG_BOX_FXML));
         fxmlLoader.setController(this);
         fxmlLoader.setRoot(this);
@@ -45,30 +36,30 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        AvatarView.configure(displayPicture, image, AVATAR_SIZE);
+        dialog.getStyleClass().add("dialog-label");
+        dialog.getStyleClass().add("user-label");
+        dialog.maxWidthProperty().bind(widthProperty().multiply(MAX_DIALOG_WIDTH_RATIO));
     }
 
     /**
      * Creates a dialog displayed on the user's side.
      *
      * @param text message to display.
-     * @param image user avatar.
      * @return user dialog box.
      */
-    public static DialogBox getUserDialog(String text, Image image) {
-        return new DialogBox(text, image);
+    public static DialogBox getUserDialog(String text) {
+        return new DialogBox(text);
     }
 
     /**
      * Creates a dialog displayed on Bob's side.
      *
      * @param text message to display.
-     * @param image Bob's avatar.
      * @param responseType semantic type used to style the response.
      * @return Bob dialog box.
      */
-    public static DialogBox getBobDialog(String text, Image image, ResponseType responseType) {
-        DialogBox dialogBox = new DialogBox(text, image);
+    public static DialogBox getBobDialog(String text, ResponseType responseType) {
+        DialogBox dialogBox = new DialogBox(text);
         dialogBox.flip();
         dialogBox.applyResponseStyle(responseType);
         return dialogBox;
@@ -78,11 +69,10 @@ public class DialogBox extends HBox {
      * Creates the temporary dialog displayed while Bob prepares a response.
      *
      * @param text initial typing-indicator text.
-     * @param image Bob's avatar.
      * @return Bob typing dialog box.
      */
-    public static DialogBox getTypingDialog(String text, Image image) {
-        DialogBox dialogBox = getBobDialog(text, image, ResponseType.INFO);
+    public static DialogBox getTypingDialog(String text) {
+        DialogBox dialogBox = getBobDialog(text, ResponseType.INFO);
         dialogBox.dialog.getStyleClass().add("typing-label");
         return dialogBox;
     }
@@ -109,10 +99,8 @@ public class DialogBox extends HBox {
     }
 
     private void flip() {
-        ObservableList<Node> children = FXCollections.observableArrayList(getChildren());
-        Collections.reverse(children);
-        getChildren().setAll(children);
         setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().remove("user-label");
         dialog.getStyleClass().add("reply-label");
     }
 }
