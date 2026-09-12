@@ -1,0 +1,122 @@
+.root {
+    -fx-background-color: #080d1f;
+    -fx-font-family: "Consolas", "Courier New", monospace;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #080d1f;
+}
+
+.app-header {
+    -fx-alignment: center-left;
+    -fx-background-color: linear-gradient(to right, #111936, #2b1457);
+    -fx-border-color: transparent transparent #22d3ee transparent;
+    -fx-padding: 13 18 11 18;
+}
+
+.app-title {
+    -fx-font-size: 21px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #67e8f9;
+}
+
+.app-subtitle {
+    -fx-font-size: 11px;
+    -fx-text-fill: #f0abfc;
+}
+
+.conversation {
+    -fx-padding: 10 0 12 0;
+}
+
+.composer {
+    -fx-alignment: center;
+    -fx-background-color: #0d142b;
+    -fx-border-color: #243056 transparent transparent transparent;
+    -fx-padding: 10 12;
+}
+
+.composer .text-field {
+    -fx-background-color: #151d38;
+    -fx-background-radius: 8;
+    -fx-border-color: #334155;
+    -fx-border-radius: 8;
+    -fx-font-size: 13px;
+    -fx-prompt-text-fill: #7f8baa;
+    -fx-text-fill: #e6f6ff;
+    -fx-padding: 9 11;
+}
+
+.composer .text-field:focused {
+    -fx-border-color: #22d3ee;
+    -fx-border-radius: 8;
+}
+
+.composer .button {
+    -fx-background-color: #c026d3;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-padding: 9 17;
+}
+
+.composer .button:hover {
+    -fx-background-color: #e879f9;
+    -fx-text-fill: #1e1027;
+}
+
+.dialog-text {
+    -fx-font-size: 13px;
+    -fx-line-spacing: 1px;
+    -fx-text-fill: #e6f6ff;
+}
+
+.speaker-label {
+    -fx-alignment: top-left;
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+    -fx-min-width: 66px;
+    -fx-padding: 5 0 0 0;
+}
+
+.user-message .dialog-text {
+    -fx-background-color: #3b1d62;
+    -fx-background-radius: 12 12 3 12;
+    -fx-border-color: #d946ef;
+    -fx-border-radius: 12 12 3 12;
+    -fx-padding: 8 12;
+}
+
+.pixel-message .dialog-text {
+    -fx-background-color: #111a33;
+    -fx-background-radius: 4 12 12 12;
+    -fx-border-color: #155e75;
+    -fx-border-radius: 4 12 12 12;
+    -fx-effect: dropshadow(gaussian, rgba(34, 211, 238, 0.16), 7, 0, 0, 2);
+    -fx-padding: 9 12;
+}
+
+.user-message .speaker-label {
+    -fx-min-width: 34px;
+    -fx-text-fill: #f0abfc;
+}
+
+.pixel-message .speaker-label {
+    -fx-text-fill: #67e8f9;
+}
+
+.error-message .dialog-text {
+    -fx-background-color: #2a1022;
+    -fx-border-color: #fb7185;
+    -fx-text-fill: #fecdd3;
+}
+
+.error-message .speaker-label {
+    -fx-text-fill: #fb7185;
+}

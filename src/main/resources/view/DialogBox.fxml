@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root alignment="TOP_LEFT"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         fillHeight="true"
+         spacing="8.0"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="speaker"
+               styleClass="speaker-label"
+               text="Pixel" />
+        <Label fx:id="dialog"
+               maxWidth="1.7976931348623157E308"
+               minHeight="-Infinity"
+               styleClass="dialog-text"
+               wrapText="true"
+               HBox.hgrow="ALWAYS" />
+    </children>
+    <padding>
+        <Insets bottom="4.0" left="14.0" right="14.0" top="4.0" />
+    </padding>
+</fx:root>

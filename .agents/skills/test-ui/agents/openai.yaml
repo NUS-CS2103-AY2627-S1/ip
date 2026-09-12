@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Verify every code update with UI tests"
+  default_prompt: "Use $test-ui to review the UI test plan, run it, and show the test session."

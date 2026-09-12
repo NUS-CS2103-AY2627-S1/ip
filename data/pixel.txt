@@ -1,0 +1,4 @@
+T | 0 | Homework
+D | 0 | buy stuff | 2026-09-13
+T | 0 | Run
+E | 0 | concert | 3pm | 5pm

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="680.0" prefWidth="560.0"
+            styleClass="app-shell"
+            stylesheets="@pixel.css"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pixel.gui.MainWindow">
+    <children>
+        <VBox prefHeight="72.0" styleClass="app-header"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label styleClass="app-title" text="PIXEL" />
+                <Label styleClass="app-subtitle" text="ARCADE GUIDE // ONLINE" />
+            </children>
+        </VBox>
+        <HBox spacing="10.0" styleClass="composer"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <TextField fx:id="userInput"
+                           onAction="#handleUserInput"
+                           promptText="Enter a command to continue..."
+                           HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton"
+                        mnemonicParsing="false"
+                        onAction="#handleUserInput"
+                        text="PLAY" />
+            </children>
+        </HBox>
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    prefHeight="557.0"
+                    prefWidth="500.0"
+                    vvalue="1.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="72.0"
+                    AnchorPane.bottomAnchor="64.0">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true" spacing="6.0"
+                      styleClass="conversation" />
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>
