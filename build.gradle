@@ -1,0 +1,70 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.gradleup.shadow' version '8.3.5'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+checkstyle {
+    toolVersion = '10.2'
+    configDirectory = file("$rootDir/config/checkstyle")
+}
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+javafx {
+    version = '21.0.2'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+application {
+    mainClass = 'chin.Launcher'
+}
+
+run {
+    standardInput = System.in
+    jvmArgs '-ea'
+}
+
+jar {
+    archiveBaseName = 'chin'
+    archiveVersion = ''
+    manifest {
+        attributes 'Main-Class': 'chin.Chin'
+    }
+}
+
+shadowJar {
+    archiveBaseName = 'chin'
+    archiveClassifier = 'all'
+    archiveVersion = ''
+    manifest {
+        attributes 'Main-Class': 'chin.Launcher'
+    }
+}
+
+tasks.named('distTar') { dependsOn shadowJar }
+tasks.named('distZip') { dependsOn shadowJar }
+tasks.named('startScripts') { dependsOn shadowJar }
+tasks.named('startShadowScripts') { dependsOn jar }
