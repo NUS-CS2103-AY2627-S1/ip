@@ -13,8 +13,8 @@ import javafx.stage.Stage;
  * Starts Alfred's JavaFX application from its FXML view.
  */
 public class Main extends Application {
-    private static final double WINDOW_WIDTH = 400.0;
-    private static final double WINDOW_HEIGHT = 600.0;
+    private static final double WINDOW_WIDTH = 640.0;
+    private static final double WINDOW_HEIGHT = 720.0;
 
     private final Alfred alfred = Alfred.createGuiAlfred();
 
@@ -33,6 +33,7 @@ public class Main extends Application {
             stage.setTitle("Alfred");
             stage.setMinHeight(WINDOW_HEIGHT);
             stage.setMinWidth(WINDOW_WIDTH);
+            stage.setResizable(true);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setAlfred(alfred);
             stage.show();
