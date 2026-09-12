@@ -1,0 +1,266 @@
+.root {
+  background-color: #12251b;
+  surface-color: rgba(248, 251, 249, 0.92);
+  primary-color: #2f6b4f;
+  primary-hover-color: #3c8060;
+  primary-pressed-color: #24543e;
+  text-color: #1d2b24;
+  muted-text-color: #68776f;
+  border-color: rgba(47, 107, 79, 0.32);
+  success-color: #2f7d4b;
+  error-color: #b42318;
+  add-response-color: rgba(193, 228, 201, 0.96);
+  bye-response-color: rgba(220, 227, 223, 0.96);
+  delete-response-color: rgba(244, 200, 195, 0.96);
+  error-response-color: rgba(246, 186, 181, 0.96);
+  find-response-color: rgba(227, 216, 242, 0.96);
+  info-response-color: rgba(226, 237, 230, 0.96);
+  list-response-color: rgba(214, 232, 247, 0.96);
+  mark-response-color: rgba(197, 231, 216, 0.96);
+  unmark-response-color: rgba(245, 226, 184, 0.96);
+
+  -fx-background-color: background-color;
+  -fx-background-image: url("../images/background.png");
+  -fx-background-position: center center;
+  -fx-background-repeat: no-repeat;
+  -fx-background-size: cover;
+  -fx-font-family: "System";
+  -fx-font-size: 14px;
+}
+
+.app-header {
+  -fx-background-color: linear-gradient(to right, rgba(13, 34, 23, 0.97), rgba(26, 68, 46, 0.94));
+  -fx-border-color: rgba(255, 255, 255, 0.12);
+  -fx-border-width: 0 0 1px 0;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 14, 0.16, 0, 3);
+  -fx-padding: 10px 16px;
+}
+
+/* Applied by MainWindow according to the selected chatbot personality. */
+.theme-ocean .app-header {
+  -fx-background-color: linear-gradient(to right, #12344d, #226b82);
+}
+
+.theme-ocean .button:not(.header-help-button) {
+  -fx-background-color: #267d9a;
+}
+
+.theme-sunrise .app-header {
+  -fx-background-color: linear-gradient(to right, #542b3c, #a9564d);
+}
+
+.theme-sunrise .button:not(.header-help-button) {
+  -fx-background-color: #b85c4c;
+}
+
+.app-title {
+  -fx-font-size: 18px;
+  -fx-font-weight: bold;
+  -fx-text-fill: white;
+}
+
+.header-avatar-frame {
+  -fx-alignment: center;
+}
+
+.header-avatar-ring {
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.24), 8, 0.18, 0, 2);
+  -fx-fill: rgba(255, 255, 255, 0.92);
+}
+
+.app-subtitle {
+  -fx-font-size: 9px;
+  -fx-font-weight: bold;
+  -fx-text-fill: rgba(255, 255, 255, 0.58);
+}
+
+.status-indicator {
+  -fx-background-color: transparent;
+  -fx-padding: 2px;
+}
+
+.status-dot {
+  -fx-effect: dropshadow(gaussian, rgba(104, 211, 145, 0.62), 7, 0.5, 0, 0);
+  -fx-fill: #68d391;
+}
+
+.status-indicator.status-typing .status-dot {
+  -fx-effect: dropshadow(gaussian, rgba(246, 173, 85, 0.62), 7, 0.5, 0, 0);
+  -fx-fill: #f6ad55;
+}
+
+.status-indicator.status-ended .status-dot {
+  -fx-effect: none;
+  -fx-fill: #a0aec0;
+}
+
+.composer {
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.22), 12, 0.18, 0, 3);
+}
+
+.text-field {
+  -fx-background-color: surface-color;
+  -fx-background-insets: 0;
+  -fx-background-radius: 10px 0 0 10px;
+  -fx-border-color: border-color;
+  -fx-border-radius: 10px 0 0 10px;
+  -fx-border-width: 1px 0 1px 1px;
+  -fx-padding: 0 14px;
+  -fx-prompt-text-fill: muted-text-color;
+  -fx-text-fill: text-color;
+}
+
+.text-field:focused {
+  -fx-border-color: primary-color;
+  -fx-effect: dropshadow(gaussian, rgba(47, 107, 79, 0.2), 8, 0.2, 0, 0);
+}
+
+.button {
+  -fx-background-color: primary-color;
+  -fx-background-insets: 0;
+  -fx-background-radius: 0 10px 10px 0;
+  -fx-cursor: hand;
+  -fx-font-weight: bold;
+  -fx-text-fill: white;
+}
+
+.button:hover {
+  -fx-background-color: primary-hover-color;
+}
+
+.button:pressed {
+  -fx-background-color: primary-pressed-color;
+}
+
+.button:disabled {
+  -fx-cursor: default;
+  -fx-opacity: 0.55;
+}
+
+.button.header-help-button {
+  -fx-background-color: rgba(255, 255, 255, 0.08);
+  -fx-background-radius: 8px;
+  -fx-border-color: rgba(255, 255, 255, 0.18);
+  -fx-border-radius: 8px;
+  -fx-border-width: 1px;
+  -fx-font-size: 11px;
+  -fx-padding: 0 11px;
+}
+
+.button.header-help-button:hover,
+.button.header-help-button:focused {
+  -fx-background-color: rgba(255, 255, 255, 0.2);
+  -fx-border-color: rgba(255, 255, 255, 0.4);
+}
+
+.help-panel {
+  -fx-background-color: rgba(247, 251, 248, 0.98);
+  -fx-background-radius: 14px;
+  -fx-border-color: border-color;
+  -fx-border-radius: 14px;
+  -fx-border-width: 1px;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 20, 0.22, 0, 6);
+  -fx-padding: 14px;
+}
+
+.help-title {
+  -fx-font-size: 17px;
+  -fx-font-weight: bold;
+  -fx-text-fill: text-color;
+}
+
+.button.help-close-button {
+  -fx-background-color: transparent;
+  -fx-background-radius: 50%;
+  -fx-font-size: 18px;
+  -fx-padding: 1px 7px;
+  -fx-text-fill: muted-text-color;
+}
+
+.button.help-close-button:hover,
+.button.help-close-button:focused {
+  -fx-background-color: rgba(47, 107, 79, 0.12);
+  -fx-text-fill: text-color;
+}
+
+.help-introduction {
+  -fx-text-fill: muted-text-color;
+}
+
+.command-list {
+  -fx-padding: 2px 0;
+}
+
+.command-row {
+  -fx-background-color: rgba(47, 107, 79, 0.06);
+  -fx-background-radius: 7px;
+  -fx-padding: 5px 8px;
+}
+
+.command-name {
+  -fx-font-family: "Monospaced";
+  -fx-font-weight: bold;
+  -fx-text-fill: primary-color;
+}
+
+.command-description {
+  -fx-font-family: "Monospaced";
+  -fx-font-size: 12px;
+  -fx-text-fill: text-color;
+}
+
+.help-date-note {
+  -fx-background-color: rgba(47, 107, 79, 0.1);
+  -fx-background-radius: 8px;
+  -fx-font-size: 12px;
+  -fx-padding: 8px;
+  -fx-text-fill: text-color;
+}
+
+.input-feedback {
+  -fx-background-color: rgba(94, 24, 20, 0.94);
+  -fx-background-radius: 7px;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.24), 8, 0.2, 0, 2);
+  -fx-font-size: 12px;
+  -fx-padding: 6px 9px;
+  -fx-text-fill: white;
+}
+
+.text-field.input-invalid {
+  -fx-border-color: error-color;
+  -fx-effect: dropshadow(gaussian, rgba(180, 35, 24, 0.35), 8, 0.2, 0, 0);
+}
+
+.scroll-pane {
+  -fx-background-color: transparent;
+  -fx-background-insets: 0;
+  -fx-padding: 0 10px;
+}
+
+.scroll-pane > .viewport {
+  -fx-background-color: transparent;
+}
+
+.scroll-pane.help-scroll-pane {
+  -fx-padding: 0;
+}
+
+#dialogContainer {
+  -fx-padding: 10px 4px 18px 4px;
+}
+
+.scroll-bar:vertical {
+  -fx-background-color: transparent;
+  -fx-pref-width: 10px;
+}
+
+.scroll-bar .thumb {
+  -fx-background-color: rgba(47, 107, 79, 0.55);
+  -fx-background-radius: 10px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+  -fx-opacity: 0;
+  -fx-padding: 0;
+}

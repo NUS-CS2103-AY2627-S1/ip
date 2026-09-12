@@ -1,0 +1,69 @@
+.dialog-label {
+  -fx-background-color: primary-color;
+  -fx-background-radius: 12px 12px 12px 4px;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.18), 8, 0.16, 0, 2);
+  -fx-font-family: "System";
+  -fx-font-size: 13px;
+  -fx-line-spacing: 2px;
+  -fx-text-fill: white;
+}
+
+.user-label {
+  -fx-background-color: primary-color;
+  -fx-background-radius: 12px 12px 4px 12px;
+  -fx-text-fill: white;
+}
+
+.reply-label {
+  -fx-background-color: bye-response-color;
+  -fx-background-radius: 12px 12px 12px 4px;
+  -fx-border-color: border-color;
+  -fx-border-radius: 12px 12px 12px 4px;
+  -fx-border-width: 1px;
+  -fx-text-fill: text-color;
+}
+
+.reply-label.response-add {
+  -fx-background-color: add-response-color;
+}
+
+.reply-label.response-bye {
+  -fx-background-color: bye-response-color;
+}
+
+.reply-label.response-delete {
+  -fx-background-color: delete-response-color;
+}
+
+.reply-label.response-error {
+  -fx-background-color: error-response-color;
+  -fx-border-color: error-color;
+  -fx-border-width: 1px 1px 1px 4px;
+  -fx-font-weight: bold;
+}
+
+.reply-label.response-find {
+  -fx-background-color: find-response-color;
+}
+
+.reply-label.response-info {
+  -fx-background-color: info-response-color;
+}
+
+.reply-label.typing-label {
+  -fx-font-style: italic;
+  -fx-text-fill: muted-text-color;
+}
+
+.reply-label.response-list {
+  -fx-background-color: list-response-color;
+}
+
+.reply-label.response-mark {
+  -fx-background-color: mark-response-color;
+}
+
+.reply-label.response-unmark {
+  -fx-background-color: unmark-response-color;
+}
+
