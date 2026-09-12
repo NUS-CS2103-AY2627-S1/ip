@@ -1,33 +1,50 @@
-# Duke User Guide
+# Alfred User Guide
 
-// Update the title above to match the actual product name
+Alfred is a cave-themed task butler. Use the commands below to keep a concise
+ledger of to-dos, deadlines, and events. Commands are lowercase; surrounding
+spaces are accepted.
 
-// Product screenshot goes here
+## Add a task
 
-// Product intro goes here
+Add a to-do with `todo DESCRIPTION`.
 
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
+```text
+todo inspect lanterns
 ```
 
-## Feature ABC
+Add a deadline with `deadline DESCRIPTION /by DATE`. Add an event with
+`event DESCRIPTION /from START /to END`. Dates use either `yyyy-MM-dd` or
+`d/M/yyyy HHmm`. An event must end after it begins.
 
-// Feature details
+```text
+deadline send report /by 2026-09-18
+event patrol cave /from 18/9/2026 0900 /to 18/9/2026 1030
+```
 
+Alfred rejects duplicate tasks with identical details and rejects repeated
+`/by`, `/from`, or `/to` markers.
 
-## Feature XYZ
+## View and manage tasks
 
-// Feature details
+Use `list` to view all tasks. Use `find KEYWORD` to find task descriptions,
+and `sort`, `sort asc`, or `sort desc` for a chronological view that does not
+change the saved task order.
+
+Use `mark NUMBER`, `unmark NUMBER`, and `delete NUMBER` to update the
+one-based task number shown by `list`.
+
+```text
+list
+find lantern
+mark 1
+unmark 1
+delete 1
+```
+
+## Exit Alfred
+
+Use `bye` without additional arguments. Alfred confirms the farewell before
+closing the GUI.
 
 ## Sorting tasks
 

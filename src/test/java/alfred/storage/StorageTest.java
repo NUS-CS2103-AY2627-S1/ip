@@ -96,6 +96,26 @@ class StorageTest {
         assertStorageError();
     }
 
+    @Test
+    void save_temporaryWriteFails_keepsExistingTaskFile() throws IOException {
+        String savedData = "T\t0\tkeep existing task";
+        writeSavedData(savedData);
+        Path filePath = temporaryDirectory.resolve("data").resolve("alfred.txt");
+        Storage storage = new Storage(filePath) {
+            @Override
+            void writeTemporaryFile(Path temporaryFile, ArrayList<String> lines) throws IOException {
+                Files.writeString(temporaryFile, "incomplete data", StandardCharsets.UTF_8);
+                throw new IOException("Simulated temporary write failure");
+            }
+        };
+
+        TaskList newTasks = new TaskList(java.util.List.of(new Todo("new task")));
+        AlfredException exception = assertThrows(AlfredException.class, () -> storage.save(newTasks));
+
+        assertEquals("Alfred could not save the tasks.", exception.getMessage());
+        assertEquals(savedData, Files.readString(filePath, StandardCharsets.UTF_8));
+    }
+
     private Storage createStorage() {
         return new Storage(temporaryDirectory.resolve("data").resolve("alfred.txt"));
     }

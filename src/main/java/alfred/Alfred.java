@@ -16,6 +16,7 @@ public class Alfred {
     private final Ui ui;
     private final StringBuilder responseBuffer;
     private TaskList tasks;
+    private String storageLoadError;
     private String lastCommandType;
     private boolean isExitRequested;
 
@@ -61,7 +62,11 @@ public class Alfred {
 
         responseBuffer.setLength(0);
         isExitRequested = false;
-        ensureTasksLoaded();
+        if (!ensureTasksLoaded()) {
+            lastCommandType = "Error";
+            ui.showError(storageLoadError);
+            return responseBuffer.toString().stripTrailing();
+        }
         try {
             Command command = executeCommand(input);
             lastCommandType = command.getClass().getSimpleName();
@@ -97,6 +102,10 @@ public class Alfred {
     public void run() {
         ui.showWelcome();
         tasks = loadTasks();
+        if (tasks == null) {
+            ui.showError(storageLoadError);
+            return;
+        }
 
         boolean isExit = false;
         while (!isExit) {
@@ -123,24 +132,25 @@ public class Alfred {
     }
 
     /**
-     * Loads the saved tasks, returning an empty task list when loading fails.
+     * Loads the saved tasks, recording the error when the saved data cannot be trusted.
      *
-     * @return loaded tasks, or an empty list after a loading error
+     * @return loaded tasks, or {@code null} after a loading error
      */
     private TaskList loadTasks() {
         try {
             return new TaskList(storage.load());
         } catch (AlfredException e) {
-            ui.showError(e.getMessage());
-            return new TaskList();
+            storageLoadError = e.getMessage();
+            return null;
         }
     }
 
     /** Loads saved tasks before the GUI processes its first command. */
-    private void ensureTasksLoaded() {
-        if (tasks == null) {
+    private boolean ensureTasksLoaded() {
+        if (tasks == null && storageLoadError == null) {
             tasks = loadTasks();
         }
+        return tasks != null;
     }
 
     /**
