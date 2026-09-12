@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Some experience — comfortable with basic Git/GitHub workflow (clone, commit, push, branch, PR) from a few personal or group projects.
+* IDE and level of expertise: IntelliJ IDEA, beginner — still learning shortcuts, refactoring tools, and debugger features.
 
 # Guidance for interacting with users
 
