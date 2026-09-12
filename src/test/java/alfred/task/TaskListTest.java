@@ -29,6 +29,37 @@ class TaskListTest {
     }
 
     @Test
+    void containsEquivalentTask_sameTaskDetails_returnsTrueRegardlessOfCompletionStatus() {
+        Todo savedTodo = new Todo("read book");
+        savedTodo.markAsDone();
+        TaskList taskList = new TaskList(List.of(savedTodo,
+                new Deadline("submit report", LocalDateTime.of(2024, 3, 2, 18, 0)),
+                new Event("meeting", LocalDateTime.of(2024, 3, 2, 9, 0),
+                        LocalDateTime.of(2024, 3, 2, 10, 0))));
+
+        assertEquals(true, taskList.containsEquivalentTask(new Todo("read book")));
+        assertEquals(true, taskList.containsEquivalentTask(
+                new Deadline("submit report", LocalDateTime.of(2024, 3, 2, 18, 0))));
+        assertEquals(true, taskList.containsEquivalentTask(
+                new Event("meeting", LocalDateTime.of(2024, 3, 2, 9, 0),
+                        LocalDateTime.of(2024, 3, 2, 10, 0))));
+    }
+
+    @Test
+    void containsEquivalentTask_differentTaskDetails_returnsFalse() {
+        TaskList taskList = new TaskList(List.of(
+                new Deadline("submit report", LocalDateTime.of(2024, 3, 2, 18, 0)),
+                new Event("meeting", LocalDateTime.of(2024, 3, 2, 9, 0),
+                        LocalDateTime.of(2024, 3, 2, 10, 0))));
+
+        assertEquals(false, taskList.containsEquivalentTask(
+                new Deadline("submit report", LocalDateTime.of(2024, 3, 3, 18, 0))));
+        assertEquals(false, taskList.containsEquivalentTask(
+                new Event("meeting", LocalDateTime.of(2024, 3, 2, 9, 0),
+                        LocalDateTime.of(2024, 3, 2, 11, 0))));
+    }
+
+    @Test
     void getTasksSortedChronologically_ordersDatedTasksStablyWithoutChangingList() {
         Task firstTodo = new Todo("first todo");
         Task lateDeadline = new Deadline("late deadline", LocalDateTime.of(2024, 3, 3, 0, 0));

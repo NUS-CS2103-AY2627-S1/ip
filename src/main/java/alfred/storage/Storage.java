@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import alfred.exception.AlfredException;
@@ -126,9 +127,12 @@ public class Storage {
             task = new Deadline(unescape(parts[DESCRIPTION_FIELD_INDEX]),
                     TaskDateTime.parseStored(unescape(parts[FIRST_DATE_TIME_FIELD_INDEX])));
         } else if (parts.length == EVENT_FIELD_COUNT && parts[TYPE_FIELD_INDEX].equals(EVENT_TYPE_CODE)) {
-            task = new Event(unescape(parts[DESCRIPTION_FIELD_INDEX]),
-                    TaskDateTime.parseStored(unescape(parts[FIRST_DATE_TIME_FIELD_INDEX])),
-                    TaskDateTime.parseStored(unescape(parts[SECOND_DATE_TIME_FIELD_INDEX])));
+            LocalDateTime from = TaskDateTime.parseStored(unescape(parts[FIRST_DATE_TIME_FIELD_INDEX]));
+            LocalDateTime to = TaskDateTime.parseStored(unescape(parts[SECOND_DATE_TIME_FIELD_INDEX]));
+            if (!from.isBefore(to)) {
+                throw new IllegalArgumentException("Invalid event time range");
+            }
+            task = new Event(unescape(parts[DESCRIPTION_FIELD_INDEX]), from, to);
         } else {
             throw new IllegalArgumentException("Invalid task data");
         }

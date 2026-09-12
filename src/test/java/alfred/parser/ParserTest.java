@@ -38,7 +38,9 @@ class ParserTest {
     @Test
     void parseCommand_nonTaskCommands_returnsMatchingCommandTypes() throws AlfredException {
         assertInstanceOf(ExitCommand.class, parser.parseCommand("bye", 1));
+        assertInstanceOf(ExitCommand.class, parser.parseCommand("  bye  ", 1));
         assertInstanceOf(ListCommand.class, parser.parseCommand("list", 1));
+        assertInstanceOf(ListCommand.class, parser.parseCommand(" list ", 1));
         assertInstanceOf(FindCommand.class, parser.parseCommand("find book", 1));
         assertInstanceOf(SortCommand.class, parser.parseCommand("sort", 1));
         assertInstanceOf(SortCommand.class, parser.parseCommand("sort asc", 1));
@@ -129,6 +131,28 @@ class ParserTest {
                 parser.parseCommand("event project /from  /to 2019-12-03", 0));
         assertError("Alfred needs an end time after `/to`.", () ->
                 parser.parseCommand("event project /from 2019-12-02 /to", 0));
+    }
+
+    @Test
+    void parseCommand_repeatedMarkersAndUnexpectedArguments_exceptionWithGuidanceThrown() {
+        assertError("Alfred's `bye` command does not take additional arguments.", () ->
+                parser.parseCommand("bye now", 0));
+        assertError("Alfred's `list` command does not take additional arguments.", () ->
+                parser.parseCommand("list all", 0));
+        assertError("Alfred accepts only one `/by` marker for a deadline.", () ->
+                parser.parseCommand("deadline submit report /by 2019-12-02 /by 2019-12-03", 0));
+        assertError("Alfred accepts only one `/from` marker for an event.", () ->
+                parser.parseCommand("event meeting /from 2019-12-02 /from 2019-12-03 /to 2019-12-04", 0));
+        assertError("Alfred accepts only one `/to` marker for an event.", () ->
+                parser.parseCommand("event meeting /from 2019-12-02 /to 2019-12-03 /to 2019-12-04", 0));
+    }
+
+    @Test
+    void parseCommand_eventEndNotAfterStart_exceptionWithGuidanceThrown() {
+        assertError("Alfred needs an event end time later than its start time.", () ->
+                parser.parseCommand("event meeting /from 2019-12-03 /to 2019-12-03", 0));
+        assertError("Alfred needs an event end time later than its start time.", () ->
+                parser.parseCommand("event meeting /from 2019-12-04 /to 2019-12-03", 0));
     }
 
     @Test

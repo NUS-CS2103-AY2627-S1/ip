@@ -40,6 +40,18 @@ class AlfredTest {
     }
 
     @Test
+    void getResponse_duplicateTask_returnsErrorWithoutChangingTasks() {
+        Alfred alfred = createGuiAlfred();
+
+        alfred.getResponse("todo read book");
+
+        assertEquals("Apologies, sir: Alfred already has an identical mission in the cave ledger.",
+                alfred.getResponse("todo read book"));
+        assertEquals("Error", alfred.getLastCommandType());
+        assertEquals("Here is your cave ledger:\n1.[T][ ] read book", alfred.getResponse("list"));
+    }
+
+    @Test
     void getResponse_sortCommand_displaysSortedViewWithoutChangingTaskOrder() {
         Alfred alfred = createGuiAlfred();
 

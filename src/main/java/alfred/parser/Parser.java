@@ -45,6 +45,9 @@ public class Parser {
      * @throws AlfredException if the input has an unknown command or invalid command details
      */
     public Command parseCommand(String input, int taskCount) throws AlfredException {
+        assert input != null : "Command input must not be null";
+        assert taskCount >= 0 : "Task counts must not be negative";
+        input = input.trim();
         CommandType commandType = parseCommandType(input);
         if (isSortCommand(input)) {
             return new SortCommand(parseSortOrder(input));
@@ -53,9 +56,11 @@ public class Parser {
             throw new AlfredException("I do not recognise that command. Come again.");
         }
         if (commandType == CommandType.BYE) {
+            validateNoArguments(input, commandType);
             return new ExitCommand();
         }
         if (commandType == CommandType.LIST) {
+            validateNoArguments(input, commandType);
             return new ListCommand();
         }
         if (commandType == CommandType.FIND) {
@@ -169,6 +174,9 @@ public class Parser {
             }
             throw new AlfredException("Alfred needs `/by` followed by a due time for a deadline.");
         }
+        if (hasMarkerAfter(input, DEADLINE_BY_MARKER, byMarkerIndex + DEADLINE_BY_MARKER.length())) {
+            throw new AlfredException("Alfred accepts only one `/by` marker for a deadline.");
+        }
         String description = input.substring(CommandType.DEADLINE.getKeyword().length(), byMarkerIndex)
                 .trim();
         String by = input.substring(byMarkerIndex + DEADLINE_BY_MARKER.length()).trim();
@@ -198,6 +206,12 @@ public class Parser {
             }
             throw new AlfredException("Alfred needs `/to` followed by an end time for an event.");
         }
+        if (hasMarkerAfter(input, EVENT_FROM_MARKER, fromMarkerIndex + EVENT_FROM_MARKER.length())) {
+            throw new AlfredException("Alfred accepts only one `/from` marker for an event.");
+        }
+        if (hasMarkerAfter(input, EVENT_TO_MARKER, toMarkerIndex + EVENT_TO_MARKER.length())) {
+            throw new AlfredException("Alfred accepts only one `/to` marker for an event.");
+        }
         String description = input.substring(CommandType.EVENT.getKeyword().length(), fromMarkerIndex).trim();
         String from = input.substring(fromMarkerIndex + EVENT_FROM_MARKER.length(), toMarkerIndex).trim();
         String to = input.substring(toMarkerIndex + EVENT_TO_MARKER.length()).trim();
@@ -212,6 +226,9 @@ public class Parser {
         }
         LocalDateTime fromDateTime = TaskDateTime.parse(from);
         LocalDateTime toDateTime = TaskDateTime.parse(to);
+        if (!fromDateTime.isBefore(toDateTime)) {
+            throw new AlfredException("Alfred needs an event end time later than its start time.");
+        }
         return new Event(description, fromDateTime, toDateTime);
     }
 
@@ -227,5 +244,18 @@ public class Parser {
     /** Returns the text following a recognized command keyword. */
     private String extractCommandArguments(String input, CommandType commandType) {
         return input.substring(commandType.getKeyword().length()).trim();
+    }
+
+    /** Rejects additional text for a command that does not accept parameters. */
+    private void validateNoArguments(String input, CommandType commandType) throws AlfredException {
+        if (!extractCommandArguments(input, commandType).isEmpty()) {
+            throw new AlfredException("Alfred's `" + commandType.getKeyword()
+                    + "` command does not take additional arguments.");
+        }
+    }
+
+    /** Returns whether a syntax marker appears after the marker position already parsed. */
+    private boolean hasMarkerAfter(String input, String marker, int nextSearchIndex) {
+        return input.indexOf(marker, nextSearchIndex) != -1;
     }
 }

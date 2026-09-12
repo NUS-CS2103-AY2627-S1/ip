@@ -89,6 +89,13 @@ class StorageTest {
         assertStorageError();
     }
 
+    @Test
+    void load_eventEndNotAfterStart_exceptionWithStorageErrorThrown() throws IOException {
+        writeSavedData("E\t0\tmeeting\t2024-03-02T10:00\t2024-03-02T10:00");
+
+        assertStorageError();
+    }
+
     private Storage createStorage() {
         return new Storage(temporaryDirectory.resolve("data").resolve("alfred.txt"));
     }
