@@ -1027,6 +1027,49 @@ The cave is secure. Until our next mission, sir.
 ____________________________________________________________
 ```
 
+## Preserve an unreadable saved task file
+
+**Aim:** Verify that invalid saved data is reported without starting a session
+that could overwrite the original task file.
+
+### Setup saved data
+```text
+T	0	keep existing task
+E	0	legacy meeting	2024-03-02T10:00	2024-03-02T10:00
+```
+
+### Input
+```text
+
+```
+
+### Expected output
+```text
+____________________________________________________________
+      *==/          |     |            \==*
+     /XX/           |\__\/|             \XX\
+   /XXXX\           |XXXXX|             /XXXX\
+ |XXXXXX\_         *XXXXXXX*         \_/XXXXXX|
+XXXXXXXXXXXxxxxxxxXXXXXXXXXXXxxxxxxxXXXXXXXXXXX
+|XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX|
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+|XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX|
+ XXXXXX/^^^^"\XXXXXXXXXXXXXXXXXXXXX/^^^^^\XXXXXX
+ |XXX|       \XXX/^^\XXXXX/^^\XXX/       |XXX|
+   \XX\       \X/    \XXX/    \X/       /XX/
+      "\       "      \X/      "       /
+
+    _    _  __             _
+   / \  | |/ _|_ __ ___  __| |
+  / _ \ | | |_| '__/ _ \/ _` |
+ / ___ \| |  _| | |  __/ (_| |
+/_/   \_\_|_| |_|  \___|\__,_|
+
+Good day, sir. Alfred is at your service in the cave. What shall we accomplish?
+____________________________________________________________
+Apologies, sir: Alfred could not load the saved tasks.
+```
+
 ## Manual JavaFX verification
 
 Run `./gradlew run`. The resizable Alfred window should open with a scrollable dialog area, a

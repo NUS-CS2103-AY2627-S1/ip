@@ -2,8 +2,10 @@ package alfred.storage;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.AtomicMoveNotSupportedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -37,6 +39,7 @@ public class Storage {
     private static final int TODO_FIELD_COUNT = 3;
     private static final int DEADLINE_FIELD_COUNT = 4;
     private static final int EVENT_FIELD_COUNT = 5;
+    private static final String TEMPORARY_FILE_SUFFIX = ".tmp";
     private final Path filePath;
 
     /** Creates storage using Alfred's default task file location. */
@@ -80,6 +83,9 @@ public class Storage {
     /**
      * Saves the current task list, creating the data directory when necessary.
      *
+     * <p>The existing task file is replaced only after a complete temporary file
+     * has been written. This keeps the previous file available if writing fails.</p>
+     *
      * @param tasks tasks to save
      * @throws AlfredException if the task data cannot be saved
      */
@@ -89,11 +95,51 @@ public class Storage {
             lines.add(serialise(task));
         }
 
+        Path temporaryFile = null;
         try {
-            Files.createDirectories(filePath.getParent());
-            Files.write(filePath, lines, StandardCharsets.UTF_8);
+            Path parentDirectory = filePath.toAbsolutePath().getParent();
+            assert parentDirectory != null : "Task files must have a parent directory";
+            Files.createDirectories(parentDirectory);
+            temporaryFile = Files.createTempFile(parentDirectory, getTemporaryFilePrefix(), TEMPORARY_FILE_SUFFIX);
+            writeTemporaryFile(temporaryFile, lines);
+            replaceTaskFile(temporaryFile);
         } catch (IOException e) {
             throw new AlfredException("Alfred could not save the tasks.");
+        } finally {
+            deleteTemporaryFile(temporaryFile);
+        }
+    }
+
+    /** Writes serialized task lines to a temporary file before it replaces the saved task file. */
+    void writeTemporaryFile(Path temporaryFile, ArrayList<String> lines) throws IOException {
+        Files.write(temporaryFile, lines, StandardCharsets.UTF_8);
+    }
+
+    /** Replaces the saved task file with the complete temporary file. */
+    private void replaceTaskFile(Path temporaryFile) throws IOException {
+        try {
+            Files.move(temporaryFile, filePath, StandardCopyOption.ATOMIC_MOVE,
+                    StandardCopyOption.REPLACE_EXISTING);
+        } catch (AtomicMoveNotSupportedException e) {
+            Files.move(temporaryFile, filePath, StandardCopyOption.REPLACE_EXISTING);
+        }
+    }
+
+    /** Returns a valid temporary-file prefix based on the task file name. */
+    private String getTemporaryFilePrefix() {
+        String fileName = filePath.getFileName().toString();
+        return fileName.length() < 3 ? "alfred" : fileName;
+    }
+
+    /** Deletes a leftover temporary file after a failed save without masking the original error. */
+    private void deleteTemporaryFile(Path temporaryFile) {
+        if (temporaryFile == null) {
+            return;
+        }
+        try {
+            Files.deleteIfExists(temporaryFile);
+        } catch (IOException ignored) {
+            // The saved task file remains safe; a later save can remove any stale temporary file.
         }
     }
 

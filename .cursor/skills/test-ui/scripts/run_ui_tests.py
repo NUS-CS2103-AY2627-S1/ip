@@ -13,6 +13,7 @@ PLAN_PATH = PROJECT_ROOT / "test" / "ui-test-plan.md"
 SOURCE_DIRECTORY = PROJECT_ROOT / "src" / "main" / "java"
 CASE_PATTERN = re.compile(
     r"^## (?P<name>.+?)\n\n\*\*Aim:\*\* (?P<aim>.+?)\n\n"
+    r"(?:### Setup saved data\n```text\n(?P<saved_data>.*?)\n```\n\n)?"
     r"(?:### Setup input\n```text\n(?P<setup>.*?)\n```\n\n)?"
     r"### Input\n```text\n(?P<input>.*?)\n```\n\n"
     r"### Expected output\n```text\n(?P<expected>.*?)\n```",
@@ -65,6 +66,11 @@ def main():
             expected = case.group("expected") + "\n"
             case_directory = Path(temporary_directory) / f"case-data-{case_number}"
             case_directory.mkdir()
+            saved_data = case.group("saved_data")
+            if saved_data is not None:
+                saved_data_path = case_directory / "data" / "alfred.txt"
+                saved_data_path.parent.mkdir()
+                saved_data_path.write_text(saved_data, encoding="utf-8")
             setup = case.group("setup")
             if setup is not None:
                 setup_input = setup + "\n"

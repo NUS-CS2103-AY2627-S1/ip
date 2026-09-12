@@ -3,6 +3,9 @@ package alfred;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
@@ -80,10 +83,32 @@ class AlfredTest {
         assertTrue(alfred.isExitRequested());
     }
 
+    @Test
+    void getResponse_invalidSavedData_rejectsCommandsWithoutOverwritingTaskFile() throws IOException {
+        String savedData = "T\t0\tkeep existing task\n"
+                + "E\t0\tlegacy meeting\t2024-03-02T10:00\t2024-03-02T10:00";
+        Path filePath = temporaryDirectory.resolve("data").resolve("alfred.txt");
+        Files.createDirectories(filePath.getParent());
+        Files.writeString(filePath, savedData, StandardCharsets.UTF_8);
+        Alfred alfred = createGuiAlfred(filePath);
+
+        assertEquals("Apologies, sir: Alfred could not load the saved tasks.",
+                alfred.getResponse("todo new task"));
+        assertEquals("Error", alfred.getLastCommandType());
+        assertEquals(savedData, Files.readString(filePath, StandardCharsets.UTF_8));
+        assertEquals("Apologies, sir: Alfred could not load the saved tasks.", alfred.getResponse("list"));
+        assertEquals(savedData, Files.readString(filePath, StandardCharsets.UTF_8));
+    }
+
     /** Creates Alfred with temporary storage and a GUI response buffer. */
     private Alfred createGuiAlfred() {
+        return createGuiAlfred(temporaryDirectory.resolve("data").resolve("alfred.txt"));
+    }
+
+    /** Creates Alfred with the given task file and a GUI response buffer. */
+    private Alfred createGuiAlfred(Path filePath) {
         StringBuilder responseBuffer = new StringBuilder();
-        Storage storage = new Storage(temporaryDirectory.resolve("data").resolve("alfred.txt"));
+        Storage storage = new Storage(filePath);
         return new Alfred(storage, new Ui(responseBuffer), responseBuffer);
     }
 }
