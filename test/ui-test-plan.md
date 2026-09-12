@@ -778,7 +778,7 @@ deadline later deadline /by 2019-12-03
 event same time event /from 2/12/2019 1800 /to 2/12/2019 1900
 deadline same time deadline /by 2/12/2019 1800
 todo second todo
-event early event /from 2019-12-01 /to 2019-12-01
+event early event /from 2019-12-01 /to 2019-12-02
 sort
 sort asc
 sort desc
@@ -839,12 +839,12 @@ Your cave ledger now holds 5 tasks.
 ____________________________________________________________
 ____________________________________________________________
 Consider it noted in the cave ledger:
-  [E][ ] early event (from: Dec 01 2019 to: Dec 01 2019)
+  [E][ ] early event (from: Dec 01 2019 to: Dec 02 2019)
 Your cave ledger now holds 6 tasks.
 ____________________________________________________________
 ____________________________________________________________
 Here is your cave ledger in ascending chronological order:
-1.[E][ ] early event (from: Dec 01 2019 to: Dec 01 2019)
+1.[E][ ] early event (from: Dec 01 2019 to: Dec 02 2019)
 2.[E][ ] same time event (from: Dec 02 2019 18:00 to: Dec 02 2019 19:00)
 3.[D][ ] same time deadline (by: Dec 02 2019 18:00)
 4.[D][ ] later deadline (by: Dec 03 2019)
@@ -853,7 +853,7 @@ Here is your cave ledger in ascending chronological order:
 ____________________________________________________________
 ____________________________________________________________
 Here is your cave ledger in ascending chronological order:
-1.[E][ ] early event (from: Dec 01 2019 to: Dec 01 2019)
+1.[E][ ] early event (from: Dec 01 2019 to: Dec 02 2019)
 2.[E][ ] same time event (from: Dec 02 2019 18:00 to: Dec 02 2019 19:00)
 3.[D][ ] same time deadline (by: Dec 02 2019 18:00)
 4.[D][ ] later deadline (by: Dec 03 2019)
@@ -867,7 +867,7 @@ Here is your cave ledger in descending chronological order:
 3.[D][ ] later deadline (by: Dec 03 2019)
 4.[E][ ] same time event (from: Dec 02 2019 18:00 to: Dec 02 2019 19:00)
 5.[D][ ] same time deadline (by: Dec 02 2019 18:00)
-6.[E][ ] early event (from: Dec 01 2019 to: Dec 01 2019)
+6.[E][ ] early event (from: Dec 01 2019 to: Dec 02 2019)
 ____________________________________________________________
 ____________________________________________________________
 Apologies, sir: Alfred only understands `sort`, `sort asc`, or `sort desc`.
@@ -882,7 +882,7 @@ Here is your cave ledger:
 3.[E][ ] same time event (from: Dec 02 2019 18:00 to: Dec 02 2019 19:00)
 4.[D][ ] same time deadline (by: Dec 02 2019 18:00)
 5.[T][ ] second todo
-6.[E][ ] early event (from: Dec 01 2019 to: Dec 01 2019)
+6.[E][ ] early event (from: Dec 01 2019 to: Dec 02 2019)
 ____________________________________________________________
 ____________________________________________________________
 The cave is secure. Until our next mission, sir.
@@ -925,6 +925,102 @@ Good day, sir. Alfred is at your service in the cave. What shall we accomplish?
 ____________________________________________________________
 ____________________________________________________________
 Here is your cave ledger in ascending chronological order:
+____________________________________________________________
+____________________________________________________________
+The cave is secure. Until our next mission, sir.
+____________________________________________________________
+```
+
+## Reject duplicate tasks and strict command syntax
+
+**Aim:** Verify that duplicate missions, repeated markers, invalid event ranges, and extra
+arguments are rejected without changing the valid task list.
+
+### Input
+```text
+todo keep record
+todo keep record
+deadline submit report /by 2019-12-02
+deadline resubmit /by 2019-12-02 /by 2019-12-03
+event team meeting /from 2019-12-02 /to 2019-12-03
+event same instant /from 2019-12-02 /to 2019-12-02
+event backwards /from 2019-12-03 /to 2019-12-02
+event repeated start /from 2019-12-02 /from 2019-12-03 /to 2019-12-04
+event repeated end /from 2019-12-02 /to 2019-12-03 /to 2019-12-04
+list extra
+bye later
+list
+bye
+```
+
+### Expected output
+```text
+____________________________________________________________
+      *==/          |     |            \==*
+     /XX/           |\__\/|             \XX\
+   /XXXX\           |XXXXX|             /XXXX\
+ |XXXXXX\_         *XXXXXXX*         \_/XXXXXX|
+XXXXXXXXXXXxxxxxxxXXXXXXXXXXXxxxxxxxXXXXXXXXXXX
+|XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX|
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+|XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX|
+ XXXXXX/^^^^"\XXXXXXXXXXXXXXXXXXXXX/^^^^^\XXXXXX
+ |XXX|       \XXX/^^\XXXXX/^^\XXX/       |XXX|
+   \XX\       \X/    \XXX/    \X/       /XX/
+      "\       "      \X/      "       /
+
+    _    _  __             _
+   / \  | |/ _|_ __ ___  __| |
+  / _ \ | | |_| '__/ _ \/ _` |
+ / ___ \| |  _| | |  __/ (_| |
+/_/   \_\_|_| |_|  \___|\__,_|
+
+Good day, sir. Alfred is at your service in the cave. What shall we accomplish?
+____________________________________________________________
+____________________________________________________________
+Consider it noted in the cave ledger:
+  [T][ ] keep record
+Your cave ledger now holds 1 task.
+____________________________________________________________
+____________________________________________________________
+Apologies, sir: Alfred already has an identical mission in the cave ledger.
+____________________________________________________________
+____________________________________________________________
+Consider it noted in the cave ledger:
+  [D][ ] submit report (by: Dec 02 2019)
+Your cave ledger now holds 2 tasks.
+____________________________________________________________
+____________________________________________________________
+Apologies, sir: Alfred accepts only one `/by` marker for a deadline.
+____________________________________________________________
+____________________________________________________________
+Consider it noted in the cave ledger:
+  [E][ ] team meeting (from: Dec 02 2019 to: Dec 03 2019)
+Your cave ledger now holds 3 tasks.
+____________________________________________________________
+____________________________________________________________
+Apologies, sir: Alfred needs an event end time later than its start time.
+____________________________________________________________
+____________________________________________________________
+Apologies, sir: Alfred needs an event end time later than its start time.
+____________________________________________________________
+____________________________________________________________
+Apologies, sir: Alfred accepts only one `/from` marker for an event.
+____________________________________________________________
+____________________________________________________________
+Apologies, sir: Alfred accepts only one `/to` marker for an event.
+____________________________________________________________
+____________________________________________________________
+Apologies, sir: Alfred's `list` command does not take additional arguments.
+____________________________________________________________
+____________________________________________________________
+Apologies, sir: Alfred's `bye` command does not take additional arguments.
+____________________________________________________________
+____________________________________________________________
+Here is your cave ledger:
+1.[T][ ] keep record
+2.[D][ ] submit report (by: Dec 02 2019)
+3.[E][ ] team meeting (from: Dec 02 2019 to: Dec 03 2019)
 ____________________________________________________________
 ____________________________________________________________
 The cave is secure. Until our next mission, sir.

@@ -67,6 +67,16 @@ public class Task {
     }
 
     /**
+     * Returns whether another task has the same identity for duplicate detection.
+     *
+     * @param other task to compare with this task
+     * @return whether both tasks have the same type and description
+     */
+    public boolean hasSameIdentityAs(Task other) {
+        return other != null && type == other.type && description.equals(other.description);
+    }
+
+    /**
      * Returns this task in the format used in Alfred's task list.
      *
      * @return the task type, status icon, and description

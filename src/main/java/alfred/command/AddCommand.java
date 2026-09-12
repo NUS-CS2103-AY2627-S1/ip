@@ -24,6 +24,9 @@ public class AddCommand extends Command {
     /** {@inheritDoc} */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AlfredException {
+        if (tasks.containsEquivalentTask(task)) {
+            throw new AlfredException("Alfred already has an identical mission in the cave ledger.");
+        }
         tasks.add(task);
         storage.save(tasks);
         ui.showTaskAdded(task, tasks.size());
