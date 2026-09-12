@@ -55,7 +55,7 @@ public class Ui {
     public void showWelcome() {
         showMessage(SEPARATOR);
         showMessage(BANNER);
-        showMessage("How can I assist from the cave?");
+        showMessage("Good day, sir. Alfred is at your service in the cave. What shall we accomplish?");
         showMessage(SEPARATOR);
     }
 
@@ -71,25 +71,25 @@ public class Ui {
 
     /** Displays Alfred's farewell message. */
     public void showGoodbye() {
-        showMessage("Bye. Hope to see you again soon sir!");
+        showMessage("The cave is secure. Until our next mission, sir.");
     }
 
     /** Displays every task in the current task list. */
     public void showTaskList(TaskList tasks) {
-        showMessage("Here are the tasks in your list:");
+        showMessage("Here is your cave ledger:");
         showNumberedTasks(tasks);
     }
 
     /** Displays the tasks whose descriptions match a search keyword. */
     public void showMatchingTasks(List<Task> matchingTasks) {
-        showMessage("Here are the matching tasks in your list:");
+        showMessage("Here are the matching missions in your cave ledger:");
         showNumberedTasks(matchingTasks);
     }
 
     /** Displays a chronological task view without changing the task list. */
     public void showSortedTasks(List<Task> sortedTasks, boolean isAscending) {
         String direction = isAscending ? "ascending" : "descending";
-        showMessage("Here are the tasks in " + direction + " chronological order:");
+        showMessage("Here is your cave ledger in " + direction + " chronological order:");
         showNumberedTasks(sortedTasks);
     }
 
@@ -104,33 +104,42 @@ public class Ui {
 
     /** Displays confirmation that a task was marked as done. */
     public void showTaskMarked(Task task) {
-        showMessage("Nice! I've marked this task as done:");
+        showMessage("Mission accomplished. I've marked this task as done:");
         showMessage("  " + task);
     }
 
     /** Displays confirmation that a task was marked as not done. */
     public void showTaskUnmarked(Task task) {
-        showMessage("OK, I've marked this task as not done yet:");
+        showMessage("I've reopened this mission:");
         showMessage("  " + task);
     }
 
     /** Displays confirmation that a task was removed. */
     public void showTaskDeleted(Task task, int taskCount) {
-        showMessage("Noted. I've removed this task:");
+        showMessage("The following mission has left the cave ledger:");
         showMessage("  " + task);
-        showMessage("Now you have " + taskCount + " tasks in the list.");
+        showMessage(getTaskCountMessage(taskCount));
     }
 
     /** Displays confirmation that a task was added. */
     public void showTaskAdded(Task task, int taskCount) {
-        showMessage("Got it. I've added this task:");
+        showMessage("Consider it noted in the cave ledger:");
         showMessage("  " + task);
-        showMessage("Now you have " + taskCount + " tasks in the list.");
+        showMessage(getTaskCountMessage(taskCount));
     }
 
     /** Displays an error message. */
     public void showError(String message) {
-        showMessage(message);
+        showMessage("Apologies, sir: " + message);
+    }
+
+    /**
+     * Returns a cave-ledger count message with the appropriate singular or plural noun.
+     */
+    private String getTaskCountMessage(int taskCount) {
+        assert taskCount >= 0 : "Task counts must not be negative";
+        String taskNoun = taskCount == 1 ? "task" : "tasks";
+        return "Your cave ledger now holds " + taskCount + " " + taskNoun + ".";
     }
 
     /**

@@ -33,13 +33,13 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  / ___ \| |  _| | |  __/ (_| |
 /_/   \_\_|_| |_|  \___|\__,_|
 
-How can I assist from the cave?
+Good day, sir. Alfred is at your service in the cave. What shall we accomplish?
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here is your cave ledger:
 ____________________________________________________________
 ____________________________________________________________
-Bye. Hope to see you again soon sir!
+The cave is secure. Until our next mission, sir.
 ____________________________________________________________
 ```
 
@@ -89,16 +89,16 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  / ___ \| |  _| | |  __/ (_| |
 /_/   \_\_|_| |_|  \___|\__,_|
 
-How can I assist from the cave?
+Good day, sir. Alfred is at your service in the cave. What shall we accomplish?
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here is your cave ledger:
 1.[T][ ] keep this task
 2.[D][ ] return book (by: Dec 02 2019)
 3.[E][X] project meeting (from: Dec 02 2019 18:00 to: Dec 03 2019)
 ____________________________________________________________
 ____________________________________________________________
-Bye. Hope to see you again soon sir!
+The cave is secure. Until our next mission, sir.
 ____________________________________________________________
 ```
 
@@ -140,39 +140,39 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  / ___ \| |  _| | |  __/ (_| |
 /_/   \_\_|_| |_|  \___|\__,_|
 
-How can I assist from the cave?
+Good day, sir. Alfred is at your service in the cave. What shall we accomplish?
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [T][ ] borrow book
-Now you have 1 tasks in the list.
+Your cave ledger now holds 1 task.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [D][ ] return book (by: Oct 15 2019)
-Now you have 2 tasks in the list.
+Your cave ledger now holds 2 tasks.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [E][ ] project meeting (from: Dec 02 2019 18:00 to: Dec 03 2019)
-Now you have 3 tasks in the list.
+Your cave ledger now holds 3 tasks.
 ____________________________________________________________
 ____________________________________________________________
-Nice! I've marked this task as done:
+Mission accomplished. I've marked this task as done:
   [D][X] return book (by: Oct 15 2019)
 ____________________________________________________________
 ____________________________________________________________
-OK, I've marked this task as not done yet:
+I've reopened this mission:
   [D][ ] return book (by: Oct 15 2019)
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here is your cave ledger:
 1.[T][ ] borrow book
 2.[D][ ] return book (by: Oct 15 2019)
 3.[E][ ] project meeting (from: Dec 02 2019 18:00 to: Dec 03 2019)
 ____________________________________________________________
 ____________________________________________________________
-Bye. Hope to see you again soon sir!
+The cave is secure. Until our next mission, sir.
 ____________________________________________________________
 ```
 
@@ -215,42 +215,42 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  / ___ \| |  _| | |  __/ (_| |
 /_/   \_\_|_| |_|  \___|\__,_|
 
-How can I assist from the cave?
+Good day, sir. Alfred is at your service in the cave. What shall we accomplish?
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [T][ ] read book
-Now you have 1 tasks in the list.
+Your cave ledger now holds 1 task.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [D][ ] return book (by: Oct 15 2019)
-Now you have 2 tasks in the list.
+Your cave ledger now holds 2 tasks.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [E][ ] project meeting (from: Dec 02 2019 18:00 to: Dec 03 2019)
-Now you have 3 tasks in the list.
+Your cave ledger now holds 3 tasks.
 ____________________________________________________________
 ____________________________________________________________
-Nice! I've marked this task as done:
+Mission accomplished. I've marked this task as done:
   [T][X] read book
 ____________________________________________________________
 ____________________________________________________________
-Alfred cannot find task 5. Choose a number from 1 to 3.
+Apologies, sir: Alfred cannot find task 5. Choose a number from 1 to 3.
 ____________________________________________________________
 ____________________________________________________________
-Noted. I've removed this task:
+The following mission has left the cave ledger:
   [D][ ] return book (by: Oct 15 2019)
-Now you have 2 tasks in the list.
+Your cave ledger now holds 2 tasks.
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here is your cave ledger:
 1.[T][X] read book
 2.[E][ ] project meeting (from: Dec 02 2019 18:00 to: Dec 03 2019)
 ____________________________________________________________
 ____________________________________________________________
-Bye. Hope to see you again soon sir!
+The cave is secure. Until our next mission, sir.
 ____________________________________________________________
 ```
 
@@ -292,34 +292,34 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  / ___ \| |  _| | |  __/ (_| |
 /_/   \_\_|_| |_|  \___|\__,_|
 
-How can I assist from the cave?
+Good day, sir. Alfred is at your service in the cave. What shall we accomplish?
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [E][ ] team meeting (from: Dec 02 2019 18:00 to: Dec 03 2019)
-Now you have 1 tasks in the list.
+Your cave ledger now holds 1 task.
 ____________________________________________________________
 ____________________________________________________________
-Alfred needs `/from` followed by a start time for an event.
+Apologies, sir: Alfred needs `/from` followed by a start time for an event.
 ____________________________________________________________
 ____________________________________________________________
-Alfred needs `/to` followed by an end time for an event.
+Apologies, sir: Alfred needs `/to` followed by an end time for an event.
 ____________________________________________________________
 ____________________________________________________________
-Alfred needs an event description before `/from`.
+Apologies, sir: Alfred needs an event description before `/from`.
 ____________________________________________________________
 ____________________________________________________________
-Alfred needs a start time after `/from`.
+Apologies, sir: Alfred needs a start time after `/from`.
 ____________________________________________________________
 ____________________________________________________________
-Alfred needs an end time after `/to`.
+Apologies, sir: Alfred needs an end time after `/to`.
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here is your cave ledger:
 1.[E][ ] team meeting (from: Dec 02 2019 18:00 to: Dec 03 2019)
 ____________________________________________________________
 ____________________________________________________________
-Bye. Hope to see you again soon sir!
+The cave is secure. Until our next mission, sir.
 ____________________________________________________________
 ```
 
@@ -367,54 +367,54 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  / ___ \| |  _| | |  __/ (_| |
 /_/   \_\_|_| |_|  \___|\__,_|
 
-How can I assist from the cave?
+Good day, sir. Alfred is at your service in the cave. What shall we accomplish?
 ____________________________________________________________
 ____________________________________________________________
-Alfred's task list is empty, so there is nothing to mark.
+Apologies, sir: Alfred's task list is empty, so there is nothing to mark.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [T][ ] read book
-Now you have 1 tasks in the list.
+Your cave ledger now holds 1 task.
 ____________________________________________________________
 ____________________________________________________________
-Alfred needs a task number after `mark`.
+Apologies, sir: Alfred needs a task number after `mark`.
 ____________________________________________________________
 ____________________________________________________________
-Alfred needs a whole-number task number after `mark`.
+Apologies, sir: Alfred needs a whole-number task number after `mark`.
 ____________________________________________________________
 ____________________________________________________________
-Alfred cannot find task 0. Choose a number from 1 to 1.
+Apologies, sir: Alfred cannot find task 0. Choose a number from 1 to 1.
 ____________________________________________________________
 ____________________________________________________________
-Alfred cannot find task 2. Choose a number from 1 to 1.
+Apologies, sir: Alfred cannot find task 2. Choose a number from 1 to 1.
 ____________________________________________________________
 ____________________________________________________________
-Nice! I've marked this task as done:
+Mission accomplished. I've marked this task as done:
   [T][X] read book
 ____________________________________________________________
 ____________________________________________________________
-Alfred needs a task number after `unmark`.
+Apologies, sir: Alfred needs a task number after `unmark`.
 ____________________________________________________________
 ____________________________________________________________
-Alfred needs a whole-number task number after `unmark`.
+Apologies, sir: Alfred needs a whole-number task number after `unmark`.
 ____________________________________________________________
 ____________________________________________________________
-Alfred cannot find task 4. Choose a number from 1 to 1.
+Apologies, sir: Alfred cannot find task 4. Choose a number from 1 to 1.
 ____________________________________________________________
 ____________________________________________________________
-Alfred cannot find task -1. Choose a number from 1 to 1.
+Apologies, sir: Alfred cannot find task -1. Choose a number from 1 to 1.
 ____________________________________________________________
 ____________________________________________________________
-OK, I've marked this task as not done yet:
+I've reopened this mission:
   [T][ ] read book
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here is your cave ledger:
 1.[T][ ] read book
 ____________________________________________________________
 ____________________________________________________________
-Bye. Hope to see you again soon sir!
+The cave is secure. Until our next mission, sir.
 ____________________________________________________________
 ```
 
@@ -454,28 +454,28 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  / ___ \| |  _| | |  __/ (_| |
 /_/   \_\_|_| |_|  \___|\__,_|
 
-How can I assist from the cave?
+Good day, sir. Alfred is at your service in the cave. What shall we accomplish?
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [D][ ] submit report (by: Oct 15 2019)
-Now you have 1 tasks in the list.
+Your cave ledger now holds 1 task.
 ____________________________________________________________
 ____________________________________________________________
-Alfred needs `/by` followed by a due time for a deadline.
+Apologies, sir: Alfred needs `/by` followed by a due time for a deadline.
 ____________________________________________________________
 ____________________________________________________________
-Alfred needs a deadline description before `/by`.
+Apologies, sir: Alfred needs a deadline description before `/by`.
 ____________________________________________________________
 ____________________________________________________________
-Alfred needs a due time after `/by`.
+Apologies, sir: Alfred needs a due time after `/by`.
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here is your cave ledger:
 1.[D][ ] submit report (by: Oct 15 2019)
 ____________________________________________________________
 ____________________________________________________________
-Bye. Hope to see you again soon sir!
+The cave is secure. Until our next mission, sir.
 ____________________________________________________________
 ```
 
@@ -514,25 +514,25 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  / ___ \| |  _| | |  __/ (_| |
 /_/   \_\_|_| |_|  \___|\__,_|
 
-How can I assist from the cave?
+Good day, sir. Alfred is at your service in the cave. What shall we accomplish?
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [T][ ] read book
-Now you have 1 tasks in the list.
+Your cave ledger now holds 1 task.
 ____________________________________________________________
 ____________________________________________________________
-Alfred cannot add a to-do without a mission description.
+Apologies, sir: Alfred cannot add a to-do without a mission description.
 ____________________________________________________________
 ____________________________________________________________
-I do not recognise that command. Come again.
+Apologies, sir: I do not recognise that command. Come again.
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here is your cave ledger:
 1.[T][ ] read book
 ____________________________________________________________
 ____________________________________________________________
-Bye. Hope to see you again soon sir!
+The cave is secure. Until our next mission, sir.
 ____________________________________________________________
 ```
 
@@ -578,45 +578,45 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  / ___ \| |  _| | |  __/ (_| |
 /_/   \_\_|_| |_|  \___|\__,_|
 
-How can I assist from the cave?
+Good day, sir. Alfred is at your service in the cave. What shall we accomplish?
 ____________________________________________________________
 ____________________________________________________________
-Alfred's task list is empty, so there is nothing to delete.
+Apologies, sir: Alfred's task list is empty, so there is nothing to delete.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [T][ ] keep me
-Now you have 1 tasks in the list.
+Your cave ledger now holds 1 task.
 ____________________________________________________________
 ____________________________________________________________
-Alfred needs a task number after `delete`.
+Apologies, sir: Alfred needs a task number after `delete`.
 ____________________________________________________________
 ____________________________________________________________
-Alfred needs a whole-number task number after `delete`.
+Apologies, sir: Alfred needs a whole-number task number after `delete`.
 ____________________________________________________________
 ____________________________________________________________
-Alfred cannot find task 0. Choose a number from 1 to 1.
+Apologies, sir: Alfred cannot find task 0. Choose a number from 1 to 1.
 ____________________________________________________________
 ____________________________________________________________
-Alfred cannot find task -1. Choose a number from 1 to 1.
+Apologies, sir: Alfred cannot find task -1. Choose a number from 1 to 1.
 ____________________________________________________________
 ____________________________________________________________
-Alfred cannot find task 2. Choose a number from 1 to 1.
+Apologies, sir: Alfred cannot find task 2. Choose a number from 1 to 1.
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here is your cave ledger:
 1.[T][ ] keep me
 ____________________________________________________________
 ____________________________________________________________
-Noted. I've removed this task:
+The following mission has left the cave ledger:
   [T][ ] keep me
-Now you have 0 tasks in the list.
+Your cave ledger now holds 0 tasks.
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here is your cave ledger:
 ____________________________________________________________
 ____________________________________________________________
-Bye. Hope to see you again soon sir!
+The cave is secure. Until our next mission, sir.
 ____________________________________________________________
 ```
 
@@ -656,31 +656,31 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  / ___ \| |  _| | |  __/ (_| |
 /_/   \_\_|_| |_|  \___|\__,_|
 
-How can I assist from the cave?
+Good day, sir. Alfred is at your service in the cave. What shall we accomplish?
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [D][ ] do homework (by: Oct 15 2019)
-Now you have 1 tasks in the list.
+Your cave ledger now holds 1 task.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [E][ ] orientation (from: Dec 02 2019 18:00 to: Dec 03 2019)
-Now you have 2 tasks in the list.
+Your cave ledger now holds 2 tasks.
 ____________________________________________________________
 ____________________________________________________________
-Alfred needs a valid date in yyyy-MM-dd or d/M/yyyy HHmm format.
+Apologies, sir: Alfred needs a valid date in yyyy-MM-dd or d/M/yyyy HHmm format.
 ____________________________________________________________
 ____________________________________________________________
-Alfred needs a valid date in yyyy-MM-dd or d/M/yyyy HHmm format.
+Apologies, sir: Alfred needs a valid date in yyyy-MM-dd or d/M/yyyy HHmm format.
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here is your cave ledger:
 1.[D][ ] do homework (by: Oct 15 2019)
 2.[E][ ] orientation (from: Dec 02 2019 18:00 to: Dec 03 2019)
 ____________________________________________________________
 ____________________________________________________________
-Bye. Hope to see you again soon sir!
+The cave is secure. Until our next mission, sir.
 ____________________________________________________________
 ```
 
@@ -723,46 +723,46 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  / ___ \| |  _| | |  __/ (_| |
 /_/   \_\_|_| |_|  \___|\__,_|
 
-How can I assist from the cave?
+Good day, sir. Alfred is at your service in the cave. What shall we accomplish?
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [T][ ] read book
-Now you have 1 tasks in the list.
+Your cave ledger now holds 1 task.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [D][ ] return BOOK (by: Jun 06 2019)
-Now you have 2 tasks in the list.
+Your cave ledger now holds 2 tasks.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [E][ ] project meeting (from: Jun 01 2019 to: Jun 02 2019)
-Now you have 3 tasks in the list.
+Your cave ledger now holds 3 tasks.
 ____________________________________________________________
 ____________________________________________________________
-Nice! I've marked this task as done:
+Mission accomplished. I've marked this task as done:
   [T][X] read book
 ____________________________________________________________
 ____________________________________________________________
-Here are the matching tasks in your list:
+Here are the matching missions in your cave ledger:
 1.[T][X] read book
 2.[D][ ] return BOOK (by: Jun 06 2019)
 ____________________________________________________________
 ____________________________________________________________
-Here are the matching tasks in your list:
+Here are the matching missions in your cave ledger:
 ____________________________________________________________
 ____________________________________________________________
-Alfred needs a keyword after `find`.
+Apologies, sir: Alfred needs a keyword after `find`.
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here is your cave ledger:
 1.[T][X] read book
 2.[D][ ] return BOOK (by: Jun 06 2019)
 3.[E][ ] project meeting (from: Jun 01 2019 to: Jun 02 2019)
 ____________________________________________________________
 ____________________________________________________________
-Bye. Hope to see you again soon sir!
+The cave is secure. Until our next mission, sir.
 ____________________________________________________________
 ```
 
@@ -810,40 +810,40 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  / ___ \| |  _| | |  __/ (_| |
 /_/   \_\_|_| |_|  \___|\__,_|
 
-How can I assist from the cave?
+Good day, sir. Alfred is at your service in the cave. What shall we accomplish?
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [T][ ] first todo
-Now you have 1 tasks in the list.
+Your cave ledger now holds 1 task.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [D][ ] later deadline (by: Dec 03 2019)
-Now you have 2 tasks in the list.
+Your cave ledger now holds 2 tasks.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [E][ ] same time event (from: Dec 02 2019 18:00 to: Dec 02 2019 19:00)
-Now you have 3 tasks in the list.
+Your cave ledger now holds 3 tasks.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [D][ ] same time deadline (by: Dec 02 2019 18:00)
-Now you have 4 tasks in the list.
+Your cave ledger now holds 4 tasks.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [T][ ] second todo
-Now you have 5 tasks in the list.
+Your cave ledger now holds 5 tasks.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Consider it noted in the cave ledger:
   [E][ ] early event (from: Dec 01 2019 to: Dec 01 2019)
-Now you have 6 tasks in the list.
+Your cave ledger now holds 6 tasks.
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in ascending chronological order:
+Here is your cave ledger in ascending chronological order:
 1.[E][ ] early event (from: Dec 01 2019 to: Dec 01 2019)
 2.[E][ ] same time event (from: Dec 02 2019 18:00 to: Dec 02 2019 19:00)
 3.[D][ ] same time deadline (by: Dec 02 2019 18:00)
@@ -852,7 +852,7 @@ Here are the tasks in ascending chronological order:
 6.[T][ ] second todo
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in ascending chronological order:
+Here is your cave ledger in ascending chronological order:
 1.[E][ ] early event (from: Dec 01 2019 to: Dec 01 2019)
 2.[E][ ] same time event (from: Dec 02 2019 18:00 to: Dec 02 2019 19:00)
 3.[D][ ] same time deadline (by: Dec 02 2019 18:00)
@@ -861,7 +861,7 @@ Here are the tasks in ascending chronological order:
 6.[T][ ] second todo
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in descending chronological order:
+Here is your cave ledger in descending chronological order:
 1.[T][ ] first todo
 2.[T][ ] second todo
 3.[D][ ] later deadline (by: Dec 03 2019)
@@ -870,13 +870,13 @@ Here are the tasks in descending chronological order:
 6.[E][ ] early event (from: Dec 01 2019 to: Dec 01 2019)
 ____________________________________________________________
 ____________________________________________________________
-Alfred only understands `sort`, `sort asc`, or `sort desc`.
+Apologies, sir: Alfred only understands `sort`, `sort asc`, or `sort desc`.
 ____________________________________________________________
 ____________________________________________________________
-Alfred only understands `sort`, `sort asc`, or `sort desc`.
+Apologies, sir: Alfred only understands `sort`, `sort asc`, or `sort desc`.
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here is your cave ledger:
 1.[T][ ] first todo
 2.[D][ ] later deadline (by: Dec 03 2019)
 3.[E][ ] same time event (from: Dec 02 2019 18:00 to: Dec 02 2019 19:00)
@@ -885,7 +885,7 @@ Here are the tasks in your list:
 6.[E][ ] early event (from: Dec 01 2019 to: Dec 01 2019)
 ____________________________________________________________
 ____________________________________________________________
-Bye. Hope to see you again soon sir!
+The cave is secure. Until our next mission, sir.
 ____________________________________________________________
 ```
 
@@ -921,20 +921,20 @@ XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
  / ___ \| |  _| | |  __/ (_| |
 /_/   \_\_|_| |_|  \___|\__,_|
 
-How can I assist from the cave?
+Good day, sir. Alfred is at your service in the cave. What shall we accomplish?
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in ascending chronological order:
+Here is your cave ledger in ascending chronological order:
 ____________________________________________________________
 ____________________________________________________________
-Bye. Hope to see you again soon sir!
+The cave is secure. Until our next mission, sir.
 ____________________________________________________________
 ```
 
 ## Manual JavaFX verification
 
 Run `./gradlew run`. The resizable Alfred window should open with a scrollable dialog area, a
-text field, and a Send button. It must show Alfred's `How can I assist from the cave?` welcome
+text field, and a Send button. It must show Alfred's `Good day, sir. Alfred is at your service in the cave. What shall we accomplish?` welcome
 message before any user input. Enter `todo read book` and press Enter; the response must confirm
 that the task was added. Then enter `list` and click Send; the response must include the saved
 task. Enter `todo` and verify the error response does not remove the task shown by a final `list`.
