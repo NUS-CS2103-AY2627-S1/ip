@@ -25,7 +25,12 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AlfredException {
         Task deletedTask = tasks.remove(taskIndex);
-        storage.save(tasks);
+        try {
+            storage.save(tasks);
+        } catch (AlfredException e) {
+            tasks.add(taskIndex, deletedTask);
+            throw e;
+        }
         ui.showTaskDeleted(deletedTask, tasks.size());
     }
 }

@@ -28,7 +28,12 @@ public class AddCommand extends Command {
             throw new AlfredException("Alfred already has an identical mission in the cave ledger.");
         }
         tasks.add(task);
-        storage.save(tasks);
+        try {
+            storage.save(tasks);
+        } catch (AlfredException e) {
+            tasks.remove(tasks.size() - 1);
+            throw e;
+        }
         ui.showTaskAdded(task, tasks.size());
     }
 }

@@ -33,6 +33,18 @@ public class TaskList implements Iterable<Task> {
         tasks.add(task);
     }
 
+    /**
+     * Adds a task at the given zero-based index.
+     *
+     * @param taskIndex index at which to insert the task
+     * @param task task to add
+     */
+    public void add(int taskIndex, Task task) {
+        assert task != null : "Task lists must not contain null tasks";
+        assert taskIndex >= 0 && taskIndex <= tasks.size() : "Inserted tasks must use a valid list index";
+        tasks.add(taskIndex, task);
+    }
+
     /** Returns the task at the given zero-based index. */
     public Task get(int taskIndex) {
         assert isValidIndex(taskIndex) : "Commands must use parser-validated task indices";
