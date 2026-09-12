@@ -29,6 +29,8 @@ public class DialogBox extends HBox {
      * @param avatar image displayed beside the message.
      */
     private DialogBox(String message, Image avatar) {
+        assert message != null : "Dialog messages must not be null";
+        assert avatar != null : "Dialog avatars must not be null";
         loadFxml();
         dialog.setText(message);
         displayPicture.setImage(avatar);
@@ -42,7 +44,9 @@ public class DialogBox extends HBox {
      * @return user dialog.
      */
     public static DialogBox getUserDialog(String message, Image avatar) {
-        return new DialogBox(message, avatar);
+        DialogBox dialogBox = new DialogBox(message, avatar);
+        dialogBox.hideAvatar();
+        return dialogBox;
     }
 
     /**
@@ -94,6 +98,14 @@ public class DialogBox extends HBox {
         FXCollections.reverse(children);
         getChildren().setAll(children);
         dialog.getStyleClass().add("reply-label");
+    }
+
+    /**
+     * Removes the user's fixed avatar so their short commands use less chat space.
+     */
+    private void hideAvatar() {
+        displayPicture.setManaged(false);
+        displayPicture.setVisible(false);
     }
 
     /**

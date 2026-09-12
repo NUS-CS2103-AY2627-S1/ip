@@ -6,22 +6,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="400.0" stylesheets="@../css/main.css"
+<AnchorPane prefHeight="720.0" prefWidth="640.0" stylesheets="@../css/main.css"
             xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="alfred.ui.MainWindow">
     <children>
-        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="557.0"
-                    prefWidth="400.0" vvalue="1.0" AnchorPane.bottomAnchor="42.0"
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="665.0"
+                    prefWidth="640.0" vvalue="1.0" AnchorPane.bottomAnchor="55.0"
                     AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
-                <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" />
+                <VBox fx:id="dialogContainer" prefHeight="660.0" prefWidth="628.0" spacing="4.0" />
             </content>
         </ScrollPane>
-        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0"
-                   prefWidth="324.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0"
-                   AnchorPane.rightAnchor="76.0" />
-        <Button layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput"
-                prefHeight="41.0" prefWidth="76.0" text="Send" AnchorPane.bottomAnchor="1.0"
+        <TextField fx:id="userInput" layoutY="667.0" onAction="#handleUserInput" prefHeight="53.0"
+                   prefWidth="540.0" promptText="Enter a command..." AnchorPane.bottomAnchor="1.0"
+                   AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="100.0" />
+        <Button layoutX="548.0" layoutY="667.0" mnemonicParsing="false" onAction="#handleUserInput"
+                prefHeight="53.0" prefWidth="84.0" text="Send" AnchorPane.bottomAnchor="1.0"
                 AnchorPane.rightAnchor="0.0" />
     </children>
 </AnchorPane>

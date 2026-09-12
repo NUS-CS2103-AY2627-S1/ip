@@ -1,19 +1,20 @@
 .label {
-    -fx-background-color: #d9e9f5;
-    -fx-background-insets: 0 7px 0 7px;
+    -fx-background-color: #213c52;
     -fx-background-radius: 1em 1em 0 1em;
-    -fx-border-color: #315b78;
-    -fx-border-insets: 0 7px 0 7px;
+    -fx-border-color: #172a3a;
     -fx-border-radius: 1em 1em 0 1em;
     -fx-border-width: 1px;
-    -fx-padding: 6px;
+    -fx-font-size: 14px;
+    -fx-padding: 9px 12px;
+    -fx-text-fill: white;
 }
 
 .reply-label {
-    -fx-background-color: #f5e8bf;
+    -fx-background-color: #fffdf7;
     -fx-background-radius: 1em 1em 1em 0;
-    -fx-border-color: #a98a4e;
+    -fx-border-color: #c7b68a;
     -fx-border-radius: 1em 1em 1em 0;
+    -fx-text-fill: #27313a;
 }
 
 .add-label {
@@ -28,8 +29,9 @@
 
 .delete-label,
 .error-label {
-    -fx-background-color: #f8d7d4;
-    -fx-border-color: #a45a54;
+    -fx-background-color: #fff0ef;
+    -fx-border-color: #b5453d;
+    -fx-text-fill: #872f29;
 }
 
 #displayPicture {
