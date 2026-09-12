@@ -4,6 +4,8 @@ Alfred is a cave-themed task butler. Use the commands below to keep a concise
 ledger of to-dos, deadlines, and events. Commands are lowercase; surrounding
 spaces are accepted.
 
+![Alfred's full application window](Ui.png)
+
 ## Add a task
 
 Add a to-do with `todo DESCRIPTION`.
