@@ -13,7 +13,8 @@ import javafx.util.Duration;
  * Controls the main JavaFX chat window.
  */
 public class MainWindow {
-    private static final String WELCOME_MESSAGE = "How can I assist from the cave?";
+    private static final String WELCOME_MESSAGE =
+            "Good day, sir. Alfred is at your service in the cave. What shall we accomplish?";
     private static final Duration EXIT_DELAY = Duration.seconds(1.5);
 
     @FXML

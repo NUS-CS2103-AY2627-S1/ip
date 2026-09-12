@@ -19,11 +19,11 @@ class AlfredTest {
     void getResponse_validCommands_addsAndListsTasks() {
         Alfred alfred = createGuiAlfred();
 
-        assertEquals("Got it. I've added this task:\n  [T][ ] read book\n"
-                        + "Now you have 1 tasks in the list.",
+        assertEquals("Consider it noted in the cave ledger:\n  [T][ ] read book\n"
+                        + "Your cave ledger now holds 1 task.",
                 alfred.getResponse("todo read book"));
         assertEquals("AddCommand", alfred.getLastCommandType());
-        assertEquals("Here are the tasks in your list:\n1.[T][ ] read book", alfred.getResponse("list"));
+        assertEquals("Here is your cave ledger:\n1.[T][ ] read book", alfred.getResponse("list"));
         assertEquals("ListCommand", alfred.getLastCommandType());
     }
 
@@ -33,9 +33,10 @@ class AlfredTest {
 
         alfred.getResponse("todo read book");
 
-        assertEquals("Alfred cannot add a to-do without a mission description.", alfred.getResponse("todo"));
+        assertEquals("Apologies, sir: Alfred cannot add a to-do without a mission description.",
+                alfred.getResponse("todo"));
         assertEquals("Error", alfred.getLastCommandType());
-        assertEquals("Here are the tasks in your list:\n1.[T][ ] read book", alfred.getResponse("list"));
+        assertEquals("Here is your cave ledger:\n1.[T][ ] read book", alfred.getResponse("list"));
     }
 
     @Test
@@ -46,13 +47,13 @@ class AlfredTest {
         alfred.getResponse("deadline submit report /by 2019-12-03");
         alfred.getResponse("event meeting /from 2/12/2019 1800 /to 2/12/2019 1900");
 
-        assertEquals("Here are the tasks in descending chronological order:\n"
+        assertEquals("Here is your cave ledger in descending chronological order:\n"
                         + "1.[T][ ] read book\n"
                         + "2.[D][ ] submit report (by: Dec 03 2019)\n"
                         + "3.[E][ ] meeting (from: Dec 02 2019 18:00 to: Dec 02 2019 19:00)",
                 alfred.getResponse("sort desc"));
         assertEquals("SortCommand", alfred.getLastCommandType());
-        assertEquals("Here are the tasks in your list:\n1.[T][ ] read book\n"
+        assertEquals("Here is your cave ledger:\n1.[T][ ] read book\n"
                         + "2.[D][ ] submit report (by: Dec 03 2019)\n"
                         + "3.[E][ ] meeting (from: Dec 02 2019 18:00 to: Dec 02 2019 19:00)",
                 alfred.getResponse("list"));
@@ -62,7 +63,7 @@ class AlfredTest {
     void getResponse_byeRequestsExit() {
         Alfred alfred = createGuiAlfred();
 
-        assertEquals("Bye. Hope to see you again soon sir!", alfred.getResponse("bye"));
+        assertEquals("The cave is secure. Until our next mission, sir.", alfred.getResponse("bye"));
         assertEquals("ExitCommand", alfred.getLastCommandType());
         assertTrue(alfred.isExitRequested());
     }
