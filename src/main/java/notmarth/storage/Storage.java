@@ -72,37 +72,7 @@ public final class Storage {
             if (!Files.isRegularFile(dataFile)) {
                 return unusableArchiveWarning();
             }
-        } catch (SecurityException exception) {
-            return unreadableArchiveWarning();
-        }
-
-        try {
-            List<String> lines = Files.readAllLines(dataFile, StandardCharsets.UTF_8);
-            if (lines.isEmpty() || !HEADER.equals(lines.get(0))) {
-                throw new CorruptTaskDataException();
-            }
-
-            ArrayList<Task> tasks = new ArrayList<>();
-            ArrayList<Contact> contacts = new ArrayList<>();
-            for (int i = 1; i < lines.size(); i++) {
-                if (lines.get(i).isBlank()) {
-                    continue;
-                }
-                String record = lines.get(i);
-                if (record.startsWith("contact|")) {
-                    contacts.add(parseContact(record));
-                } else {
-                    if (tasks.size() == maximumTasks) {
-                        throw new CorruptTaskDataException();
-                    }
-                    Task task = parseTask(record);
-                    if (tasks.stream().anyMatch(existingTask -> existingTask.hasSameDetailsAs(task))) {
-                        throw new CorruptTaskDataException();
-                    }
-                    tasks.add(task);
-                }
-            }
-            return new LoadResult(tasks, contacts, null);
+            return parseArchive(Files.readAllLines(dataFile, StandardCharsets.UTF_8), maximumTasks);
         } catch (CorruptTaskDataException exception) {
             return new LoadResult(new ArrayList<>(), new ArrayList<>(),
                     "The saved battle plan is corrupted. Repair or remove the file before starting "
@@ -110,6 +80,41 @@ public final class Storage {
         } catch (IOException | SecurityException exception) {
             return unreadableArchiveWarning();
         }
+    }
+
+    /** Parses a complete archive, rejecting all records if any record is invalid. */
+    private LoadResult parseArchive(List<String> lines, int maximumTasks) throws CorruptTaskDataException {
+        if (lines.isEmpty() || !HEADER.equals(lines.get(0))) {
+            throw new CorruptTaskDataException();
+        }
+
+        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Contact> contacts = new ArrayList<>();
+        for (int i = 1; i < lines.size(); i++) {
+            String record = lines.get(i);
+            if (record.isBlank()) {
+                continue;
+            }
+            if (record.startsWith("contact|")) {
+                contacts.add(parseContact(record));
+            } else {
+                addTaskRecord(record, tasks, maximumTasks);
+            }
+        }
+        return new LoadResult(tasks, contacts, null);
+    }
+
+    /** Adds a saved task only if it fits the capacity and does not duplicate an existing task. */
+    private void addTaskRecord(String record, List<Task> tasks, int maximumTasks)
+            throws CorruptTaskDataException {
+        if (tasks.size() == maximumTasks) {
+            throw new CorruptTaskDataException();
+        }
+        Task task = parseTask(record);
+        if (tasks.stream().anyMatch(existingTask -> existingTask.hasSameDetailsAs(task))) {
+            throw new CorruptTaskDataException();
+        }
+        tasks.add(task);
     }
 
     private LoadResult unusableArchiveWarning() {

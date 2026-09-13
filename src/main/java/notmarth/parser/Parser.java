@@ -53,6 +53,11 @@ public final class Parser {
         if (fullCommand.equals(CommandCatalog.LIST_CONTACTS)) {
             return new ListContactsCommand();
         }
+        return parseContactOrTaskCommand(fullCommand);
+    }
+
+    /** Routes contact commands before delegating the remaining input to task command parsing. */
+    private Command parseContactOrTaskCommand(String fullCommand) throws NotMarthException {
         if (isCommand(fullCommand, CommandCatalog.FIND_CONTACT)) {
             return new FindContactCommand(parseContactKeyword(fullCommand));
         }
@@ -62,6 +67,11 @@ public final class Parser {
         if (isCommand(fullCommand, CommandCatalog.CONTACT)) {
             return new AddContactCommand(createContact(fullCommand));
         }
+        return parseTaskCommand(fullCommand);
+    }
+
+    /** Parses task operations and reports unrecognized commands using the shared catalog. */
+    private Command parseTaskCommand(String fullCommand) throws NotMarthException {
         if (isCommand(fullCommand, CommandCatalog.FIND)) {
             return new FindCommand(parseFindKeyword(fullCommand));
         }
@@ -79,10 +89,6 @@ public final class Parser {
         }
         if (isTaskCommand(fullCommand)) {
             return new AddCommand(createTask(fullCommand));
-        }
-        if (fullCommand.isEmpty()) {
-            throw new NotMarthException(
-                    "Please enter a command. Try " + CommandCatalog.getVisibleCommandList() + ".");
         }
         throw new NotMarthException(
                 "I don't recognize that command. Try " + CommandCatalog.getVisibleCommandList() + ".");
