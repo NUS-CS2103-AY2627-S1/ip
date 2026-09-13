@@ -1,25 +1,52 @@
-# Duke project template
+# Xuan
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Xuan is a simple task management chatbot built with Java and JavaFX.
 
-## Setting up in Intellij
+It helps users manage todos, deadlines, and events through simple text commands. Xuan also provides a graphical user interface and stores tasks locally so that they can be loaded again when the application is restarted.
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+## Features
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Xuan supports the following features:
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+- Add todos
+- Add deadlines
+- Add events
+- View all tasks
+- Mark tasks as done
+- Mark tasks as not done
+- Delete tasks
+- Find tasks by keyword
+- Find deadlines by date
+- Display help information
+- Handle invalid commands and common input errors
+- Save and load tasks from local storage
+
+## Setting up in IntelliJ
+
+### Prerequisites
+
+- JDK 25
+- A recent version of IntelliJ IDEA
+
+### Steps
+
+1. Open IntelliJ IDEA.
+2. Click `Open`.
+3. Select the Xuan project directory.
+4. Configure the project to use **JDK 25**.
+5. Set the **Project language level** to `SDK default`.
+6. Locate:
+
+   `src/main/java/xuan/Launcher.java`
+
+7. Right-click `Launcher.java`.
+8. Choose `Run Launcher.main()`.
+
+The Xuan GUI should open if the project is configured correctly.
+
+## Running with Gradle
+
+You can also run Xuan from the project directory using:
+
+```bash
+./gradlew run
