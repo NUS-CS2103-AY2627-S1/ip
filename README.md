@@ -35,3 +35,15 @@ the `alfred.Main` class to start the application.
 
 Keep `src/main/java` as the Java source root because Gradle expects the
 standard project layout.
+
+## AI Assistance
+
+I used ChatGPT (GPT-5.6 Terra, medium reasoning effort) as a collaborative
+development tool throughout this project. It assisted with brainstorming,
+implementation suggestions, code and test drafting, debugging, UI refinement,
+documentation, and Git workflow checks.
+
+I remained responsible for the project requirements, design choices, review of
+all proposed changes, testing, and final decisions. I verified the
+implementation against the course requirements and reviewed the resulting
+behaviour, user guide, screenshot, and Git history before accepting changes.
