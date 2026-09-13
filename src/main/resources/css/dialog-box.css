@@ -1,0 +1,39 @@
+.label {
+    -fx-background-color: #213c52;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-color: #172a3a;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-border-width: 1px;
+    -fx-font-size: 14px;
+    -fx-padding: 9px 12px;
+    -fx-text-fill: white;
+}
+
+.reply-label {
+    -fx-background-color: #fffdf7;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-color: #c7b68a;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-text-fill: #27313a;
+}
+
+.add-label {
+    -fx-background-color: #d9f2cf;
+    -fx-border-color: #5e8c4e;
+}
+
+.marked-label {
+    -fx-background-color: #d7edf5;
+    -fx-border-color: #4f7e95;
+}
+
+.delete-label,
+.error-label {
+    -fx-background-color: #fff0ef;
+    -fx-border-color: #b5453d;
+    -fx-text-fill: #872f29;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 8, 0.4, 3, 3);
+}

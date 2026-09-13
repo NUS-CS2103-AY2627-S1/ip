@@ -1,25 +1,49 @@
-# Duke project template
+# Alfred
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Alfred is a polite, cave-themed task-management butler. See the
+[Alfred User Guide](docs/README.md) for commands and examples.
 
-## Setting up in Intellij
+## Creating and running the executable JAR
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+Build an executable JAR from the project root:
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+```sh
+./gradlew shadowJar
+```
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+On Windows Command Prompt, run:
+
+```bat
+gradlew.bat shadowJar
+```
+
+Gradle creates `build/libs/alfred.jar`. Copy the JAR into an empty folder,
+open a command window there, and run:
+
+```sh
+java -jar "alfred.jar"
+```
+
+The computer running Alfred needs Java 25 or a compatible newer runtime.
+Running the JAR from its own folder keeps Alfred's saved task data there.
+
+## Setting up in IntelliJ
+
+Use JDK 25, then open this project directory in IntelliJ. If prompted, accept
+the Gradle defaults and set the project SDK and language level to JDK 25. Run
+the `alfred.Main` class to start the application.
+
+Keep `src/main/java` as the Java source root because Gradle expects the
+standard project layout.
+
+## AI Assistance
+
+I used ChatGPT (GPT-5.6 Terra, medium reasoning effort) as a collaborative
+development tool throughout this project. It assisted with brainstorming,
+implementation suggestions, code and test drafting, debugging, UI refinement,
+documentation, and Git workflow checks.
+
+I remained responsible for the project requirements, design choices, review of
+all proposed changes, testing, and final decisions. I verified the
+implementation against the course requirements and reviewed the resulting
+behaviour, user guide, screenshot, and Git history before accepting changes.
