@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_LEFT" spacing="12.0" type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <StackPane styleClass="monogram">
+            <children>
+                <Label fx:id="initial" styleClass="monogram-letter" />
+            </children>
+        </StackPane>
+        <VBox fx:id="messageBubble" spacing="5.0" styleClass="message-bubble">
+            <children>
+                <Label fx:id="speaker" styleClass="speaker-label" />
+                <Label fx:id="message" wrapText="true" styleClass="message-text" />
+            </children>
+        </VBox>
+    </children>
+</fx:root>

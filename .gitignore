@@ -2,10 +2,12 @@
 /.idea/
 /out/
 /*.iml
+*.class
 
 # Gradle build files
 /.gradle/
 /build/
+node_modules/
 src/main/resources/docs/
 
 # MacOS custom attributes files created by Finder
@@ -18,3 +20,10 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+.beryl/agent/session-state.md
+!/build/
+/build/*
+!/build/libs/
+/build/libs/*
+!/build/libs/odysseus.jar

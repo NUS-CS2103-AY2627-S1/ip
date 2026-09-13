@@ -1,0 +1,3 @@
+D | 0 | return home | 2026-12-25
+T | 0 | Meet Penelope
+E | 0 | meeting at Troy | Mon 2pm | 4pm

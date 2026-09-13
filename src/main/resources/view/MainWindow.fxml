@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="odysseus.MainWindow" styleClass="app-shell">
+    <top>
+        <VBox fx:id="masthead" spacing="11.0" styleClass="masthead">
+            <HBox alignment="CENTER_LEFT" styleClass="brand-row">
+                <Label text="ODYSSEUS" styleClass="brand" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label text="A PERSONAL SHIP'S LOG" styleClass="utility-label" />
+            </HBox>
+            <Label text="What must we remember before you sail?" styleClass="headline" />
+            <Canvas fx:id="voyageLine" height="24.0" />
+            <HBox styleClass="route-caption">
+                <Label text="ITHACA" styleClass="utility-label" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label text="THE PRESENT MOMENT" styleClass="utility-label" />
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" styleClass="conversation-scroll">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true" styleClass="dialog-container" />
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <VBox spacing="8.0" styleClass="composer-area">
+            <Label text="TRY: todo mend the sail  ·  deadline return home /by 2026-10-01"
+                   styleClass="composer-hint" />
+            <HBox spacing="10.0">
+                <TextField fx:id="userInput" onAction="#handleUserInput"
+                           promptText="Write a command for the ship's log…" HBox.hgrow="ALWAYS" />
+                <Button mnemonicParsing="false" onAction="#handleUserInput" text="Chart course"
+                        styleClass="send-button" />
+            </HBox>
+        </VBox>
+    </bottom>
+</BorderPane>

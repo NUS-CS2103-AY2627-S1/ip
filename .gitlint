@@ -1,0 +1,11 @@
+[general]
+ignore = T2,T3,T4,B2,B3,B5,B6,B7,B8,B9,M1
+
+[title-max-length]
+line-length = 72
+
+[body-max-line-length]
+line-length = 72
+
+[title-match-regex]
+regex = ^(?:[^:\n]+: )?[A-Z].*(?<!\.)$

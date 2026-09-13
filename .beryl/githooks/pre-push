@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+if [[ -z "${REPO_ROOT}" ]]; then
+  exit 0
+fi
+
+pushes_main=0
+while read -r local_ref local_sha remote_ref remote_sha; do
+  if [[ "${remote_ref}" == "refs/heads/main" ]]; then
+    pushes_main=1
+    break
+  fi
+done
+
+if [[ "${pushes_main}" == "1" ]]; then
+  CHECK_AFFECTED_MODE=worktree "${REPO_ROOT}/.beryl/scripts/check.sh"
+else
+  printf "pre-push: main not targeted; skipping slow checks\n"
+fi
