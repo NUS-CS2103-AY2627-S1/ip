@@ -1,0 +1,4 @@
+T | 0 | borrow book
+D | 0 | return book | 2026-06-06
+D | 0 | calculate elo | 2026-08-25
+E | 0 | project meeting | 2026-08-06 | 2026-08-07

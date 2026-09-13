@@ -1,0 +1,106 @@
+.root {
+    -fx-background-color: #f2eee3;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.app-header {
+    -fx-padding: 0 0 10 0;
+}
+
+.app-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #202b24;
+}
+
+.app-subtitle {
+    -fx-text-fill: #59655e;
+}
+
+.conversation-pane,
+.conversation-pane > .viewport {
+    -fx-background-color: #e7e1d2;
+}
+
+.conversation-pane {
+    -fx-background-radius: 12px;
+    -fx-border-color: #c8bfae;
+    -fx-border-radius: 12px;
+}
+
+.message-list {
+    -fx-background-color: transparent;
+}
+
+.message-bubble {
+    -fx-background-radius: 12px;
+    -fx-font-size: 14px;
+}
+
+.nelson-bubble {
+    -fx-background-color: #fffaf0;
+    -fx-border-color: #d2b45b;
+    -fx-border-radius: 12px;
+    -fx-font-family: "Consolas", monospace;
+}
+
+.user-bubble {
+    -fx-background-color: #dce8f2;
+    -fx-text-fill: #18364d;
+}
+
+.error-bubble {
+    -fx-background-color: #ffd5d0;
+    -fx-border-color: #a72b2b;
+    -fx-border-width: 2px;
+    -fx-border-radius: 12px;
+    -fx-text-fill: #741919;
+    -fx-font-weight: bold;
+}
+
+.reference-panel {
+    -fx-background-color: #fbf8ef;
+    -fx-background-radius: 12px;
+    -fx-border-color: #c8bfae;
+    -fx-border-radius: 12px;
+    -fx-padding: 14px;
+}
+
+.reference-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #202b24;
+}
+
+.command-help {
+    -fx-font-family: "Consolas", monospace;
+    -fx-font-size: 12px;
+    -fx-text-fill: #35443b;
+}
+
+.command-bar {
+    -fx-padding: 10 0 0 0;
+}
+
+.text-field {
+    -fx-background-radius: 8px;
+    -fx-border-color: #8d9a91;
+    -fx-border-radius: 8px;
+}
+
+.button {
+    -fx-background-color: #274c3a;
+    -fx-background-radius: 8px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #38684f;
+}
+
+.button:focused,
+.text-field:focused {
+    -fx-border-color: #c99700;
+    -fx-border-width: 2px;
+}

@@ -15,6 +15,8 @@ bin/
 
 # Temp files
 _temp/
+*.class
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+.gradle-user-home/
