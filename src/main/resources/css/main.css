@@ -1,0 +1,55 @@
+.root {
+    main-color: rgb(237, 255, 242);
+    -fx-background-color: main-color;
+    -fx-background-image: url("../images/Dog.png");
+    -fx-background-size: cover;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.text-field {
+    -fx-background-color: rgba(255, 255, 255, .96);
+    -fx-border-color: #087f5b;
+    -fx-border-width: 1px 0 0 0;
+    -fx-font-size: 16px;
+    -fx-padding: 8px 12px;
+}
+
+.button {
+    -fx-background-color: #087f5b;
+    -fx-background-radius: 0;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #099268;
+}
+
+.button:pressed {
+    -fx-background-color: #066649;
+}
+
+.scroll-pane {
+    -fx-background-color: rgba(18, 26, 22, .66);
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgba(255, 255, 255, .55);
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

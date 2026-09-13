@@ -1,5 +1,5 @@
 # IDEA files
-/.idea/
+.idea/
 /out/
 /*.iml
 
@@ -11,10 +11,19 @@ src/main/resources/docs/
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
+
+# Compiled Java bytecode
 bin/
+*.class
+
+# AI assistant local files
+.claude/
 
 # Temp files
 _temp/
+
+# Runtime task data
+/data/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

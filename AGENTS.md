@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: 5
+* IDE and level of expertise: 5
 
 # Guidance for interacting with users
 
@@ -27,6 +27,14 @@ Unless the user says otherwise, assume that you are assisting a student working 
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+
+## UI testing
+
+After each code update that affects console behavior:
+
+* Update `test/ui-test-plan.md` if the expected user-visible behavior changes.
+* Invoke the project-specific `test-ui` skill. It compiles the Java sources, runs the console commands in the test plan, and records the console session in `test/ui-test-session.md`.
+* Include incorrect-input cases in the UI test plan when changing command parsing or error handling, and check that invalid commands do not accidentally add, remove, mark, or unmark tasks.
 
 ## Git
 
