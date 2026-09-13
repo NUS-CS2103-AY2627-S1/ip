@@ -1,68 +1,71 @@
 # Alfred User Guide
 
-Alfred is a cave-themed task butler. Use the commands below to keep a concise
-ledger of to-dos, deadlines, and events. Commands are lowercase; surrounding
-spaces are accepted.
+Alfred is a polite, cave-themed butler for keeping a simple task ledger.
+Type a command in the box at the bottom of the window, then press Enter or
+click **Send**. Alfred saves your tasks automatically in `data/alfred.txt`.
 
-![Alfred's full application window](Ui.png)
+![Alfred application window](Ui.png)
 
-## Add a task
+## Quick start
 
-Add a to-do with `todo DESCRIPTION`.
-
-```text
-todo inspect lanterns
-```
-
-Add a deadline with `deadline DESCRIPTION /by DATE`. Add an event with
-`event DESCRIPTION /from START /to END`. Dates use either `yyyy-MM-dd` or
-`d/M/yyyy HHmm`. An event must end after it begins.
+Add a task, then use `list` to see your ledger:
 
 ```text
-deadline send report /by 2026-09-18
-event patrol cave /from 18/9/2026 0900 /to 18/9/2026 1030
+todo Pack climbing gear
+deadline Send expedition brief /by 18/9/2026 1800
+event Crystal cavern survey /from 17/9/2026 0900 /to 17/9/2026 1130
+list
 ```
 
-Alfred rejects duplicate tasks with identical details and rejects repeated
-`/by`, `/from`, or `/to` markers.
+## Commands
 
-## View and manage tasks
+### Add tasks
 
-Use `list` to view all tasks. Use `find KEYWORD` to find task descriptions,
-and `sort`, `sort asc`, or `sort desc` for a chronological view that does not
-change the saved task order.
+```text
+todo DESCRIPTION
+deadline DESCRIPTION /by DATE
+event DESCRIPTION /from START /to END
+```
 
-Use `mark NUMBER`, `unmark NUMBER`, and `delete NUMBER` to update the
-one-based task number shown by `list`.
+Use `yyyy-MM-dd` for a date (for example, `2026-09-18`) or
+`d/M/yyyy HHmm` for a date and time (for example, `18/9/2026 1800`). An
+event's end time must be later than its start time.
+
+### View tasks
 
 ```text
 list
-find lantern
-mark 1
-unmark 1
-delete 1
-```
-
-## Exit Alfred
-
-Use `bye` without additional arguments. Alfred confirms the farewell before
-closing the GUI.
-
-## Sorting tasks
-
-Use `sort` to view tasks in ascending chronological order without changing their saved or listed
-order. Deadlines are ordered by due time, events by start time, and to-dos appear after dated tasks.
-
-Use `sort desc` to view tasks in descending chronological order. In this view, to-dos appear before
-dated tasks. `sort asc` is an explicit form of the default ascending order.
-
-Examples:
-
-```text
+find KEYWORD
 sort
 sort asc
 sort desc
 ```
 
-Only these lowercase forms are accepted. A sorted view does not change task numbers for `list`,
-`mark`, `unmark`, or `delete`.
+`find` matches descriptions without regard to letter case. `sort` and
+`sort asc` show tasks in chronological order; `sort desc` reverses that
+view. Sorting does not change your saved task order or task numbers.
+
+### Update tasks
+
+```text
+mark NUMBER
+unmark NUMBER
+delete NUMBER
+```
+
+`NUMBER` is the one-based number shown by `list`. Marking completes a task;
+unmarking reopens it.
+
+### Exit
+
+```text
+bye
+```
+
+## Tips
+
+- Enter command names in lowercase. Leading and trailing spaces are fine.
+- Alfred rejects duplicate tasks, repeated `/by`, `/from`, or `/to` markers,
+  and incomplete commands. Rejected commands leave your ledger unchanged.
+- If the saved task file is missing, Alfred starts with an empty ledger. If it
+  cannot read the file, it shows an error instead of replacing your data.
