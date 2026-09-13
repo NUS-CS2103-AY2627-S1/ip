@@ -134,7 +134,7 @@ public class Ui {
     public void showTaskAdded(Task task, int taskCount) {
         System.out.println(ADD_TASK_MESSAGE);
         System.out.println("       " + task);
-        System.out.println("     Now you have " + taskCount + " tasks in the list.");
+        showItemCount(taskCount, "task");
     }
 
     /**
@@ -208,7 +208,7 @@ public class Ui {
     public void showContactAdded(Contact contact, int contactCount) {
         System.out.println("     Contact added to the battle plan:");
         System.out.println("       " + contact);
-        System.out.println("     Now you have " + contactCount + " contacts in the list.");
+        showItemCount(contactCount, "contact");
     }
 
     /** Displays the heading for matching contacts. */
@@ -225,7 +225,7 @@ public class Ui {
     public void showContactDeleted(Contact contact, int remainingContactCount) {
         System.out.println("     This contact has been withdrawn:");
         System.out.println("       " + contact);
-        System.out.println("     Now you have " + remainingContactCount + " contacts in the list.");
+        showItemCount(remainingContactCount, "contact");
     }
 
     /**
@@ -258,6 +258,11 @@ public class Ui {
     public void showTaskDeleted(Task task, int remainingTaskCount) {
         System.out.println(DELETE_TASK_MESSAGE);
         System.out.println("       " + task);
-        System.out.println("     Now you have " + remainingTaskCount + " tasks in the list.");
+        showItemCount(remainingTaskCount, "task");
+    }
+
+    private void showItemCount(int itemCount, String singularNoun) {
+        String noun = itemCount == 1 ? singularNoun : singularNoun + "s";
+        System.out.println("     Now you have " + itemCount + " " + noun + " in the list.");
     }
 }

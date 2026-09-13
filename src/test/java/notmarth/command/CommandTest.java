@@ -151,6 +151,26 @@ class CommandTest {
         assertTrue(output.contains("I couldn't save the battle plan to disk."));
     }
 
+    /** Verifies that result counts use singular and plural nouns correctly. */
+    @Test
+    void countMessages_singularAndPluralCounts_useCorrectGrammar() throws Exception {
+        Storage storage = new Storage(temporaryDirectory.resolve("counts.txt").toString());
+        TaskList tasks = new TaskList(List.of(), 5);
+        ContactList contacts = new ContactList();
+        Ui ui = new Ui();
+
+        String output = captureOutput(() -> {
+            new AddCommand(new ToDo("first order")).execute(tasks, contacts, ui, storage);
+            new AddCommand(new ToDo("second order")).execute(tasks, contacts, ui, storage);
+            new AddContactCommand(new Contact("Vander", "1", "Somniel"))
+                    .execute(tasks, contacts, ui, storage);
+        });
+
+        assertTrue(output.contains("Now you have 1 task in the list."));
+        assertTrue(output.contains("Now you have 2 tasks in the list."));
+        assertTrue(output.contains("Now you have 1 contact in the list."));
+    }
+
     private String captureOutput(ThrowingAction action) throws Exception {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         PrintStream originalOutput = System.out;

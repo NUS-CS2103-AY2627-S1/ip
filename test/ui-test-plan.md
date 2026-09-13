@@ -32,7 +32,7 @@ todo borrow book
 ```text
 Order received. I've added it to the battle plan:
 [T][ ] borrow book
-Now you have 1 tasks in the list.
+Now you have 1 task in the list.
 ```
 
 ## Test case 2: Add a Deadline
@@ -56,7 +56,7 @@ deadline return book /by 2/12/2019 1800
 ```text
 Order received. I've added it to the battle plan:
 [D][ ] return book (by: Dec 02 2019 6:00 PM)
-Now you have 1 tasks in the list.
+Now you have 1 task in the list.
 ```
 
 ## Test case 3: Add an Event
@@ -80,7 +80,7 @@ event project meeting /from 2019-10-15 1400 /to 2019-10-15 1600
 ```text
 Order received. I've added it to the battle plan:
 [E][ ] project meeting (from: Oct 15 2019 2:00 PM to: Oct 15 2019 4:00 PM)
-Now you have 1 tasks in the list.
+Now you have 1 task in the list.
 ```
 
 ## Test case 4: List all task types polymorphically
@@ -669,7 +669,7 @@ todo first launch task
 ```text
 Order received. I've added it to the battle plan:
 [T][ ] first launch task
-Now you have 1 tasks in the list.
+Now you have 1 task in the list.
 ```
 
 ## Test case 21: Reject impossible deadline dates
@@ -954,7 +954,7 @@ listcontacts
 ```text
 Contact added to the battle plan:
 Mrs Tan (phone: 81234567, address: 12 Engage Road #04-05)
-Now you have 1 contacts in the list.
+Now you have 1 contact in the list.
 Here are the matching contacts in your list:
 1.Mrs Tan (phone: 81234567, address: 12 Engage Road #04-05)
 Here are your current contacts:
