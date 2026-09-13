@@ -196,20 +196,20 @@ public class ParserTest {
 
     @Test
     public void parseTask_duplicateDeadlineParameter_throwsDulioException() {
-        assertThrows(DulioException.class,
-                () -> Parser.parseTask("deadline submit report /by 2025-01-01 /by 2025-01-02"));
+        assertThrows(DulioException.class, () ->
+                Parser.parseTask("deadline submit report /by 2025-01-01 /by 2025-01-02"));
     }
 
     @Test
     public void parseTask_duplicateEventParameter_throwsDulioException() {
-        assertThrows(DulioException.class,
-                () -> Parser.parseTask("event meeting /from Mon /from Tue /to Wed"));
+        assertThrows(DulioException.class, () ->
+                Parser.parseTask("event meeting /from Mon /from Tue /to Wed"));
     }
 
     @Test
     public void parseTask_impossibleDeadlineDate_throwsDulioException() {
-        assertThrows(DulioException.class,
-                () -> Parser.parseTask("deadline submit report /by 2025-02-30"));
+        assertThrows(DulioException.class, () ->
+                Parser.parseTask("deadline submit report /by 2025-02-30"));
     }
 
     @Test
