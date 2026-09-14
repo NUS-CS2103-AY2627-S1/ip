@@ -114,4 +114,57 @@ public class ParserTest {
         assertInstanceOf(UnknownCommand.class, parser.parse("undo!", 0));
         assertInstanceOf(UnknownCommand.class, parser.parse("redo", 0));
     }
+    @Test
+    public void parse_whitespaceAroundCommands_acceptsCommands() throws SineException {
+        assertInstanceOf(ListCommand.class, parser.parse("  list  ", 0));
+        assertInstanceOf(MarkCommand.class, parser.parse(" \tmark\t 1 ", 1));
+        assertInstanceOf(AddCommand.class, parser.parse("todo\tread  book", 0));
+        assertInstanceOf(AddCommand.class,
+                parser.parse("event\tmeeting /from\t2pm /to   4pm", 0));
+    }
+
+    @Test
+    public void parse_blankOrUnexpectedArguments_throwsHelpfulException() {
+        for (String input : new String[]{null, "", " \t "}) {
+            assertEquals("Please enter a command.",
+                    assertThrows(SineException.class, () -> parser.parse(input, 0)).getMessage());
+        }
+        for (String input : new String[]{"list extra", "bye\tsoon"}) {
+            String word = input.split("\\s+", 2)[0];
+            assertEquals("Usage: " + word,
+                    assertThrows(SineException.class, () -> parser.parse(input, 0)).getMessage());
+        }
+    }
+
+    @Test
+    public void parse_repeatedParameters_rejectsAmbiguousFields() {
+        String[] inputs = {
+            "deadline book /by 2026-08-30 /by 2026-09-01",
+            "event meeting /from 2pm /from 3pm /to 4pm",
+            "event meeting /from 2pm /to 4pm /to 5pm"
+        };
+        String[] parameters = {"/by", "/from", "/to"};
+        for (int i = 0; i < inputs.length; i++) {
+            String input = inputs[i];
+            assertEquals("Specify " + parameters[i] + " only once.",
+                    assertThrows(SineException.class, () -> parser.parse(input, 0)).getMessage());
+        }
+    }
+
+    @Test
+    public void parse_reversedEventParameters_throwsHelpfulException() {
+        assertEquals("Place /from before /to.", assertThrows(SineException.class,
+                () -> parser.parse("event meeting /to 4pm /from 2pm", 0)).getMessage());
+    }
+
+    @Test
+    public void parse_parameterLikeDescription_acceptsLiteralText() throws SineException {
+        assertInstanceOf(AddCommand.class,
+                parser.parse("deadline read /bylaws /by 2026-08-30", 0));
+        assertInstanceOf(AddCommand.class,
+                parser.parse("event visit /fromage /from 2pm /to 4pm", 0));
+        assertEquals("The deadline of a deadline cannot be empty.", assertThrows(SineException.class,
+                () -> parser.parse("deadline book /by2026-08-30", 0)).getMessage());
+    }
+
 }

@@ -2,6 +2,8 @@ package sine.parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import sine.command.AddCommand;
 import sine.command.Command;
@@ -44,6 +46,12 @@ public class Parser {
         if (firstWord.equalsIgnoreCase("undo")) {
             throw new SineException("Usage: undo or UNDO");
         }
+        if (matches(command, "bye") && !command.equals("bye")) {
+            throw new SineException("Usage: bye");
+        }
+        if (matches(command, "list") && !command.equals("list")) {
+            throw new SineException("Usage: list");
+        }
         if (command.equals("bye")) {
             return CommandType.BYE;
         }
@@ -78,6 +86,13 @@ public class Parser {
      * @throws SineException If a command argument is missing or invalid.
      */
     public Command parse(String command, int taskCount) throws SineException {
+        if (command == null || command.isBlank()) {
+            throw new SineException("Please enter a command.");
+        }
+        // Keep undo's exact syntax while accepting surrounding whitespace elsewhere.
+        if (!command.strip().split("\\s+", 2)[0].equalsIgnoreCase("undo")) {
+            command = command.strip();
+        }
         CommandType commandType = getCommandType(command);
         switch (commandType) {
             case UNDO:
@@ -127,8 +142,8 @@ public class Parser {
      * @throws SineException If the argument is not a valid stored task number.
      */
     private int parseTaskIndex(String command, int taskCount) throws SineException {
-        int firstSpace = command.indexOf(' ');
-        String argument = firstSpace < 0 ? "" : command.substring(firstSpace + 1);
+        String[] parts = command.split("\\s+", 2);
+        String argument = parts.length < 2 ? "" : parts[1];
         int taskNumber;
         try {
             taskNumber = Integer.parseInt(argument.trim());
@@ -178,7 +193,7 @@ public class Parser {
      */
     private Deadline parseDeadline(String command) throws SineException {
         String details = command.substring(8).trim();
-        int byIndex = details.indexOf("/by");
+        int byIndex = findParameter(details, "/by");
         String description = byIndex < 0 ? details : details.substring(0, byIndex).trim();
         if (description.isEmpty()) {
             throw new SineException("The description of a deadline cannot be empty.");
@@ -199,8 +214,11 @@ public class Parser {
      */
     private Event parseEvent(String command) throws SineException {
         String details = command.substring(5).trim();
-        int fromIndex = details.indexOf("/from");
-        int toIndex = details.indexOf("/to", Math.max(fromIndex + 5, 0));
+        int fromIndex = findParameter(details, "/from");
+        int toIndex = findParameter(details, "/to");
+        if (fromIndex >= 0 && toIndex >= 0 && toIndex < fromIndex) {
+            throw new SineException("Place /from before /to.");
+        }
         String description = fromIndex < 0 ? details : details.substring(0, fromIndex).trim();
         if (description.isEmpty()) {
             throw new SineException("The description of an event cannot be empty.");
@@ -218,6 +236,27 @@ public class Parser {
     }
 
     /**
+     * Finds a standalone parameter and rejects repeated occurrences.
+     *
+     * @param details Task description and parameter values.
+     * @param parameter Parameter token to locate.
+     * @return Token position, or -1 if it is missing.
+     * @throws SineException If the parameter appears more than once.
+     */
+    private int findParameter(String details, String parameter) throws SineException {
+        Pattern pattern = Pattern.compile("(?<!\\S)" + Pattern.quote(parameter) + "(?!\\S)");
+        Matcher matcher = pattern.matcher(details);
+        if (!matcher.find()) {
+            return -1;
+        }
+        int index = matcher.start();
+        if (matcher.find()) {
+            throw new SineException("Specify " + parameter + " only once.");
+        }
+        return index;
+    }
+
+    /**
      * Checks whether input is a command word, optionally followed by arguments.
      *
      * @param input Raw user input.
@@ -225,6 +264,7 @@ public class Parser {
      * @return True if the input starts with the complete command word.
      */
     private boolean matches(String input, String commandWord) {
-        return input.equals(commandWord) || input.startsWith(commandWord + " ");
+        return input.equals(commandWord) || input.startsWith(commandWord + " ")
+                || input.startsWith(commandWord + "\t");
     }
 }

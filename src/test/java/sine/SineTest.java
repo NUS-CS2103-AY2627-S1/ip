@@ -125,4 +125,19 @@ public class SineTest {
         assertEquals("Error :( There is nothing to undo.", sine.getResponse("undo"));
         assertEquals("TODO list:", sine.getResponse("list"));
     }
+    /** Tests that rejected parameters leave saved tasks and undo history unchanged. */
+    @Test
+    public void getResponse_repeatedParameter_preservesStateAndHistory() throws IOException {
+        Path dataFile = tempDir.resolve("tasks.txt");
+        Sine sine = new Sine(dataFile.toString());
+        sine.getResponse("todo book");
+        String savedData = Files.readString(dataFile);
+
+        assertEquals("Error :( Specify /to only once.",
+                sine.getResponse("event meeting /from 2pm /to 4pm /to 5pm"));
+        assertEquals(savedData, Files.readString(dataFile));
+        assertEquals("TODO list:\n 1.[T][ ] book", sine.getResponse("list"));
+        assertTrue(sine.getResponse("undo").contains("I removed this task:"));
+    }
+
 }
