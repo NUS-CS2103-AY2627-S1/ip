@@ -40,6 +40,36 @@ public class DateTimesTest {
     }
 
     @Test
+    public void parse_dayThatDoesNotExistWithTime_exceptionThrown() {
+        // With a time attached the date goes through a different formatter,
+        // which left to itself would move Feb 30 to Feb 28 instead of refusing.
+        assertThrows(ChioneException.class, () -> DateTimes.parse("2019-02-30 1800"));
+    }
+
+    @Test
+    public void parse_leapDayInLeapYear_accepted() throws ChioneException {
+        assertEquals(LocalDateTime.of(2020, 2, 29, 12, 0), DateTimes.parse("2020-02-29 1200"));
+    }
+
+    @Test
+    public void parse_leapDayInCommonYear_exceptionThrown() {
+        assertThrows(ChioneException.class, () -> DateTimes.parse("2019-02-29 1200"));
+        assertThrows(ChioneException.class, () -> DateTimes.parse("2019-02-29"));
+    }
+
+    @Test
+    public void parse_thirteenthMonth_exceptionThrown() {
+        assertThrows(ChioneException.class, () -> DateTimes.parse("2019-13-01 1200"));
+    }
+
+    @Test
+    public void parse_hourPastTwentyThree_exceptionThrown() {
+        // "2400" is a common way of writing midnight, but it is not a time of
+        // day; the next day's "0000" is.
+        assertThrows(ChioneException.class, () -> DateTimes.parse("2019-10-15 2400"));
+    }
+
+    @Test
     public void parse_wordInsteadOfDate_exceptionThrown() {
         ChioneException e = assertThrows(ChioneException.class, () -> DateTimes.parse("tomorrow"));
         assertEquals("I can't read the date \"tomorrow\". "

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Locale;
 
 /**
@@ -25,9 +26,18 @@ public final class DateTimes {
      *
      * <p>{@link Locale#ENGLISH} is fixed rather than left to the machine's own
      * locale, so the program behaves the same way on every computer.
+     *
+     * <p>The formatter is made {@link ResolverStyle#STRICT}. Left at its default,
+     * it would quietly turn {@code "2019-02-30 1800"} into February 28th rather
+     * than refuse it, and a task would end up on a day the user never typed.
+     * Strict resolution needs the year written as {@code uuuu} (the proleptic
+     * year) rather than {@code yyyy} (the year of an era, which is ambiguous
+     * without an era to go with it); for any year the user will type, the two
+     * read and print identically.
      */
     private static final DateTimeFormatter INPUT_WITH_TIME =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm", Locale.ENGLISH);
+            DateTimeFormatter.ofPattern("uuuu-MM-dd HHmm", Locale.ENGLISH)
+                    .withResolverStyle(ResolverStyle.STRICT);
 
     /** How a date with no time of day is shown, e.g. {@code "Oct 15 2019"}. */
     private static final DateTimeFormatter DISPLAY_DATE =
@@ -69,7 +79,8 @@ public final class DateTimes {
         }
 
         try {
-            // LocalDate.parse expects the ISO shape yyyy-MM-dd by default.
+            // LocalDate.parse expects the ISO shape yyyy-MM-dd by default, and
+            // is already strict: a day that does not exist is refused here too.
             return LocalDate.parse(text).atStartOfDay();
         } catch (DateTimeParseException e) {
             throw new ChioneException("I can't read the date \"" + text + "\". "

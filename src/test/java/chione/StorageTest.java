@@ -167,4 +167,29 @@ public class StorageTest {
         Files.writeString(file, String.join("\n", lines) + "\n");
         return file;
     }
+    @Test
+    public void save_folderNameTakenByAFile_exceptionThrownRatherThanCrash() throws IOException {
+        // "data" exists, but as a file, so the folder the save file needs cannot
+        // be created. That is the kind of environment problem a user can cause
+        // by accident and should be told about, not shown a stack trace for.
+        Path notAFolder = tempDir.resolve("data");
+        Files.writeString(notAFolder, "in the way");
+        Storage storage = new Storage(notAFolder.resolve("chione.txt").toString());
+
+        TaskList tasks = new TaskList();
+        tasks.add(new Todo("read book"));
+        ChioneException e = assertThrows(ChioneException.class, () -> storage.save(tasks));
+        assertTrue(e.getMessage().startsWith("I could not save your tasks to "));
+    }
+
+    @Test
+    public void load_deadlineWithImpossibleDate_reportedAsADamagedLine() throws IOException {
+        Path file = tempDir.resolve("chione.txt");
+        Files.writeString(file, "D | 0 | return book | 2019-02-30 1800");
+        Storage storage = new Storage(file.toString());
+
+        ChioneException e = assertThrows(ChioneException.class, storage::load);
+        assertEquals("My save file has a line I don't understand: \"D | 0 | return book | 2019-02-30 1800\". "
+                + "Fix or delete that line and start me again.", e.getMessage());
+    }
 }
