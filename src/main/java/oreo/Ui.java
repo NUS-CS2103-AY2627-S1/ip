@@ -8,6 +8,7 @@ import oreo.task.TaskList;
  * This allows the same command behaviour to be used in a graphical interface.
  */
 public class Ui {
+    /** Whether the response currently being produced represents an error. */
     private boolean lastMessageWasError;
 
     /** Clears the error flag before Oreo begins preparing a new response. */
@@ -19,6 +20,7 @@ public class Ui {
     public boolean wasLastMessageAnError() {
         return lastMessageWasError;
     }
+
     /** Returns Oreo's greeting shown when the application starts. */
     public String getWelcomeMessage() {
         return "Hello! I'm OREO, your personal cookie-themed chatbot: crisp, creamy, and ready to help."

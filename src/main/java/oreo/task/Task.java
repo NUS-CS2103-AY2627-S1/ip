@@ -7,6 +7,8 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import oreo.exception.OreoException;
+
 /**
  * Represents the shared state and behaviour of a task.
  */
@@ -29,6 +31,12 @@ public abstract class Task {
      * @param description text describing the task
      */
     public Task(String description) {
+        if (description == null || description.isBlank()) {
+            throw new OreoException("A task description cannot be empty.");
+        }
+        if (description.contains("\n") || description.contains("\r") || description.contains(" | ")) {
+            throw new OreoException("A task description contains unsupported characters.");
+        }
         this.description = description;
         this.isDone = false;
     }
@@ -68,6 +76,13 @@ public abstract class Task {
     /** Returns this task's tags in their display order. */
     public List<String> getTags() {
         return List.copyOf(tags);
+    }
+
+    /** Returns whether this task has the same user-visible details as another task. */
+    public boolean hasSameDetails(Task other) {
+        return other != null && getClass().equals(other.getClass())
+                && description.equalsIgnoreCase(other.description)
+                && getDetails().equals(other.getDetails()) && tags.equals(new LinkedHashSet<>(other.tags));
     }
 
     /** Returns whether the supplied text is a valid task tag. */

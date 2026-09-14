@@ -70,8 +70,14 @@ public class TaskList {
      */
     public void addTask(Task task) {
         assert task != null : "Only constructed tasks may be stored.";
+        if (task == null) {
+            throw new OreoException("A task cannot be empty.");
+        }
         if (taskCount >= tasks.length) {
-            throw new OreoException("Task list is full");
+            throw new OreoException("Task list is full.");
+        }
+        if (Arrays.stream(tasks, 0, taskCount).anyMatch(task::hasSameDetails)) {
+            throw new OreoException("An identical task already exists in the list.");
         }
         tasks[taskCount] = task;
         taskCount++;
@@ -233,7 +239,7 @@ public class TaskList {
 
     /** Reconstructs one task, including its optional tags, from a storage line. */
     private Task parseStoredTask(String taskString) {
-        String[] fields = taskString.split(" \\| ");
+        String[] fields = taskString.split(" \\| ", -1);
         if (fields.length < 3) {
             throw new OreoException("Invalid task in storage.");
         }
@@ -255,6 +261,8 @@ public class TaskList {
 
         if (Objects.equals(fields[1], "X")) {
             task.markAsDone();
+        } else if (!Objects.equals(fields[1], " ")) {
+            throw new OreoException("Invalid task completion state in storage.");
         }
         if (fields.length == tagFieldIndex + 1) {
             addStoredTags(task, fields[tagFieldIndex]);

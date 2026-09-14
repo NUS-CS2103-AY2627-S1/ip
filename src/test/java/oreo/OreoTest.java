@@ -53,4 +53,29 @@ class OreoTest {
         assertEquals("Here are the tasks in your list:" + System.lineSeparator()
                 + " 1.[T][ ] watch a movie #fun", reloadedOreo.getResponse("list"));
     }
+
+    @Test
+    void getResponse_invalidCommandsAndDuplicates_returnsErrorsWithoutChangingTasks() {
+        Oreo oreo = new Oreo(temporaryDirectory.resolve("Oreo.txt").toString());
+
+        assertEquals("Use: todo <description> [#tag]...", oreo.getResponse("todo"));
+        assertEquals("Unknown command. Try todo, list, find, mark, or bye.", oreo.getResponse("remind me"));
+        assertEquals("Got it. I've added this task:" + System.lineSeparator()
+                + "  [T][ ] buy milk" + System.lineSeparator()
+                + "Now you have 1 tasks in the list.", oreo.getResponse("  todo   buy milk  "));
+        assertEquals("An identical task already exists in the list.", oreo.getResponse("todo buy milk"));
+        assertEquals("Here are the tasks in your list:" + System.lineSeparator()
+                + " 1.[T][ ] buy milk", oreo.getResponse("list"));
+    }
+
+    @Test
+    void getResponse_invalidEventDateRange_returnsError() {
+        Oreo oreo = new Oreo(temporaryDirectory.resolve("Oreo.txt").toString());
+
+        assertEquals("An event must end after it starts.",
+                oreo.getResponse("event review /from 2026-09-16 /to 2026-09-16"));
+        assertEquals("Use: event <description> /from <year>-<month>-<date> "
+                        + "/to <year>-<month>-<date> [#tag]...",
+                oreo.getResponse("event review /from 2026-02-30 /to 2026-03-01"));
+    }
 }

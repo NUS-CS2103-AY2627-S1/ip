@@ -3,6 +3,8 @@ package oreo.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import oreo.exception.OreoException;
+
 /**
  * Represents a task with a start time and an end time.
  */
@@ -24,6 +26,9 @@ public class Event extends Task {
         super(description);
         this.from = LocalDate.parse(from);
         this.to = LocalDate.parse(to);
+        if (!this.from.isBefore(this.to)) {
+            throw new OreoException("An event must end after it starts.");
+        }
     }
 
     @Override

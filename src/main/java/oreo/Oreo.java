@@ -3,11 +3,10 @@ package oreo;
 import oreo.exception.OreoException;
 import oreo.task.Task;
 import oreo.task.TaskList;
-import oreo.task.Todo;
 
 /** Coordinates Oreo's command parser, task list, storage, and response messages. */
 public class Oreo {
-    private final Storage storage;
+    private Storage storage;
     private TaskList tasks;
     private final Ui ui;
     private final Parser parser;
@@ -17,12 +16,12 @@ public class Oreo {
     /** Creates the chatbot and loads its saved tasks. */
     public Oreo(String filePath) {
         ui = new Ui();
-        storage = new Storage(filePath);
         parser = new Parser();
         try {
+            storage = new Storage(filePath);
             tasks = new TaskList(storage.load());
         } catch (OreoException e) {
-            loadingMessage = "Unable to load saved tasks. Starting with an empty task list.";
+            loadingMessage = "Unable to access saved tasks. Starting with an empty task list.";
             tasks = new TaskList();
         }
     }
@@ -45,21 +44,35 @@ public class Oreo {
         }
 
         ui.beginResponse();
-        return switch (parser.parseCommand(command)) {
-            case BYE -> exit();
-            case LIST -> ui.getTaskListMessage(tasks);
-            case LIST_TAGS -> listTags(command);
-            case FIND -> findTasks(command);
-            case MARK -> updateTaskStatus(command, true);
-            case UNMARK -> updateTaskStatus(command, false);
-            case TODO -> addTask(parser.parseTodo(command));
-            case DEADLINE -> tryAddDeadline(command);
-            case EVENT -> tryAddEvent(command);
-            case DELETE -> deleteTask(command);
-            case TAG -> updateTags(command, true);
-            case UNTAG -> updateTags(command, false);
-            case UNKNOWN -> addTask(new Todo(command));
-        };
+        try {
+            String normalizedCommand = normalizeCommand(command);
+            return switch (parser.parseCommand(normalizedCommand)) {
+                case BYE -> normalizedCommand.equals("bye") ? exit() : ui.getErrorMessage("Use: bye.");
+                case LIST -> normalizedCommand.equals("list") ? ui.getTaskListMessage(tasks)
+                        : ui.getErrorMessage("Use: list or list tags.");
+                case LIST_TAGS -> listTags(normalizedCommand);
+                case FIND -> findTasks(normalizedCommand);
+                case MARK -> updateTaskStatus(normalizedCommand, true);
+                case UNMARK -> updateTaskStatus(normalizedCommand, false);
+                case TODO -> addTask(parser.parseTodo(normalizedCommand));
+                case DEADLINE -> tryAddDeadline(normalizedCommand);
+                case EVENT -> tryAddEvent(normalizedCommand);
+                case DELETE -> deleteTask(normalizedCommand);
+                case TAG -> updateTags(normalizedCommand, true);
+                case UNTAG -> updateTags(normalizedCommand, false);
+                case UNKNOWN -> ui.getErrorMessage("Unknown command. Try todo, list, find, mark, or bye.");
+            };
+        } catch (OreoException | IllegalArgumentException e) {
+            return ui.getErrorMessage(e.getMessage());
+        }
+    }
+
+    /** Normalizes harmless whitespace while keeping the command syntax predictable. */
+    private String normalizeCommand(String command) {
+        if (command == null || command.isBlank()) {
+            throw new OreoException("Please enter a command.");
+        }
+        return command.trim().replaceAll("\\s+", " ");
     }
 
     /** Returns whether the user has ended this Oreo session. */
@@ -81,6 +94,9 @@ public class Oreo {
 
     /** Persists the current task list after a state-changing command. */
     private void saveTasks() {
+        if (storage == null) {
+            throw new OreoException("Task storage is unavailable; changes cannot be saved.");
+        }
         storage.save(tasks.storageStringRepresentation());
     }
 
@@ -130,7 +146,9 @@ public class Oreo {
     private String updateTaskStatus(String command, boolean shouldMark) {
         try {
             String commandWord = shouldMark ? "mark " : "unmark ";
-            assert command.startsWith(commandWord) : "The command type must match the selected operation.";
+            if (!command.startsWith(commandWord)) {
+                throw new OreoException("Please provide a task number to " + (shouldMark ? "mark." : "unmark."));
+            }
             int taskNumber = Integer.parseInt(command.substring(commandWord.length()).trim());
             Task task = shouldMark ? tasks.markTask(taskNumber) : tasks.unmarkTask(taskNumber);
             saveTasks();
@@ -163,7 +181,9 @@ public class Oreo {
     /** Deletes a task and returns the outcome. */
     private String deleteTask(String command) {
         try {
-            assert command.startsWith("delete ") : "Delete commands must start with 'delete '.";
+            if (!command.startsWith("delete ")) {
+                throw new OreoException("Please provide a task number to delete.");
+            }
             int taskNumber = Integer.parseInt(command.substring("delete ".length()).trim());
             Task task = tasks.deleteTask(taskNumber);
             saveTasks();

@@ -93,6 +93,18 @@ class TaskListTest {
     }
 
     @Test
+    void addTask_duplicateDetails_exceptionThrown() {
+        TaskList taskList = taskListWithTodos("read book");
+
+        assertThrows(OreoException.class, () -> taskList.addTask(new Todo("READ BOOK")));
+    }
+
+    @Test
+    void constructor_invalidCompletionState_exceptionThrown() {
+        assertThrows(OreoException.class, () -> new TaskList("T | ? | read book"));
+    }
+
+    @Test
     void findTasks_matchingKeyword_caseInsensitiveMatchesAreNumbered() {
         TaskList taskList = taskListWithTodos("read book", "buy groceries", "return BOOK");
 
