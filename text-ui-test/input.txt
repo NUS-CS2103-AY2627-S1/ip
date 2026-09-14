@@ -1,0 +1,43 @@
+list
+todo read book
+todo
+deadline return book /by 2019-10-20
+deadline nodate
+deadline /by Monday
+event meeting /from 2019-10-21 /to 2019-10-22
+event bad /to Mon 4pm /from Mon 2pm
+deadline task /by
+event task /from /to end
+event task /from start /to
+deadline task /by tomorrow
+event task /from 15/10/2019 /to 2019-10-16
+todo buy milk | eggs
+blah
+list
+on 2019-10-20
+on 2019-10-21
+on 2019-10-22
+on 2019-10-19
+on
+on notadate
+sorted
+mark 2
+mark 0
+mark 99
+mark abc
+unmark 2
+unmark 99
+list
+delete 2
+delete 99
+delete abc
+delete -5
+list
+todo
+mark 1
+delete 1
+deadline future task /by 2099-01-01
+list
+delete
+mark
+bye

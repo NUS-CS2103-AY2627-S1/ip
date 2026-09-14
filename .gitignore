@@ -16,5 +16,10 @@ bin/
 # Temp files
 _temp/
 
+# Saved task data (Level 7)
+/data/
+
 /text-ui-test/ACTUAL.TXT
+/text-ui-test/ACTUAL_LOAD.TXT
+/text-ui-test/ACTUAL_LOAD_CORRUPTED.TXT
 text-ui-test/EXPECTED-UNIX.TXT

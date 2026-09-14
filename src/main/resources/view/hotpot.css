@@ -1,0 +1,84 @@
+.root {
+    -fx-background-color: #1a0d0a;
+    -fx-background-image: url("/images/malatang_background.png");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-font-family: "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+}
+
+.scroll-pane, .scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-pref-width: 8;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #6b3d1a;
+    -fx-background-radius: 4;
+}
+
+#dialogContainer {
+    -fx-background-color: transparent;
+    -fx-spacing: 8;
+    -fx-padding: 12 10 12 10;
+}
+
+/* The startup greeting: plain caption text, not a chat bubble. */
+.system-message {
+    -fx-text-fill: #a1704a;
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
+    -fx-text-alignment: center;
+}
+
+/* The chili-oil side of the pot: your messages. */
+.bubble-mine {
+    -fx-background-color: linear-gradient(to bottom right, #d32f2f, #8e0000);
+    -fx-background-radius: 16 16 4 16;
+    -fx-border-color: rgba(212, 160, 23, 0.35);
+    -fx-border-width: 1;
+    -fx-border-radius: 16 16 4 16;
+    -fx-text-fill: #fff3e0;
+    -fx-font-weight: bold;
+    -fx-padding: 8 14 8 14;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 10, 0.15, 0, 3);
+}
+
+/* The mild broth side of the pot: Stuart's replies. */
+.bubble-other {
+    -fx-background-color: #3e2419;
+    -fx-background-radius: 16 16 16 4;
+    -fx-border-color: rgba(212, 160, 23, 0.35);
+    -fx-border-width: 1;
+    -fx-border-radius: 16 16 16 4;
+    -fx-text-fill: #f4d9a0;
+    -fx-font-weight: bold;
+    -fx-padding: 8 14 8 14;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 10, 0.15, 0, 3);
+}
+
+#userInput {
+    -fx-background-color: #2a1810;
+    -fx-background-radius: 20;
+    -fx-border-color: #d4a017;
+    -fx-border-radius: 20;
+    -fx-padding: 8 14 8 14;
+    -fx-text-fill: #f4d9a0;
+    -fx-prompt-text-fill: #a1704a;
+}
+
+#sendButton {
+    -fx-background-color: #d4a017;
+    -fx-background-radius: 22;
+    -fx-text-fill: #1a0d0a;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+}
+
+#sendButton:hover {
+    -fx-background-color: #b8890f;
+}
