@@ -7,15 +7,15 @@ using short text commands.
 
 ## Quick start
 
-Cookie requires Java 25. From the project root, build and start the app with:
+Cookie requires Java 25.
 
-```powershell
-.\gradlew.bat clean shadowJar
-java -jar .\build\libs\cookie.jar
+1. Download `cookie.jar`.
+2. Open a terminal in the folder containing the JAR.
+3. Run:
+
+```bash
+java -jar cookie.jar
 ```
-
-On macOS or Linux, use `./gradlew clean shadowJar` and
-`java -jar ./build/libs/cookie.jar` instead.
 
 Type a command in the box at the bottom of the window, then press <kbd>Enter</kbd> or
 select **Send**. For example, try `todo read book`, followed by `list`.
