@@ -40,6 +40,29 @@ class ParserTest {
     }
 
     @Test
+    void parseTask_invalidEventRange_exceptionThrown() {
+        KopiException sameDateException = assertThrows(KopiException.class, () ->
+                parser.parseTask(
+                        "event meeting /from 2026-09-08 /to 2026-09-08",
+                        Command.EVENT));
+        KopiException reversedDateException = assertThrows(KopiException.class, () ->
+                parser.parseTask(
+                        "event meeting /from 2026-09-09 /to 2026-09-08",
+                        Command.EVENT));
+
+        assertEquals("An event must end after it starts.", sameDateException.getMessage());
+        assertEquals("An event must end after it starts.", reversedDateException.getMessage());
+    }
+
+    @Test
+    void parseTask_storageDelimiterInDescription_exceptionThrown() {
+        KopiException exception = assertThrows(KopiException.class, () ->
+                parser.parseTask("todo buy milk | eggs", Command.TODO));
+
+        assertEquals("Task descriptions cannot contain |.", exception.getMessage());
+    }
+
+    @Test
     void parseTaskNumber_validAndInvalidNumbers_handledCorrectly() throws KopiException {
         assertEquals(1, parser.parseTaskNumber("mark 2", "mark", 3));
         assertThrows(KopiException.class, () -> parser.parseTaskNumber("mark zero", "mark", 3));

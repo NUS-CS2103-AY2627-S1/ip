@@ -26,7 +26,7 @@ public class Parser {
     public Task parseTask(String input, Command command) throws KopiException {
         if (command == Command.TODO) {
             String description = input.substring(4).trim();
-            requireText(description, "A todo needs a description.");
+            requireDescription(description, "A todo needs a description.");
             return new Todo(description);
         }
         if (command == Command.DEADLINE) {
@@ -36,7 +36,7 @@ public class Parser {
             }
             String description = input.substring(8, byIndex).trim();
             String by = input.substring(byIndex + 5).trim();
-            requireText(description, "A deadline needs a description.");
+            requireDescription(description, "A deadline needs a description.");
             requireText(by, "A deadline needs a date after /by.");
             return new Deadline(description, parseDate(by));
         }
@@ -49,10 +49,15 @@ public class Parser {
             String description = input.substring(5, fromIndex).trim();
             String from = input.substring(fromIndex + 7, toIndex).trim();
             String to = input.substring(toIndex + 5).trim();
-            requireText(description, "An event needs a description.");
+            requireDescription(description, "An event needs a description.");
             requireText(from, "An event needs a start date after /from.");
             requireText(to, "An event needs an end date after /to.");
-            return new Event(description, parseDate(from), parseDate(to));
+            LocalDate startDate = parseDate(from);
+            LocalDate endDate = parseDate(to);
+            if (!startDate.isBefore(endDate)) {
+                throw new KopiException("An event must end after it starts.");
+            }
+            return new Event(description, startDate, endDate);
         }
         throw new KopiException("That command cannot create a task.");
     }
@@ -91,6 +96,13 @@ public class Parser {
     private void requireText(String text, String message) throws KopiException {
         if (text.isEmpty()) {
             throw new KopiException(message);
+        }
+    }
+
+    private void requireDescription(String description, String missingMessage) throws KopiException {
+        requireText(description, missingMessage);
+        if (description.contains("|")) {
+            throw new KopiException("Task descriptions cannot contain |.");
         }
     }
 }

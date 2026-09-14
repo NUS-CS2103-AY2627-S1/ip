@@ -26,7 +26,11 @@ public class Storage {
         }
         try {
             for (String line : Files.readAllLines(filePath, StandardCharsets.UTF_8)) {
-                tasks.add(parseTask(line));
+                Task task = parseTask(line);
+                if (tasks.stream().anyMatch(existingTask -> existingTask.hasSameDetails(task))) {
+                    throw new KopiException("The data file contains duplicate tasks.");
+                }
+                tasks.add(task);
             }
             return tasks;
         } catch (IOException e) {
@@ -60,15 +64,23 @@ public class Storage {
             switch (fields[0]) {
                 case "T":
                     requireFieldCount(fields, 3, "todo");
+                    requireDescription(fields[2], "todo");
                     task = new Todo(fields[2]);
                     break;
                 case "D":
                     requireFieldCount(fields, 4, "deadline");
+                    requireDescription(fields[2], "deadline");
                     task = new Deadline(fields[2], LocalDate.parse(fields[3]));
                     break;
                 case "E":
                     requireFieldCount(fields, 5, "event");
-                    task = new Event(fields[2], LocalDate.parse(fields[3]), LocalDate.parse(fields[4]));
+                    requireDescription(fields[2], "event");
+                    LocalDate startDate = LocalDate.parse(fields[3]);
+                    LocalDate endDate = LocalDate.parse(fields[4]);
+                    if (!startDate.isBefore(endDate)) {
+                        throw new KopiException("The data file contains an invalid event range.");
+                    }
+                    task = new Event(fields[2], startDate, endDate);
                     break;
                 default:
                     throw new KopiException("The data file contains an unknown task type.");
@@ -87,6 +99,12 @@ public class Storage {
 
     private void requireFieldCount(String[] fields, int expected, String taskType) throws KopiException {
         if (fields.length != expected) {
+            throw new KopiException("The data file contains an invalid " + taskType + ".");
+        }
+    }
+
+    private void requireDescription(String description, String taskType) throws KopiException {
+        if (description.isBlank()) {
             throw new KopiException("The data file contains an invalid " + taskType + ".");
         }
     }
