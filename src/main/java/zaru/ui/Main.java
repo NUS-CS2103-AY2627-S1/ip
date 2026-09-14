@@ -23,6 +23,7 @@ public class Main extends Application {
             AnchorPane mainWindow = fxmlLoader.load();
             Scene scene = new Scene(mainWindow);
             stage.setScene(scene);
+            stage.setTitle("Zaru");
             stage.setMinHeight(MIN_WINDOW_HEIGHT);
             stage.setMinWidth(MIN_WINDOW_WIDTH);
             fxmlLoader.<MainWindow>getController().setZaru(new Zaru());
