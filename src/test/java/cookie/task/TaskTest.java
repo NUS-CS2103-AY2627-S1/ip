@@ -70,6 +70,41 @@ public class TaskTest {
     }
 
     @Test
+    public void event_invalidPeriod_throwsIllegalArgumentException() {
+        DateTimeValue morning = new DateTimeValue(null, LocalTime.of(9, 0));
+        DateTimeValue evening = new DateTimeValue(null, LocalTime.of(18, 0));
+        DateTimeValue date = new DateTimeValue(LocalDate.of(2026, 8, 27), null);
+
+        assertThrows(IllegalArgumentException.class, () ->
+                new Event("same time", morning, morning));
+        assertThrows(IllegalArgumentException.class, () ->
+                new Event("backwards", evening, morning));
+        assertThrows(IllegalArgumentException.class, () ->
+                new Event("mixed", date, morning));
+    }
+
+    @Test
+    public void hasSameDetails_matchingTasks_ignoresStatusButChecksTypeAndTemporalValues() {
+        Todo firstTodo = new Todo("buy milk");
+        Todo matchingTodo = new Todo("buy milk");
+        matchingTodo.mark();
+        Deadline deadline = new Deadline("buy milk",
+                new DateTimeValue(LocalDate.of(2026, 8, 27), null));
+
+        assertTrue(firstTodo.hasSameDetails(matchingTodo));
+        assertFalse(firstTodo.hasSameDetails(deadline));
+        assertFalse(firstTodo.hasSameDetails(new Todo("buy bread")));
+        assertFalse(firstTodo.hasSameDetails(null));
+
+        Deadline matchingDeadline = new Deadline("buy milk",
+                new DateTimeValue(LocalDate.of(2026, 8, 27), null));
+        Deadline differentDeadline = new Deadline("buy milk",
+                new DateTimeValue(LocalDate.of(2026, 8, 28), null));
+        assertTrue(deadline.hasSameDetails(matchingDeadline));
+        assertFalse(deadline.hasSameDetails(differentDeadline));
+    }
+
+    @Test
     public void occursOn_differentTaskTypes_appliesSubtypeDateRules() {
         LocalDate queriedDate = LocalDate.of(2026, 8, 27);
         Todo todo = new Todo("ordinary todo");

@@ -22,6 +22,12 @@ public class Event extends Task {
         super(description);
         assert start != null : "An event must have a start date or time";
         assert end != null : "An event must have an end date or time";
+        if (!start.hasSameComponentsAs(end)) {
+            throw new IllegalArgumentException("An event's temporal values must have matching components.");
+        }
+        if (!start.isBefore(end)) {
+            throw new IllegalArgumentException("An event's end must be later than its start.");
+        }
         this.start = start;
         this.end = end;
     }
@@ -61,6 +67,13 @@ public class Event extends Task {
         assert startDate != null && endDate != null
                 : "A date-bearing event must have complete date bounds after normalization";
         return !date.isBefore(startDate) && !date.isAfter(endDate);
+    }
+
+    /** Returns whether another event has the same start and end values. */
+    @Override
+    protected boolean hasSameTypeSpecificDetails(Task other) {
+        Event otherEvent = (Event) other;
+        return start.equals(otherEvent.start) && end.equals(otherEvent.end);
     }
 
     /**

@@ -72,4 +72,49 @@ public class CookieTest {
         assertTrue(listResponse.indexOf("1. [T][ ] zebra")
                 < listResponse.indexOf("2. [T][X] apple"));
     }
+
+    @Test
+    public void getResponse_duplicateTask_rejectsSecondTaskWithoutChangingStorage()
+            throws IOException {
+        Path dataFile = temporaryDirectory.resolve("cookie.txt");
+        Cookie cookie = new Cookie(dataFile.toString(), false);
+        cookie.getResponse("todo buy milk");
+        List<String> linesAfterFirstTask = Files.readAllLines(dataFile);
+
+        Cookie.CommandResult duplicateResult = cookie.getCommandResult("todo buy milk");
+
+        assertEquals("Bruh... That task already exists.", duplicateResult.message());
+        assertTrue(duplicateResult.isError());
+        assertEquals(linesAfterFirstTask, Files.readAllLines(dataFile));
+        assertTrue(cookie.getResponse("list").contains("1. [T][ ] buy milk"));
+    }
+
+    @Test
+    public void getResponse_saveFailure_rollsBackAddition() throws IOException {
+        Path parentFile = temporaryDirectory.resolve("not-a-directory");
+        Files.writeString(parentFile, "existing data");
+        Cookie cookie = new Cookie(parentFile.resolve("cookie.txt").toString(), false);
+
+        Cookie.CommandResult result = cookie.getCommandResult("todo buy milk");
+
+        assertTrue(result.isError());
+        assertTrue(result.message().startsWith("Oh no! I couldn't save your tasks:"));
+        assertFalse(cookie.getResponse("list").contains("buy milk"));
+        assertEquals("existing data", Files.readString(parentFile));
+    }
+
+    @Test
+    public void getResponse_loadFailure_blocksChangesToProtectExistingData() {
+        Cookie cookie = new Cookie(temporaryDirectory.toString(), false);
+
+        Cookie.CommandResult startupResult = cookie.getStartupResult();
+        Cookie.CommandResult addResult = cookie.getCommandResult("todo buy milk");
+
+        assertTrue(startupResult.isError());
+        assertTrue(startupResult.message().startsWith("Oh no! I couldn't load your tasks:"));
+        assertEquals("Bruh... I can't change tasks because the task file could not be loaded. "
+                + "Fix the file problem and restart Cookie first.", addResult.message());
+        assertTrue(addResult.isError());
+        assertTrue(Files.isDirectory(temporaryDirectory));
+    }
 }

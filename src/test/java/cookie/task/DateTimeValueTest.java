@@ -1,8 +1,10 @@
 package cookie.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -56,5 +58,25 @@ public class DateTimeValueTest {
     public void parseStorageValue_invalidValue_throwsDateTimeParseException() {
         assertThrows(DateTimeParseException.class, () -> DateTimeValue.parseStorageValue("2026-02-30"));
         assertThrows(DateTimeParseException.class, () -> DateTimeValue.parseStorageValue("not-a-date"));
+    }
+
+    @Test
+    public void comparison_matchingAndDifferentComponents_validatesAndOrdersValues() {
+        DateTimeValue earlier = new DateTimeValue(LocalDate.of(2026, 8, 27),
+                LocalTime.of(9, 0));
+        DateTimeValue later = new DateTimeValue(LocalDate.of(2026, 8, 27),
+                LocalTime.of(10, 0));
+        DateTimeValue dateOnly = new DateTimeValue(LocalDate.of(2026, 8, 27), null);
+
+        assertTrue(earlier.hasSameComponentsAs(later));
+        assertTrue(earlier.isBefore(later));
+        assertFalse(later.isBefore(earlier));
+        assertFalse(earlier.hasSameComponentsAs(dateOnly));
+        assertFalse(earlier.hasSameComponentsAs(null));
+        assertThrows(IllegalArgumentException.class, () -> earlier.isBefore(dateOnly));
+        assertEquals(earlier, new DateTimeValue(LocalDate.of(2026, 8, 27),
+                LocalTime.of(9, 0)));
+        assertEquals(earlier.hashCode(), new DateTimeValue(LocalDate.of(2026, 8, 27),
+                LocalTime.of(9, 0)).hashCode());
     }
 }

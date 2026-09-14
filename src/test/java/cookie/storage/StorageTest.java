@@ -105,15 +105,30 @@ public class StorageTest {
                 "D | Not Done | bad date | 2026-02-30",
                 "E | Not Done | valid event | 2026-08-27T09:00 to 2026-08-27T10:00",
                 "E | Not Done | missing end | 09:00 to",
+                "T | Not Done | valid todo",
+                "E | Not Done | backwards event | 11:00 to 10:00",
                 " "));
 
         Storage.LoadResult loadResult = new Storage(file.toString()).load();
         TaskList loaded = loadResult.tasks();
 
         assertEquals(2, loaded.size());
-        assertEquals(List.of(3, 4, 5, 6, 8), loadResult.malformedLineNumbers());
+        assertEquals(List.of(3, 4, 5, 6, 8, 9, 10), loadResult.malformedLineNumbers());
         assertEquals("valid todo", loaded.get(0).getDescription());
         assertTrue(loaded.get(0).isDone());
         assertEquals("valid event", loaded.get(1).getDescription());
+    }
+
+    @Test
+    public void load_pathIsDirectory_throwsIoException() throws IOException {
+        Storage storage = new Storage(temporaryDirectory.toString());
+
+        try {
+            storage.load();
+        } catch (IOException exception) {
+            assertFalse(exception.getMessage().isBlank());
+            return;
+        }
+        throw new AssertionError("Loading a directory as a task file should fail");
     }
 }

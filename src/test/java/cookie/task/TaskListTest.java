@@ -60,6 +60,15 @@ public class TaskListTest {
     }
 
     @Test
+    public void containsSameDetails_matchingAndDifferentTasks_returnsExpectedResult() {
+        TaskList tasks = new TaskList(new Todo("buy milk"));
+
+        assertTrue(tasks.containsSameDetails(new Todo("buy milk")));
+        assertFalse(tasks.containsSameDetails(new Todo("buy bread")));
+        assertThrows(AssertionError.class, () -> tasks.containsSameDetails(null));
+    }
+
+    @Test
     public void iterator_returnsTasksInStoredOrder() {
         TaskList tasks = new TaskList(new Todo("first"), new Todo("second"));
 

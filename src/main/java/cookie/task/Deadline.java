@@ -35,6 +35,12 @@ public class Deadline extends Task {
         return date.equals(by.getDate());
     }
 
+    /** Returns whether another deadline has the same due value. */
+    @Override
+    protected boolean hasSameTypeSpecificDetails(Task other) {
+        return by.equals(((Deadline) other).by);
+    }
+
     /**
      * Returns the string for {@code Deadline} tasks to be logged.
      *
