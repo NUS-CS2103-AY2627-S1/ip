@@ -17,7 +17,7 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(Ui ui, TaskList taskList, Storage storage) {
-        String output = "Arrdoes recalls your request\n";
+        String output = "Arrodes recalls your request\n";
         for (int i = 0; i < taskList.getSize(); i++) {
             output = output + "    " + (i + 1) + "." + taskList.getTaskByIndex(i).toString() + "\n";
         }

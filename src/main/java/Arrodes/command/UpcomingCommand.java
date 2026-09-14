@@ -46,14 +46,15 @@ public class UpcomingCommand extends Command {
         LocalDateTime deadlineCutoff = isDateOnlyQuery ? dayEnd : on;
         boolean hasMatchingTask = false;
 
-        ui.showMessage("Arrodes recalls requests for " + on.format(displayFormat) + ":");
+        String outputMessage = "Arrodes recalls requests for " + on.format(displayFormat) + ":" + "\n";
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTaskByIndex(i);
             if (isTaskRelevantToQuery(task, targetDate, on, deadlineCutoff, isDateOnlyQuery)) {
-                ui.showMessage((i + 1) + "." + task);
+                outputMessage = outputMessage + "    " + (i + 1) + "." + task + "\n";
                 hasMatchingTask = true;
             }
         }
+        ui.showMessage(outputMessage);
         if (!hasMatchingTask) {
             ui.showMessage("Arrodes found no deadlines or events for that date or time.");
         }

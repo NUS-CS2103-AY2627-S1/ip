@@ -35,7 +35,12 @@ public class TagCommand extends Command {
         Task task = taskList.getTaskByNumber(taskNumber);
         task.tagWith(tag);
         storage.save(taskList);
-        ui.showMessage("Arrodes shall bestow the task with " + tag + " tag");
-        ui.showMessage("  " + task);
+        ui.showMessage(
+                "Arrodes shall bestow the task with "
+                + tag
+                + " tag"
+                + "\n"
+                + "  "
+                + task);
     }
 }

@@ -28,7 +28,11 @@ public class MarkCommand extends Command {
         Task task = taskList.getTaskByNumber(taskNumber);
         task.markAsDone();
         storage.save(taskList);
-        ui.showMessage("A worthy task! Arrodes has marked it as done:");
-        ui.showMessage("  " + task);
+        ui.showMessage(
+                "A worthy task! Arrodes has marked it as done:"
+                + "\n"
+                + "  "
+                + task
+        );
     }
 }
