@@ -1,0 +1,30 @@
+.avatar {
+    -fx-alignment: center;
+    -fx-background-color: white;
+    -fx-background-radius: 22px;
+    -fx-border-color: #d9d7ee;
+    -fx-border-radius: 22px;
+    -fx-font-size: 23px;
+    -fx-min-height: 42px;
+    -fx-padding: 4px;
+}
+
+#message {
+    -fx-background-color: #dff7ff;
+    -fx-background-radius: 16px 16px 4px 16px;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 13px;
+    -fx-text-fill: #27324a;
+}
+
+#message.toot-message {
+    -fx-background-color: #fff0f6;
+    -fx-background-radius: 16px 16px 16px 4px;
+}
+
+#message.error-message {
+    -fx-background-color: #fff0e9;
+    -fx-border-color: #e58a62;
+    -fx-border-radius: 16px 16px 16px 4px;
+    -fx-text-fill: #873b22;
+}

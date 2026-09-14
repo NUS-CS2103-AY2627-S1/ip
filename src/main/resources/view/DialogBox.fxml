@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root type="HBox" alignment="TOP_RIGHT" maxWidth="Infinity" spacing="10.0"
+         stylesheets="@../css/dialog-box.css" xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="message" maxWidth="380.0" text="Message" wrapText="true" />
+        <Label fx:id="avatar" minWidth="42.0" styleClass="avatar" text="🙂" />
+    </children>
+</fx:root>

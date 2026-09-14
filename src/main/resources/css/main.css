@@ -1,0 +1,51 @@
+.root {
+    -fx-background-color: #faf9ff;
+    -fx-font-family: "Avenir Next", "Arial";
+}
+
+.header {
+    -fx-background-color: linear-gradient(to right, #6558d3, #8d72e1);
+}
+
+.title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #eeeaff;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.input-bar {
+    -fx-background-color: white;
+    -fx-border-color: #e6e3f2 transparent transparent transparent;
+}
+
+.text-field {
+    -fx-background-color: #f4f2fa;
+    -fx-background-radius: 10px;
+    -fx-border-color: #ded9ef;
+    -fx-border-radius: 10px;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+}
+
+.button {
+    -fx-background-color: #6558d3;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 18px;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #5346c4;
+}
