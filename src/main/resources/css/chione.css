@@ -28,6 +28,28 @@
     -fx-padding: 0;
 }
 
+/* The scrollbar is drawn as a slim ice-blue bar with no arrow buttons, so it
+   reads as part of the window rather than as a control bolted onto it. */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #C9DCEC;
+    -fx-background-radius: 5;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-padding: 0;
+    -fx-opacity: 0;
+}
+
 /* Shared by every message, whoever said it. */
 .bubble {
     -fx-padding: 8 12 8 12;
