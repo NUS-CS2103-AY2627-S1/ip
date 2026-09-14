@@ -162,7 +162,8 @@ public class Ui {
      * Shows the response for an unknown command.
      */
     public void showUnknownCommand() {
-        output.println(" Must have been the wind");
+        output.println(" Sorry, I don't recognize that command."
+                + " Please use one of the commands listed at startup.");
         showSeparator();
     }
 

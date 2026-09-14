@@ -236,7 +236,7 @@ Here's a list of commands I can do!
  - bye
 ____________________________________________________________
 ____________________________________________________________
- Must have been the wind
+ Sorry, I don't recognize that command. Please use one of the commands listed at startup.
 ____________________________________________________________
 ____________________________________________________________
  Bye. I'll be here if you need me :)
