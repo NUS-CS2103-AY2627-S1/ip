@@ -12,6 +12,7 @@ import arrodes.command.ByeCommand;
 import arrodes.command.Command;
 import arrodes.command.DeleteCommand;
 import arrodes.command.FindCommand;
+import arrodes.command.HelpCommand;
 import arrodes.command.ListCommand;
 import arrodes.command.MarkCommand;
 import arrodes.command.TagCommand;
@@ -115,6 +116,20 @@ class CommandParserTest {
     @Test
     void parse_byeWithExtraText_exceptionThrown() {
         assertThrows(ArrodesException.class, () -> CommandParser.parse("bye now"));
+    }
+
+    // ── parse – help ─────────────────────────────────────────────────────────
+
+    /** Verifies that help creates a help command. */
+    @Test
+    void parse_helpCommand_returnsHelpCommand() {
+        assertInstanceOf(HelpCommand.class, CommandParser.parse("help"));
+    }
+
+    /** Verifies that help rejects additional arguments. */
+    @Test
+    void parse_helpWithArguments_exceptionThrown() {
+        assertThrows(ArrodesException.class, () -> CommandParser.parse("help now"));
     }
 
     // ── parse – list ──────────────────────────────────────────────────────────

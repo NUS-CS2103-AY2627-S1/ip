@@ -54,7 +54,148 @@ ____________________________________________________________
 
 Exit code: 0
 
-## 2. TC04: Recover from a corrupted data file — PASS
+## 2. TC09: Display command guide — PASS
+
+Aim: Verify that the help command displays the syntax for every available command.
+
+**Command:**
+```text
+powershell -NoProfile -Command "Remove-Item data\arrodes.txt -ErrorAction SilentlyContinue; java -jar build\libs\arrodes.jar --cli"
+```
+
+**Console input:**
+```text
+help
+bye
+```
+
+**Expected output:**
+```text
+____________________________________________________________
+    _                       _
+   / \   _ __ _ __ ___   __| | ___  ___
+  / _ \ | '__| '__/ _ \ / _` |/ _ \/ __|
+ / ___ \| |  | | | (_) | (_| |  __/\__ \
+/_/   \_\_|  |_|  \___/ \__,_|\___||___/
+The mirror opens its eye...
+The Stigmata from the Primordial Land
+The Great Arrodes stands before you.
+Speak your request!
+____________________________________________________________
+____________________________________________________________
+Arrodes reveals the available commands:
+
+todo <description>
+    Adds a todo task.
+
+deadline <description> /by <yyyy-MM-dd>
+deadline <description> /by <yyyy-MM-ddTHH:mm>
+    Adds a task with a deadline.
+
+event <description> /from <yyyy-MM-dd> /to <yyyy-MM-dd>
+event <description> /from <yyyy-MM-ddTHH:mm> /to <yyyy-MM-ddTHH:mm>
+    Adds an event between two dates or date-times.
+
+mark <task number>
+    Marks a task as complete.
+
+unmark <task number>
+    Marks a task as incomplete.
+
+delete <task number>
+    Deletes a task.
+
+list
+    Displays all tasks.
+
+find <keyword>
+    Finds tasks containing the keyword.
+
+upcoming /on <yyyy-MM-dd>
+upcoming /on <yyyy-MM-ddTHH:mm>
+    Displays deadlines and events relevant to a date or date-time.
+
+tag <task number> /with <tag>
+    Adds a tag to a task.
+
+help
+    Displays this command guide.
+
+bye
+    Exits Arrodes.
+
+____________________________________________________________
+____________________________________________________________
+The mirror shall close its eye. Until your next request.
+____________________________________________________________
+
+```
+
+**Actual output:**
+```text
+____________________________________________________________
+    _                       _
+   / \   _ __ _ __ ___   __| | ___  ___
+  / _ \ | '__| '__/ _ \ / _` |/ _ \/ __|
+ / ___ \| |  | | | (_) | (_| |  __/\__ \
+/_/   \_\_|  |_|  \___/ \__,_|\___||___/
+The mirror opens its eye...
+The Stigmata from the Primordial Land
+The Great Arrodes stands before you.
+Speak your request!
+____________________________________________________________
+____________________________________________________________
+Arrodes reveals the available commands:
+
+todo <description>
+    Adds a todo task.
+
+deadline <description> /by <yyyy-MM-dd>
+deadline <description> /by <yyyy-MM-ddTHH:mm>
+    Adds a task with a deadline.
+
+event <description> /from <yyyy-MM-dd> /to <yyyy-MM-dd>
+event <description> /from <yyyy-MM-ddTHH:mm> /to <yyyy-MM-ddTHH:mm>
+    Adds an event between two dates or date-times.
+
+mark <task number>
+    Marks a task as complete.
+
+unmark <task number>
+    Marks a task as incomplete.
+
+delete <task number>
+    Deletes a task.
+
+list
+    Displays all tasks.
+
+find <keyword>
+    Finds tasks containing the keyword.
+
+upcoming /on <yyyy-MM-dd>
+upcoming /on <yyyy-MM-ddTHH:mm>
+    Displays deadlines and events relevant to a date or date-time.
+
+tag <task number> /with <tag>
+    Adds a tag to a task.
+
+help
+    Displays this command guide.
+
+bye
+    Exits Arrodes.
+
+____________________________________________________________
+____________________________________________________________
+The mirror shall close its eye. Until your next request.
+____________________________________________________________
+
+```
+
+Exit code: 0
+
+## 3. TC04: Recover from a corrupted data file — PASS
 
 Aim: Verify that a corrupted data file is reported and the chatbot continues with an empty task list.
 
@@ -119,7 +260,7 @@ ____________________________________________________________
 
 Exit code: 0
 
-## 3. TC02: Add and list every task type — PASS
+## 4. TC02: Add and list every task type — PASS
 
 Aim: Verify that todo, deadline, event, tag, and list commands display their stored tasks.
 
@@ -230,7 +371,7 @@ ____________________________________________________________
 
 Exit code: 0
 
-## 4. TC03: Mark, unmark, and delete tasks — PASS
+## 5. TC03: Mark, unmark, and delete tasks — PASS
 
 Aim: Verify that task status changes and deletion update the task list.
 
@@ -346,7 +487,7 @@ ____________________________________________________________
 
 Exit code: 0
 
-## 5. TC05: Reject impossible calendar dates — PASS
+## 6. TC05: Reject impossible calendar dates — PASS
 
 Aim: Verify that a correctly shaped but impossible date, such as February 31, is rejected clearly.
 
@@ -407,7 +548,7 @@ ____________________________________________________________
 
 Exit code: 0
 
-## 6. TC07: Find upcoming tasks on a date — PASS
+## 7. TC07: Find upcoming tasks on a date — PASS
 
 Aim: Verify that upcoming lists matching deadlines and events for date-only and date-time queries.
 
@@ -525,7 +666,7 @@ ____________________________________________________________
 
 Exit code: 0
 
-## 7. TC08: Find tasks by description — PASS
+## 8. TC08: Find tasks by description — PASS
 
 Aim: Verify that find displays matching tasks with their original list numbers and reports when there are no matches.
 
@@ -599,7 +740,7 @@ ____________________________________________________________
 
 Exit code: 0
 
-## 8. TC06: Validate event time ordering — PASS
+## 9. TC06: Validate event time ordering — PASS
 
 Aim: Verify that equal and reversed event times are rejected.
 

@@ -13,6 +13,7 @@ import arrodes.command.DeadlineCommand;
 import arrodes.command.DeleteCommand;
 import arrodes.command.EventCommand;
 import arrodes.command.FindCommand;
+import arrodes.command.HelpCommand;
 import arrodes.command.ListCommand;
 import arrodes.command.MarkCommand;
 import arrodes.command.TagCommand;
@@ -95,6 +96,7 @@ public class CommandParser {
             case "find" -> parseFind(tokenizedCommand);
             case "upcoming" -> parseUpcoming(tokenizedCommand);
             case "tag" -> parseTag(tokenizedCommand);
+            case "help" -> parseHelp(tokenizedCommand);
             default -> throw new ArrodesException(ArrodesException.UNKNOWN_COMMAND);
         };
     }
@@ -104,6 +106,14 @@ public class CommandParser {
             throw new ArrodesException(ArrodesException.INCORRECT_PARAMS);
         }
         return new ByeCommand();
+    }
+
+    /** Creates a help command after validating that it has no arguments. */
+    private static Command parseHelp(TokenizedCommand tokenizedCommand) {
+        if (tokenizedCommand.hasDescription() || tokenizedCommand.hasParameters()) {
+            throw new ArrodesException(ArrodesException.INCORRECT_PARAMS);
+        }
+        return new HelpCommand();
     }
 
     /** Parses a one-based task number shared by task-number commands. */

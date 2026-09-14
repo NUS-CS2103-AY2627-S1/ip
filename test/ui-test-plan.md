@@ -34,6 +34,82 @@ The mirror shall close its eye. Until your next request.
 ____________________________________________________________
 ```
 
+## TC09: Display command guide
+
+**Aim:** Verify that the help command displays the syntax for every available command.
+
+**Command:**
+```powershell
+powershell -NoProfile -Command "Remove-Item data\arrodes.txt -ErrorAction SilentlyContinue; java -jar build\libs\arrodes.jar --cli"
+```
+
+**Input:**
+```text
+help
+bye
+```
+
+**Expected output:**
+```text
+____________________________________________________________
+    _                       _
+   / \   _ __ _ __ ___   __| | ___  ___
+  / _ \ | '__| '__/ _ \ / _` |/ _ \/ __|
+ / ___ \| |  | | | (_) | (_| |  __/\__ \
+/_/   \_\_|  |_|  \___/ \__,_|\___||___/
+The mirror opens its eye...
+The Stigmata from the Primordial Land
+The Great Arrodes stands before you.
+Speak your request!
+____________________________________________________________
+____________________________________________________________
+Arrodes reveals the available commands:
+
+todo <description>
+    Adds a todo task.
+
+deadline <description> /by <yyyy-MM-dd>
+deadline <description> /by <yyyy-MM-ddTHH:mm>
+    Adds a task with a deadline.
+
+event <description> /from <yyyy-MM-dd> /to <yyyy-MM-dd>
+event <description> /from <yyyy-MM-ddTHH:mm> /to <yyyy-MM-ddTHH:mm>
+    Adds an event between two dates or date-times.
+
+mark <task number>
+    Marks a task as complete.
+
+unmark <task number>
+    Marks a task as incomplete.
+
+delete <task number>
+    Deletes a task.
+
+list
+    Displays all tasks.
+
+find <keyword>
+    Finds tasks containing the keyword.
+
+upcoming /on <yyyy-MM-dd>
+upcoming /on <yyyy-MM-ddTHH:mm>
+    Displays deadlines and events relevant to a date or date-time.
+
+tag <task number> /with <tag>
+    Adds a tag to a task.
+
+help
+    Displays this command guide.
+
+bye
+    Exits Arrodes.
+
+____________________________________________________________
+____________________________________________________________
+The mirror shall close its eye. Until your next request.
+____________________________________________________________
+```
+
 ## TC04: Recover from a corrupted data file
 
 **Aim:** Verify that a corrupted data file is reported and the chatbot continues with an empty task list.
