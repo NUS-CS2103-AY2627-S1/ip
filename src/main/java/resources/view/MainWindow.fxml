@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Polygon?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="900.0" prefWidth="820.0"
+            styleClass="main-window"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="penguin.gui.MainWindow">
+    <children>
+        <AnchorPane prefHeight="132.0" styleClass="header"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox spacing="2.0" AnchorPane.leftAnchor="34.0"
+                      AnchorPane.topAnchor="40.0">
+                    <children>
+                        <Label fx:id="headerTitle" styleClass="header-title" />
+                        <Label fx:id="headerSubtitle" styleClass="header-subtitle" />
+                    </children>
+                </VBox>
+                <Pane prefHeight="132.0" prefWidth="180.0"
+                      AnchorPane.rightAnchor="132.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Label layoutX="0.0" layoutY="65.0"
+                               styleClass="cloud" text="☁" />
+                        <Polygon layoutX="45.0" layoutY="31.0"
+                                 points="0,101, 48,50, 78,78, 112,20, 158,101"
+                                 styleClass="mountain-back" />
+                        <Polygon layoutX="85.0" layoutY="32.0"
+                                 points="0,100, 42,40, 69,100"
+                                 styleClass="mountain-front" />
+                        <Polygon layoutX="132.0" layoutY="31.0"
+                                 points="0,101, 26,55, 58,101"
+                                 styleClass="mountain-light" />
+                    </children>
+                </Pane>
+                <VBox alignment="CENTER" prefWidth="112.0" rotate="-5.0"
+                      spacing="0.0" AnchorPane.rightAnchor="20.0"
+                      AnchorPane.topAnchor="48.0">
+                    <children>
+                        <Label styleClass="header-note" text="Small waddles," />
+                        <Label styleClass="header-note" text="big wins!" />
+                        <Label styleClass="header-icon" text="❄" />
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+
+        <ScrollPane fx:id="scrollPane" fitToWidth="true"
+                    hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                    AnchorPane.bottomAnchor="158.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="132.0">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true"
+                      prefWidth="790.0" spacing="4.0">
+                    <padding>
+                        <Insets bottom="20.0" left="10.0"
+                                right="10.0" top="18.0" />
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+
+        <HBox alignment="CENTER_LEFT" spacing="9.0" styleClass="suggestions"
+              AnchorPane.bottomAnchor="96.0"
+              AnchorPane.leftAnchor="28.0"
+              AnchorPane.rightAnchor="28.0">
+            <children>
+                <Button onAction="#handleSuggestion" styleClass="suggestion-button"
+                        text="What's on my iceberg?" userData="list" />
+                <Button onAction="#handleSuggestion" styleClass="suggestion-button"
+                        text="Add a tiny task" userData="todo " />
+                <Button onAction="#handleSuggestion" styleClass="suggestion-button"
+                        text="Plan a deadline" userData="deadline " />
+                <Button onAction="#handleSuggestion"
+                        styleClass="suggestion-button,suggestion-more"
+                        accessibleText="Start a find command"
+                        text="Find" userData="find " />
+            </children>
+        </HBox>
+
+        <HBox alignment="CENTER" spacing="12.0" styleClass="composer"
+              AnchorPane.bottomAnchor="18.0"
+              AnchorPane.leftAnchor="28.0"
+              AnchorPane.rightAnchor="28.0">
+            <children>
+                <TextField fx:id="userInput" HBox.hgrow="ALWAYS"
+                           onAction="#handleUserInput" />
+                <Button fx:id="sendButton" mnemonicParsing="false"
+                        onAction="#handleUserInput" prefWidth="128.0"
+                        styleClass="send-button" text="➤  Waddle!" />
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
