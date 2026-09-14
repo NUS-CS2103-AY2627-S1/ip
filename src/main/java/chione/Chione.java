@@ -52,6 +52,15 @@ public class Chione {
     private boolean isExit;
 
     /**
+     * Whether the most recent reply reported a failure rather than a success.
+     *
+     * <p>Kept for the same reason as {@link #isExit}: the window only ever sees
+     * the text of a reply, and needs to know whether to show that text as an
+     * error. The text interface never asks; its replies say so in words.
+     */
+    private boolean isLastResponseError;
+
+    /**
      * Prepares a chatbot that will keep its tasks in the given file.
      *
      * <p>Nothing is read from disk yet: loading happens in {@link #run()}, so that
@@ -65,6 +74,7 @@ public class Chione {
         this.storage = new Storage(filePath);
         this.tasks = new TaskList();
         this.isExit = false;
+        this.isLastResponseError = false;
     }
 
     /**
@@ -139,12 +149,22 @@ public class Chione {
     }
 
     /**
+     * Reports whether the most recent reply was an error.
+     *
+     * @return {@code true} if the last line of input could not be carried out
+     */
+    public boolean isLastResponseError() {
+        return isLastResponseError;
+    }
+
+    /**
      * Carries out one line of input, leaving whatever it has to say with the
      * {@link Ui} for the caller to collect.
      *
      * @param input one line of user input
      */
     private void handleInput(String input) {
+        this.isLastResponseError = false;
         try {
             Command command = Parser.parse(input);
             command.execute(tasks, ui, storage);
@@ -153,6 +173,7 @@ public class Chione {
             // Every anticipated problem arrives here with a message already
             // phrased for the user, so one catch block covers them all and the
             // conversation carries on instead of crashing.
+            this.isLastResponseError = true;
             ui.showError(e.getMessage());
         }
     }

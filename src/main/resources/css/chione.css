@@ -1,0 +1,118 @@
+/*
+ * How Chione's window looks: snow and ice, kept quiet so that the text stays
+ * the thing you read.
+ *
+ * The two speakers are deliberately not styled alike. This is a person
+ * talking to a program, not two people talking, so the user's lines sit on
+ * the right in a solid blue bubble, and Chione's answers sit on the left in
+ * a plain white one that can run as wide as it needs to.
+ *
+ * Colors used:
+ *   #EEF4FA  window background, the pale blue of packed snow
+ *   #3E7CB1  Chione's blue: the user's bubble, the button, the focused field
+ *   #C9DCEC  a thin ice-blue line, for borders
+ *   #1F2F3F  text, a soft near-black
+ *   #E0605A  the red edge of an error, on a #FFF1F0 tint, with #8A1F1B text
+ */
+
+.root {
+    -fx-font-size: 13px;
+    -fx-background-color: #EEF4FA;
+}
+
+/* The scroll pane would otherwise paint its own grey box over the background. */
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* The scrollbar is drawn as a slim ice-blue bar with no arrow buttons, so it
+   reads as part of the window rather than as a control bolted onto it. */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #C9DCEC;
+    -fx-background-radius: 5;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-padding: 0;
+    -fx-opacity: 0;
+}
+
+/* Shared by every message, whoever said it. */
+.bubble {
+    -fx-padding: 8 12 8 12;
+    -fx-background-radius: 12;
+    -fx-text-fill: #1F2F3F;
+    -fx-line-spacing: 2;
+}
+
+.user-bubble {
+    -fx-background-color: #3E7CB1;
+    -fx-text-fill: white;
+}
+
+.chione-bubble {
+    -fx-background-color: white;
+    -fx-border-color: #C9DCEC;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+}
+
+/* A reply that reports a failure: Chione's side, but edged and tinted in
+   red so a mistyped command is noticed at once. */
+.error-bubble {
+    -fx-background-color: #FFF1F0;
+    -fx-border-color: #E0605A;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-text-fill: #8A1F1B;
+}
+
+/* The row holding the text field and the button. */
+.input-bar {
+    -fx-background-color: white;
+    -fx-border-color: #C9DCEC transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+.text-field {
+    -fx-background-color: #F7FAFD;
+    -fx-background-radius: 8;
+    -fx-border-color: #C9DCEC;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-padding: 7 10 7 10;
+}
+
+.text-field:focused {
+    -fx-border-color: #3E7CB1;
+}
+
+.button {
+    -fx-background-color: #3E7CB1;
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 7 16 7 16;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #356C9B;
+}
+
+.button:pressed {
+    -fx-background-color: #2D5C85;
+}

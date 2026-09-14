@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -25,7 +24,7 @@ import javafx.util.Duration;
  * private: without it they would have to be public, and the whole window would be
  * open to changes from anywhere.
  */
-public class MainWindow extends AnchorPane {
+public class MainWindow extends VBox {
     /** How long the goodbye stays on screen before the window closes. */
     private static final Duration GOODBYE_PAUSE = Duration.seconds(1.5);
 
@@ -85,9 +84,10 @@ public class MainWindow extends AnchorPane {
     /**
      * Sends what the user typed to Chione, and shows both sides of the exchange.
      *
-     * <p>Adds a dialog box for the user's line and another for the reply, then
-     * empties the text field ready for the next one. A {@code bye} closes the
-     * window, but only after a pause, so that the goodbye can be read.
+     * <p>Adds a dialog box for the user's line and another for the reply, which
+     * is marked as an error if the line could not be carried out, then empties
+     * the text field ready for the next one. A {@code bye} closes the window,
+     * but only after a pause, so that the goodbye can be read.
      */
     @FXML
     private void handleUserInput() {
@@ -100,9 +100,12 @@ public class MainWindow extends AnchorPane {
         }
 
         String response = chione.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getChioneDialog(response, chioneImage));
+        // A refusal is shown in a different dress from a success, so the user
+        // sees at a glance that the command did not go through.
+        DialogBox reply = chione.isLastResponseError()
+                ? DialogBox.getErrorDialog(response, chioneImage)
+                : DialogBox.getChioneDialog(response, chioneImage);
+        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage), reply);
         userInput.clear();
 
         if (chione.isExit()) {
