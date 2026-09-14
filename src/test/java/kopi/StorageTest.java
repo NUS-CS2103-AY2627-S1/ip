@@ -56,4 +56,37 @@ class StorageTest {
 
         assertEquals("The data file contains an invalid date.", exception.getMessage());
     }
+
+    @Test
+    void load_duplicateTasks_exceptionThrown() throws IOException {
+        Path filePath = tempDirectory.resolve("kopi.txt");
+        Files.writeString(filePath, "T | 0 | read book\nT | 1 | READ BOOK\n");
+        Storage storage = new Storage(filePath);
+
+        KopiException exception = assertThrows(KopiException.class, storage::load);
+
+        assertEquals("The data file contains duplicate tasks.", exception.getMessage());
+    }
+
+    @Test
+    void load_invalidEventRange_exceptionThrown() throws IOException {
+        Path filePath = tempDirectory.resolve("kopi.txt");
+        Files.writeString(filePath, "E | 0 | meeting | 2026-09-09 | 2026-09-08");
+        Storage storage = new Storage(filePath);
+
+        KopiException exception = assertThrows(KopiException.class, storage::load);
+
+        assertEquals("The data file contains an invalid event range.", exception.getMessage());
+    }
+
+    @Test
+    void load_blankDescription_exceptionThrown() throws IOException {
+        Path filePath = tempDirectory.resolve("kopi.txt");
+        Files.writeString(filePath, "T | 0 | ");
+        Storage storage = new Storage(filePath);
+
+        KopiException exception = assertThrows(KopiException.class, storage::load);
+
+        assertEquals("The data file contains an invalid todo.", exception.getMessage());
+    }
 }
