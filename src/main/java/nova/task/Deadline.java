@@ -47,6 +47,11 @@ public class Deadline extends Task {
     }
 
     @Override
+    protected String identity() {
+        return super.identity() + "|" + by;
+    }
+
+    @Override
     public String toFileString() {
         return "D | " + super.toFileString() + " | " + DateTimes.toFileString(by);
     }

@@ -58,7 +58,7 @@ public class ParserTest {
     @Test
     public void parse_deadlineWithoutBy_exceptionThrown() {
         NovaException e = assertThrows(NovaException.class, () -> Parser.parse("deadline return book"));
-        assertEquals("A deadline needs a description and a /by date. "
+        assertEquals("Missing /by. A deadline needs a description and a /by date. "
                 + "Try: deadline return book /by 2019-12-02", e.getMessage());
     }
 
@@ -82,8 +82,8 @@ public class ParserTest {
     public void parse_eventMissingTo_exceptionThrown() {
         NovaException e = assertThrows(
                 NovaException.class, () -> Parser.parse("event meeting /from 2019-08-06 1400"));
-        assertEquals("An event needs a description, a /from and a /to. "
-                + "Try: event trip /from 2019-08-06 /to 2019-08-08", e.getMessage());
+        assertEquals("Missing /to. Try: event trip /from 2019-08-06 /to 2019-08-08",
+                e.getMessage());
     }
 
     @Test
@@ -139,6 +139,51 @@ public class ParserTest {
     public void parse_sortWithArguments_exceptionThrown() {
         NovaException e = assertThrows(NovaException.class, () -> Parser.parse("sort by date"));
         assertEquals("sort takes no arguments. Just type: sort", e.getMessage());
+    }
+
+    @Test
+    public void parse_eventEndingBeforeItStarts_exceptionThrown() {
+        NovaException e = assertThrows(
+                NovaException.class, () -> Parser.parse("event trip /from 2019-12-31 /to 2019-01-01"));
+        assertTrue(e.getMessage().contains("cannot end before it starts"));
+    }
+
+    @Test
+    public void parse_eventStartingAndEndingAtSameMoment_accepted() throws NovaException {
+        assertInstanceOf(
+                AddCommand.class, Parser.parse("event standup /from 2019-08-06 0900 /to 2019-08-06 0900"));
+    }
+
+    @Test
+    public void parse_markerGivenTwice_exceptionThrown() {
+        NovaException byTwice = assertThrows(
+                NovaException.class, () -> Parser.parse("deadline x /by 2019-01-01 /by 2019-02-02"));
+        assertTrue(byTwice.getMessage().contains("more than once"));
+
+        String repeatedFrom = "event x /from 2019-01-01 /from 2019-01-02 /to 2019-01-03";
+        NovaException fromTwice = assertThrows(NovaException.class, () -> Parser.parse(repeatedFrom));
+        assertTrue(fromTwice.getMessage().contains("more than once"));
+    }
+
+    @Test
+    public void parse_eventMarkersOutOfOrder_exceptionThrown() {
+        NovaException e = assertThrows(
+                NovaException.class, () -> Parser.parse("event x /to 2019-01-02 /from 2019-01-01"));
+        assertTrue(e.getMessage().contains("/from must come before /to"));
+    }
+
+    @Test
+    public void parse_markerWithNothingAfterIt_exceptionThrown() {
+        assertThrows(NovaException.class, () -> Parser.parse("deadline x /by "));
+        assertThrows(NovaException.class, () -> Parser.parse("event x /from  /to 2019-01-01"));
+        assertThrows(NovaException.class, () -> Parser.parse("event x /from 2019-01-01 /to "));
+    }
+
+    @Test
+    public void parse_descriptionMissingBeforeMarker_exceptionThrown() {
+        assertThrows(NovaException.class, () -> Parser.parse("deadline /by 2019-01-01"));
+        assertThrows(
+                NovaException.class, () -> Parser.parse("event /from 2019-01-01 /to 2019-01-02"));
     }
 
     @Test

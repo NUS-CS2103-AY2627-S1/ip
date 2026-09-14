@@ -88,7 +88,6 @@ public class StorageTest {
                 "X | 0 | unknown type",
                 "T | 9 | done flag is not 0 or 1",
                 "T | 0 |    ",
-                "T | 0 | too many | fields",
                 "D | 0 | missing the date",
                 "D | 0 | unparseable date | someday",
                 "E | 0 | missing the end time | 2019-08-06T14:00:00",
@@ -99,7 +98,7 @@ public class StorageTest {
         List<Task> loaded = storage.load();
 
         assertEquals(2, loaded.size());
-        assertEquals(8, storage.getSkippedLineCount());
+        assertEquals(7, storage.getSkippedLineCount());
         assertEquals("[T][ ] read book", loaded.get(0).toString());
         assertEquals("[D][X] return book (by: Dec 02 2019, 6:00pm)", loaded.get(1).toString());
     }
@@ -119,13 +118,23 @@ public class StorageTest {
     }
 
     @Test
-    public void load_descriptionContainingPipe_readBackUnchanged(@TempDir Path dir)
+    public void saveThenLoad_descriptionContainingTheFieldSeparator_survives(@TempDir Path dir)
             throws NovaException {
         Storage storage = new Storage(dir.resolve("nova.txt").toString());
 
-        storage.save(List.of(new Todo("read a|b")));
+        storage.save(List.of(new Todo("read a | b"),
+                new Todo("read a|b"),
+                new Deadline("pay a | b", DEC_2_6PM),
+                new Event("trip a | b", AUG_6_2PM, AUG_8_4PM)));
+        List<Task> loaded = storage.load();
 
-        assertEquals("[T][ ] read a|b", storage.load().get(0).toString());
+        assertEquals(4, loaded.size());
+        assertEquals(0, storage.getSkippedLineCount());
+        assertEquals("[T][ ] read a | b", loaded.get(0).toString());
+        assertEquals("[T][ ] read a|b", loaded.get(1).toString());
+        assertEquals("[D][ ] pay a | b (by: Dec 02 2019, 6:00pm)", loaded.get(2).toString());
+        assertEquals("[E][ ] trip a | b (from: Aug 06 2019, 2:00pm to: Aug 08 2019, 4:00pm)",
+                loaded.get(3).toString());
     }
 
     /** Writes the given lines to a save file inside the temporary folder. */

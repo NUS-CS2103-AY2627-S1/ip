@@ -109,6 +109,40 @@ public class TaskTest {
     }
 
     @Test
+    public void describesSameTaskAs_sameDescriptionDifferentCase_true() {
+        assertTrue(new Todo("read book").describesSameTaskAs(new Todo("Read Book")));
+    }
+
+    @Test
+    public void describesSameTaskAs_doneStateIgnored() {
+        Todo done = new Todo("read book");
+        done.markAsDone();
+
+        assertTrue(done.describesSameTaskAs(new Todo("read book")));
+    }
+
+    @Test
+    public void describesSameTaskAs_differentTaskTypes_false() {
+        assertFalse(new Todo("return book").describesSameTaskAs(new Deadline("return book", DEC_2_6PM)));
+    }
+
+    @Test
+    public void describesSameTaskAs_sameDescriptionDifferentDates_false() {
+        Deadline early = new Deadline("return book", AUG_6_2PM);
+        Deadline late = new Deadline("return book", DEC_2_6PM);
+
+        assertFalse(early.describesSameTaskAs(late));
+    }
+
+    @Test
+    public void describesSameTaskAs_eventsDifferingOnlyInEnd_false() {
+        Event shorter = new Event("trip", AUG_6_2PM, AUG_6_2PM);
+        Event longer = new Event("trip", AUG_6_2PM, AUG_8_4PM);
+
+        assertFalse(shorter.describesSameTaskAs(longer));
+    }
+
+    @Test
     public void isOn_todo_alwaysFalse() {
         assertFalse(new Todo("read book").isOn(LocalDate.of(2019, 12, 2)));
     }

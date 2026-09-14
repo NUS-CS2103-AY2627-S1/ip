@@ -56,6 +56,11 @@ public class Event extends Task {
     }
 
     @Override
+    protected String identity() {
+        return super.identity() + "|" + from + "|" + to;
+    }
+
+    @Override
     public String toFileString() {
         return "E | " + super.toFileString()
                 + " | " + DateTimes.toFileString(from)

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import nova.task.Deadline;
@@ -20,17 +21,11 @@ import nova.task.Todo;
  * prints anything, so the caller decides how problems are reported.
  */
 public class Storage {
-    /** Number of fields on a todo line: type, done flag, description. */
-    private static final int TODO_FIELD_COUNT = 3;
+    /** Fewest fields any line can have: type, done flag, description. */
+    private static final int MIN_FIELD_COUNT = 3;
 
-    /** Number of fields on a deadline line: the todo fields plus a due date. */
-    private static final int DEADLINE_FIELD_COUNT = 4;
-
-    /** Number of fields on an event line: the todo fields plus a start and an end. */
-    private static final int EVENT_FIELD_COUNT = 5;
-
-    /** Index of the first field that is specific to a task type. */
-    private static final int FIRST_TYPE_SPECIFIC_FIELD = 3;
+    /** Index at which the description starts. */
+    private static final int DESCRIPTION_FIELD = 2;
 
     private final Path file;
 
@@ -131,7 +126,7 @@ public class Storage {
      */
     private static Task parseSavedTask(String line) throws NovaException {
         String[] parts = line.split(" \\| ", -1);
-        if (parts.length < TODO_FIELD_COUNT) {
+        if (parts.length < MIN_FIELD_COUNT) {
             throw new NovaException("Line has too few fields.");
         }
 
@@ -140,31 +135,35 @@ public class Storage {
             throw new NovaException("Done flag must be 0 or 1.");
         }
 
-        String description = parts[2];
+        int trailingCount = trailingFieldCount(parts[0]);
+        int descriptionEnd = parts.length - trailingCount;
+        if (descriptionEnd <= DESCRIPTION_FIELD) {
+            throw new NovaException("Line has too few fields.");
+        }
+
+        // A description may itself contain " | ", which the split above will have
+        // broken apart. The type says how many fields trail the description, so
+        // everything between the done flag and those is description; put the
+        // separators back rather than losing the task.
+        String description = String.join(" | ",
+                Arrays.copyOfRange(parts, DESCRIPTION_FIELD, descriptionEnd));
         if (description.isBlank()) {
             throw new NovaException("Description is empty.");
         }
 
-        Task task;
-        switch (parts[0]) {
-            case "T":
-                requireFieldCount(parts, TODO_FIELD_COUNT);
-                task = new Todo(description);
-                break;
-
-            case "D":
-                requireFieldCount(parts, DEADLINE_FIELD_COUNT);
-                task = new Deadline(description, DateTimes.parse(parts[3]));
-                break;
-
-            case "E":
-                requireFieldCount(parts, EVENT_FIELD_COUNT);
-                task = new Event(description, DateTimes.parse(parts[3]), DateTimes.parse(parts[4]));
-                break;
-
-            default:
-                throw new NovaException("Unknown task type '" + parts[0] + "'.");
+        String[] dates = Arrays.copyOfRange(parts, descriptionEnd, parts.length);
+        for (String date : dates) {
+            if (date.isBlank()) {
+                throw new NovaException("Date field is empty.");
+            }
         }
+
+        Task task = switch (parts[0]) {
+            case "T" -> new Todo(description);
+            case "D" -> new Deadline(description, DateTimes.parse(dates[0]));
+            case "E" -> new Event(description, DateTimes.parse(dates[0]), DateTimes.parse(dates[1]));
+            default -> throw new NovaException("Unknown task type '" + parts[0] + "'.");
+        };
 
         if (doneFlag.equals("1")) {
             task.markAsDone();
@@ -173,17 +172,18 @@ public class Storage {
     }
 
     /**
-     * Checks that a save-file line has exactly the expected number of fields
-     * and that none of the trailing fields is blank.
+     * Returns how many fields follow the description for the given task type.
+     *
+     * @param type the type letter from the start of the line
+     * @return 0 for a todo, 1 for a deadline, 2 for an event
+     * @throws NovaException if the type letter is not one this app writes
      */
-    private static void requireFieldCount(String[] parts, int expected) throws NovaException {
-        if (parts.length != expected) {
-            throw new NovaException("Expected " + expected + " fields but found " + parts.length + ".");
-        }
-        for (int i = FIRST_TYPE_SPECIFIC_FIELD; i < parts.length; i++) {
-            if (parts[i].isBlank()) {
-                throw new NovaException("Field " + (i + 1) + " is empty.");
-            }
-        }
+    private static int trailingFieldCount(String type) throws NovaException {
+        return switch (type) {
+            case "T" -> 0;
+            case "D" -> 1;
+            case "E" -> 2;
+            default -> throw new NovaException("Unknown task type '" + type + "'.");
+        };
     }
 }
