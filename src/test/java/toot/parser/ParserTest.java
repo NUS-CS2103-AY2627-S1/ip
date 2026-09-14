@@ -97,6 +97,20 @@ public class ParserTest {
     }
 
     @Test
+    public void parseTask_repeatedDelimiters_rejectsAmbiguousFields() {
+        TootException deadlineError = assertThrows(TootException.class, () ->
+                Parser.parseTask(Parser.parse("deadline read /by 2026-09-14 /by 2026-09-15")));
+        TootException eventFromError = assertThrows(TootException.class, () ->
+                Parser.parseTask(Parser.parse("event meet /from Mon /from Tue /to Wed")));
+        TootException eventToError = assertThrows(TootException.class, () ->
+                Parser.parseTask(Parser.parse("event meet /from Mon /to Tue /to Wed")));
+
+        assertEquals("A deadline can have only one '/by'.", deadlineError.getMessage());
+        assertEquals("An event can have only one '/from' and one '/to'.", eventFromError.getMessage());
+        assertEquals(eventFromError.getMessage(), eventToError.getMessage());
+    }
+
+    @Test
     public void parseTaskIndex_validAndInvalidNumbers_returnsIndexOrSpecificError() throws TootException {
         assertEquals(1, Parser.parseTaskIndex(Parser.parse("mark 2"), 3));
 

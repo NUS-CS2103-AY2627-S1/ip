@@ -29,3 +29,12 @@ jobs:
       - name: Build and check with Gradle
         run: ./gradlew build
 
+      - name: Smoke-test packaged JAR in an empty folder
+        shell: bash
+        run: |
+          mkdir -p build/smoke
+          cp build/libs/Toot.jar build/smoke/Toot.jar
+          cd build/smoke
+          printf 'todo cross-platform test\nlist\nbye\n' | java -cp Toot.jar toot.Toot > output.txt
+          grep -F '1.[T][ ] cross-platform test' output.txt
+          test -f data/toot.txt

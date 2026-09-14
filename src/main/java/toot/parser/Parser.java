@@ -128,6 +128,9 @@ public final class Parser {
         if (to.isEmpty()) {
             throw new TootException("The event end time cannot be empty after '/to'.");
         }
+        if (findDelimiter(from, "/from", 0) >= 0 || findDelimiter(to, "/to", 0) >= 0) {
+            throw new TootException("An event can have only one '/from' and one '/to'.");
+        }
         return new Event(description, from, to);
     }
 
@@ -148,6 +151,9 @@ public final class Parser {
         }
         if (by.isEmpty()) {
             throw new TootException("The deadline date cannot be empty after '/by'.");
+        }
+        if (findDelimiter(by, "/by", 0) >= 0) {
+            throw new TootException("A deadline can have only one '/by'.");
         }
         try {
             return new Deadline(description, LocalDate.parse(by));

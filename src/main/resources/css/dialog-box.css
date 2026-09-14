@@ -21,3 +21,10 @@
     -fx-background-color: #fff0f6;
     -fx-background-radius: 16px 16px 16px 4px;
 }
+
+#message.error-message {
+    -fx-background-color: #fff0e9;
+    -fx-border-color: #e58a62;
+    -fx-border-radius: 16px 16px 16px 4px;
+    -fx-text-fill: #873b22;
+}

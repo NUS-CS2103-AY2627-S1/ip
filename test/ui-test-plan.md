@@ -696,3 +696,52 @@ Here are the tasks in your list:
 Otay bye-bye! Toot go eepy now... zZz (｡-ω-)ﾉ
 ⋆｡°✩ ──────────────────────────────────────────────── ✩°｡⋆
 ```
+
+### TC-10: Reject repeated task field delimiters
+
+**Aim:** Reject ambiguous deadline and event fields while keeping the list empty.
+
+#### Inputs
+
+```text
+deadline read /by 2026-09-14 /by 2026-09-15
+event meet /from Mon /from Tue /to Wed
+event meet /from Mon /to Tue /to Wed
+list
+bye
+```
+
+#### Expected output
+
+```text
+⋆｡°✩ ──────────────────────────────────────────────── ✩°｡⋆
+ _____           _
+|_   _|__   ___ | |_
+  | |/ _ \ / _ \| __|
+  | | (_) | (_) | |_
+  |_|\___/ \___/ \__|
+
+Hewwo!! I'm Toot, ur teeny-tiny computey baby! ૮₍ ˶•⤙•˶ ₎ა
+Gib me a command... Toot do a BIG twy!! (•̀ᴗ•́)و
+⋆｡°✩ ──────────────────────────────────────────────── ✩°｡⋆
+
+⋆｡°✩ ──────────────────────────────────────────────── ✩°｡⋆
+Oh crumbs! A deadline can have only one '/by'.
+⋆｡°✩ ──────────────────────────────────────────────── ✩°｡⋆
+
+⋆｡°✩ ──────────────────────────────────────────────── ✩°｡⋆
+Oh crumbs! An event can have only one '/from' and one '/to'.
+⋆｡°✩ ──────────────────────────────────────────────── ✩°｡⋆
+
+⋆｡°✩ ──────────────────────────────────────────────── ✩°｡⋆
+Oh crumbs! An event can have only one '/from' and one '/to'.
+⋆｡°✩ ──────────────────────────────────────────────── ✩°｡⋆
+
+⋆｡°✩ ──────────────────────────────────────────────── ✩°｡⋆
+Here are the tasks in your list:
+⋆｡°✩ ──────────────────────────────────────────────── ✩°｡⋆
+
+⋆｡°✩ ──────────────────────────────────────────────── ✩°｡⋆
+Otay bye-bye! Toot go eepy now... zZz (｡-ω-)ﾉ
+⋆｡°✩ ──────────────────────────────────────────────── ✩°｡⋆
+```

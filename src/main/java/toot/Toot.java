@@ -168,6 +168,7 @@ public class Toot {
      */
     private void executeIndexedCommand(ParsedCommand command, Ui activeUi) throws TootException {
         int index = Parser.parseTaskIndex(command, tasks.size());
+        ensureStorageAvailable();
         switch (command.type()) {
             case MARK:
                 activeUi.showMarkedTask(tasks.mark(index));
@@ -190,9 +191,20 @@ public class Toot {
      */
     private void addTask(ParsedCommand command, Ui activeUi) throws TootException {
         Task addedTask = Parser.parseTask(command);
+        ensureStorageAvailable();
         tasks.add(addedTask);
         activeUi.showAddedTask(addedTask, tasks.size());
         storage.save(tasks.asList());
+    }
+
+    /**
+     * Prevents a malformed or unreadable data file from being overwritten by a new task list.
+     */
+    private void ensureStorageAvailable() throws TootException {
+        if (loadingError != null) {
+            throw new TootException("Saved tasks could not be loaded. Fix or back up the data file and restart "
+                    + "Toot before changing tasks.");
+        }
     }
 
     /**

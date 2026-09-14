@@ -43,4 +43,17 @@ public class TootTest {
         assertEquals(beforeHelp, toot.getResponse("list"));
         assertTrue(toot.getResponse("help extra").startsWith("Oh crumbs!"));
     }
+
+    @Test
+    public void getResponse_invalidSavedData_doesNotOverwriteOriginalFile() throws Exception {
+        Path dataFile = temporaryDirectory.resolve("invalid.txt");
+        String originalData = "D | 0 | broken | invalid-date\n";
+        Files.writeString(dataFile, originalData);
+        Toot toot = new Toot(dataFile);
+
+        assertTrue(toot.getStartupMessage().contains("Saved task data is invalid on line 1."));
+        assertEquals("Oh crumbs! Saved tasks could not be loaded. Fix or back up the data file and restart "
+                + "Toot before changing tasks.", toot.getResponse("todo read book"));
+        assertEquals(originalData, Files.readString(dataFile));
+    }
 }

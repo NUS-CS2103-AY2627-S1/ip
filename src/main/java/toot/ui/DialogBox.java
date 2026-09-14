@@ -56,6 +56,9 @@ public class DialogBox extends HBox {
     public static DialogBox getTootDialog(String text) {
         DialogBox dialogBox = new DialogBox(text, TOOT_AVATAR);
         dialogBox.flip();
+        if (text.startsWith("Oh crumbs!")) {
+            dialogBox.message.getStyleClass().add("error-message");
+        }
         return dialogBox;
     }
 
