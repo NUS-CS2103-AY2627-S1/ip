@@ -1,0 +1,23 @@
+.message {
+    -fx-font-size: 14px;
+    -fx-padding: 12 15;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-line-spacing: 4;
+}
+.speaker-badge {
+    -fx-background-color: #dfe8d1;
+    -fx-text-fill: #36523a;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 18;
+}
+.user-badge { -fx-background-color: #ebe7d9; -fx-text-fill: #736c58; }
+.user-label { -fx-background-color: #355c45; -fx-text-fill: #ffffff; }
+.reply-label { -fx-background-color: #f0f2e9; -fx-text-fill: #293e31; -fx-border-color: #e2e7d8; }
+.error-label {
+    -fx-background-color: #fff1f2;
+    -fx-border-color: #b91c1c;
+    -fx-text-fill: #991b1b;
+    -fx-font-weight: bold;
+}

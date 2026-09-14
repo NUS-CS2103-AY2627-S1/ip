@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="groot.ui.MainWindow"
+            stylesheets="@../css/main.css" prefWidth="1000" prefHeight="720">
+    <padding><Insets top="24" right="24" bottom="24" left="24" /></padding>
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="header">
+            <Label text="G" styleClass="brand-mark" />
+            <VBox spacing="2">
+                <Label text="Groot" styleClass="brand-title" />
+                <Label text="Small tasks. Big growth." styleClass="subtitle" />
+            </VBox>
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="YOUR LITTLE CORNER OF CALM" styleClass="eyebrow" />
+        </HBox>
+    </top>
+    <center>
+        <GridPane hgap="20">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="34" minWidth="0" />
+                <ColumnConstraints percentWidth="66" minWidth="0" />
+            </columnConstraints>
+            <rowConstraints><RowConstraints vgrow="ALWAYS" /></rowConstraints>
+            <VBox GridPane.columnIndex="0" spacing="12" styleClass="task-panel" minWidth="0">
+                <HBox spacing="8" alignment="CENTER_LEFT">
+                    <Label text="Your tasks" styleClass="section-title" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label text="GROW AT YOUR PACE" styleClass="tiny-caption" />
+                </HBox>
+                <StackPane styleClass="art-frame">
+                    <ImageView fx:id="grootArtwork" fitHeight="155" preserveRatio="true" smooth="true">
+                        <image><Image url="@../images/background.jpg" /></image>
+                    </ImageView>
+                </StackPane>
+                <Label fx:id="taskCount" styleClass="task-count" />
+                <ScrollPane fx:id="taskScroll" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS" minHeight="0">
+                    <content><VBox fx:id="taskContainer" spacing="10" fillWidth="true" /></content>
+                </ScrollPane>
+                <Label text="Use these numbers in your commands." styleClass="tiny-caption" wrapText="true" />
+            </VBox>
+            <VBox GridPane.columnIndex="1" styleClass="chat-panel" minWidth="0">
+                <HBox styleClass="chat-heading" alignment="CENTER_LEFT" spacing="10">
+                    <Label text="Let's make a little progress" styleClass="section-title" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label text="●  GROOT" styleClass="chat-status" />
+                </HBox>
+                <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS" minHeight="0">
+                    <content>
+                        <VBox spacing="14" fillWidth="true" styleClass="conversation-content">
+                            <VBox fx:id="welcomeCard" spacing="12" styleClass="welcome-card">
+                                <Label text="A little plan. A lot of possibility." styleClass="welcome-title" wrapText="true" />
+                                <Label text="I'm Groot, your task-growing companion. Tell me what's on your mind." wrapText="true" styleClass="welcome-copy" />
+                                <Label text="TRY A COMMAND" styleClass="eyebrow" />
+                                <Label text="todo Read a book" styleClass="example-command" wrapText="true" />
+                                <Label text="deadline Submit report /by 2026-09-18" styleClass="example-command" wrapText="true" />
+                                <Label text="Type help to see everything I can do." styleClass="tiny-caption" wrapText="true" />
+                            </VBox>
+                            <VBox fx:id="dialogContainer" spacing="16" fillWidth="true" />
+                        </VBox>
+                    </content>
+                </ScrollPane>
+                <VBox styleClass="composer" spacing="8">
+                    <HBox spacing="10" alignment="CENTER">
+                        <TextField fx:id="userInput" promptText="Plant a task… try todo Read a book"
+                                   onAction="#handleUserInput" HBox.hgrow="ALWAYS" minWidth="0" />
+                        <Button fx:id="sendButton" text="Send" onAction="#handleUserInput" minWidth="74" />
+                    </HBox>
+                    <Label text="Enter to send · help for all commands" styleClass="tiny-caption" />
+                </VBox>
+            </VBox>
+        </GridPane>
+    </center>
+</BorderPane>

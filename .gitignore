@@ -16,5 +16,11 @@ bin/
 # Temp files
 _temp/
 
+# Runtime task data
+/data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+/.agents/**
+.gitignore
+*.class

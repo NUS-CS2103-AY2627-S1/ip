@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<fx:root xmlns:fx="http://javafx.com/fxml/1" type="HBox" alignment="TOP_LEFT" spacing="10"
+         stylesheets="@../css/dialog-box.css" minWidth="0">
+    <Label fx:id="speakerBadge" styleClass="speaker-badge" minWidth="36" prefWidth="36" minHeight="36" alignment="CENTER" />
+    <Label fx:id="dialog" styleClass="message" wrapText="true" minWidth="0" minHeight="-Infinity" />
+</fx:root>
