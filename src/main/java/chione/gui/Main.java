@@ -6,7 +6,7 @@ import chione.Chione;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -41,13 +41,16 @@ public class Main extends Application {
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-            AnchorPane root = fxmlLoader.load();
+            VBox root = fxmlLoader.load();
             Scene scene = new Scene(root);
 
             stage.setScene(scene);
             stage.setTitle("Chione");
-            stage.setMinHeight(400.0);
-            stage.setMinWidth(417.0);
+            // The window may be made as large as the user likes; the layout
+            // follows. Only shrinking is limited, to where the input bar and a
+            // few lines of conversation would no longer fit.
+            stage.setMinHeight(360.0);
+            stage.setMinWidth(380.0);
 
             fxmlLoader.<MainWindow>getController().setChione(chione);
             stage.show();

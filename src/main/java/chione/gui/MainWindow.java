@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -25,7 +24,7 @@ import javafx.util.Duration;
  * private: without it they would have to be public, and the whole window would be
  * open to changes from anywhere.
  */
-public class MainWindow extends AnchorPane {
+public class MainWindow extends VBox {
     /** How long the goodbye stays on screen before the window closes. */
     private static final Duration GOODBYE_PAUSE = Duration.seconds(1.5);
 
