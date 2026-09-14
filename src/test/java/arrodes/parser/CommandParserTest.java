@@ -429,17 +429,41 @@ class CommandParserTest {
         assertThrows(ArrodesException.class, () -> CommandParser.parse("   "));
     }
 
-    /**
-     * Verifies tokenize descriptionWithSlashInMiddle treatedAsFlag.
-     */
+    /** Verifies a slash in free text is rejected instead of being misparsed as a flag. */
     @Test
-    void tokenize_descriptionWithSlashInMiddle_treatedAsFlag() {
-        // A slash in the description creates an extra parameter section
-        TokenizedCommand result = CommandParser.tokenize("event A/B test /from 2025-01-01 /to 2025-01-02");
-        // "A" is the description; "B test" becomes an unknown flag section
-        // The key expectation: the parser does not crash and "from"/"to" are present
-        assertTrue(result.hasParameters());
-        assertTrue(result.getParameters().containsKey("from"));
-        assertTrue(result.getParameters().containsKey("to"));
+    void tokenize_descriptionWithSlashInMiddle_isRejected() {
+        assertThrows(ArrodesException.class, () -> CommandParser.tokenize("event A/B test "
+                + "/from 2025-01-01 /to 2025-01-02"));
+    }
+
+    /** Verifies leading, trailing, and repeated command whitespace is rejected. */
+    @Test
+    void tokenize_malformedWhitespace_isRejected() {
+        assertThrows(ArrodesException.class, () -> CommandParser.parse(" todo buy milk"));
+        assertThrows(ArrodesException.class, () -> CommandParser.parse("todo buy milk "));
+        assertThrows(ArrodesException.class, () -> CommandParser.parse("todo  buy milk"));
+    }
+
+    /** Verifies duplicate and unknown parameters are rejected. */
+    @Test
+    void parse_duplicateOrUnknownParameter_isRejected() {
+        assertThrows(ArrodesException.class, () -> CommandParser.parse("deadline report "
+                + "/by 2026-01-01 /by 2026-01-02"));
+        assertThrows(ArrodesException.class, () -> CommandParser.parse("deadline report "
+                + "/at 2026-01-01"));
+        assertThrows(ArrodesException.class, () -> CommandParser.parse("bye /now please"));
+    }
+
+    /** Verifies equal event endpoints are rejected. */
+    @Test
+    void parse_eventWithEqualEndpoints_isRejected() {
+        assertThrows(ArrodesException.class, () -> CommandParser.parse("event meeting "
+                + "/from 2026-01-01T10:00 /to 2026-01-01T10:00"));
+    }
+
+    /** Verifies tags containing unsupported characters are rejected. */
+    @Test
+    void parse_tagWithUnsupportedCharacters_isRejected() {
+        assertThrows(ArrodesException.class, () -> CommandParser.parse("tag 1 /with urgent!"));
     }
 }

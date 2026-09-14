@@ -1,4 +1,5 @@
 package arrodes.command;
+import arrodes.exception.ArrodesException;
 import arrodes.storage.Storage;
 import arrodes.task.Task;
 import arrodes.task.TaskList;
@@ -26,8 +27,16 @@ public class MarkCommand extends Command {
     @Override
     public void execute(Ui ui, TaskList taskList, Storage storage) {
         Task task = taskList.getTaskByNumber(taskNumber);
+        boolean wasDone = task.isDone();
         task.markAsDone();
-        storage.save(taskList);
+        try {
+            storage.save(taskList);
+        } catch (ArrodesException exception) {
+            if (!wasDone) {
+                task.markAsNotDone();
+            }
+            throw exception;
+        }
         ui.showMessage(
                 "The mirror bears witness: this task is complete:"
                 + "\n"

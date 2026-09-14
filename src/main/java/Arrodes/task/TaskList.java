@@ -50,6 +50,9 @@ public class TaskList {
         if (task == null || task.getDescription() == null || task.getDescription().isBlank()) {
             throw new ArrodesException(ArrodesException.EMPTY_DESCRIPTION);
         }
+        if (list.stream().anyMatch(existingTask -> existingTask.hasSameDetailsAs(task))) {
+            throw new ArrodesException(ArrodesException.DUPLICATE_TASK);
+        }
         if (isFull()) {
             throw new ArrodesException(ArrodesException.TASK_LIST_FULL);
         }
@@ -60,14 +63,29 @@ public class TaskList {
     /**
      * Removes a task using its one-based display number.
      * @param itemNumber one-based task number
+     * @return the removed task
      * @throws ArrodesException if no task has that number
      */
-    public void delete(int itemNumber) throws ArrodesException {
+    public Task delete(int itemNumber) throws ArrodesException {
         int itemIndex = itemNumber - 1;
         if (itemIndex >= list.size() || itemIndex < 0) {
             throw new ArrodesException(ArrodesException.ITEM_NOT_IN_LIST);
         }
-        list.remove(itemIndex);
+        return list.remove(itemIndex);
+    }
+
+    /**
+     * Restores a task at a specified zero-based position after a failed operation.
+     *
+     * @param itemIndex zero-based position at which to restore the task
+     * @param task task to restore
+     * @throws ArrodesException if the task or position is invalid, or the list is full
+     */
+    public void restore(int itemIndex, Task task) throws ArrodesException {
+        if (task == null || itemIndex < 0 || itemIndex > list.size() || isFull()) {
+            throw new ArrodesException(ArrodesException.ITEM_NOT_IN_LIST);
+        }
+        list.add(itemIndex, task);
     }
 
     /**

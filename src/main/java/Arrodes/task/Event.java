@@ -21,7 +21,7 @@ public class Event extends Task {
      * @param description text describing the event
      * @param startAt event start
      * @param endAt event end
-     * @throws IllegalArgumentException if an endpoint is null or the end precedes the start
+     * @throws IllegalArgumentException if an endpoint is null or the end is not after the start
      */
     public Event(String description, LocalDateTime startAt, LocalDateTime endAt) {
         this(description, startAt, endAt, true, true);
@@ -34,12 +34,12 @@ public class Event extends Task {
      * @param endAt event end
      * @param isStartTimeIncluded whether the input included a start time
      * @param isEndTimeIncluded whether the input included an end time
-     * @throws IllegalArgumentException if an endpoint is null or the end precedes the start
+     * @throws IllegalArgumentException if an endpoint is null or the end is not after the start
      */
     public Event(String description, LocalDateTime startAt, LocalDateTime endAt,
                  boolean isStartTimeIncluded, boolean isEndTimeIncluded) {
         super(description);
-        if (startAt == null || endAt == null || endAt.isBefore(startAt)) {
+        if (startAt == null || endAt == null || !endAt.isAfter(startAt)) {
             throw new IllegalArgumentException("Event times are invalid.");
         }
         this.startAt = startAt;

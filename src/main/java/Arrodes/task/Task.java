@@ -16,8 +16,12 @@ public class Task {
      * Creates an incomplete task with the given description.
      *
      * @param description text describing the task
+     * @throws IllegalArgumentException if the description is null or blank
      */
     public Task(String description) {
+        if (description == null || description.isBlank()) {
+            throw new IllegalArgumentException("Task description cannot be null or blank.");
+        }
         this.description = description;
         this.isDone = false;
     }
@@ -62,9 +66,34 @@ public class Task {
      * Associates the given tag with this task.
      *
      * @param tag tag to associate with the task
+     * @throws IllegalArgumentException if the tag is null
      */
     public void tagWith(String tag) {
+        if (tag == null) {
+            throw new IllegalArgumentException("Task tag cannot be null.");
+        }
         this.tag = tag;
+    }
+
+    /**
+     * Returns whether this task has the same type and task-specific details as another task.
+     *
+     * @param other task to compare with this task
+     * @return {@code true} if both tasks represent the same request
+     */
+    public boolean hasSameDetailsAs(Task other) {
+        if (other == null || getClass() != other.getClass()
+                || !description.equals(other.description)) {
+            return false;
+        }
+        if (this instanceof Deadline deadline && other instanceof Deadline otherDeadline) {
+            return deadline.getDueBy().equals(otherDeadline.getDueBy());
+        }
+        if (this instanceof Event event && other instanceof Event otherEvent) {
+            return event.getStartAt().equals(otherEvent.getStartAt())
+                    && event.getEndAt().equals(otherEvent.getEndAt());
+        }
+        return true;
     }
 
     /**

@@ -137,8 +137,11 @@ public class Storage {
         }
         TaskList taskList = new TaskList(capacity);
         try {
-            if (!Files.exists(dataFile)) {
+            if (Files.notExists(dataFile)) {
                 return taskList;
+            }
+            if (!Files.isRegularFile(dataFile) || !Files.isReadable(dataFile)) {
+                throw new IOException("Storage path is not a readable regular file.");
             }
             loadTasks(taskList);
         } catch (IOException | SecurityException exception) {
@@ -218,12 +221,16 @@ public class Storage {
 
     /** Restores the completion status and tag from a storage record. */
     private void restoreTaskState(Task task, List<String> fields) throws ArrodesException {
-        if (COMPLETED_STATUS.equals(fields.get(1))) {
-            task.markAsDone();
-        } else if (!INCOMPLETE_STATUS.equals(fields.get(1))) {
+        try {
+            if (COMPLETED_STATUS.equals(fields.get(1))) {
+                task.markAsDone();
+            } else if (!INCOMPLETE_STATUS.equals(fields.get(1))) {
+                throw invalidRecord();
+            }
+            task.tagWith(fields.get(fields.size() - 1));
+        } catch (IllegalArgumentException exception) {
             throw invalidRecord();
         }
-        task.tagWith(fields.get(fields.size() - 1));
     }
 
     /** Splits on unescaped separators and decodes escaped field characters. */

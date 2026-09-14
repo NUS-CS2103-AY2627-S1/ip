@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import arrodes.command.ByeCommand;
 import arrodes.command.Command;
@@ -23,6 +24,11 @@ import arrodes.exception.ArrodesException;
 /** Converts raw CLI text into validated command objects. */
 public class CommandParser {
 
+    /** Separates a command keyword from the rest of the input. */
+    private static final Pattern COMMAND_SEPARATOR = Pattern.compile(" ");
+    /** Matches the supported parameter name and its non-empty value. */
+    private static final Pattern PARAMETER_PATTERN = Pattern.compile("([a-z]+) ([^ ].*)");
+
     /** Creates a parser; parsing operations are available as static methods. */
     public CommandParser() {
     }
@@ -38,7 +44,15 @@ public class CommandParser {
             throw new ArrodesException(ArrodesException.NO_INPUT);
         }
 
-        String[] splitInput = userInput.split(" ", 2);
+        if (!userInput.equals(userInput.strip()) || userInput.contains("\t")
+                || userInput.contains("\n") || userInput.contains("\r")) {
+            throw new ArrodesException(ArrodesException.INCORRECT_PARAMS);
+        }
+
+        String[] splitInput = COMMAND_SEPARATOR.split(userInput, 2);
+        if (splitInput.length > 1 && splitInput[1].startsWith(" ")) {
+            throw new ArrodesException(ArrodesException.INCORRECT_PARAMS);
+        }
 
         String command = splitInput[0];
         String description = "";
@@ -86,7 +100,7 @@ public class CommandParser {
     }
     /** Creates an exit command after validating that it has no arguments. */
     private static Command parseBye(TokenizedCommand tokenizedCommand) {
-        if (tokenizedCommand.hasDescription()) {
+        if (tokenizedCommand.hasDescription() || tokenizedCommand.hasParameters()) {
             throw new ArrodesException(ArrodesException.INCORRECT_PARAMS);
         }
         return new ByeCommand();
@@ -101,7 +115,11 @@ public class CommandParser {
     /** Converts a task number string into a validated integer. */
     private static int parseTaskNumberValue(String taskNumber) {
         try {
-            return Integer.parseInt(taskNumber);
+            int parsedTaskNumber = Integer.parseInt(taskNumber);
+            if (parsedTaskNumber < 1) {
+                throw new ArrodesException(ArrodesException.ITEM_NOT_IN_LIST);
+            }
+            return parsedTaskNumber;
         } catch (NumberFormatException exception) {
             throw new ArrodesException(ArrodesException.NOT_A_NUMBER);
         }
@@ -116,6 +134,7 @@ public class CommandParser {
     /** Creates a deadline command from its {@code /by} parameter. */
     private static Command parseDeadline(TokenizedCommand tokenizedCommand) {
         validateDescription(tokenizedCommand);
+        validateParameterNames(tokenizedCommand, "by");
         String dueBy = requireParameter(tokenizedCommand, "by");
         return new DeadlineCommand(tokenizedCommand.getDescription(), parseDateTime(dueBy));
     }
@@ -123,12 +142,18 @@ public class CommandParser {
     /** Creates an event command from its {@code /from} and {@code /to} parameters. */
     private static Command parseEvent(TokenizedCommand tokenizedCommand) {
         validateDescription(tokenizedCommand);
+        validateParameterNames(tokenizedCommand, "from", "to");
         String from = requireParameter(tokenizedCommand, "from");
         String to = requireParameter(tokenizedCommand, "to");
         if (from.contains("T") ^ to.contains("T")) {
             throw new ArrodesException(ArrodesException.INCONSISTENT_TIME_FORMAT);
         }
-        return new EventCommand(tokenizedCommand.getDescription(), parseDateTime(from), parseDateTime(to),
+        LocalDateTime startAt = parseDateTime(from);
+        LocalDateTime endAt = parseDateTime(to);
+        if (!endAt.isAfter(startAt)) {
+            throw new ArrodesException(ArrodesException.INVALID_EVENT_TIME);
+        }
+        return new EventCommand(tokenizedCommand.getDescription(), startAt, endAt,
                 from.contains("T"), to.contains("T"));
     }
 
@@ -154,6 +179,7 @@ public class CommandParser {
         if (tokenizedCommand.hasDescription()) {
             throw new ArrodesException(ArrodesException.UNNECESSARY_DESCRIPTION);
         }
+        validateParameterNames(tokenizedCommand, "on");
         String on = requireParameter(tokenizedCommand, "on");
         return new UpcomingCommand(parseDateTime(on), on.contains("T"));
     }
@@ -161,10 +187,11 @@ public class CommandParser {
     /** Creates a tag command from a task number and its {@code /with} parameter. */
     private static Command parseTag(TokenizedCommand tokenizedCommand) {
         validateDescription(tokenizedCommand);
-        if (tokenizedCommand.getParameters().size() != 1) {
-            throw new ArrodesException(ArrodesException.INCORRECT_PARAMS);
-        }
+        validateParameterNames(tokenizedCommand, "with");
         String tag = requireParameter(tokenizedCommand, "with");
+        if (!tag.matches("[A-Za-z0-9_-]+")) {
+            throw new ArrodesException(ArrodesException.INVALID_TAG);
+        }
         return new TagCommand(parseTaskNumberValue(tokenizedCommand.getDescription()), tag);
     }
 
@@ -192,13 +219,25 @@ public class CommandParser {
         return parameter;
     }
 
+    /** Ensures that a command contains exactly its supported parameter names. */
+    private static void validateParameterNames(TokenizedCommand tokenizedCommand, String... expectedNames) {
+        if (tokenizedCommand.getParameters().size() != expectedNames.length) {
+            throw new ArrodesException(ArrodesException.INCORRECT_PARAMS);
+        }
+        for (String expectedName : expectedNames) {
+            if (!tokenizedCommand.getParameters().containsKey(expectedName)) {
+                throw new ArrodesException(ArrodesException.INCORRECT_PARAMS);
+            }
+        }
+    }
+
     /**
      * Splits the portion after the command word at slash separators and trims each section.
      * @param remainingInput content after the command keyword
      * @return description followed by parameter sections
      */
     private static String[] splitByFlag(String remainingInput) {
-        String[] sections = remainingInput.split("/");
+        String[] sections = remainingInput.split("/", -1);
         for (int i = 0; i < sections.length; i++) {
             sections[i] = sections[i].strip();
         }
@@ -213,15 +252,16 @@ public class CommandParser {
      */
     private static Map<String, String> formParameters(String[] sections) throws ArrodesException {
         Map<String, String> parameters = new HashMap<>();
-        try {
-            for (int i = 1; i < sections.length; i++) {
-                String[] flagAndValue = sections[i].split(" ", 2);
-                String flag = flagAndValue[0];
-                String value = flagAndValue[1];
-                parameters.put(flag, value);
+        for (int i = 1; i < sections.length; i++) {
+            var matcher = PARAMETER_PATTERN.matcher(sections[i]);
+            if (!matcher.matches()) {
+                throw new ArrodesException(ArrodesException.INCORRECT_PARAMS);
             }
-        } catch (Exception e) {
-            throw new ArrodesException(ArrodesException.INCORRECT_PARAMS);
+            String flag = matcher.group(1);
+            String value = matcher.group(2);
+            if (parameters.putIfAbsent(flag, value) != null) {
+                throw new ArrodesException(ArrodesException.DUPLICATE_PARAMETER);
+            }
         }
         return parameters;
     }

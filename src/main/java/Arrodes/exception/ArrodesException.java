@@ -12,6 +12,12 @@ public class ArrodesException extends RuntimeException {
     public static final String INCORRECT_PARAMS_COUNT = "The incantation requires more magic words (parameters).";
     /** Message used when parameters have an invalid shape. */
     public static final String INCORRECT_PARAMS = "The incantation's form is flawed. Consult the command guide.";
+    /** Message used when the same parameter is supplied more than once. */
+    public static final String DUPLICATE_PARAMETER = "Each parameter may be specified only once.";
+    /** Message used when a task with the same details already exists. */
+    public static final String DUPLICATE_TASK = "That request is already recorded in Arrodes' annals.";
+    /** Message used when a tag does not follow the supported format. */
+    public static final String INVALID_TAG = "Tags may contain only letters, numbers, hyphens, and underscores.";
     /** Message used when an event ends before it starts. */
     public static final String INVALID_EVENT_TIME = "The appointed hour cannot end before it begins.";
 
@@ -36,6 +42,9 @@ public class ArrodesException extends RuntimeException {
     public static final String SAVE_FAILURE = "Arrodes could not preserve the annals. Your records remain unchanged.";
     /** Message used when Arrodes cannot restore task records. */
     public static final String LOAD_FAILURE = "Arrodes could not restore the annals.";
+    /** Message used when an unexpected failure prevents command processing. */
+    public static final String UNEXPECTED_FAILURE = "Arrodes encountered an unexpected error and kept your records "
+            + "safe.";
 
     /**
      * Constructs an exception without a detail message.

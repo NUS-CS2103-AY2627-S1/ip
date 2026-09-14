@@ -1,5 +1,6 @@
 package arrodes.command;
 
+import arrodes.exception.ArrodesException;
 import arrodes.storage.Storage;
 import arrodes.task.Task;
 import arrodes.task.TaskList;
@@ -33,8 +34,14 @@ public class TagCommand extends Command {
     @Override
     public void execute(Ui ui, TaskList taskList, Storage storage) {
         Task task = taskList.getTaskByNumber(taskNumber);
+        String previousTag = task.getTag();
         task.tagWith(tag);
-        storage.save(taskList);
+        try {
+            storage.save(taskList);
+        } catch (ArrodesException exception) {
+            task.tagWith(previousTag);
+            throw exception;
+        }
         ui.showMessage(
                 "Arrodes seals this record with the "
                 + tag

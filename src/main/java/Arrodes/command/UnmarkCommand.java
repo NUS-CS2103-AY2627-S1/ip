@@ -1,4 +1,5 @@
 package arrodes.command;
+import arrodes.exception.ArrodesException;
 import arrodes.storage.Storage;
 import arrodes.task.Task;
 import arrodes.task.TaskList;
@@ -26,8 +27,16 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(Ui ui, TaskList taskList, Storage storage) {
         Task task = taskList.getTaskByNumber(taskNumber);
+        boolean wasDone = task.isDone();
         task.markAsNotDone();
-        storage.save(taskList);
+        try {
+            storage.save(taskList);
+        } catch (ArrodesException exception) {
+            if (wasDone) {
+                task.markAsDone();
+            }
+            throw exception;
+        }
         ui.showMessage("By your decree, the mark of completion has been withdrawn:"
                 + "\n"
                 + "  "

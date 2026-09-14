@@ -35,11 +35,11 @@ public class Cli implements Ui {
 
     /**
      * Reads one complete command line.
-     * @return next line entered by the user
+     * @return next line entered by the user, or {@code null} when input is exhausted
      */
     @Override
     public String readUserInput() {
-        return scanner.nextLine();
+        return scanner.hasNextLine() ? scanner.nextLine() : null;
     }
 
     /**

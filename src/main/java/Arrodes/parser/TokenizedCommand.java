@@ -1,5 +1,6 @@
 package arrodes.parser;
 
+import java.util.Collections;
 import java.util.Map;
 
 /** Immutable result of splitting a raw command into its logical components. */
@@ -15,12 +16,12 @@ public class TokenizedCommand {
      * Creates a tokenized command.
      * @param command command keyword
      * @param description free-text description
-     * @param parameters parsed parameter mappings
+     * @param parameters parsed parameter mappings, or {@code null} for no parameters
      */
     public TokenizedCommand(String command, String description, Map<String, String> parameters) {
         this.command = command;
         this.description = description;
-        this.parameters = parameters;
+        this.parameters = parameters == null ? Collections.emptyMap() : Map.copyOf(parameters);
     }
 
     /**
@@ -43,7 +44,7 @@ public class TokenizedCommand {
      * @return {@code true} when a description is present
      */
     public boolean hasDescription() {
-        return !description.isBlank() | !description.isEmpty();
+        return description != null && !description.isBlank();
     }
     /**
      * Returns the parsed parameter mappings.

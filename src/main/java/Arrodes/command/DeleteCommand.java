@@ -1,4 +1,5 @@
 package arrodes.command;
+import arrodes.exception.ArrodesException;
 import arrodes.storage.Storage;
 import arrodes.task.Task;
 import arrodes.task.TaskList;
@@ -27,7 +28,12 @@ public class DeleteCommand extends Command {
     public void execute(Ui ui, TaskList taskList, Storage storage) {
         Task task = taskList.getTaskByNumber(taskNumber);
         taskList.delete(taskNumber);
-        storage.save(taskList);
+        try {
+            storage.save(taskList);
+        } catch (ArrodesException exception) {
+            taskList.restore(taskNumber - 1, task);
+            throw exception;
+        }
         ui.showMessage("The following record has been erased from the annals:\n"
                 + task + "\n"
                 + taskList.getSize()

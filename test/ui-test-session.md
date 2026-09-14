@@ -446,30 +446,27 @@ Your request has been inscribed in Arrodes' annals:
 1 tasks are being tracked
 ____________________________________________________________
 ____________________________________________________________
-Your request has been inscribed in Arrodes' annals:
-   [E][ ] all day (from: Oct 15 2026 to Oct 15 2026)
-2 tasks are being tracked
+The appointed hour cannot end before it begins.
 ____________________________________________________________
 ____________________________________________________________
 Your request has been inscribed in Arrodes' annals:
    [E][ ] meeting (from: Oct 14 2026 23:00 to Oct 15 2026 01:00)
-3 tasks are being tracked
+2 tasks are being tracked
 ____________________________________________________________
 ____________________________________________________________
 Your request has been inscribed in Arrodes' annals:
    [T][ ] buy milk
-4 tasks are being tracked
+3 tasks are being tracked
 ____________________________________________________________
 ____________________________________________________________
 Arrodes gazes into the appointed hour and reveals requests for Oct 15 2026:
     1.[D][ ] submit report (by: Oct 15 2026 17:00)
-    2.[E][ ] all day (from: Oct 15 2026 to Oct 15 2026)
-    3.[E][ ] meeting (from: Oct 14 2026 23:00 to Oct 15 2026 01:00)
+    2.[E][ ] meeting (from: Oct 14 2026 23:00 to Oct 15 2026 01:00)
 
 ____________________________________________________________
 ____________________________________________________________
 Arrodes gazes into the appointed hour and reveals requests for Oct 15 2026 00:30:
-    3.[E][ ] meeting (from: Oct 14 2026 23:00 to Oct 15 2026 01:00)
+    2.[E][ ] meeting (from: Oct 14 2026 23:00 to Oct 15 2026 01:00)
 
 ____________________________________________________________
 ____________________________________________________________
@@ -497,30 +494,27 @@ Your request has been inscribed in Arrodes' annals:
 1 tasks are being tracked
 ____________________________________________________________
 ____________________________________________________________
-Your request has been inscribed in Arrodes' annals:
-   [E][ ] all day (from: Oct 15 2026 to Oct 15 2026)
-2 tasks are being tracked
+The appointed hour cannot end before it begins.
 ____________________________________________________________
 ____________________________________________________________
 Your request has been inscribed in Arrodes' annals:
    [E][ ] meeting (from: Oct 14 2026 23:00 to Oct 15 2026 01:00)
-3 tasks are being tracked
+2 tasks are being tracked
 ____________________________________________________________
 ____________________________________________________________
 Your request has been inscribed in Arrodes' annals:
    [T][ ] buy milk
-4 tasks are being tracked
+3 tasks are being tracked
 ____________________________________________________________
 ____________________________________________________________
 Arrodes gazes into the appointed hour and reveals requests for Oct 15 2026:
     1.[D][ ] submit report (by: Oct 15 2026 17:00)
-    2.[E][ ] all day (from: Oct 15 2026 to Oct 15 2026)
-    3.[E][ ] meeting (from: Oct 14 2026 23:00 to Oct 15 2026 01:00)
+    2.[E][ ] meeting (from: Oct 14 2026 23:00 to Oct 15 2026 01:00)
 
 ____________________________________________________________
 ____________________________________________________________
 Arrodes gazes into the appointed hour and reveals requests for Oct 15 2026 00:30:
-    3.[E][ ] meeting (from: Oct 14 2026 23:00 to Oct 15 2026 01:00)
+    2.[E][ ] meeting (from: Oct 14 2026 23:00 to Oct 15 2026 01:00)
 
 ____________________________________________________________
 ____________________________________________________________
@@ -607,7 +601,7 @@ Exit code: 0
 
 ## 8. TC06: Validate event time ordering — PASS
 
-Aim: Verify that same-day date-only events are accepted and reversed event times produce a warning.
+Aim: Verify that equal and reversed event times are rejected.
 
 **Command:**
 ```text
@@ -635,9 +629,7 @@ The Great Arrodes stands before you.
 Speak your request!
 ____________________________________________________________
 ____________________________________________________________
-Your request has been inscribed in Arrodes' annals:
-   [E][ ] same day (from: Oct 15 2026 to Oct 15 2026)
-1 tasks are being tracked
+The appointed hour cannot end before it begins.
 ____________________________________________________________
 ____________________________________________________________
 The appointed hour cannot end before it begins.
@@ -662,9 +654,7 @@ The Great Arrodes stands before you.
 Speak your request!
 ____________________________________________________________
 ____________________________________________________________
-Your request has been inscribed in Arrodes' annals:
-   [E][ ] same day (from: Oct 15 2026 to Oct 15 2026)
-1 tasks are being tracked
+The appointed hour cannot end before it begins.
 ____________________________________________________________
 ____________________________________________________________
 The appointed hour cannot end before it begins.

@@ -90,7 +90,10 @@ public class Gui extends AnchorPane implements Ui {
     private void handleUserInput() {
         String userInput = readUserInput();
         displayUserInput(userInput);
-        assert inputListener != null : "GUI input listener must be attached before input is handled.";
+        if (inputListener == null) {
+            showError("Arrodes is not ready to receive requests yet.");
+            return;
+        }
         inputListener.execute(userInput);
     }
 

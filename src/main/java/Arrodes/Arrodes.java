@@ -76,10 +76,17 @@ public class Arrodes extends Application {
     private boolean processNextCliCommand() {
         String userCommand = cli.readUserInput();
         cli.showSeparator();
+        if (userCommand == null) {
+            cli.showOnExitMessage();
+            return true;
+        }
         try {
             return executeCliCommand(userCommand);
         } catch (ArrodesException knownArrodesException) {
             System.out.println(knownArrodesException.getMessage());
+            return false;
+        } catch (RuntimeException unexpectedException) {
+            System.out.println(ArrodesException.UNEXPECTED_FAILURE);
             return false;
         } finally {
             cli.showSeparator();
@@ -107,6 +114,8 @@ public class Arrodes extends Application {
             }
         } catch (ArrodesException knownArrodesException) {
             gui.showError(knownArrodesException.getMessage());
+        } catch (RuntimeException unexpectedException) {
+            gui.showError(ArrodesException.UNEXPECTED_FAILURE);
         }
     }
 

@@ -34,12 +34,12 @@ public class Launcher {
 
     /** Returns whether the arguments select the GUI, including the default case. */
     private static boolean isGuiMode(String[] args) {
-        return args.length == 0 || args.length == 1 && GUI_ARGUMENT.equals(args[0]);
+        return args != null && (args.length == 0 || args.length == 1 && GUI_ARGUMENT.equals(args[0]));
     }
 
     /** Returns whether the arguments select the CLI. */
     private static boolean isCliMode(String[] args) {
-        return args.length == 1 && CLI_ARGUMENT.equals(args[0]);
+        return args != null && args.length == 1 && CLI_ARGUMENT.equals(args[0]);
     }
 
     /** Displays the supported launcher arguments. */

@@ -78,8 +78,8 @@ class TaskListTest {
 
     /** Rejects a task with a blank description. */
     @Test
-    void insert_taskWithBlankDescription_throwsArrodesException() {
-        assertThrows(ArrodesException.class, () -> taskList.insert(new Todo("   ")));
+    void construct_taskWithBlankDescription_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new Todo("   "));
     }
 
     /** Rejects insertion after the list reaches capacity. */
@@ -97,6 +97,13 @@ class TaskListTest {
         taskList.insert(new Todo("task two"));
         taskList.insert(new Todo("task three"));
         assertEquals(3, taskList.getSize());
+    }
+
+    /** Rejects a task with the same meaningful details as an existing task. */
+    @Test
+    void insert_duplicateTask_throwsArrodesException() throws ArrodesException {
+        taskList.insert(new Todo("same task"));
+        assertThrows(ArrodesException.class, () -> taskList.insert(new Todo("same task")));
     }
 
 
