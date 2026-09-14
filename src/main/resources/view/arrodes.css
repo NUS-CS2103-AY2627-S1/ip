@@ -1,7 +1,6 @@
 .app-root {
     -fx-background-color: #17151f;
-    -fx-background-image: linear-gradient(to right, rgba(23, 21, 31, 0.92), rgba(23, 21, 31, 0.72)),
-        url("/images/background.jpg");
+    -fx-background-image: url("/images/background.jpg");
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
