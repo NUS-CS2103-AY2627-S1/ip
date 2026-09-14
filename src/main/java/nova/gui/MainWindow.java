@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import nova.Nova;
+import nova.Reply;
 
 /**
  * Controller for the main window: shows the conversation and passes what the
@@ -30,8 +31,7 @@ public class MainWindow extends AnchorPane {
 
     private Nova nova;
 
-    private final Image userImage = new Image(getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image novaImage = new Image(getClass().getResourceAsStream("/images/DaNova.png"));
+    private final Image novaMark = new Image(getClass().getResourceAsStream("/images/DaNova.png"));
 
     /** Creates the controller. JavaFX requires a public no-argument constructor. */
     public MainWindow() {
@@ -66,7 +66,7 @@ public class MainWindow extends AnchorPane {
             return;
         }
 
-        dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
+        add(DialogBox.getUserDialog(input));
         addNovaDialog(nova.getResponse(input));
 
         if (nova.isExit()) {
@@ -79,10 +79,16 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Adds a reply from the chatbot, unless it had nothing to say. */
-    private void addNovaDialog(String reply) {
+    private void addNovaDialog(Reply reply) {
         if (reply.isEmpty()) {
             return;
         }
-        dialogContainer.getChildren().add(DialogBox.getNovaDialog(reply, novaImage));
+        add(DialogBox.getNovaDialog(reply.text(), novaMark, reply.isError()));
+    }
+
+    /** Adds a bubble and lets it reflow with the window. */
+    private void add(DialogBox box) {
+        box.wrapWithin(dialogContainer.widthProperty());
+        dialogContainer.getChildren().add(box);
     }
 }

@@ -1,0 +1,132 @@
+/*
+ * Nova's visual identity: a calm slate-and-indigo palette, a monospace face so
+ * the task columns line up, and tight spacing so more of the window is
+ * conversation rather than padding.
+ */
+
+.root {
+    /* JavaFX takes a single family, not a CSS fallback list, so use the
+       generic name and let each platform pick its own monospace face. A fixed
+       pitch keeps the [D][ ] status columns aligned down the list. */
+    -fx-font-family: monospace;
+    -fx-font-size: 12.5px;
+    -fx-background-color: #f4f5f7;
+}
+
+/* ---- header ---- */
+
+/* A slim identity strip. It also means the product names itself in a
+   screenshot, without relying on the window manager's title bar. */
+.header {
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #e3e6ec transparent;
+    -fx-padding: 7 12 7 12;
+    -fx-spacing: 8;
+}
+
+.header-title {
+    -fx-text-fill: #4f46e5;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+.header-subtitle {
+    -fx-text-fill: #9aa1ad;
+    -fx-font-size: 11px;
+}
+
+/* ---- conversation area ---- */
+
+.chat-scroll,
+.chat-scroll .viewport {
+    -fx-background-color: transparent;
+}
+
+.chat-scroll {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.chat-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8;
+}
+
+.chat-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: #c8ccd4;
+    -fx-background-radius: 4;
+}
+
+.dialog-container {
+    -fx-padding: 10 12 10 12;
+    -fx-spacing: 6;
+}
+
+/* ---- message bubbles ---- */
+
+.bubble {
+    -fx-padding: 7 11 7 11;
+    -fx-background-radius: 10;
+    -fx-line-spacing: 2;
+}
+
+/* The user's own words: solid, right-aligned, no avatar. The two sides of the
+   conversation are not peers, so they are not drawn the same way. */
+.bubble-user {
+    -fx-background-color: #4f46e5;
+    -fx-text-fill: #ffffff;
+}
+
+/* Nova's replies: quiet surface, left-aligned, small avatar. */
+.bubble-nova {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #1f2430;
+    -fx-border-color: #e3e6ec;
+    -fx-border-radius: 10;
+}
+
+/* Errors are the one thing that must not scroll past unnoticed. */
+.bubble-error {
+    -fx-background-color: #fef2f2;
+    -fx-text-fill: #9f1239;
+    -fx-border-color: #f6c9cd;
+    -fx-border-radius: 10;
+}
+
+/* ---- input row ---- */
+
+.input-row {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e3e6ec transparent transparent transparent;
+    -fx-padding: 8;
+    -fx-spacing: 8;
+}
+
+.command-input {
+    -fx-background-color: #f4f5f7;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #e3e6ec;
+    -fx-padding: 7 10 7 10;
+    -fx-prompt-text-fill: #9aa1ad;
+}
+
+.command-input:focused {
+    -fx-border-color: #4f46e5;
+}
+
+.send-button {
+    -fx-background-color: #4f46e5;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 8;
+    -fx-padding: 7 16 7 16;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: #4338ca;
+}
+
+.send-button:disabled {
+    -fx-opacity: 0.5;
+}

@@ -43,9 +43,9 @@ public class Nova {
      *
      * @return the welcome message
      */
-    public String getGreeting() {
+    public Reply getGreeting() {
         ui.showWelcome();
-        return ui.flush();
+        return Reply.of(ui.flush());
     }
 
     /**
@@ -57,28 +57,31 @@ public class Nova {
      * Loading is a separate step from the greeting so that a warning appears
      * after it rather than before.
      *
-     * @return the warning to show, or an empty string if the load was clean
+     * @return the warning to show, marked as an error; empty if the load was clean
      */
-    public String loadTasks() {
+    public Reply loadTasks() {
+        boolean hasProblem = false;
         try {
             tasks = new TaskList(storage.load());
             if (storage.getSkippedLineCount() > 0) {
                 ui.showLoadingError(storage.getSkippedLineCount());
+                hasProblem = true;
             }
         } catch (NovaException e) {
             tasks = new TaskList();
             ui.showError(e.getMessage());
+            hasProblem = true;
         }
-        return ui.flush();
+        return new Reply(ui.flush(), hasProblem);
     }
 
     /**
      * Carries out one line of input and returns what the chatbot says back.
      *
      * @param input the line the user typed
-     * @return the reply to show them
+     * @return the reply to show them, marked as an error if the command failed
      */
-    public String getResponse(String input) {
+    public Reply getResponse(String input) {
         assert input != null : "input should never be null";
         try {
             Command command = Parser.parse(input);
@@ -86,8 +89,9 @@ public class Nova {
             isExit = command.isExit();
         } catch (NovaException e) {
             ui.showError(e.getMessage());
+            return Reply.error(ui.flush());
         }
-        return ui.flush();
+        return Reply.of(ui.flush());
     }
 
     /**
