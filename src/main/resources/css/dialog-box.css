@@ -1,0 +1,20 @@
+.label {
+    -fx-background-color: rgba(0, 0, 0, 0.72);
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-family: "Cascadia Mono";
+    -fx-font-size: 14px;
+    -fx-padding: 8px 10px;
+}
+
+.reply-label {
+    -fx-background-color: rgba(0, 0, 0, 0.72);
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-rotate: 0;
+}
