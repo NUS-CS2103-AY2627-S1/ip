@@ -21,6 +21,11 @@ public class AddCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NovaException {
+        int duplicate = tasks.positionOfDuplicate(task);
+        if (duplicate > 0) {
+            throw new NovaException("That is already task " + duplicate + " in your list.");
+        }
+
         tasks.add(task);
         storage.save(tasks.asList());
         ui.showAdded(task, tasks.size());

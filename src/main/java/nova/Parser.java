@@ -1,5 +1,7 @@
 package nova;
 
+import java.time.LocalDateTime;
+
 import nova.command.AddCommand;
 import nova.command.Command;
 import nova.command.CommandType;
@@ -23,6 +25,12 @@ import nova.task.Todo;
  * task numbers. Everything downstream works with typed objects instead.
  */
 public class Parser {
+    private static final String BY_MARKER = "/by ";
+    private static final String FROM_MARKER = "/from ";
+    private static final String TO_MARKER = "/to ";
+    private static final String EVENT_HINT =
+            "Try: event trip /from 2019-08-06 /to 2019-08-08";
+
 
     /** Utility class: not meant to be instantiated. */
     private Parser() {
@@ -60,7 +68,7 @@ public class Parser {
                 if (arguments.isEmpty()) {
                     throw new NovaException("A todo needs a description. Try: todo read book");
                 }
-                return new AddCommand(new Todo(arguments));
+                return new AddCommand(new Todo(normalise(arguments)));
 
             case DEADLINE:
                 return new AddCommand(parseDeadline(arguments));
@@ -110,21 +118,69 @@ public class Parser {
 
     /** Builds a Deadline from the text after the deadline keyword. */
     private static Deadline parseDeadline(String arguments) throws NovaException {
-        String[] parts = arguments.split(" /by ");
-        if (parts.length < 2 || parts[0].isEmpty()) {
-            throw new NovaException("A deadline needs a description and a /by date. "
-                    + "Try: deadline return book /by 2019-12-02");
-        }
-        return new Deadline(parts[0], DateTimes.parse(parts[1]));
+        int byIndex = findSingleMarker(arguments, BY_MARKER, "A deadline needs a description and a "
+                + "/by date. Try: deadline return book /by 2019-12-02");
+        String description = normalise(arguments.substring(0, byIndex));
+        String by = arguments.substring(byIndex + BY_MARKER.length()).trim();
+        requireNotEmpty(description, "A deadline needs a description before /by. "
+                + "Try: deadline return book /by 2019-12-02");
+        requireNotEmpty(by, "A deadline needs a date after /by. "
+                + "Try: deadline return book /by 2019-12-02");
+        return new Deadline(description, DateTimes.parse(by));
     }
 
     /** Builds an Event from the text after the event keyword. */
     private static Event parseEvent(String arguments) throws NovaException {
-        String[] parts = arguments.split(" /from | /to ");
-        if (parts.length < 3 || parts[0].isEmpty()) {
-            throw new NovaException("An event needs a description, a /from and a /to. "
-                    + "Try: event trip /from 2019-08-06 /to 2019-08-08");
+        int fromIndex = findSingleMarker(arguments, FROM_MARKER, EVENT_HINT);
+        int toIndex = findSingleMarker(arguments, TO_MARKER, EVENT_HINT);
+        if (fromIndex > toIndex) {
+            throw new NovaException("/from must come before /to. " + EVENT_HINT);
         }
-        return new Event(parts[0], DateTimes.parse(parts[1]), DateTimes.parse(parts[2]));
+
+        String description = normalise(arguments.substring(0, fromIndex));
+        String from = arguments.substring(fromIndex + FROM_MARKER.length(), toIndex).trim();
+        String to = arguments.substring(toIndex + TO_MARKER.length()).trim();
+        requireNotEmpty(description, "An event needs a description before /from. " + EVENT_HINT);
+        requireNotEmpty(from, "An event needs a date after /from. " + EVENT_HINT);
+        requireNotEmpty(to, "An event needs a date after /to. " + EVENT_HINT);
+
+        LocalDateTime start = DateTimes.parse(from);
+        LocalDateTime end = DateTimes.parse(to);
+        if (end.isBefore(start)) {
+            throw new NovaException("An event cannot end before it starts. You gave "
+                    + DateTimes.format(start) + " to " + DateTimes.format(end) + ".");
+        }
+        return new Event(description, start, end);
+    }
+
+    /**
+     * Returns where the given marker appears, insisting it appears exactly once.
+     *
+     * <p>Repeating a marker is rejected rather than resolved by taking the first
+     * or the last, because either choice silently discards part of what the user
+     * typed.
+     */
+    private static int findSingleMarker(String arguments, String marker, String hint)
+            throws NovaException {
+        int first = arguments.indexOf(marker);
+        if (first < 0) {
+            throw new NovaException("Missing " + marker.trim() + ". " + hint);
+        }
+        if (arguments.indexOf(marker, first + 1) >= 0) {
+            throw new NovaException("You gave " + marker.trim() + " more than once. " + hint);
+        }
+        return first;
+    }
+
+    /** Rejects a value the user left blank. */
+    private static void requireNotEmpty(String value, String message) throws NovaException {
+        if (value.isEmpty()) {
+            throw new NovaException(message);
+        }
+    }
+
+    /** Collapses runs of whitespace so "read    book" is stored as "read book". */
+    private static String normalise(String description) {
+        return description.trim().replaceAll("\\s+", " ");
     }
 }

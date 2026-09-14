@@ -255,6 +255,28 @@ public class TaskListTest {
         assertEquals(0, tasks.size());
     }
 
+    @Test
+    public void positionOfDuplicate_matchingTaskPresent_returnsOneBasedPosition() {
+        TaskList tasks = new TaskList();
+        tasks.add(new Todo("first"), new Todo("read book"), new Todo("third"));
+
+        assertEquals(2, tasks.positionOfDuplicate(new Todo("READ BOOK")));
+    }
+
+    @Test
+    public void positionOfDuplicate_noMatch_returnsZero() {
+        TaskList tasks = new TaskList();
+        tasks.add(new Todo("read book"));
+
+        assertEquals(0, tasks.positionOfDuplicate(new Todo("buy milk")));
+        assertEquals(0, tasks.positionOfDuplicate(new Deadline("read book", AUG_6_2PM)));
+    }
+
+    @Test
+    public void positionOfDuplicate_emptyList_returnsZero() {
+        assertEquals(0, new TaskList().positionOfDuplicate(new Todo("read book")));
+    }
+
     /** Pulls the description out of a task's save-file line, for readable assertions. */
     private static String matchDescription(Task task) {
         return task.toFileString().split(" \\| ", -1)[2];

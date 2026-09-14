@@ -97,6 +97,30 @@ public class Task {
     }
 
     /**
+     * Returns a value that is equal for two tasks the user would consider the
+     * same, ignoring whether either is done.
+     *
+     * <p>Description comparison ignores case, so "Read Book" and "read book"
+     * count as the same task. Dated subclasses extend this with their times,
+     * since the same errand on two different days is two tasks.
+     *
+     * @return this task's identity
+     */
+    protected String identity() {
+        return getClass().getSimpleName() + "|" + description.toLowerCase();
+    }
+
+    /**
+     * Returns whether this task and the other describe the same thing.
+     *
+     * @param other the task to compare against
+     * @return true if the user would consider them duplicates
+     */
+    public boolean describesSameTaskAs(Task other) {
+        return identity().equals(other.identity());
+    }
+
+    /**
      * Returns the part of the save-file line shared by every task type,
      * i.e. the done flag followed by the description. Subclasses prepend
      * their type letter and append their own fields.

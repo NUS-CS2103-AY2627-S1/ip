@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import nova.task.Task;
 
@@ -115,6 +116,21 @@ public class TaskList {
                 .comparing((Task task) -> task.getScheduledTime().isPresent() ? 0 : 1)
                 .thenComparing(task -> task.getScheduledTime().orElse(LocalDateTime.MAX))
                 .thenComparing(Task::getDescription, String.CASE_INSENSITIVE_ORDER));
+    }
+
+    /**
+     * Returns the one-based position of a task already describing the same
+     * thing, or 0 if there is none.
+     *
+     * @param task the task about to be added
+     * @return the position of the existing duplicate, or 0
+     */
+    public int positionOfDuplicate(Task task) {
+        return IntStream.range(0, tasks.size())
+                .filter(i -> tasks.get(i).describesSameTaskAs(task))
+                .map(i -> i + 1)
+                .findFirst()
+                .orElse(0);
     }
 
     /**
