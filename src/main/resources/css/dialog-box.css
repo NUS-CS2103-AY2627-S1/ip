@@ -1,16 +1,14 @@
 .label {
-    -fx-background-color: #536dfe;
-    -fx-background-radius: 14px 14px 2px 14px;
+    -fx-background-color: #3549b5;
+    -fx-background-radius: 12px 12px 2px 12px;
     -fx-padding: 9px 12px;
     -fx-text-fill: white;
 }
 
 .reply-label {
-    -fx-background-color: white;
-    -fx-background-radius: 14px 14px 14px 2px;
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-color: #7c4dff;
+    -fx-border-width: 0 0 0 3px;
     -fx-text-fill: #252a3a;
-}
-
-#displayPicture {
-    -fx-effect: dropshadow(gaussian, rgba(35, 40, 70, 0.18), 8, 0.2, 0, 2);
 }

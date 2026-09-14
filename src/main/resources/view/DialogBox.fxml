@@ -10,9 +10,9 @@
          xmlns="http://javafx.com/javafx/17"
          xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" maxWidth="300.0" minHeight="-Infinity"
+        <Label fx:id="dialog" minWidth="0.0" minHeight="-Infinity"
                text="Message" wrapText="true" />
-        <ImageView fx:id="displayPicture" fitHeight="48.0" fitWidth="48.0"
+        <ImageView fx:id="displayPicture" fitHeight="28.0" fitWidth="28.0"
                    pickOnBounds="true" preserveRatio="true" />
     </children>
     <padding>
