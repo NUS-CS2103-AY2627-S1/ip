@@ -840,3 +840,84 @@ ____________________________________________________________
  Bye. I'll be here if you need me :)
 ____________________________________________________________
 ```
+
+## Test case: Reject ambiguous parameters and recover
+
+Aim: Verify repeated, reversed, and malformed parameters and extra arguments report helpful errors without adding tasks or exiting; tabs separate commands while description spacing is preserved.
+
+### Inputs
+
+```text
+deadline book /by 2026-08-30 /by 2026-09-01
+event meeting /from 2pm /from 3pm /to 4pm
+event meeting /from 2pm /to 4pm /to 5pm
+event meeting /to 4pm /from 2pm
+deadline book /by2026-08-30
+list extra
+bye soon
+todo	read  book
+mark	1
+list
+bye
+```
+
+### Expected output
+
+```text
+____________________________________________________________
+ ____  _            
+/ ___|(_)_ __   ___ 
+\___ \| | '_ \ / _ \
+ ___) | | | | |  __/
+|____/|_|_| |_|\___|
+Hello! I'm Sine.
+Here's a list of commands I can do!
+ - todo DESCRIPTION
+ - deadline DESCRIPTION /by YYYY-MM-DD
+ - event DESCRIPTION /from START /to END
+ - list
+ - find KEYWORD
+ - mark TASK_NUMBER
+ - unmark TASK_NUMBER
+ - delete TASK_NUMBER
+ - undo (or UNDO)
+ - bye
+____________________________________________________________
+____________________________________________________________
+ Error :( Specify /by only once.
+____________________________________________________________
+____________________________________________________________
+ Error :( Specify /from only once.
+____________________________________________________________
+____________________________________________________________
+ Error :( Specify /to only once.
+____________________________________________________________
+____________________________________________________________
+ Error :( Place /from before /to.
+____________________________________________________________
+____________________________________________________________
+ Error :( The deadline of a deadline cannot be empty.
+____________________________________________________________
+____________________________________________________________
+ Error :( Usage: list
+____________________________________________________________
+____________________________________________________________
+ Error :( Usage: bye
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [T][ ] read  book
+ Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Great work! I've marked this task as done:
+   [T][X] read  book
+____________________________________________________________
+____________________________________________________________
+ TODO list:
+ 1.[T][X] read  book
+____________________________________________________________
+____________________________________________________________
+ Bye. I'll be here if you need me :)
+____________________________________________________________
+```
