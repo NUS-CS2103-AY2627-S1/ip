@@ -2,6 +2,8 @@
 
 Arrodes is a personal task manager that remembers your todos, deadlines, and events. You can use it through the graphical user interface (GUI) or the command-line interface (CLI).
 
+![Arrodes user interface](Ui.png)
+
 ## Getting started
 
 1. Open the [Arrodes Releases page](https://github.com/qqnoodle/ip/releases).
