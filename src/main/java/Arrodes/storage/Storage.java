@@ -78,7 +78,7 @@ public class Storage {
      */
     public void save(TaskList taskList) throws ArrodesException {
         if (taskList == null) {
-            throw new ArrodesException("Arrodes could not save your requests.");
+            throw new ArrodesException(ArrodesException.SAVE_FAILURE);
         }
         writeSnapshot(formatTasks(taskList));
     }
@@ -90,7 +90,7 @@ public class Storage {
             try {
                 lines.add(formatTask(taskList.getTaskByIndex(i)));
             } catch (RuntimeException exception) {
-                throw new ArrodesException("Arrodes could not save your requests.");
+                throw new ArrodesException(ArrodesException.SAVE_FAILURE);
             }
         }
         return lines;
@@ -112,7 +112,7 @@ public class Storage {
                 Files.move(temporaryFile, targetFile, StandardCopyOption.REPLACE_EXISTING);
             }
         } catch (IOException | SecurityException exception) {
-            throw new ArrodesException("Arrodes could not save your requests.");
+            throw new ArrodesException(ArrodesException.SAVE_FAILURE);
         } finally {
             if (temporaryFile != null) {
                 try {
@@ -133,7 +133,7 @@ public class Storage {
      */
     public TaskList load(int capacity) throws ArrodesException {
         if (capacity < 0) {
-            throw new ArrodesException("Arrodes could not load your requests.");
+            throw new ArrodesException(ArrodesException.LOAD_FAILURE);
         }
         TaskList taskList = new TaskList(capacity);
         try {
@@ -142,9 +142,9 @@ public class Storage {
             }
             loadTasks(taskList);
         } catch (IOException | SecurityException exception) {
-            throw new ArrodesException("Arrodes could not load your requests.");
+            throw new ArrodesException(ArrodesException.LOAD_FAILURE);
         } catch (ArrodesException exception) {
-            throw new ArrodesException("Arrodes could not load your requests.");
+            throw new ArrodesException(ArrodesException.LOAD_FAILURE);
         }
         return taskList;
     }
@@ -257,7 +257,7 @@ public class Storage {
 
     /** Creates the common exception for malformed storage records. */
     private ArrodesException invalidRecord() {
-        return new ArrodesException("Arrodes could not load your requests.");
+        return new ArrodesException(ArrodesException.LOAD_FAILURE);
     }
 
     /** Parses an ISO date or date-time, normalising date-only values to midnight. */

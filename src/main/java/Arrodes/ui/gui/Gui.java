@@ -127,10 +127,10 @@ public class Gui extends AnchorPane implements Ui {
     @Override
     public void showOnLoadMessage() {
         showMessage("""
-            Eyes that watch All living Beings
+            The mirror opens its eye...
             The Stigmata from the Primordial Land
-            The Great Arrodes is before you!
-            State your request!""");
+            The Great Arrodes stands before you.
+            Speak your request!""");
     }
 
     /** Displays the standard separator line. */
@@ -142,6 +142,6 @@ public class Gui extends AnchorPane implements Ui {
     /** Displays the application farewell. */
     @Override
     public void showOnExitMessage() {
-        showMessage("I shall await your next request...");
+        showMessage("The mirror shall close its eye. Until your next request.");
     }
 }

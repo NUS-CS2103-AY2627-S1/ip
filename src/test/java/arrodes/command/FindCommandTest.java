@@ -30,7 +30,7 @@ class FindCommandTest {
 
         new FindCommand("book").execute(ui, taskList, null);
 
-        assertEquals("Here are the matching tasks in your list:\n"
+        assertEquals("Arrodes reveals the records matching your words:\n"
                 + "1.[T][ ] read book\n"
                 + "2.[D][ ] return book (by: Jun 06 2026)\n", normalise(output));
     }
@@ -44,7 +44,7 @@ class FindCommandTest {
 
         new FindCommand("book").execute(new CapturingUi(output), taskList, null);
 
-        assertEquals("Here are the matching tasks in your list:\n1.[T][ ] Read Book\n",
+        assertEquals("Arrodes reveals the records matching your words:\n1.[T][ ] Read Book\n",
                 normalise(output));
     }
 
@@ -55,8 +55,8 @@ class FindCommandTest {
 
         new FindCommand("book").execute(new CapturingUi(output), new TaskList(100), null);
 
-        assertEquals("Here are the matching tasks in your list:\n"
-                + "Arrodes found no matching tasks.\n", normalise(output));
+        assertEquals("Arrodes reveals the records matching your words:\n"
+                + "The mirror finds no record matching those words.\n", normalise(output));
     }
 
     /** Converts platform-specific line endings to the format used by assertions. */

@@ -126,7 +126,7 @@ public class CommandParser {
         String from = requireParameter(tokenizedCommand, "from");
         String to = requireParameter(tokenizedCommand, "to");
         if (from.contains("T") ^ to.contains("T")) {
-            throw new ArrodesException("Time provided should both be same format");
+            throw new ArrodesException(ArrodesException.INCONSISTENT_TIME_FORMAT);
         }
         return new EventCommand(tokenizedCommand.getDescription(), parseDateTime(from), parseDateTime(to),
                 from.contains("T"), to.contains("T"));
@@ -135,7 +135,7 @@ public class CommandParser {
     /** Creates a list command after validating that it has no arguments. */
     private static Command parseList(TokenizedCommand tokenizedCommand) {
         if (tokenizedCommand.hasDescription()) {
-            throw new ArrodesException("try list without other words");
+            throw new ArrodesException(ArrodesException.UNNECESSARY_DESCRIPTION);
         }
         if (tokenizedCommand.hasParameters()) {
             throw new ArrodesException(ArrodesException.INCORRECT_PARAMS);
@@ -152,7 +152,7 @@ public class CommandParser {
     /** Creates an upcoming command from its {@code /on} parameter. */
     private static Command parseUpcoming(TokenizedCommand tokenizedCommand) {
         if (tokenizedCommand.hasDescription()) {
-            throw new ArrodesException("Description is not needed");
+            throw new ArrodesException(ArrodesException.UNNECESSARY_DESCRIPTION);
         }
         String on = requireParameter(tokenizedCommand, "on");
         return new UpcomingCommand(parseDateTime(on), on.contains("T"));
@@ -241,10 +241,9 @@ public class CommandParser {
                 return LocalDate.parse(value).atStartOfDay();
             } catch (DateTimeParseException ignored) {
                 if (hasExpectedShape) {
-                    throw new ArrodesException(
-                            "That date is invalid because the specified day or time does not exist.");
+                    throw new ArrodesException(ArrodesException.INVALID_DATE);
                 }
-                throw new ArrodesException("Use event times in yyyy-MM-dd or yyyy-MM-ddTHH:mm format.");
+                throw new ArrodesException(ArrodesException.INVALID_DATE_FORMAT);
             }
         }
     }

@@ -36,9 +36,9 @@ public class TagCommand extends Command {
         task.tagWith(tag);
         storage.save(taskList);
         ui.showMessage(
-                "Arrodes shall bestow the task with "
+                "Arrodes seals this record with the "
                 + tag
-                + " tag"
+                + " sigil:"
                 + "\n"
                 + "  "
                 + task);

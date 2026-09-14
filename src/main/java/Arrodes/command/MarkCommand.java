@@ -29,7 +29,7 @@ public class MarkCommand extends Command {
         task.markAsDone();
         storage.save(taskList);
         ui.showMessage(
-                "A worthy task! Arrodes has marked it as done:"
+                "The mirror bears witness: this task is complete:"
                 + "\n"
                 + "  "
                 + task

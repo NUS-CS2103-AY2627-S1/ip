@@ -28,7 +28,7 @@ public class TodoCommand extends Command {
     public void execute(Ui ui, TaskList taskList, Storage storage) {
         taskList.insert(new Todo(description));
         storage.save(taskList);
-        ui.showMessage("Inscribing request: \n"
+        ui.showMessage("Your request has been inscribed in Arrodes' annals:\n"
                 + "   " + taskList.getTaskByNumber(taskList.getSize()).toString() + "\n"
                 + taskList.getSize() + " tasks are being tracked");
     }

@@ -55,7 +55,7 @@ public class EventCommand extends Command {
         }
         taskList.insert(new Event(description, from, to, isTimeIncludedInStartDate, isTimeIncludedInEndDate));
         storage.save(taskList);
-        ui.showMessage("Inscribing request: \n"
+        ui.showMessage("Your request has been inscribed in Arrodes' annals:\n"
                 + "   " + taskList.getTaskByNumber(taskList.getSize()).toString() + "\n"
                 + taskList.getSize() + " tasks are being tracked");
     }

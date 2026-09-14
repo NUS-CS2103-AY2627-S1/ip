@@ -28,8 +28,8 @@ public class UnmarkCommand extends Command {
         Task task = taskList.getTaskByNumber(taskNumber);
         task.markAsNotDone();
         storage.save(taskList);
-        ui.showMessage("As you decree, Arrodes has marked this task as not done yet:"
-                + "\n'"
+        ui.showMessage("By your decree, the mark of completion has been withdrawn:"
+                + "\n"
                 + "  "
                 + task
         );

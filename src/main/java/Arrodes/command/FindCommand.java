@@ -34,7 +34,7 @@ public class FindCommand extends Command {
     @Override
     public void execute(Ui ui, TaskList taskList, Storage storage) {
         boolean hasMatchingTask = false;
-        ui.showMessage("Here are the matching tasks in your list:");
+        ui.showMessage("Arrodes reveals the records matching your words:");
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTaskByIndex(i);
             if (task.getDescription().toLowerCase(Locale.ROOT)
@@ -44,7 +44,7 @@ public class FindCommand extends Command {
             }
         }
         if (!hasMatchingTask) {
-            ui.showMessage("Arrodes found no matching tasks.");
+            ui.showMessage("The mirror finds no record matching those words.");
         }
     }
 }

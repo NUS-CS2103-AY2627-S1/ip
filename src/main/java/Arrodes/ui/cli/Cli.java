@@ -19,13 +19,13 @@ public class Cli implements Ui {
         """;
 
     /** Greeting displayed when the application starts. */
-    private static final String GREETING_MESSAGE = "Eyes that watch All living Beings\n"
+    private static final String GREETING_MESSAGE = "The mirror opens its eye...\n"
             + "The Stigmata from the Primordial Land\n"
-            + "The Great Arrodes is before you!\n"
-            + "State your request!";
+            + "The Great Arrodes stands before you.\n"
+            + "Speak your request!";
 
     /** Farewell displayed when the user exits the application. */
-    private static final String BYE_MESSAGE = "I shall await your next request...";
+    private static final String BYE_MESSAGE = "The mirror shall close its eye. Until your next request.";
 
     /** Reads commands from standard input. */
     private final Scanner scanner = new Scanner(System.in);
