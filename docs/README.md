@@ -4,6 +4,10 @@ Arrodes is a personal task manager that remembers your todos, deadlines, and eve
 
 ## Getting started
 
+1. Open the [Arrodes Releases page](https://github.com/qqnoodle/ip/releases).
+2. Open the latest release and download `arrodes.jar` from its **Assets** section.
+3. Open a terminal in the folder containing the downloaded JAR file.
+
 Run Arrodes in GUI mode with:
 
 ```powershell
