@@ -18,6 +18,23 @@ java -jar build\libs\arrodes.jar --cli
 
 Enter one command at a time. Arrodes saves changes automatically, so your tasks are available the next time you start the application. Type `help` at any time to display the command summary.
 
+## Command summary
+
+| Command | Syntax | Purpose |
+| --- | --- | --- |
+| `todo` | `todo <description>` | Adds a todo task. |
+| `deadline` | `deadline <description> /by <date or date-time>` | Adds a task with a deadline. |
+| `event` | `event <description> /from <date or date-time> /to <date or date-time>` | Adds an event. |
+| `list` | `list` | Displays all tasks. |
+| `find` | `find <keyword>` | Finds tasks whose descriptions contain the keyword. |
+| `upcoming` | `upcoming /on <date or date-time>` | Displays relevant deadlines and events. |
+| `mark` | `mark <task number>` | Marks a task as complete. |
+| `unmark` | `unmark <task number>` | Marks a task as incomplete. |
+| `tag` | `tag <task number> /with <tag>` | Adds or replaces a task tag. |
+| `delete` | `delete <task number>` | Deletes a task. |
+| `help` | `help` | Displays the command guide. |
+| `bye` | `bye` | Exits Arrodes. |
+
 ## Features
 
 ### Add tasks
