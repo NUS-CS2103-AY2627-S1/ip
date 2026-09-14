@@ -36,6 +36,8 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        // Reserve room for the avatar, gap, and padding as the window resizes.
+        dialog.maxWidthProperty().bind(widthProperty().subtract(60));
         displayPicture.setImage(image);
     }
 
