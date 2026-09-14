@@ -36,8 +36,7 @@ public class MainWindow extends AnchorPane {
     public void setKopi(Kopi kopi) {
         this.kopi = kopi;
         if (kopi.getStartupMessage() != null) {
-            dialogContainer.getChildren().add(
-                    DialogBox.getKopiDialog(kopi.getStartupMessage(), kopiImage));
+            dialogContainer.getChildren().add(getKopiDialog(kopi.getStartupMessage()));
         }
     }
 
@@ -46,18 +45,25 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = kopi.getResponse(input);
         if (input.isBlank()) {
-            dialogContainer.getChildren().add(DialogBox.getKopiDialog(response, kopiImage));
+            dialogContainer.getChildren().add(getKopiDialog(response));
             userInput.clear();
             return;
         }
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getKopiDialog(response, kopiImage));
+                getKopiDialog(response));
         userInput.clear();
         if (kopi.isExitCommand(input)) {
             userInput.setDisable(true);
             sendButton.setDisable(true);
         }
+    }
+
+    private DialogBox getKopiDialog(String response) {
+        if (response.startsWith("OOPS!!! ")) {
+            return DialogBox.getKopiErrorDialog(response, kopiImage);
+        }
+        return DialogBox.getKopiDialog(response, kopiImage);
     }
 }

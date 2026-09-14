@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -21,7 +22,9 @@ public class Main extends Application {
         loader.<MainWindow>getController().setKopi(kopi);
 
         stage.setTitle("Kopi");
-        stage.setResizable(false);
+        stage.getIcons().add(new Image(Main.class.getResourceAsStream("/images/Kopi.png")));
+        stage.setMinHeight(360);
+        stage.setMinWidth(420);
         stage.setScene(new Scene(mainWindow));
         stage.show();
     }
