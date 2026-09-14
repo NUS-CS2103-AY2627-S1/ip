@@ -38,7 +38,10 @@ public enum CommandType {
     FIND("find"),
 
     /** Reorders the list chronologically. */
-    SORT("sort");
+    SORT("sort"),
+
+    /** Lists the commands the chatbot understands. */
+    HELP("help");
 
     private final String keyword;
 
@@ -81,6 +84,6 @@ public enum CommandType {
                 return type;
             }
         }
-        throw new NovaException("Sorry, I don't know what that means.");
+        throw new NovaException("I don't know that command. Type help to see what I understand.");
     }
 }

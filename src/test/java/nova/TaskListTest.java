@@ -182,7 +182,7 @@ public class TaskListTest {
         tasks.add(new Todo("first"), new Todo("second"), new Todo("third"));
 
         NovaException e = assertThrows(NovaException.class, () -> tasks.checkIndexInRange(3));
-        assertEquals("There is no task number 4 in your list.", e.getMessage());
+        assertEquals("There is no task 4. Your list has 3.", e.getMessage());
     }
 
     @Test
