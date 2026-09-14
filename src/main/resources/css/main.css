@@ -1,26 +1,55 @@
 .root {
-    main-color: rgb(237, 255, 242);
-    -fx-background-color: main-color;
+    -cookie-background: #f6f2ea;
+    -cookie-surface: #fffaf3;
+    -cookie-border: #e2d6c7;
+    -cookie-accent: #9a5b35;
+    -cookie-accent-hover: #ad6940;
+    -cookie-accent-pressed: #7f4729;
+    -fx-background-color: -cookie-background;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
 }
 
-.text-field {
-    -fx-background-color: #d9ffe2;
-    -fx-font: 20px "Arial";
+.composer {
+    -fx-background-color: -cookie-surface;
+    -fx-border-color: -cookie-border transparent transparent transparent;
+    -fx-padding: 10px 12px;
 }
 
-.button {
-    -fx-background-color: mediumspringgreen;
-    -fx-font: italic bold 16px "Arial";
+.composer .text-field {
+    -fx-background-color: #ffffff;
+    -fx-background-insets: 0;
+    -fx-background-radius: 10px;
+    -fx-border-color: #d7c8b8;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+    -fx-font-size: 14px;
+    -fx-padding: 9px 12px;
+    -fx-prompt-text-fill: #94877c;
+    -fx-text-fill: #332b26;
 }
 
-.button:hover {
-    -fx-background-color: cyan;
-    -fx-font-size: 18px;
+.composer .text-field:focused {
+    -fx-border-color: -cookie-accent;
+    -fx-effect: dropshadow(gaussian, rgba(154, 91, 53, 0.16), 5, 0, 0, 1);
 }
 
-.button:pressed {
-    -fx-background-color: orange;
-    -fx-font-size: 20px;
+.composer .button {
+    -fx-background-color: -cookie-accent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 17px;
+    -fx-text-fill: white;
+}
+
+.composer .button:hover {
+    -fx-background-color: -cookie-accent-hover;
+}
+
+.composer .button:pressed {
+    -fx-background-color: -cookie-accent-pressed;
 }
 
 .scroll-pane,
@@ -29,17 +58,18 @@
 }
 
 .scroll-bar {
-    -fx-font-size: 10px;
-    -fx-background-color: main-color;
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #ff9cb4;
-    -fx-background-radius: 1em;
+    -fx-background-color: #c5ae98;
+    -fx-background-insets: 2px;
+    -fx-background-radius: 8px;
 }
 
 .scroll-bar .increment-button,
 .scroll-bar .decrement-button {
-    -fx-pref-height: 0;
+    -fx-padding: 0;
     -fx-opacity: 0;
 }
