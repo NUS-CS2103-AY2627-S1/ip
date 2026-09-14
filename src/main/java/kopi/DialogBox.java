@@ -14,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 
 /** Displays one message beside its speaker's image. */
@@ -42,7 +41,6 @@ public class DialogBox extends HBox {
         displayPicture.setImage(image);
         dialog.setMinHeight(Region.USE_PREF_SIZE);
         dialog.maxWidthProperty().bind(Bindings.max(120, widthProperty().subtract(76)));
-        HBox.setHgrow(dialog, Priority.ALWAYS);
     }
 
     private void flip() {
