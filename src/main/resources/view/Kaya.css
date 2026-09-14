@@ -1,0 +1,139 @@
+.root {
+    -fx-background-color: #f7f5ee;
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-accent: #3c6651;
+    -fx-focus-color: #3c6651;
+    -fx-faint-focus-color: transparent;
+}
+
+.app-header {
+    -fx-padding: 18px 22px 16px;
+    -fx-border-color: transparent transparent #e2e3d8 transparent;
+}
+
+.app-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #294b3b;
+}
+
+.app-subtitle,
+.command-hint {
+    -fx-font-size: 12px;
+    -fx-text-fill: #646b60;
+}
+
+.chat-scroll,
+.chat-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.chat-scroll {
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+.chat-history {
+    -fx-padding: 20px;
+}
+
+.speaker-label {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #646b60;
+    -fx-padding: 0 3px;
+}
+
+.dialog-label {
+    -fx-padding: 12px 14px;
+    -fx-text-fill: #29372e;
+}
+
+.kaya-dialog .dialog-label {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 4px 14px 14px 14px;
+    -fx-border-color: #e0e4d9;
+    -fx-border-radius: 4px 14px 14px 14px;
+}
+
+.user-dialog .dialog-label {
+    -fx-background-color: #3c6651;
+    -fx-background-radius: 14px 4px 14px 14px;
+    -fx-text-fill: #ffffff;
+}
+
+.composer {
+    -fx-padding: 14px 18px 16px;
+    -fx-background-color: #efefe5;
+    -fx-border-color: #dce0d3 transparent transparent transparent;
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10px;
+    -fx-border-color: #bec9b9;
+    -fx-border-radius: 10px;
+    -fx-padding: 11px 12px;
+    -fx-prompt-text-fill: #73796e;
+    -fx-text-fill: #29372e;
+}
+
+.text-field:focused {
+    -fx-border-color: #3c6651;
+    -fx-effect: dropshadow(gaussian, rgba(60, 102, 81, 0.16), 5, 0, 0, 0);
+}
+
+.button {
+    -fx-background-color: #3c6651;
+    -fx-background-radius: 10px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 10px;
+    -fx-padding: 11px 16px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #30543f;
+}
+
+.button:pressed {
+    -fx-background-color: #254331;
+}
+
+.button:focused {
+    -fx-border-color: #294b3b;
+    -fx-border-insets: -3px;
+}
+
+.button:disabled {
+    -fx-opacity: 0.5;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+    -fx-padding: 2px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #b8c4b2;
+    -fx-background-radius: 6px;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-padding: 0;
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 0;
+    -fx-shape: "";
+}
