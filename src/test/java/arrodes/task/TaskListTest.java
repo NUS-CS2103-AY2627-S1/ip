@@ -212,4 +212,26 @@ class TaskListTest {
         assertInstanceOf(Deadline.class, taskList.getTaskByNumber(2));
         assertInstanceOf(Event.class, taskList.getTaskByNumber(3));
     }
+
+    /** Restores a deleted task at the requested zero-based position. */
+    @Test
+    void restore_validPosition_reinsertsTaskInOrder() throws ArrodesException {
+        Task first = new Todo("first");
+        Task second = new Todo("second");
+        taskList.insert(first);
+        taskList.restore(1, second);
+
+        assertEquals(2, taskList.getSize());
+        assertEquals("second", taskList.getTaskByNumber(2).getDescription());
+    }
+
+    /** Rejects invalid restore inputs without changing the task list. */
+    @Test
+    void restore_invalidPositionOrTask_throwsArrodesException() throws ArrodesException {
+        taskList.insert(new Todo("first"));
+
+        assertThrows(ArrodesException.class, () -> taskList.restore(-1, new Todo("second")));
+        assertThrows(ArrodesException.class, () -> taskList.restore(0, null));
+        assertEquals(1, taskList.getSize());
+    }
 }
