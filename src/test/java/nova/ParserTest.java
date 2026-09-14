@@ -13,6 +13,7 @@ import nova.command.Command;
 import nova.command.DeleteCommand;
 import nova.command.ExitCommand;
 import nova.command.FindCommand;
+import nova.command.HelpCommand;
 import nova.command.ListCommand;
 import nova.command.MarkCommand;
 import nova.command.OnCommand;
@@ -44,7 +45,7 @@ public class ParserTest {
     @Test
     public void parse_todoWithoutDescription_exceptionThrown() {
         NovaException e = assertThrows(NovaException.class, () -> Parser.parse("todo"));
-        assertEquals("The description of a todo cannot be empty.", e.getMessage());
+        assertEquals("A todo needs a description. Try: todo read book", e.getMessage());
 
         assertThrows(NovaException.class, () -> Parser.parse("todo    "));
     }
@@ -57,7 +58,8 @@ public class ParserTest {
     @Test
     public void parse_deadlineWithoutBy_exceptionThrown() {
         NovaException e = assertThrows(NovaException.class, () -> Parser.parse("deadline return book"));
-        assertEquals("A deadline needs a description and a /by time.", e.getMessage());
+        assertEquals("A deadline needs a description and a /by date. "
+                + "Try: deadline return book /by 2019-12-02", e.getMessage());
     }
 
     @Test
@@ -80,7 +82,8 @@ public class ParserTest {
     public void parse_eventMissingTo_exceptionThrown() {
         NovaException e = assertThrows(
                 NovaException.class, () -> Parser.parse("event meeting /from 2019-08-06 1400"));
-        assertEquals("An event needs a description, a /from time and a /to time.", e.getMessage());
+        assertEquals("An event needs a description, a /from and a /to. "
+                + "Try: event trip /from 2019-08-06 /to 2019-08-08", e.getMessage());
     }
 
     @Test
@@ -93,16 +96,16 @@ public class ParserTest {
     @Test
     public void parse_taskNumberMissing_exceptionThrown() {
         NovaException e = assertThrows(NovaException.class, () -> Parser.parse("mark"));
-        assertEquals("Please tell me which task number to mark.", e.getMessage());
+        assertEquals("mark needs a task number. Try: mark 1", e.getMessage());
 
         NovaException f = assertThrows(NovaException.class, () -> Parser.parse("delete"));
-        assertEquals("Please tell me which task number to delete.", f.getMessage());
+        assertEquals("delete needs a task number. Try: delete 1", f.getMessage());
     }
 
     @Test
     public void parse_taskNumberNotANumber_exceptionThrown() {
         NovaException e = assertThrows(NovaException.class, () -> Parser.parse("mark abc"));
-        assertEquals("'abc' is not a valid task number.", e.getMessage());
+        assertEquals("\"abc\" is not a number. Try: mark 1", e.getMessage());
     }
 
     @Test
@@ -113,7 +116,7 @@ public class ParserTest {
     @Test
     public void parse_onWithoutDate_exceptionThrown() {
         NovaException e = assertThrows(NovaException.class, () -> Parser.parse("on"));
-        assertEquals("Tell me which date to look up, e.g. on 2019-12-02.", e.getMessage());
+        assertEquals("on needs a date. Try: on 2019-12-02", e.getMessage());
     }
 
     @Test
@@ -124,7 +127,7 @@ public class ParserTest {
     @Test
     public void parse_findWithoutKeyword_exceptionThrown() {
         NovaException e = assertThrows(NovaException.class, () -> Parser.parse("find"));
-        assertEquals("Tell me what to search for, e.g. find book.", e.getMessage());
+        assertEquals("find needs a keyword. Try: find book", e.getMessage());
     }
 
     @Test
@@ -135,12 +138,17 @@ public class ParserTest {
     @Test
     public void parse_sortWithArguments_exceptionThrown() {
         NovaException e = assertThrows(NovaException.class, () -> Parser.parse("sort by date"));
-        assertEquals("Just 'sort' on its own will do.", e.getMessage());
+        assertEquals("sort takes no arguments. Just type: sort", e.getMessage());
+    }
+
+    @Test
+    public void parse_help_returnsHelpCommand() throws NovaException {
+        assertInstanceOf(HelpCommand.class, Parser.parse("help"));
     }
 
     @Test
     public void parse_unknownKeyword_exceptionThrown() {
         NovaException e = assertThrows(NovaException.class, () -> Parser.parse("blah"));
-        assertEquals("Sorry, I don't know what that means.", e.getMessage());
+        assertEquals("I don't know that command. Type help to see what I understand.", e.getMessage());
     }
 }

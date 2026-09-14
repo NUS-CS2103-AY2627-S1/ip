@@ -32,7 +32,7 @@ public class CommandTypeTest {
     @Test
     public void fromInput_unknownWord_exceptionThrown() {
         NovaException e = assertThrows(NovaException.class, () -> CommandType.fromInput("blah"));
-        assertEquals("Sorry, I don't know what that means.", e.getMessage());
+        assertEquals("I don't know that command. Type help to see what I understand.", e.getMessage());
     }
 
     @Test

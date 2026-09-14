@@ -6,6 +6,7 @@ import nova.command.CommandType;
 import nova.command.DeleteCommand;
 import nova.command.ExitCommand;
 import nova.command.FindCommand;
+import nova.command.HelpCommand;
 import nova.command.ListCommand;
 import nova.command.MarkCommand;
 import nova.command.OnCommand;
@@ -57,7 +58,7 @@ public class Parser {
 
             case TODO:
                 if (arguments.isEmpty()) {
-                    throw new NovaException("The description of a todo cannot be empty.");
+                    throw new NovaException("A todo needs a description. Try: todo read book");
                 }
                 return new AddCommand(new Todo(arguments));
 
@@ -69,36 +70,41 @@ public class Parser {
 
             case FIND:
                 if (arguments.isEmpty()) {
-                    throw new NovaException("Tell me what to search for, e.g. find book.");
+                    throw new NovaException("find needs a keyword. Try: find book");
                 }
                 return new FindCommand(arguments);
 
             case SORT:
                 if (!arguments.isEmpty()) {
-                    throw new NovaException("Just 'sort' on its own will do.");
+                    throw new NovaException("sort takes no arguments. Just type: sort");
                 }
                 return new SortCommand();
 
             case ON:
                 if (arguments.isEmpty()) {
-                    throw new NovaException("Tell me which date to look up, e.g. on 2019-12-02.");
+                    throw new NovaException("on needs a date. Try: on 2019-12-02");
                 }
                 return new OnCommand(DateTimes.parseDate(arguments));
 
+            case HELP:
+                return new HelpCommand();
+
             default:
-                throw new NovaException("Sorry, I don't know what that means.");
+                throw new NovaException("I don't know that command. Type help to see what I understand.");
         }
     }
 
     /** Reads the task number that follows a mark, unmark or delete keyword. */
     private static int parseIndex(String arguments, CommandType type) throws NovaException {
         if (arguments.isEmpty()) {
-            throw new NovaException("Please tell me which task number to " + type.getKeyword() + ".");
+            throw new NovaException(type.getKeyword() + " needs a task number. Try: "
+                    + type.getKeyword() + " 1");
         }
         try {
             return Integer.parseInt(arguments) - 1;
         } catch (NumberFormatException e) {
-            throw new NovaException("'" + arguments + "' is not a valid task number.");
+            throw new NovaException("\"" + arguments + "\" is not a number. Try: "
+                    + type.getKeyword() + " 1");
         }
     }
 
@@ -106,7 +112,8 @@ public class Parser {
     private static Deadline parseDeadline(String arguments) throws NovaException {
         String[] parts = arguments.split(" /by ");
         if (parts.length < 2 || parts[0].isEmpty()) {
-            throw new NovaException("A deadline needs a description and a /by time.");
+            throw new NovaException("A deadline needs a description and a /by date. "
+                    + "Try: deadline return book /by 2019-12-02");
         }
         return new Deadline(parts[0], DateTimes.parse(parts[1]));
     }
@@ -115,7 +122,8 @@ public class Parser {
     private static Event parseEvent(String arguments) throws NovaException {
         String[] parts = arguments.split(" /from | /to ");
         if (parts.length < 3 || parts[0].isEmpty()) {
-            throw new NovaException("An event needs a description, a /from time and a /to time.");
+            throw new NovaException("An event needs a description, a /from and a /to. "
+                    + "Try: event trip /from 2019-08-06 /to 2019-08-08");
         }
         return new Event(parts[0], DateTimes.parse(parts[1]), DateTimes.parse(parts[2]));
     }

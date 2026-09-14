@@ -125,7 +125,8 @@ public class TaskList {
      */
     public void checkIndexInRange(int index) throws NovaException {
         if (!isInRange(index)) {
-            throw new NovaException("There is no task number " + (index + 1) + " in your list.");
+            throw new NovaException("There is no task " + (index + 1) + ". Your list has "
+                    + tasks.size() + ".");
         }
     }
 

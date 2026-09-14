@@ -43,7 +43,7 @@ public class DateTimesTest {
     public void parse_unrecognisedText_exceptionThrown() {
         NovaException e = assertThrows(NovaException.class, () -> DateTimes.parse("tomorrow"));
         assertTrue(e.getMessage().contains("tomorrow"));
-        assertTrue(e.getMessage().contains("yyyy-MM-dd"));
+        assertTrue(e.getMessage().contains("2019-12-02"));
     }
 
     @Test

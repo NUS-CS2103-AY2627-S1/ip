@@ -88,8 +88,8 @@ public final class DateTimes {
             }
         }
 
-        throw new NovaException("I couldn't read '" + trimmed + "' as a date. "
-                + "Try yyyy-MM-dd or yyyy-MM-dd HHmm, e.g. 2019-12-02 1800.");
+        throw new NovaException("\"" + trimmed + "\" didn't parse as a date. "
+                + "Try 2019-12-02, or 2019-12-02 1800 for a time.");
     }
 
     /**
