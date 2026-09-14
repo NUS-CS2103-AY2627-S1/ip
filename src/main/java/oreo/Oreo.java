@@ -44,6 +44,7 @@ public class Oreo {
             return "Oreo has already said goodbye. Please restart the app to continue.";
         }
 
+        ui.beginResponse();
         return switch (parser.parseCommand(command)) {
             case BYE -> exit();
             case LIST -> ui.getTaskListMessage(tasks);
@@ -64,6 +65,11 @@ public class Oreo {
     /** Returns whether the user has ended this Oreo session. */
     public boolean hasExited() {
         return hasExited;
+    }
+
+    /** Returns whether the last response resulted from invalid user input. */
+    public boolean wasLastResponseAnError() {
+        return ui.wasLastMessageAnError();
     }
 
     /** Saves the task list and returns a farewell. */

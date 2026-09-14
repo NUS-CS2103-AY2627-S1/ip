@@ -2,10 +2,13 @@ package oreo;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /** Controls the conversation display and input area in Oreo's main window. */
@@ -24,7 +27,7 @@ public class MainWindow {
     /** Connects the controller to the chatbot and shows its greeting. */
     public void setOreo(Oreo oreo) {
         this.oreo = oreo;
-        addDialog(oreo.getWelcomeMessage(), "bot-message");
+        addDialog(oreo.getWelcomeMessage(), false, false);
         Platform.runLater(() -> userInput.requestFocus());
     }
 
@@ -36,9 +39,10 @@ public class MainWindow {
             return;
         }
 
-        addDialog(command, "user-message");
+        addDialog(command, true, false);
         userInput.clear();
-        addDialog(oreo.getResponse(command), "bot-message");
+        String response = oreo.getResponse(command);
+        addDialog(response, false, oreo.wasLastResponseAnError());
 
         if (oreo.hasExited()) {
             userInput.setDisable(true);
@@ -46,16 +50,28 @@ public class MainWindow {
         }
     }
 
-    /** Adds one chat bubble and scrolls the conversation to it. */
-    private void addDialog(String message, String styleClass) {
+    /** Adds a responsive conversation item and scrolls the conversation to it. */
+    private void addDialog(String message, boolean isUserMessage, boolean isErrorMessage) {
         Label dialog = new Label(message);
         dialog.setWrapText(true);
-        dialog.setMaxWidth(390);
-        dialog.getStyleClass().addAll("dialog", styleClass);
+        dialog.setMaxWidth(Double.MAX_VALUE);
+        dialog.getStyleClass().addAll("dialog", isUserMessage ? "user-message" : "bot-message");
+        HBox row = new HBox(dialog);
+        row.getStyleClass().addAll("dialog-row", isUserMessage ? "user-row" : "bot-row");
+        row.setAlignment(isUserMessage ? Pos.CENTER_RIGHT : Pos.CENTER_LEFT);
+
+        if (isUserMessage) {
+            dialog.maxWidthProperty().bind(dialogContainer.widthProperty().multiply(0.78));
+        } else {
+            HBox.setHgrow(dialog, Priority.ALWAYS);
+        }
+        if (isErrorMessage) {
+            dialog.getStyleClass().add("error-message");
+        }
         if (message.startsWith("Here are the tags and their tasks:")) {
             dialog.getStyleClass().add("tag-summary");
         }
-        dialogContainer.getChildren().add(dialog);
+        dialogContainer.getChildren().add(row);
         Platform.runLater(() -> scrollPane.setVvalue(1.0));
     }
 }

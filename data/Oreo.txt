@@ -5,3 +5,5 @@ T |   | wadidaw
 T |   | list tag | tags: #meh
 T |   | list tag
 T |   | ini yang baru
+T |   | Wow
+T |   | this is amazing

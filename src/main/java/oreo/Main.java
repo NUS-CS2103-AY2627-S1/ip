@@ -19,6 +19,7 @@ public class Main extends Application {
         scene.getStylesheets().add(Main.class.getResource("/view/oreo.css").toExternalForm());
 
         stage.setTitle("Oreo");
+        stage.setResizable(true);
         stage.setMinWidth(520);
         stage.setMinHeight(600);
         stage.setScene(scene);
