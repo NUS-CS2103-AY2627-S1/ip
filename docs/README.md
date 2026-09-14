@@ -7,13 +7,13 @@ Arrodes is a personal task manager that remembers your todos, deadlines, and eve
 Run Arrodes in GUI mode with:
 
 ```powershell
-java -jar build\libs\arrodes.jar
+java -jar arrodes.jar
 ```
 
 To use the CLI instead, run:
 
 ```powershell
-java -jar build\libs\arrodes.jar --cli
+java -jar arrodes.jar --cli
 ```
 
 Enter one command at a time. Arrodes saves changes automatically, so your tasks are available the next time you start the application. Type `help` at any time to display the command summary.
