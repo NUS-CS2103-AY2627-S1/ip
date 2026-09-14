@@ -37,13 +37,17 @@ public class Cli {
         scanner.close();
     }
 
-    /** Prints a reply framed by divider lines, skipping it when there is nothing to say. */
-    private static void printBlock(String message) {
-        if (message.isEmpty()) {
+    /**
+     * Prints a reply framed by divider lines, skipping it when there is
+     * nothing to say. The error flag is ignored: the console has no colour to
+     * spend on it, and the wording already says what went wrong.
+     */
+    private static void printBlock(Reply reply) {
+        if (reply.isEmpty()) {
             return;
         }
         System.out.println(LINE);
-        System.out.println(message);
+        System.out.println(reply.text());
         System.out.println(LINE);
     }
 }

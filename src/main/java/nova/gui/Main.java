@@ -26,10 +26,15 @@ public class Main extends Application {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane root = loader.load();
 
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(Main.class.getResource("/view/nova.css").toExternalForm());
+
+            stage.setScene(scene);
             stage.setTitle("Nova");
-            stage.setMinHeight(420.0);
-            stage.setMinWidth(460.0);
+            // Resizable, with a floor low enough to sit beside other windows
+            // but high enough that a reply is not reduced to one word a line.
+            stage.setMinHeight(320.0);
+            stage.setMinWidth(360.0);
             loader.<MainWindow>getController().setNova(nova);
             stage.show();
         } catch (IOException e) {
