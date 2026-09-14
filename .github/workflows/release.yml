@@ -1,0 +1,41 @@
+name: Java CI
+
+on:
+  push:
+    tags:
+      - A-*
+      - B-*
+      - C-*
+      - D-*
+      - Level-*
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@v7
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v6
+
+      - name: Setup JDK 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: '25'
+          java-package: jdk+fx
+
+      - name: Build with Gradle
+        run: ./gradlew shadowJar
+
+      - name: Create release
+        uses: softprops/action-gh-release@v3
+        if: github.ref_type == 'tag'
+        with:
+          files: build/libs/*.jar
+          draft: false
+          prerelease: false

@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Medium-to-High (~8y in Java)
+* IDE and level of expertise: IntelliJ IDEA, ~5y of experience
 
 # Guidance for interacting with users
 
@@ -28,8 +28,32 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## UI testing:
+
+After every code update, review and update `test/ui-test-plan.md` when the
+change affects a UI behaviour or its expected output. Then invoke the project
+`test-ui` skill to run the relevant console UI tests. Report the resulting
+console input/output transcript; stop and report the first mismatch if a test
+fails.
+
 ## Git
 
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## Attribution
+
+If you edit/add a function or piece of code, write a comment in the form of
+```java
+// AI-assisted: <change>
+```
+
+If the scope already has a similar comment, convert it into a multi-line bullet-pointed list
+```java
+/*
+    AI-assisted:
+    * <change1>
+    * <change2>
+ */
+```
