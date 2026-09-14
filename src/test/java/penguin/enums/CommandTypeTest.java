@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 
-/** Tests command-type keyword mappings. */
+/**
+ * Tests command-type keyword mappings.
+ */
 class CommandTypeTest {
     @Test
     void commandType_fromKeyword_validKeyword_returnsMatchingType() {

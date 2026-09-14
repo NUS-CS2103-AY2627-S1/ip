@@ -11,7 +11,9 @@ import penguin.task.Task;
 import penguin.task.TaskList;
 import penguin.task.TaskSearchResult;
 
-/** Handles console interaction for Penguin. */
+/**
+ * Handles console interaction for Penguin.
+ */
 public class Ui {
     /** Separator printed between chatbot messages. */
     private static final String DIVIDER = "----------------------------------------------------------";
@@ -37,7 +39,9 @@ public class Ui {
     /** Whether responses should also be printed to standard output. */
     private final boolean shouldPrintToConsole;
 
-    /** Creates a user interface using standard input. */
+    /**
+     * Creates a user interface using standard input.
+     */
     public Ui() {
         this(true);
     }
@@ -52,7 +56,9 @@ public class Ui {
         shouldPrintToConsole = isConsoleOutputEnabled;
     }
 
-    /** Displays the welcome message. */
+    /**
+     * Displays the welcome message.
+     */
     public void showWelcome() {
         System.out.printf("%s%n", DIVIDER);
         System.out.printf("%s%n", BANNER);
@@ -71,7 +77,9 @@ public class Ui {
         return scanner.hasNextLine() ? scanner.nextLine().trim() : null;
     }
 
-    /** Displays the message divider. */
+    /**
+     * Displays the message divider.
+     */
     public void showDivider() {
         System.out.printf("%s%n", DIVIDER);
     }
@@ -94,7 +102,9 @@ public class Ui {
         showMessage(message);
     }
 
-    /** Displays the farewell message. */
+    /**
+     * Displays the farewell message.
+     */
     public void showGoodbye() {
         record(GOODBYE_MESSAGE);
     }
@@ -111,7 +121,9 @@ public class Ui {
         }
     }
 
-    /** Clears the response buffer. */
+    /**
+     * Clears the response buffer.
+     */
     public void clearResponse() {
         response.setLength(0);
     }

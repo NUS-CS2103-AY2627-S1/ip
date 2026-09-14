@@ -6,7 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 import org.junit.jupiter.api.Test;
 
-/** Tests task-type symbols and lookup behavior. */
+/**
+ * Tests task-type symbols and lookup behavior.
+ */
 class TaskTypeTest {
     @Test
     void taskType_symbols_returnsCorrectSymbols() {

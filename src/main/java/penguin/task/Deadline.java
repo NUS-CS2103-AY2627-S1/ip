@@ -6,7 +6,9 @@ import java.time.LocalDateTime;
 import penguin.enums.TaskType;
 import penguin.util.DateTimeUtil;
 
-/** Represents a task that must be completed by a specified date or time. */
+/**
+ * Represents a task that must be completed by a specified date or time.
+ */
 public final class Deadline extends Task {
     /** Date or time by which the task should be completed. */
     private final LocalDateTime dateTime;

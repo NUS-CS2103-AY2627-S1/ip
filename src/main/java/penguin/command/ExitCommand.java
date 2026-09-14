@@ -4,9 +4,13 @@ import penguin.storage.Storage;
 import penguin.task.TaskList;
 import penguin.ui.Ui;
 
-/** Represents a command that exits Penguin. */
+/**
+ * Represents a command that exits Penguin.
+ */
 public class ExitCommand extends Command {
-    /** Creates an exit command. */
+    /**
+     * Creates an exit command.
+     */
     public ExitCommand() {
     }
 

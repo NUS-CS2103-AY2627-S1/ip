@@ -13,7 +13,9 @@ import org.junit.jupiter.api.Test;
 import penguin.task.TaskList;
 import penguin.task.Todo;
 
-/** Tests console output and GUI response buffering. */
+/**
+ * Tests console output and GUI response buffering.
+ */
 class UiTest {
     @Test
     void showMessage_validMessage_printsPenguinPrefix() {

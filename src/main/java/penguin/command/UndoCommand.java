@@ -6,9 +6,13 @@ import penguin.task.TaskList;
 import penguin.task.TaskListSnapshot;
 import penguin.ui.Ui;
 
-/** Represents a command that reverses the most recent task-list change. */
+/**
+ * Represents a command that reverses the most recent task-list change.
+ */
 public class UndoCommand extends Command {
-    /** Creates an undo command. */
+    /**
+     * Creates an undo command.
+     */
     public UndoCommand() {
     }
 

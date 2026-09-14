@@ -7,7 +7,9 @@ import penguin.task.TaskList;
 import penguin.task.TaskListSnapshot;
 import penguin.ui.Ui;
 
-/** Represents a command that adds a task. */
+/**
+ * Represents a command that adds a task.
+ */
 public class AddCommand extends Command {
     /** Task to add. */
     private final Task task;

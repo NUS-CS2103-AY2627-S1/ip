@@ -4,9 +4,13 @@ import penguin.storage.Storage;
 import penguin.task.TaskList;
 import penguin.ui.Ui;
 
-/** Represents a command that lists all tasks. */
+/**
+ * Represents a command that lists all tasks.
+ */
 public class ListCommand extends Command {
-    /** Creates a list command. */
+    /**
+     * Creates a list command.
+     */
     public ListCommand() {
     }
 

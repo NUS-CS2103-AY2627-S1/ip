@@ -7,7 +7,9 @@ import penguin.task.TaskList;
 import penguin.task.TaskListSnapshot;
 import penguin.ui.Ui;
 
-/** Represents a command that marks a task as completed. */
+/**
+ * Represents a command that marks a task as completed.
+ */
 public class MarkCommand extends Command {
     /** Zero-based task index to mark. */
     private final int index;

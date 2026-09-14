@@ -1,6 +1,8 @@
 package penguin.enums;
 
-/** Defines the commands supported by Penguin and their user-facing keywords. */
+/**
+ * Defines the commands supported by Penguin and their user-facing keywords.
+ */
 public enum CommandType {
     /** Adds a to-do task. */
     TODO("todo"),

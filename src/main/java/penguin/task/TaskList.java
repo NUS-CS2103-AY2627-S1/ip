@@ -21,7 +21,9 @@ public class TaskList {
     /** Previous task-list states, with the most recent state first. */
     private final Deque<List<Task>> history = new ArrayDeque<>();
 
-    /** Creates an empty task list. */
+    /**
+     * Creates an empty task list.
+     */
     public TaskList() {
         tasks = new ArrayList<>();
     }
@@ -162,7 +164,9 @@ public class TaskList {
         history.addAll(snapshot.copyHistory());
     }
 
-    /** Saves an independent state snapshot and keeps only MAX_UNDO_STEPS snapshots. */
+    /**
+     * Saves an independent state snapshot and keeps only MAX_UNDO_STEPS snapshots.
+     */
     private void saveState() {
         history.push(copyTasks());
         if (history.size() > MAX_UNDO_STEPS) {

@@ -6,7 +6,9 @@ import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/** Stores an independent snapshot of a task list and its undo history. */
+/**
+ * Stores an independent snapshot of a task list and its undo history.
+ */
 public final class TaskListSnapshot {
     /** Tasks captured in the snapshot. */
     private final List<Task> tasks;

@@ -20,7 +20,9 @@ public class PenguinGui extends Application {
     /** Chatbot instance used by the GUI. */
     private final Penguin penguin = new Penguin("./data/penguin.txt", false);
 
-    /** Creates the JavaFX application. */
+    /**
+     * Creates the JavaFX application.
+     */
     public PenguinGui() {
     }
 

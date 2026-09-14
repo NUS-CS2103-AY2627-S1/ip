@@ -14,7 +14,9 @@ import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-/** Tests complete Penguin workflows through its console interface. */
+/**
+ * Tests complete Penguin workflows through its console interface.
+ */
 class PenguinTest {
     @Test
     void run_byeCommand_showsGreetingAndGoodbye(@TempDir Path tempDir) {

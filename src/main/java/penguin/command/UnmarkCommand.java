@@ -7,7 +7,9 @@ import penguin.task.TaskList;
 import penguin.task.TaskListSnapshot;
 import penguin.ui.Ui;
 
-/** Represents a command that marks a task as incomplete. */
+/**
+ * Represents a command that marks a task as incomplete.
+ */
 public class UnmarkCommand extends Command {
     /** Zero-based task index to unmark. */
     private final int index;

@@ -19,7 +19,9 @@ import penguin.task.TaskList;
 import penguin.task.Todo;
 import penguin.ui.Ui;
 
-/** Tests command execution, persistence, and transactional recovery. */
+/**
+ * Tests command execution, persistence, and transactional recovery.
+ */
 class CommandTest {
     @Test
     void parseExit_validCommand_returnsExitCommand() throws Exception {

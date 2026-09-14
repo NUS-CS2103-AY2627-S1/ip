@@ -11,7 +11,9 @@ import java.util.List;
 
 import penguin.exception.PenguinException;
 
-/** Handles loading and saving Penguin data in a file. */
+/**
+ * Handles loading and saving Penguin data in a file.
+ */
 public class Storage {
     /** Path of the file used to store task data. */
     private final Path filePath;

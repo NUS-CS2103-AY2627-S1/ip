@@ -4,7 +4,9 @@ import penguin.storage.Storage;
 import penguin.task.TaskList;
 import penguin.ui.Ui;
 
-/** Represents a command that finds tasks containing a keyword. */
+/**
+ * Represents a command that finds tasks containing a keyword.
+ */
 public class FindCommand extends Command {
     /** Keyword used to filter tasks. */
     private final String keyword;

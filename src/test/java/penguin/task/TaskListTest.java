@@ -10,7 +10,9 @@ import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
-/** Tests task-list operations, searches, and undo history. */
+/**
+ * Tests task-list operations, searches, and undo history.
+ */
 class TaskListTest {
     @Test
     void undo_markedTask_restoresPreviousStatus() {

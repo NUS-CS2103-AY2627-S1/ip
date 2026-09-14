@@ -6,7 +6,9 @@ import penguin.storage.Storage;
 import penguin.task.TaskList;
 import penguin.ui.Ui;
 
-/** Represents a command that finds dated tasks. */
+/**
+ * Represents a command that finds dated tasks.
+ */
 public class OnCommand extends Command {
     /** Date to search for. */
     private final LocalDate date;

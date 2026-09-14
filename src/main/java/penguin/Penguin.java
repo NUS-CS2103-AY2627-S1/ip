@@ -9,7 +9,9 @@ import penguin.storage.Storage;
 import penguin.task.TaskList;
 import penguin.ui.Ui;
 
-/** Runs the Penguin chatbot. */
+/**
+ * Runs the Penguin chatbot.
+ */
 public class Penguin {
     /** User interface used for console interaction. */
     private final Ui ui;
@@ -23,7 +25,9 @@ public class Penguin {
     /** Whether the most recently processed command requested application exit. */
     private boolean isExitRequested;
 
-    /** Creates Penguin using the default storage path. */
+    /**
+     * Creates Penguin using the default storage path.
+     */
     public Penguin() {
         this("./data/penguin.txt");
     }
@@ -50,7 +54,9 @@ public class Penguin {
         loadTasks();
     }
 
-    /** Loads valid saved tasks and reports invalid records individually. */
+    /**
+     * Loads valid saved tasks and reports invalid records individually.
+     */
     private void loadTasks() {
         try {
             List<String> storageLines = storage.loadTaskLines();
@@ -109,7 +115,9 @@ public class Penguin {
         return isExitRequested;
     }
 
-    /** Runs the chatbot command loop. */
+    /**
+     * Runs the chatbot command loop.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;

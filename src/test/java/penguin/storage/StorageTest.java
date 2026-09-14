@@ -13,7 +13,9 @@ import org.junit.jupiter.api.io.TempDir;
 
 import penguin.exception.PenguinException;
 
-/** Tests storage file creation, loading, and failure handling. */
+/**
+ * Tests storage file creation, loading, and failure handling.
+ */
 class StorageTest {
     @Test
     void saveAndLoadTaskLines_validContent_roundTrips(@TempDir Path tempDir) throws PenguinException {

@@ -6,7 +6,9 @@ import java.time.LocalDateTime;
 import penguin.enums.TaskType;
 import penguin.util.DateTimeUtil;
 
-/** Represents a task that starts and ends at specified date or time values. */
+/**
+ * Represents a task that starts and ends at specified date or time values.
+ */
 public final class Event extends Task {
     /** Start date or time of the event. */
     private final LocalDateTime startDateTime;

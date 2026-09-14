@@ -11,7 +11,9 @@ import penguin.task.Task;
 import penguin.task.Todo;
 import penguin.util.DateTimeUtil;
 
-/** Parses task-creation commands into validated task objects. */
+/**
+ * Parses task-creation commands into validated task objects.
+ */
 public final class TaskCommandParser {
     /** Keyword that separates a deadline description from its due date/time. */
     private static final String BY_KEYWORD = "/by";
@@ -31,7 +33,9 @@ public final class TaskCommandParser {
     /** Event-end separator including its required leading space. */
     private static final String TO_SEPARATOR = " " + TO_KEYWORD;
 
-    /** Prevents instantiation of this parser utility class. */
+    /**
+     * Prevents instantiation of this parser utility class.
+     */
     private TaskCommandParser() {
     }
 

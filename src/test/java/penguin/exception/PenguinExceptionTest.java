@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import org.junit.jupiter.api.Test;
 
-/** Tests the checked exception used for user-facing failures. */
+/**
+ * Tests the checked exception used for user-facing failures.
+ */
 class PenguinExceptionTest {
     @Test
     void penguinException_message_preservesOriginalMessage() {

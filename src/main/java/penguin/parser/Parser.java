@@ -18,9 +18,13 @@ import penguin.exception.PenguinException;
 import penguin.task.Task;
 import penguin.util.DateTimeUtil;
 
-/** Parses user commands and saved task records into application objects. */
+/**
+ * Parses user commands and saved task records into application objects.
+ */
 public final class Parser {
-    /** Prevents instantiation of this utility class. */
+    /**
+     * Prevents instantiation of this utility class.
+     */
     private Parser() {
     }
 

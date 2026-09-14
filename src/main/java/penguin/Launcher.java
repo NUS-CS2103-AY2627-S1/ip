@@ -8,7 +8,9 @@ import penguin.gui.PenguinGui;
  * A launcher class to workaround classpath issues.
  */
 public class Launcher {
-    /** Prevents instantiation of this application launcher. */
+    /**
+     * Prevents instantiation of this application launcher.
+     */
     private Launcher() {
     }
 

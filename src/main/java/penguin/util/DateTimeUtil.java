@@ -9,7 +9,9 @@ import java.util.Locale;
 
 import penguin.exception.PenguinException;
 
-/** Provides parsing and formatting utilities for dates and times. */
+/**
+ * Provides parsing and formatting utilities for dates and times.
+ */
 public final class DateTimeUtil {
     /** Formatter for parsing and storing full date/time values. */
     private static final DateTimeFormatter INPUT_FORMAT =
@@ -25,7 +27,9 @@ public final class DateTimeUtil {
             DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(
                     ResolverStyle.STRICT);
 
-    /** Prevents instantiation of this utility class. */
+    /**
+     * Prevents instantiation of this utility class.
+     */
     private DateTimeUtil() {
     }
 

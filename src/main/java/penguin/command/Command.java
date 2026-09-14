@@ -6,9 +6,13 @@ import penguin.task.TaskList;
 import penguin.task.TaskListSnapshot;
 import penguin.ui.Ui;
 
-/** Represents an executable Penguin command. */
+/**
+ * Represents an executable Penguin command.
+ */
 public abstract class Command {
-    /** Creates a command. */
+    /**
+     * Creates a command.
+     */
     protected Command() {
     }
 

@@ -7,7 +7,9 @@ import penguin.task.TaskList;
 import penguin.task.TaskListSnapshot;
 import penguin.ui.Ui;
 
-/** Represents a command that deletes a task. */
+/**
+ * Represents a command that deletes a task.
+ */
 public class DeleteCommand extends Command {
     /** Zero-based task index to delete. */
     private final int index;

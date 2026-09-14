@@ -1,6 +1,8 @@
 package penguin;
 
-/** Stores the chatbot identity and wording shared by console and GUI clients. */
+/**
+ * Stores the chatbot identity and wording shared by console and GUI clients.
+ */
 public final class PenguinIdentity {
     /** Name used by the chatbot when addressing the user. */
     public static final String CHATBOT_NAME = "Pip";
@@ -22,7 +24,9 @@ public final class PenguinIdentity {
     public static final String INPUT_PROMPT =
             "Tell " + CHATBOT_NAME + " what needs doing…";
 
-    /** Prevents instantiation of this identity utility class. */
+    /**
+     * Prevents instantiation of this identity utility class.
+     */
     private PenguinIdentity() {
     }
 }

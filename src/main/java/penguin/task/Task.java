@@ -51,12 +51,16 @@ public class Task {
         return isDone;
     }
 
-    /** Marks this task as completed. */
+    /**
+     * Marks this task as completed.
+     */
     public void markDone() {
         isDone = true;
     }
 
-    /** Marks this task as incomplete. */
+    /**
+     * Marks this task as incomplete.
+     */
     public void markUndone() {
         isDone = false;
     }

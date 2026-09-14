@@ -1,6 +1,8 @@
 package penguin.task;
 
-/** Associates a matching task with its one-based position in the complete task list. */
+/**
+ * Associates a matching task with its one-based position in the complete task list.
+ */
 public final class TaskSearchResult {
     /** One-based task number from the complete task list. */
     private final int taskNumber;
