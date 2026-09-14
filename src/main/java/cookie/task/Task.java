@@ -79,6 +79,20 @@ public abstract class Task {
         return false;
     }
 
+    /**
+     * Returns whether another task has the same type, description, and type-specific details.
+     * Completion status is deliberately ignored because it does not identify a distinct task.
+     *
+     * @param other The task to compare.
+     * @return {@code true} if the tasks have identical identifying details.
+     */
+    public boolean hasSameDetails(Task other) {
+        return other != null
+                && getClass().equals(other.getClass())
+                && description.equals(other.description)
+                && hasSameTypeSpecificDetails(other);
+    }
+
     /** Marks the task as done. */
     public void mark() {
         this.isDone = true;
@@ -100,6 +114,11 @@ public abstract class Task {
     protected String formatForStorage(TaskType taskType) {
         String status = isDone ? DONE_STATUS : NOT_DONE_STATUS;
         return taskType.getCode() + " | " + status + " | " + description;
+    }
+
+    /** Returns whether another task of the same concrete type has matching extra details. */
+    protected boolean hasSameTypeSpecificDetails(Task other) {
+        return true;
     }
 
     /** Returns the task's checkbox and description. */

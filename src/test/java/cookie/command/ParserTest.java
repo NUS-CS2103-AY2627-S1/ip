@@ -29,13 +29,15 @@ public class ParserTest {
         assertEquals(List.of("buy", "milk"), parsed.arguments());
         assertEquals("buy", parsed.argument(0));
         assertEquals("milk", parsed.argument(1));
-        assertEquals("buy   milk", parsed.description());
+        assertEquals("buy milk", parsed.description());
     }
 
     @Test
     public void parse_blankInput_throwsCookieException() {
         CookieException exception = assertThrows(CookieException.class, () -> parser.parse(" \t  "));
         assertEquals("I couldn't understand an empty command.", exception.getMessage());
+        assertEquals("I couldn't understand an empty command.",
+                assertThrows(CookieException.class, () -> parser.parse(null)).getMessage());
     }
 
     @Test
@@ -65,6 +67,9 @@ public class ParserTest {
                 .getMessage());
         assertEquals("Task details cannot contain '|'.", assertThrows(
                 CookieException.class, () -> parser.requireFileSafe("unsafe|value")).getMessage());
+        assertEquals("Task details cannot contain control characters.", assertThrows(
+                CookieException.class, () -> parser.requireFileSafe("unsafe\u0000value"))
+                .getMessage());
     }
 
     @Test
@@ -157,6 +162,9 @@ public class ParserTest {
         assertEquals("Task details cannot contain '|'.",
                 assertThrows(CookieException.class, () ->
                         parser.parseDeadline("unsafe|task /by 2026-08-27")).getMessage());
+        assertEquals("A deadline must contain exactly one /by parameter.",
+                assertThrows(CookieException.class, () -> parser.parseDeadline(
+                        "submit report /by 2026-08-27 /by 2026-08-28")).getMessage());
     }
 
     @Test
@@ -190,6 +198,23 @@ public class ParserTest {
         assertEquals("Task details cannot contain '|'.",
                 assertThrows(CookieException.class, () ->
                         parser.parseEvent("unsafe|event /from 0900 /to 1000")).getMessage());
+        assertEquals("An event must contain exactly one /from and one /to parameter.",
+                assertThrows(CookieException.class, () -> parser.parseEvent(
+                        "meeting /from 0900 /from 0930 /to 1000")).getMessage());
+    }
+
+    @Test
+    public void parseEvent_invalidPeriod_throwsSpecificCookieException() {
+        assertEquals("An event's end must be later than its start.",
+                assertThrows(CookieException.class, () ->
+                        parser.parseEvent("meeting /from 1000 /to 1000")).getMessage());
+        assertEquals("An event's end must be later than its start.",
+                assertThrows(CookieException.class, () ->
+                        parser.parseEvent("meeting /from 1100 /to 1000")).getMessage());
+        assertEquals("An event's start and end must both be dates, both be times, "
+                        + "or both be dates and times.",
+                assertThrows(CookieException.class, () -> parser.parseEvent(
+                        "meeting /from 2026-08-27 /to 1000")).getMessage());
     }
 
     @Test

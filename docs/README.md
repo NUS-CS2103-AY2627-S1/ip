@@ -40,6 +40,13 @@ event project meeting /from 2026-09-15 1400 /to 2026-09-15 1600
 ```
 
 Dates accept `yyyy-MM-dd` or `d/M/yyyy`. Times use the 24-hour `HHmm` format.
+An event's start and end must use the same kind of value (date, time, or date-time),
+and its end must be later than its start. Each task must have unique identifying details;
+completion status does not make an otherwise identical task unique.
+
+Cookie accepts surrounding or repeated whitespace, but each `/by`, `/from`, and `/to`
+parameter may appear only once. The `|` storage delimiter and control characters are not
+allowed in task details.
 
 ## Viewing and finding tasks
 
@@ -96,6 +103,10 @@ delete 2
 
 Marking, unmarking, deleting, and adding tasks are saved automatically. Sorting is a
 read-only view and is not persisted.
+
+If Cookie cannot read its task file at startup, it reports the problem and blocks changes
+for that session. This prevents an unreadable file from being overwritten. Fix the reported
+file or permission issue, then restart Cookie.
 
 ## Exiting
 

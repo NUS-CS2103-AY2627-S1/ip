@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
+import java.util.Objects;
 
 /** Represents a date, a time, or a date and time supplied by the user. */
 public class DateTimeValue {
@@ -83,6 +84,35 @@ public class DateTimeValue {
     }
 
     /**
+     * Returns whether another value contains the same combination of date and time components.
+     *
+     * @param other The value to compare.
+     * @return {@code true} if both values are date-only, time-only, or date-time values.
+     */
+    public boolean hasSameComponentsAs(DateTimeValue other) {
+        return other != null
+                && (date != null) == (other.date != null)
+                && (time != null) == (other.time != null);
+    }
+
+    /**
+     * Returns whether this value occurs before another value with the same components.
+     *
+     * @param other The comparable date, time, or date-time value.
+     * @return {@code true} if this value occurs before the other value.
+     * @throws IllegalArgumentException If the values do not contain the same components.
+     */
+    public boolean isBefore(DateTimeValue other) {
+        if (!hasSameComponentsAs(other)) {
+            throw new IllegalArgumentException("Date/time values must have matching components.");
+        }
+        if (date != null && time != null) {
+            return LocalDateTime.of(date, time).isBefore(LocalDateTime.of(other.date, other.time));
+        }
+        return date != null ? date.isBefore(other.date) : time.isBefore(other.time);
+    }
+
+    /**
      * Parses a canonical value loaded from the saved task file.
      *
      * @param value The canonical date, time, or date-time text to parse.
@@ -100,5 +130,23 @@ public class DateTimeValue {
                 return new DateTimeValue(null, LocalTime.parse(value));
             }
         }
+    }
+
+    /** Returns whether two values contain the same date and time components. */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof DateTimeValue otherValue)) {
+            return false;
+        }
+        return Objects.equals(date, otherValue.date) && Objects.equals(time, otherValue.time);
+    }
+
+    /** Returns a hash code derived from the date and time components. */
+    @Override
+    public int hashCode() {
+        return Objects.hash(date, time);
     }
 }

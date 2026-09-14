@@ -8,6 +8,8 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cookie.task.DateTimeValue;
 import cookie.task.SortCriterion;
@@ -15,6 +17,15 @@ import cookie.task.SortDirection;
 
 /** Interprets the command structure of user input for Cookie. */
 public class Parser {
+    /** Matches the deadline parameter when it appears as a separate token. */
+    private static final Pattern DEADLINE_PARAMETER = Pattern.compile("(?<!\\S)/by(?!\\S)");
+
+    /** Matches the event start parameter when it appears as a separate token. */
+    private static final Pattern EVENT_START_PARAMETER = Pattern.compile("(?<!\\S)/from(?!\\S)");
+
+    /** Matches the event end parameter when it appears as a separate token. */
+    private static final Pattern EVENT_END_PARAMETER = Pattern.compile("(?<!\\S)/to(?!\\S)");
+
     /** Describes the accepted arguments for the sort command. */
     private static final String SORT_USAGE = "sort <description|date> [asc|desc]";
 
@@ -55,7 +66,11 @@ public class Parser {
      * @throws CookieException If the input is blank or uses an unknown command.
      */
     public ParsedCommand parse(String input) throws CookieException {
-        String normalizedInput = input.trim();
+        if (input == null) {
+            throw new CookieException("I couldn't understand an empty command.");
+        }
+
+        String normalizedInput = input.trim().replaceAll("\\s+", " ");
         if (normalizedInput.isBlank()) {
             throw new CookieException("I couldn't understand an empty command.");
         }
@@ -118,6 +133,9 @@ public class Parser {
     public String requireFileSafe(String value) throws CookieException {
         if (value.contains("|")) {
             throw new CookieException("Task details cannot contain '|'.");
+        }
+        if (value.chars().anyMatch(Character::isISOControl)) {
+            throw new CookieException("Task details cannot contain control characters.");
         }
         return value;
     }
@@ -226,6 +244,10 @@ public class Parser {
      * @throws CookieException If the description or deadline value is malformed.
      */
     public ParsedDeadline parseDeadline(String description) throws CookieException {
+        if (countMatches(DEADLINE_PARAMETER, description) > 1) {
+            throw new CookieException("A deadline must contain exactly one /by parameter.");
+        }
+
         String[] deadlineParts = description.split("\\s+/by\\s+", 2);
         if (deadlineParts.length < 2 || deadlineParts[0].isBlank() || deadlineParts[1].isBlank()) {
             throw new CookieException(
@@ -253,6 +275,12 @@ public class Parser {
      * @throws CookieException If the description or event values are malformed.
      */
     public ParsedEvent parseEvent(String description) throws CookieException {
+        if (countMatches(EVENT_START_PARAMETER, description) > 1
+                || countMatches(EVENT_END_PARAMETER, description) > 1) {
+            throw new CookieException(
+                    "An event must contain exactly one /from and one /to parameter.");
+        }
+
         String[] eventParts = description.split("\\s+/from\\s+", 2);
         if (eventParts.length < 2 || eventParts[0].isBlank()) {
             throw new CookieException(
@@ -280,7 +308,31 @@ public class Parser {
                     "An event's start and end values must use yyyy-MM-dd, d/M/yyyy, HHmm, "
                             + "yyyy-MM-dd HHmm, or d/M/yyyy HHmm.");
         }
+        validateEventPeriod(start, end);
         return new ParsedEvent(eventDescription, start, end);
+    }
+
+    /** Ensures that an event has comparable values and a strictly later end. */
+    private void validateEventPeriod(DateTimeValue start, DateTimeValue end)
+            throws CookieException {
+        if (!start.hasSameComponentsAs(end)) {
+            throw new CookieException(
+                    "An event's start and end must both be dates, both be times, "
+                            + "or both be dates and times.");
+        }
+        if (!start.isBefore(end)) {
+            throw new CookieException("An event's end must be later than its start.");
+        }
+    }
+
+    /** Counts occurrences of a command parameter represented by the supplied pattern. */
+    private int countMatches(Pattern pattern, String value) {
+        int matchCount = 0;
+        Matcher matcher = pattern.matcher(value);
+        while (matcher.find()) {
+            matchCount++;
+        }
+        return matchCount;
     }
 
     /**

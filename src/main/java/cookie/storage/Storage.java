@@ -83,29 +83,37 @@ public class Storage {
      * @throws IOException If the data file cannot be read.
      */
     public LoadResult load() throws IOException {
-        TaskList tasks = new TaskList();
-        List<Integer> malformedLineNumbers = new ArrayList<>();
-        if (!Files.exists(filePath)) {
-            return new LoadResult(tasks, malformedLineNumbers);
-        }
+        try {
+            TaskList tasks = new TaskList();
+            List<Integer> malformedLineNumbers = new ArrayList<>();
+            if (!Files.exists(filePath)) {
+                return new LoadResult(tasks, malformedLineNumbers);
+            }
 
-        try (BufferedReader reader = Files.newBufferedReader(filePath, StandardCharsets.UTF_8)) {
-            String line;
-            int lineNumber = 0;
-            while ((line = reader.readLine()) != null) {
-                lineNumber++;
-                if (line.isBlank()) {
-                    continue;
-                }
+            try (BufferedReader reader = Files.newBufferedReader(filePath, StandardCharsets.UTF_8)) {
+                String line;
+                int lineNumber = 0;
+                while ((line = reader.readLine()) != null) {
+                    lineNumber++;
+                    if (line.isBlank()) {
+                        continue;
+                    }
 
-                try {
-                    tasks.add(parseTask(line));
-                } catch (CookieException exception) {
-                    malformedLineNumbers.add(lineNumber);
+                    try {
+                        Task task = parseTask(line);
+                        if (tasks.containsSameDetails(task)) {
+                            throw new CookieException("A saved task is duplicated.");
+                        }
+                        tasks.add(task);
+                    } catch (CookieException exception) {
+                        malformedLineNumbers.add(lineNumber);
+                    }
                 }
             }
+            return new LoadResult(tasks, malformedLineNumbers);
+        } catch (SecurityException exception) {
+            throw new IOException("Access to the task file was denied.", exception);
         }
-        return new LoadResult(tasks, malformedLineNumbers);
     }
 
     /**
@@ -137,7 +145,7 @@ public class Storage {
             } catch (AtomicMoveNotSupportedException exception) {
                 Files.move(temporaryFile, filePath, StandardCopyOption.REPLACE_EXISTING);
             }
-        } catch (IOException exception) {
+        } catch (IOException | SecurityException exception) {
             if (temporaryFile != null) {
                 try {
                     Files.deleteIfExists(temporaryFile);
@@ -145,7 +153,10 @@ public class Storage {
                     // Preserve the original save error for the user.
                 }
             }
-            throw exception;
+            if (exception instanceof IOException ioException) {
+                throw ioException;
+            }
+            throw new IOException("Access to the task file was denied.", exception);
         }
     }
 
@@ -168,7 +179,8 @@ public class Storage {
 
     /** Creates a todo from a validated saved-record shape. */
     private Todo parseTodo(String[] fields) throws CookieException {
-        if (fields.length != TODO_FIELD_COUNT || fields[DESCRIPTION_FIELD_INDEX].isBlank()) {
+        if (fields.length != TODO_FIELD_COUNT
+                || isInvalidDescription(fields[DESCRIPTION_FIELD_INDEX])) {
             throw new CookieException("A saved todo record is malformed.");
         }
         return new Todo(fields[DESCRIPTION_FIELD_INDEX]);
@@ -176,7 +188,8 @@ public class Storage {
 
     /** Creates a deadline from a validated saved-record shape. */
     private Deadline parseDeadline(String[] fields) throws CookieException {
-        if (fields.length != DATED_TASK_FIELD_COUNT || fields[DESCRIPTION_FIELD_INDEX].isBlank()
+        if (fields.length != DATED_TASK_FIELD_COUNT
+                || isInvalidDescription(fields[DESCRIPTION_FIELD_INDEX])
                 || fields[DETAILS_FIELD_INDEX].isBlank()) {
             throw new CookieException("A saved deadline record is malformed.");
         }
@@ -190,7 +203,8 @@ public class Storage {
 
     /** Creates an event from a validated saved-record shape. */
     private Event parseEvent(String[] fields) throws CookieException {
-        if (fields.length != DATED_TASK_FIELD_COUNT || fields[DESCRIPTION_FIELD_INDEX].isBlank()) {
+        if (fields.length != DATED_TASK_FIELD_COUNT
+                || isInvalidDescription(fields[DESCRIPTION_FIELD_INDEX])) {
             throw new CookieException("A saved event record is malformed.");
         }
 
@@ -204,9 +218,15 @@ public class Storage {
             DateTimeValue start = DateTimeValue.parseStorageValue(timeValues[EVENT_START_VALUE_INDEX]);
             DateTimeValue end = DateTimeValue.parseStorageValue(timeValues[EVENT_END_VALUE_INDEX]);
             return new Event(fields[DESCRIPTION_FIELD_INDEX], start, end);
-        } catch (DateTimeParseException exception) {
+        } catch (DateTimeParseException | IllegalArgumentException exception) {
             throw new CookieException("A saved event record is malformed.");
         }
+    }
+
+    /** Returns whether a saved description is blank or contains unsafe control characters. */
+    private boolean isInvalidDescription(String description) {
+        return description.isBlank()
+                || description.chars().anyMatch(Character::isISOControl);
     }
 
     /** Restores a saved completion status onto a task. */

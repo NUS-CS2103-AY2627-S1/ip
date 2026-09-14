@@ -98,8 +98,12 @@ public class Cookie {
     }
 
     /** Stores user input and prints the message indicating a successful addition. */
-    private void addTask(Task task) {
+    private void addTask(Task task) throws CookieException {
         assert task != null : "A parsed task must not be null";
+        requireWritableTaskData();
+        if (tasks.containsSameDetails(task)) {
+            throw new CookieException("That task already exists.");
+        }
         int previousTaskCount = tasks.size();
         tasks.add(task);
         assert tasks.size() == previousTaskCount + 1
@@ -120,8 +124,9 @@ public class Cookie {
     }
 
     /** Marks a task as done and prints a message indicating the successful update. */
-    private void markTask(int taskIndex) {
+    private void markTask(int taskIndex) throws CookieException {
         assert taskIndex >= 0 && taskIndex < tasks.size() : "A parsed task index must be valid";
+        requireWritableTaskData();
         Task task = tasks.get(taskIndex);
         boolean wasDone = task.isDone();
         tasks.mark(taskIndex);
@@ -140,8 +145,9 @@ public class Cookie {
     }
 
     /** Marks a task as not done and prints a message indicating the successful update. */
-    private void unmarkTask(int taskIndex) {
+    private void unmarkTask(int taskIndex) throws CookieException {
         assert taskIndex >= 0 && taskIndex < tasks.size() : "A parsed task index must be valid";
+        requireWritableTaskData();
         Task task = tasks.get(taskIndex);
         boolean wasDone = task.isDone();
         tasks.unmark(taskIndex);
@@ -160,8 +166,9 @@ public class Cookie {
     }
 
     /** Deletes the selected task and reports the removed task and remaining task count. */
-    private void deleteTask(int taskIndex) {
+    private void deleteTask(int taskIndex) throws CookieException {
         assert taskIndex >= 0 && taskIndex < tasks.size() : "A parsed task index must be valid";
+        requireWritableTaskData();
         int previousTaskCount = tasks.size();
         Task task = tasks.delete(taskIndex);
         assert tasks.size() == previousTaskCount - 1
@@ -213,6 +220,15 @@ public class Cookie {
             isCurrentResponseError = true;
             ui.showSaveError(exception.getMessage());
             return false;
+        }
+    }
+
+    /** Prevents changes when startup failed to load the existing task data safely. */
+    private void requireWritableTaskData() throws CookieException {
+        if (loadErrorDetails != null) {
+            throw new CookieException(
+                    "I can't change tasks because the task file could not be loaded. "
+                            + "Fix the file problem and restart Cookie first.");
         }
     }
 

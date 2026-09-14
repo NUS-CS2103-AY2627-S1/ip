@@ -13,14 +13,14 @@ Each test case starts a fresh program process. The command is the program-launch
 | Area | Successful behavior | Validation and state preservation |
 | --- | --- | --- |
 | Application flow | 1 | 9, 12--14 |
-| Todo and list | 2--3 | 8, 13, 26 |
+| Todo and list | 2--3 | 8, 13, 26, 30, 47 |
 | Completion state | 4--5, 25 | 11, 15--17, 22 |
-| Deadline and event | 6--7, 33--35, 38--39 | 10, 18, 23--24, 36--37 |
-| Find | 39 | 40 |
-| Sorting | 41--42, 44 | 43 |
+| Deadline and event | 6--7, 35--37, 40--41 | 10, 18, 23--24, 30--31, 38--39 |
+| Find | 41 | 42 |
+| Sorting | 43--44, 46 | 45 |
 | Deletion | 19 | 20--22 |
-| Persistence | 2, 4--7, 19, 25, 27, 32--34, 41 | 28--31 |
-| Startup and file errors | 28, 31--32 | 29--30 |
+| Persistence | 2, 4--7, 19, 25, 27, 34--36, 43 | 28--33 |
+| Startup and file errors | 28, 33--34 | 29, 32 |
 
 The expected output in every case is compared exactly, including spaces and separators.
 
@@ -1104,6 +1104,8 @@ D | Maybe | bad | date
 E | Not Done | meeting | 2019-12-02T14:00 to 2019-12-02T15:00
 T | Not Done
 D | Not Done | return book | 2019-12-02T18:00
+T | Not Done | valid task
+E | Not Done | backwards | 11:00 to 10:00
 ```
 
 **Command:** `java "-Dfile.encoding=UTF-8" "-Dstdout.encoding=UTF-8" -cp out cookie.Cookie`
@@ -1127,7 +1129,7 @@ Hello! I'm your favourite chatbot Cookie.
 What do you need today?
 ____________________________________________________________
 ____________________________________________________________
-Heads up! I skipped malformed saved task records on lines 2, 3, 5. Your valid tasks were still loaded.
+Heads up! I skipped malformed saved task records on lines 2, 3, 5, 7, 8. Your valid tasks were still loaded.
 ____________________________________________________________
 ____________________________________________________________
 Here are the task(s) in your list:
@@ -1140,7 +1142,106 @@ Bye. I'm going to sleep.
 ____________________________________________________________
 ```
 
-## Test case 30: Reject the file delimiter in task details
+## Test case 30: Reject duplicate tasks and invalid event periods
+
+**Aim:** Verify that duplicate task details, non-increasing event periods, and mismatched temporal values are rejected without changing the task list.
+
+**Command:** `java "-Dfile.encoding=UTF-8" "-Dstdout.encoding=UTF-8" -cp out cookie.Cookie`
+
+**Inputs:**
+```text
+todo buy milk
+todo buy milk
+event same time /from 1000 /to 1000
+event backwards /from 1100 /to 1000
+event mixed values /from 2019-12-07 /to 1000
+list
+bye
+```
+
+**Expected output:**
+```text
+____________________________________________________________
+ ██████╗ ██████╗  ██████╗ ██╗  ██╗██╗███████╗
+██╔════╝██╔═══██╗██╔═══██╗██║ ██╔╝██║██╔════╝
+██║     ██║   ██║██║   ██║█████╔╝ ██║█████╗  
+██║     ██║   ██║██║   ██║██╔═██╗ ██║██╔══╝  
+╚██████╗╚██████╔╝╚██████╔╝██║  ██╗██║███████╗
+ ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝╚══════╝
+Hello! I'm your favourite chatbot Cookie.
+What do you need today?
+____________________________________________________________
+____________________________________________________________
+Ok. I've added this task:
+   [T][ ] buy milk
+You have 1 task(s) now. Better start working.
+____________________________________________________________
+____________________________________________________________
+Bruh... That task already exists.
+____________________________________________________________
+____________________________________________________________
+Bruh... An event's end must be later than its start.
+____________________________________________________________
+____________________________________________________________
+Bruh... An event's end must be later than its start.
+____________________________________________________________
+____________________________________________________________
+Bruh... An event's start and end must both be dates, both be times, or both be dates and times.
+____________________________________________________________
+____________________________________________________________
+Here are the task(s) in your list:
+1. [T][ ] buy milk
+____________________________________________________________
+____________________________________________________________
+Bye. I'm going to sleep.
+____________________________________________________________
+```
+
+## Test case 31: Reject repeated command parameters
+
+**Aim:** Verify that task commands reject repeated `/by`, `/from`, and `/to` parameters without adding tasks.
+
+**Command:** `java "-Dfile.encoding=UTF-8" "-Dstdout.encoding=UTF-8" -cp out cookie.Cookie`
+
+**Inputs:**
+```text
+deadline report /by 2019-12-07 /by 2019-12-08
+event meeting /from 0900 /from 0930 /to 1000
+event meeting /from 0900 /to 1000 /to 1100
+list
+bye
+```
+
+**Expected output:**
+```text
+____________________________________________________________
+ ██████╗ ██████╗  ██████╗ ██╗  ██╗██╗███████╗
+██╔════╝██╔═══██╗██╔═══██╗██║ ██╔╝██║██╔════╝
+██║     ██║   ██║██║   ██║█████╔╝ ██║█████╗  
+██║     ██║   ██║██║   ██║██╔═██╗ ██║██╔══╝  
+╚██████╗╚██████╔╝╚██████╔╝██║  ██╗██║███████╗
+ ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝╚══════╝
+Hello! I'm your favourite chatbot Cookie.
+What do you need today?
+____________________________________________________________
+____________________________________________________________
+Bruh... A deadline must contain exactly one /by parameter.
+____________________________________________________________
+____________________________________________________________
+Bruh... An event must contain exactly one /from and one /to parameter.
+____________________________________________________________
+____________________________________________________________
+Bruh... An event must contain exactly one /from and one /to parameter.
+____________________________________________________________
+____________________________________________________________
+Here are the task(s) in your list:
+____________________________________________________________
+____________________________________________________________
+Bye. I'm going to sleep.
+____________________________________________________________
+```
+
+## Test case 32: Reject the file delimiter in task details
 
 **Aim:** Verify that task details containing the file delimiter are rejected instead of creating records that cannot be loaded reliably.
 
@@ -1184,7 +1285,7 @@ Bye. I'm going to sleep.
 ____________________________________________________________
 ```
 
-## Test case 31: Load an empty file with blank lines
+## Test case 33: Load an empty file with blank lines
 
 **Aim:** Verify that an empty or whitespace-only saved record is ignored while valid records can still be loaded.
 
@@ -1226,7 +1327,7 @@ Bye. I'm going to sleep.
 ____________________________________________________________
 ```
 
-## Test case 32: Save and load tasks across a restart
+## Test case 34: Save and load tasks across a restart
 
 **Aim:** Verify that a task added and marked in one Cookie process is restored with its completion state after restarting Cookie.
 
@@ -1292,7 +1393,7 @@ Bye. I'm going to sleep.
 ____________________________________________________________
 ```
 
-## Test case 33: Save and load a deadline date-time
+## Test case 35: Save and load a deadline date-time
 
 **Aim:** Verify that a deadline date-time is saved in a canonical format and restored with the same readable display after restarting Cookie.
 
@@ -1326,7 +1427,7 @@ Bye. I'm going to sleep.
 ____________________________________________________________
 ```
 
-## Test case 34: Save and load an event date-time
+## Test case 36: Save and load an event date-time
 
 **Aim:** Verify that an event's date-time interval is saved and restored with the same readable display after restarting Cookie.
 
@@ -1387,7 +1488,7 @@ Bye. I'm going to sleep.
 ____________________________________________________________
 ```
 
-## Test case 35: List tasks occurring on a date
+## Test case 37: List tasks occurring on a date
 
 **Aim:** Verify that `on` lists deadlines on the requested date and events whose intervals overlap that date, while preserving original task numbers.
 
@@ -1450,7 +1551,7 @@ Bye. I'm going to sleep.
 ____________________________________________________________
 ```
 
-## Test case 36: Reject invalid event and date-query values
+## Test case 38: Reject invalid event and date-query values
 
 **Aim:** Verify that malformed event date-times and invalid `on` dates are rejected without changing the task list.
 
@@ -1494,34 +1595,7 @@ Bye. I'm going to sleep.
 ____________________________________________________________
 ```
 
-**Other inputs:**
-```text
-list
-bye
-```
-
-**Other output:**
-```text
-____________________________________________________________
- ██████╗ ██████╗  ██████╗ ██╗  ██╗██╗███████╗
-██╔════╝██╔═══██╗██╔═══██╗██║ ██╔╝██║██╔════╝
-██║     ██║   ██║██║   ██║█████╔╝ ██║█████╗  
-██║     ██║   ██║██║   ██║██╔═██╗ ██║██╔══╝  
-╚██████╗╚██████╔╝╚██████╔╝██║  ██╗██║███████╗
- ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝╚══════╝
-Hello! I'm your favourite chatbot Cookie.
-What do you need today?
-____________________________________________________________
-____________________________________________________________
-Here are the task(s) in your list:
-1. [D][ ] submit report (by: Dec 06 2019, 5:00 PM)
-____________________________________________________________
-____________________________________________________________
-Bye. I'm going to sleep.
-____________________________________________________________
-```
-
-## Test case 37: Reject invalid deadline date-times
+## Test case 39: Reject invalid deadline date-times
 
 **Aim:** Verify that invalid calendar dates, invalid times, and unsupported date separators are rejected without adding tasks.
 
@@ -1565,7 +1639,7 @@ Bye. I'm going to sleep.
 ____________________________________________________________
 ```
 
-## Test case 38: Accept optional date and time components
+## Test case 40: Accept optional date and time components
 
 **Aim:** Verify that deadlines and events accept date-only, time-only, and combined date-time values.
 
@@ -1575,7 +1649,7 @@ ____________________________________________________________
 ```text
 deadline submit report /by 2019-12-06
 deadline submit invoice /by 1800
-event project day /from 2019-12-07 /to 2019-12-07
+event project days /from 2019-12-07 /to 2019-12-08
 event project hour /from 0900 /to 1000
 list
 bye
@@ -1605,7 +1679,7 @@ You have 2 task(s) now. Better start working.
 ____________________________________________________________
 ____________________________________________________________
 Ok. I've added this task:
-   [E][ ] project day (from: Dec 07 2019 to: Dec 07 2019)
+   [E][ ] project days (from: Dec 07 2019 to: Dec 08 2019)
 You have 3 task(s) now. Better start working.
 ____________________________________________________________
 ____________________________________________________________
@@ -1617,7 +1691,7 @@ ____________________________________________________________
 Here are the task(s) in your list:
 1. [D][ ] submit report (by: Dec 06 2019)
 2. [D][ ] submit invoice (by: 6:00 PM)
-3. [E][ ] project day (from: Dec 07 2019 to: Dec 07 2019)
+3. [E][ ] project days (from: Dec 07 2019 to: Dec 08 2019)
 4. [E][ ] project hour (from: 9:00 AM to: 10:00 AM)
 ____________________________________________________________
 ____________________________________________________________
@@ -1625,7 +1699,7 @@ Bye. I'm going to sleep.
 ____________________________________________________________
 ```
 
-## Test case 39: Find tasks by keyword
+## Test case 41: Find tasks by keyword
 
 **Aim:** Verify that `find` displays tasks whose descriptions contain the keyword, preserves their original task numbers, and includes matching tasks of different types.
 
@@ -1677,7 +1751,7 @@ Bye. I'm going to sleep.
 ____________________________________________________________
 ```
 
-## Test case 40: Reject invalid find arguments
+## Test case 42: Reject invalid find arguments
 
 **Aim:** Verify that `find` requires exactly one keyword and that invalid commands do not change the task list.
 
@@ -1717,7 +1791,7 @@ Bye. I'm going to sleep.
 ____________________________________________________________
 ```
 
-## Test case 41: Sort descriptions without changing stored order
+## Test case 43: Sort descriptions without changing stored order
 
 **Aim:** Verify that description sorting is case-insensitive, preserves original task numbers, allows a displayed task number to be marked, and does not persist the sorted order.
 
@@ -1800,7 +1874,7 @@ Bye. I'm going to sleep.
 ____________________________________________________________
 ```
 
-## Test case 42: Sort mixed temporal values in both directions
+## Test case 44: Sort mixed temporal values in both directions
 
 **Aim:** Verify that date sorting compares deadline due values and event start values, groups dated, time-only, and undated tasks, and keeps original task numbers.
 
@@ -1855,7 +1929,7 @@ Bye. I'm going to sleep.
 ____________________________________________________________
 ```
 
-## Test case 43: Reject invalid sort arguments
+## Test case 45: Reject invalid sort arguments
 
 **Aim:** Verify that missing, unsupported, and extra sort arguments report the command usage without changing the stored task list.
 
@@ -1909,7 +1983,7 @@ Bye. I'm going to sleep.
 ____________________________________________________________
 ```
 
-## Test case 44: Sort empty and single-item lists
+## Test case 46: Sort empty and single-item lists
 
 **Aim:** Verify that sorting an empty list and a single-item list succeeds, including case-insensitive criterion and direction arguments.
 
@@ -1946,6 +2020,45 @@ ____________________________________________________________
 ____________________________________________________________
 Here are the task(s) sorted by description (descending):
 1. [T][ ] only task
+____________________________________________________________
+____________________________________________________________
+Bye. I'm going to sleep.
+____________________________________________________________
+```
+
+## Test case 47: Normalize repeated whitespace inside task details
+
+**Aim:** Verify that repeated whitespace inside a task description is normalized and does not create visually distinct duplicate details.
+
+**Command:** `java "-Dfile.encoding=UTF-8" "-Dstdout.encoding=UTF-8" -cp out cookie.Cookie`
+
+**Inputs:**
+```text
+todo buy    milk
+list
+bye
+```
+
+**Expected output:**
+```text
+____________________________________________________________
+ ██████╗ ██████╗  ██████╗ ██╗  ██╗██╗███████╗
+██╔════╝██╔═══██╗██╔═══██╗██║ ██╔╝██║██╔════╝
+██║     ██║   ██║██║   ██║█████╔╝ ██║█████╗  
+██║     ██║   ██║██║   ██║██╔═██╗ ██║██╔══╝  
+╚██████╗╚██████╔╝╚██████╔╝██║  ██╗██║███████╗
+ ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝╚══════╝
+Hello! I'm your favourite chatbot Cookie.
+What do you need today?
+____________________________________________________________
+____________________________________________________________
+Ok. I've added this task:
+   [T][ ] buy milk
+You have 1 task(s) now. Better start working.
+____________________________________________________________
+____________________________________________________________
+Here are the task(s) in your list:
+1. [T][ ] buy milk
 ____________________________________________________________
 ____________________________________________________________
 Bye. I'm going to sleep.
