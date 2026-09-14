@@ -2,6 +2,7 @@ package cookie.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -78,5 +79,7 @@ public class DateTimeValueTest {
                 LocalTime.of(9, 0)));
         assertEquals(earlier.hashCode(), new DateTimeValue(LocalDate.of(2026, 8, 27),
                 LocalTime.of(9, 0)).hashCode());
+        assertNotEquals(earlier, null);
+        assertNotEquals(earlier, "2026-08-27T09:00");
     }
 }

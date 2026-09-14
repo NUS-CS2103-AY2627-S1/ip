@@ -118,4 +118,19 @@ public class TaskTest {
         assertTrue(event.occursOn(queriedDate));
         assertFalse(event.occursOn(queriedDate.plusDays(2)));
     }
+
+    @Test
+    public void event_timeOnlyPeriodAndDetailComparison_applyEventRules() {
+        LocalDate queriedDate = LocalDate.of(2026, 8, 27);
+        DateTimeValue start = new DateTimeValue(null, LocalTime.of(9, 0));
+        DateTimeValue end = new DateTimeValue(null, LocalTime.of(10, 0));
+        Event event = new Event("meeting", start, end);
+        Event matchingEvent = new Event("meeting", start, end);
+        Event differentEvent = new Event("meeting", start,
+                new DateTimeValue(null, LocalTime.of(11, 0)));
+
+        assertFalse(event.occursOn(queriedDate));
+        assertTrue(event.hasSameDetails(matchingEvent));
+        assertFalse(event.hasSameDetails(differentEvent));
+    }
 }

@@ -116,11 +116,13 @@ public class ParserTest {
     public void parseSort_supportedArguments_returnsCriterionAndDirection() throws CookieException {
         Parser.ParsedSort defaultDirection = parser.parseSort(parser.parse("sort description"));
         Parser.ParsedSort explicitDirection = parser.parseSort(parser.parse("sort DATE DeSc"));
+        Parser.ParsedSort explicitAscending = parser.parseSort(parser.parse("sort date ASC"));
 
         assertEquals(SortCriterion.DESCRIPTION, defaultDirection.criterion());
         assertEquals(SortDirection.ASCENDING, defaultDirection.direction());
         assertEquals(SortCriterion.DATE, explicitDirection.criterion());
         assertEquals(SortDirection.DESCENDING, explicitDirection.direction());
+        assertEquals(SortDirection.ASCENDING, explicitAscending.direction());
     }
 
     @Test
@@ -201,6 +203,9 @@ public class ParserTest {
         assertEquals("An event must contain exactly one /from and one /to parameter.",
                 assertThrows(CookieException.class, () -> parser.parseEvent(
                         "meeting /from 0900 /from 0930 /to 1000")).getMessage());
+        assertEquals("An event must contain exactly one /from and one /to parameter.",
+                assertThrows(CookieException.class, () -> parser.parseEvent(
+                        "meeting /from 0900 /to 0930 /to 1000")).getMessage());
     }
 
     @Test

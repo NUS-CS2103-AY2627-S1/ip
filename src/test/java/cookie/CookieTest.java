@@ -4,7 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -31,6 +36,36 @@ public class CookieTest {
         assertFalse(addResult.isError());
         assertFalse(listResult.isError());
         assertTrue(errorResult.isError());
+    }
+
+    @Test
+    public void getResponse_supportedCommands_executesCompleteCommandWorkflow() {
+        Cookie cookie = new Cookie(temporaryDirectory.resolve("cookie.txt").toString(), false);
+
+        assertTrue(cookie.getResponse("deadline submit report /by 2026-08-27")
+                .contains("[D][ ] submit report"));
+        assertTrue(cookie.getResponse(
+                "event project meeting /from 2026-08-27 0900 /to 2026-08-27 1000")
+                .contains("[E][ ] project meeting"));
+        assertTrue(cookie.getResponse("find report").contains("1. [D][ ] submit report"));
+        assertTrue(cookie.getResponse("on 2026-08-27").contains("2. [E][ ] project meeting"));
+        assertTrue(cookie.getResponse("sort date desc").contains("sorted by date (descending)"));
+        assertTrue(cookie.getResponse("mark 1").contains("[D][X] submit report"));
+        assertTrue(cookie.getResponse("unmark 1").contains("[D][ ] submit report"));
+        assertTrue(cookie.getResponse("delete 2").contains("[E][ ] project meeting"));
+        assertEquals("Bye. I'm going to sleep.", cookie.getResponse("bye"));
+
+        String listResponse = cookie.getResponse("list");
+        assertTrue(listResponse.contains("1. [D][ ] submit report"));
+        assertFalse(listResponse.contains("project meeting"));
+    }
+
+    @Test
+    public void getStartupResponse_cleanLoad_returnsNoIssue() {
+        Cookie cookie = new Cookie(temporaryDirectory.resolve("cookie.txt").toString(), false);
+
+        assertEquals("", cookie.getStartupResponse());
+        assertFalse(cookie.getStartupResult().isError());
     }
 
     @Test
@@ -104,6 +139,52 @@ public class CookieTest {
     }
 
     @Test
+    public void getResponse_saveFailure_rollsBackMark() throws IOException {
+        Path storageDirectory = temporaryDirectory.resolve("storage");
+        Path dataFile = storageDirectory.resolve("cookie.txt");
+        Cookie cookie = new Cookie(dataFile.toString(), false);
+        cookie.getResponse("todo buy milk");
+        blockStorageDirectory(storageDirectory, dataFile);
+
+        Cookie.CommandResult result = cookie.getCommandResult("mark 1");
+
+        assertTrue(result.isError());
+        assertTrue(result.message().startsWith("Oh no! I couldn't save your tasks:"));
+        assertTrue(cookie.getResponse("list").contains("1. [T][ ] buy milk"));
+    }
+
+    @Test
+    public void getResponse_saveFailure_rollsBackUnmark() throws IOException {
+        Path storageDirectory = temporaryDirectory.resolve("storage");
+        Path dataFile = storageDirectory.resolve("cookie.txt");
+        Cookie cookie = new Cookie(dataFile.toString(), false);
+        cookie.getResponse("todo buy milk");
+        cookie.getResponse("mark 1");
+        blockStorageDirectory(storageDirectory, dataFile);
+
+        Cookie.CommandResult result = cookie.getCommandResult("unmark 1");
+
+        assertTrue(result.isError());
+        assertTrue(result.message().startsWith("Oh no! I couldn't save your tasks:"));
+        assertTrue(cookie.getResponse("list").contains("1. [T][X] buy milk"));
+    }
+
+    @Test
+    public void getResponse_saveFailure_rollsBackDelete() throws IOException {
+        Path storageDirectory = temporaryDirectory.resolve("storage");
+        Path dataFile = storageDirectory.resolve("cookie.txt");
+        Cookie cookie = new Cookie(dataFile.toString(), false);
+        cookie.getResponse("todo buy milk");
+        blockStorageDirectory(storageDirectory, dataFile);
+
+        Cookie.CommandResult result = cookie.getCommandResult("delete 1");
+
+        assertTrue(result.isError());
+        assertTrue(result.message().startsWith("Oh no! I couldn't save your tasks:"));
+        assertTrue(cookie.getResponse("list").contains("1. [T][ ] buy milk"));
+    }
+
+    @Test
     public void getResponse_loadFailure_blocksChangesToProtectExistingData() {
         Cookie cookie = new Cookie(temporaryDirectory.toString(), false);
 
@@ -116,5 +197,36 @@ public class CookieTest {
                 + "Fix the file problem and restart Cookie first.", addResult.message());
         assertTrue(addResult.isError());
         assertTrue(Files.isDirectory(temporaryDirectory));
+    }
+
+    @Test
+    public void run_commandsFromStandardInput_printsGreetingResponsesAndExit() {
+        InputStream originalInput = System.in;
+        PrintStream originalOutput = System.out;
+        ByteArrayOutputStream printedBytes = new ByteArrayOutputStream();
+        String commands = "todo buy milk" + System.lineSeparator()
+                + "list" + System.lineSeparator()
+                + "bye" + System.lineSeparator();
+
+        try {
+            System.setIn(new ByteArrayInputStream(commands.getBytes(StandardCharsets.UTF_8)));
+            System.setOut(new PrintStream(printedBytes, true, StandardCharsets.UTF_8));
+            new Cookie(temporaryDirectory.resolve("cookie.txt").toString()).run();
+        } finally {
+            System.setIn(originalInput);
+            System.setOut(originalOutput);
+        }
+
+        String printed = printedBytes.toString(StandardCharsets.UTF_8);
+        assertTrue(printed.contains("Hello! I'm your favourite chatbot Cookie."));
+        assertTrue(printed.contains("Ok. I've added this task:"));
+        assertTrue(printed.contains("1. [T][ ] buy milk"));
+        assertTrue(printed.contains("Bye. I'm going to sleep."));
+    }
+
+    private void blockStorageDirectory(Path storageDirectory, Path dataFile) throws IOException {
+        Files.delete(dataFile);
+        Files.delete(storageDirectory);
+        Files.writeString(storageDirectory, "existing data");
     }
 }

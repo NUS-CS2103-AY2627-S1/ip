@@ -1,5 +1,8 @@
 # Console UI Test Plan
 
+JavaFX-specific layout and environment checks are maintained separately in
+[`gui-test-plan.md`](gui-test-plan.md).
+
 Run these tests from the repository root with Java 25. Compile the current source before running the plan:
 
 ```text
