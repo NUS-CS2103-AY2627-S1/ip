@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="620.0" prefWidth="440.0"
-            style="-fx-background-color: #f8f4ee;"
+            stylesheets="@../css/main.css"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="kopi.MainWindow">
@@ -15,24 +15,22 @@
         <ScrollPane fx:id="scrollPane"
                     fitToWidth="true"
                     hbarPolicy="NEVER"
-                    prefHeight="560.0"
-                    prefWidth="440.0"
+                    AnchorPane.bottomAnchor="60.0"
                     AnchorPane.leftAnchor="0.0"
                     AnchorPane.rightAnchor="0.0"
                     AnchorPane.topAnchor="0.0">
             <content>
                 <VBox fx:id="dialogContainer"
                       fillWidth="true"
-                      prefWidth="428.0"
                       spacing="8.0"
-                      style="-fx-background-color: #f8f4ee; -fx-padding: 8;" />
+                      styleClass="dialog-container" />
             </content>
         </ScrollPane>
         <TextField fx:id="userInput"
                    onAction="#handleUserInput"
                    prefHeight="42.0"
                    promptText="Type a command"
-                   AnchorPane.bottomAnchor="9.0"
+                   AnchorPane.bottomAnchor="8.0"
                    AnchorPane.leftAnchor="10.0"
                    AnchorPane.rightAnchor="90.0" />
         <Button fx:id="sendButton"
@@ -41,7 +39,7 @@
                 prefHeight="42.0"
                 prefWidth="70.0"
                 text="Send"
-                AnchorPane.bottomAnchor="9.0"
+                AnchorPane.bottomAnchor="8.0"
                 AnchorPane.rightAnchor="10.0" />
     </children>
 </AnchorPane>

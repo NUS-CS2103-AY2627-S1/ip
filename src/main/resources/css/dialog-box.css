@@ -1,0 +1,27 @@
+.label {
+    -fx-background-radius: 12 12 4 12;
+    -fx-padding: 8 10 8 10;
+}
+
+.user-label {
+    -fx-background-color: #dcead6;
+}
+
+.kopi-label {
+    -fx-background-color: #eadaca;
+}
+
+.reply-label {
+    -fx-background-radius: 12 12 12 4;
+}
+
+.error-label {
+    -fx-background-color: #f6d8d3;
+    -fx-border-color: #b94335;
+    -fx-border-radius: 12 12 12 4;
+    -fx-text-fill: #7a231c;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(67, 45, 33, 0.18), 6, 0.2, 0, 2);
+}
