@@ -84,9 +84,10 @@ public class MainWindow extends VBox {
     /**
      * Sends what the user typed to Chione, and shows both sides of the exchange.
      *
-     * <p>Adds a dialog box for the user's line and another for the reply, then
-     * empties the text field ready for the next one. A {@code bye} closes the
-     * window, but only after a pause, so that the goodbye can be read.
+     * <p>Adds a dialog box for the user's line and another for the reply, which
+     * is marked as an error if the line could not be carried out, then empties
+     * the text field ready for the next one. A {@code bye} closes the window,
+     * but only after a pause, so that the goodbye can be read.
      */
     @FXML
     private void handleUserInput() {
@@ -99,9 +100,12 @@ public class MainWindow extends VBox {
         }
 
         String response = chione.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getChioneDialog(response, chioneImage));
+        // A refusal is shown in a different dress from a success, so the user
+        // sees at a glance that the command did not go through.
+        DialogBox reply = chione.isLastResponseError()
+                ? DialogBox.getErrorDialog(response, chioneImage)
+                : DialogBox.getChioneDialog(response, chioneImage);
+        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage), reply);
         userInput.clear();
 
         if (chione.isExit()) {

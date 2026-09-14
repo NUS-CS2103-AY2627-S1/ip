@@ -22,7 +22,8 @@ import javafx.scene.shape.Circle;
  * <p>The user's messages and Chione's differ in which way round those two sit
  * and in how the text is dressed, so both are built here from one layout and
  * given a style class that {@code chione.css} knows. A dialog box is made
- * through {@link #getUserDialog} or {@link #getChioneDialog} rather than with
+ * through {@link #getUserDialog}, {@link #getChioneDialog} or
+ * {@link #getErrorDialog} rather than with
  * {@code new}, because the names say which speaker is meant, while a constructor
  * taking a picture would not.
  */
@@ -32,6 +33,9 @@ public class DialogBox extends HBox {
 
     /** Style class for what Chione said: a plain bubble on the left. */
     private static final String CHIONE_BUBBLE = "chione-bubble";
+
+    /** Style class for a reply that reports a failure: a red-edged bubble on the left. */
+    private static final String ERROR_BUBBLE = "error-bubble";
 
     @FXML
     private Label dialog;
@@ -89,6 +93,23 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getChioneDialog(String text, Image image) {
         DialogBox dialogBox = new DialogBox(text, image, CHIONE_BUBBLE);
+        dialogBox.flip();
+        return dialogBox;
+    }
+
+    /**
+     * Creates a dialog box for something Chione could not do.
+     *
+     * <p>It sits where Chione's other replies sit, but is dressed differently,
+     * so that a mistyped command is noticed at once rather than read as
+     * another success in a column of successes.
+     *
+     * @param text Chione's explanation of what went wrong
+     * @param image Chione's picture
+     * @return a dialog box with the picture on the left and the text marked as an error
+     */
+    public static DialogBox getErrorDialog(String text, Image image) {
+        DialogBox dialogBox = new DialogBox(text, image, ERROR_BUBBLE);
         dialogBox.flip();
         return dialogBox;
     }

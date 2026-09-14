@@ -12,6 +12,7 @@
  *   #3E7CB1  Chione's blue: the user's bubble, the button, the focused field
  *   #C9DCEC  a thin ice-blue line, for borders
  *   #1F2F3F  text, a soft near-black
+ *   #E0605A  the red edge of an error, on a #FFF1F0 tint, with #8A1F1B text
  */
 
 .root {
@@ -45,6 +46,16 @@
     -fx-border-color: #C9DCEC;
     -fx-border-width: 1;
     -fx-border-radius: 12;
+}
+
+/* A reply that reports a failure: Chione's side, but edged and tinted in
+   red so a mistyped command is noticed at once. */
+.error-bubble {
+    -fx-background-color: #FFF1F0;
+    -fx-border-color: #E0605A;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-text-fill: #8A1F1B;
 }
 
 /* The row holding the text field and the button. */
