@@ -165,6 +165,38 @@ class TaskListTest {
                 taskList.storageStringRepresentation());
     }
 
+    @Test
+    void constructor_savedDeadlineAndEvent_restoresDateDetails() {
+        TaskList taskList = new TaskList("D |   | submit report | 2026-09-30\n"
+                + "E | X | team meeting | 2026-09-15 | 2026-09-16");
+
+        assertEquals(" Here are the tasks in your list:" + System.lineSeparator()
+                + " 1.[D][ ] submit report (by: Sep 30 2026)" + System.lineSeparator()
+                + " 2.[E][X] team meeting (from: Sep 15 2026 to: Sep 16 2026)", taskList.toString());
+    }
+
+    @Test
+    void constructor_malformedStorageLines_exceptionThrown() {
+        assertThrows(OreoException.class, () -> new TaskList("T |   |"));
+        assertThrows(OreoException.class, () -> new TaskList("D |   | report"));
+        assertThrows(OreoException.class, () -> new TaskList("T |   | task | tags: "));
+        assertThrows(OreoException.class, () -> new TaskList("T |   | task | unknown: #tag"));
+        assertThrows(OreoException.class, () -> new TaskList("Z |   | task"));
+    }
+
+    @Test
+    void constructor_duplicateSavedTasks_exceptionThrown() {
+        assertThrows(OreoException.class, () -> new TaskList("T |   | read book\nT | X | READ BOOK"));
+    }
+
+    @Test
+    void tags_invalidTaskNumber_exceptionThrown() {
+        TaskList taskList = taskListWithTodos("watch movie");
+
+        assertThrows(OreoException.class, () -> taskList.addTags(2, List.of("#fun")));
+        assertThrows(OreoException.class, () -> taskList.removeTags(0, List.of("#fun")));
+    }
+
     /** Creates a task list containing to-do tasks with the supplied descriptions. */
     private TaskList taskListWithTodos(String... descriptions) {
         TaskList taskList = new TaskList();

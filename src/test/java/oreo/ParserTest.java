@@ -50,4 +50,48 @@ class ParserTest {
     void parseTagUpdate_tagWithSpace_invalidTagRejected() {
         assertThrows(OreoException.class, () -> parser.parseTagUpdate("tag 1 #fun day", "tag"));
     }
+
+    @Test
+    void parseCommand_recognizesEverySupportedCommandAndUnknownInput() {
+        assertEquals(Parser.Command.BYE, parser.parseCommand("bye"));
+        assertEquals(Parser.Command.LIST, parser.parseCommand("list"));
+        assertEquals(Parser.Command.LIST_TAGS, parser.parseCommand("list tags extra"));
+        assertEquals(Parser.Command.FIND, parser.parseCommand("find book"));
+        assertEquals(Parser.Command.MARK, parser.parseCommand("mark 1"));
+        assertEquals(Parser.Command.UNMARK, parser.parseCommand("unmark 1"));
+        assertEquals(Parser.Command.TODO, parser.parseCommand("todo read"));
+        assertEquals(Parser.Command.DEADLINE, parser.parseCommand("deadline read /by 2026-01-01"));
+        assertEquals(Parser.Command.EVENT, parser.parseCommand("event read /from 2026-01-01 /to 2026-01-02"));
+        assertEquals(Parser.Command.DELETE, parser.parseCommand("delete 1"));
+        assertEquals(Parser.Command.TAG, parser.parseCommand("tagged"));
+        assertEquals(Parser.Command.UNTAG, parser.parseCommand("untagged"));
+        assertEquals(Parser.Command.UNKNOWN, parser.parseCommand("remind"));
+    }
+
+    @Test
+    void parseFindAndListTags_validateRequiredAndExactArguments() {
+        assertEquals("book", parser.parseFindKeyword("find book"));
+        assertThrows(OreoException.class, () -> parser.parseFindKeyword("find"));
+        assertThrows(OreoException.class, () -> parser.parseFindKeyword("list"));
+        parser.parseListTags("list tags");
+        assertThrows(OreoException.class, () -> parser.parseListTags("list tags today"));
+    }
+
+    @Test
+    void parseTodoAndDates_rejectMissingDuplicatedOrInvalidParameters() {
+        assertThrows(OreoException.class, () -> parser.parseTodo("todo"));
+        assertThrows(OreoException.class, () -> parser.parseTodo("todo #tag"));
+        assertThrows(OreoException.class, () -> parser.parseDeadline("deadline report /by 2026-02-30"));
+        assertThrows(OreoException.class, () -> parser.parseDeadline("deadline report /by 2026-09-01 /by 2026-09-02"));
+        assertThrows(OreoException.class, () -> parser.parseEvent(
+                "event review /from 2026-09-01 /to 2026-09-02 /to 2026-09-03"));
+        assertThrows(OreoException.class, () -> parser.parseEvent("event review /from 2026-09-03 /to 2026-09-02"));
+    }
+
+    @Test
+    void parseTagUpdate_rejectsMissingNonNumericAndInvalidTags() {
+        assertThrows(OreoException.class, () -> parser.parseTagUpdate("tag", "tag"));
+        assertThrows(OreoException.class, () -> parser.parseTagUpdate("tag one #work", "tag"));
+        assertThrows(OreoException.class, () -> parser.parseTagUpdate("untag 1 #bad!", "untag"));
+    }
 }

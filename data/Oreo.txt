@@ -1,9 +1,2 @@
-T |   | test | tags: #wow
-D |   | wow | 2025-12-25
-T |   | exit
-T |   | wadidaw
-T |   | list tag | tags: #meh
-T |   | list tag
-T |   | ini yang baru
-T |   | Wow
-T |   | this is amazing
+T |   | Assignment 1 | tags: #wow
+D |   | Assignment 2 | 2026-05-23

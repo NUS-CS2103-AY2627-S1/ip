@@ -18,9 +18,9 @@ public class Parser {
     /** Message displayed when a tag does not follow the supported format. */
     private static final String INVALID_TAG_MESSAGE = "A tag must start with # and contain only letters, numbers, "
             + "hyphens, or underscores.";
-    private static final Pattern DEADLINE_PATTERN = Pattern.compile("(.+) /by (\\d{4}-\\d{2}-\\d{2})");
+    private static final Pattern DEADLINE_PATTERN = Pattern.compile("(.+?) /by (\\d{4}-\\d{2}-\\d{2})");
     private static final Pattern EVENT_PATTERN = Pattern.compile(
-            "(.+) /from (\\d{4}-\\d{2}-\\d{2}) /to (\\d{4}-\\d{2}-\\d{2})");
+            "(.+?) /from (\\d{4}-\\d{2}-\\d{2}) /to (\\d{4}-\\d{2}-\\d{2})");
 
     /** The command categories understood by the application. */
     public enum Command {
@@ -97,6 +97,9 @@ public class Parser {
         try {
             TaggedDescription taskDetails = parseTaggedDescription(command.substring("deadline ".length()),
                     "Use: deadline <description> /by <year>-<month>-<date> [#tag]...");
+            if (countOccurrences(taskDetails.description(), " /by ") != 1) {
+                throw new OreoException("Use: deadline <description> /by <year>-<month>-<date> [#tag]...");
+            }
             Matcher matcher = DEADLINE_PATTERN.matcher(taskDetails.description());
             if (!matcher.matches()) {
                 throw new OreoException("Use: deadline <description> /by <year>-<month>-<date> [#tag]...");
@@ -118,6 +121,11 @@ public class Parser {
         try {
             TaggedDescription taskDetails = parseTaggedDescription(command.substring("event ".length()),
                     "Use: event <description> /from <year>-<month>-<date> /to <year>-<month>-<date> [#tag]...");
+            if (countOccurrences(taskDetails.description(), " /from ") != 1
+                    || countOccurrences(taskDetails.description(), " /to ") != 1) {
+                throw new OreoException("Use: event <description> /from <year>-<month>-<date> "
+                        + "/to <year>-<month>-<date> [#tag]...");
+            }
             Matcher matcher = EVENT_PATTERN.matcher(taskDetails.description());
             if (!matcher.matches()) {
                 throw new OreoException("Use: event <description> /from <year>-<month>-<date> "
@@ -200,5 +208,16 @@ public class Parser {
             }
         }
         return tags;
+    }
+
+    /** Counts non-overlapping appearances of a command marker. */
+    private int countOccurrences(String text, String marker) {
+        int count = 0;
+        int markerIndex = text.indexOf(marker);
+        while (markerIndex >= 0) {
+            count++;
+            markerIndex = text.indexOf(marker, markerIndex + marker.length());
+        }
+        return count;
     }
 }

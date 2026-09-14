@@ -1,6 +1,7 @@
 package oreo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -77,5 +78,37 @@ class OreoTest {
         assertEquals("Use: event <description> /from <year>-<month>-<date> "
                         + "/to <year>-<month>-<date> [#tag]...",
                 oreo.getResponse("event review /from 2026-02-30 /to 2026-03-01"));
+    }
+
+    @Test
+    void getResponse_lifecycle_persists() throws IOException {
+        Path storageFile = temporaryDirectory.resolve("Oreo.txt");
+        Oreo oreo = new Oreo(storageFile.toString());
+
+        oreo.getResponse("todo read book");
+        assertEquals("Nice! I've marked this task as done:" + System.lineSeparator() + "  [X] read book",
+                oreo.getResponse("mark 1"));
+        assertEquals("OK, I've marked this task as not done yet:" + System.lineSeparator() + "  [ ] read book",
+                oreo.getResponse("unmark 1"));
+        assertEquals("Here are the matching tasks in your list:" + System.lineSeparator()
+                + " 1.[T][ ] read book", oreo.getResponse("find BOOK"));
+        assertEquals("Noted. I've removed this task:" + System.lineSeparator() + "[T][ ] read book"
+                + System.lineSeparator() + "Now you have 0 tasks in the list.", oreo.getResponse("delete 1"));
+        assertEquals("Bye. Hope to see you again soon!", oreo.getResponse("bye"));
+        assertEquals("", Files.readString(storageFile));
+        assertEquals("Oreo has already said goodbye. Please restart the app to continue.", oreo.getResponse("list"));
+    }
+
+    @Test
+    void getResponse_invalidArguments_setsErrorStateAndReturnsGuidance() {
+        Oreo oreo = new Oreo(temporaryDirectory.resolve("Oreo.txt").toString());
+
+        assertEquals("Please enter a command.", oreo.getResponse("   "));
+        assertEquals("Use: list tags.", oreo.getResponse("list tags now"));
+        assertEquals("Use: find <keyword>.", oreo.getResponse("find"));
+        assertEquals("Please provide a task number to mark.", oreo.getResponse("mark"));
+        assertEquals("Please provide a task number to delete.", oreo.getResponse("delete one"));
+        assertEquals("Please provide a valid task number.", oreo.getResponse("unmark 1"));
+        assertTrue(oreo.wasLastResponseAnError());
     }
 }
