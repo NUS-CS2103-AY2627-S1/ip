@@ -43,6 +43,10 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             VBox root = fxmlLoader.load();
             Scene scene = new Scene(root);
+            // How things look is kept in a stylesheet, apart from what they are
+            // (the FXML) and what they do (the controllers), so colors and
+            // spacing can be tuned without touching either.
+            scene.getStylesheets().add(Main.class.getResource("/css/chione.css").toExternalForm());
 
             stage.setScene(scene);
             stage.setTitle("Chione");
