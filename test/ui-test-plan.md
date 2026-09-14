@@ -8,7 +8,7 @@ Use one level-two section per test case. The `test-ui` skill executes the comman
 
 **Command:**
 ```powershell
-powershell -NoProfile -Command "Remove-Item data\arrodes.txt -ErrorAction SilentlyContinue; java -cp build\classes\java\main arrodes.Arrodes"
+powershell -NoProfile -Command "Remove-Item data\arrodes.txt -ErrorAction SilentlyContinue; java -jar build\libs\arrodes.jar --cli"
 ```
 
 **Input:**
@@ -40,7 +40,7 @@ ____________________________________________________________
 
 **Command:**
 ```powershell
-powershell -NoProfile -Command "Set-Content data\arrodes.txt 'X | 0 | corrupt'; java -cp build\classes\java\main arrodes.Arrodes"
+powershell -NoProfile -Command "Set-Content data\arrodes.txt 'X | 0 | corrupt'; java -jar build\libs\arrodes.jar --cli"
 ```
 
 **Input:**
@@ -77,7 +77,7 @@ ____________________________________________________________
 
 **Command:**
 ```powershell
-powershell -NoProfile -Command "Remove-Item data\arrodes.txt -ErrorAction SilentlyContinue; java -cp build\classes\java\main arrodes.Arrodes"
+powershell -NoProfile -Command "Remove-Item data\arrodes.txt -ErrorAction SilentlyContinue; java -jar build\libs\arrodes.jar --cli"
 ```
 
 **Input:**
@@ -139,7 +139,7 @@ ____________________________________________________________
 
 **Command:**
 ```powershell
-powershell -NoProfile -Command "Remove-Item data\arrodes.txt -ErrorAction SilentlyContinue; java -cp build\classes\java\main arrodes.Arrodes"
+powershell -NoProfile -Command "Remove-Item data\arrodes.txt -ErrorAction SilentlyContinue; java -jar build\libs\arrodes.jar --cli"
 ```
 
 **Input:**
@@ -206,7 +206,7 @@ ____________________________________________________________
 
 **Command:**
 ```powershell
-powershell -NoProfile -Command "Remove-Item data\arrodes.txt -ErrorAction SilentlyContinue; java -cp build\classes\java\main arrodes.Arrodes"
+powershell -NoProfile -Command "Remove-Item data\arrodes.txt -ErrorAction SilentlyContinue; java -jar build\libs\arrodes.jar --cli"
 ```
 
 **Input:**
@@ -242,7 +242,7 @@ ____________________________________________________________
 
 **Command:**
 ```powershell
-powershell -NoProfile -Command "Remove-Item data\arrodes.txt -ErrorAction SilentlyContinue; java -cp build\classes\java\main arrodes.Arrodes"
+powershell -NoProfile -Command "Remove-Item data\arrodes.txt -ErrorAction SilentlyContinue; java -jar build\libs\arrodes.jar --cli"
 ```
 
 **Input:**
@@ -310,7 +310,7 @@ ____________________________________________________________
 
 **Command:**
 ```powershell
-powershell -NoProfile -Command "Set-Content data\arrodes.txt 'T | 1 | read book','D | 1 | return book | 2026-06-06','T | 1 | wash dishes'; java -cp build\classes\java\main arrodes.Arrodes"
+powershell -NoProfile -Command "Set-Content data\arrodes.txt 'T | 1 | read book','D | 1 | return book | 2026-06-06','T | 1 | wash dishes'; java -jar build\libs\arrodes.jar --cli"
 ```
 
 **Input:**
@@ -353,7 +353,7 @@ ____________________________________________________________
 
 **Command:**
 ```powershell
-powershell -NoProfile -Command "Remove-Item data\arrodes.txt -ErrorAction SilentlyContinue; java -cp build\classes\java\main arrodes.Arrodes"
+powershell -NoProfile -Command "Remove-Item data\arrodes.txt -ErrorAction SilentlyContinue; java -jar build\libs\arrodes.jar --cli"
 ```
 
 **Input:**

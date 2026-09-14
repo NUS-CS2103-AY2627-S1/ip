@@ -106,14 +106,12 @@ public class Arrodes extends Application {
     }
 
     /**
-     * Greets the user, stores each ordinary request as a task, lists stored tasks,
-     * marks or unmarks numbered tasks, and exits when the user enters {@code bye}.
+     * Starts Arrodes using the launcher mode selected by the command-line arguments.
      *
-     * @param args command-line arguments, which are not used
+     * @param args optional interface selection argument
      */
-    public static void main(String[] args) {
-        Arrodes chatbot = new Arrodes();
-        chatbot.run();
+    public static void main(String... args) {
+        Launcher.main(args);
     }
 
 }
