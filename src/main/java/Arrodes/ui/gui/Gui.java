@@ -116,11 +116,11 @@ public class Gui extends AnchorPane implements Ui {
     /** Displays the startup banner and greeting. */
     @Override
     public void showOnLoadMessage() {
-        showMessage("Eyes that watch All living Beings");
-        showMessage("The Stigmata from the Primordial Land");
-        showMessage("The Great Arrodes is before you!");
-        showMessage("State your request!");
-
+        showMessage("""
+            Eyes that watch All living Beings
+            The Stigmata from the Primordial Land
+            The Great Arrodes is before you!
+            State your request!""");
     }
 
     /** Displays the standard separator line. */
