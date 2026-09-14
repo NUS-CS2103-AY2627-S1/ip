@@ -148,11 +148,10 @@ public class MainWindow {
     @FXML
     private void handleSuggestion(ActionEvent event) {
         assert event.getSource() instanceof Button : "Suggestion source must be a button";
-
-        Button suggestion = (Button) event.getSource();
-        assert suggestion.getUserData() instanceof String
+        assert ((Button) event.getSource()).getUserData() instanceof String
                 : "Suggestion command template must be a string";
 
+        Button suggestion = (Button) event.getSource();
         String commandTemplate = (String) suggestion.getUserData();
         userInput.setText(commandTemplate);
         userInput.positionCaret(commandTemplate.length());
