@@ -49,8 +49,8 @@ public class AddCommandTest {
         ChioneException e = assertThrows(ChioneException.class, () ->
                 new AddCommand(new Todo("Read Book")).execute(tasks, new Ui(), storage));
 
-        assertEquals("You already have that task: [T][ ] Read Book. "
-                + "I have not added it again; type list to see it.", e.getMessage());
+        assertEquals("That task is already resting in your list: [T][ ] Read Book. "
+                + "I haven't added it twice; type list to see it.", e.getMessage());
         assertEquals(1, tasks.size());
         // The refusal happens before the save, so no file should have appeared.
         assertFalse(Files.exists(saveFile));

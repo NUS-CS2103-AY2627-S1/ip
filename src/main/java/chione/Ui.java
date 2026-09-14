@@ -18,6 +18,11 @@ import chione.task.TaskList;
  * print, so a caller says {@code showAdded(task, count)} and leaves the choice of
  * words to this class.
  *
+ * <p>The words themselves belong to Chione, the Greek goddess of snow: calm,
+ * a little poetic, and fond of winter. Every reply is written in that one voice,
+ * and because they all live here, the voice cannot drift from one command to
+ * the next.
+ *
  * <p>Nothing is written out as it is said. Each {@code show...} call adds to the
  * reply being built, which is then collected in one piece — by
  * {@link #printResponse()} for the console, or by {@link #consumeResponse()} for
@@ -30,6 +35,15 @@ public class Ui {
 
     /** Indent placed in front of every line inside a block. */
     private static final String INDENT = "     ";
+
+    /**
+     * Chione's emblem, used to sign the greeting and the farewell.
+     *
+     * <p>Written as a Unicode escape rather than pasted in, so the source file
+     * compiles to the same character whatever encoding the compiler assumes. A
+     * console that cannot draw it shows a placeholder, which is harmless.
+     */
+    private static final String SNOWFLAKE = "\u2744";
 
     /**
      * Reads the user's input from standard input, one line at a time.
@@ -103,21 +117,26 @@ public class Ui {
 
     /** Shows the welcome message on its own, without the ASCII-art banner. */
     public void showGreeting() {
-        showBlock("Hello! I'm Chione.", "What can I do for you?");
+        showBlock("Hello, I'm Chione, goddess of snow. " + SNOWFLAKE,
+                "Tell me what needs doing, and I'll keep it frozen in place until it's done.");
     }
 
     /** Shows the goodbye message printed just before Chione exits. */
     public void showGoodbye() {
-        showBlock("Bye. Hope to see you again soon!");
+        showBlock("Farewell. May your days be calm and your list light as snow. " + SNOWFLAKE);
     }
 
     /**
      * Reports something Chione could not do.
      *
+     * <p>The explanation arrives already written; what is added is a first line
+     * that marks it as a slip rather than a success, so the two cannot be
+     * confused when read back in the console, where nothing else sets them apart.
+     *
      * @param message an explanation already phrased for the user to read
      */
     public void showError(String message) {
-        showBlock(message);
+        showBlock("Hm, that one slipped on the ice:", message);
     }
 
     /**
@@ -127,8 +146,8 @@ public class Ui {
      */
     public void showLoadingError(String message) {
         showBlock(message,
-                "I'll start with an empty list. Note that saving anything new",
-                "will replace that file, so rescue it first if you need it.");
+                "I'll start with a clean sheet of snow. Anything you save now will",
+                "replace that file, so rescue it first if you need it.");
     }
 
     /**
@@ -140,9 +159,9 @@ public class Ui {
     public void showAdded(Task task, int taskCount) {
         // Concatenating the task calls its own toString(), so the right type icon
         // and details appear without this class knowing which subclass it holds.
-        showBlock("Got it. I've added this task:",
+        showBlock("Settled, like fresh snowfall. I've added:",
                 "  " + task,
-                "Now you have " + taskCount + " tasks in the list.");
+                "Your list now holds " + countTasks(taskCount) + ".");
     }
 
     /**
@@ -152,9 +171,9 @@ public class Ui {
      * @param taskCount how many tasks are left
      */
     public void showRemoved(Task task, int taskCount) {
-        showBlock("Noted. I've removed this task:",
+        showBlock("Melted away. I've removed:",
                 "  " + task,
-                "Now you have " + taskCount + " tasks in the list.");
+                "Your list now holds " + countTasks(taskCount) + ".");
     }
 
     /**
@@ -163,7 +182,7 @@ public class Ui {
      * @param task the task just marked
      */
     public void showMarked(Task task) {
-        showBlock("Nice! I've marked this task as done:", "  " + task);
+        showBlock("Done, and dusted with snow. This one is finished:", "  " + task);
     }
 
     /**
@@ -172,7 +191,7 @@ public class Ui {
      * @param task the task just unmarked
      */
     public void showUnmarked(Task task) {
-        showBlock("OK, I've marked this task as not done yet:", "  " + task);
+        showBlock("Thawed out again. This one is not done yet:", "  " + task);
     }
 
     /**
@@ -182,10 +201,10 @@ public class Ui {
      */
     public void showTasks(TaskList tasks) {
         if (tasks.isEmpty()) {
-            showBlock("Your list is empty for now.");
+            showBlock("Your list is a fresh field of snow: nothing on it yet.");
             return;
         }
-        showBlock(buildNumberedLines("Here are the tasks in your list:", tasks));
+        showBlock(buildNumberedLines("Here is everything resting in your list:", tasks));
     }
 
     /**
@@ -196,25 +215,25 @@ public class Ui {
      */
     public void showTasksOn(TaskList matches, String readableDate) {
         if (matches.isEmpty()) {
-            showBlock("Nothing on " + readableDate + ".");
+            showBlock("Nothing falls on " + readableDate + ". A quiet day.");
             return;
         }
-        showBlock(buildNumberedLines("Here is what you have on " + readableDate + ":", matches));
+        showBlock(buildNumberedLines("Here is what falls on " + readableDate + ":", matches));
     }
 
     /**
      * Shows the tasks whose description contains a given word.
      *
      * @param matches the tasks found, possibly none
-     * @param keyword the word that was searched for, quoted back when nothing
-     *                matched so the user can see what was actually looked for
+     * @param keyword the word that was searched for, quoted back so the user can
+     *                see what was actually looked for
      */
     public void showMatchingTasks(TaskList matches, String keyword) {
         if (matches.isEmpty()) {
-            showBlock("Nothing in your list matches \"" + keyword + "\".");
+            showBlock("Nothing in your list matches \"" + keyword + "\". Not even a snowflake.");
             return;
         }
-        showBlock(buildNumberedLines("Here are the matching tasks in your list:", matches));
+        showBlock(buildNumberedLines("Here is what I found for \"" + keyword + "\":", matches));
     }
 
     /**
@@ -244,6 +263,22 @@ public class Ui {
             lineNumber++;
         }
         return lines;
+    }
+
+    /**
+     * Spells out a number of tasks with the right plural, e.g. {@code "1 task"}
+     * or {@code "3 tasks"}.
+     *
+     * <p>A goddess does not say "1 tasks", and neither should the program that
+     * speaks for her. The count is passed in rather than read from the list, so
+     * this can be used after a task has been removed as easily as after one has
+     * been added.
+     *
+     * @param taskCount how many tasks there are
+     * @return the count followed by "task" or "tasks"
+     */
+    private static String countTasks(int taskCount) {
+        return taskCount + (taskCount == 1 ? " task" : " tasks");
     }
 
     /**
