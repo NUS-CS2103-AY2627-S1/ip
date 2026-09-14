@@ -69,7 +69,7 @@ public class Gui extends AnchorPane implements Ui {
 
     /** Configures the send button to process submitted input. */
     private void configureSendButton() {
-        sendButton.setOnMouseClicked((event) -> {
+        sendButton.setOnAction((event) -> {
             handleUserInput();
         });
     }
@@ -113,6 +113,16 @@ public class Gui extends AnchorPane implements Ui {
     public void showMessage(String message) {
         dialogContainer.getChildren().addAll(DialogBox.getArrodesDialogBox(message));
     }
+
+    /**
+     * Displays an application error with a warning treatment.
+     *
+     * @param message error message to display
+     */
+    public void showError(String message) {
+        dialogContainer.getChildren().addAll(DialogBox.getErrorDialogBox(message));
+    }
+
     /** Displays the startup banner and greeting. */
     @Override
     public void showOnLoadMessage() {

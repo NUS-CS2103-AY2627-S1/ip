@@ -93,6 +93,11 @@ public class Arrodes extends Application {
         return command.isExit();
     }
 
+    /**
+     * Processes a command submitted from the graphical user interface.
+     *
+     * @param userInput command submitted by the user
+     */
     private void inputListener(String userInput) {
         try {
             Command command = CommandParser.parse(userInput);
@@ -101,7 +106,7 @@ public class Arrodes extends Application {
                 Platform.exit();
             }
         } catch (ArrodesException knownArrodesException) {
-            gui.showMessage(knownArrodesException.getMessage());
+            gui.showError(knownArrodesException.getMessage());
         }
     }
 
