@@ -2,6 +2,7 @@ package cookie.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -117,6 +119,55 @@ public class StorageTest {
         assertEquals("valid todo", loaded.get(0).getDescription());
         assertTrue(loaded.get(0).isDone());
         assertEquals("valid event", loaded.get(1).getDescription());
+    }
+
+    @Test
+    public void load_additionalMalformedRecordShapes_reportsEveryInvalidLine() throws IOException {
+        Path file = temporaryDirectory.resolve("cookie.txt");
+        Files.write(file, List.of(
+                "X | Not Done | unknown type",
+                "T | Not Done | extra field | unexpected",
+                "T | Not Done | ",
+                "T | Not Done | invalid\u0001description",
+                "D | Not Done | | 2026-08-27",
+                "D | Not Done | extra field | 2026-08-27 | unexpected",
+                "E | Not Done | | 09:00 to 10:00",
+                "E | Not Done | mixed values | 2026-08-27 to 10:00",
+                "T | not done | valid task"));
+
+        Storage.LoadResult result = new Storage(file.toString()).load();
+
+        assertEquals(List.of(1, 2, 3, 4, 5, 6, 7, 8), result.malformedLineNumbers());
+        assertEquals(1, result.tasks().size());
+        assertEquals("valid task", result.tasks().get(0).getDescription());
+    }
+
+    @Test
+    public void save_targetIsNonEmptyDirectory_removesTemporaryFileAndPreservesDirectory()
+            throws IOException {
+        Path targetDirectory = temporaryDirectory.resolve("target");
+        Files.createDirectories(targetDirectory);
+        Path existingFile = targetDirectory.resolve("existing.txt");
+        Files.writeString(existingFile, "existing data");
+        Storage storage = new Storage(targetDirectory.toString());
+
+        assertThrows(IOException.class, () -> storage.save(new TaskList(new Todo("buy milk"))));
+
+        assertEquals("existing data", Files.readString(existingFile));
+        try (var files = Files.list(temporaryDirectory)) {
+            assertFalse(files.anyMatch(path -> path.getFileName().toString().startsWith(".cookie-")));
+        }
+    }
+
+    @Test
+    public void loadResult_mutableSourceList_keepsImmutableSnapshot() {
+        List<Integer> mutableLineNumbers = new ArrayList<>(List.of(2));
+        Storage.LoadResult result = new Storage.LoadResult(new TaskList(), mutableLineNumbers);
+
+        mutableLineNumbers.add(5);
+
+        assertEquals(List.of(2), result.malformedLineNumbers());
+        assertThrows(UnsupportedOperationException.class, () -> result.malformedLineNumbers().add(7));
     }
 
     @Test

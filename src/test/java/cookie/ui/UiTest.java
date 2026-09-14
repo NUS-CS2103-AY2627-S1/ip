@@ -1,8 +1,12 @@
 package cookie.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -53,6 +57,34 @@ public class UiTest {
         assertTrue(printed.contains("couldn't load your tasks: load details"));
         assertTrue(printed.contains("malformed saved task records on lines 2, 5"));
         assertTrue(printed.contains("Bye. I'm going to sleep."));
+    }
+
+    @Test
+    public void defaultUi_exit_printsCompleteConsoleMessage() {
+        PrintStream originalOutput = System.out;
+        ByteArrayOutputStream printedBytes = new ByteArrayOutputStream();
+
+        try {
+            System.setOut(new PrintStream(printedBytes, true, StandardCharsets.UTF_8));
+            new Ui().exit();
+        } finally {
+            System.setOut(originalOutput);
+        }
+
+        String separator = "____________________________________________________________";
+        String expected = separator + System.lineSeparator()
+                + "Bye. I'm going to sleep." + System.lineSeparator()
+                + separator + System.lineSeparator();
+        assertEquals(expected, printedBytes.toString(StandardCharsets.UTF_8));
+    }
+
+    @Test
+    public void showMalformedRecords_singleLine_usesSingularNoun() {
+        Ui ui = new Ui(replyCollector);
+
+        ui.showMalformedRecords(List.of(3));
+
+        assertTrue(replyCollector.getReply().contains("records on line 3"));
     }
 
     @Test
@@ -117,6 +149,15 @@ public class UiTest {
     }
 
     @Test
+    public void showSortedTasks_emptyDateDescending_printsHeaderWithoutTaskLines() {
+        Ui ui = new Ui(replyCollector);
+
+        ui.showSortedTasks(List.of(), SortCriterion.DATE, SortDirection.DESCENDING);
+
+        assertEquals("Here are the task(s) sorted by date (descending):", replyCollector.getReply());
+    }
+
+    @Test
     public void combinedOutput_multipleMessages_forwardsInOrderToEveryOutput() {
         ReplyCollector firstOutput = new ReplyCollector();
         ReplyCollector secondOutput = new ReplyCollector();
@@ -128,5 +169,30 @@ public class UiTest {
         String expected = "first" + System.lineSeparator() + "second";
         assertEquals(expected, firstOutput.getReply());
         assertEquals(expected, secondOutput.getReply());
+    }
+
+    @Test
+    public void combine_changedSourceArray_keepsOriginalOutputSnapshot() {
+        ReplyCollector originalOutput = new ReplyCollector();
+        ReplyCollector replacementOutput = new ReplyCollector();
+        Output[] outputs = {originalOutput};
+        Output combinedOutput = Output.combine(outputs);
+        outputs[0] = replacementOutput;
+
+        combinedOutput.show("message");
+
+        assertEquals("message", originalOutput.getReply());
+        assertEquals("", replacementOutput.getReply());
+        assertThrows(NullPointerException.class, () -> Output.combine(originalOutput, null));
+    }
+
+    @Test
+    public void replyCollector_clear_removesPreviouslyCollectedMessages() {
+        replyCollector.show("first");
+        replyCollector.show("second");
+
+        replyCollector.clear();
+
+        assertEquals("", replyCollector.getReply());
     }
 }
