@@ -54,9 +54,7 @@ java -cp build/classes/java/main nova.Nova
 
 ### Use of AI tools
 
-Claude Code (Anthropic) was used extensively by me (dbs15329) throughout this
-project, as an assistant for writing and refactoring code, tests, commit
-messages and this documentation. Its use was not limited to particular files,
-so it is cited here rather than in individual comments, per the course
+I (dbs15329) used Claude Code (Anthropic) to help me here and there while
+working on this project. It is cited here rather than in individual code
+comments, per the course
 [policy on reuse](https://nus-cs2103-ay2627-s1.github.io/website/admin/policies.html).
-Every change was reviewed and accepted by me before being committed.
