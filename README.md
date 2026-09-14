@@ -15,7 +15,13 @@ CS2103/T.
  \____||_| |_||___| \___/ |_| \_||_____|
 ```
 
+The full user guide is at <https://lew1swong.github.io/ip/>.
+
 ## Features
+
+Chione runs in a window (`./gradlew run`), and also as a plain text
+conversation in the console (`./gradlew runText`); both understand the same
+commands and answer in the same words.
 
 | Command                                          | What it does                      |
 |--------------------------------------------------|-----------------------------------|
@@ -32,7 +38,9 @@ CS2103/T.
 ### Dates
 
 Write a date as `2019-10-15`, or as `2019-10-15 1800` to include a time of day.
-Chione shows it back in a friendlier form, e.g. `Oct 15 2019, 6:00pm`.
+Chione shows it back in a friendlier form, e.g. `Oct 15 2019, 6:00pm`. A date
+that does not exist, such as `2019-02-30`, is refused rather than moved to the
+nearest real day, and an event has to end after it starts.
 
 `on 2019-10-15` lists everything happening that day: deadlines falling on it, and
 events running over it, including ones that started on an earlier day.
@@ -123,7 +131,19 @@ Prerequisites: JDK 25, update Intellij to the most recent version.
 
 ## Acknowledgements
 
-The code in this project was written with Claude Code (Anthropic), used at
-level AI-5: the AI implemented each increment from the requirements given in
-the course website, and I reviewed the resulting code, asked for explanations
-of the design decisions behind it, and tested the behaviour before committing.
+* The window is built with JavaFX following the
+  [SE-EDU JavaFX tutorial](https://se-education.org/guides/tutorials/javaFx.html).
+  `Launcher`, `Main`, `MainWindow`, `DialogBox` and the two FXML layouts
+  started from the tutorial's code and were adapted from there; the
+  stylesheet, the resizable layout, the error bubbles and the circular
+  avatars were added on top.
+* The project structure, the Gradle setup and the Checkstyle configuration
+  come from the CS2103/T iP starter repository, which also follows the
+  [SE-EDU guides](https://se-education.org/guides/).
+* The code in this project was written with Claude Code (Anthropic), used at
+  level AI-5: the AI implemented each increment from the requirements given in
+  the course website, and I reviewed the resulting code, asked for explanations
+  of the design decisions behind it, and tested the behaviour before committing.
+  The Week 6 increments (A-Personality, A-BetterGui, A-MoreErrorHandling) were
+  done the same way, starting from the AI's suggestions for a personality and
+  for GUI improvements, from which I chose the ones to keep.
