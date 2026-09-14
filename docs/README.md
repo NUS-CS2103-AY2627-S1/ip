@@ -1,76 +1,139 @@
 # Cookie User Guide
 
-Cookie is a task manager that accepts text commands through its console or JavaFX chat window.
-Commands are case-insensitive, although task descriptions and search keywords retain their case.
+**Cookie** is a friendly task manager that helps you record todos, deadlines, and events
+using short text commands.
+
+![Cookie's chat window showing sorted tasks and a keyword search](Ui.png)
+
+## Quick start
+
+Cookie requires Java 25. From the project root, build and start the app with:
+
+```powershell
+.\gradlew.bat clean shadowJar
+java -jar .\build\libs\cookie.jar
+```
+
+On macOS or Linux, use `./gradlew clean shadowJar` and
+`java -jar ./build/libs/cookie.jar` instead.
+
+Type a command in the box at the bottom of the window, then press <kbd>Enter</kbd> or
+select **Send**. For example, try `todo read book`, followed by `list`.
 
 ## Command summary
 
-| Command | Purpose |
+Words in angle brackets, such as `<description>`, are required. Words in square
+brackets, such as `[asc|desc]`, are optional. Do not type the brackets.
+
+| Command | What it does |
 | --- | --- |
-| `todo <description>` | Add a task without a date or time. |
-| `deadline <description> /by <date/time>` | Add a task with a due value. |
-| `event <description> /from <date/time> /to <date/time>` | Add an event with start and end values. |
-| `list` | Display every task in its stored order. |
-| `sort <description\|date> [asc\|desc]` | Display a temporary sorted view. |
-| `find <keyword>` | Display tasks whose descriptions contain the keyword. |
-| `on <date>` | Display deadlines and events occurring on the date. |
-| `mark <task number>` | Mark a task as complete. |
-| `unmark <task number>` | Mark a task as incomplete. |
-| `delete <task number>` | Delete a task. |
-| `bye` | Exit Cookie. |
+| `todo <description>` | Adds a task without a date or time. |
+| `deadline <description> /by <date/time>` | Adds a task with a due date, time, or both. |
+| `event <description> /from <date/time> /to <date/time>` | Adds an event with a start and end. |
+| `list` | Shows every task in its saved order. |
+| `find <keyword>` | Finds tasks containing the keyword. |
+| `on <date>` | Shows deadlines and events occurring on the date. |
+| `sort <description\|date> [asc\|desc]` | Shows a temporarily sorted task list. |
+| `mark <task number>` | Marks a task as done. |
+| `unmark <task number>` | Marks a task as not done. |
+| `delete <task number>` | Deletes a task. |
+| `bye` | Says goodbye and ends a console session. |
+
+Command words are not case-sensitive. Descriptions and search keywords keep their
+capitalisation.
 
 ## Adding tasks
 
-Add a todo with a description:
+### Adding a todo: `todo`
+
+Use a todo for a task without a date or time.
+
+**Format:** `todo <description>`
+
+**Example:**
 
 ```text
 todo read book
 ```
 
-Add a deadline using a date, a time, or both:
+### Adding a deadline: `deadline`
+
+Use a deadline for something that must be completed by a date or time.
+
+**Format:** `deadline <description> /by <date/time>`
+
+**Examples:**
 
 ```text
 deadline submit report /by 2026-09-15 1800
+deadline pay bill /by 15/9/2026
+deadline take medicine /by 2100
 ```
 
-Add an event with `/from` and `/to` values:
+### Adding an event: `event`
+
+Use an event for something with a start and end.
+
+**Format:** `event <description> /from <date/time> /to <date/time>`
+
+**Example:**
 
 ```text
 event project meeting /from 2026-09-15 1400 /to 2026-09-15 1600
 ```
 
-Dates accept `yyyy-MM-dd` or `d/M/yyyy`. Times use the 24-hour `HHmm` format.
-An event's start and end must use the same kind of value (date, time, or date-time),
-and its end must be later than its start. Each task must have unique identifying details;
-completion status does not make an otherwise identical task unique.
+The start and end must both be dates, both be times, or both be date-times. The end
+must be later than the start.
 
-Cookie accepts surrounding or repeated whitespace, but each `/by`, `/from`, and `/to`
-parameter may appear only once. The `|` storage delimiter and control characters are not
-allowed in task details.
+### Date and time formats
+
+Cookie accepts the following input formats:
+
+| Value | Accepted format | Example |
+| --- | --- | --- |
+| Date | `yyyy-MM-dd` or `d/M/yyyy` | `2026-09-15` or `15/9/2026` |
+| Time | `HHmm` using the 24-hour clock | `1800` |
+| Date and time | A supported date, a space, then a time | `2026-09-15 1800` |
+
+Keep `/by`, `/from`, and `/to` lowercase and separated from surrounding text by spaces.
 
 ## Viewing and finding tasks
 
-Use `list` to display all tasks in their stored order. Task numbers identify tasks for
-`mark`, `unmark`, and `delete`.
+### Viewing all tasks: `list`
 
-Use `find` for an exact, case-sensitive substring search of task descriptions:
+Enter `list` to see all tasks. Cookie gives each task a number and displays its type and
+status:
 
-```text
-find book
-```
+- `[T]`, `[D]`, and `[E]` mean todo, deadline, and event respectively.
+- `[ ]` means not done; `[X]` means done.
 
-Use `on` to display deadlines due on a date and events whose date ranges include it:
+Use the displayed task number with `mark`, `unmark`, or `delete`.
 
-```text
-on 2026-09-15
-```
+### Finding tasks by keyword: `find`
 
-Filtered results preserve the task numbers shown by `list`.
+**Format:** `find <keyword>`
 
-## Sorting tasks temporarily
+**Example:** `find book`
 
-Use `sort` with `description` or `date`. The optional direction is `asc` or `desc`;
-ascending is the default.
+The keyword must be one word. Matching is a case-sensitive substring search of task
+descriptions, so `find book` matches `read book` but not `read Book`.
+
+### Finding tasks on a date: `on`
+
+**Format:** `on <date>`
+
+**Example:** `on 2026-09-15`
+
+This shows deadlines due on that date and events whose date range includes it. Todos and
+time-only tasks are not shown because they have no calendar date.
+
+Results from `find` and `on` keep the original task numbers shown by `list`.
+
+## Sorting tasks: `sort`
+
+**Format:** `sort <description|date> [asc|desc]`
+
+Ascending order is used when the direction is omitted.
 
 ```text
 sort description
@@ -79,21 +142,17 @@ sort date
 sort date desc
 ```
 
-Description sorting is alphabetical and case-insensitive. Equal descriptions retain
-their stored relative order.
+Description sorting is alphabetical and case-insensitive. Date sorting compares a
+deadline's due value with an event's start value. Dated tasks appear before time-only
+tasks, followed by todos, in either direction.
 
-Date sorting compares deadlines by their due values and events by their start values.
-Tasks with calendar dates appear first, followed by time-only tasks and then todos.
-Date-only values are treated as the start of their day. These groups stay in that order
-for both ascending and descending views.
+Sorting only changes the current view; it does not rearrange the saved list. The original
+task numbers remain displayed, so `mark 3` still updates task 3 even if sorting places it
+first.
 
-Sorting does not change or save the stored task order. Each sorted result retains the
-original task numbers, so a command such as `mark 3` still targets task 3 even if it
-appears first in the sorted view.
+## Updating and deleting tasks
 
-## Updating tasks
-
-Use a task's displayed number to update or remove it:
+Use the task number shown by Cookie:
 
 ```text
 mark 2
@@ -101,17 +160,10 @@ unmark 2
 delete 2
 ```
 
-Marking, unmarking, deleting, and adding tasks are saved automatically. Sorting is a
-read-only view and is not persisted.
+`mark` records a task as done, `unmark` restores it to not done, and `delete` removes it.
+Adding, updating, and deleting tasks are saved automatically to `data/cookie.txt`.
 
-If Cookie cannot read its task file at startup, it reports the problem and blocks changes
-for that session. This prevents an unreadable file from being overwritten. Fix the reported
-file or permission issue, then restart Cookie.
+## Exiting Cookie
 
-## Exiting
-
-Enter `bye` to exit Cookie:
-
-```text
-bye
-```
+Close the desktop window when you are finished. If you are running Cookie in console mode,
+enter `bye` to end the session.
