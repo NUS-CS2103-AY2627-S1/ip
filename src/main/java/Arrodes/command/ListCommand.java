@@ -1,5 +1,7 @@
 package arrodes.command;
+
 import arrodes.storage.Storage;
+import arrodes.task.Task;
 import arrodes.task.TaskList;
 import arrodes.ui.Ui;
 
@@ -17,10 +19,11 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(Ui ui, TaskList taskList, Storage storage) {
-        String output = "Arrodes reveals the requests entrusted to its memory:\n";
+        StringBuilder output = new StringBuilder("Arrodes reveals the requests entrusted to its memory:\n");
         for (int i = 0; i < taskList.getSize(); i++) {
-            output = output + "    " + (i + 1) + "." + taskList.getTaskByIndex(i).toString() + "\n";
+            Task task = taskList.getTaskByIndex(i);
+            output.append("    ").append(i + 1).append('.').append(task).append('\n');
         }
-        ui.showMessage(output);
+        ui.showMessage(output.toString());
     }
 }

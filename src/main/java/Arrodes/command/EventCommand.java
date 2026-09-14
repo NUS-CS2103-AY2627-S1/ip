@@ -13,33 +13,33 @@ import arrodes.ui.Ui;
 public class EventCommand extends Command {
     /** Text describing the event. */
     private final String description;
-    /** Event start. */
-    private final LocalDateTime from;
-    /** Event end. */
-    private final LocalDateTime to;
+    /** Event start date and time. */
+    private final LocalDateTime startAt;
+    /** Event end date and time. */
+    private final LocalDateTime endAt;
     /** Whether the input included a time at the start. */
-    private final boolean isTimeIncludedInStartDate;
+    private final boolean isStartTimeIncluded;
     /** Whether the input included a time at the end. */
-    private final boolean isTimeIncludedInEndDate;
+    private final boolean isEndTimeIncluded;
 
     /**
      * Creates a command for adding an event.
      * @param description event description
-     * @param from event start
-     * @param to event end
-     * @param isTimeIncludedInStartDate whether the start included a time
-     * @param isTimeIncludedInEndDate whether the end included a time
+     * @param startAt event start
+     * @param endAt event end
+     * @param isStartTimeIncluded whether the start included a time
+     * @param isEndTimeIncluded whether the end included a time
      */
-    public EventCommand(String description, LocalDateTime from, LocalDateTime to,
-                         boolean isTimeIncludedInStartDate, boolean isTimeIncludedInEndDate) {
+    public EventCommand(String description, LocalDateTime startAt, LocalDateTime endAt,
+                         boolean isStartTimeIncluded, boolean isEndTimeIncluded) {
         assert description != null : "Event description must not be null.";
-        assert from != null : "Event start must not be null.";
-        assert to != null : "Event end must not be null.";
+        assert startAt != null : "Event start must not be null.";
+        assert endAt != null : "Event end must not be null.";
         this.description = description;
-        this.from = from;
-        this.to = to;
-        this.isTimeIncludedInStartDate = isTimeIncludedInStartDate;
-        this.isTimeIncludedInEndDate = isTimeIncludedInEndDate;
+        this.startAt = startAt;
+        this.endAt = endAt;
+        this.isStartTimeIncluded = isStartTimeIncluded;
+        this.isEndTimeIncluded = isEndTimeIncluded;
     }
 
     /**
@@ -50,13 +50,10 @@ public class EventCommand extends Command {
      */
     @Override
     public void execute(Ui ui, TaskList taskList, Storage storage) {
-        if (to.isBefore(from)) {
+        if (endAt.isBefore(startAt)) {
             throw new ArrodesException(ArrodesException.INVALID_EVENT_TIME);
         }
-        taskList.insert(new Event(description, from, to, isTimeIncludedInStartDate, isTimeIncludedInEndDate));
-        storage.save(taskList);
-        ui.showMessage("Your request has been inscribed in Arrodes' annals:\n"
-                + "   " + taskList.getTaskByNumber(taskList.getSize()).toString() + "\n"
-                + taskList.getSize() + " tasks are being tracked");
+        Event event = new Event(description, startAt, endAt, isStartTimeIncluded, isEndTimeIncluded);
+        addTaskAndSave(event, ui, taskList, storage);
     }
 }

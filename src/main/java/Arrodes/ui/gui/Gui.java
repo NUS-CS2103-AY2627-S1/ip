@@ -30,6 +30,7 @@ public class Gui extends AnchorPane implements Ui {
     @FXML
     private Button sendButton;
 
+    /** Callback that receives commands submitted through the GUI. */
     private GuiListener inputListener;
 
     /**

@@ -29,9 +29,13 @@ public class CommandParser {
     private static final Pattern COMMAND_SEPARATOR = Pattern.compile(" ");
     /** Matches the supported parameter name and its non-empty value. */
     private static final Pattern PARAMETER_PATTERN = Pattern.compile("([a-z]+) ([^ ].*)");
+    /** Separator used in ISO date-time values. */
+    private static final String DATE_TIME_SEPARATOR = "T";
+    /** Pattern used to validate supported task tags. */
+    private static final String TAG_PATTERN = "[A-Za-z0-9_-]+";
 
     /** Creates a parser; parsing operations are available as static methods. */
-    public CommandParser() {
+    private CommandParser() {
     }
 
     /**
@@ -155,7 +159,9 @@ public class CommandParser {
         validateParameterNames(tokenizedCommand, "from", "to");
         String from = requireParameter(tokenizedCommand, "from");
         String to = requireParameter(tokenizedCommand, "to");
-        if (from.contains("T") ^ to.contains("T")) {
+        boolean hasStartTime = from.contains(DATE_TIME_SEPARATOR);
+        boolean hasEndTime = to.contains(DATE_TIME_SEPARATOR);
+        if (hasStartTime ^ hasEndTime) {
             throw new ArrodesException(ArrodesException.INCONSISTENT_TIME_FORMAT);
         }
         LocalDateTime startAt = parseDateTime(from);
@@ -164,7 +170,7 @@ public class CommandParser {
             throw new ArrodesException(ArrodesException.INVALID_EVENT_TIME);
         }
         return new EventCommand(tokenizedCommand.getDescription(), startAt, endAt,
-                from.contains("T"), to.contains("T"));
+                hasStartTime, hasEndTime);
     }
 
     /** Creates a list command after validating that it has no arguments. */
@@ -199,7 +205,7 @@ public class CommandParser {
         validateDescription(tokenizedCommand);
         validateParameterNames(tokenizedCommand, "with");
         String tag = requireParameter(tokenizedCommand, "with");
-        if (!tag.matches("[A-Za-z0-9_-]+")) {
+        if (!tag.matches(TAG_PATTERN)) {
             throw new ArrodesException(ArrodesException.INVALID_TAG);
         }
         return new TagCommand(parseTaskNumberValue(tokenizedCommand.getDescription()), tag);
@@ -282,8 +288,10 @@ public class CommandParser {
      * @throws ArrodesException if the value has an invalid format or date
      */
     private static LocalDateTime parseDateTime(String value) throws ArrodesException {
-        boolean hasExpectedShape = value != null
-                && value.matches("\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2})?");
+        if (value == null) {
+            throw new ArrodesException(ArrodesException.INVALID_DATE_FORMAT);
+        }
+        boolean hasExpectedShape = value.matches("\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2})?");
         try {
             return LocalDateTime.parse(value);
         } catch (DateTimeParseException exception) {

@@ -1,6 +1,7 @@
 package arrodes.task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import arrodes.exception.ArrodesException;
 
@@ -10,7 +11,7 @@ public class TaskList {
     /** Maximum number of tasks this list can contain. */
     private final int capacity;
     /** Tasks in the order in which they were added. */
-    private final ArrayList<Task> list = new ArrayList<>();
+    private final List<Task> tasks = new ArrayList<>();
 
     /**
      * Creates an empty list with a chosen capacity.
@@ -30,7 +31,7 @@ public class TaskList {
      * @return current task count
      */
     public int getSize() {
-        return list.size();
+        return tasks.size();
     }
 
     /**
@@ -38,7 +39,7 @@ public class TaskList {
      * @return {@code true} when the list has reached capacity
      */
     public boolean isFull() {
-        return list.size() >= capacity;
+        return tasks.size() >= capacity;
     }
 
     /**
@@ -50,14 +51,14 @@ public class TaskList {
         if (task == null || task.getDescription() == null || task.getDescription().isBlank()) {
             throw new ArrodesException(ArrodesException.EMPTY_DESCRIPTION);
         }
-        if (list.stream().anyMatch(existingTask -> existingTask.hasSameDetailsAs(task))) {
+        if (tasks.stream().anyMatch(existingTask -> existingTask.hasSameDetailsAs(task))) {
             throw new ArrodesException(ArrodesException.DUPLICATE_TASK);
         }
         if (isFull()) {
             throw new ArrodesException(ArrodesException.TASK_LIST_FULL);
         }
-        list.add(task);
-        assert list.size() <= capacity : "Task list must not exceed its capacity.";
+        tasks.add(task);
+        assert tasks.size() <= capacity : "Task list must not exceed its capacity.";
     }
 
     /**
@@ -68,10 +69,10 @@ public class TaskList {
      */
     public Task delete(int itemNumber) throws ArrodesException {
         int itemIndex = itemNumber - 1;
-        if (itemIndex >= list.size() || itemIndex < 0) {
+        if (itemIndex >= tasks.size() || itemIndex < 0) {
             throw new ArrodesException(ArrodesException.ITEM_NOT_IN_LIST);
         }
-        return list.remove(itemIndex);
+        return tasks.remove(itemIndex);
     }
 
     /**
@@ -82,10 +83,10 @@ public class TaskList {
      * @throws ArrodesException if the task or position is invalid, or the list is full
      */
     public void restore(int itemIndex, Task task) throws ArrodesException {
-        if (task == null || itemIndex < 0 || itemIndex > list.size() || isFull()) {
+        if (task == null || itemIndex < 0 || itemIndex > tasks.size() || isFull()) {
             throw new ArrodesException(ArrodesException.ITEM_NOT_IN_LIST);
         }
-        list.add(itemIndex, task);
+        tasks.add(itemIndex, task);
     }
 
     /**
@@ -95,10 +96,10 @@ public class TaskList {
      * @throws ArrodesException if the index is outside the list
      */
     public Task getTaskByIndex(int itemIndex) {
-        if (itemIndex >= list.size() || itemIndex < 0) {
+        if (itemIndex >= tasks.size() || itemIndex < 0) {
             throw new ArrodesException(ArrodesException.ITEM_NOT_IN_LIST);
         }
-        Task task = list.get(itemIndex);
+        Task task = tasks.get(itemIndex);
         assert task != null : "A valid task index must contain a task.";
         return task;
     }

@@ -33,12 +33,12 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(Ui ui, TaskList taskList, Storage storage) {
+        String normalizedKeyword = keyword.toLowerCase(Locale.ROOT);
         boolean hasMatchingTask = false;
         ui.showMessage("Arrodes reveals the records matching your words:");
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTaskByIndex(i);
-            if (task.getDescription().toLowerCase(Locale.ROOT)
-                    .contains(keyword.toLowerCase(Locale.ROOT))) {
+            if (task.getDescription().toLowerCase(Locale.ROOT).contains(normalizedKeyword)) {
                 ui.showMessage((i + 1) + "." + task);
                 hasMatchingTask = true;
             }

@@ -86,14 +86,28 @@ public class Task {
                 || !description.equals(other.description)) {
             return false;
         }
-        if (this instanceof Deadline deadline && other instanceof Deadline otherDeadline) {
-            return deadline.getDueBy().equals(otherDeadline.getDueBy());
+        if (this instanceof Deadline) {
+            return hasSameDeadlineDetails(other);
         }
-        if (this instanceof Event event && other instanceof Event otherEvent) {
-            return event.getStartAt().equals(otherEvent.getStartAt())
-                    && event.getEndAt().equals(otherEvent.getEndAt());
+        if (this instanceof Event) {
+            return hasSameEventDetails(other);
         }
         return true;
+    }
+
+    /** Returns whether two deadline tasks have the same due date. */
+    private boolean hasSameDeadlineDetails(Task other) {
+        Deadline deadline = (Deadline) this;
+        Deadline otherDeadline = (Deadline) other;
+        return deadline.getDueBy().equals(otherDeadline.getDueBy());
+    }
+
+    /** Returns whether two event tasks have the same interval. */
+    private boolean hasSameEventDetails(Task other) {
+        Event event = (Event) this;
+        Event otherEvent = (Event) other;
+        return event.getStartAt().equals(otherEvent.getStartAt())
+                && event.getEndAt().equals(otherEvent.getEndAt());
     }
 
     /**

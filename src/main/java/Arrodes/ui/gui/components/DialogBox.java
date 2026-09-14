@@ -48,8 +48,8 @@ public class DialogBox extends HBox {
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
-        } catch (IOException e) {
-            System.out.println("Failed to Load Dialog box");
+        } catch (IOException exception) {
+            throw new IllegalStateException("Unable to load the dialog box layout", exception);
         }
         dialog.setText(message);
         displayPicture.setImage(image);

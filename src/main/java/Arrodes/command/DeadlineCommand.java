@@ -35,10 +35,6 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public void execute(Ui ui, TaskList taskList, Storage storage) {
-        taskList.insert(new Deadline(description, dueBy));
-        storage.save(taskList);
-        ui.showMessage("Your request has been inscribed in Arrodes' annals:\n"
-                + "   " + taskList.getTaskByNumber(taskList.getSize()).toString() + "\n"
-                + taskList.getSize() + " tasks are being tracked");
+        addTaskAndSave(new Deadline(description, dueBy), ui, taskList, storage);
     }
 }

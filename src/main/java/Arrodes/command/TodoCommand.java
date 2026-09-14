@@ -1,4 +1,5 @@
 package arrodes.command;
+
 import arrodes.storage.Storage;
 import arrodes.task.TaskList;
 import arrodes.task.Todo;
@@ -26,10 +27,6 @@ public class TodoCommand extends Command {
      */
     @Override
     public void execute(Ui ui, TaskList taskList, Storage storage) {
-        taskList.insert(new Todo(description));
-        storage.save(taskList);
-        ui.showMessage("Your request has been inscribed in Arrodes' annals:\n"
-                + "   " + taskList.getTaskByNumber(taskList.getSize()).toString() + "\n"
-                + taskList.getSize() + " tasks are being tracked");
+        addTaskAndSave(new Todo(description), ui, taskList, storage);
     }
 }
