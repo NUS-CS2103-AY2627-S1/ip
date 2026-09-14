@@ -32,8 +32,8 @@ public class AddCommand extends Command {
         // what the user may type, not about what the list may hold. A loaded save
         // file is taken as written, and it never passes through add anyway.
         if (tasks.hasDuplicateOf(task)) {
-            throw new ChioneException("You already have that task: " + task
-                    + ". I have not added it again; type list to see it.");
+            throw new ChioneException("That task is already resting in your list: " + task
+                    + ". I haven't added it twice; type list to see it.");
         }
         tasks.add(task);
         ui.showAdded(task, tasks.size());

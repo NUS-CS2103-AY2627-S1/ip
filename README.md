@@ -2,8 +2,10 @@
 
 [![Java CI](https://github.com/Lew1sWong/ip/actions/workflows/gradle.yml/badge.svg)](https://github.com/Lew1sWong/ip/actions/workflows/gradle.yml)
 
-Chione is a command-line personal assistant chatbot that keeps track of your tasks.
-It is built as the individual project (iP) for CS2103/T.
+Chione is a personal assistant chatbot that keeps track of your tasks. She is
+named after the Greek goddess of snow, and speaks like it: calm, a little
+poetic, and fond of winter. It is built as the individual project (iP) for
+CS2103/T.
 
 ```
   ____  _   _  ___   ___   _   _  _____
@@ -61,9 +63,9 @@ Example session:
 ```
 todo borrow book
     ____________________________________________________________
-     Got it. I've added this task:
+     Settled, like fresh snowfall. I've added:
        [T][ ] borrow book
-     Now you have 1 tasks in the list.
+     Your list now holds 1 task.
     ____________________________________________________________
 ```
 
