@@ -20,8 +20,9 @@ public class Main extends Application {
             AnchorPane mainLayout = fxmlLoader.load();
             stage.setScene(new Scene(mainLayout));
             stage.setTitle("Cookie");
-            stage.setMinHeight(220.0);
-            stage.setMinWidth(417.0);
+            stage.setMinHeight(320.0);
+            stage.setMinWidth(360.0);
+            stage.setResizable(true);
             fxmlLoader.<MainWindow>getController().setCookie(cookie);
             stage.show();
         } catch (IOException exception) {

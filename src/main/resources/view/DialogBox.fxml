@@ -6,9 +6,10 @@
 <?import javafx.scene.layout.HBox?>
 
 <fx:root alignment="TOP_RIGHT"
+         fillHeight="true"
          maxHeight="1.7976931348623157E308"
          maxWidth="1.7976931348623157E308"
-         prefWidth="400.0"
+         styleClass="dialog-row"
          stylesheets="@../css/dialog-box.css"
          type="javafx.scene.layout.HBox"
          xmlns="http://javafx.com/javafx/17"
@@ -16,22 +17,18 @@
     <children>
         <Label fx:id="dialog"
                minHeight="-Infinity"
+               minWidth="0.0"
+               styleClass="dialog-label"
                text="Label"
-               wrapText="true">
-            <HBox.margin>
-                <Insets left="7.0" right="7.0" />
-            </HBox.margin>
-            <padding>
-                <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
-            </padding>
-        </Label>
+               wrapText="true" />
         <ImageView fx:id="displayPicture"
-                   fitHeight="99.0"
-                   fitWidth="99.0"
+                   fitHeight="36.0"
+                   fitWidth="36.0"
                    pickOnBounds="true"
-                   preserveRatio="true" />
+                   preserveRatio="false"
+                   styleClass="avatar" />
     </children>
     <padding>
-        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+        <Insets bottom="5.0" left="12.0" right="12.0" top="5.0" />
     </padding>
 </fx:root>

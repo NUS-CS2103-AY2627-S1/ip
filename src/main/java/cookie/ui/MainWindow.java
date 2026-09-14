@@ -10,8 +10,6 @@ import javafx.scene.layout.VBox;
 
 /** Controls Cookie's main chat window. */
 public class MainWindow extends AnchorPane {
-    private final Image userImage = new Image(
-            getClass().getResourceAsStream("/images/DaUser.jpg"));
     private final Image cookieImage = new Image(
             getClass().getResourceAsStream("/images/DaCookie.jpg"));
 
@@ -39,10 +37,12 @@ public class MainWindow extends AnchorPane {
      */
     public void setCookie(Cookie cookie) {
         this.cookie = cookie;
-        String startupResponse = cookie.getStartupResponse();
-        if (!startupResponse.isBlank()) {
-            dialogContainer.getChildren().add(
-                    DialogBox.getCookieDialog(startupResponse, cookieImage));
+        Cookie.CommandResult startupResult = cookie.getStartupResult();
+        if (!startupResult.message().isBlank()) {
+            DialogBox startupDialog = startupResult.isError()
+                    ? DialogBox.getErrorDialog(startupResult.message(), cookieImage)
+                    : DialogBox.getCookieDialog(startupResult.message(), cookieImage);
+            dialogContainer.getChildren().add(startupDialog);
         }
     }
 
@@ -50,10 +50,13 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = cookie.getResponse(input);
+        Cookie.CommandResult result = cookie.getCommandResult(input);
+        DialogBox responseDialog = result.isError()
+                ? DialogBox.getErrorDialog(result.message(), cookieImage)
+                : DialogBox.getCookieDialog(result.message(), cookieImage);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getCookieDialog(response, cookieImage));
+                DialogBox.getUserDialog(input),
+                responseDialog);
         userInput.clear();
     }
 }

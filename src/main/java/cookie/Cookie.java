@@ -22,6 +22,10 @@ import cookie.ui.Ui;
 
 /** The main entry point for the Cookie command-line application. */
 public class Cookie {
+    /** A formatted response and whether the GUI should present it as an error. */
+    public record CommandResult(String message, boolean isError) {
+    }
+
     /** The default path used to store Cookie's task data. */
     private static final String DEFAULT_FILE_PATH = "./data/cookie.txt";
 
@@ -48,6 +52,9 @@ public class Cookie {
 
     /** Whether the most recently processed command requested that Cookie exit. */
     private boolean isExitRequested;
+
+    /** Whether the command currently being handled has produced an error. */
+    private boolean isCurrentResponseError;
 
     /** Creates Cookie for the GUI using the default task file. */
     public Cookie() {
@@ -203,6 +210,7 @@ public class Cookie {
             storage.save(tasks);
             return true;
         } catch (IOException exception) {
+            isCurrentResponseError = true;
             ui.showSaveError(exception.getMessage());
             return false;
         }
@@ -230,14 +238,26 @@ public class Cookie {
      * @return Cookie's response to the command.
      */
     public String getResponse(String input) {
+        return getCommandResult(input).message();
+    }
+
+    /**
+     * Processes one user command and returns its formatted response and presentation type.
+     *
+     * @param input The command entered by the user.
+     * @return The response and whether it represents an error.
+     */
+    public CommandResult getCommandResult(String input) {
         replyCollector.clear();
         isExitRequested = false;
+        isCurrentResponseError = false;
         try {
             execute(parser.parse(input));
         } catch (CookieException exception) {
+            isCurrentResponseError = true;
             ui.showError(exception);
         }
-        return replyCollector.getReply();
+        return new CommandResult(replyCollector.getReply(), isCurrentResponseError);
     }
 
     /**
@@ -246,9 +266,19 @@ public class Cookie {
      * @return The startup issue message, or an empty string when loading succeeded cleanly.
      */
     public String getStartupResponse() {
+        return getStartupResult().message();
+    }
+
+    /**
+     * Returns startup feedback and whether it should be visually highlighted by the GUI.
+     *
+     * @return The startup response and whether loading encountered a problem.
+     */
+    public CommandResult getStartupResult() {
         replyCollector.clear();
         showStartupIssues();
-        return replyCollector.getReply();
+        boolean hasStartupIssue = loadErrorDetails != null || !malformedLineNumbers.isEmpty();
+        return new CommandResult(replyCollector.getReply(), hasStartupIssue);
     }
 
     /** Reports file-reading failures or malformed records detected during startup. */

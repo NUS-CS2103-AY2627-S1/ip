@@ -1,6 +1,7 @@
 package cookie;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -17,16 +18,19 @@ public class CookieTest {
     private Path temporaryDirectory;
 
     @Test
-    public void getResponse_validAndInvalidCommands_returnsMatchingResponses() {
+    public void getCommandResult_validAndInvalidCommands_returnsMatchingResponsesAndTypes() {
         Cookie cookie = new Cookie(temporaryDirectory.resolve("cookie.txt").toString(), false);
 
-        String addResponse = cookie.getResponse("todo buy milk");
-        String listResponse = cookie.getResponse("list");
-        String errorResponse = cookie.getResponse("unknown");
+        Cookie.CommandResult addResult = cookie.getCommandResult("todo buy milk");
+        Cookie.CommandResult listResult = cookie.getCommandResult("list");
+        Cookie.CommandResult errorResult = cookie.getCommandResult("unknown");
 
-        assertTrue(addResponse.contains("[T][ ] buy milk"));
-        assertTrue(listResponse.contains("1. [T][ ] buy milk"));
-        assertEquals("Bruh... What is that command!?", errorResponse);
+        assertTrue(addResult.message().contains("[T][ ] buy milk"));
+        assertTrue(listResult.message().contains("1. [T][ ] buy milk"));
+        assertEquals("Bruh... What is that command!?", errorResult.message());
+        assertFalse(addResult.isError());
+        assertFalse(listResult.isError());
+        assertTrue(errorResult.isError());
     }
 
     @Test
@@ -40,9 +44,10 @@ public class CookieTest {
         Files.write(dataFile, savedLines);
         Cookie cookie = new Cookie(dataFile.toString(), false);
 
-        String startupResponse = cookie.getStartupResponse();
+        Cookie.CommandResult startupResult = cookie.getStartupResult();
 
-        assertTrue(startupResponse.contains("lines 2, 3"));
+        assertTrue(startupResult.message().contains("lines 2, 3"));
+        assertTrue(startupResult.isError());
         assertTrue(cookie.getResponse("list").contains("1. [T][ ] valid task"));
         assertEquals(savedLines, Files.readAllLines(dataFile));
     }
