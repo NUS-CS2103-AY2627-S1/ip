@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+        "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+        "https://checkstyle.org/dtds/configuration_1_3.dtd">
+
+<!--
+    The same rules as checkstyle.xml, adjusted for test code: method names follow the
+    featureUnderTest_testScenario_expectedBehavior form the standard requires, and the
+    Javadoc requirement does not apply.
+-->
+<module name="Checker">
+    <property name="severity" value="error"/>
+    <property name="fileExtensions" value="java"/>
+
+    <!-- Indentation must be spaces, never tabs. -->
+    <module name="FileTabCharacter"/>
+
+    <module name="LineLength">
+        <property name="max" value="120"/>
+        <property name="ignorePattern" value="^ *\* *[^ ]+$"/>
+    </module>
+
+    <module name="TreeWalker">
+        <module name="Indentation">
+            <property name="basicOffset" value="4"/>
+            <property name="caseIndent" value="0"/>
+            <property name="lineWrappingIndentation" value="8"/>
+        </module>
+
+        <!-- Naming. Abbreviations count as ordinary words, so no runs of capitals. -->
+        <module name="PackageName">
+            <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
+        </module>
+        <module name="TypeName"/>
+        <module name="MethodName">
+            <!-- featureUnderTest_testScenario_expectedBehavior, as the standard requires. -->
+            <property name="format" value="^[a-z][a-zA-Z0-9]*(_[a-zA-Z0-9]+){0,2}$"/>
+        </module>
+        <module name="MemberName"/>
+        <module name="ParameterName"/>
+        <module name="LocalVariableName"/>
+        <module name="ConstantName"/>
+
+        <!-- Imports listed explicitly and in a consistent order. -->
+        <module name="AvoidStarImport"/>
+        <module name="UnusedImports"/>
+        <module name="RedundantImport"/>
+        <module name="CustomImportOrder">
+            <!-- static, then java.*, then third-party such as org.junit, then this
+                 project's own classes, each group separated by a blank line. -->
+            <property name="customImportOrderRules"
+                      value="STATIC###STANDARD_JAVA_PACKAGE###THIRD_PARTY_PACKAGE###SPECIAL_IMPORTS"/>
+            <property name="specialImportsRegExp" value="^seedu\."/>
+            <property name="separateLineBetweenGroups" value="true"/>
+            <property name="sortImportsInGroupAlphabetically" value="true"/>
+        </module>
+
+        <!-- Braces are required even around single statements. -->
+        <module name="NeedBraces"/>
+        <module name="LeftCurly"/>
+        <module name="RightCurly"/>
+
+        <!-- Whitespace. -->
+        <module name="WhitespaceAfter"/>
+        <module name="WhitespaceAround"/>
+        <module name="NoWhitespaceBefore"/>
+        <module name="GenericWhitespace"/>
+        <module name="MethodParamPad"/>
+        <module name="ParenPad"/>
+
+        <!-- Structure. -->
+        <module name="OneStatementPerLine"/>
+        <module name="ArrayTypeStyle"/>
+        <module name="UpperEll"/>
+        <module name="ModifierOrder"/>
+        <module name="EmptyStatement"/>
+        <module name="MultipleVariableDeclarations"/>
+
+        <!-- Fields must not be public, so that classes control their own state. -->
+        <module name="VisibilityModifier">
+            <property name="protectedAllowed" value="true"/>
+        </module>
+
+        <!-- Javadoc on types and public methods. Overrides and tests are exempt. -->
+        <!-- Test code is exempt from the Javadoc requirement. -->
+        <module name="JavadocType"/>
+    </module>
+</module>

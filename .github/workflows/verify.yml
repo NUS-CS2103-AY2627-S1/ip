@@ -1,0 +1,39 @@
+name: Verify GOAT
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '25'
+      - name: Check source
+        shell: bash
+        run: ./gradlew check
+      - name: Install Linux GUI prerequisites
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libgtk-3-0 xvfb
+      - name: Smoke-test the public release on Linux
+        if: runner.os == 'Linux'
+        run: xvfb-run -a python3 scripts/release_smoke.py
+      - name: Smoke-test the public release on Windows
+        if: runner.os == 'Windows'
+        run: python scripts/release_smoke.py

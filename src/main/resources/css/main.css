@@ -1,0 +1,107 @@
+/* GOAT's cream-and-ember palette is shared by the header, transcript, and composer. */
+.root {
+    -goat-ink: #3d2c23;
+    -goat-muted: #806b5e;
+    -goat-surface: #fff8ef;
+    -goat-accent: #f5a35c;
+    -fx-background-color: -goat-surface;
+    -fx-font-family: "System";
+    -fx-font-size: 13px;
+}
+
+.brand-header {
+    -fx-background-color: #fffdf8;
+    -fx-padding: 14 22;
+    -fx-border-color: #eadccb;
+    -fx-border-width: 0 0 1 0;
+}
+
+.brand-mark {
+    -fx-background-color: transparent;
+}
+
+.brand-title {
+    -fx-text-fill: -goat-ink;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.brand-subtitle {
+    -fx-text-fill: #80614e;
+    -fx-font-size: 12px;
+}
+
+.transcript {
+    -fx-padding: 14 0;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #d4b99d;
+    -fx-background-radius: 6;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 0;
+}
+
+.composer {
+    -fx-background-color: #fffdf8;
+    -fx-padding: 14 18 12 18;
+    -fx-border-color: #eadccb;
+    -fx-border-width: 1 0 0 0;
+}
+
+.text-field {
+    -fx-background-color: #fff8ef;
+    -fx-background-radius: 11;
+    -fx-border-radius: 11;
+    -fx-border-color: #cdb396;
+    -fx-padding: 0 13;
+    -fx-text-fill: -goat-ink;
+    -fx-prompt-text-fill: -goat-muted;
+    -fx-highlight-fill: #f6c796;
+}
+
+.text-field:focused {
+    -fx-border-color: -goat-accent;
+}
+
+.button {
+    -fx-background-color: -goat-accent;
+    -fx-background-radius: 11;
+    -fx-text-fill: #3e2411;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #ffb574;
+}
+
+.button:pressed {
+    -fx-background-color: #e58b42;
+}
+
+.button:focused {
+    -fx-border-color: #3d2c23;
+    -fx-border-radius: 11;
+}
+
+.command-hint {
+    -fx-text-fill: -goat-muted;
+    -fx-font-size: 11px;
+}

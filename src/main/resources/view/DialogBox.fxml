@@ -1,0 +1,9 @@
+<?import javafx.scene.control.Label?>
+
+<fx:root alignment="TOP_RIGHT" styleClass="dialog-box" stylesheets="@../css/dialog-box.css"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <Label fx:id="dialog" minHeight="-Infinity" wrapText="true" />
+  </children>
+</fx:root>

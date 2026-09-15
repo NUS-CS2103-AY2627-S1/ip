@@ -1,0 +1,22 @@
+.dialog-box {
+    -fx-padding: 8 22;
+    -fx-spacing: 0;
+}
+
+.dialog-box #dialog {
+    -fx-background-color: #ffe0bc;
+    -fx-background-radius: 14 14 3 14;
+    -fx-text-fill: #3e2411;
+    -fx-padding: 13 16;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 5;
+}
+
+.dialog-box #dialog.reply-label {
+    -fx-background-color: #fffdf9;
+    -fx-background-radius: 3 14 14 14;
+    -fx-border-color: #eee3d6;
+    -fx-border-radius: 3 14 14 14;
+    -fx-text-fill: #3d2c23;
+}
+
