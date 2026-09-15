@@ -2,30 +2,19 @@
 
 Della is a desktop chatbot that helps you keep track of tasks. You can add to-do items, deadlines, and events, then view, search, complete, or delete them using simple commands.
 
-<!-- Add a screenshot of the Della application here. -->
+![Della user interface](Ui.png)
 
 ## Quick start
 
-### Prerequisites
-
-Ensure that Java 25 is installed on your computer.
-
-### Starting Della
-
-1. Open a terminal in the project folder.
-2. Build the application:
+1. Ensure that Java 25 is installed on your computer.
+2. Download the latest `della.jar` from the project's GitHub release.
+3. Open a terminal in the folder containing the JAR.
+4. Start Della with:
 
    ```powershell
-   .\gradlew.bat shadowJar
+   java -jar della.jar
    ```
-3. Start Della:
-
-   ```powershell
-   java -jar build\libs\della.jar
-   ```
-4. Type a command in the input box and press **Enter**.
-
-<!-- Add a screenshot showing the first launch and command input here. -->
+5. Type a command in the input box and press **Enter**.
 
 The first message from Della is:
 
