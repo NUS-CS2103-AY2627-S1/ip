@@ -7,18 +7,27 @@ using short text commands.
 
 ## Quick start
 
-Cookie requires Java 25. On macOS, use an Apple Silicon Java 25 installation.
+Cookie supports Windows x64, macOS Apple Silicon (M1 or newer), and Linux x64.
+Java 25 is required.
 
 1. Download `cookie.jar`.
 2. Open a terminal in the folder containing the JAR.
-3. Run:
+3. Confirm that Java 25 is active:
 
-```bash
-java -jar cookie.jar
-```
+   ```text
+   java -version
+   ```
+
+4. Run Cookie:
+
+   ```text
+   java -jar cookie.jar
+   ```
+
+On macOS, ensure that you are using an ARM64 build of Java 25.
 
 Type a command in the box at the bottom of the window, then press <kbd>Enter</kbd> or
-select **Send**. For example, try `todo read book`, followed by `list`.
+select **Send**. For example, enter `todo read book`, followed by `list`.
 
 ## Command summary
 
