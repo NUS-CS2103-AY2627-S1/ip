@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+  The window is a scrolling transcript above a fixed input bar. Everything is
+  laid out by VBox and HBox rather than by absolute coordinates, so the window
+  can be resized without the controls drifting out of place.
+-->
+<AnchorPane prefHeight="620.0" prefWidth="460.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="nova.MainWindow">
+    <stylesheets>
+        <URL value="@../css/main.css" />
+    </stylesheets>
+    <children>
+        <VBox AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <children>
+                <!-- fitToWidth makes the transcript fill the viewport, which is
+                     what lets a user message actually sit against the right edge. -->
+                <ScrollPane fx:id="scrollPane"
+                            fitToWidth="true"
+                            hbarPolicy="NEVER"
+                            VBox.vgrow="ALWAYS">
+                    <content>
+                        <VBox fx:id="dialogContainer" fillWidth="true">
+                            <padding>
+                                <Insets bottom="6.0" left="0.0" right="0.0" top="6.0" />
+                            </padding>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+                <HBox alignment="CENTER" styleClass="input-bar">
+                    <children>
+                        <TextField fx:id="userInput"
+                                   onAction="#handleUserInput"
+                                   prefHeight="30.0"
+                                   promptText="e.g. todo read book"
+                                   HBox.hgrow="ALWAYS" />
+                        <Button fx:id="sendButton"
+                                mnemonicParsing="false"
+                                onAction="#handleUserInput"
+                                prefHeight="30.0"
+                                text="Send" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

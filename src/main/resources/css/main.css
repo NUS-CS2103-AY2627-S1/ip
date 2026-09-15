@@ -1,0 +1,147 @@
+/*
+ * Nova GUI theme.
+ *
+ * The two speakers are deliberately not styled the same way. The user types
+ * short commands, so those get a compact tinted bubble that hugs its text on
+ * the right. Nova answers with program output -- numbered task lists whose
+ * "[T][X]" columns only line up in a fixed-width font -- so those are set as
+ * a full-width block of monospace on the left, marked by an accent rule
+ * rather than shaped as speech. See DialogBox for the matching layout rules.
+ *
+ * The window is expected to be small while replies can be long, so chrome is
+ * kept to the minimum that still separates one message from the next. Nova's
+ * replies sit directly on the page rather than inside a card: a card's border,
+ * shadow and inner padding all cost width that a wrapped task list would
+ * rather spend on text. For the same reason the avatar is gone from the
+ * transcript and is now the window icon -- it used to cost 43px of every
+ * single reply, on every line, forever.
+ *
+ * Only one font family is named anywhere in this file, because JavaFX does
+ * not support the comma-separated fallback lists that web CSS does: it treats
+ * the whole list as a single family name, fails to match it, and silently
+ * falls back to System. Stick to the logical families ("System",
+ * "Monospaced"), which every platform is guaranteed to resolve.
+ */
+
+.root {
+    -fx-background-color: #ffffff;
+}
+
+/* ------------------------------------------------------------------ */
+/* Transcript                                                          */
+/* ------------------------------------------------------------------ */
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* Without this the viewport paints the default grey behind every message. */
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 7;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #d0d3d9;
+    -fx-background-radius: 4;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #adb1ba;
+}
+
+/* Hide the arrow buttons at each end of the track; they only cost height. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-padding: 0;
+    -fx-pref-height: 0;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-padding: 0;
+    -fx-shape: "";
+}
+
+/* ------------------------------------------------------------------ */
+/* Messages                                                            */
+/* ------------------------------------------------------------------ */
+
+/* The row a single message sits in, whoever said it. */
+.message {
+    -fx-padding: 3 9 3 9;
+}
+
+/* What the user typed: a bubble, because a person is speaking. */
+.user-bubble {
+    -fx-background-color: #3a72c0;
+    -fx-background-radius: 13 13 3 13;
+    -fx-padding: 5 10 5 10;
+    -fx-font-size: 12px;
+    -fx-text-fill: #ffffff;
+}
+
+/*
+ * What Nova answered: set on the page, not in a box. The rule on the left is
+ * the only chrome, so nearly the whole width is available to the text.
+ */
+.nova-panel {
+    -fx-border-color: transparent transparent transparent #2e6b4f;
+    -fx-border-width: 0 0 0 2;
+    -fx-padding: 3 2 3 9;
+    -fx-font-family: "Monospaced";
+    -fx-font-size: 12px;
+    -fx-text-fill: #24292f;
+}
+
+/* ------------------------------------------------------------------ */
+/* Input bar                                                           */
+/* ------------------------------------------------------------------ */
+
+.input-bar {
+    -fx-background-color: #fafbfc;
+    -fx-border-color: #e6e8ec transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 6 8 6 8;
+    -fx-spacing: 6;
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 15;
+    -fx-border-color: #d7dae2;
+    -fx-border-radius: 15;
+    -fx-border-width: 1;
+    -fx-padding: 0 11 0 11;
+    -fx-font-size: 12px;
+    -fx-prompt-text-fill: #9aa0ac;
+}
+
+.text-field:focused {
+    -fx-border-color: #3a72c0;
+    -fx-border-width: 1;
+}
+
+.button {
+    -fx-background-color: #2e6b4f;
+    -fx-background-radius: 15;
+    -fx-padding: 0 14 0 14;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #3a8363;
+}
+
+.button:pressed {
+    -fx-background-color: #24543e;
+}

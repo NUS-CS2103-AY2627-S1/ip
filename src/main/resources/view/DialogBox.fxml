@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<!--
+  One message in the transcript. Both speakers share this file; the two factory
+  methods on DialogBox decide the alignment and how the label uses the width,
+  which is the part CSS cannot express. Everything else comes from the
+  "user-bubble" and "nova-panel" style classes in main.css.
+-->
+<fx:root maxWidth="1.7976931348623157E308"
+         styleClass="message"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <Label fx:id="dialog" minHeight="-Infinity" text="Label" wrapText="true" />
+  </children>
+</fx:root>

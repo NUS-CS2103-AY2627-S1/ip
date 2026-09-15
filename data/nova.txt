@@ -1,0 +1,11 @@
+D | 1 | CS2100 assignment 2 | 2026-09-12T23:59
+T | 1 | read chapter 3 before tutorial
+E | 1 | CS2103T tutorial | 2026-09-16T10:00 | 2026-09-16T11:00
+D | 0 | submit iP increments for week 7 | 2026-09-18T23:59
+E | 0 | CS2103 lecture | 2026-09-18T14:00 | 2026-09-18T16:00
+T | 0 | buy a new laptop charger
+E | 0 | hall dinner with block mates | 2026-09-19T18:30 | 2026-09-19T21:00
+D | 0 | CS2101 presentation slides | 2026-09-24T18:00
+D | 0 | renew library books | 2026-09-25T00:00
+T | 0 | email prof about the tutorial swap
+E | 0 | consultation with tutor | 2026-09-18T15:00 | 2026-09-18T16:00
