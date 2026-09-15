@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Objects;
 
 import harold.command.CommandType;
 import harold.storage.Storage;
@@ -48,7 +49,16 @@ public class Harold {
      * @param filePath Path from which tasks are loaded and to which changes are saved.
      */
     public Harold(Path filePath) {
-        storage = new Storage(filePath);
+        this(new Storage(filePath));
+    }
+
+    /**
+     * Creates Harold using the supplied storage implementation.
+     *
+     * @param storage Storage from which tasks are loaded and to which changes are saved.
+     */
+    Harold(Storage storage) {
+        this.storage = Objects.requireNonNull(storage);
 
         TaskList loadedTasks;
         String loadingWarning = null;
@@ -109,7 +119,7 @@ public class Harold {
      */
     public CommandResult respond(String command) {
         try {
-            return executeCommand(command);
+            return executeCommand(normalizeCommand(command));
         } catch (HaroldException e) {
             return CommandResult.continueWith("OOPS!!! " + e.getMessage());
         } catch (IOException e) {
@@ -158,8 +168,14 @@ public class Harold {
      */
     private CommandResult executeMark(String command) throws HaroldException, IOException {
         int index = parseTaskIndex(command, "mark", tasks.size());
+        boolean wasDone = tasks.get(index).isDone();
         Task task = tasks.mark(index);
-        storage.save(tasks);
+        try {
+            storage.save(tasks);
+        } catch (IOException e) {
+            restoreCompletion(task, wasDone);
+            throw e;
+        }
         return CommandResult.continueWith("Nice! I've marked this task as done:\n  " + task);
     }
 
@@ -168,8 +184,14 @@ public class Harold {
      */
     private CommandResult executeUnmark(String command) throws HaroldException, IOException {
         int index = parseTaskIndex(command, "unmark", tasks.size());
+        boolean wasDone = tasks.get(index).isDone();
         Task task = tasks.unmark(index);
-        storage.save(tasks);
+        try {
+            storage.save(tasks);
+        } catch (IOException e) {
+            restoreCompletion(task, wasDone);
+            throw e;
+        }
         return CommandResult.continueWith("OK, I've marked this task as not done yet:\n  " + task);
     }
 
@@ -179,7 +201,12 @@ public class Harold {
     private CommandResult executeDelete(String command) throws HaroldException, IOException {
         int index = parseTaskIndex(command, "delete", tasks.size());
         Task removedTask = tasks.delete(index);
-        storage.save(tasks);
+        try {
+            storage.save(tasks);
+        } catch (IOException e) {
+            tasks.restoreDeletedTask(index, removedTask);
+            throw e;
+        }
         return CommandResult.continueWith(
                 "DELETED. I've removed this task:\n  " + removedTask + "\n" + formatTaskCount());
     }
@@ -199,7 +226,13 @@ public class Harold {
     private CommandResult executeDeadline(String command) throws HaroldException, IOException {
         String syntaxError = "A deadline needs '/by <date or time>'. "
                 + "Try: deadline <description> /by <date or time>";
-        int byIndex = findMarker(command, BY_MARKER, 0, syntaxError);
+        int byIndex = findSingleMarker(
+                command,
+                BY_MARKER,
+                0,
+                syntaxError,
+                "Use /by only once in a deadline command."
+        );
         assert byIndex >= 0
                 : "A validated deadline command must contain a /by delimiter";
 
@@ -219,14 +252,24 @@ public class Harold {
     private CommandResult executeEvent(String command) throws HaroldException, IOException {
         String fromSyntaxError = "An event needs '/from <start>'. "
                 + "Try: event <description> /from <start> /to <end>";
-        int fromIndex = findMarker(command, FROM_MARKER, 0, fromSyntaxError);
+        int fromIndex = findSingleMarker(
+                command,
+                FROM_MARKER,
+                0,
+                fromSyntaxError,
+                "Use /from only once in an event command."
+        );
+        if (command.indexOf(TO_MARKER) >= 0 && command.indexOf(TO_MARKER) < fromIndex) {
+            throw new HaroldException("Place /from before /to in an event command.");
+        }
         String toSyntaxError = "An event needs '/to <end>'. "
                 + "Try: event <description> /from <start> /to <end>";
-        int toIndex = findMarker(
+        int toIndex = findSingleMarker(
                 command,
                 TO_MARKER,
                 fromIndex + FROM_MARKER.length(),
-                toSyntaxError
+                toSyntaxError,
+                "Use /to only once in an event command."
         );
         assert fromIndex >= 0
                 : "A validated event command must contain a /from delimiter";
@@ -244,6 +287,9 @@ public class Harold {
         }
         LocalDate from = parseDate(fromText, "/from");
         LocalDate to = parseDate(toText, "/to");
+        if (to.isBefore(from)) {
+            throw new HaroldException("The event end date cannot be before its start date.");
+        }
         return addTask(new Event(description, from, to));
     }
 
@@ -278,7 +324,12 @@ public class Harold {
      */
     private CommandResult addTask(Task task) throws HaroldException, IOException {
         tasks.add(task);
-        storage.save(tasks);
+        try {
+            storage.save(tasks);
+        } catch (IOException e) {
+            tasks.delete(tasks.size() - 1);
+            throw e;
+        }
         return CommandResult.continueWith(
                 "Got it. I've added this task:\n  " + task + "\n" + formatTaskCount());
     }
@@ -363,11 +414,12 @@ public class Harold {
     /**
      * Finds a command marker and verifies that it is followed by whitespace or the command end.
      */
-    private static int findMarker(
+    private static int findSingleMarker(
             String command,
             String marker,
             int startIndex,
-            String errorMessage
+            String errorMessage,
+            String duplicateErrorMessage
     ) throws HaroldException {
         int markerIndex = command.indexOf(marker, startIndex);
         if (markerIndex < 0) {
@@ -381,7 +433,28 @@ public class Harold {
         if (!isAtCommandEnd && !isFollowedByWhitespace) {
             throw new HaroldException(errorMessage);
         }
+        if (command.indexOf(marker, markerEndIndex) >= 0) {
+            throw new HaroldException(duplicateErrorMessage);
+        }
         return markerIndex;
+    }
+
+    /**
+     * Converts user-entered whitespace to a consistent command representation.
+     */
+    private static String normalizeCommand(String command) {
+        return command == null ? "" : command.strip().replaceAll("\\s+", " ");
+    }
+
+    /**
+     * Restores a task's completion state after a failed persistence operation.
+     */
+    private static void restoreCompletion(Task task, boolean wasDone) {
+        if (wasDone) {
+            task.markAsDone();
+        } else {
+            task.markAsNotDone();
+        }
     }
 
     /**

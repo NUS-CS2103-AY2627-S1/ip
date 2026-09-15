@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,6 +75,47 @@ class TaskListTest {
                 exception.getMessage()
         );
         assertEquals(MAX_TASK_COUNT, tasks.size());
+    }
+
+    @Test
+    void add_sameTaskDetails_throwsExceptionWithoutChangingList() {
+        TaskList tasks = new TaskList(new Deadline(
+                "submit report",
+                LocalDate.of(2026, 9, 20)
+        ));
+
+        HaroldException exception = assertThrows(
+                HaroldException.class, () -> tasks.add(new Deadline(
+                        "submit report", LocalDate.of(2026, 9, 20)))
+        );
+
+        assertEquals("That task is already in your list.", exception.getMessage());
+        assertEquals(1, tasks.size());
+    }
+
+    @Test
+    void add_sameDescriptionWithDifferentDetails_addsTask() throws HaroldException {
+        TaskList tasks = new TaskList(new Deadline(
+                "submit report",
+                LocalDate.of(2026, 9, 20)
+        ));
+
+        tasks.add(new Deadline("submit report", LocalDate.of(2026, 9, 21)));
+        tasks.add(new Todo("submit report"));
+
+        assertEquals(3, tasks.size());
+    }
+
+    @Test
+    void constructor_duplicateInitialTasks_discardsDuplicates() {
+        Todo firstTask = new Todo("feed Harold");
+        Todo duplicateTask = new Todo("feed Harold");
+
+        TaskList tasks = new TaskList(firstTask, duplicateTask, new Todo("walk Harold"));
+
+        assertEquals(2, tasks.size());
+        assertSame(firstTask, tasks.get(0));
+        assertEquals(1, tasks.getDiscardedTaskCount());
     }
 
     @Test

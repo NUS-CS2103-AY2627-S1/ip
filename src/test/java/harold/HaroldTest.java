@@ -4,10 +4,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+
+import harold.storage.Storage;
+import harold.task.Task;
+import harold.task.TaskList;
+import harold.task.Todo;
 
 class HaroldTest {
     @TempDir
@@ -111,7 +118,169 @@ class HaroldTest {
         assertTrue(result.isExit());
     }
 
+    @Test
+    void respond_irregularWhitespace_normalizesCommand() {
+        Harold harold = createHarold();
+
+        CommandResult addResult = harold.respond("  todo   brush\tHarold   ");
+        CommandResult listResult = harold.respond("  list  ");
+
+        assertEquals(
+                "Got it. I've added this task:\n"
+                        + "  [T][ ] brush Harold\n"
+                        + "Now you have 1 task in the list.",
+                addResult.message()
+        );
+        assertEquals(
+                "Here are the tasks in your list:\n1.[T][ ] brush Harold",
+                listResult.message()
+        );
+    }
+
+    @Test
+    void respond_nullCommand_returnsMissingCommandError() {
+        CommandResult result = createHarold().respond(null);
+
+        assertEquals("OOPS!!! Please enter a command pls.", result.message());
+        assertFalse(result.isExit());
+    }
+
+    @Test
+    void respond_repeatedDateMarkers_returnsSpecificErrors() {
+        Harold harold = createHarold();
+
+        CommandResult deadlineResult = harold.respond(
+                "deadline submit /by 2026-09-20 /by 2026-09-21"
+        );
+        CommandResult fromResult = harold.respond(
+                "event trip /from 2026-09-20 /from 2026-09-21 /to 2026-09-22"
+        );
+        CommandResult toResult = harold.respond(
+                "event trip /from 2026-09-20 /to 2026-09-21 /to 2026-09-22"
+        );
+
+        assertEquals(
+                "OOPS!!! Use /by only once in a deadline command.",
+                deadlineResult.message()
+        );
+        assertEquals(
+                "OOPS!!! Use /from only once in an event command.",
+                fromResult.message()
+        );
+        assertEquals("OOPS!!! Use /to only once in an event command.", toResult.message());
+    }
+
+    @Test
+    void respond_eventEndBeforeStart_returnsRangeError() {
+        CommandResult result = createHarold().respond(
+                "event holiday /from 2026-09-20 /to 2026-09-19"
+        );
+
+        assertEquals(
+                "OOPS!!! The event end date cannot be before its start date.",
+                result.message()
+        );
+    }
+
+    @Test
+    void respond_duplicateTask_returnsErrorWithoutAddingTask() {
+        Harold harold = createHarold();
+        harold.respond("todo feed Harold");
+
+        CommandResult duplicateResult = harold.respond("todo feed Harold");
+        CommandResult listResult = harold.respond("list");
+
+        assertEquals("OOPS!!! That task is already in your list.", duplicateResult.message());
+        assertEquals(
+                "Here are the tasks in your list:\n1.[T][ ] feed Harold",
+                listResult.message()
+        );
+    }
+
+    @Test
+    void respond_addWhenSaveFails_rollsBackAddition() {
+        Harold harold = new Harold(new FailingStorage(List.of()));
+
+        CommandResult addResult = harold.respond("todo feed Harold");
+        CommandResult listResult = harold.respond("list");
+
+        assertEquals(saveErrorMessage(), addResult.message());
+        assertEquals("Here are the tasks in your list:", listResult.message());
+    }
+
+    @Test
+    void respond_markWhenSaveFails_restoresCompletionState() {
+        Harold harold = new Harold(new FailingStorage(List.of(new Todo("feed Harold"))));
+
+        CommandResult markResult = harold.respond("mark 1");
+        CommandResult listResult = harold.respond("list");
+
+        assertEquals(saveErrorMessage(), markResult.message());
+        assertEquals(
+                "Here are the tasks in your list:\n1.[T][ ] feed Harold",
+                listResult.message()
+        );
+    }
+
+    @Test
+    void respond_unmarkWhenSaveFails_restoresCompletionState() {
+        Todo completedTask = new Todo("feed Harold");
+        completedTask.markAsDone();
+        Harold harold = new Harold(new FailingStorage(List.of(completedTask)));
+
+        CommandResult unmarkResult = harold.respond("unmark 1");
+        CommandResult listResult = harold.respond("list");
+
+        assertEquals(saveErrorMessage(), unmarkResult.message());
+        assertEquals(
+                "Here are the tasks in your list:\n1.[T][X] feed Harold",
+                listResult.message()
+        );
+    }
+
+    @Test
+    void respond_deleteWhenSaveFails_restoresTaskAtOriginalIndex() {
+        Harold harold = new Harold(new FailingStorage(List.of(
+                new Todo("first"),
+                new Todo("second")
+        )));
+
+        CommandResult deleteResult = harold.respond("delete 1");
+        CommandResult listResult = harold.respond("list");
+
+        assertEquals(saveErrorMessage(), deleteResult.message());
+        assertEquals(
+                "Here are the tasks in your list:\n"
+                        + "1.[T][ ] first\n"
+                        + "2.[T][ ] second",
+                listResult.message()
+        );
+    }
+
     private Harold createHarold() {
         return new Harold(temporaryDirectory.resolve("data/harold.txt"));
+    }
+
+    private static String saveErrorMessage() {
+        return "OOPS!!! I couldn't save your tasks. Please try again.";
+    }
+
+    private static class FailingStorage extends Storage {
+        private final List<Task> initialTasks;
+
+        FailingStorage(List<Task> initialTasks) {
+            super(Path.of("unused"));
+            this.initialTasks = initialTasks;
+        }
+
+        @Override
+        public LoadResult load() {
+            return new LoadResult(initialTasks, 0);
+        }
+
+        @Override
+        public void save(TaskList tasks) throws IOException {
+            throw new IOException("Simulated save failure");
+        }
     }
 }

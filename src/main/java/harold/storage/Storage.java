@@ -2,8 +2,11 @@ package harold.storage;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.AtomicMoveNotSupportedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -65,7 +68,7 @@ public class Storage {
         for (String line : Files.readAllLines(filePath, StandardCharsets.UTF_8)) {
             try {
                 tasks.add(parseTask(line));
-            } catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException | DateTimeException e) {
                 skippedLineCount++;
             }
         }
@@ -88,7 +91,30 @@ public class Storage {
         for (int i = 0; i < tasks.size(); i++) {
             lines.add(formatTask(tasks.get(i)));
         }
-        Files.write(filePath, lines, StandardCharsets.UTF_8);
+        Path temporaryDirectory = parentDirectory == null ? Path.of(".") : parentDirectory;
+        Path temporaryFile = Files.createTempFile(temporaryDirectory, ".harold-", ".tmp");
+        try {
+            Files.write(temporaryFile, lines, StandardCharsets.UTF_8);
+            replaceDataFile(temporaryFile);
+        } finally {
+            Files.deleteIfExists(temporaryFile);
+        }
+    }
+
+    /**
+     * Replaces the data file atomically where the file system supports it.
+     */
+    private void replaceDataFile(Path temporaryFile) throws IOException {
+        try {
+            Files.move(
+                    temporaryFile,
+                    filePath,
+                    StandardCopyOption.ATOMIC_MOVE,
+                    StandardCopyOption.REPLACE_EXISTING
+            );
+        } catch (AtomicMoveNotSupportedException e) {
+            Files.move(temporaryFile, filePath, StandardCopyOption.REPLACE_EXISTING);
+        }
     }
 
     /**

@@ -483,3 +483,81 @@ OOPS!!! Please enter a keyword after find. Try: find <keyword>
 ```text
 Goodbye! Please take me down soon hehe!
 ```
+
+## TC07: Recover from malformed input and inconsistent data
+
+**Aim:** Verify that whitespace is normalized, meaningful punctuation remains valid, duplicate details and parameters are rejected, and event ranges are chronological.
+
+### Inputs
+
+```text
+  todo   call @vet!
+todo call @vet!
+deadline report /by 2026-09-20 /by 2026-09-21
+event trip /from 2026-09-20 /from 2026-09-21 /to 2026-09-22
+event trip /from 2026-09-20 /to 2026-09-21 /to 2026-09-22
+event trip /to 2026-09-21 /from 2026-09-20
+event holiday /from 2026-09-20 /to 2026-09-19
+event workshop /from 2026-09-20 /to 2026-09-20
+bye
+```
+
+### Expected outputs
+
+#### Output 1
+
+```text
+Got it. I've added this task:
+  [T][ ] call @vet!
+Now you have 1 task in the list.
+```
+
+#### Output 2
+
+```text
+OOPS!!! That task is already in your list.
+```
+
+#### Output 3
+
+```text
+OOPS!!! Use /by only once in a deadline command.
+```
+
+#### Output 4
+
+```text
+OOPS!!! Use /from only once in an event command.
+```
+
+#### Output 5
+
+```text
+OOPS!!! Use /to only once in an event command.
+```
+
+#### Output 6
+
+```text
+OOPS!!! Place /from before /to in an event command.
+```
+
+#### Output 7
+
+```text
+OOPS!!! The event end date cannot be before its start date.
+```
+
+#### Output 8
+
+```text
+Got it. I've added this task:
+  [E][ ] workshop (from: Sep 20 2026 to: Sep 20 2026)
+Now you have 2 tasks in the list.
+```
+
+#### Output 9
+
+```text
+Goodbye! Please take me down soon hehe!
+```

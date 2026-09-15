@@ -33,9 +33,16 @@ public class TaskList {
      * @param initialTasks Tasks with which to initialize the list.
      */
     public TaskList(List<Task> initialTasks) {
-        int acceptedTaskCount = Math.min(initialTasks.size(), MAX_TASK_COUNT);
-        tasks = new ArrayList<>(initialTasks.subList(0, acceptedTaskCount));
-        discardedTaskCount = initialTasks.size() - acceptedTaskCount;
+        tasks = new ArrayList<>();
+        int discardedCount = 0;
+        for (Task task : initialTasks) {
+            if (tasks.size() >= MAX_TASK_COUNT || containsTaskWithSameDetails(task)) {
+                discardedCount++;
+            } else {
+                tasks.add(task);
+            }
+        }
+        discardedTaskCount = discardedCount;
         assert tasks.size() <= MAX_TASK_COUNT
                 : "Task list must not exceed its maximum capacity after initialization";
         assert discardedTaskCount >= 0
@@ -46,13 +53,16 @@ public class TaskList {
      * Adds a task to the end of the list.
      *
      * @param task Task to add.
-     * @throws HaroldException If the task list is full.
+     * @throws HaroldException If the task list is full or already contains the task.
      */
     public void add(Task task) throws HaroldException {
         if (tasks.size() >= MAX_TASK_COUNT) {
             throw new HaroldException(
                     "Your task list is full. Complete some tasks before adding more."
             );
+        }
+        if (containsTaskWithSameDetails(task)) {
+            throw new HaroldException("That task is already in your list.");
         }
 
         int previousTaskCount = tasks.size();
@@ -76,6 +86,25 @@ public class TaskList {
         assert tasks.size() == previousTaskCount - 1
                 : "Deleting one task must decrease the task count by one";
         return deletedTask;
+    }
+
+    /**
+     * Restores a task at its previous index after a failed persistence operation.
+     *
+     * @param index Zero-based index at which the task previously appeared.
+     * @param task Task to restore.
+     */
+    public void restoreDeletedTask(int index, Task task) {
+        assert index >= 0 && index <= tasks.size()
+                : "A deleted task must be restored at a valid insertion index";
+        tasks.add(index, task);
+    }
+
+    /**
+     * Returns whether the list already contains the task's identifying details.
+     */
+    private boolean containsTaskWithSameDetails(Task task) {
+        return tasks.stream().anyMatch(existingTask -> existingTask.hasSameDetails(task));
     }
 
     /**
