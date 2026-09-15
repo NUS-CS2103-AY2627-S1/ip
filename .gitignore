@@ -16,5 +16,8 @@ bin/
 # Temp files
 _temp/
 
+# Per-user chatbot task data
+data/jaku.txt
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Experienced. Has built larger projects beyond coursework, so explanations can assume general programming fluency and focus on Java-specific or course-specific details.
+* IDE and level of expertise: Cursor (a VS Code-based editor), comfortable with it. IntelliJ IDEA is not in use, so prefer terminal and Gradle commands over IntelliJ-specific instructions.
 
 # Guidance for interacting with users
 
@@ -33,3 +33,7 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## UI testing
+
+After every Java code update, update `test/ui-test-plan.md` if user-visible behavior changed, then use the project-local `test-ui` skill to run the full UI regression suite. Stop and fix the failure if any test case fails.
