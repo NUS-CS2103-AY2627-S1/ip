@@ -1,6 +1,7 @@
 package larp;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -62,5 +63,40 @@ public class TaskListTest {
         TaskList tasks = new TaskList();
 
         assertThrows(AssertionError.class, () -> tasks.add(null));
+    }
+
+    @Test
+    public void markAndUnmark_validTask_updatesCompletionState() {
+        TaskList tasks = new TaskList(List.of(new Todo("read book")));
+
+        Task markedTask = tasks.markAsDone(0);
+        assertTrue(markedTask.isDone());
+
+        Task unmarkedTask = tasks.markAsNotDone(0);
+        assertFalse(unmarkedTask.isDone());
+    }
+
+    @Test
+    public void delete_validTask_removesAndReturnsTask() {
+        TaskList tasks = new TaskList(List.of(
+                new Todo("read book"),
+                new Todo("submit report")));
+
+        Task deletedTask = tasks.delete(0);
+
+        assertEquals("read book", deletedTask.getDescription());
+        assertEquals(1, tasks.size());
+        assertEquals("submit report", tasks.get(0).getDescription());
+    }
+
+    @Test
+    public void getTasks_returnedListCannotModifyTaskList() {
+        TaskList tasks = new TaskList(List.of(new Todo("read book")));
+
+        List<Task> returnedTasks = tasks.getTasks();
+
+        assertThrows(UnsupportedOperationException.class,
+                () -> returnedTasks.add(new Todo("write report")));
+        assertEquals(1, tasks.size());
     }
 }

@@ -93,6 +93,15 @@ public class StorageTest {
     }
 
     @Test
+    public void load_wrongFieldCount_throwsLarpException() throws IOException {
+        Path dataFile = this.temporaryDirectory.resolve("larp.txt");
+        Files.writeString(dataFile, "E | 0 | project meeting | 2pm");
+        Storage storage = new Storage(dataFile.toString());
+
+        assertThrows(LarpException.class, storage::load);
+    }
+
+    @Test
     public void save_unknownTaskType_throwsLarpException() {
         Path dataFile = this.temporaryDirectory.resolve("larp.txt");
         Storage storage = new Storage(dataFile.toString());

@@ -26,6 +26,11 @@ public class ParserTest {
     }
 
     @Test
+    public void parseFindKeyword_reservedStorageCharacter_throwsLarpException() {
+        assertThrows(LarpException.class, () -> Parser.parseFindKeyword("find milk | bread"));
+    }
+
+    @Test
     public void parseTask_todoCommand_returnsTodo() throws LarpException {
         Task task = Parser.parseTask("todo read book");
 
@@ -37,6 +42,15 @@ public class ParserTest {
     @Test
     public void parseTask_deadlineCommand_returnsDeadline() throws LarpException {
         Task task = Parser.parseTask("deadline submit report /by 2026-08-31");
+
+        Deadline deadline = assertInstanceOf(Deadline.class, task);
+        assertEquals("submit report", deadline.getDescription());
+        assertEquals(LocalDate.of(2026, 8, 31), deadline.getBy());
+    }
+
+    @Test
+    public void parseTask_deadlineWithFlexibleSpacing_returnsDeadline() throws LarpException {
+        Task task = Parser.parseTask("deadline submit report   /by   2026-08-31");
 
         Deadline deadline = assertInstanceOf(Deadline.class, task);
         assertEquals("submit report", deadline.getDescription());
@@ -74,6 +88,13 @@ public class ParserTest {
     }
 
     @Test
+    public void parseTask_reservedStorageCharacter_throwsLarpException() {
+        assertThrows(LarpException.class, () -> Parser.parseTask("todo buy milk | bread"));
+        assertThrows(LarpException.class,
+                () -> Parser.parseTask("event demo /from 2pm | online /to 3pm"));
+    }
+
+    @Test
     public void parseTask_unknownCommand_throwsLarpException() {
         assertThrows(LarpException.class, () -> Parser.parseTask("remind read book"));
     }
@@ -90,6 +111,8 @@ public class ParserTest {
                 () -> Parser.parseTaskIndex("mark", "mark", 3));
         assertThrows(LarpException.class,
                 () -> Parser.parseTaskIndex("mark first", "mark", 3));
+        assertThrows(LarpException.class,
+                () -> Parser.parseTaskIndex("mark 1 later", "mark", 3));
         assertThrows(LarpException.class,
                 () -> Parser.parseTaskIndex("mark 0", "mark", 3));
         assertThrows(LarpException.class,
