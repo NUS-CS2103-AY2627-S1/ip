@@ -23,6 +23,11 @@ import harold.ui.Ui;
 public class Harold {
     private static final Path DEFAULT_FILE_PATH = Path.of("data", "harold.txt");
     private static final int MAX_SIMILAR_MATCHES = 3;
+    private static final String ERROR_PREFIX = "i pooped on myself... ";
+    private static final String EXIT_MESSAGE =
+            "i miss my owner, hope hes back soon, SIKE!";
+    private static final String FETCH_MESSAGE =
+            "nomnomnom ball! I've fetched this task:";
 
     private static final String TODO_COMMAND = "todo";
     private static final String DEADLINE_COMMAND = "deadline";
@@ -121,9 +126,11 @@ public class Harold {
         try {
             return executeCommand(normalizeCommand(command));
         } catch (HaroldException e) {
-            return CommandResult.continueWith("OOPS!!! " + e.getMessage());
+            return CommandResult.continueWith(ERROR_PREFIX + e.getMessage());
         } catch (IOException e) {
-            return CommandResult.continueWith("OOPS!!! I couldn't save your tasks. Please try again.");
+            return CommandResult.continueWith(
+                    ERROR_PREFIX + "I couldn't save your tasks. Please try again."
+            );
         }
     }
 
@@ -137,7 +144,7 @@ public class Harold {
 
         CommandType commandType = getCommandType(command);
         return switch (commandType) {
-            case BYE -> CommandResult.exitWith("Goodbye! Please take me down soon hehe!");
+            case BYE -> CommandResult.exitWith(EXIT_MESSAGE);
             case LIST -> executeList(command);
             case MARK -> executeMark(command);
             case UNMARK -> executeUnmark(command);
@@ -331,7 +338,7 @@ public class Harold {
             throw e;
         }
         return CommandResult.continueWith(
-                "Got it. I've added this task:\n  " + task + "\n" + formatTaskCount());
+                FETCH_MESSAGE + "\n  " + task + "\n" + formatTaskCount());
     }
 
     /**

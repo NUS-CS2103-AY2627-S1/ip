@@ -34,6 +34,35 @@
     -fx-text-fill: #d98ab2;
 }
 
+.ball-decorations {
+    -fx-padding: 0 4px 0 8px;
+}
+
+.ball-icon {
+    -fx-background-color: #ff4fa3;
+    -fx-background-radius: 999px;
+    -fx-border-color: #ffb1d7;
+    -fx-border-radius: 999px;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(255, 79, 163, 0.35), 8, 0, 0, 2);
+}
+
+.small-ball {
+    -fx-min-height: 16px;
+    -fx-min-width: 16px;
+    -fx-pref-height: 16px;
+    -fx-pref-width: 16px;
+    -fx-translate-y: 8px;
+}
+
+.large-ball {
+    -fx-min-height: 25px;
+    -fx-min-width: 25px;
+    -fx-pref-height: 25px;
+    -fx-pref-width: 25px;
+    -fx-translate-y: -5px;
+}
+
 .conversation-scroll,
 .conversation-scroll > .viewport,
 .conversation {

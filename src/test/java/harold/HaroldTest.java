@@ -28,7 +28,7 @@ class HaroldTest {
         CommandResult listResult = harold.respond("list");
 
         assertEquals(
-                "Got it. I've added this task:\n"
+                "nomnomnom ball! I've fetched this task:\n"
                         + "  [T][ ] give Harold a treat\n"
                         + "Now you have 1 task in the list.",
                 addResult.message()
@@ -61,7 +61,7 @@ class HaroldTest {
         CommandResult result = createHarold().respond("fetch ball");
 
         assertEquals(
-                "OOPS!!! I don't know what 'fetch ball' means. "
+                "i pooped on myself... I don't know what 'fetch ball' means. "
                         + "Try todo, deadline, event, list, find, mark, unmark, delete, or bye.",
                 result.message()
         );
@@ -75,7 +75,7 @@ class HaroldTest {
         );
 
         assertEquals(
-                "OOPS!!! A deadline needs '/by <date or time>'. "
+                "i pooped on myself... A deadline needs '/by <date or time>'. "
                         + "Try: deadline <description> /by <date or time>",
                 result.message()
         );
@@ -89,7 +89,7 @@ class HaroldTest {
         );
 
         assertEquals(
-                "OOPS!!! An event needs '/from <start>'. "
+                "i pooped on myself... An event needs '/from <start>'. "
                         + "Try: event <description> /from <start> /to <end>",
                 result.message()
         );
@@ -103,7 +103,7 @@ class HaroldTest {
         );
 
         assertEquals(
-                "OOPS!!! An event needs '/to <end>'. "
+                "i pooped on myself... An event needs '/to <end>'. "
                         + "Try: event <description> /from <start> /to <end>",
                 result.message()
         );
@@ -114,7 +114,7 @@ class HaroldTest {
     void respond_bye_returnsExitResult() {
         CommandResult result = createHarold().respond("bye");
 
-        assertEquals("Goodbye! Please take me down soon hehe!", result.message());
+        assertEquals("i miss my owner, hope hes back soon, SIKE!", result.message());
         assertTrue(result.isExit());
     }
 
@@ -126,7 +126,7 @@ class HaroldTest {
         CommandResult listResult = harold.respond("  list  ");
 
         assertEquals(
-                "Got it. I've added this task:\n"
+                "nomnomnom ball! I've fetched this task:\n"
                         + "  [T][ ] brush Harold\n"
                         + "Now you have 1 task in the list.",
                 addResult.message()
@@ -141,7 +141,7 @@ class HaroldTest {
     void respond_nullCommand_returnsMissingCommandError() {
         CommandResult result = createHarold().respond(null);
 
-        assertEquals("OOPS!!! Please enter a command pls.", result.message());
+        assertEquals("i pooped on myself... Please enter a command pls.", result.message());
         assertFalse(result.isExit());
     }
 
@@ -160,14 +160,14 @@ class HaroldTest {
         );
 
         assertEquals(
-                "OOPS!!! Use /by only once in a deadline command.",
+                "i pooped on myself... Use /by only once in a deadline command.",
                 deadlineResult.message()
         );
         assertEquals(
-                "OOPS!!! Use /from only once in an event command.",
+                "i pooped on myself... Use /from only once in an event command.",
                 fromResult.message()
         );
-        assertEquals("OOPS!!! Use /to only once in an event command.", toResult.message());
+        assertEquals("i pooped on myself... Use /to only once in an event command.", toResult.message());
     }
 
     @Test
@@ -177,7 +177,7 @@ class HaroldTest {
         );
 
         assertEquals(
-                "OOPS!!! The event end date cannot be before its start date.",
+                "i pooped on myself... The event end date cannot be before its start date.",
                 result.message()
         );
     }
@@ -190,7 +190,7 @@ class HaroldTest {
         CommandResult duplicateResult = harold.respond("todo feed Harold");
         CommandResult listResult = harold.respond("list");
 
-        assertEquals("OOPS!!! That task is already in your list.", duplicateResult.message());
+        assertEquals("i pooped on myself... That task is already in your list.", duplicateResult.message());
         assertEquals(
                 "Here are the tasks in your list:\n1.[T][ ] feed Harold",
                 listResult.message()
@@ -262,7 +262,7 @@ class HaroldTest {
     }
 
     private static String saveErrorMessage() {
-        return "OOPS!!! I couldn't save your tasks. Please try again.";
+        return "i pooped on myself... I couldn't save your tasks. Please try again.";
     }
 
     private static class FailingStorage extends Storage {
