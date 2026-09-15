@@ -2,12 +2,14 @@ package ekud.ui;
 
 /**
  * CSS style applied to an Ekud reply bubble.
- * {@link #NONE} keeps the default bubble color.
+ * {@link #NONE} keeps the default reply color.
+ * {@link #ERROR} is used when the last input was invalid.
  */
 public enum DialogStyle {
     ADD("add-label"),
     CHANGE_MARK("marked-label"),
     DELETE("delete-label"),
+    ERROR("error-label"),
     NONE("");
 
     private final String cssClass;

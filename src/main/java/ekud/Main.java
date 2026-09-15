@@ -30,8 +30,9 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Ekud");
-            stage.setMinHeight(220);
-            stage.setMinWidth(417);
+            stage.setResizable(true);
+            stage.setMinHeight(280);
+            stage.setMinWidth(340);
             fxmlLoader.<MainWindow>getController().setEkud(ekud);
             stage.show();
         } catch (IOException e) {

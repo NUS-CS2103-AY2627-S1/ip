@@ -1,49 +1,62 @@
 .root {
-    main-color: rgb(237, 255, 242);       /* Create a looked-up color called "main-color" within root. */
-    -fx-background-color: main-color;
-    -fx-background-image: url("../images/background.jpg"); /* Set image */
-    -fx-background-size: cover;
+    -fx-background-color: #e8eef0;
 }
 
 .text-field {
-    -fx-background-color: #d9ffe2;
-    -fx-font: 20px "Arial";
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8;
+    -fx-border-color: #c5d5d1;
+    -fx-border-radius: 8;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #7a8c88;
+}
+
+.text-field.error-input {
+    -fx-border-color: #c75b57;
+    -fx-background-color: #fff6f5;
 }
 
 .button {
-    -fx-background-color: mediumspringgreen;
-    -fx-font: italic bold 16px "Arial";
+    -fx-background-color: #2c6e63;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
 }
 
 .button:hover {
-    -fx-background-color: cyan;
-    -fx-font-size: 18px;
+    -fx-background-color: #245a52;
 }
 
 .button:pressed {
-    -fx-background-color: orange;
-    -fx-font-size: 20px;
+    -fx-background-color: #1c4741;
+}
+
+.button:disabled {
+    -fx-opacity: 0.6;
 }
 
 .scroll-pane {
-    -fx-background-color: rgba(0, 0, 0, .5);
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-padding: 0;
 }
 
 .scroll-pane .viewport {
     -fx-background-color: transparent;
 }
 
-.scroll-bar {
-    -fx-font-size: 10px;  /* Change width of scroll bar. */
-    -fx-background-color: main-color;
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #ff9cb4;
-    -fx-background-radius: 1em;
+    -fx-background-color: #9bb8b2;
+    -fx-background-radius: 4;
 }
 
-/* Hides the increment and decrement buttons. */
 .scroll-bar .increment-button,
 .scroll-bar .decrement-button {
     -fx-pref-height: 0;

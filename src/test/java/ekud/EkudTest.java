@@ -2,6 +2,7 @@ package ekud;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
@@ -37,8 +38,14 @@ public class EkudTest {
         Ekud ekud = newChatbot();
         String response = ekud.getResponse("blah");
         assertTrue(response.contains("I don't recognize that command"));
-        assertEquals(DialogStyle.NONE, ekud.getDialogStyle());
+        assertEquals(DialogStyle.ERROR, ekud.getDialogStyle());
         assertFalse(ekud.isExit());
+    }
+
+    @Test
+    public void getStartupError_missingSaveFile_returnsNull() {
+        Ekud ekud = newChatbot();
+        assertNull(ekud.getStartupError());
     }
 
     @Test

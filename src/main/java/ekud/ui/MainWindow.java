@@ -27,19 +27,23 @@ public class MainWindow extends AnchorPane {
 
     private Ekud ekud;
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private final Image ekudImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
-     * Binds the scroll pane so it follows new dialog boxes to the bottom.
+     * Binds the scroll pane so it follows new dialog boxes to the bottom, and
+     * lets the chat column shrink when the window is resized.
      */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.setMinWidth(0);
+        dialogContainer.setFillWidth(true);
     }
 
     /**
      * Injects the chatbot and shows its welcome message.
+     * A save-file problem is shown in a separate error bubble so it is not
+     * mixed into the greeting.
      *
      * @param ekud chatbot instance used to generate replies
      */
@@ -49,6 +53,12 @@ public class MainWindow extends AnchorPane {
         this.ekud = ekud;
         dialogContainer.getChildren().add(
                 DialogBox.getEkudDialog(ekud.getWelcomeMessage(), ekudImage, DialogStyle.NONE));
+        String startupError = ekud.getStartupError();
+        if (startupError != null) {
+            dialogContainer.getChildren().add(
+                    DialogBox.getEkudDialog(startupError, ekudImage, DialogStyle.ERROR));
+        }
+        Platform.runLater(() -> userInput.requestFocus());
     }
 
     /**
@@ -67,9 +77,10 @@ public class MainWindow extends AnchorPane {
         assert ekud != null : "setEkud must be called before handling input";
         String response = ekud.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getUserDialog(input),
                 DialogBox.getEkudDialog(response, ekudImage, ekud.getDialogStyle()));
         userInput.clear();
+        setInputError(ekud.getDialogStyle() == DialogStyle.ERROR);
 
         if (ekud.isExit()) {
             userInput.setDisable(true);
@@ -77,6 +88,19 @@ public class MainWindow extends AnchorPane {
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
             delay.setOnFinished(event -> Platform.exit());
             delay.play();
+        }
+    }
+
+    /**
+     * Tints the input field when the last reply was an error so a failed
+     * command is visible even after the user looks away from the chat.
+     *
+     * @param isError whether the latest reply used {@link DialogStyle#ERROR}
+     */
+    private void setInputError(boolean isError) {
+        userInput.getStyleClass().remove("error-input");
+        if (isError) {
+            userInput.getStyleClass().add("error-input");
         }
     }
 }
