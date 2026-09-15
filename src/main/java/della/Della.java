@@ -83,21 +83,32 @@ public class Della {
         command = Parser.parseCommand(input);
         return switch (command) {
             case BYE -> handleBye();
-            case LIST -> UI.showTasks(taskList.getTasks());
+            case LIST -> handleList();
             case MARK -> handleMark(input, true);
             case UNMARK -> handleMark(input, false);
             case TODO, DEADLINE, EVENT -> handleAdd(input, command);
             case DELETE -> handleDelete(input);
             case FIND -> handleFind(input);
-            default -> UI.showError("I don't recognise this command :( Try again pls tyvm");
+            default -> handleDefault();
         };
     }
     /**
      * Exits the application.
+     *
+     * @return farewell message.
      */
     private String handleBye() {
         Platform.exit();
         return UI.showFarewell();
+    }
+
+    /**
+     * Displays all tasks currently stored in the task list.
+     *
+     * @return the formatted list of tasks.
+     */
+    private String handleList() {
+        return UI.showTasks(taskList.getTasks());
     }
 
     /**
@@ -193,6 +204,15 @@ public class Della {
         } catch (IllegalArgumentException e) {
             return UI.showError(e.getMessage());
         }
+    }
+
+    /**
+     * Displays an error message when the user enters an unrecognised command.
+     *
+     * @return the formatted error message.
+     */
+    private String handleDefault() {
+        return UI.showError("I don't recognise this command :( Try again pls tyvm");
     }
 
     /**
