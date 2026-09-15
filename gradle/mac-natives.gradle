@@ -1,0 +1,71 @@
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
+
+configurations {
+    macIntelNatives { transitive = false }
+    macArmNatives { transitive = false }
+}
+
+dependencies {
+    macIntelNatives "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+    macArmNatives "org.openjfx:javafx-graphics:${javaFxVersion}:mac-aarch64"
+}
+
+def nativeDirectory = layout.buildDirectory.dir('generated/mac-natives')
+
+tasks.register('mergeMacNatives') {
+    description = 'Combines Intel and Apple Silicon JavaFX natives for the release JAR.'
+    inputs.files(configurations.macIntelNatives, configurations.macArmNatives)
+    outputs.dir(nativeDirectory)
+
+    doLast {
+        def intelFiles = zipTree(configurations.macIntelNatives.singleFile)
+                .matching { include '*.dylib' }.files.collectEntries { [(it.name): it] }
+        def armFiles = zipTree(configurations.macArmNatives.singleFile)
+                .matching { include '*.dylib' }.files.collectEntries { [(it.name): it] }
+        if (intelFiles.isEmpty() || intelFiles.keySet() != armFiles.keySet()) {
+            throw new GradleException('The Intel and Apple Silicon native library sets must match.')
+        }
+        File directory = nativeDirectory.get().asFile
+        // This task owns the directory; discard stale libraries after dependency changes.
+        delete(directory)
+        directory.mkdirs()
+        intelFiles.each { name, intelFile ->
+            def slices = [intelFile.bytes, armFiles[name].bytes]
+            def headers = slices.collect { ByteBuffer.wrap(it).order(ByteOrder.LITTLE_ENDIAN) }
+            [0x01000007, 0x0100000c].eachWithIndex { cpu, index ->
+                if (slices[index].length < 32 || headers[index].getInt(0) != (int) 0xfeedfacf
+                        || headers[index].getInt(4) != cpu) {
+                    throw new GradleException("Unexpected JavaFX native architecture in ${name}.")
+                }
+            }
+
+            // Universal Mach-O files contain a big-endian header and unchanged slices.
+            // Use 16 KiB alignment for both architectures. No macOS-only lipo tool is
+            // needed, so Gradle can build the same release on Windows and Linux too.
+            // Format: https://github.com/apple-oss-distributions/cctools/blob/main/include/mach-o/fat.h
+            int alignment = 1 << 14
+            int armOffset = ((alignment + slices[0].length + alignment - 1).intdiv(alignment)) * alignment
+            def output = ByteBuffer.allocate(armOffset + slices[1].length)
+            output.putInt((int) 0xcafebabe).putInt(2)
+            [alignment, armOffset].eachWithIndex { offset, index ->
+                output.putInt(headers[index].getInt(4)).putInt(headers[index].getInt(8))
+                output.putInt(offset).putInt(slices[index].length).putInt(14)
+            }
+            output.position(alignment)
+            output.put(slices[0])
+            output.position(armOffset)
+            output.put(slices[1])
+            new File(directory, name).bytes = output.array()
+        }
+    }
+}
+
+shadowJar {
+    dependsOn mergeMacNatives
+    from(nativeDirectory)
+    // Replace only the original single-architecture dylibs, not the generated ones.
+    exclude { entry ->
+        entry.name.endsWith('.dylib') && !entry.file.toPath().startsWith(nativeDirectory.get().asFile.toPath())
+    }
+}

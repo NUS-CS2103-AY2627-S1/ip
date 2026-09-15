@@ -1,0 +1,147 @@
+.root {
+    -choo-background: #0d1117;
+    -choo-surface: #151b24;
+    -choo-surface-raised: #1d2633;
+    -choo-border: #2c3747;
+    -choo-text: #e6edf3;
+    -choo-muted: #8b98a8;
+    -choo-teal: #20b8ae;
+    -choo-teal-dark: #178f89;
+    -choo-signal: #f2b84b;
+    -choo-error: #ff6b7a;
+    -choo-error-surface: #351d26;
+    -fx-font-family: "System";
+    -fx-font-size: 13px;
+}
+
+.app-shell,
+.chat-scroll,
+.chat-scroll > .viewport,
+.dialog-container {
+    -fx-background-color: -choo-background;
+}
+
+.app-header {
+    -fx-background-color: -choo-surface;
+    -fx-border-color: transparent transparent -choo-border transparent;
+}
+
+.header-avatar-frame,
+.avatar-frame {
+    -fx-background-color: -choo-surface-raised;
+    -fx-background-radius: 100px;
+    -fx-border-color: -choo-border;
+    -fx-border-radius: 100px;
+    -fx-border-width: 1.5px;
+    -fx-padding: 2px;
+}
+
+.brand-name {
+    -fx-font-size: 19px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -choo-text;
+}
+
+.brand-tagline {
+    -fx-font-size: 9px;
+    -fx-font-weight: 700;
+    -fx-text-fill: -choo-signal;
+}
+
+.chat-scroll {
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.chat-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+}
+
+.chat-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: #344153;
+    -fx-background-radius: 999px;
+}
+
+.chat-scroll .scroll-bar:vertical .increment-button,
+.chat-scroll .scroll-bar:vertical .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}
+
+.dialog-bubble {
+    -fx-background-radius: 14px;
+    -fx-border-radius: 14px;
+    -fx-font-size: 13px;
+    -fx-font-weight: normal;
+    -fx-line-spacing: 2px;
+    -fx-padding: 10px 13px;
+}
+
+.choo-dialog .dialog-bubble {
+    -fx-background-color: -choo-surface-raised;
+    -fx-border-color: -choo-border;
+    -fx-text-fill: -choo-text;
+}
+
+.user-dialog .dialog-bubble {
+    -fx-background-color: -choo-teal-dark;
+    -fx-text-fill: white;
+}
+
+.error-dialog .dialog-bubble {
+    -fx-background-color: -choo-error-surface;
+    -fx-border-color: -choo-error;
+    -fx-border-width: 1px;
+    -fx-text-fill: #ffd9de;
+}
+
+.error-dialog .avatar-frame {
+    -fx-border-color: -choo-error;
+}
+
+.choo-dialog .avatar-frame {
+    -fx-border-color: #267e7b;
+}
+
+.user-dialog .avatar-frame {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.composer {
+    -fx-background-color: -choo-surface;
+    -fx-border-color: -choo-border transparent transparent transparent;
+}
+
+.composer .text-field {
+    -fx-background-color: -choo-surface-raised;
+    -fx-background-radius: 10px;
+    -fx-border-color: -choo-border;
+    -fx-border-radius: 10px;
+    -fx-padding: 11px 13px;
+    -fx-prompt-text-fill: -choo-muted;
+    -fx-text-fill: -choo-text;
+}
+
+.composer .text-field:focused {
+    -fx-border-color: -choo-teal;
+}
+
+.composer .button {
+    -fx-background-color: -choo-teal;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+    -fx-font-weight: 800;
+    -fx-padding: 11px 16px;
+    -fx-text-fill: #071616;
+}
+
+.composer .button:hover {
+    -fx-background-color: #39cbc0;
+}
+
+.composer .button:pressed {
+    -fx-background-color: -choo-teal-dark;
+}

@@ -1,0 +1,65 @@
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
+import java.util.jar.JarFile
+
+// Inspect the actual distributable: a JDK with JavaFX can hide missing natives.
+tasks.register('verifyReleaseJar') {
+    group = 'verification'
+    description = 'Checks the executable JAR and both macOS native architectures.'
+    dependsOn shadowJar
+    inputs.file(shadowJar.archiveFile)
+
+    doLast {
+        new JarFile(shadowJar.archiveFile.get().asFile).withCloseable { jar ->
+            if (jar.manifest.mainAttributes.getValue('Main-Class') != 'choo.gui.Launcher') {
+                throw new GradleException('The release JAR must launch choo.gui.Launcher.')
+            }
+            ['choo/gui/Launcher.class', 'view/MainWindow.fxml', 'view/DialogBox.fxml',
+             'css/main.css', 'images/ChooAvatar.png', 'images/UserAvatar.png',
+             'glass.dll', 'libglass.so'].each { name ->
+                if (jar.getEntry(name) == null) {
+                    throw new GradleException("Missing release resource: ${name}")
+                }
+            }
+            def names = ['decora_sse', 'glass', 'javafx_font', 'javafx_iio',
+                         'prism_common', 'prism_es2', 'prism_sw']
+            names.each { name ->
+                def entry = jar.getEntry("lib${name}.dylib")
+                if (entry == null) {
+                    throw new GradleException("Missing macOS library: ${name}")
+                }
+                byte[] bytes = jar.getInputStream(entry).withCloseable { it.readAllBytes() }
+                def header = ByteBuffer.wrap(bytes)
+                if (bytes.length < 48 || header.getInt() != (int) 0xcafebabe || header.getInt() != 2) {
+                    throw new GradleException("${entry.name} must contain Intel and Apple Silicon slices.")
+                }
+                def architectures = []
+                int previousEnd = 48
+                2.times {
+                    int cpu = header.getInt()
+                    int subtype = header.getInt()
+                    int offset = header.getInt()
+                    int size = header.getInt()
+                    int alignment = header.getInt()
+                    if (offset < previousEnd || size < 32 || size > bytes.length - offset
+                            || alignment != 14 || offset % (1 << alignment) != 0) {
+                        throw new GradleException("Invalid native slice bounds in ${entry.name}.")
+                    }
+                    def slice = ByteBuffer.wrap(bytes, offset, size).order(ByteOrder.LITTLE_ENDIAN)
+                    if (slice.getInt() != (int) 0xfeedfacf
+                            || slice.getInt() != cpu || slice.getInt() != subtype) {
+                        throw new GradleException("Invalid native slice header in ${entry.name}.")
+                    }
+                    architectures.add(cpu)
+                    previousEnd = offset + size
+                }
+                if (architectures.toSet() != [0x01000007, 0x0100000c].toSet()) {
+                    throw new GradleException("Missing Intel or Apple Silicon slice in ${entry.name}.")
+                }
+            }
+        }
+        logger.lifecycle('Release JAR contains GUI resources, Windows/Linux natives, and both macOS architectures.')
+    }
+}
+
+check.dependsOn verifyReleaseJar
