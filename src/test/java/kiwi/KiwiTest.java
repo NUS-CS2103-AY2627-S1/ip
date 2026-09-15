@@ -42,6 +42,14 @@ class KiwiTest {
                 "Hmm, Kiwi doesn't recognize that. Try todo, deadline, event, on, find, free, list, "
                         + "mark, unmark, delete, or bye.",
                 response);
+        assertTrue(kiwi.isError());
+        assertFalse(kiwi.isExit());
+    }
+
+    @Test
+    void getResponse_todo_doesNotSetIsError() {
+        kiwi.getResponse("todo read book");
+        assertFalse(kiwi.isError());
     }
 
     @Test
@@ -57,6 +65,7 @@ class KiwiTest {
         String response = kiwi.getResponse("bye");
         assertEquals("Bye. Hope to see you again soon!", response);
         assertTrue(kiwi.isExit());
+        assertFalse(kiwi.isError());
     }
 
     @Test

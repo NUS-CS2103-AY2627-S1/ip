@@ -65,9 +65,17 @@ public class Ui {
     public void showWelcome() {
         showLine();
         System.out.print(BANNER);
-        System.out.println("Hello! I'm Kiwi.");
-        System.out.println("What can I do for you?");
+        System.out.println(getGuiWelcome());
         showLine();
+    }
+
+    /**
+     * Returns the welcome text used by the GUI (no ASCII banner).
+     *
+     * @return a short greeting.
+     */
+    public String getGuiWelcome() {
+        return "Hello! I'm Kiwi.\nWhat can I do for you?";
     }
 
     /**
