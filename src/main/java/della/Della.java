@@ -136,7 +136,7 @@ public class Della {
     }
 
     /**
-     * Parses, stores, and adds a new task based on the specified add command.
+     * Adds a new task based on the specified add command.
      *
      * @param input the user's command and task details.
      * @param command the type of task to add.
