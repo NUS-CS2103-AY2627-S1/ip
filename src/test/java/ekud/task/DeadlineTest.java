@@ -34,8 +34,13 @@ public class DeadlineTest {
     }
 
     @Test
-    public void toCommandString_usesCanonicalSaveForm() throws EkudException {
-        Deadline deadline = new Deadline("return book", TaskDateTime.parse("2/12/2019 18:00"));
-        assertEquals("deadline return book /by 2019-12-02 1800", deadline.toCommandString());
+    public void getTypeIcon_returnsD() throws EkudException {
+        assertEquals("D", new Deadline("return book", TaskDateTime.parse("2019-12-02")).getTypeIcon());
+    }
+
+    @Test
+    public void getBy_returnsParsedDate() throws EkudException {
+        Deadline deadline = new Deadline("return book", TaskDateTime.parse("2019-12-02 1800"));
+        assertEquals("2019-12-02 1800", deadline.getBy().toSaveString());
     }
 }

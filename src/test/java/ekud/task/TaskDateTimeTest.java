@@ -2,6 +2,7 @@ package ekud.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -74,5 +75,38 @@ public class TaskDateTimeTest {
         assertEquals(
                 "Please use a date such as 2019-12-02 or 2/12/2019, optionally with a time (1800 or 18:00).",
                 exception.getMessage());
+    }
+
+    @Test
+    public void parse_isoDateWithColonTime_includesTime() throws EkudException {
+        TaskDateTime value = TaskDateTime.parse("2019-12-02 18:00");
+        assertEquals(LocalTime.of(18, 0), value.toLocalTime());
+        assertEquals("2019-12-02 1800", value.toSaveString());
+    }
+
+    @Test
+    public void parse_slashDateWithHHmm_includesTime() throws EkudException {
+        TaskDateTime value = TaskDateTime.parse("2/12/2019 1800");
+        assertEquals(LocalDate.of(2019, 12, 2), value.toLocalDate());
+        assertEquals(LocalTime.of(18, 0), value.toLocalTime());
+    }
+
+    @Test
+    public void parse_february30_resolvesToLastValidDay() throws EkudException {
+        // DateTimeFormatter uses SMART resolution, so 30 Feb becomes 28 Feb 2019.
+        TaskDateTime value = TaskDateTime.parse("2019-02-30");
+        assertEquals(LocalDate.of(2019, 2, 28), value.toLocalDate());
+    }
+
+    @Test
+    public void parse_invalidTime_throwsEkudException() {
+        assertThrows(EkudException.class, () -> TaskDateTime.parse("2019-12-02 2560"));
+        assertThrows(EkudException.class, () -> TaskDateTime.parse("2019-12-02 25:00"));
+    }
+
+    @Test
+    public void toLocalTime_dateOnly_returnsNull() throws EkudException {
+        TaskDateTime value = TaskDateTime.parse("2019-12-02");
+        assertNull(value.toLocalTime());
     }
 }

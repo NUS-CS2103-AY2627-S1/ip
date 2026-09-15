@@ -2,9 +2,11 @@ package ekud;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
@@ -64,6 +66,97 @@ public class EkudTest {
     public void getResponse_listWhenEmpty_returnsEmptyMessage() {
         Ekud ekud = newChatbot();
         assertEquals("Your task list is empty.", ekud.getResponse("list"));
+        assertEquals(DialogStyle.NONE, ekud.getDialogStyle());
+    }
+
+    @Test
+    public void getWelcomeMessage_containsNameAndCommandHint() {
+        Ekud ekud = newChatbot();
+        String welcome = ekud.getWelcomeMessage();
+        assertTrue(welcome.contains("Hello! I'm Ekud."));
+        assertTrue(welcome.contains("todo, deadline, or event"));
+        assertFalse(ekud.isExit());
+    }
+
+    @Test
+    public void getStartupError_unreadableSavePath_returnsMessage() throws Exception {
+        Path notAFile = tempDir.resolve("not-a-file");
+        Files.createDirectory(notAFile);
+        Ekud ekud = new Ekud(Ui.forGui(), new Storage(notAFile.toString()));
+        assertNotNull(ekud.getStartupError());
+        assertTrue(ekud.getStartupError().contains("Could not read saved tasks"));
+        assertTrue(ekud.getWelcomeMessage().contains("Hello! I'm Ekud."));
+    }
+
+    @Test
+    public void getResponse_deadlineAndEvent_returnsAddedStyle() {
+        Ekud ekud = newChatbot();
+
+        String deadline = ekud.getResponse("deadline return book /by 2019-12-02");
+        assertTrue(deadline.contains("[D][ ] return book (by: Dec 02 2019)"));
+        assertEquals(DialogStyle.ADD, ekud.getDialogStyle());
+
+        String event = ekud.getResponse("event meeting /from 2019-12-02 1400 /to 2019-12-02 1600");
+        assertTrue(event.contains("[E][ ] meeting"));
+        assertTrue(event.contains("Now you have 2 tasks in the list."));
+        assertEquals(DialogStyle.ADD, ekud.getDialogStyle());
+    }
+
+    @Test
+    public void getResponse_listFindOnUnmark_returnsExpectedReplies() {
+        Ekud ekud = newChatbot();
+        ekud.getResponse("todo read book");
+        ekud.getResponse("deadline return book /by 2019-12-02");
+        ekud.getResponse("mark 1");
+
+        String list = ekud.getResponse("list");
+        assertTrue(list.contains("Here are the tasks in your list:"));
+        assertTrue(list.contains("1. [T][X] read book"));
+        assertTrue(list.contains("2. [D][ ] return book (by: Dec 02 2019)"));
+        assertEquals(DialogStyle.NONE, ekud.getDialogStyle());
+
+        String found = ekud.getResponse("find BOOK");
+        assertTrue(found.contains("Here are the matching tasks in your list:"));
+        assertTrue(found.contains("read book"));
+        assertEquals(DialogStyle.NONE, ekud.getDialogStyle());
+
+        String noneFound = ekud.getResponse("find lecture");
+        assertEquals("No tasks matching \"lecture\".", noneFound);
+
+        String onDate = ekud.getResponse("on 2019-12-02");
+        assertTrue(onDate.contains("Here are the deadlines/events on Dec 02 2019:"));
+        assertTrue(onDate.contains("return book"));
+
+        String onEmpty = ekud.getResponse("on 2019-12-01");
+        assertEquals("No deadlines or events on Dec 01 2019.", onEmpty);
+
+        String unmarked = ekud.getResponse("unmark 1");
+        assertTrue(unmarked.contains("OK, I've marked this task as not done yet:"));
+        assertTrue(unmarked.contains("[T][ ] read book"));
+        assertEquals(DialogStyle.CHANGE_MARK, ekud.getDialogStyle());
+    }
+
+    @Test
+    public void getResponse_invalidTaskNumber_returnsErrorStyle() {
+        Ekud ekud = newChatbot();
+        ekud.getResponse("todo read book");
+        String response = ekud.getResponse("delete 3");
+        assertEquals("Task number 3 does not exist.", response);
+        assertEquals(DialogStyle.ERROR, ekud.getDialogStyle());
+        assertFalse(ekud.isExit());
+    }
+
+    @Test
+    public void getResponse_persistsTasksForNewSession() {
+        Storage storage = new Storage(tempDir.resolve("ekud.txt").toString());
+        Ekud first = new Ekud(Ui.forGui(), storage);
+        first.getResponse("todo read book");
+        first.getResponse("mark 1");
+
+        Ekud second = new Ekud(Ui.forGui(), storage);
+        String list = second.getResponse("list");
+        assertTrue(list.contains("[T][X] read book"));
+        assertNull(second.getStartupError());
     }
 
     @Test

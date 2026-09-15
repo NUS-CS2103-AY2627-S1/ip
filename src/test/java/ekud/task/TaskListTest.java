@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -107,5 +108,23 @@ public class TaskListTest {
         assertEquals(1, tasks.size());
         tasks.add(new Todo("extra"));
         assertEquals(1, loaded.size());
+    }
+
+    @Test
+    public void iterator_visitsTasksInListOrder() {
+        TaskList tasks = new TaskList();
+        tasks.add(new Todo("first"));
+        tasks.add(new Todo("second"));
+        List<String> descriptions = new ArrayList<>();
+        for (Task task : tasks) {
+            descriptions.add(task.getDescription());
+        }
+        assertEquals(List.of("first", "second"), descriptions);
+    }
+
+    @Test
+    public void removeByOneBasedIndex_outOfRange_throwsEkudException() {
+        TaskList tasks = new TaskList();
+        assertThrows(EkudException.class, () -> tasks.removeByOneBasedIndex(1));
     }
 }
