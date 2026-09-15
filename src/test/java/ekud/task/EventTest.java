@@ -36,11 +36,27 @@ public class EventTest {
     }
 
     @Test
-    public void toCommandString_usesCanonicalSaveForm() throws EkudException {
+    public void toString_dateOnly_omitsTimes() throws EkudException {
+        Event event = new Event("camp",
+                TaskDateTime.parse("2019-12-02"),
+                TaskDateTime.parse("2019-12-04"));
+        assertEquals("[E][ ] camp (from: Dec 02 2019 to: Dec 04 2019)", event.toString());
+    }
+
+    @Test
+    public void getTypeIcon_returnsE() throws EkudException {
         Event event = new Event("meeting",
-                TaskDateTime.parse("2/12/2019 14:00"),
-                TaskDateTime.parse("2/12/2019 16:00"));
-        assertEquals("event meeting /from 2019-12-02 1400 /to 2019-12-02 1600",
-                event.toCommandString());
+                TaskDateTime.parse("2019-12-02"),
+                TaskDateTime.parse("2019-12-02"));
+        assertEquals("E", event.getTypeIcon());
+    }
+
+    @Test
+    public void getFromAndGetTo_returnParsedRange() throws EkudException {
+        Event event = new Event("meeting",
+                TaskDateTime.parse("2019-12-02 1400"),
+                TaskDateTime.parse("2019-12-02 1600"));
+        assertEquals("2019-12-02 1400", event.getFrom().toSaveString());
+        assertEquals("2019-12-02 1600", event.getTo().toSaveString());
     }
 }

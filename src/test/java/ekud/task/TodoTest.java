@@ -58,4 +58,12 @@ public class TodoTest {
     public void getTypeIcon_returnsT() {
         assertEquals("T", new Todo("read book").getTypeIcon());
     }
+
+    @Test
+    public void getStatusIcon_reflectsDoneFlag() {
+        Todo todo = new Todo("read book");
+        assertEquals(" ", todo.getStatusIcon());
+        todo.markAsDone();
+        assertEquals("X", todo.getStatusIcon());
+    }
 }

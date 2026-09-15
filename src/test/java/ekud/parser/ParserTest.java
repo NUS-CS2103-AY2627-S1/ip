@@ -13,13 +13,16 @@ import ekud.command.ByeCommand;
 import ekud.command.Command;
 import ekud.command.CommandType;
 import ekud.command.DeadlineCommand;
+import ekud.command.DeleteCommand;
 import ekud.command.EventCommand;
 import ekud.command.FindCommand;
 import ekud.command.HelpCommand;
 import ekud.command.ListCommand;
 import ekud.command.MarkCommand;
+import ekud.command.OnCommand;
 import ekud.command.TaskCreatingCommand;
 import ekud.command.TodoCommand;
+import ekud.command.UnmarkCommand;
 import ekud.task.Deadline;
 import ekud.task.Event;
 import ekud.task.Task;
@@ -55,6 +58,10 @@ public class ParserTest {
         assertInstanceOf(Event.class, task);
         assertEquals("[E][ ] meeting (from: Dec 02 2019, 2:00 PM to: Dec 02 2019, 4:00 PM)",
                 task.toString());
+
+        Task overnight = ((TaskCreatingCommand) Parser.parse(
+                "event camp /from 2019-12-01 1600 /to 2019-12-02 1400")).createTask();
+        assertEquals("camp", overnight.getDescription());
     }
 
     @Test
@@ -138,11 +145,6 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_deadlineMissingBy_throwsEkudException() {
-        assertThrows(EkudException.class, () -> Parser.parse("deadline return book"));
-    }
-
-    @Test
     public void parse_eventEndBeforeStart_throwsEkudException() {
         EkudException exception = assertThrows(EkudException.class, () -> Parser.parse(
                 "event meeting /from 2019-12-02 1600 /to 2019-12-02 1400"));
@@ -171,8 +173,85 @@ public class ParserTest {
     }
 
     @Test
+    public void parse_on_returnsOnCommand() throws EkudException {
+        assertInstanceOf(OnCommand.class, Parser.parse("on 2019-12-02"));
+        assertInstanceOf(OnCommand.class, Parser.parse("on 2/12/2019 1800"));
+    }
+
+    @Test
+    public void parse_onWithoutDate_throwsEkudException() {
+        EkudException exception = assertThrows(EkudException.class, () -> Parser.parse("on"));
+        assertEquals("Please provide a date, e.g. on 2019-12-02.", exception.getMessage());
+    }
+
+    @Test
+    public void parse_unmarkAndDelete_returnIndexCommands() throws EkudException {
+        assertInstanceOf(UnmarkCommand.class, Parser.parse("unmark 1"));
+        assertInstanceOf(DeleteCommand.class, Parser.parse("delete 2"));
+    }
+
+    @Test
+    public void parse_byeWithArguments_throwsEkudException() {
+        EkudException exception = assertThrows(EkudException.class, () -> Parser.parse("bye now"));
+        assertEquals("The \"bye\" command does not take any arguments.", exception.getMessage());
+    }
+
+    @Test
+    public void parse_deadlineEmptyDescriptionOrBy_throwsEkudException() {
+        EkudException blank = assertThrows(EkudException.class, () -> Parser.parse("deadline"));
+        assertEquals("The description of a deadline cannot be empty.", blank.getMessage());
+
+        EkudException missingBy = assertThrows(EkudException.class, () -> Parser.parse("deadline return book"));
+        assertEquals("Please provide a deadline using /by, e.g. deadline return book /by 2019-12-02.",
+                missingBy.getMessage());
+
+        EkudException emptyDescription = assertThrows(EkudException.class, () -> Parser.parse(
+                "deadline /by 2019-12-02"));
+        assertEquals("The description of a deadline cannot be empty.", emptyDescription.getMessage());
+
+        EkudException emptyBy = assertThrows(EkudException.class, () -> Parser.parse("deadline return book /by"));
+        assertEquals("Please provide a date/time after /by, e.g. deadline return book /by 2019-12-02.",
+                emptyBy.getMessage());
+    }
+
+    @Test
+    public void parse_eventMissingParts_throwsEkudException() {
+        EkudException blank = assertThrows(EkudException.class, () -> Parser.parse("event"));
+        assertEquals("The description of an event cannot be empty.", blank.getMessage());
+
+        EkudException missingFlags = assertThrows(EkudException.class, () -> Parser.parse("event meeting"));
+        assertTrue(missingFlags.getMessage().contains("Please provide both /from and /to"));
+
+        EkudException reversed = assertThrows(EkudException.class, () -> Parser.parse(
+                "event meeting /to 2019-12-02 1600 /from 2019-12-02 1400"));
+        assertTrue(reversed.getMessage().contains("Please put /from before /to"));
+
+        EkudException emptyDescription = assertThrows(EkudException.class, () -> Parser.parse(
+                "event /from 2019-12-02 /to 2019-12-03"));
+        assertEquals("The description of an event cannot be empty.", emptyDescription.getMessage());
+
+        EkudException emptyFrom = assertThrows(EkudException.class, () -> Parser.parse(
+                "event meeting /from /to 2019-12-03"));
+        assertEquals("Please provide a start date/time after /from.", emptyFrom.getMessage());
+
+        EkudException emptyTo = assertThrows(EkudException.class, () -> Parser.parse(
+                "event meeting /from 2019-12-02 /to"));
+        assertEquals("Please provide an end date/time after /to.", emptyTo.getMessage());
+    }
+
+    @Test
+    public void parse_eventEndDateBeforeStartDate_throwsEkudException() {
+        EkudException exception = assertThrows(EkudException.class, () -> Parser.parse(
+                "event camp /from 2019-12-03 /to 2019-12-02"));
+        assertEquals("The event end date/time cannot be before the start date/time.",
+                exception.getMessage());
+    }
+
+    @Test
     public void indexOfFlag_matchesWholeTokenOnly() {
         assertEquals(12, Parser.indexOfFlag("return book /by 2019-12-02", "/by"));
+        assertEquals(0, Parser.indexOfFlag("/by 2019-12-02", "/by"));
+        assertEquals(2, Parser.indexOfFlag("x /by", "/by"));
         // "/by" inside "/bye" must not count as the deadline flag.
         assertEquals(-1, Parser.indexOfFlag("say goodbye /bye later", "/by"));
         assertEquals(-1, Parser.indexOfFlag("no flags here", "/by"));
