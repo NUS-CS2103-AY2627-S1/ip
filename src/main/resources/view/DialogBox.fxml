@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+
+<fx:root type="HBox"
+         xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml"
+         alignment="TOP_RIGHT"
+         spacing="7.0"
+         stylesheets="@../css/dialog-box.css"
+         styleClass="dialog-box">
+    <children>
+        <Label fx:id="dialog" wrapText="true" styleClass="dialog-label" />
+        <Circle fx:id="displayPicture" mouseTransparent="true" radius="20.0"
+                smooth="true" styleClass="display-picture" />
+    </children>
+</fx:root>

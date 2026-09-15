@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="duke.gui.MainWindow"
+            stylesheets="@../css/main.css"
+            prefHeight="420.0"
+            prefWidth="560.0">
+    <children>
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED">
+            <AnchorPane.topAnchor>6.0</AnchorPane.topAnchor>
+            <AnchorPane.leftAnchor>6.0</AnchorPane.leftAnchor>
+            <AnchorPane.rightAnchor>6.0</AnchorPane.rightAnchor>
+            <AnchorPane.bottomAnchor>54.0</AnchorPane.bottomAnchor>
+            <content>
+                <VBox fx:id="dialogContainer" spacing="3.0" styleClass="dialog-container" />
+            </content>
+        </ScrollPane>
+        <TextField fx:id="userInput"
+                   onAction="#handleUserInput"
+                   prefHeight="38.0"
+                   promptText="Enter a command…">
+            <AnchorPane.leftAnchor>8.0</AnchorPane.leftAnchor>
+            <AnchorPane.rightAnchor>84.0</AnchorPane.rightAnchor>
+            <AnchorPane.bottomAnchor>8.0</AnchorPane.bottomAnchor>
+        </TextField>
+        <Button fx:id="sendButton"
+                mnemonicParsing="false"
+                onAction="#handleUserInput"
+                prefHeight="38.0"
+                prefWidth="68.0"
+                text="Send">
+            <AnchorPane.rightAnchor>8.0</AnchorPane.rightAnchor>
+            <AnchorPane.bottomAnchor>8.0</AnchorPane.bottomAnchor>
+        </Button>
+    </children>
+</AnchorPane>

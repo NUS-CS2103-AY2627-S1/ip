@@ -1,0 +1,78 @@
+.root {
+    /* Shared neutral palette keeps the compact interface calm and legible. */
+    surface-0: #0d1117;
+    surface-1: #161b22;
+    surface-2: #21262d;
+    border: #30363d;
+    text-0: #e6edf3;
+    text-1: #8b949e;
+    accent: #58a6ff;
+    accent-hover: #79c0ff;
+    danger: #ff7b72;
+    danger-text: #ffdcd7;
+    danger-surface: rgba(248, 81, 73, 0.18);
+
+    -fx-background-color: surface-0;
+}
+
+.text-field {
+    -fx-background-color: surface-1;
+    -fx-text-fill: text-0;
+    -fx-prompt-text-fill: text-1;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: border;
+    -fx-border-width: 1px;
+    -fx-font: 14px "System";
+    -fx-padding: 8px 11px 8px 11px;
+}
+
+.text-field:focused {
+    -fx-border-color: accent;
+}
+
+.button {
+    -fx-background-color: accent;
+    -fx-text-fill: surface-0;
+    -fx-background-radius: 8px;
+    -fx-font: bold 13px "System";
+    -fx-padding: 7px 12px 7px 12px;
+}
+
+.button:hover {
+    -fx-background-color: accent-hover;
+}
+
+.button:pressed {
+    -fx-background-color: derive(accent, -12%);
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-padding: 0;
+}
+
+.dialog-container {
+    -fx-padding: 2px 2px 6px 2px;
+}
+
+.scroll-bar {
+    -fx-font-size: 8px;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgba(139, 148, 158, 0.35);
+    -fx-background-radius: 999px;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

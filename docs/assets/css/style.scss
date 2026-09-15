@@ -1,0 +1,149 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+:root {
+  --gary-ink: #243143;
+  --gary-muted: #5e6b7a;
+  --gary-primary: #536dfe;
+  --gary-primary-dark: #3949ab;
+  --gary-surface: #ffffff;
+  --gary-soft: #f3f5ff;
+  --gary-border: #dfe3f1;
+}
+
+body {
+  background: #f7f8fc;
+  color: var(--gary-ink);
+}
+
+.page-header {
+  background-color: var(--gary-primary-dark);
+  background-image: linear-gradient(135deg, #3949ab 0%, #7e57c2 100%);
+  padding-top: 3.25rem;
+  padding-bottom: 3.25rem;
+}
+
+.project-name {
+  letter-spacing: -0.03em;
+}
+
+.project-tagline {
+  margin-bottom: 0;
+  opacity: 0.9;
+}
+
+.main-content {
+  max-width: 62rem;
+  margin: 2rem auto;
+  padding: 2.5rem 3rem;
+  background: var(--gary-surface);
+  border: 1px solid var(--gary-border);
+  border-radius: 1rem;
+  box-shadow: 0 12px 36px rgba(45, 55, 90, 0.08);
+}
+
+/* The Pages theme already displays the guide title in its header. */
+.main-content > h1:first-child {
+  display: none;
+}
+
+.main-content h2 {
+  margin-top: 3rem;
+  padding-bottom: 0.5rem;
+  color: var(--gary-primary-dark);
+  border-bottom-color: var(--gary-border);
+  scroll-margin-top: 1rem;
+}
+
+.main-content h3 {
+  margin-top: 2.25rem;
+  color: #37474f;
+}
+
+.main-content h4 {
+  margin-top: 1.75rem;
+  color: var(--gary-primary-dark);
+}
+
+.main-content a {
+  color: var(--gary-primary-dark);
+  font-weight: 600;
+}
+
+.main-content code {
+  color: #3f3d91;
+  background: var(--gary-soft);
+  border: 1px solid #e4e6fa;
+  border-radius: 0.35rem;
+}
+
+.main-content blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  color: var(--gary-ink);
+  background: var(--gary-soft);
+  border-left: 0.3rem solid var(--gary-primary);
+  border-radius: 0 0.6rem 0.6rem 0;
+}
+
+.main-content blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.main-content table {
+  display: table;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--gary-border);
+  border-radius: 0.65rem;
+  box-shadow: 0 4px 14px rgba(45, 55, 90, 0.05);
+}
+
+.main-content table th {
+  color: var(--gary-ink);
+  background: var(--gary-soft);
+}
+
+.main-content img {
+  border-radius: 1rem;
+  box-shadow: 0 12px 30px rgba(36, 49, 67, 0.18);
+}
+
+.main-content kbd {
+  padding: 0.1rem 0.4rem;
+  color: var(--gary-ink);
+  background: #ffffff;
+  border: 1px solid #c9cfdb;
+  border-bottom-width: 2px;
+  border-radius: 0.3rem;
+  box-shadow: none;
+}
+
+.site-footer {
+  color: var(--gary-muted);
+}
+
+@media screen and (max-width: 42rem) {
+  .page-header {
+    padding: 2.25rem 1rem;
+  }
+
+  .main-content {
+    margin: 0;
+    padding: 1.5rem 1.1rem;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .main-content table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .main-content img {
+    width: 100%;
+  }
+}

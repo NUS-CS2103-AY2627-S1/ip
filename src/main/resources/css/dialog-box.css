@@ -1,0 +1,44 @@
+.dialog-box {
+    -fx-padding: 3px 4px 3px 4px;
+}
+
+.dialog-label {
+    -fx-padding: 7px 10px 7px 10px;
+    -fx-background-color: surface-2;
+    -fx-text-fill: text-0;
+    -fx-background-radius: 11px 11px 3px 11px;
+    -fx-border-radius: 11px 11px 3px 11px;
+    -fx-border-color: border;
+    -fx-border-width: 1px;
+    -fx-font: 14px "System";
+    -fx-line-spacing: 1px;
+    -fx-max-width: 480px;
+}
+
+.reply-label {
+    -fx-background-color: rgba(88, 166, 255, 0.14);
+    -fx-border-color: rgba(88, 166, 255, 0.32);
+    -fx-background-radius: 11px 11px 11px 3px;
+    -fx-border-radius: 11px 11px 11px 3px;
+}
+
+.error-label {
+    -fx-background-color: danger-surface;
+    -fx-border-color: danger;
+    -fx-border-width: 1.5px;
+    -fx-text-fill: danger-text;
+    -fx-font-weight: bold;
+}
+
+.display-picture {
+    -fx-stroke-width: 1.5px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.32), 5, 0.2, 0, 1);
+}
+
+.user-picture {
+    -fx-stroke: rgba(230, 237, 243, 0.42);
+}
+
+.duke-picture {
+    -fx-stroke: rgba(88, 166, 255, 0.72);
+}

@@ -1,0 +1,133 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'jacoco'
+    id 'com.gradleup.shadow' version '9.5.1'
+    id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+def javaFxVersion = '24.0.2'
+
+javafx {
+    version = javaFxVersion
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+
+    // Package the JavaFX classes and native libraries needed by each desktop OS.
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+jacoco {
+    toolVersion = '0.8.14'
+}
+
+def testableClasses = sourceSets.main.output.asFileTree.matching {
+    exclude 'duke/gui/**'
+}
+
+jacocoTestReport {
+    dependsOn test
+    classDirectories.setFrom(testableClasses)
+
+    reports {
+        html.required = true
+        xml.required = true
+    }
+}
+
+jacocoTestCoverageVerification {
+    dependsOn test
+    classDirectories.setFrom(testableClasses)
+
+    violationRules {
+        rule {
+            limit {
+                counter = 'LINE'
+                minimum = 0.95
+            }
+        }
+    }
+}
+
+test.finalizedBy jacocoTestReport
+check.dependsOn jacocoTestCoverageVerification
+
+application {
+    // Entry point for the app.
+    mainClass = 'duke.Duke'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'duke.jar'
+    manifest {
+        // Use the wrapper class so JavaFX can be launched from the classpath-based fat JAR.
+        attributes 'Main-Class': 'duke.gui.GuiLauncher'
+    }
+}
+
+run {
+    standardInput = System.in
+}
+
+tasks.register('runGui', JavaExec) {
+    group = 'application'
+    description = "Runs Gary's JavaFX GUI."
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'duke.gui.GuiLauncher'
+    // Java 25 warns that JavaFX needs native access; enable it to keep the output clean.
+    jvmArgs '--enable-native-access=javafx.graphics'
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}

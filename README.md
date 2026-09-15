@@ -23,3 +23,10 @@ Prerequisites: JDK 25, update Intellij to the most recent version.
    ```
 
 **Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+
+## Running (Gradle)
+
+- Run the CLI app: `./gradlew run`
+- Run the JavaFX GUI: `./gradlew runGui`
+- Build the cross-platform GUI JAR: `./gradlew shadowJar`
+- Launch the built GUI JAR: `java -jar build/libs/duke.jar`
