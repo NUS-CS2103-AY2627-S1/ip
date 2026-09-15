@@ -1,0 +1,35 @@
+.root {
+    -fx-background-color: #f5f2ea;
+    -fx-background-image: url("../images/jungle-background.png");
+    -fx-background-size: cover;
+    -fx-font-family: "System";
+}
+
+.scroll-pane {
+    -fx-background-color: rgba(15, 35, 10, 0.28);
+}
+
+.scroll-pane > .viewport,
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-padding: 10px 0 10px 0;
+}
+
+.text-field {
+    -fx-background-radius: 8px;
+    -fx-font-size: 14px;
+}
+
+.button {
+    -fx-background-color: #557a46;
+    -fx-background-radius: 8px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #416437;
+}

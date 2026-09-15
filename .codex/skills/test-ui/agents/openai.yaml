@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run planned command-line UI tests"
+  default_prompt: "Use $test-ui to run the command-line UI test plan and show the console session."

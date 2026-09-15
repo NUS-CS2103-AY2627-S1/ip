@@ -1,5 +1,7 @@
 # Project context
 
+All Java code in this project MUST follow the project-specific `seedu-java-coding-standard` skill in `.codex/skills/seedu-java-coding-standard/SKILL.md`, based on the SE-EDU basic and intermediate Java coding standard. Apply it when writing, reviewing, or modifying any Java source file.
+
 This repository is a starter template for a greenfield Java project used in an introductory software engineering course in an undergraduate computer science program. Students use it as the starting point for their own projects.
 
 # Default user context
@@ -31,5 +33,25 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 ## Git
 
 Use lightweight tags unless the user requests an annotated tag.
-When proposing or creating a commit message, include enough detail to explain the rationale for the change.
+All future commits and branch names MUST follow the project-specific `seedu-git-standard` skill in `.codex/skills/seedu-git-standard/SKILL.md`, based on the SE-EDU Git conventions. Apply it whenever proposing, reviewing, or creating a commit or branch name.
+When proposing or creating a commit message, include enough detail to explain what changed and why.
 Do not commit or push unless explicitly asked.
+
+## UI regression testing after code changes
+
+After every code update:
+
+1. Review `test/ui-test-plan.md` and update it when the change adds, removes, or changes observable command-line behavior.
+2. Invoke the project-specific `test-ui` skill and run the resulting UI test plan. Use the project's current Java build/run command, for example:
+
+   ```bash
+   python3 .codex/skills/test-ui/scripts/run-ui-tests.py \
+     --command 'java -cp <compiled-classes> Monkey' \
+     --plan test/ui-test-plan.md
+   ```
+
+   Report the console input/output session and stop at the first failed test. If the change has no UI impact, still invoke `test-ui`; document why the existing plan remains sufficient.
+
+## JUnit test coverage target
+
+Maintain JUnit coverage for at least the top 50% of methods that are highest-value to the project, prioritizing complex, core, state-mutating, or otherwise critical business logic. After every code change, review the affected methods and update or add JUnit tests as needed to keep this target satisfied. Tests should cover the reasonable success, boundary, and failure cases for the selected methods.

@@ -1,0 +1,17 @@
+.dialog-label {
+    -fx-background-color: #dcebd6;
+    -fx-background-radius: 12px 12px 2px 12px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+}
+
+.reply-label {
+    -fx-background-color: white;
+    -fx-background-radius: 12px 12px 12px 2px;
+}
+
+.avatar-placeholder {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #35512d;
+}

@@ -12,9 +12,16 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
+__pycache__/
 
 # Temp files
 _temp/
+
+# Local chatbot data
+/data/
+
+# Codex local skills and configuration
+/.codex/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

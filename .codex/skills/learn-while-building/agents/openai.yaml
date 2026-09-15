@@ -1,0 +1,4 @@
+interface:
+  display_name: "Learn While Building"
+  short_description: "Build software with guided explanations"
+  default_prompt: "Use $learn-while-building to implement this change while explaining the architecture, testing, and key decisions."

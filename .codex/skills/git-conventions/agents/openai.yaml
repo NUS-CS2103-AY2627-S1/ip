@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Conventions"
+  short_description: "Review Git branches and commit messages"
+  default_prompt: "Use $git-conventions to review this branch name or commit message."
