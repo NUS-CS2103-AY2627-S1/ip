@@ -33,3 +33,11 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## Testing
+
+JUnit tests should cover the top ~50% highest-value methods, prioritizing complex, core, or critical business logic (for example parsing, date/time handling, task-list operations, and storage).
+
+After each code change, update the JUnit tests so they still meet that coverage target: add tests for new high-value methods, and adjust existing tests when behaviour changes.
+
+Place tests under `src/test/java/`, using the same package as the class under test, and name test classes `{ClassName}Test`.

@@ -1,0 +1,49 @@
+@font-face {
+    font-family: "Roboto";
+    src: url("../fonts/Roboto-Regular.ttf");
+}
+
+.root {
+    -fx-font-family: "Roboto";
+    -fx-font-size: 13px;
+}
+
+#dialogContainer {
+    -fx-background-color: #EAEAEA;
+}
+
+.scroll-pane {
+    -fx-background-color: #EAEAEA;
+    -fx-background: #EAEAEA;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #EAEAEA;
+}
+
+.bubble {
+    -fx-padding: 10 14 10 14;
+    -fx-background-radius: 16;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 13px;
+}
+
+.user-bubble {
+    -fx-background-color: #D4EDDA;
+    -fx-text-fill: #1E4620;
+}
+
+.bot-bubble {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #222222;
+}
+
+.error-bubble {
+    -fx-background-color: #F8D7DA;
+    -fx-text-fill: #721C24;
+}
+
+#userInput, #sendButton {
+    -fx-font-family: "Roboto";
+    -fx-font-size: 13px;
+}

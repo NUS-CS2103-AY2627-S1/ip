@@ -1,0 +1,109 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+    id 'checkstyle'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javaFxVersion = '17.0.7'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    // Natives for Windows, macOS, and Linux must all be packaged so one `java -jar` works
+    // on every major OS. Apple Silicon uses the mac-aarch64 classifier; those dylibs share
+    // paths with Intel mac natives, so mac-aarch64 is listed last and wins in the fat JAR.
+    def javafxModules = ['javafx-base', 'javafx-controls', 'javafx-fxml', 'javafx-graphics']
+    def javafxPlatforms = ['win', 'mac', 'linux', 'mac-aarch64']
+    javafxModules.each { module ->
+        javafxPlatforms.each { os ->
+            implementation "org.openjfx:${module}:${javaFxVersion}:${os}"
+        }
+    }
+}
+
+test {
+    jvmArgs '-ea'
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
+application {
+    mainClass.set("sal.Launcher")
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'sal.jar'
+    mergeServiceFiles()
+}
+
+/**
+ * Fails the build if the fat JAR is missing JavaFX natives for Windows, macOS, or Linux,
+ * or if the entry point is not {@code sal.Launcher} (needed to avoid the
+ * "JavaFX runtime components are missing" error).
+ */
+tasks.register('verifyCrossPlatformJar') {
+    group = 'verification'
+    description = 'Checks that sal.jar can be launched on Windows, macOS, and Linux.'
+    dependsOn shadowJar
+    doLast {
+        def jarFile = layout.buildDirectory.file('libs/sal.jar').get().asFile
+        assert jarFile.exists(): "Expected ${jarFile} to exist after shadowJar"
+        def zip = new java.util.zip.ZipFile(jarFile)
+        try {
+            def names = zip.entries().iterator().collect { it.name } as Set
+            def manifest = zip.getInputStream(zip.getEntry('META-INF/MANIFEST.MF')).text
+            assert manifest.contains('Main-Class: sal.Launcher'):
+                    'Manifest Main-Class must be sal.Launcher so java -jar works with JavaFX'
+            assert names.contains('glass.dll'): 'Missing Windows JavaFX native glass.dll'
+            assert names.contains('libglass.dylib'): 'Missing macOS JavaFX native libglass.dylib'
+            assert names.contains('libglass.so'): 'Missing Linux JavaFX native libglass.so'
+            assert names.contains('libglassgtk3.so'): 'Missing Linux GTK native libglassgtk3.so'
+            assert names.contains('sal/Launcher.class'): 'Missing sal.Launcher in the JAR'
+            assert names.contains('view/MainWindow.fxml'): 'Missing MainWindow.fxml in the JAR'
+            logger.lifecycle('sal.jar has JavaFX natives for Windows, macOS, and Linux, and Main-Class is sal.Launcher.')
+        } finally {
+            zip.close()
+        }
+    }
+}
+
+check.dependsOn verifyCrossPlatformJar
+
+run {
+    jvmArgs '-ea'
+    standardInput = System.in
+}

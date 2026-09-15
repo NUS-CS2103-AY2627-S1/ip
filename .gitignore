@@ -16,5 +16,9 @@ bin/
 # Temp files
 _temp/
 
+# html files
+website_reference/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+/data
