@@ -31,23 +31,37 @@ public class FileManager {
             }
             temporary = Files.createTempFile(filePath.getParent(), "penny-", ".tmp");
             Files.writeString(temporary, content);
-            try {
-                Files.move(temporary, filePath, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
-            } catch (AtomicMoveNotSupportedException e) {
-                // Never truncate the existing save before the complete replacement has been written.
-                Files.move(temporary, filePath, StandardCopyOption.REPLACE_EXISTING);
-            }
+            replaceSave(temporary, filePath);
         } catch (IOException | InvalidPathException | SecurityException e) {
             throw new PennyException("Could not save tasks to " + fileName
                     + ". Check the path, permissions, and available disk space.", e);
         } finally {
-            if (temporary != null) {
-                try {
-                    Files.deleteIfExists(temporary);
-                } catch (IOException | SecurityException e) {
-                    // A leftover temporary file must not hide the original save error.
-                }
-            }
+            cleanUpTemporaryFile(temporary);
+        }
+    }
+
+    /**
+     * Replaces the save atomically where supported, after the complete new content has been written.
+     */
+    private static void replaceSave(Path temporary, Path filePath) throws IOException {
+        try {
+            Files.move(temporary, filePath, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+        } catch (AtomicMoveNotSupportedException e) {
+            Files.move(temporary, filePath, StandardCopyOption.REPLACE_EXISTING);
+        }
+    }
+
+    /**
+     * Removes any temporary file without hiding the result of the save operation.
+     */
+    private static void cleanUpTemporaryFile(Path temporary) {
+        if (temporary == null) {
+            return;
+        }
+        try {
+            Files.deleteIfExists(temporary);
+        } catch (IOException | SecurityException e) {
+            // A leftover temporary file must not hide the original save error.
         }
     }
 

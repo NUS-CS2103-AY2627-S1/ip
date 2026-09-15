@@ -30,24 +30,7 @@ public class Penny {
     Penny(String fileName) {
         this.fileName = fileName;
         try {
-            String save = FileManager.readData(fileName);
-            String[] lines = save.split("\\R");
-            for (int i = 0; i < lines.length; i++) {
-                String command = lines[i].strip();
-                if (command.isEmpty()) {
-                    continue;
-                }
-                try {
-                    if (Parser.handleInput(taskList, command, true).shouldExit()) {
-                        throw new PennyException("Exit commands do not belong in saved history.");
-                    }
-                    commands.add(command);
-                } catch (PennyException e) {
-                    startupWarning = "Stopped loading at line " + (i + 1) + ": " + e.getMessage();
-                    savingBlocked = true;
-                    break;
-                }
-            }
+            loadCommands(FileManager.readData(fileName));
         } catch (PennyException e) {
             startupWarning = e.getMessage();
             savingBlocked = true;
@@ -62,6 +45,27 @@ public class Penny {
     }
 
     /**
+     * Replays saved lines until the first invalid command, preserving its line number in the error.
+     */
+    private void loadCommands(String save) throws PennyException {
+        String[] lines = save.split("\\R");
+        for (int i = 0; i < lines.length; i++) {
+            String command = lines[i].strip();
+            if (command.isEmpty()) {
+                continue;
+            }
+            try {
+                if (Parser.handleInput(taskList, command, true).shouldExit()) {
+                    throw new PennyException("Exit commands do not belong in saved history.");
+                }
+                commands.add(command);
+            } catch (PennyException e) {
+                throw new PennyException("Stopped loading at line " + (i + 1) + ": " + e.getMessage(), e);
+            }
+        }
+    }
+
+    /**
      * Processes one line of user input: persists task changes before applying them,
      * and turns any {@link PennyException} into an error message
      * instead of propagating it. Package-private so the GUI controller can act on
@@ -71,34 +75,61 @@ public class Penny {
         try {
             String normalized = input == null ? "" : input.strip();
             Command command = Command.parse(normalized.split("\\s+", 2)[0]);
-            boolean changesTasks = command == Command.TODO || command == Command.DEADLINE || command == Command.EVENT
-                    || command == Command.MARK || command == Command.UNMARK || command == Command.DELETE;
-            if (!changesTasks) {
+            if (!changesTasks(command)) {
                 return Parser.handleInput(taskList, input, false);
             }
             if (savingBlocked) {
                 return new ParseResult(startupWarning, false);
             }
-            // Execute against a replayed copy so a failed save cannot change the live task list.
-            TaskList candidate = new TaskList();
-            for (String savedCommand : commands) {
-                Parser.handleInput(candidate, savedCommand, true);
-            }
-            ParseResult result = Parser.handleInput(candidate, input, false);
-            assert result != null : "Parser.handleInput should always return a ParseResult";
-            ArrayList<String> updated = new ArrayList<>(commands);
-            updated.add(normalized);
-            try {
-                FileManager.writeData(fileName, String.join("\n", updated));
-            } catch (PennyException e) {
-                return new ParseResult(e.getMessage() + " No changes were applied. Please retry.", false);
-            }
-            commands.add(normalized);
-            taskList = candidate;
-            return result;
+            return applyTaskChange(input, normalized);
         } catch (PennyException e) {
             return new ParseResult(e.getMessage(), false);
         }
+    }
+
+    /**
+     * Identifies commands that need a successful save before changing the live task list.
+     */
+    private boolean changesTasks(Command command) {
+        return command == Command.TODO || command == Command.DEADLINE || command == Command.EVENT
+                || command == Command.MARK || command == Command.UNMARK || command == Command.DELETE;
+    }
+
+    /**
+     * Executes on a separate list and publishes the result only after saving succeeds.
+     */
+    private ParseResult applyTaskChange(String input, String normalized) throws PennyException {
+        TaskList candidate = replayCommands();
+        ParseResult result = Parser.handleInput(candidate, input, false);
+        assert result != null : "Parser.handleInput should always return a ParseResult";
+        try {
+            saveCommand(normalized);
+        } catch (PennyException e) {
+            return new ParseResult(e.getMessage() + " No changes were applied. Please retry.", false);
+        }
+        commands.add(normalized);
+        taskList = candidate;
+        return result;
+    }
+
+    /**
+     * Reconstructs a separate task list so a failed save cannot change the live tasks.
+     */
+    private TaskList replayCommands() throws PennyException {
+        TaskList candidate = new TaskList();
+        for (String savedCommand : commands) {
+            Parser.handleInput(candidate, savedCommand, true);
+        }
+        return candidate;
+    }
+
+    /**
+     * Saves the proposed history without changing the in-memory command history.
+     */
+    private void saveCommand(String command) throws PennyException {
+        ArrayList<String> updated = new ArrayList<>(commands);
+        updated.add(command);
+        FileManager.writeData(fileName, String.join("\n", updated));
     }
 
     public static void main(String[] args) {
