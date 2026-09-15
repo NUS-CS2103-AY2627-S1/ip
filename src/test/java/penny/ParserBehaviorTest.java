@@ -19,7 +19,8 @@ public class ParserBehaviorTest {
         assertEquals(new ParseResult("Marked as done: [T][X] read", false),
                 Parser.handleInput(tasks, "mark 1", false));
         assertTrue(tasks.get(0).isDone());
-        Parser.handleInput(tasks, "unmark 1", false);
+        assertEquals(new ParseResult("Marked as undone: [T][ ] read", false),
+                Parser.handleInput(tasks, "unmark 1", false));
         assertFalse(tasks.get(0).isDone());
         assertEquals(new ParseResult("1. [T][ ] read", false), Parser.handleInput(tasks, "list", false));
         assertEquals(new ParseResult("Deleted: [T][ ] read", false),

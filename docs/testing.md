@@ -39,6 +39,5 @@ normal save file.
 8. Enter `bye`. Confirm that the goodbye reply appears, the input and Send button
    become disabled, and the window closes after about one second.
 
-Known observation: `unmark` currently says “Marked as done” in its reply, although
-the task correctly becomes undone. The tests verify the state change without
-requiring that misleading wording.
+The task lifecycle test checks that `unmark` replies “Marked as undone” and
+changes the task's completion state.

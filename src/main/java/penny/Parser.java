@@ -145,7 +145,7 @@ public class Parser {
 
         Task unmarkedTask = tasks.get(unmarkIndex);
         unmarkedTask.unmarkAsDone();
-        return new ParseResult(isLoading ? "" : "Marked as done: " + unmarkedTask, false);
+        return new ParseResult(isLoading ? "" : "Marked as undone: " + unmarkedTask, false);
     }
 
     private static ParseResult handleDelete(TaskList tasks, String arguments, boolean isLoading)
