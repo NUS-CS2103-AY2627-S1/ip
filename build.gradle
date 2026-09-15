@@ -63,7 +63,14 @@ jar {
 }
 
 shadowJar {
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'larp.jar'
+}
+
+tasks.register('generateUiScreenshot', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'larp.UiScreenshotLauncher'
+    args layout.projectDirectory.file('docs/Ui.png').asFile.absolutePath
 }
 
 run {
