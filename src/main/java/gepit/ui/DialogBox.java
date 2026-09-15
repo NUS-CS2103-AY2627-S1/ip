@@ -68,8 +68,24 @@ public class DialogBox extends HBox {
      * @return Gepit dialog box.
      */
     public static DialogBox getGepitDialog(String text, Image image) {
+        return getGepitDialog(text, image, false);
+    }
+
+    /**
+     * Returns a dialog box representing a Gepit response.
+     *
+     * @param text Message text.
+     * @param image Gepit display picture.
+     * @param isError Whether to apply the error presentation.
+     * @return Gepit dialog box.
+     */
+    public static DialogBox getGepitDialog(
+            String text, Image image, boolean isError) {
         DialogBox dialogBox = new DialogBox(text, image);
         dialogBox.flip();
+        if (isError) {
+            dialogBox.dialog.getStyleClass().add("error-label");
+        }
         return dialogBox;
     }
 }

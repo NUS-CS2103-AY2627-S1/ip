@@ -117,6 +117,19 @@ public class StorageTest {
     }
 
     @Test
+    public void load_eventWithSameDates_throwsException()
+            throws IOException {
+        Path filePath = tempDir.resolve("tasks.txt");
+        Files.writeString(
+                filePath,
+                "E | 0 | meeting | 2026-09-10 | 2026-09-10");
+
+        Storage storage = new Storage(filePath.toString());
+
+        assertThrows(GepitException.class, storage::load);
+    }
+
+    @Test
     public void save_missingDirectory_createsDirectory()
             throws GepitException {
         Path filePath = tempDir

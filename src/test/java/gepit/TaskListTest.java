@@ -36,6 +36,16 @@ public class TaskListTest {
     }
 
     @Test
+    public void find_differentLetterCase_returnsMatchingTasks() {
+        TaskList tasks = new TaskList();
+        tasks.add(new Todo("Read Book"));
+
+        List<Task> matches = tasks.find("book");
+
+        assertEquals(1, matches.size());
+    }
+
+    @Test
     void updateDescription_markedTask_preservesMarkedStatus() {
         Task task = new Todo("old description");
         task.markDone();

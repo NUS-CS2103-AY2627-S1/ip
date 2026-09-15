@@ -47,6 +47,10 @@ public class MainWindow extends AnchorPane {
      */
     public void setGepit(Gepit gepit) {
         this.gepit = gepit;
+        dialogContainer.getChildren().add(
+                DialogBox.getGepitDialog(
+                        "Hey, friendo! I'm Gepit. Type 'help' to see what I can do.",
+                        gepitImage));
     }
 
     /**
@@ -60,11 +64,12 @@ public class MainWindow extends AnchorPane {
             return;
         }
 
-        String response = gepit.getResponse(input);
+        Gepit.Response response = gepit.process(input);
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getGepitDialog(response, gepitImage));
+                DialogBox.getGepitDialog(
+                        response.message(), gepitImage, response.isError()));
 
         userInput.clear();
     }

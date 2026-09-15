@@ -2,6 +2,7 @@ package gepit.parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Locale;
 
 import gepit.GepitException;
 import gepit.task.Deadline;
@@ -20,7 +21,7 @@ public class Parser {
      * @return Command word.
      */
     public static String getCommand(String input) {
-        return input.split(" ", 2)[0];
+        return input.strip().split("\\s+", 2)[0].toLowerCase(Locale.ROOT);
     }
 
     /**
@@ -31,14 +32,14 @@ public class Parser {
      * @throws GepitException If the command has no argument.
      */
     public static String getArgument(String input) throws GepitException {
-        String[] parts = input.split(" ", 2);
+        String[] parts = input.strip().split("\\s+", 2);
 
         if (parts.length < 2 || parts[1].isBlank()) {
             throw new GepitException(
                     "Oi, this command needs more information.");
         }
 
-        return parts[1];
+        return parts[1].strip();
     }
 
     /**
@@ -51,7 +52,11 @@ public class Parser {
     public static int parseTaskNumber(String input)
             throws GepitException {
         try {
-            return Integer.parseInt(input);
+            int taskNumber = Integer.parseInt(input.strip());
+            if (taskNumber <= 0) {
+                throw new GepitException("Task numbers start from 1.");
+            }
+            return taskNumber;
         } catch (NumberFormatException e) {
             throw new GepitException(
                     input + " isn't a valid task number");
@@ -64,8 +69,9 @@ public class Parser {
      * @param input gepit.task.Todo description.
      * @return Parsed todo.
      */
-    public static Todo parseTodo(String input) {
-        return new Todo(input);
+    public static Todo parseTodo(String input) throws GepitException {
+        String description = validateDescription(input);
+        return new Todo(description);
     }
 
     /**
@@ -77,9 +83,9 @@ public class Parser {
      */
     public static Deadline parseDeadline(String input)
             throws GepitException {
-        String[] parts = input.split(" /by ", 2);
+        String[] parts = input.strip().split("\\s+/by\\s+", -1);
 
-        if (parts.length < 2
+        if (parts.length != 2
                 || parts[0].isBlank()
                 || parts[1].isBlank()) {
             throw new GepitException(
@@ -87,14 +93,14 @@ public class Parser {
                             + "\ndeadline return book /by 2026-09-10");
         }
 
-        String description = parts[0];
+        String description = validateDescription(parts[0]);
 
         try {
-            LocalDate due = LocalDate.parse(parts[1]);
+            LocalDate due = LocalDate.parse(parts[1].strip());
             return new Deadline(description, due);
         } catch (DateTimeParseException e) {
             throw new GepitException(
-                    "gepit.task.Deadline date should use yyyy-MM-dd, "
+                    "Deadline dates should use yyyy-MM-dd, "
                             + "e.g. 2026-09-10");
         }
     }
@@ -108,19 +114,20 @@ public class Parser {
      */
     public static Event parseEvent(String input)
             throws GepitException {
-        String[] parts = input.split(" /from ", 2);
+        String[] parts = input.strip().split("\\s+/from\\s+", -1);
 
-        if (parts.length < 2 || parts[0].isBlank()) {
+        if (parts.length != 2 || parts[0].isBlank()) {
             throw new GepitException(
                     "An event should look like:"
                             + "\nevent meeting /from 2026-09-10 "
                             + "/to 2026-09-11");
         }
 
-        String description = parts[0];
-        String[] dates = parts[1].split(" /to ", 2);
+        String description = validateDescription(parts[0]);
+        String[] dates = parts[1].split("\\s+/to\\s+", -1);
 
         if (dates.length < 2
+                || dates.length > 2
                 || dates[0].isBlank()
                 || dates[1].isBlank()) {
             throw new GepitException(
@@ -130,18 +137,18 @@ public class Parser {
         }
 
         try {
-            LocalDate start = LocalDate.parse(dates[0]);
-            LocalDate end = LocalDate.parse(dates[1]);
+            LocalDate start = LocalDate.parse(dates[0].strip());
+            LocalDate end = LocalDate.parse(dates[1].strip());
 
-            if (end.isBefore(start)) {
+            if (!end.isAfter(start)) {
                 throw new GepitException(
-                        "An event cannot end before it starts.");
+                        "An event must end after it starts.");
             }
 
             return new Event(description, start, end);
         } catch (DateTimeParseException e) {
             throw new GepitException(
-                    "gepit.task.Event dates should use yyyy-MM-dd, "
+                    "Event dates should use yyyy-MM-dd, "
                             + "e.g. event meeting /from 2026-09-10 "
                             + "/to 2026-09-11");
         }
@@ -165,7 +172,7 @@ public class Parser {
      */
     public static UpdateArguments parseUpdate(String input)
             throws GepitException {
-        String[] parts = input.split(" ", 2);
+        String[] parts = input.strip().split("\\s+", 2);
 
         if (parts.length < 2 || parts[1].isBlank()) {
             throw new GepitException(
@@ -174,8 +181,21 @@ public class Parser {
         }
 
         int taskNumber = parseTaskNumber(parts[0]);
-        String description = parts[1];
+        String description = validateDescription(parts[1]);
 
         return new UpdateArguments(taskNumber, description);
+    }
+
+    private static String validateDescription(String input)
+            throws GepitException {
+        String description = input.strip();
+        if (description.isEmpty()) {
+            throw new GepitException("A task description cannot be empty.");
+        }
+        if (description.contains(" | ")) {
+            throw new GepitException(
+                    "A task description cannot contain ' | '.");
+        }
+        return description;
     }
 }

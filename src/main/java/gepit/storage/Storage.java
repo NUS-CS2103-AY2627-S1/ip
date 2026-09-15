@@ -125,10 +125,13 @@ public class Storage {
                         throw new GepitException(
                                 "Invalid event data: " + line);
                     }
-                    task = new Event(
-                            description,
-                            LocalDate.parse(parts[3]),
-                            LocalDate.parse(parts[4]));
+                    LocalDate start = LocalDate.parse(parts[3]);
+                    LocalDate end = LocalDate.parse(parts[4]);
+                    if (!end.isAfter(start)) {
+                        throw new GepitException(
+                                "Invalid event dates in saved data: " + line);
+                    }
+                    task = new Event(description, start, end);
                     break;
 
                 default:

@@ -1,5 +1,5 @@
 .root {
-    -fx-background-color: #f7f7f7;
+    -fx-background-color: #f5f7fb;
 }
 
 .scroll-pane,
@@ -9,8 +9,14 @@
 
 .text-field {
     -fx-font-size: 14px;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px;
 }
 
 .button {
     -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-color: #4f46e5;
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
 }

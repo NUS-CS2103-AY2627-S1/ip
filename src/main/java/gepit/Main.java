@@ -27,6 +27,8 @@ public class Main extends Application {
             stage.setTitle("Gepit");
             stage.setMinHeight(600);
             stage.setMinWidth(400);
+            stage.setHeight(680);
+            stage.setWidth(480);
 
             fxmlLoader.<MainWindow>getController().setGepit(gepit);
             stage.show();

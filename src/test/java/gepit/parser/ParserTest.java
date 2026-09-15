@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import gepit.GepitException;
 import gepit.task.Deadline;
 import gepit.task.Event;
+import gepit.task.Todo;
 
 public class ParserTest {
 
@@ -88,5 +89,39 @@ public class ParserTest {
     void parseUpdate_invalidTaskNumber_throwsException() {
         assertThrows(GepitException.class, () ->
                 Parser.parseUpdate("abc new description"));
+    }
+
+    @Test
+    void getArgument_extraWhitespace_returnsTrimmedArgument()
+            throws GepitException {
+        assertEquals("read book", Parser.getArgument("  todo    read book  "));
+    }
+
+    @Test
+    void parseTodo_blankDescription_throwsException() {
+        assertThrows(GepitException.class, () -> Parser.parseTodo("   "));
+    }
+
+    @Test
+    void parseTodo_validInput_trimsDescription() throws GepitException {
+        Todo todo = Parser.parseTodo("  read book  ");
+        assertEquals("read book", todo.getDescription());
+    }
+
+    @Test
+    void parseEvent_sameStartAndEnd_throwsException() {
+        assertThrows(GepitException.class, () -> Parser.parseEvent(
+                "meeting /from 2026-09-10 /to 2026-09-10"));
+    }
+
+    @Test
+    void parseDeadline_repeatedByParameter_throwsException() {
+        assertThrows(GepitException.class, () -> Parser.parseDeadline(
+                "report /by 2026-09-10 /by 2026-09-11"));
+    }
+
+    @Test
+    void parseTaskNumber_zero_throwsException() {
+        assertThrows(GepitException.class, () -> Parser.parseTaskNumber("0"));
     }
 }

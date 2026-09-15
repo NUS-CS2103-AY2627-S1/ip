@@ -11,6 +11,17 @@ import gepit.ui.Ui;
  * Runs the Gepit chatbot and coordinates command processing.
  */
 public class Gepit {
+    private static final String HELP_MESSAGE = """
+            Here are the commands I understand:
+            list
+            todo DESCRIPTION
+            deadline DESCRIPTION /by yyyy-MM-dd
+            event DESCRIPTION /from yyyy-MM-dd /to yyyy-MM-dd
+            mark NUMBER | unmark NUMBER | delete NUMBER
+            update NUMBER NEW_DESCRIPTION
+            find KEYWORD
+            help | bye""";
+
     private final Storage storage;
     private TaskList tasks;
 
@@ -58,68 +69,106 @@ public class Gepit {
      * @return Response to display to the user.
      */
     public String getResponse(String input) {
+        return process(input).message();
+    }
+
+    /**
+     * Processes input and reports whether the resulting message is an error.
+     *
+     * @param input User input to process.
+     * @return Structured response for presentation by the GUI.
+     */
+    public Response process(String input) {
         try {
-            if (input.equals("bye")) {
-                return "Bye Friendo\nSee you again next time :)";
+            String normalizedInput = input == null ? "" : input.strip();
+            if (normalizedInput.isEmpty()) {
+                throw new GepitException("Type a command, or try 'help'.");
             }
 
-            if (input.equals("list")) {
-                return getTaskListMessage();
+            String command = Parser.getCommand(normalizedInput);
+            if (command.equals("bye")) {
+                validateNoArgument(normalizedInput, command);
+                return Response.success("Bye, friendo!\nSee you again next time :)");
             }
 
-            String command = Parser.getCommand(input);
+            if (command.equals("help")) {
+                validateNoArgument(normalizedInput, command);
+                return Response.success(HELP_MESSAGE);
+            }
+
+            if (command.equals("list")) {
+                validateNoArgument(normalizedInput, command);
+                return Response.success(getTaskListMessage());
+            }
 
             if (command.equals("find")) {
-                String keyword = Parser.getArgument(input);
-                return getTaskMatchesMessage(tasks.find(keyword));
+                String keyword = Parser.getArgument(normalizedInput);
+                return Response.success(getTaskMatchesMessage(tasks.find(keyword)));
             }
 
             if (command.equals("delete")) {
-                return deleteTask(parseTaskIndex(input));
+                return Response.success(deleteTask(parseTaskIndex(normalizedInput)));
             }
 
             if (command.equals("mark")) {
-                return markTask(tasks.get(parseTaskIndex(input)));
+                return Response.success(markTask(tasks.get(parseTaskIndex(normalizedInput))));
             }
 
             if (command.equals("unmark")) {
-                return unmarkTask(tasks.get(parseTaskIndex(input)));
+                return Response.success(unmarkTask(tasks.get(parseTaskIndex(normalizedInput))));
             }
 
             if (command.equals("update")) {
-                String argument = Parser.getArgument(input);
+                String argument = Parser.getArgument(normalizedInput);
                 Parser.UpdateArguments updateArguments =
                         Parser.parseUpdate(argument);
                 int index = getTaskIndex(updateArguments.taskNumber());
 
-                return updateTask(
+                return Response.success(updateTask(
                         tasks.get(index),
-                        updateArguments.description());
+                        updateArguments.description()));
             }
 
             if (command.equals("todo")) {
-                String argument = Parser.getArgument(input);
+                String argument = Parser.getArgument(normalizedInput);
                 Task task = Parser.parseTodo(argument);
-                return addTask(task);
+                return Response.success(addTask(task));
             }
 
             if (command.equals("deadline")) {
-                String argument = Parser.getArgument(input);
+                String argument = Parser.getArgument(normalizedInput);
                 Task task = Parser.parseDeadline(argument);
-                return addTask(task);
+                return Response.success(addTask(task));
             }
 
             if (command.equals("event")) {
-                String argument = Parser.getArgument(input);
+                String argument = Parser.getArgument(normalizedInput);
                 Task task = Parser.parseEvent(argument);
-                return addTask(task);
+                return Response.success(addTask(task));
             }
 
             throw new GepitException(
-                    "Sorry m8, IDK what " + command + " is supposed to mean");
+                    "Sorry, friendo—I don't know '" + command
+                            + "'. Try 'help' for the command list.");
 
         } catch (GepitException e) {
-            return e.getMessage();
+            return Response.error(e.getMessage());
+        }
+    }
+
+    /**
+     * Represents a chatbot message and its presentation category.
+     *
+     * @param message Text to show.
+     * @param isError Whether the message describes invalid input or failed processing.
+     */
+    public record Response(String message, boolean isError) {
+        private static Response success(String message) {
+            return new Response(message, false);
+        }
+
+        private static Response error(String message) {
+            return new Response(message, true);
         }
     }
 
@@ -223,5 +272,13 @@ public class Gepit {
         String argument = Parser.getArgument(input);
         int taskNumber = Parser.parseTaskNumber(argument);
         return getTaskIndex(taskNumber);
+    }
+
+    private static void validateNoArgument(String input, String command)
+            throws GepitException {
+        if (!input.equalsIgnoreCase(command)) {
+            throw new GepitException(
+                    "The '" + command + "' command does not take extra information.");
+        }
     }
 }

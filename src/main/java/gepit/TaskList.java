@@ -74,14 +74,16 @@ public class TaskList {
     }
 
     /**
-     * Returns all tasks that contain the specified keyword
+     * Returns all tasks that contain the specified keyword.
      *
-     * @param keyword Keyword to search for
-     * @return Tasks containing the keyword
+     * @param keyword Keyword to search for.
+     * @return Tasks containing the keyword.
      */
     public List<Task> find(String keyword) {
+        String normalizedKeyword = keyword.toLowerCase();
         return tasks.stream()
-                .filter(task -> task.getDescription().contains(keyword))
+                .filter(task -> task.getDescription().toLowerCase()
+                        .contains(normalizedKeyword))
                 .toList();
     }
 }

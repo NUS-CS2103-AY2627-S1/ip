@@ -22,8 +22,8 @@
             </HBox.margin>
         </Label>
         <ImageView fx:id="displayPicture"
-                   fitHeight="80.0"
-                   fitWidth="80.0"
+                   fitHeight="52.0"
+                   fitWidth="52.0"
                    pickOnBounds="true"
                    preserveRatio="true" />
     </children>

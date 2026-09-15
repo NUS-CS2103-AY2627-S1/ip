@@ -7,5 +7,12 @@
 }
 
 .reply-label {
-    -fx-background-color: #eeeeee;
+    -fx-background-color: #e8e7ff;
+}
+
+.error-label {
+    -fx-background-color: #ffe0e0;
+    -fx-text-fill: #8b1a1a;
+    -fx-border-color: #e57373;
+    -fx-border-radius: 14px;
 }
