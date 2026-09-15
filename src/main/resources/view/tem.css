@@ -1,0 +1,159 @@
+.root {
+    -fx-background-color: #f8fafc;
+    -fx-font-family: "System";
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-padding: 4 2 4 2;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #cbd5e1;
+    -fx-background-radius: 8;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-max-height: 0;
+    -fx-min-height: 0;
+    -fx-opacity: 0;
+    -fx-padding: 0;
+    -fx-pref-height: 0;
+}
+
+.app-header {
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #e2e8f0 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 10 18 10 18;
+}
+
+.header-avatar {
+    -fx-alignment: center;
+    -fx-background-color: linear-gradient(to bottom right, #2563eb, #4f46e5);
+    -fx-background-radius: 18;
+    -fx-effect: dropshadow(gaussian, rgba(37, 99, 235, 0.25), 6, 0.2, 0, 2);
+}
+
+.header-avatar-initial {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.chat-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+}
+
+.chat-subtitle {
+    -fx-font-size: 11px;
+    -fx-text-fill: #64748b;
+}
+
+#dialogContainer {
+    -fx-padding: 18 20 12 20;
+}
+
+.dialog-box {
+    -fx-padding: 2 0 6 0;
+}
+
+.dialog-label {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 6 16 16 16;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 6 16 16 16;
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-line-spacing: 3px;
+    -fx-max-width: 400px;
+    -fx-padding: 11 14 11 14;
+    -fx-text-fill: #1e293b;
+}
+
+.user-dialog .dialog-label {
+    -fx-background-color: #2563eb;
+    -fx-background-radius: 16 6 16 16;
+    -fx-border-color: #2563eb;
+    -fx-border-radius: 16 6 16 16;
+    -fx-text-fill: #ffffff;
+}
+
+.tem-dialog .dialog-label {
+    -fx-background-color: #ffffff;
+}
+
+.error-dialog .dialog-label {
+    -fx-background-color: #fff7ed;
+    -fx-background-radius: 6 16 16 16;
+    -fx-border-color: #fed7aa;
+    -fx-border-radius: 6 16 16 16;
+    -fx-text-fill: #9a3412;
+}
+
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.16), 4, 0.2, 0, 1);
+}
+
+.avatar-initial {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.composer {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16;
+    -fx-border-color: #dbe3ef;
+    -fx-border-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.08), 12, 0.15, 0, 3);
+    -fx-padding: 5 7 5 12;
+}
+
+.composer .text-field {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 10;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+    -fx-padding: 0 8 0 2;
+    -fx-text-fill: #1e293b;
+}
+
+.composer .text-field:focused {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #93c5fd;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+}
+
+.composer .button {
+    -fx-background-color: #2563eb;
+    -fx-background-radius: 10;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.composer .button:hover {
+    -fx-background-color: #1d4ed8;
+}
+
+.button:focused {
+    -fx-border-color: #93c5fd;
+    -fx-border-radius: 10;
+    -fx-border-width: 2;
+}
+
+.text-field:disabled,
+.button:disabled {
+    -fx-opacity: 0.55;
+}

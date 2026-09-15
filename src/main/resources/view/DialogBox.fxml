@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<fx:root alignment="TOP_RIGHT"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         spacing="8.0"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialog" minHeight="-Infinity" text="Label" wrapText="true" />
+        <StackPane maxHeight="36.0" maxWidth="36.0" minHeight="36.0" minWidth="36.0"
+                   prefHeight="36.0" prefWidth="36.0">
+            <children>
+                <ImageView fx:id="displayPicture" fitHeight="36.0" fitWidth="36.0"
+                           pickOnBounds="true" preserveRatio="true" styleClass="avatar" />
+                <Label fx:id="avatarInitial" mouseTransparent="true" styleClass="avatar-initial" />
+            </children>
+        </StackPane>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+</fx:root>

@@ -16,5 +16,8 @@ bin/
 # Temp files
 _temp/
 
+# Local task save file created while running Tem
+/data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

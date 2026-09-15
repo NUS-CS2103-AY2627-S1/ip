@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: intermediate
+* IDE and level of expertise: intermediate
 
 # Guidance for interacting with users
 
@@ -23,6 +23,14 @@ Unless the user says otherwise, assume that you are assisting a student working 
   * When faced with a design choice, choose the simplest option that is sufficient for the requirements, while briefly explaining relevant more advanced alternatives.
 
 # Project-specific requirements
+
+## Coding standards
+
+All Java code in this project must follow the `seedu-java-coding-standard` skill
+(https://se-education.org/guides/conventions/java/intermediate.html).
+
+All commit messages must follow the `seedu-git-standard` skill
+(https://se-education.org/guides/conventions/git.html).
 
 ## Java version:
 
