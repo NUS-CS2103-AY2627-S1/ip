@@ -1,25 +1,40 @@
-# Duke project template
+# LuigiBot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+LuigiBot is a Luigi-themed task manager created for the CS2103 Individual
+Project. It supports todos, deadlines, events, task searching, and persistent
+storage through both a command-line interface and a JavaFX GUI.
 
-## Setting up in Intellij
+## Setting up in IntelliJ IDEA
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+Prerequisites: JDK 25 and a recent version of IntelliJ IDEA.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+1. Open IntelliJ IDEA.
+1. Select **Open**, choose this project directory, and accept the default
+   import settings.
+1. Configure the project to use **JDK 25**, following the
+   [IntelliJ IDEA SDK guide](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).
+1. Set the project language level to **SDK default**.
+1. Open the Gradle tool window and run the `run` task, or run `gradlew run`
+   from the project root.
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+Keep `src/main/java` as the Java source root. Gradle and other project tools
+expect Java source files to remain under this directory.
+
+## Building and testing
+
+Run the following command from the project root:
+
+```shell
+gradlew clean build
+```
+
+This compiles LuigiBot and runs its JUnit and Checkstyle checks.
+
+## Acknowledgements
+
+- The JavaFX GUI structure was adapted from the
+  [SE-EDU JavaFX tutorial](https://se-education.org/guides/tutorials/javaFxPart1.html).
+- The Checkstyle configuration was adapted from
+  [AddressBook Level 3](https://github.com/se-edu/addressbook-level3/tree/master/config/checkstyle).
+- Luigi and Mario are characters owned by Nintendo. Their images are used in
+  this project for educational purposes.

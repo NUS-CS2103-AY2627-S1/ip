@@ -1,0 +1,63 @@
+#mainLayout {
+    -fx-background-color: #F4E3B0;
+}
+
+#scrollPane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+#scrollPane > .viewport {
+    -fx-background-color: #F4E3B0;
+}
+
+#dialogContainer {
+    -fx-background-color: #F4E3B0;
+    -fx-padding: 12;
+    -fx-spacing: 8;
+}
+
+.label {
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-font-size: 14px;
+    -fx-padding: 10 14;
+    -fx-text-fill: #2B2418;
+}
+
+.luigi-dialog .label {
+    -fx-background-color: #CDECCF;
+    -fx-border-color: #00A000;
+    -fx-border-width: 1;
+}
+
+.user-dialog .label {
+    -fx-background-color: #D9E3FF;
+    -fx-border-color: #10239B;
+    -fx-border-width: 1;
+}
+
+#userInput {
+    -fx-background-color: #FFF8E8;
+    -fx-background-radius: 8 0 0 8;
+    -fx-border-color: #9B7607;
+    -fx-border-radius: 8 0 0 8;
+    -fx-font-size: 14px;
+    -fx-padding: 0 10;
+    -fx-prompt-text-fill: #7A6A43;
+}
+
+#userInput:focused {
+    -fx-border-color: #00A000;
+}
+
+#sendButton {
+    -fx-background-color: #00A000;
+    -fx-background-radius: 0 8 8 0;
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+}
+
+#sendButton:hover {
+    -fx-background-color: #10239B;
+}
