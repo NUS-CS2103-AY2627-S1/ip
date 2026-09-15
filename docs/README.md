@@ -5,6 +5,8 @@ complete, and remove tasks through a simple chat interface. Your tasks are
 saved automatically, so they will still be available the next time Harold
 starts.
 
+![Harold's graphical user interface](Ui.png)
+
 ## Quick start
 
 1. Ensure that [Java 25](https://nus-cs2103-ay2627-s1.github.io/website/admin/programmingLanguages.html)
