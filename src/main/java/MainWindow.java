@@ -5,16 +5,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-
 import kiwi.Kiwi;
 
 /**
  * Controller for the main GUI.
  */
-public class MainWindow extends AnchorPane {
+public class MainWindow extends BorderPane {
     private static final double EXIT_DELAY_SECONDS = 1;
 
     @FXML
@@ -28,33 +27,51 @@ public class MainWindow extends AnchorPane {
 
     private Kiwi kiwi;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image kiwiImage = new Image(this.getClass().getResourceAsStream("/images/DaKiwi.png"));
+    private final Image kiwiImage = new Image(this.getClass().getResourceAsStream("/images/DaKiwi.png"));
 
-    /** Binds the dialog list so it stays scrolled to the latest message. */
+    /**
+     * Scrolls to the latest message when the conversation grows, and focuses the input field.
+     */
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-    }
-
-    /** Injects the Kiwi instance. */
-    public void setKiwi(Kiwi kiwi) {
-        this.kiwi = kiwi;
+        dialogContainer.heightProperty().addListener((observable, oldHeight, newHeight) -> {
+            Platform.runLater(() -> scrollPane.setVvalue(1.0));
+        });
+        userInput.requestFocus();
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Kiwi's reply, then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Injects the Kiwi instance and shows the opening greeting.
+     *
+     * @param kiwi the chatbot to send commands to.
+     */
+    public void setKiwi(Kiwi kiwi) {
+        this.kiwi = kiwi;
+        dialogContainer.getChildren().add(
+                DialogBox.getKiwiDialog(kiwi.getWelcomeMessage(), kiwiImage));
+    }
+
+    /**
+     * Echoes the user's command and appends Kiwi's reply (or an error row).
+     * Ignores blank input so an accidental Enter does not add empty bubbles.
      * Closes the window after {@code bye}, once the goodbye message has been shown.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        if (input.isBlank()) {
+            userInput.clear();
+            return;
+        }
+
         String response = kiwi.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getKiwiDialog(response, kiwiImage)
-        );
+        DialogBox reply;
+        if (kiwi.isError()) {
+            reply = DialogBox.getErrorDialog(response, kiwiImage);
+        } else {
+            reply = DialogBox.getKiwiDialog(response, kiwiImage);
+        }
+        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input), reply);
         userInput.clear();
 
         if (kiwi.isExit()) {

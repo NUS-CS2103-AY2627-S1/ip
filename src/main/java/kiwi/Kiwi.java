@@ -19,6 +19,7 @@ public class Kiwi {
     private final TaskList tasks;
     private final Ui ui;
     private boolean isExit;
+    private boolean isError;
 
     /**
      * Creates a Kiwi chatbot that loads tasks from {@code filePath}.
@@ -60,12 +61,14 @@ public class Kiwi {
      */
     public String getResponse(String input) {
         isExit = false;
+        isError = false;
         try {
             Command command = Parser.parse(input);
             command.execute(tasks, ui, storage);
             isExit = command.isExit();
         } catch (KiwiException e) {
             ui.showError(e.getMessage());
+            isError = true;
         }
         return ui.consumeResponse();
     }
@@ -77,6 +80,26 @@ public class Kiwi {
      */
     public boolean isExit() {
         return isExit;
+    }
+
+    /**
+     * Returns whether the last {@link #getResponse(String)} call failed with a {@link KiwiException}.
+     * The GUI uses this to style error replies differently from ordinary messages.
+     *
+     * @return {@code true} if the last command produced an error; otherwise {@code false}.
+     */
+    public boolean isError() {
+        return isError;
+    }
+
+    /**
+     * Returns the greeting shown when the GUI window opens.
+     * Omits the ASCII banner so the message stays readable in a small window.
+     *
+     * @return a short welcome message.
+     */
+    public String getWelcomeMessage() {
+        return ui.getGuiWelcome();
     }
 
     /**
