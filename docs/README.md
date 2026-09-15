@@ -44,3 +44,10 @@ Type `bye` to receive Gepit's farewell, then close the window. Successful change
 - For an invalid date, use a real calendar date in `yyyy-MM-dd` format, such as `2026-09-18`.
 - If a numbered command fails, use `list` and choose an existing positive task number.
 - If the JAR does not start, confirm `java -version` reports Java 25, then run `java -jar Gepit.jar` from a terminal to see the error.
+
+## Acknowledgements
+
+The following images are used as profile pictures in Gepit's graphical interface:
+
+- Gepit profile picture: [The World of Herobrine on CurseForge](https://www.curseforge.com/minecraft/mc-mods/the-world-of-herobrine)
+- User profile picture: [Clown Emoji PNG on Pinterest](https://in.pinterest.com/pin/clown-emoji-png--12033123998564035/)
