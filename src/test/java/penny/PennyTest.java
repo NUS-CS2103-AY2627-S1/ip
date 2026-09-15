@@ -30,7 +30,7 @@ public class PennyTest {
         assertTrue(output.contains("I don't think I understand."));
         assertTrue(output.contains("1. [T][X] read"));
         assertTrue(output.contains("Bye! See you soon!"));
-        assertEquals("todo read\nmark 1\nlist", Files.readString(directory.resolve("commands.txt")));
+        assertEquals("todo read\nmark 1", Files.readString(directory.resolve("commands.txt")));
     }
 
     @Test
@@ -46,13 +46,21 @@ public class PennyTest {
     }
 
     @Test
-    void main_corruptSavedCommand_skipsErrorAndLoadsLaterCommands() throws Exception {
+    void main_corruptSavedCommand_stopsBeforeDependentCommands() throws Exception {
         Files.writeString(directory.resolve("commands.txt"), "todo read\nfoobar\ntodo write\nmark 2");
         String output = runSession("list\nbye\n");
-        assertTrue(output.contains("Error loading command: I don't think I understand."));
-        assertTrue(output.contains("1. [T][ ] read\n2. [T][X] write"));
-        assertEquals("todo read\ntodo write\nmark 2\nlist",
+        assertTrue(output.contains("Stopped loading at line 2: I don't think I understand."));
+        assertTrue(output.contains("1. [T][ ] read"));
+        assertFalse(output.contains("[T][X] write"));
+        assertEquals("todo read\nfoobar\ntodo write\nmark 2",
                 Files.readString(directory.resolve("commands.txt")));
+    }
+
+    @Test
+    void main_endOfInput_exitsCleanly() throws Exception {
+        assertTrue(runSession("").contains("Hi, I'm Penny"));
+        runSession("todo read\n");
+        assertEquals("todo read", Files.readString(directory.resolve("commands.txt")));
     }
 
     @Test

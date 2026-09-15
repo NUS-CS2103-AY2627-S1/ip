@@ -24,20 +24,8 @@ public class DeadlineTask extends Task {
      * @throws PennyException if /by is missing, or description or deadline is empty.
      */
     public static DeadlineTask create(String arguments) throws PennyException {
-        if (!arguments.contains(BY_KEYWORD)) {
-            throw new PennyException("Deadlines need '/by'");
-        }
-
-        String[] parts = arguments.split(BY_KEYWORD, 2);
-        assert parts.length == 2 : "Splitting on '/by' after the contains() check should always yield 2 parts";
-        String description = parts[0].trim();
-        String deadline = parts[1].trim();
-
-        if (description.isBlank() || deadline.isBlank()) {
-            throw new PennyException("Deadline description and /by cannot be empty");
-        }
-
-        return new DeadlineTask(description, DateTime.parse(deadline));
+        String[] parts = TaskArguments.split(arguments, BY_KEYWORD);
+        return new DeadlineTask(parts[0], DateTime.parse(parts[1]));
     }
 
     @Override

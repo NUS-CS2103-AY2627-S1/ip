@@ -21,11 +21,19 @@ public class Parser {
      */
     public static ParseResult handleInput(TaskList tasks, String input, boolean isLoading) throws PennyException {
         assert tasks != null : "tasks must not be null";
-        assert input != null : "input must not be null";
+        if (input == null || input.isBlank()) {
+            throw new PennyException("Sorry I didn't quite catch that.");
+        }
+        if (input.chars().anyMatch(c -> Character.isISOControl(c) && c != '\t')) {
+            throw new PennyException("Enter one command on a single line, without control characters.");
+        }
 
-        String[] parts = input.split("\\s+", 2); // Split by one or more spaces
+        String[] parts = input.strip().split("\\s+", 2);
         Command command = Command.parse(parts[0]);
-        String arguments = parts.length > 1 ? parts[1] : "";
+        String arguments = parts.length > 1 ? parts[1].strip() : "";
+        if ((command == Command.BYE || command == Command.LIST) && !arguments.isEmpty()) {
+            throw new PennyException(parts[0] + " does not take any arguments.");
+        }
 
         switch (command) {
             case BYE:
@@ -122,10 +130,11 @@ public class Parser {
             throw new PennyException("Mark expects a number");
         }
 
-        int markIndex = Integer.parseInt(arguments) - 1;
-        if (markIndex < 0 || markIndex >= tasks.size()) {
+        int markNumber = Integer.parseInt(arguments);
+        if (markNumber < 1 || markNumber > tasks.size()) {
             throw new PennyException("Mark out of bounds");
         }
+        int markIndex = markNumber - 1;
 
         Task markedTask = tasks.get(markIndex);
         markedTask.markAsDone();
@@ -138,10 +147,11 @@ public class Parser {
             throw new PennyException("Unmark expects a number");
         }
 
-        int unmarkIndex = Integer.parseInt(arguments) - 1;
-        if (unmarkIndex < 0 || unmarkIndex >= tasks.size()) {
+        int unmarkNumber = Integer.parseInt(arguments);
+        if (unmarkNumber < 1 || unmarkNumber > tasks.size()) {
             throw new PennyException("Unmark out of bounds");
         }
+        int unmarkIndex = unmarkNumber - 1;
 
         Task unmarkedTask = tasks.get(unmarkIndex);
         unmarkedTask.unmarkAsDone();
@@ -154,10 +164,11 @@ public class Parser {
             throw new PennyException("Delete expects a number");
         }
 
-        int deleteIndex = Integer.parseInt(arguments) - 1;
-        if (deleteIndex < 0 || deleteIndex >= tasks.size()) {
+        int deleteNumber = Integer.parseInt(arguments);
+        if (deleteNumber < 1 || deleteNumber > tasks.size()) {
             throw new PennyException("Delete out of bounds");
         }
+        int deleteIndex = deleteNumber - 1;
 
         Task deletedTask = tasks.remove(deleteIndex);
         return new ParseResult(isLoading ? "" : "Deleted: " + deletedTask, false);

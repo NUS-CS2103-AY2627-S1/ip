@@ -1,11 +1,9 @@
 package penny;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -20,7 +18,7 @@ public class FileManagerTest {
     Path directory;
 
     @Test
-    void readData_missingFile_createsEmptyFileAndParents() {
+    void readData_missingFile_createsEmptyFileAndParents() throws PennyException {
         Path file = directory.resolve("nested/commands.txt");
         assertEquals("", FileManager.readData(file.toString()));
         assertTrue(Files.isRegularFile(file));
@@ -40,21 +38,14 @@ public class FileManagerTest {
     }
 
     @Test
-    void fileOperations_parentIsFile_reportFailureWithoutThrowing() throws Exception {
+    void fileOperations_parentIsFile_reportFailure() throws Exception {
         Path parent = directory.resolve("file.txt");
         Files.writeString(parent, "preserve");
         Path invalid = parent.resolve("commands.txt");
-        PrintStream original = System.err;
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        try (PrintStream captured = new PrintStream(output, true, StandardCharsets.UTF_8)) {
-            System.setErr(captured);
-            FileManager.writeData(invalid.toString(), "data");
-            assertEquals("", FileManager.readData(invalid.toString()));
-        } finally {
-            System.setErr(original);
-        }
-        assertTrue(output.toString(StandardCharsets.UTF_8).contains("Failed to write to file:"));
-        assertTrue(output.toString(StandardCharsets.UTF_8).contains("Failed to read file:"));
+        assertTrue(assertThrows(PennyException.class, () -> FileManager.writeData(invalid.toString(), "data"))
+                .getMessage().contains("Could not save tasks"));
+        assertTrue(assertThrows(PennyException.class, () -> FileManager.readData(invalid.toString()))
+                .getMessage().contains("Could not read tasks"));
         assertEquals("preserve", Files.readString(parent));
     }
 }

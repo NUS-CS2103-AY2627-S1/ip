@@ -27,28 +27,13 @@ public class EventTask extends Task {
      * @throws PennyException if /from or /to is missing, or description or from or to is empty.
      */
     public static EventTask create(String arguments) throws PennyException {
-        int fromIndex = arguments.indexOf(FROM_KEYWORD);
-        int toIndex = arguments.indexOf(TO_KEYWORD);
-
-        if (fromIndex == -1 || toIndex == -1 || fromIndex > toIndex) {
-            throw new PennyException("Events need '/from' followed by '/to'");
+        String[] parts = TaskArguments.split(arguments, FROM_KEYWORD, TO_KEYWORD);
+        LocalDateTime start = DateTime.parse(parts[1]);
+        LocalDateTime end = DateTime.parse(parts[2]);
+        if (!end.isAfter(start)) {
+            throw new PennyException("Event end must be later than its start.");
         }
-        assert toIndex > fromIndex : "'/to' should occur after '/from' at this point";
-
-        String description = arguments.substring(0, fromIndex).trim();
-
-        String remainder = arguments.substring(fromIndex + FROM_KEYWORD.length());
-        String[] parts = remainder.split(TO_KEYWORD, 2);
-        assert parts.length == 2 : "Splitting on '/to' after the indexOf() check should always yield 2 parts";
-
-        String from = parts[0].trim();
-        String to = parts[1].trim();
-
-        if (description.isBlank() || from.isBlank() || to.isBlank()) {
-            throw new PennyException("Event description, /from, and /to cannot be empty");
-        }
-
-        return new EventTask(description, DateTime.parse(from), DateTime.parse(to));
+        return new EventTask(parts[0], start, end);
     }
 
     @Override

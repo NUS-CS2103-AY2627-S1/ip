@@ -35,6 +35,9 @@ public class MainWindow extends AnchorPane {
     /** Injects the Penny instance */
     public void setPenny(Penny penny) {
         this.penny = penny;
+        if (!penny.getStartupWarning().isEmpty()) {
+            dialogContainer.getChildren().add(DialogBox.getPennyDialog(penny.getStartupWarning(), imagePenny));
+        }
     }
 
     /**

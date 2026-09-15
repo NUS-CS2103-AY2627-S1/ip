@@ -1,9 +1,12 @@
 package penny;
 
 import java.io.IOException;
+import java.nio.file.AtomicMoveNotSupportedException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 /**
  * Handles reading and writing of data to files at a relative path.
@@ -16,18 +19,35 @@ public class FileManager {
      *
      * @param fileName name of created file.
      * @param content content to write to the created file.
+     * @throws PennyException if the complete replacement cannot be saved.
      */
-    public static void writeData(String fileName, String content) {
-        Path filePath = SAVE_PATH.resolve(fileName);
-
+    public static void writeData(String fileName, String content) throws PennyException {
+        Path temporary = null;
         try {
-            if (filePath.getParent() != null) {
-                Files.createDirectories(filePath.getParent());
+            Path filePath = SAVE_PATH.resolve(fileName).toAbsolutePath();
+            Files.createDirectories(filePath.getParent());
+            if (Files.exists(filePath) && (!Files.isRegularFile(filePath) || !Files.isWritable(filePath))) {
+                throw new IOException("The save path is not a writable regular file.");
             }
-
-            Files.writeString(filePath, content);
-        } catch (IOException e) {
-            System.err.println("Failed to write to file: " + filePath + " | Error: " + e.getMessage());
+            temporary = Files.createTempFile(filePath.getParent(), "penny-", ".tmp");
+            Files.writeString(temporary, content);
+            try {
+                Files.move(temporary, filePath, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+            } catch (AtomicMoveNotSupportedException e) {
+                // Never truncate the existing save before the complete replacement has been written.
+                Files.move(temporary, filePath, StandardCopyOption.REPLACE_EXISTING);
+            }
+        } catch (IOException | InvalidPathException | SecurityException e) {
+            throw new PennyException("Could not save tasks to " + fileName
+                    + ". Check the path, permissions, and available disk space.", e);
+        } finally {
+            if (temporary != null) {
+                try {
+                    Files.deleteIfExists(temporary);
+                } catch (IOException | SecurityException e) {
+                    // A leftover temporary file must not hide the original save error.
+                }
+            }
         }
     }
 
@@ -37,11 +57,11 @@ public class FileManager {
      *
      * @param fileName name of file to look for.
      * @return contents of the file if found as a string.
+     * @throws PennyException if the file cannot be read or created.
      */
-    public static String readData(String fileName) {
-        Path filePath = SAVE_PATH.resolve(fileName);
-
+    public static String readData(String fileName) throws PennyException {
         try {
+            Path filePath = SAVE_PATH.resolve(fileName);
             if (filePath.getParent() != null) {
                 Files.createDirectories(filePath.getParent());
             }
@@ -52,9 +72,9 @@ public class FileManager {
             }
 
             return Files.readString(filePath);
-        } catch (IOException e) {
-            System.err.println("Failed to read file: " + filePath + " | Error: " + e.getMessage());
-            return "";
+        } catch (IOException | InvalidPathException | SecurityException e) {
+            throw new PennyException("Could not read tasks from " + fileName
+                    + ". Check that it is a readable UTF-8 file.", e);
         }
     }
 }
