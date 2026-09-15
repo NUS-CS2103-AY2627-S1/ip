@@ -175,3 +175,8 @@ On Windows, replace `./gradlew` with `gradlew.bat`. The resulting JAR requires J
 1. Run `src/main/java/remy/gui/Launcher.java`.
 
 Keep Java source files under `src/main/java`, which is the source layout expected by Gradle.
+
+## AI Use
+
+Cursor was used for project tasks where AI Guidance was recommended by the course website. The chatbot's personality, 
+behaviour, and design are original. 
