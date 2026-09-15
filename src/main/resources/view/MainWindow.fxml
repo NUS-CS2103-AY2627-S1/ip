@@ -21,7 +21,7 @@
                 <Insets bottom="18.0" left="24.0" right="24.0" top="20.0" />
             </padding>
             <Label styleClass="app-title" text="Larp" />
-            <Label styleClass="app-subtitle" text="Tasks saved automatically" />
+            <Label styleClass="app-subtitle" text="A quiet place for the tasks on your mind" />
         </VBox>
     </top>
     <center>
@@ -48,7 +48,7 @@
                 <Insets bottom="18.0" left="20.0" right="20.0" top="14.0" />
             </padding>
             <Label styleClass="command-hint"
-                   text="Try: list, todo read a book, or find book" />
+                   text="Try: todo read a book  •  list  •  find book" />
             <HBox spacing="10.0">
                 <TextField fx:id="userInput"
                            HBox.hgrow="ALWAYS"
@@ -57,7 +57,7 @@
                 <Button fx:id="sendButton"
                         defaultButton="true"
                         onAction="#handleUserInput"
-                        text="Send command" />
+                        text="Send" />
             </HBox>
         </VBox>
     </bottom>

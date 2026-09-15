@@ -44,7 +44,8 @@ public class Larp {
      * @return Greeting and any storage warning encountered during startup.
      */
     public String getWelcomeMessage() {
-        String welcomeMessage = "Hello! I'm Larp.\nWhat can I do for you?";
+        String welcomeMessage = "Hello, I'm Larp.\n"
+                + "Ready when you are. Add a task, check your list, or find something.";
         if (this.loadErrorMessage == null) {
             return welcomeMessage;
         }
@@ -58,6 +59,9 @@ public class Larp {
      * @return Response that should be displayed to the user.
      */
     public String getResponse(String input) {
+        if (input == null) {
+            return this.ui.getErrorMessage("Please enter a command.");
+        }
         String trimmedInput = input.trim();
         try {
             return executeCommand(trimmedInput);
@@ -118,6 +122,7 @@ public class Larp {
         }
 
         if (input.equals("mark") || input.startsWith("mark ")) {
+            ensureStorageReady();
             int taskIndex = Parser.parseTaskIndex(input, "mark", this.tasks.size());
             Task task = this.tasks.markAsDone(taskIndex);
             this.storage.save(this.tasks);
@@ -125,6 +130,7 @@ public class Larp {
         }
 
         if (input.equals("unmark") || input.startsWith("unmark ")) {
+            ensureStorageReady();
             int taskIndex = Parser.parseTaskIndex(input, "unmark", this.tasks.size());
             Task task = this.tasks.markAsNotDone(taskIndex);
             this.storage.save(this.tasks);
@@ -132,16 +138,30 @@ public class Larp {
         }
 
         if (input.equals("delete") || input.startsWith("delete ")) {
+            ensureStorageReady();
             int taskIndex = Parser.parseTaskIndex(input, "delete", this.tasks.size());
             Task deletedTask = this.tasks.delete(taskIndex);
             this.storage.save(this.tasks);
             return this.ui.getDeletedTaskMessage(deletedTask, this.tasks.size());
         }
 
+        ensureStorageReady();
         Task task = Parser.parseTask(input);
         this.tasks.add(task);
         this.storage.save(this.tasks);
         return this.ui.getAddedTaskMessage(task, this.tasks.size());
+    }
+
+    /**
+     * Prevents a failed load from being followed by a save that overwrites the original file.
+     *
+     * @throws LarpException If Larp could not load its task data during startup.
+     */
+    private void ensureStorageReady() throws LarpException {
+        if (this.loadErrorMessage != null) {
+            throw new LarpException("I can't change tasks while the task data file has a problem. "
+                    + "Please fix or remove the file, then restart Larp.");
+        }
     }
 
     /**

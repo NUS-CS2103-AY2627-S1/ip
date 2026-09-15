@@ -11,9 +11,9 @@ public class Parser {
     private static final String TODO_COMMAND = "todo";
     private static final String DEADLINE_COMMAND = "deadline";
     private static final String EVENT_COMMAND = "event";
-    private static final String DEADLINE_SEPARATOR = " /by ";
-    private static final String EVENT_START_SEPARATOR = " /from ";
-    private static final String EVENT_END_SEPARATOR = " /to ";
+    private static final String DEADLINE_SEPARATOR = "(?i)\\s*/by\\s*";
+    private static final String EVENT_START_SEPARATOR = "(?i)\\s*/from\\s*";
+    private static final String EVENT_END_SEPARATOR = "(?i)\\s*/to\\s*";
 
     private Parser() {
     }
@@ -30,7 +30,7 @@ public class Parser {
         if (keyword.isEmpty()) {
             throw new LarpException("Please provide a keyword after 'find'.");
         }
-        return keyword;
+        return validateText(keyword, "Search keywords");
     }
 
     /**
@@ -95,7 +95,7 @@ public class Parser {
         if (description.isEmpty()) {
             throw new LarpException("The description of a todo cannot be empty.");
         }
-        return new Todo(description);
+        return new Todo(validateText(description, "Task descriptions"));
     }
 
     /**
@@ -112,7 +112,7 @@ public class Parser {
         }
         try {
             LocalDate by = LocalDate.parse(parts[1].trim());
-            return new Deadline(parts[0].trim(), by);
+            return new Deadline(validateText(parts[0].trim(), "Task descriptions"), by);
         } catch (DateTimeParseException e) {
             throw new LarpException("Use a valid deadline date in yyyy-MM-dd format.");
         }
@@ -135,7 +135,10 @@ public class Parser {
         if (timeParts.length != 2 || timeParts[0].isBlank() || timeParts[1].isBlank()) {
             throw new LarpException("Use: event DESCRIPTION /from START /to END.");
         }
-        return new Event(eventParts[0].trim(), timeParts[0].trim(), timeParts[1].trim());
+        String description = validateText(eventParts[0].trim(), "Task descriptions");
+        String start = validateText(timeParts[0].trim(), "Event times");
+        String end = validateText(timeParts[1].trim(), "Event times");
+        return new Event(description, start, end);
     }
 
     private static boolean isCommand(String input, String command) {
@@ -144,5 +147,20 @@ public class Parser {
 
     private static String getArguments(String input, String command) {
         return input.substring(command.length()).trim();
+    }
+
+    /**
+     * Rejects text that cannot be stored safely in Larp's line-based data format.
+     *
+     * @param text Text supplied by the user.
+     * @param fieldName User-facing name of the field being validated.
+     * @return The validated text.
+     * @throws LarpException If the text contains a reserved character or line break.
+     */
+    private static String validateText(String text, String fieldName) throws LarpException {
+        if (text.contains("|") || text.contains("\n") || text.contains("\r")) {
+            throw new LarpException(fieldName + " cannot contain '|' or line breaks.");
+        }
+        return text;
     }
 }

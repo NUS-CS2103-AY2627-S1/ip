@@ -73,6 +73,17 @@
     -fx-text-fill: #ffffff;
 }
 
+.error-dialog .speaker-badge {
+    -fx-background-color: #7f1d1d;
+    -fx-text-fill: #ffffff;
+}
+
+.error-dialog .message-bubble {
+    -fx-background-color: #fff3f2;
+    -fx-border-color: #d7847f;
+    -fx-text-fill: #651515;
+}
+
 .composer {
     -fx-background-color: #ffffff;
     -fx-border-color: #dfe5d8 transparent transparent transparent;

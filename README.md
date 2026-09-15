@@ -21,9 +21,9 @@ Prerequisites: JDK 25, update Intellij to the most recent version.
    | |___ / ___ \|  _ <|  __/
    |_____/_/   \_\_| \_\_|
 
-   Hello! I'm Larp.
-   What can I do for you?
-   Bye. Hope to see you again soon!
+   Hello, I'm Larp.
+   Ready when you are. Add a task, check your list, or find something.
+   All set. Your tasks are saved. See you next time!
    ```
 
 **Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.

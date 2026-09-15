@@ -29,6 +29,12 @@ public class MainWindow {
     private Larp larp;
 
     /**
+     * Creates the controller that JavaFX connects to the main-window layout.
+     */
+    public MainWindow() {
+    }
+
+    /**
      * Configures behavior that depends only on controls loaded from FXML.
      */
     @FXML
@@ -66,9 +72,12 @@ public class MainWindow {
         }
 
         String response = this.larp.getResponse(input);
+        DialogBox responseDialog = Ui.isErrorMessage(response)
+                ? DialogBox.getErrorDialog(response)
+                : DialogBox.getLarpDialog(response);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input),
-                DialogBox.getLarpDialog(response));
+                responseDialog);
         userInput.clear();
 
         if (this.larp.isExitCommand(input)) {

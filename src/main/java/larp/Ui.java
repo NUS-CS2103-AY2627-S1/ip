@@ -6,6 +6,7 @@ import java.util.Scanner;
  * Handles console input and output for Larp.
  */
 public class Ui {
+    static final String ERROR_PREFIX = "Let's fix that: ";
     private static final String BANNER = " _        _    ____  ____\n"
             + "| |      / \\  |  _ \\|  _ \\\n"
             + "| |     / _ \\ | |_) | |_) |\n"
@@ -26,8 +27,8 @@ public class Ui {
      */
     public void showWelcome() {
         System.out.println(BANNER);
-        System.out.println("Hello! I'm Larp.");
-        System.out.println("What can I do for you?");
+        System.out.println("Hello, I'm Larp.");
+        System.out.println("Ready when you are. Add a task, check your list, or find something.");
     }
 
     /**
@@ -63,7 +64,7 @@ public class Ui {
      * @return Farewell message.
      */
     public String getGoodbyeMessage() {
-        return "Bye. Hope to see you again soon!";
+        return "All set. Your tasks are saved. See you next time!";
     }
 
     /**
@@ -112,7 +113,7 @@ public class Ui {
      * @return Confirmation message.
      */
     public String getMarkedTaskMessage(Task task) {
-        return "Nice! I've marked this task as done:\n  " + task;
+        return "Done. I marked this task as complete:\n  " + task;
     }
 
     /**
@@ -122,7 +123,7 @@ public class Ui {
      * @return Confirmation message.
      */
     public String getUnmarkedTaskMessage(Task task) {
-        return "OK, I've marked this task as not done yet:\n  " + task;
+        return "Reopened. This task is back on your list:\n  " + task;
     }
 
     /**
@@ -133,7 +134,7 @@ public class Ui {
      * @return Confirmation message.
      */
     public String getDeletedTaskMessage(Task task, int taskCount) {
-        return "Noted. I've removed this task:\n  " + task
+        return "Removed this task:\n  " + task
                 + "\nNow you have " + taskCount + " " + getTaskNoun(taskCount) + " in the list.";
     }
 
@@ -145,7 +146,7 @@ public class Ui {
      * @return Confirmation message.
      */
     public String getAddedTaskMessage(Task task, int taskCount) {
-        return "Got it. I've added this task:\n  " + task
+        return "Captured this task:\n  " + task
                 + "\nNow you have " + taskCount + " " + getTaskNoun(taskCount) + " in the list.";
     }
 
@@ -156,7 +157,17 @@ public class Ui {
      * @return Formatted error message.
      */
     public String getErrorMessage(String message) {
-        return "OOPS!!! " + message;
+        return ERROR_PREFIX + message;
+    }
+
+    /**
+     * Returns whether a response is a formatted error message.
+     *
+     * @param message Response to inspect.
+     * @return {@code true} if the response should use the error presentation.
+     */
+    static boolean isErrorMessage(String message) {
+        return message.startsWith(ERROR_PREFIX);
     }
 
     private String getTaskNoun(int taskCount) {

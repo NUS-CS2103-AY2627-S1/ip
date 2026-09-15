@@ -17,6 +17,12 @@ public class Main extends Application {
     private static final String DEFAULT_FILE_PATH = "data/larp.txt";
 
     /**
+     * Creates the JavaFX application instance.
+     */
+    public Main() {
+    }
+
+    /**
      * Creates the main window and connects it to the Larp application logic.
      *
      * @param stage Primary window supplied by JavaFX.

@@ -70,4 +70,17 @@ public class DialogBox extends HBox {
         dialogBox.getStyleClass().add("larp-dialog");
         return dialogBox;
     }
+
+    /**
+     * Creates a visually distinct response that explains an invalid command or data problem.
+     *
+     * @param text Error response to display.
+     * @return Dialog box styled as an error and marked with an exclamation point.
+     */
+    public static DialogBox getErrorDialog(String text) {
+        DialogBox dialogBox = new DialogBox(text);
+        dialogBox.speakerBadge.setText("!");
+        dialogBox.getStyleClass().add("error-dialog");
+        return dialogBox;
+    }
 }

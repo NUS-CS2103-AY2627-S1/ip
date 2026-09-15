@@ -8,6 +8,9 @@ import javafx.application.Application;
  * <p>This separate launcher avoids JavaFX classpath problems when the application is packaged.</p>
  */
 public class Launcher {
+    private Launcher() {
+    }
+
     /**
      * Launches the Larp graphical interface.
      *
