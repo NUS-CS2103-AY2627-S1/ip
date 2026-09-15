@@ -18,6 +18,11 @@ public class Event extends Task {
      */
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
+        if (to.isBefore(from)) {
+            throw new IllegalArgumentException(
+                    "Event end date cannot be before its start date"
+            );
+        }
         this.from = from;
         this.to = to;
     }
@@ -48,6 +53,19 @@ public class Event extends Task {
     @Override
     public String getTypeIcon() {
         return "E";
+    }
+
+    /**
+     * Returns whether another event has the same description and date range.
+     *
+     * @param other Task to compare with this event.
+     * @return {@code true} if both events have the same identifying details.
+     */
+    @Override
+    boolean hasSameDetails(Task other) {
+        return super.hasSameDetails(other)
+                && from.equals(((Event) other).from)
+                && to.equals(((Event) other).to);
     }
 
     /**

@@ -23,13 +23,14 @@ import javafx.util.Duration;
  */
 public class MainWindow extends BorderPane {
     private static final String WELCOME_MESSAGE =
-            "Bonjour! I'm Harold, your Frenchie task companion. What can I fetch for you?";
+            "Arf! I'm Harold, your mischievous Frenchie task-fetcher.\n"
+                    + "Tasks are my treats. nomnomnom ball!";
 
     private final Harold harold;
     private final VBox conversation = new VBox(14);
     private final ScrollPane conversationScroll = new ScrollPane(conversation);
     private final TextField commandInput = new TextField();
-    private final Button sendButton = new Button("Send  🐾");
+    private final Button sendButton = new Button("FETCH  🐾");
 
     /**
      * Creates the main conversation window for the given Harold instance.
@@ -45,7 +46,7 @@ public class MainWindow extends BorderPane {
 
         addMessage(WELCOME_MESSAGE, false);
         if (harold.getLoadMessage() != null) {
-            addMessage("OOPS!!! " + harold.getLoadMessage(), false);
+            addMessage("i pooped on myself... " + harold.getLoadMessage(), false);
         }
     }
 
@@ -58,15 +59,34 @@ public class MainWindow extends BorderPane {
 
         Label title = new Label("HAROLD");
         title.getStyleClass().add("app-title");
-        Label subtitle = new Label("YOUR FRENCHIE TASK COMPANION");
+        Label subtitle = new Label("MISCHIEVOUS FRENCHIE TASK-FETCHER");
         subtitle.getStyleClass().add("app-subtitle");
 
         VBox titles = new VBox(2, title, subtitle);
-        HBox header = new HBox(14, pawBadge, titles);
+        Region headerSpacer = new Region();
+        HBox.setHgrow(headerSpacer, Priority.ALWAYS);
+        HBox header = new HBox(
+                14, pawBadge, titles, headerSpacer, createBallDecorations()
+        );
         header.setAlignment(Pos.CENTER_LEFT);
         header.setPadding(new Insets(20, 24, 18, 24));
         header.getStyleClass().add("app-header");
         return header;
+    }
+
+    /**
+     * Creates the offset ball motif used in Harold's header.
+     */
+    private Node createBallDecorations() {
+        Region smallBall = new Region();
+        smallBall.getStyleClass().addAll("ball-icon", "small-ball");
+        Region largeBall = new Region();
+        largeBall.getStyleClass().addAll("ball-icon", "large-ball");
+
+        HBox balls = new HBox(8, smallBall, largeBall);
+        balls.setAlignment(Pos.CENTER);
+        balls.getStyleClass().add("ball-decorations");
+        return balls;
     }
 
     /**
@@ -89,7 +109,7 @@ public class MainWindow extends BorderPane {
      * Creates the command field and send button.
      */
     private Node createCommandBar() {
-        commandInput.setPromptText("Try: todo give Harold a treat");
+        commandInput.setPromptText("Throw me a command: todo give Harold a treat");
         commandInput.getStyleClass().add("command-input");
         commandInput.setOnAction(event -> submitCommand());
         HBox.setHgrow(commandInput, Priority.ALWAYS);
@@ -130,7 +150,7 @@ public class MainWindow extends BorderPane {
      * Adds one user or chatbot bubble to the conversation.
      */
     private void addMessage(String message, boolean isUser) {
-        Label avatar = new Label(isUser ? "YOU" : "🐶");
+        Label avatar = new Label(isUser ? "YOU" : "🐾");
         avatar.getStyleClass().add(isUser ? "user-avatar" : "harold-avatar");
 
         Label bubble = new Label(message);

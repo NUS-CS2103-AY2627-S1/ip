@@ -43,10 +43,10 @@ public class Ui {
     public void showWelcome(String loadMessage) {
         System.out.println(SEPARATOR);
         System.out.print(BANNER);
-        System.out.println("Arf Arf, I mean WOOF WOOF! I'm Harold.");
-        System.out.println("What can I do for you, besides eat my poopoo?");
+        System.out.println("Arf! I'm Harold, your mischievous Frenchie task-fetcher.");
+        System.out.println("Tasks are my treats. nomnomnom ball!");
         if (loadMessage != null) {
-            System.out.println("OOPS!!! " + loadMessage);
+            System.out.println("i pooped on myself... " + loadMessage);
         }
         System.out.println(SEPARATOR);
     }

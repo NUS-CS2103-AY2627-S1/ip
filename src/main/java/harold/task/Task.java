@@ -57,6 +57,19 @@ public abstract class Task {
     public abstract String getTypeIcon();
 
     /**
+     * Returns whether another task has the same type and user-entered details.
+     * Completion state is deliberately ignored when detecting duplicate tasks.
+     *
+     * @param other Task to compare with this task.
+     * @return {@code true} if both tasks have the same identifying details.
+     */
+    boolean hasSameDetails(Task other) {
+        return other != null
+                && getClass() == other.getClass()
+                && description.equals(other.description);
+    }
+
+    /**
      * Returns the task formatted with its type, completion status, and description.
      *
      * @return User-facing task representation.

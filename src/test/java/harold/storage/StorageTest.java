@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
+import java.util.Base64;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -86,6 +87,24 @@ class StorageTest {
         assertEquals(0, result.skippedLineCount());
     }
 
+    @Test
+    void load_invalidDateAndReversedEvent_skipsBothRecords() throws Exception {
+        Path filePath = temporaryDirectory.resolve("data/tasks.txt");
+        Files.createDirectories(filePath.getParent());
+        Files.writeString(
+                filePath,
+                "D\t0\t" + encode("invalid deadline") + "\t" + encode("2026-02-30") + "\n"
+                        + "E\t0\t" + encode("reversed event") + "\t"
+                        + encode("2026-09-20") + "\t" + encode("2026-09-19") + "\n",
+                StandardCharsets.UTF_8
+        );
+
+        Storage.LoadResult result = new Storage(filePath).load();
+
+        assertTrue(result.tasks().isEmpty());
+        assertEquals(2, result.skippedLineCount());
+    }
+
     private static TaskList createTaskList() throws HaroldException {
         TaskList tasks = new TaskList();
         Todo todo = new Todo("read book");
@@ -119,5 +138,9 @@ class StorageTest {
         assertEquals(LocalDate.of(2026, 9, 2), event.getFrom());
         assertEquals(LocalDate.of(2026, 9, 3), event.getTo());
         assertFalse(event.isDone());
+    }
+
+    private static String encode(String value) {
+        return Base64.getEncoder().encodeToString(value.getBytes(StandardCharsets.UTF_8));
     }
 }
