@@ -1,25 +1,86 @@
-# Duke project template
+# Tianyi
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Tianyi is a friendly desktop chatbot for managing todos, deadlines, and events through simple typed commands. It
+keeps your tasks between sessions and lets you list, search, complete, reopen, and delete them.
 
-## Setting up in Intellij
+![Tianyi product screenshot](docs/Ui.png)
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+[User Guide](https://HXY070103.github.io/ip/) |
+[Download Tianyi](https://github.com/HXY070103/ip/releases)
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+## Features
+
+- Creates todos, deadlines, and events.
+- Supports dates and optional times for scheduled tasks.
+- Lists all tasks or filters dated tasks by date.
+- Finds tasks by keywords in their descriptions.
+- Marks tasks as completed or incomplete.
+- Saves changes automatically for the next session.
+
+See the [User Guide](https://HXY070103.github.io/ip/) for command formats and examples.
+
+## Running Tianyi
+
+1. Ensure that Java 25 is installed.
+2. Download `Tianyi.jar` from the [releases page](https://github.com/HXY070103/ip/releases).
+3. Open a terminal in the folder containing the JAR file.
+4. Run:
+
+   ```bash
+   java -jar Tianyi.jar
    ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+Tianyi stores its data in `Data/tianyi.txt`, relative to the folder from which it is run.
+
+## Developer setup
+
+Prerequisites:
+
+- JDK 25
+- A recent version of IntelliJ IDEA
+
+On macOS, select the project's prescribed Java version with SDKMAN if needed:
+
+```bash
+sdk use java 25.0.3.fx-zulu
+```
+
+To set up the project in IntelliJ IDEA:
+
+1. Open IntelliJ IDEA and select **Open**.
+2. Select this repository's root directory.
+3. Accept the default Gradle import settings.
+4. Set the project SDK to JDK 25 and the language level to **SDK default**.
+5. Run `tianyi.Launcher.main()` to start the graphical application.
+
+Alternatively, run the application from the repository root:
+
+```bash
+./gradlew run
+```
+
+Keep Java source files under `src/main/java` and test files under `src/test/java`, as expected by Gradle.
+
+## Testing
+
+Run the automated tests:
+
+```bash
+./gradlew test
+```
+
+Run all verification tasks, including tests and Checkstyle:
+
+```bash
+./gradlew check
+```
+
+## Building the JAR
+
+Create an executable JAR containing the application's dependencies:
+
+```bash
+./gradlew shadowJar
+```
+
+The generated file is located at `build/libs/Tianyi.jar`.
