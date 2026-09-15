@@ -7,7 +7,7 @@ using short text commands.
 
 ## Quick start
 
-Cookie requires Java 25.
+Cookie requires Java 25. On macOS, use an Apple Silicon Java 25 installation.
 
 1. Download `cookie.jar`.
 2. Open a terminal in the folder containing the JAR.

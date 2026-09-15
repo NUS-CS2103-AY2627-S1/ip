@@ -26,20 +26,17 @@ repositories {
 dependencies {
     String jUnitVersion = '5.14.4'
 
-    String javaFxVersion = '17.0.7'
+    String javaFxVersion = '25.0.2'
+    def javaFxPlatforms = ['win', 'mac-aarch64', 'linux']
 
-    implementation("org.openjfx:javafx-base:${javaFxVersion}:win")
-    implementation("org.openjfx:javafx-base:${javaFxVersion}:mac")
-    implementation("org.openjfx:javafx-base:${javaFxVersion}:linux")
-    implementation("org.openjfx:javafx-controls:${javaFxVersion}:win")
-    implementation("org.openjfx:javafx-controls:${javaFxVersion}:mac")
-    implementation("org.openjfx:javafx-controls:${javaFxVersion}:linux")
-    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:win")
-    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:mac")
-    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:linux")
-    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:win")
-    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:mac")
-    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:linux")
+    ['base', 'controls', 'fxml', 'graphics'].each { moduleName ->
+        javaFxPlatforms.each { platformName ->
+            implementation("org.openjfx:javafx-${moduleName}:${javaFxVersion}:${platformName}") {
+                // Every required JavaFX module is declared explicitly for each supported operating system.
+                transitive = false
+            }
+        }
+    }
 
     testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
 
@@ -122,7 +119,10 @@ shadowJar {
     // Package runtime dependencies and the application classes into one runnable JAR.
     archiveFileName = 'cookie.jar'
     manifest {
-        attributes 'Main-Class': application.mainClass.get()
+        attributes(
+                'Main-Class': application.mainClass.get(),
+                'Enable-Native-Access': 'ALL-UNNAMED'
+        )
     }
 }
 

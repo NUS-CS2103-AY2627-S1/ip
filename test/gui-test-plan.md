@@ -20,8 +20,8 @@ Record the environments actually tested. A row should be marked `Pass`, `Fail`, 
 | --- | --- | --- | --- | --- |
 | Windows | 1280 x 720, 100% scaling | English | | |
 | Windows | 1920 x 1080, 150% scaling | Chinese | | |
-| macOS | Default and smallest practical window | English | | |
-| Linux | Default and smallest practical window | English | | |
+| macOS Apple Silicon | Default and smallest practical window | English | | |
+| Linux x64 | Default and smallest practical window | English | | |
 
 ## Test case 1: Launch and initial layout
 
