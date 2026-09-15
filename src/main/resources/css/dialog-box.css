@@ -1,0 +1,43 @@
+.message-bubble {
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+}
+
+.user-bubble {
+    -fx-background-color: #edf7f7;
+    -fx-background-radius: 16px 16px 3px 16px;
+    -fx-border-color: #5c9c9d;
+    -fx-border-radius: 16px 16px 3px 16px;
+    -fx-border-width: 1.5px;
+    -fx-text-fill: #245f61;
+}
+
+.bob-bubble {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 6px;
+    -fx-border-color: #e1e5e2 #e1e5e2 #e1e5e2 #5c9c9d;
+    -fx-border-radius: 6px;
+    -fx-border-width: 1px 1px 1px 3px;
+    -fx-text-fill: #353838;
+}
+
+.error-bubble {
+    -fx-background-color: #fff1f1;
+    -fx-border-color: #d84a4a;
+    -fx-border-radius: 16px 16px 16px 3px;
+    -fx-border-width: 2px;
+    -fx-text-fill: #8f2424;
+}
+
+.user-dialog {
+    -fx-padding: 3px 0 3px 36px;
+}
+
+.bob-dialog {
+    -fx-padding: 3px 20px 3px 0;
+}
+
+#avatarImageView {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 6, 0.2, 0, 2);
+    -fx-opacity: 0.9;
+}
