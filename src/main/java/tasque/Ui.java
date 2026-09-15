@@ -34,12 +34,14 @@ public class Ui {
     }
 
     /**
-     * Displays the welcome message and application banner.
+     * Displays the supplied startup message and application banner.
+     *
+     * @param message Greeting and any startup error from the Tasque session.
      */
-    public void showWelcome() {
+    public void showWelcome(String message) {
         System.out.println(BANNER);
         System.out.println();
-        System.out.println(WELCOME_MESSAGE);
+        System.out.println(message);
     }
 
     /**

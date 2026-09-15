@@ -7,6 +7,24 @@ import org.junit.jupiter.api.Test;
 
 public class ParserTest {
     @Test
+    public void parseEvent_endBeforeStart_throwsSpecificError() {
+        Parser parser = new Parser();
+
+        TasqueException exception = assertThrows(TasqueException.class, () -> parser.parseEvent(
+                "event meeting /from 2026-08-17 /to 2026-08-16"));
+
+        assertEquals("The end date of an event cannot be before its start date.", exception.getMessage());
+    }
+
+    @Test
+    public void parseEvent_sameDay_returnsEvent() throws TasqueException {
+        Parser parser = new Parser();
+
+        assertEquals("[E][ ] meeting (from: Aug 16 2026 to: Aug 16 2026)",
+                parser.parseEvent("event meeting /from 2026-08-16 /to 2026-08-16").toString());
+    }
+
+    @Test
     public void parseTaskNumber_validTaskNumber_returnsTaskNumber() throws TasqueException {
         Parser parser = new Parser();
         int actual = parser.parseTaskNumber("delete 2", "delete", 5);

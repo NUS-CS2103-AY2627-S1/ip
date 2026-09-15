@@ -22,6 +22,12 @@ public class Deadline extends Task {
         this.by = LocalDate.parse(by);
     }
 
+    @Override
+    public boolean hasSameDetails(Task other) {
+        return other instanceof Deadline deadline && super.hasSameDetails(other)
+                && this.by.equals(deadline.by);
+    }
+
     /**
      * Returns this deadline in the task storage format with its due date.
      *

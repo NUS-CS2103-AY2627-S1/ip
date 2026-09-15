@@ -3,6 +3,7 @@ package tasque.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 /**
  * A task that occurs between specified start and end dates.
@@ -55,6 +56,24 @@ public class Event extends Task {
         } catch (DateTimeParseException e) {
             return new Event(description, null, null, from, to);
         }
+    }
+
+    /**
+     * Checks whether this event has parsed dates with its end before its start.
+     * Legacy text values are not treated as comparable dates.
+     *
+     * @return Whether the parsed end date precedes the start date.
+     */
+    public boolean hasReversedDates() {
+        return this.from != null && this.to != null && this.to.isBefore(this.from);
+    }
+
+    @Override
+    public boolean hasSameDetails(Task other) {
+        return other instanceof Event event && super.hasSameDetails(other)
+                && Objects.equals(this.from, event.from) && Objects.equals(this.to, event.to)
+                && Objects.equals(this.legacyFrom, event.legacyFrom)
+                && Objects.equals(this.legacyTo, event.legacyTo);
     }
 
     /**

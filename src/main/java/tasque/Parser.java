@@ -12,16 +12,17 @@ import tasque.task.Todo;
  */
 public class Parser {
     /**
-     * Expands a short command alias while preserving the rest of the input.
+     * Strips command-edge whitespace and expands a short alias while preserving internal text.
      * Matches the existing parser's space-delimited, case-sensitive command syntax.
      *
      * @param userInput Command input to normalize.
-     * @return Input with a canonical command keyword, or the original unrecognized input.
+     * @return Stripped input with a canonical command keyword when recognized.
      */
     public String normalizeCommand(String userInput) {
-        int spaceIndex = userInput.indexOf(' ');
-        int commandEnd = spaceIndex == -1 ? userInput.length() : spaceIndex;
-        String keyword = userInput.substring(0, commandEnd);
+        String strippedInput = userInput.strip();
+        int spaceIndex = strippedInput.indexOf(' ');
+        int commandEnd = spaceIndex == -1 ? strippedInput.length() : spaceIndex;
+        String keyword = strippedInput.substring(0, commandEnd);
         String canonical = switch (keyword) {
             case "t" -> "todo";
             case "d" -> "deadline";
@@ -34,7 +35,7 @@ public class Parser {
             case "b" -> "bye";
             default -> keyword;
         };
-        return canonical + userInput.substring(commandEnd);
+        return canonical + strippedInput.substring(commandEnd);
     }
 
     /**
@@ -117,7 +118,7 @@ public class Parser {
      */
     public Task parseTodo(String userInput) throws TasqueException {
         String description = userInput.substring("todo".length()).trim();
-        if (description.isEmpty()) {
+        if (description.isBlank()) {
             throw new TasqueException("The description of a todo cannot be empty.");
         }
         return new Todo(description);
@@ -142,7 +143,7 @@ public class Parser {
         }
 
         String description = deadlineDetails.substring(0, byIndex).trim();
-        if (description.isEmpty()) {
+        if (description.isBlank()) {
             throw new TasqueException("The description of a deadline cannot be empty.");
         }
 
@@ -163,7 +164,7 @@ public class Parser {
      *
      * @param userInput User input containing the description and time range.
      * @return Parsed event task.
-     * @throws TasqueException If the command is incomplete or either date is invalid.
+     * @throws TasqueException If the command is incomplete, a date is invalid, or the end precedes the start.
      */
     public Task parseEvent(String userInput) throws TasqueException {
         String eventDetails = userInput.substring("event".length()).trim();
@@ -177,7 +178,7 @@ public class Parser {
         }
 
         String description = eventDetails.substring(0, fromIndex).trim();
-        if (description.isEmpty()) {
+        if (description.isBlank()) {
             throw new TasqueException("The description of an event cannot be empty.");
         }
 
@@ -200,7 +201,11 @@ public class Parser {
         }
 
         try {
-            return new Event(description, from, to);
+            Event event = new Event(description, from, to);
+            if (event.hasReversedDates()) {
+                throw new TasqueException("The end date of an event cannot be before its start date.");
+            }
+            return event;
         } catch (DateTimeParseException e) {
             throw new TasqueException("Please enter the dates as yyyy-MM-dd.");
         }

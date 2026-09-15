@@ -1,5 +1,7 @@
 package tasque;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -11,6 +13,7 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -18,6 +21,202 @@ import org.junit.jupiter.api.io.TempDir;
 public class TasqueTest {
     @TempDir
     Path tempDirectory;
+
+    @Test
+    public void getResponse_unicodeBlankDescriptions_rejectsWithoutBreakingRestart() throws Exception {
+        Path storagePath = this.tempDirectory.resolve("tasks.txt");
+        Files.writeString(storagePath, "T | 0 | retained task\n");
+        byte[] original = Files.readAllBytes(storagePath);
+        Tasque tasque = new Tasque(storagePath.toString());
+        String[][] commands = {
+            {"deadline \u2003 /by 2026-08-26", "a deadline"},
+            {"event \u2003 /from 2026-08-26 /to 2026-08-27", "an event"},
+            {"todo \u2003", "a todo"}
+        };
+        for (String[] command : commands) {
+            assertEquals("OOPS!!! The description of " + command[1] + " cannot be empty.",
+                    tasque.getResponse(command[0]));
+            assertArrayEquals(original, Files.readAllBytes(storagePath));
+            assertEquals("Here are the tasks in your list:\n1.[T][ ] retained task", tasque.getResponse("list"));
+            assertEquals(tasque.getResponse("list"), new Tasque(storagePath.toString()).getResponse("list"));
+        }
+    }
+
+    @Test
+    public void getResponse_exactIncompleteDuplicates_rejectsWithoutSaving() throws Exception {
+        String[][] cases = {
+            {"T | 0 | read book\n", "todo read book", " t read book "},
+            {"D | 0 | report | 2026-08-26\n", "deadline report /by 2026-08-26", "d report /by 2026-08-26"},
+            {"E | 0 | meeting | 2026-08-26 | 2026-08-27\n",
+                "event meeting /from 2026-08-26 /to 2026-08-27", "e meeting /from 2026-08-26 /to 2026-08-27"}
+        };
+        Path storagePath = this.tempDirectory.resolve("tasks.txt");
+        for (String[] duplicateCase : cases) {
+            Files.writeString(storagePath, duplicateCase[0]);
+            byte[] original = Files.readAllBytes(storagePath);
+            Tasque tasque = new Tasque(storagePath.toString());
+            String originalList = tasque.getResponse("list");
+            for (int i = 1; i < duplicateCase.length; i++) {
+                assertEquals("OOPS!!! That task already exists in your task list.",
+                        tasque.getResponse(duplicateCase[i]));
+                assertEquals(originalList, tasque.getResponse("list"));
+                assertArrayEquals(original, Files.readAllBytes(storagePath));
+            }
+        }
+    }
+
+    @Test
+    public void getResponse_similarTasks_acceptsDistinctDetails() throws Exception {
+        Path storagePath = this.tempDirectory.resolve("tasks.txt");
+        Tasque tasque = new Tasque(storagePath.toString());
+        String[] commands = {
+            "todo read book", "todo read booklet", "todo Read book", "todo read  book",
+            "deadline read book /by 2026-08-26", "deadline read book /by 2026-08-27",
+            "deadline read booklet /by 2026-08-26",
+            "event read book /from 2026-08-26 /to 2026-08-27",
+            "event read book /from 2026-08-25 /to 2026-08-27",
+            "event read book /from 2026-08-26 /to 2026-08-28"
+        };
+        for (String command : commands) {
+            assertTrue(tasque.getResponse(command).startsWith("Got it. I've added this task:"), command);
+        }
+        assertEquals(commands.length, new Storage(storagePath.toString()).loadTasks().size());
+    }
+
+    @Test
+    public void getResponse_completedMatch_allowsRepeatButIncompleteMatchStillBlocks() throws Exception {
+        String[] commands = {"todo repeated task", "deadline repeated task /by 2026-08-26",
+            "event repeated task /from 2026-08-26 /to 2026-08-27"};
+        for (int i = 0; i < commands.length; i++) {
+            Path storagePath = this.tempDirectory.resolve("tasks-" + i + ".txt");
+            Tasque tasque = new Tasque(storagePath.toString());
+            assertTrue(tasque.getResponse(commands[i]).startsWith("Got it."));
+            assertTrue(tasque.getResponse("mark 1").startsWith("Nice!"));
+            assertTrue(tasque.getResponse(commands[i]).startsWith("Got it."));
+            String originalList = tasque.getResponse("list");
+            byte[] original = Files.readAllBytes(storagePath);
+
+            assertEquals("OOPS!!! That task already exists in your task list.", tasque.getResponse(commands[i]));
+            assertEquals(originalList, tasque.getResponse("list"));
+            assertArrayEquals(original, Files.readAllBytes(storagePath));
+            assertTrue(tasque.getResponse("unmark 1").startsWith("OK,"));
+            assertEquals(2, new Storage(storagePath.toString()).loadTasks().size());
+            assertEquals(tasque.getResponse("list"), new Tasque(storagePath.toString()).getResponse("list"));
+        }
+    }
+
+    @Test
+    public void getResponse_reversedEvent_preservesTasksAndStorage() throws Exception {
+        Path storagePath = this.tempDirectory.resolve("tasks.txt");
+        Files.writeString(storagePath, "T | 0 | retained task\n");
+        byte[] original = Files.readAllBytes(storagePath);
+        Tasque tasque = new Tasque(storagePath.toString());
+        for (String command : new String[] {"event", "   e"}) {
+            assertEquals("OOPS!!! The end date of an event cannot be before its start date.",
+                    tasque.getResponse(command + " meeting /from 2026-08-17 /to 2026-08-16   "));
+            assertEquals("Here are the tasks in your list:\n1.[T][ ] retained task", tasque.getResponse("list"));
+            assertArrayEquals(original, Files.readAllBytes(storagePath));
+        }
+    }
+
+    @Test
+    public void getResponse_failedLoad_blocksCommandsAndPreservesFileUntilRestart() throws Exception {
+        Path storagePath = this.tempDirectory.resolve("tasks.txt");
+        Files.writeString(storagePath, "T | 1 | valuable task\nX | 0 | unexpected task\n");
+        byte[] original = Files.readAllBytes(storagePath);
+        Tasque tasque = assertDoesNotThrow(() -> new Tasque(storagePath.toString()));
+        String error = tasque.getResponse("list");
+
+        assertTrue(error.startsWith("OOPS!!! I couldn't load your tasks"));
+        assertTrue(error.contains("line 2"));
+        assertTrue(error.contains("has not changed the file"));
+        assertTrue(error.contains("restart Tasque"));
+        assertEquals(1, countOccurrences(error, "OOPS!!!"));
+        assertTrue(tasque.getWelcomeMessage().contains(error));
+        String[] commands = {"list", "l", "find valuable", "f valuable", "todo new task", "t new task",
+            "deadline task /by 2026-09-16", "d task /by 2026-09-16",
+            "event task /from 2026-09-16 /to 2026-09-17", "e task /from 2026-09-16 /to 2026-09-17",
+            "mark 1", "m 1", "unmark 1", "u 1", "delete 1", "del 1", "unknown", "b extra"};
+        for (String command : commands) {
+            assertEquals(error, tasque.getResponse(command), command);
+            assertEquals(error, tasque.getResponse(" \t" + command + "\t "), command);
+            assertArrayEquals(original, Files.readAllBytes(storagePath));
+        }
+        for (String command : new String[] {"bye", "b", "   bye   ", "\t b \t"}) {
+            assertEquals("Goodbye! See you again soon.", tasque.getResponse(command));
+            assertTrue(tasque.isExitCommand(command));
+        }
+
+        String repaired = "T | 1 | valuable task\n";
+        Files.writeString(storagePath, repaired);
+        assertEquals(error, tasque.getResponse("todo still blocked"));
+        assertEquals(repaired, Files.readString(storagePath));
+        assertEquals("Here are the tasks in your list:\n1.[T][X] valuable task",
+                new Tasque(storagePath.toString()).getResponse("list"));
+    }
+
+    @Test
+    public void run_paddedExit_stopsBeforeLaterCommands() throws Exception {
+        for (String exit : new String[] {"   bye   ", "\t b \t"}) {
+            Path storagePath = this.tempDirectory.resolve("tasks.txt");
+            InputStream originalInput = System.in;
+            PrintStream originalOutput = System.out;
+            ByteArrayOutputStream outputBytes = new ByteArrayOutputStream();
+            try {
+                String input = exit + "\ntodo should not be added\nbye\n";
+                System.setIn(new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8)));
+                System.setOut(new PrintStream(outputBytes, true, StandardCharsets.UTF_8));
+                new Tasque(storagePath.toString()).run();
+            } finally {
+                System.setIn(originalInput);
+                System.setOut(originalOutput);
+            }
+            String output = outputBytes.toString(StandardCharsets.UTF_8);
+            assertFalse(output.contains("OOPS!!!"), output);
+            assertFalse(output.contains("should not be added"), output);
+            assertTrue(output.endsWith("Goodbye! See you again soon."));
+            assertFalse(Files.exists(storagePath));
+        }
+    }
+
+    @Test
+    public void getResponse_readFailureAfterValidPrefix_doesNotOverwriteFile() throws Exception {
+        Path storagePath = this.tempDirectory.resolve("tasks.txt");
+        Files.writeString(storagePath, "T | 0 | retained task\n".repeat(4096) + "T | 0 | damaged ");
+        Files.write(storagePath, new byte[] {(byte) 0xff, '\n'}, StandardOpenOption.APPEND);
+        byte[] original = Files.readAllBytes(storagePath);
+
+        Tasque tasque = assertDoesNotThrow(() -> new Tasque(storagePath.toString()));
+
+        assertTrue(tasque.getWelcomeMessage().contains("I couldn't load your tasks"));
+        assertTrue(tasque.getResponse("todo new task").contains("I couldn't load your tasks"));
+        assertTrue(tasque.getResponse("list").contains("I couldn't load your tasks"));
+        assertArrayEquals(original, Files.readAllBytes(storagePath));
+    }
+
+    @Test
+    public void run_truncatedFile_showsLoadErrorAtStartupAndExitsNormally() throws Exception {
+        Path storagePath = this.tempDirectory.resolve("tasks.txt");
+        Files.writeString(storagePath, "T | 0\n");
+        InputStream originalInput = System.in;
+        PrintStream originalOutput = System.out;
+        ByteArrayOutputStream outputBytes = new ByteArrayOutputStream();
+        try {
+            System.setIn(new ByteArrayInputStream("b\n".getBytes(StandardCharsets.UTF_8)));
+            System.setOut(new PrintStream(outputBytes, true, StandardCharsets.UTF_8));
+            assertDoesNotThrow(() -> new Tasque(storagePath.toString()).run());
+        } finally {
+            System.setIn(originalInput);
+            System.setOut(originalOutput);
+        }
+
+        String output = outputBytes.toString(StandardCharsets.UTF_8);
+        assertTrue(output.contains("OOPS!!! I couldn't load your tasks"));
+        assertTrue(output.contains("line 1"));
+        assertEquals(1, countOccurrences(output, "OOPS!!!"));
+        assertTrue(output.endsWith("Goodbye! See you again soon."));
+        assertEquals("T | 0\n", Files.readString(storagePath));
+    }
 
     @Test
     public void getResponse_supportedCommands_returnsExpectedResponses() {

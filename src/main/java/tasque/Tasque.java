@@ -13,6 +13,7 @@ public class Tasque {
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
+    private final String loadErrorMessage;
 
     /**
      * Creates a Tasque session using the specified task data file.
@@ -22,7 +23,17 @@ public class Tasque {
     public Tasque(String filePath) {
         this.parser = new Parser();
         this.storage = new Storage(filePath);
-        this.tasks = new TaskList(this.storage.loadTasks());
+        List<Task> loadedTasks;
+        String loadError = null;
+        try {
+            loadedTasks = this.storage.loadTasks();
+        } catch (TasqueException e) {
+            loadedTasks = List.of();
+            loadError = e.getMessage() + " Tasque has not changed the file."
+                    + " Correct the file or access problem and restart Tasque. You can exit with bye or b.";
+        }
+        this.tasks = new TaskList(loadedTasks);
+        this.loadErrorMessage = loadError;
         this.ui = new Ui();
     }
 
@@ -30,7 +41,7 @@ public class Tasque {
      * Runs the command loop until the user enters {@code bye}.
      */
     public void run() {
-        this.ui.showWelcome();
+        this.ui.showWelcome(getWelcomeMessage());
         boolean shouldExit = false;
         while (!shouldExit) {
             String userInput = this.ui.readCommand();
@@ -45,12 +56,14 @@ public class Tasque {
     }
 
     /**
-     * Returns the greeting displayed when a GUI session starts.
+     * Returns the startup greeting and any storage-load error shared by both interfaces.
      *
-     * @return Tasque greeting.
+     * @return Tasque greeting, followed by the load error if this session is blocked.
      */
     public String getWelcomeMessage() {
-        return this.ui.getWelcomeMessage();
+        String greeting = this.ui.getWelcomeMessage();
+        return this.loadErrorMessage == null
+                ? greeting : greeting + "\n" + this.ui.getErrorMessage(this.loadErrorMessage);
     }
 
     /**
@@ -79,10 +92,12 @@ public class Tasque {
 
     private String executeCommand(String rawUserInput) throws TasqueException {
         String userInput = this.parser.normalizeCommand(rawUserInput);
+        if (userInput.equals("bye")) {
+            return this.ui.getExitMessage();
+        }
+        checkStorageLoaded();
         String command = this.parser.parseCommand(userInput);
         switch (command) {
-            case "bye":
-                return this.ui.getExitMessage();
             case "list":
                 return this.ui.getTaskListMessage(this.tasks.getTasks());
             case "mark":
@@ -105,6 +120,9 @@ public class Tasque {
     }
 
     private String addTask(Task task) throws TasqueException {
+        if (this.tasks.hasIncompleteDuplicate(task)) {
+            throw new TasqueException("That task already exists in your task list.");
+        }
         this.tasks.add(task);
         try {
             saveTasks();
@@ -161,7 +179,14 @@ public class Tasque {
     }
 
     private void saveTasks() throws TasqueException {
+        checkStorageLoaded();
         this.storage.saveTasks(this.tasks.getTasks());
+    }
+
+    private void checkStorageLoaded() throws TasqueException {
+        if (this.loadErrorMessage != null) {
+            throw new TasqueException(this.loadErrorMessage);
+        }
     }
 
     private void restoreCompletion(Task task, boolean wasDone) {

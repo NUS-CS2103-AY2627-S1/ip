@@ -1,7 +1,7 @@
 package tasque;
 
 /**
- * Represents an expected error while processing a Tasque command.
+ * Represents an expected error while loading tasks or processing a Tasque command.
  */
 public class TasqueException extends Exception {
     /**

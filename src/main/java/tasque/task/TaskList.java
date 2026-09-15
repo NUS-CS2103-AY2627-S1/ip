@@ -47,6 +47,21 @@ public class TaskList {
     }
 
     /**
+     * Checks whether an incomplete task already has the candidate's exact details.
+     *
+     * @param candidate Task being considered for addition.
+     * @return Whether an incomplete task with the same details exists.
+     */
+    public boolean hasIncompleteDuplicate(Task candidate) {
+        for (Task task : this.tasks) {
+            if (!task.isDone() && task.hasSameDetails(candidate)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Removes and returns the task at a one-based list position.
      *
      * @param taskNumber One-based position of the task to remove.

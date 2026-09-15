@@ -70,6 +70,18 @@ public class Task {
     }
 
     /**
+     * Compares task details without considering completion state.
+     * Subclasses include their additional details in this comparison.
+     *
+     * @param other Task to compare with this task.
+     * @return Whether both tasks have the same type and details.
+     */
+    public boolean hasSameDetails(Task other) {
+        return other != null && getClass() == other.getClass()
+                && this.type == other.type && this.description.equals(other.description);
+    }
+
+    /**
      * Returns this task in its storage-file representation.
      *
      * @return Storage representation of this task.

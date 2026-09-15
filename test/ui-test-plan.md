@@ -4,6 +4,162 @@ This file records persistent console regression tests. Expected-output blocks
 contain Tasque process stdout only; input echo is shown separately by the test
 runner.
 
+## TC-EH-01: Preserve internal text while accepting command-edge whitespace
+
+**Aim:** Accept padded commands and aliases, retain meaningful internal spaces, and stop at padded bye.
+
+### Inputs
+
+```console-input
+   todo read  book   
+   l   
+   m   1   
+   u 1   
+   f read  book   
+   bye   
+todo should not be added
+```
+
+### Expected output
+
+```console-output
+========================================
+                 TASQUE                 
+========================================
+
+Hello! I'm Tasque.
+What can I do for you?
+Got it. I've added this task:
+[T][ ] read  book
+Now you have 1 tasks in the list
+Here are the tasks in your list:
+1.[T][ ] read  book
+Nice! I've marked this task as done:
+[T][X] read  book
+OK, I've marked this task as not done yet:
+[T][ ] read  book
+Here are the matching tasks in your list:
+1.[T][ ] read  book
+
+Goodbye! See you again soon.
+```
+
+## TC-EH-02: Reject reversed Events and accept same-day Events
+
+**Aim:** Report reversed dates without adding a task, while accepting equal dates and distinct date ranges.
+
+### Inputs
+
+```console-input
+event meeting /from 2026-08-29 /to 2026-08-28
+event meeting /from 2026-08-28 /to 2026-08-28
+e meeting /from 2026-08-28 /to 2026-08-29
+list
+bye
+```
+
+### Expected output
+
+```console-output
+========================================
+                 TASQUE                 
+========================================
+
+Hello! I'm Tasque.
+What can I do for you?
+OOPS!!! The end date of an event cannot be before its start date.
+Got it. I've added this task:
+[E][ ] meeting (from: Aug 28 2026 to: Aug 28 2026)
+Now you have 1 tasks in the list
+Got it. I've added this task:
+[E][ ] meeting (from: Aug 28 2026 to: Aug 29 2026)
+Now you have 2 tasks in the list
+Here are the tasks in your list:
+1.[E][ ] meeting (from: Aug 28 2026 to: Aug 28 2026)
+2.[E][ ] meeting (from: Aug 28 2026 to: Aug 29 2026)
+
+Goodbye! See you again soon.
+```
+
+## TC-EH-03: Reject exact active duplicates and allow a completed task to repeat
+
+**Aim:** Reject duplicate additions of all three task types through aliases and allow a Todo to repeat after completion.
+
+### Inputs
+
+```console-input
+todo read book
+t read book
+deadline report /by 2026-08-26
+d report /by 2026-08-26
+event meeting /from 2026-08-26 /to 2026-08-27
+e meeting /from 2026-08-26 /to 2026-08-27
+mark 1
+todo read book
+list
+bye
+```
+
+### Expected output
+
+```console-output
+========================================
+                 TASQUE                 
+========================================
+
+Hello! I'm Tasque.
+What can I do for you?
+Got it. I've added this task:
+[T][ ] read book
+Now you have 1 tasks in the list
+OOPS!!! That task already exists in your task list.
+Got it. I've added this task:
+[D][ ] report (by: Aug 26 2026)
+Now you have 2 tasks in the list
+OOPS!!! That task already exists in your task list.
+Got it. I've added this task:
+[E][ ] meeting (from: Aug 26 2026 to: Aug 27 2026)
+Now you have 3 tasks in the list
+OOPS!!! That task already exists in your task list.
+Nice! I've marked this task as done:
+[T][X] read book
+Got it. I've added this task:
+[T][ ] read book
+Now you have 4 tasks in the list
+Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] report (by: Aug 26 2026)
+3.[E][ ] meeting (from: Aug 26 2026 to: Aug 27 2026)
+4.[T][ ] read book
+
+Goodbye! See you again soon.
+```
+
+## TC-EH-04: Exit with a padded short alias
+
+**Aim:** Recognize padded b as exit and never process the later task addition.
+
+### Inputs
+
+```console-input
+   b   
+todo should not be added
+bye
+```
+
+### Expected output
+
+```console-output
+========================================
+                 TASQUE                 
+========================================
+
+Hello! I'm Tasque.
+What can I do for you?
+
+Goodbye! See you again soon.
+```
+
 ## TC-L9-01: Find matching tasks
 
 **Aim:** Find all tasks whose descriptions contain a keyword and number only the matching results.

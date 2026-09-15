@@ -1,13 +1,37 @@
 package tasque.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
+    @Test
+    public void hasIncompleteDuplicate_comparesDetailsAndIgnoresCompletedTasks() {
+        Task[] tasks = {new Todo("task"), new Deadline("task", "2026-08-26"),
+            new Event("task", "2026-08-26", "2026-08-27")};
+        TaskList taskList = new TaskList(List.of(tasks));
+        Task[] matching = {new Todo("task"), new Deadline("task", "2026-08-26"),
+            new Event("task", "2026-08-26", "2026-08-27")};
+        Task[] different = {new Todo("Task"), new Deadline("task", "2026-08-27"),
+            new Event("task", "2026-08-25", "2026-08-27"),
+            new Event("task", "2026-08-26", "2026-08-28"),
+            Event.fromStoredValues("task", "Monday", "Tuesday")};
+
+        for (Task candidate : different) {
+            assertFalse(taskList.hasIncompleteDuplicate(candidate), candidate.toString());
+        }
+        for (int i = 0; i < matching.length; i++) {
+            assertTrue(taskList.hasIncompleteDuplicate(matching[i]));
+            tasks[i].markAsDone();
+            assertFalse(taskList.hasIncompleteDuplicate(matching[i]));
+        }
+    }
+
     @Test
     public void markAsDone_unmarkedTask_returnsMarkedTask() {
         TaskList tasks = new TaskList();
