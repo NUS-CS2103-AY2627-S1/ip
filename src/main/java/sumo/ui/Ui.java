@@ -118,6 +118,10 @@ public class Ui {
      * @param tasks tasks to display.
      */
     public void showTaskList(List<Task> tasks) {
+        if (tasks.isEmpty()) {
+            output.accept(" No tasks in your list yet.");
+            return;
+        }
         output.accept(" Here are the tasks in your list:");
         showNumberedTasks(tasks);
     }
@@ -128,6 +132,10 @@ public class Ui {
      * @param tasks matching tasks to display.
      */
     public void showMatchingTasks(List<Task> tasks) {
+        if (tasks.isEmpty()) {
+            output.accept(" No matching tasks found.");
+            return;
+        }
         output.accept(" Here are the matching tasks in your list:");
         showNumberedTasks(tasks);
     }
@@ -139,6 +147,10 @@ public class Ui {
      * @param tasks tasks occurring on the requested date.
      */
     public void showTasksOnDate(LocalDateTime date, List<Task> tasks) {
+        if (tasks.isEmpty()) {
+            output.accept(" No tasks on " + DateTimeDisplay.format(date, false) + ".");
+            return;
+        }
         output.accept(" Here are the tasks on " + DateTimeDisplay.format(date, false) + ":");
         showNumberedTasks(tasks);
     }

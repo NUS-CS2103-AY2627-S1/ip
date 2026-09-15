@@ -468,7 +468,7 @@ The runner parses the numbered `Command/input` entries and their following fence
 
      ```text
      ____________________________________________________________
-      Here are the tasks in your list:
+      No tasks in your list yet.
      ____________________________________________________________
      ```
 
@@ -608,7 +608,7 @@ The runner parses the numbered `Command/input` entries and their following fence
 
      ```text
      ____________________________________________________________
-      Here are the tasks on Oct 17 2019:
+      No tasks on Oct 17 2019.
      ____________________________________________________________
      ```
 
@@ -626,7 +626,7 @@ The runner parses the numbered `Command/input` entries and their following fence
 
 ### UI-010 — Find tasks by description keyword
 
-- Aim: Verify that `find <keyword>` displays matching tasks in their original order, excludes non-matches, and validates a missing keyword.
+- Aim: Verify that `find <keyword>` ignores capitalization, displays matching tasks in their original order, excludes non-matches, and validates a missing keyword.
 - Inputs, commands, and expected output:
 
   1. Command/input: `todo read book`
@@ -676,7 +676,7 @@ The runner parses the numbered `Command/input` entries and their following fence
      ____________________________________________________________
      ```
 
-  5. Command/input: `find book`
+  5. Command/input: `find bOoK`
 
      Expected output:
 
@@ -694,7 +694,7 @@ The runner parses the numbered `Command/input` entries and their following fence
 
      ```text
      ____________________________________________________________
-      Here are the matching tasks in your list:
+      No matching tasks found.
      ____________________________________________________________
      ```
 
@@ -1037,7 +1037,7 @@ The runner parses the numbered `Command/input` entries and their following fence
 
      ```text
      ____________________________________________________________
-      Here are the tasks in your list:
+      No tasks in your list yet.
      ____________________________________________________________
      ```
 

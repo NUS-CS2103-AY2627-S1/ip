@@ -140,7 +140,7 @@ class SumoTest {
         assertTrue(sumo.getStartupMessage().contains("I could not load your saved tasks:"));
         assertTrue(sumo.getStartupMessage().contains("Saving is disabled"));
         assertTrue(sumo.getResponse("todo new").startsWith("I could not save your tasks:"));
-        assertEquals("Here are the tasks in your list:", sumo.getResponse("list"));
+        assertEquals("No tasks in your list yet.", sumo.getResponse("list"));
         assertEquals(2, Files.size(dataFile));
     }
 
