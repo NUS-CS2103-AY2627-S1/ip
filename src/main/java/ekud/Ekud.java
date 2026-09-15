@@ -101,19 +101,24 @@ public class Ekud {
     }
 
     /**
-     * Returns the greeting text for the first GUI dialog box, including any
-     * startup error about the save file.
+     * Returns the greeting text for the first GUI dialog box, without the
+     * ASCII banner. Startup save-file errors are returned separately by
+     * {@link #getStartupError} so the GUI can style them as error bubbles.
      *
      * @return welcome text without the ASCII banner
      */
     public String getWelcomeMessage() {
         ui.showWelcome();
-        if (startupError == null) {
-            return ui.getLastMessage();
-        }
-        String welcome = ui.getLastMessage();
-        ui.showError(startupError);
-        return welcome + "\n\n" + ui.getLastMessage();
+        return ui.getLastMessage();
+    }
+
+    /**
+     * Returns the save-file error from startup, if any.
+     *
+     * @return the error text, or {@code null} if the file loaded or was missing
+     */
+    public String getStartupError() {
+        return startupError;
     }
 
     /**
@@ -129,7 +134,7 @@ public class Ekud {
             lastDialogStyle = toDialogStyle(command);
             return ui.getLastMessage();
         } catch (EkudException e) {
-            lastDialogStyle = DialogStyle.NONE;
+            lastDialogStyle = DialogStyle.ERROR;
             ui.showError(e.getMessage());
             return ui.getLastMessage();
         }
@@ -145,8 +150,9 @@ public class Ekud {
     }
 
     /**
-     * Returns the dialog-bubble style for the last successful command.
-     * {@link DialogStyle#NONE} when the last input was invalid or unstyled.
+     * Returns the dialog-bubble style for the last {@link #getResponse}.
+     * {@link DialogStyle#ERROR} when the last input was invalid.
+     * {@link DialogStyle#NONE} when the last successful command has no tint.
      *
      * @return the style for the latest reply
      */
