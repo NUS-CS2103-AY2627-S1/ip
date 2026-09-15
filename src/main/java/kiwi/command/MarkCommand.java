@@ -29,8 +29,13 @@ public class MarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws KiwiException {
         requireValidIndex(tasks, index);
         assert tasks.isValidIndex(index) : "Index is in range after the user-input check";
+        boolean wasDone = tasks.get(index).isDone();
         tasks.markDone(index);
-        storage.save(tasks.getTasks());
+        saveOrRollback(tasks, storage, () -> {
+            if (!wasDone) {
+                tasks.markNotDone(index);
+            }
+        });
         ui.showMarked(toDisplayNumber(index), tasks.get(index));
     }
 }

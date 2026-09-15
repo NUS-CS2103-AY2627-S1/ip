@@ -68,6 +68,21 @@ class ParserTest {
             KiwiException exception = assertThrows(KiwiException.class, () -> Parser.parse("todo"));
             assertEquals("A todo needs a description — try: todo borrow book", exception.getMessage());
         }
+
+        @Test
+        void parse_todoWithLeadingAndExtraSpaces_addsTrimmedDescription() throws KiwiException {
+            Command command = Parser.parse("  todo   read   book  ");
+            TaskList tasks = new TaskList();
+            command.execute(tasks, new Ui(), new Storage(tempDir.resolve("kiwi.txt").toString()));
+
+            assertEquals("read book", tasks.get(0).getDescription());
+        }
+
+        @Test
+        void parse_todoDescriptionWithSaveSeparator_throwsKiwiException() {
+            KiwiException exception = assertThrows(KiwiException.class, () -> Parser.parse("todo a | b"));
+            assertEquals("Task descriptions cannot contain \" | \".", exception.getMessage());
+        }
     }
 
     @Nested
@@ -104,6 +119,63 @@ class ParserTest {
             KiwiException exception = assertThrows(KiwiException.class, () -> Parser.parse(input));
             assertEquals(
                     "Deadlines need both a description and /by yyyy-MM-dd — "
+                            + "e.g. deadline return book /by 2019-12-02",
+                    exception.getMessage());
+        }
+
+        @Test
+        void parse_deadlineWithExtraSpacesAroundBy_parsesDate() throws KiwiException {
+            Command command = Parser.parse("deadline return book  /by  2019-12-02");
+            TaskList tasks = new TaskList();
+            command.execute(tasks, new Ui(), new Storage(tempDir.resolve("kiwi.txt").toString()));
+
+            Deadline deadline = (Deadline) tasks.get(0);
+            assertEquals(LocalDate.of(2019, 12, 2), deadline.getBy());
+        }
+
+        @Test
+        void parse_deadlineWithDuplicateBy_throwsKiwiException() {
+            KiwiException exception = assertThrows(KiwiException.class, () ->
+                    Parser.parse("deadline return book /by 2019-12-02 /by 2019-12-03"));
+            assertEquals(
+                    "/by appears more than once. Deadlines need both a description and /by yyyy-MM-dd — "
+                            + "e.g. deadline return book /by 2019-12-02",
+                    exception.getMessage());
+        }
+
+        @Test
+        void parse_deadlineWithFromFlag_throwsKiwiException() {
+            KiwiException exception = assertThrows(KiwiException.class, () ->
+                    Parser.parse("deadline return book /from 2019-12-02"));
+            assertEquals(
+                    "Unexpected /from. Deadlines need both a description and /by yyyy-MM-dd — "
+                            + "e.g. deadline return book /by 2019-12-02",
+                    exception.getMessage());
+        }
+
+        @Test
+        void parse_deadlineWithExtraWordsAfterDate_throwsKiwiException() {
+            KiwiException exception = assertThrows(KiwiException.class, () ->
+                    Parser.parse("deadline return book /by 2019-12-02 extra"));
+            assertEquals(
+                    "Please use only a yyyy-MM-dd date after /by — "
+                            + "e.g. deadline return book /by 2019-12-02",
+                    exception.getMessage());
+        }
+
+        @Test
+        void parse_deadlineWithFreeFormByText_throwsKiwiException() {
+            KiwiException exception = assertThrows(KiwiException.class, () ->
+                    Parser.parse("deadline do homework /by no idea :-p"));
+            assertEquals("Please use a date as yyyy-MM-dd, e.g. 2019-12-02", exception.getMessage());
+        }
+
+        @Test
+        void parse_deadlineWithMashedByFlag_throwsKiwiException() {
+            KiwiException exception = assertThrows(KiwiException.class, () ->
+                    Parser.parse("deadline return book/by 2019-12-02"));
+            assertEquals(
+                    "Please put spaces around /by. Deadlines need both a description and /by yyyy-MM-dd — "
                             + "e.g. deadline return book /by 2019-12-02",
                     exception.getMessage());
         }
@@ -147,6 +219,33 @@ class ParserTest {
                     "Events need /from and /to as yyyy-MM-dd — "
                             + "e.g. event meeting /from 2019-10-04 /to 2019-10-11",
                     exception.getMessage());
+        }
+
+        @Test
+        void parse_eventWithToBeforeFrom_throwsKiwiException() {
+            KiwiException exception = assertThrows(KiwiException.class, () ->
+                    Parser.parse("event meeting /to 2019-10-11 /from 2019-10-04"));
+            assertEquals(
+                    "Please put /from before /to. Events need /from and /to as yyyy-MM-dd — "
+                            + "e.g. event meeting /from 2019-10-04 /to 2019-10-11",
+                    exception.getMessage());
+        }
+
+        @Test
+        void parse_eventWithDuplicateFrom_throwsKiwiException() {
+            KiwiException exception = assertThrows(KiwiException.class, () ->
+                    Parser.parse("event meeting /from 2019-10-04 /from 2019-10-05 /to 2019-10-11"));
+            assertEquals(
+                    "/from appears more than once. Events need /from and /to as yyyy-MM-dd — "
+                            + "e.g. event meeting /from 2019-10-04 /to 2019-10-11",
+                    exception.getMessage());
+        }
+
+        @Test
+        void parse_eventEndBeforeStart_throwsKiwiException() {
+            KiwiException exception = assertThrows(KiwiException.class, () ->
+                    Parser.parse("event meeting /from 2019-10-11 /to 2019-10-04"));
+            assertEquals("Event end date cannot be before the start date.", exception.getMessage());
         }
     }
 
@@ -288,6 +387,19 @@ class ParserTest {
             KiwiException exception = assertThrows(KiwiException.class, () -> Parser.parse("mark abc"));
             assertEquals("That task number doesn't look like a number: abc", exception.getMessage());
         }
+
+        @ParameterizedTest
+        @ValueSource(strings = {"mark 0", "mark -1", "delete 0"})
+        void parse_nonPositiveTaskNumber_throwsKiwiException(String input) {
+            KiwiException exception = assertThrows(KiwiException.class, () -> Parser.parse(input));
+            assertEquals("Task numbers start from 1.", exception.getMessage());
+        }
+
+        @Test
+        void parse_markWithExtraArguments_throwsKiwiException() {
+            KiwiException exception = assertThrows(KiwiException.class, () -> Parser.parse("mark 1 2"));
+            assertEquals("Please give only one task number, e.g. mark 1", exception.getMessage());
+        }
     }
 
     @Test
@@ -297,5 +409,42 @@ class ParserTest {
                 "Hmm, Kiwi doesn't recognize that. Try todo, deadline, event, on, find, free, list, "
                         + "mark, unmark, delete, or bye.",
                 exception.getMessage());
+    }
+
+    @Test
+    void parse_blankInput_throwsKiwiException() {
+        KiwiException exception = assertThrows(KiwiException.class, () -> Parser.parse("   "));
+        assertEquals("Please type a command, e.g. todo borrow book", exception.getMessage());
+    }
+
+    @Test
+    void parse_listWithExtraWords_throwsKiwiException() {
+        KiwiException exception = assertThrows(KiwiException.class, () -> Parser.parse("list extra"));
+        assertEquals("list doesn't take extra words. Just type: list", exception.getMessage());
+    }
+
+    @Test
+    void parse_byeWithExtraWords_throwsKiwiException() {
+        KiwiException exception = assertThrows(KiwiException.class, () -> Parser.parse("bye now"));
+        assertEquals("bye doesn't take extra words. Just type: bye", exception.getMessage());
+    }
+
+    @Test
+    void parse_onWithExtraWords_throwsKiwiException() {
+        KiwiException exception = assertThrows(KiwiException.class, () -> Parser.parse("on 2019-12-02 extra"));
+        assertEquals("on takes only a yyyy-MM-dd date, e.g. on 2019-12-02", exception.getMessage());
+    }
+
+    @Test
+    void parse_duplicateTodo_throwsKiwiExceptionOnSecondAdd() throws KiwiException {
+        TaskList tasks = new TaskList();
+        Storage storage = new Storage(tempDir.resolve("kiwi.txt").toString());
+        Parser.parse("todo read book").execute(tasks, new Ui(), storage);
+
+        Command duplicate = Parser.parse("todo read book");
+        KiwiException exception = assertThrows(KiwiException.class, () ->
+                duplicate.execute(tasks, new Ui(), storage));
+        assertEquals("That task is already in your list.", exception.getMessage());
+        assertEquals(1, tasks.size());
     }
 }

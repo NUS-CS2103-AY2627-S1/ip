@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import kiwi.KiwiException;
 
@@ -19,6 +20,10 @@ public final class KiwiDate {
     public static final DateTimeFormatter OUTPUT_FORMAT =
             DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
 
+    private static final Pattern ISO_DATE_SHAPE = Pattern.compile("\\d{4}-\\d{2}-\\d{2}");
+    private static final String PARSE_ERROR_MESSAGE =
+            "Please use a date as yyyy-MM-dd, e.g. 2019-12-02";
+
     private KiwiDate() {
         // utility class
     }
@@ -32,10 +37,15 @@ public final class KiwiDate {
      */
     public static LocalDate parse(String text) throws KiwiException {
         assert text != null : "Parser and Storage always pass a date string";
+        String trimmed = text.trim();
         try {
-            return LocalDate.parse(text.trim(), INPUT_FORMAT);
+            return LocalDate.parse(trimmed, INPUT_FORMAT);
         } catch (DateTimeParseException e) {
-            throw new KiwiException("Please use a date as yyyy-MM-dd, e.g. 2019-12-02");
+            if (ISO_DATE_SHAPE.matcher(trimmed).matches()) {
+                throw new KiwiException(trimmed + " is not a real calendar date. "
+                        + PARSE_ERROR_MESSAGE);
+            }
+            throw new KiwiException(PARSE_ERROR_MESSAGE);
         }
     }
 

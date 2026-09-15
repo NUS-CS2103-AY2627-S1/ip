@@ -29,8 +29,13 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws KiwiException {
         requireValidIndex(tasks, index);
         assert tasks.isValidIndex(index) : "Index is in range after the user-input check";
+        boolean wasDone = tasks.get(index).isDone();
         tasks.markNotDone(index);
-        storage.save(tasks.getTasks());
+        saveOrRollback(tasks, storage, () -> {
+            if (wasDone) {
+                tasks.markDone(index);
+            }
+        });
         ui.showUnmarked(toDisplayNumber(index), tasks.get(index));
     }
 }

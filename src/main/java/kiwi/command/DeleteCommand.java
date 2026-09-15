@@ -31,7 +31,7 @@ public class DeleteCommand extends Command {
         requireValidIndex(tasks, index);
         assert tasks.isValidIndex(index) : "Index is in range after the user-input check";
         Task removed = tasks.delete(index);
-        storage.save(tasks.getTasks());
+        saveOrRollback(tasks, storage, () -> tasks.add(index, removed));
         ui.showTaskDeleted(removed, tasks.size());
     }
 }

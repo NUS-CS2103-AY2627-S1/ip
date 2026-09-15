@@ -42,6 +42,18 @@ public class TaskList {
     }
 
     /**
+     * Inserts {@code task} at {@code index}, shifting later tasks to the right.
+     *
+     * @param index 0-based insertion position, from 0 to {@link #size()} inclusive.
+     * @param task task to insert.
+     */
+    public void add(int index, Task task) {
+        assert task != null : "A parsed or loaded task is never null";
+        assert index >= 0 && index <= tasks.size() : "Insert index is within 0..size";
+        tasks.add(index, task);
+    }
+
+    /**
      * Removes and returns the task at the given 0-based index.
      *
      * @param index 0-based position of the task to remove.
@@ -109,6 +121,17 @@ public class TaskList {
      */
     public boolean isValidIndex(int index) {
         return index >= 0 && index < tasks.size();
+    }
+
+    /**
+     * Returns whether a task with the same details as {@code task} is already in this list.
+     *
+     * @param task candidate task.
+     * @return {@code true} if a matching task exists.
+     */
+    public boolean containsSameDetails(Task task) {
+        assert task != null : "Callers always pass a parsed or loaded task";
+        return tasks.stream().anyMatch(existing -> existing.hasSameDetails(task));
     }
 
     /**

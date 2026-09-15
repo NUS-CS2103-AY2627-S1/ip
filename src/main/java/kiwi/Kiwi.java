@@ -1,5 +1,7 @@
 package kiwi;
 
+import java.util.List;
+
 import kiwi.command.Command;
 import kiwi.command.ExitCommand;
 import kiwi.task.TaskList;
@@ -95,11 +97,21 @@ public class Kiwi {
     /**
      * Returns the greeting shown when the GUI window opens.
      * Omits the ASCII banner so the message stays readable in a small window.
+     * Includes any save-file warnings from startup so GUI users see them too.
      *
-     * @return a short welcome message.
+     * @return a short welcome message, possibly preceded by load warnings.
      */
     public String getWelcomeMessage() {
-        return ui.getGuiWelcome();
+        List<String> warnings = storage.getLoadWarnings();
+        if (warnings.isEmpty()) {
+            return ui.getGuiWelcome();
+        }
+        StringBuilder welcome = new StringBuilder();
+        for (String warning : warnings) {
+            welcome.append(warning).append('\n');
+        }
+        welcome.append(ui.getGuiWelcome());
+        return welcome.toString();
     }
 
     /**
