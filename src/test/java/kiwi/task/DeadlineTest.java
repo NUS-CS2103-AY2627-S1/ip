@@ -41,4 +41,16 @@ class DeadlineTest {
         deadline.markAsDone();
         assertTrue(deadline.toSaveFormat().startsWith("D | 1 | "));
     }
+
+    @Test
+    void hasSameDetails_sameDescriptionAndDate_returnsTrue() {
+        Deadline other = new Deadline("return book", LocalDate.of(2019, 12, 2));
+        assertTrue(deadline.hasSameDetails(other));
+    }
+
+    @Test
+    void hasSameDetails_differentDate_returnsFalse() {
+        Deadline other = new Deadline("return book", LocalDate.of(2019, 12, 3));
+        assertFalse(deadline.hasSameDetails(other));
+    }
 }

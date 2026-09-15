@@ -33,6 +33,19 @@ public class Event extends Task {
 
     /**
      * {@inheritDoc}
+     * Also requires the same start and end dates.
+     */
+    @Override
+    public boolean hasSameDetails(Task other) {
+        if (!super.hasSameDetails(other)) {
+            return false;
+        }
+        Event event = (Event) other;
+        return from.equals(event.from) && to.equals(event.to);
+    }
+
+    /**
+     * {@inheritDoc}
      *
      * @return {@code true} if {@code date} falls in this event's inclusive from–to range.
      */

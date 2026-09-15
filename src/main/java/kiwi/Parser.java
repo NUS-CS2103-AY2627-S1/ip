@@ -1,6 +1,7 @@
 package kiwi;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import kiwi.command.AddCommand;
 import kiwi.command.Command;
@@ -16,6 +17,7 @@ import kiwi.task.Deadline;
 import kiwi.task.Event;
 import kiwi.task.FreeSlot;
 import kiwi.task.KiwiDate;
+import kiwi.task.Task;
 import kiwi.task.Todo;
 
 /**
@@ -35,16 +37,22 @@ public class Parser {
     private static final String COMMAND_UNMARK = "unmark";
     private static final String COMMAND_DELETE = "delete";
 
-    private static final String DELIMITER_BY = " /by ";
-    private static final String DELIMITER_FROM = " /from ";
-    private static final String DELIMITER_TO = " /to ";
+    private static final String FLAG_BY = "/by";
+    private static final String FLAG_FROM = "/from";
+    private static final String FLAG_TO = "/to";
 
+    private static final String DEADLINE_USAGE =
+            "Deadlines need both a description and /by yyyy-MM-dd — "
+                    + "e.g. deadline return book /by 2019-12-02";
     private static final String EVENT_USAGE =
             "Events need /from and /to as yyyy-MM-dd — "
                     + "e.g. event meeting /from 2019-10-04 /to 2019-10-11";
+    private static final String FREE_USAGE =
+            "Please give a number of hours, e.g. free 4";
 
     /**
      * Parses one full input line into a {@link Command}.
+     * Leading, trailing, and repeated whitespace are treated as a single space.
      *
      * @param input full line typed by the user.
      * @return a command object that can be executed.
@@ -52,38 +60,48 @@ public class Parser {
      */
     public static Command parse(String input) throws KiwiException {
         assert input != null : "Ui and GUI always pass a command line, never null";
-        if (isCommand(input, COMMAND_BYE)) {
+        String commandLine = normalizeSpaces(input);
+        if (commandLine.isEmpty()) {
+            throw new KiwiException("Please type a command, e.g. todo borrow book");
+        }
+
+        String commandWord = firstWord(commandLine);
+        String arguments = restAfterFirstWord(commandLine);
+
+        if (commandWord.equals(COMMAND_BYE)) {
+            requireNoArguments(arguments, COMMAND_BYE);
             return new ExitCommand();
         }
-        if (isCommand(input, COMMAND_LIST)) {
+        if (commandWord.equals(COMMAND_LIST)) {
+            requireNoArguments(arguments, COMMAND_LIST);
             return new ListCommand();
         }
-        if (isCommand(input, COMMAND_TODO)) {
-            return new AddCommand(parseTodo(argumentOf(input, COMMAND_TODO)));
+        if (commandWord.equals(COMMAND_TODO)) {
+            return new AddCommand(parseTodo(arguments));
         }
-        if (isCommand(input, COMMAND_DEADLINE)) {
-            return new AddCommand(parseDeadline(argumentOf(input, COMMAND_DEADLINE)));
+        if (commandWord.equals(COMMAND_DEADLINE)) {
+            return new AddCommand(parseDeadline(arguments));
         }
-        if (isCommand(input, COMMAND_EVENT)) {
-            return new AddCommand(parseEvent(argumentOf(input, COMMAND_EVENT)));
+        if (commandWord.equals(COMMAND_EVENT)) {
+            return new AddCommand(parseEvent(arguments));
         }
-        if (isCommand(input, COMMAND_ON)) {
-            return new OnCommand(parseOnDate(argumentOf(input, COMMAND_ON)));
+        if (commandWord.equals(COMMAND_ON)) {
+            return new OnCommand(parseOnDate(arguments));
         }
-        if (isCommand(input, COMMAND_FIND)) {
-            return new FindCommand(parseFindKeyword(argumentOf(input, COMMAND_FIND)));
+        if (commandWord.equals(COMMAND_FIND)) {
+            return new FindCommand(parseFindKeyword(arguments));
         }
-        if (isCommand(input, COMMAND_FREE)) {
-            return parseFree(argumentOf(input, COMMAND_FREE));
+        if (commandWord.equals(COMMAND_FREE)) {
+            return parseFree(arguments);
         }
-        if (isCommand(input, COMMAND_MARK)) {
-            return new MarkCommand(parseTaskNumber(input, COMMAND_MARK));
+        if (commandWord.equals(COMMAND_MARK)) {
+            return new MarkCommand(parseTaskNumber(arguments, COMMAND_MARK));
         }
-        if (isCommand(input, COMMAND_UNMARK)) {
-            return new UnmarkCommand(parseTaskNumber(input, COMMAND_UNMARK));
+        if (commandWord.equals(COMMAND_UNMARK)) {
+            return new UnmarkCommand(parseTaskNumber(arguments, COMMAND_UNMARK));
         }
-        if (isCommand(input, COMMAND_DELETE)) {
-            return new DeleteCommand(parseTaskNumber(input, COMMAND_DELETE));
+        if (commandWord.equals(COMMAND_DELETE)) {
+            return new DeleteCommand(parseTaskNumber(arguments, COMMAND_DELETE));
         }
         throw new KiwiException(
                 "Hmm, Kiwi doesn't recognize that. Try todo, deadline, event, on, find, free, list, "
@@ -91,20 +109,32 @@ public class Parser {
     }
 
     /**
-     * Returns whether {@code input} is exactly {@code commandWord}, or that word followed by arguments.
+     * Trims the line and collapses internal whitespace so extra spaces are not treated as errors.
      */
-    private static boolean isCommand(String input, String commandWord) {
-        return input.equals(commandWord) || input.startsWith(commandWord + " ");
+    private static String normalizeSpaces(String input) {
+        return input.trim().replaceAll("\\s+", " ");
     }
 
-    /**
-     * Returns the trimmed text after {@code commandWord}, or an empty string if there is none.
-     */
-    private static String argumentOf(String input, String commandWord) {
-        if (input.equals(commandWord)) {
+    private static String firstWord(String commandLine) {
+        int spaceIndex = commandLine.indexOf(' ');
+        if (spaceIndex < 0) {
+            return commandLine;
+        }
+        return commandLine.substring(0, spaceIndex);
+    }
+
+    private static String restAfterFirstWord(String commandLine) {
+        int spaceIndex = commandLine.indexOf(' ');
+        if (spaceIndex < 0) {
             return "";
         }
-        return input.substring(commandWord.length() + 1).trim();
+        return commandLine.substring(spaceIndex + 1);
+    }
+
+    private static void requireNoArguments(String arguments, String commandWord) throws KiwiException {
+        if (!arguments.isEmpty()) {
+            throw new KiwiException(commandWord + " doesn't take extra words. Just type: " + commandWord);
+        }
     }
 
     /**
@@ -112,13 +142,14 @@ public class Parser {
      *
      * @param description task description.
      * @return a new {@link Todo}.
-     * @throws KiwiException If the description is empty.
+     * @throws KiwiException If the description is empty or contains the save-file separator.
      */
     private static Todo parseTodo(String description) throws KiwiException {
         if (description.isEmpty()) {
             throw new KiwiException("A todo needs a description — try: todo borrow book");
         }
         assert !description.isEmpty() : "Todo description is non-empty after the user-input check";
+        Task.validateDescription(description);
         return new Todo(description);
     }
 
@@ -134,19 +165,21 @@ public class Parser {
             throw new KiwiException(
                     "A deadline needs details — try: deadline return book /by 2019-12-02");
         }
-        String[] parts = body.split(DELIMITER_BY, 2);
-        boolean hasBySeparator = parts.length == 2;
-        boolean hasDescription = hasBySeparator && !parts[0].trim().isEmpty();
-        boolean hasByDate = hasBySeparator && !parts[1].trim().isEmpty();
+        rejectUnknownAndDuplicateFlags(body, List.of(FLAG_BY), DEADLINE_USAGE);
+        requireFlagPresent(body, FLAG_BY, DEADLINE_USAGE);
+        String[] parts = splitOnFlag(body, FLAG_BY);
+        boolean hasDescription = !parts[0].isEmpty();
+        boolean hasByDate = parts.length == 2 && !parts[1].isEmpty();
         if (!hasDescription || !hasByDate) {
-            throw new KiwiException(
-                    "Deadlines need both a description and /by yyyy-MM-dd — "
-                            + "e.g. deadline return book /by 2019-12-02");
+            throw new KiwiException(DEADLINE_USAGE);
         }
-        assert parts.length == 2 : "Deadline body has description and /by after validation";
-        String description = parts[0].trim();
-        String byText = parts[1].trim();
-        return new Deadline(description, KiwiDate.parse(byText));
+        String description = parts[0];
+        String byText = parts[1];
+        Task.validateDescription(description);
+        LocalDate by = parseSingleDate(byText,
+                "Please use only a yyyy-MM-dd date after /by — "
+                        + "e.g. deadline return book /by 2019-12-02");
+        return new Deadline(description, by);
     }
 
     /**
@@ -161,24 +194,30 @@ public class Parser {
             throw new KiwiException(
                     "An event needs details — try: event meeting /from 2019-10-04 /to 2019-10-11");
         }
-        String[] fromSplit = body.split(DELIMITER_FROM, 2);
-        boolean hasFromSeparator = fromSplit.length == 2;
-        boolean hasDescription = hasFromSeparator && !fromSplit[0].trim().isEmpty();
-        if (!hasDescription) {
+        rejectUnknownAndDuplicateFlags(body, List.of(FLAG_FROM, FLAG_TO), EVENT_USAGE);
+        requireFlagPresent(body, FLAG_FROM, EVENT_USAGE);
+        requireFlagPresent(body, FLAG_TO, EVENT_USAGE);
+        requireFlagOrder(body, FLAG_FROM, FLAG_TO, EVENT_USAGE);
+
+        String[] fromSplit = splitOnFlag(body, FLAG_FROM);
+        boolean hasDescription = !fromSplit[0].isEmpty();
+        if (!hasDescription || fromSplit.length != 2) {
             throw new KiwiException(EVENT_USAGE);
         }
-        assert fromSplit.length == 2 : "Event body has description and /from after validation";
-        String[] toSplit = fromSplit[1].split(DELIMITER_TO, 2);
-        boolean hasToSeparator = toSplit.length == 2;
-        boolean hasFromDate = hasToSeparator && !toSplit[0].trim().isEmpty();
-        boolean hasToDate = hasToSeparator && !toSplit[1].trim().isEmpty();
+        String[] toSplit = splitOnFlag(fromSplit[1], FLAG_TO);
+        boolean hasFromDate = !toSplit[0].isEmpty();
+        boolean hasToDate = toSplit.length == 2 && !toSplit[1].isEmpty();
         if (!hasFromDate || !hasToDate) {
             throw new KiwiException(EVENT_USAGE);
         }
-        assert toSplit.length == 2 : "Event body has /from and /to after validation";
-        String description = fromSplit[0].trim();
-        LocalDate from = KiwiDate.parse(toSplit[0].trim());
-        LocalDate to = KiwiDate.parse(toSplit[1].trim());
+        String description = fromSplit[0];
+        Task.validateDescription(description);
+        LocalDate from = parseSingleDate(toSplit[0],
+                "Please use only a yyyy-MM-dd date after /from — "
+                        + "e.g. event meeting /from 2019-10-04 /to 2019-10-11");
+        LocalDate to = parseSingleDate(toSplit[1],
+                "Please use only a yyyy-MM-dd date after /to — "
+                        + "e.g. event meeting /from 2019-10-04 /to 2019-10-11");
         return new Event(description, from, to);
     }
 
@@ -207,22 +246,26 @@ public class Parser {
      */
     private static FreeCommand parseFree(String body) throws KiwiException {
         if (body.isEmpty()) {
-            throw new KiwiException("Please give a number of hours, e.g. free 4");
+            throw new KiwiException(FREE_USAGE);
         }
-        // "free 4 /from" trims to this; the usual " /from " delimiter needs a trailing space.
-        if (body.endsWith(" /from") || body.equals("/from")) {
+        rejectUnknownAndDuplicateFlags(body, List.of(FLAG_FROM),
+                "free takes a number of hours and optional /from yyyy-MM-dd — e.g. free 4");
+        if (body.endsWith(" " + FLAG_FROM) || body.equals(FLAG_FROM)) {
             throw new KiwiException("Please give a start date, e.g. free 4 /from 2019-12-01");
         }
-        String[] fromSplit = body.split(DELIMITER_FROM, 2);
-        String hoursText = fromSplit[0].trim();
+        requireFlagSpacing(body, FLAG_FROM,
+                "Please put spaces around /from — e.g. free 4 /from 2019-12-01");
+
+        String[] fromSplit = splitOnFlag(body, FLAG_FROM);
+        String hoursText = fromSplit[0];
         LocalDate startDate = null;
         if (fromSplit.length == 2) {
-            String dateText = fromSplit[1].trim();
+            String dateText = fromSplit[1];
             if (dateText.isEmpty()) {
                 throw new KiwiException("Please give a start date, e.g. free 4 /from 2019-12-01");
             }
-            assert !dateText.isEmpty() : "Free /from date text is present after the user-input check";
-            startDate = KiwiDate.parse(dateText);
+            startDate = parseSingleDate(dateText,
+                    "Please use only a yyyy-MM-dd date after /from — e.g. free 4 /from 2019-12-01");
         }
         int hours = parseFreeHours(hoursText);
         return new FreeCommand(hours, startDate);
@@ -237,7 +280,7 @@ public class Parser {
      */
     private static int parseFreeHours(String hoursText) throws KiwiException {
         if (hoursText.isEmpty() || hoursText.contains(" ")) {
-            throw new KiwiException("Please give a number of hours, e.g. free 4");
+            throw new KiwiException(FREE_USAGE);
         }
         final int hours;
         try {
@@ -261,36 +304,133 @@ public class Parser {
      *
      * @param dateText {@code yyyy-MM-dd} date.
      * @return the parsed date.
-     * @throws KiwiException If the date is missing or invalid.
+     * @throws KiwiException If the date is missing, has extra words, or is invalid.
      */
     private static LocalDate parseOnDate(String dateText) throws KiwiException {
         if (dateText.isEmpty()) {
             throw new KiwiException("Please give a date, e.g. on 2019-12-02");
         }
-        assert !dateText.isEmpty() : "On-command date text is present after the user-input check";
-        return KiwiDate.parse(dateText);
+        return parseSingleDate(dateText, "on takes only a yyyy-MM-dd date, e.g. on 2019-12-02");
     }
 
     /**
      * Reads the 1-based task number from a mark/unmark/delete command.
      * Does not check whether the index exists in the list — commands do that at execute time.
      *
-     * @param input full command line.
+     * @param arguments text after the command word.
      * @param command {@code mark}, {@code unmark}, or {@code delete}.
      * @return 0-based index.
-     * @throws KiwiException If the number is missing or not an integer.
+     * @throws KiwiException If the number is missing, extra, not an integer, or less than 1.
      */
-    private static int parseTaskNumber(String input, String command) throws KiwiException {
-        String[] parts = input.trim().split("\\s+");
-        if (parts.length < 2) {
+    private static int parseTaskNumber(String arguments, String command) throws KiwiException {
+        if (arguments.isEmpty()) {
             throw new KiwiException("Please give a task number, e.g. " + command + " 1");
         }
-        assert parts.length >= 2 : "Task-number token exists after the missing-argument check";
-        try {
-            int userNumber = Integer.parseInt(parts[1]);
-            return userNumber - 1;
-        } catch (NumberFormatException e) {
-            throw new KiwiException("That task number doesn't look like a number: " + parts[1]);
+        String[] parts = arguments.split(" ");
+        if (parts.length > 1) {
+            throw new KiwiException("Please give only one task number, e.g. " + command + " 1");
         }
+        final int userNumber;
+        try {
+            userNumber = Integer.parseInt(parts[0]);
+        } catch (NumberFormatException e) {
+            throw new KiwiException("That task number doesn't look like a number: " + parts[0]);
+        }
+        if (userNumber < 1) {
+            throw new KiwiException("Task numbers start from 1.");
+        }
+        return userNumber - 1;
+    }
+
+    /**
+     * Rejects flags that this command does not use, and the same flag given twice.
+     */
+    private static void rejectUnknownAndDuplicateFlags(String body, List<String> allowedFlags, String usage)
+            throws KiwiException {
+        boolean[] seen = new boolean[allowedFlags.size()];
+        for (String token : body.split(" ")) {
+            if (!token.startsWith("/")) {
+                continue;
+            }
+            int allowedIndex = allowedFlags.indexOf(token);
+            if (allowedIndex < 0) {
+                throw new KiwiException("Unexpected " + token + ". " + usage);
+            }
+            if (seen[allowedIndex]) {
+                throw new KiwiException(token + " appears more than once. " + usage);
+            }
+            seen[allowedIndex] = true;
+        }
+    }
+
+    /**
+     * Ensures {@code flag} appears as its own token, or explains how to space it.
+     */
+    private static void requireFlagPresent(String body, String flag, String usage) throws KiwiException {
+        if (containsFlag(body, flag)) {
+            return;
+        }
+        requireFlagSpacing(body, flag, "Please put spaces around " + flag + ". " + usage);
+        throw new KiwiException(usage);
+    }
+
+    /**
+     * Rejects {@code flag} glued to neighboring text instead of standing as its own token.
+     */
+    private static void requireFlagSpacing(String body, String flag, String message) throws KiwiException {
+        if (!containsFlag(body, flag) && body.contains(flag)) {
+            throw new KiwiException(message);
+        }
+    }
+
+    /**
+     * Ensures {@code firstFlag} appears before {@code secondFlag} in {@code body}.
+     */
+    private static void requireFlagOrder(String body, String firstFlag, String secondFlag, String usage)
+            throws KiwiException {
+        int firstIndex = indexOfFlag(body, firstFlag);
+        int secondIndex = indexOfFlag(body, secondFlag);
+        if (firstIndex >= 0 && secondIndex >= 0 && secondIndex < firstIndex) {
+            throw new KiwiException("Please put " + firstFlag + " before " + secondFlag + ". " + usage);
+        }
+    }
+
+    private static boolean containsFlag(String body, String flag) {
+        return indexOfFlag(body, flag) >= 0;
+    }
+
+    private static int indexOfFlag(String body, String flag) {
+        String[] tokens = body.split(" ");
+        int position = 0;
+        for (String token : tokens) {
+            if (token.equals(flag)) {
+                return position;
+            }
+            position += token.length() + 1;
+        }
+        return -1;
+    }
+
+    /**
+     * Splits {@code body} on the first {@code flag} token. Missing flags yield a one-element array.
+     */
+    private static String[] splitOnFlag(String body, String flag) {
+        String delimiter = " " + flag + " ";
+        if (body.startsWith(flag + " ")) {
+            return new String[] {"", body.substring(flag.length() + 1)};
+        }
+        return body.split(delimiter, 2);
+    }
+
+    /**
+     * Parses a single {@code yyyy-MM-dd} token, rejecting extra words after a valid date.
+     */
+    private static LocalDate parseSingleDate(String dateText, String extraWordsMessage) throws KiwiException {
+        if (!dateText.contains(" ")) {
+            return KiwiDate.parse(dateText);
+        }
+        String firstToken = firstWord(dateText);
+        KiwiDate.parse(firstToken);
+        throw new KiwiException(extraWordsMessage);
     }
 }

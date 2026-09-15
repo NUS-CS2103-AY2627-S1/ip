@@ -2,10 +2,12 @@ package kiwi;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -32,6 +34,7 @@ public class Storage {
     private final Path savePath;
     private final Path dataDir;
     private final Path tempPath;
+    private final List<String> loadWarnings = new ArrayList<>();
 
     /**
      * Creates storage that reads/writes the given file (relative or absolute).
@@ -48,18 +51,27 @@ public class Storage {
     }
 
     /**
+     * Returns warnings produced by the most recent {@link #load()}, in the order they were found.
+     *
+     * @return an unmodifiable list of warning messages; empty if the last load had none.
+     */
+    public List<String> getLoadWarnings() {
+        return Collections.unmodifiableList(loadWarnings);
+    }
+
+    /**
      * Writes every task to the save file, creating the parent directory if needed.
      * Uses a temp file then replace so a crash mid-write is less likely to wipe the save.
      *
      * @param tasks current in-memory task list.
+     * @throws KiwiException If the path is unusable or writing fails (for example permission denied).
      */
-    public void save(ArrayList<Task> tasks) {
+    public void save(ArrayList<Task> tasks) throws KiwiException {
         assert tasks != null : "TaskList.getTasks() always returns the backing list";
         try {
             if (Files.exists(savePath) && Files.isDirectory(savePath)) {
-                System.out.println("Could not save tasks: " + filePath
+                throw new KiwiException("Could not save tasks: " + filePath
                         + " is a folder, not a file.");
-                return;
             }
             Files.createDirectories(dataDir);
 
@@ -68,24 +80,27 @@ public class Storage {
                     .toList();
             Files.write(tempPath, lines, StandardCharsets.UTF_8);
             Files.move(tempPath, savePath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (KiwiException e) {
+            deleteTempQuietly();
+            throw e;
+        } catch (AccessDeniedException e) {
+            deleteTempQuietly();
+            throw new KiwiException("Could not save tasks to " + filePath + ": permission denied.");
         } catch (IOException e) {
-            System.out.println("Could not save tasks to " + filePath + ": " + e.getMessage());
-            try {
-                Files.deleteIfExists(tempPath);
-            } catch (IOException ignored) {
-                // best-effort cleanup of the temp file
-            }
+            deleteTempQuietly();
+            throw new KiwiException("Could not save tasks to " + filePath + ": " + e.getMessage());
         }
     }
 
     /**
      * Reads tasks from the save file.
      * Missing file → empty list. Unreadable path or I/O errors → empty list with a message.
-     * Blank lines are ignored; corrupted lines are skipped with a warning.
+     * Blank lines are ignored; corrupted or duplicated lines are skipped with a warning.
      *
      * @return tasks restored from disk (may be empty).
      */
     public ArrayList<Task> load() {
+        loadWarnings.clear();
         ArrayList<Task> loaded = new ArrayList<>();
 
         if (!Files.exists(savePath)) {
@@ -93,8 +108,7 @@ public class Storage {
         }
         String unusableReason = unusableSaveReason();
         if (unusableReason != null) {
-            System.out.println("Could not load tasks: " + unusableReason
-                    + ". Starting with an empty list.");
+            warn("Could not load tasks: " + unusableReason + ". Starting with an empty list.");
             return loaded;
         }
 
@@ -109,14 +123,24 @@ public class Storage {
                 try {
                     // stripLeading only — trailing spaces may mark an empty last field
                     String line = raw.stripLeading().replaceAll("[\\r\\n]+$", "");
-                    loaded.add(parseLine(line));
+                    Task task = parseLine(line);
+                    if (containsSameDetails(loaded, task)) {
+                        warn("Skipping duplicated save line " + lineNumber
+                                + " (a task with the same details is already loaded)");
+                        continue;
+                    }
+                    loaded.add(task);
                 } catch (KiwiException e) {
-                    System.out.println("Skipping corrupted save line " + lineNumber
+                    warn("Skipping corrupted save line " + lineNumber
                             + " (" + e.getMessage() + ")");
                 }
             }
+        } catch (AccessDeniedException e) {
+            warn("Could not load tasks from " + filePath
+                    + ": permission denied. Starting with an empty list.");
+            return new ArrayList<>();
         } catch (IOException e) {
-            System.out.println("Could not load tasks from " + filePath
+            warn("Could not load tasks from " + filePath
                     + ": " + e.getMessage() + ". Starting with an empty list.");
             return new ArrayList<>();
         }
@@ -137,6 +161,23 @@ public class Storage {
             return filePath + " is not readable";
         }
         return null;
+    }
+
+    private void warn(String message) {
+        loadWarnings.add(message);
+        System.out.println(message);
+    }
+
+    private void deleteTempQuietly() {
+        try {
+            Files.deleteIfExists(tempPath);
+        } catch (IOException ignored) {
+            // best-effort cleanup of the temp file
+        }
+    }
+
+    private static boolean containsSameDetails(List<Task> tasks, Task task) {
+        return tasks.stream().anyMatch(existing -> existing.hasSameDetails(task));
     }
 
     /**
@@ -173,6 +214,7 @@ public class Storage {
         if (description.isEmpty()) {
             throw new KiwiException("description cannot be empty");
         }
+        Task.validateDescription(description);
 
         Task task = createTask(TaskType.fromIcon(type), parts, description);
         if (isDoneFlag) {

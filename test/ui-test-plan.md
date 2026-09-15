@@ -12,8 +12,10 @@ runs each test case against the program, shows the console session, and
 - **Packages:** `kiwi` (app wiring, UI, storage, parser), `kiwi.task` (task model + list), `kiwi.command` (Command hierarchy)
 - **Task storage:** `ArrayList<Task>` (dynamic size; add/delete via list operations)
 - **Task kinds:** `TaskType` enum (`TODO`, `DEADLINE`, `EVENT`) for type icons `[T]` / `[D]` / `[E]`
-- **Hard-disk file:** `./data/kiwi.txt` — loaded at startup; rewritten (via temp file + replace) whenever the list changes. Missing/unreadable save → empty list with a message. Corrupted lines are skipped with a warning; valid lines still load.
-- **Deadline/event dates:** accepted/stored as `yyyy-MM-dd`, shown as `MMM dd yyyy`. Command `on yyyy-MM-dd` lists deadlines due that day and events whose range covers it.
+- **Hard-disk file:** `./data/kiwi.txt` — loaded at startup; rewritten (via temp file + replace) whenever the list changes. Missing save → empty list. Unreadable path, a folder in place of the file, or I/O errors → empty list with a message. Corrupted, duplicated, or impossible-date lines are skipped with a warning; valid lines still load. Save failures surface as an error and the in-memory change is rolled back.
+- **Deadline/event dates:** accepted/stored as `yyyy-MM-dd`, shown as `MMM dd yyyy`. Impossible calendar dates (e.g. 2019-02-30) are rejected. Event end date cannot be before the start date (same-day events are allowed). Command `on yyyy-MM-dd` lists deadlines due that day and events whose range covers it.
+- **Duplicates:** adding a task with the same type, description, and dates as one already in the list is rejected.
+- **Command format:** leading, trailing, and repeated spaces are treated as a single space. Extra words on `list`/`bye`/`mark`/`unmark`/`delete`/`on`, missing or repeated `/by` `/from` `/to`, and descriptions containing ` | ` are rejected with a usage hint.
 - **Find:** `find KEYWORD` lists tasks whose description contains the keyword (case-sensitive substring). Matching tasks are numbered from 1 in the result; no matches prints `None found.`
 - **Free time:** `free HOURS` (optionally ` /from yyyy-MM-dd`) finds the nearest work day with that many consecutive free hours. Work day is `08:00-18:00` (10 hours). Only events occupy the calendar (the whole work day for each day in their range); deadlines and to-dos do not. Omitting `/from` starts the search from today. No slot within 365 days prints `Couldn't find a …`.
 - **How tests are run:** compile all `*.java` under the source directory (recursively, for packages), then for each test case reset `./data/kiwi.txt` (delete unless a **Seed file** is given), pipe **Inputs** to stdin with Java assertions enabled (`-ea`), and compare full stdout to **Expected output**. Save-file lines use `|` separators, e.g. `T | 1 | read book`, `D | 0 | return book | 2019-12-02`, `E | 0 | meeting | 2019-10-04 | 2019-10-11`.
@@ -1210,6 +1212,150 @@ Now you have 1 task in the list.
 ____________________________________________________________
 ____________________________________________________________
 Couldn't find a 4-hour free slot in the next 365 days.
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
+### TC23: Leading, trailing, and extra spaces are accepted
+
+**Aim:** Extra whitespace around a command and around `/by` is treated as a single space so the tasks are still added.
+
+**Inputs:**
+```text
+  todo   borrow book
+deadline return book  /by  2019-12-02
+list
+bye
+```
+
+**Expected output:**
+```text
+____________________________________________________________
+ _  ___          _ 
+| |/ (_)_      _(_)
+| ' /| \ \ /\ / / |
+| . \| |\ V  V /| |
+|_|\_\_| \_/\_/ |_|
+Hello! I'm Kiwi.
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] borrow book
+Now you have 1 task in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [D][ ] return book (by: Dec 02 2019)
+Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] borrow book
+2.[D][ ] return book (by: Dec 02 2019)
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
+### TC24: Reject extra words, duplicate flags, empty input, and unsafe descriptions
+
+**Aim:** Empty input, extra words on `list`/`bye`/`mark`, a repeated `/by`, a non-positive task number, and a description containing ` | ` are rejected without changing the list.
+
+**Inputs:**
+```text
+
+list extra
+bye now
+deadline return book /by 2019-12-02 /by 2019-12-03
+mark 0
+todo a | b
+list
+bye
+```
+
+**Expected output:**
+```text
+____________________________________________________________
+ _  ___          _ 
+| |/ (_)_      _(_)
+| ' /| \ \ /\ / / |
+| . \| |\ V  V /| |
+|_|\_\_| \_/\_/ |_|
+Hello! I'm Kiwi.
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+Please type a command, e.g. todo borrow book
+____________________________________________________________
+____________________________________________________________
+list doesn't take extra words. Just type: list
+____________________________________________________________
+____________________________________________________________
+bye doesn't take extra words. Just type: bye
+____________________________________________________________
+____________________________________________________________
+/by appears more than once. Deadlines need both a description and /by yyyy-MM-dd — e.g. deadline return book /by 2019-12-02
+____________________________________________________________
+____________________________________________________________
+Task numbers start from 1.
+____________________________________________________________
+____________________________________________________________
+Task descriptions cannot contain " | ".
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
+### TC25: Reject duplicate tasks, impossible dates, and inverted event ranges
+
+**Aim:** A second identical todo is refused; Feb 30 and an event whose end is before its start do not add tasks.
+
+**Inputs:**
+```text
+todo read book
+todo read book
+deadline return book /by 2019-02-30
+event meeting /from 2019-10-11 /to 2019-10-04
+list
+bye
+```
+
+**Expected output:**
+```text
+____________________________________________________________
+ _  ___          _ 
+| |/ (_)_      _(_)
+| ' /| \ \ /\ / / |
+| . \| |\ V  V /| |
+|_|\_\_| \_/\_/ |_|
+Hello! I'm Kiwi.
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] read book
+Now you have 1 task in the list.
+____________________________________________________________
+____________________________________________________________
+That task is already in your list.
+____________________________________________________________
+____________________________________________________________
+2019-02-30 is not a real calendar date. Please use a date as yyyy-MM-dd, e.g. 2019-12-02
+____________________________________________________________
+____________________________________________________________
+Event end date cannot be before the start date.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] read book
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!

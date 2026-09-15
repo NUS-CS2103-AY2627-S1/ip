@@ -1,5 +1,6 @@
 package kiwi.command;
 
+import kiwi.KiwiException;
 import kiwi.Storage;
 import kiwi.Ui;
 import kiwi.task.Task;
@@ -22,14 +23,17 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Adds the task, saves the list, and shows a confirmation.
+     * Adds the task if it is not a duplicate, saves the list, and shows a confirmation.
      *
      * {@inheritDoc}
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws KiwiException {
+        if (tasks.containsSameDetails(task)) {
+            throw new KiwiException("That task is already in your list.");
+        }
         tasks.add(task);
-        storage.save(tasks.getTasks());
+        saveOrRollback(tasks, storage, () -> tasks.delete(tasks.size() - 1));
         ui.showTaskAdded(task, tasks.size());
     }
 }

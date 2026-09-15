@@ -127,6 +127,29 @@ class TaskListTest {
     }
 
     @Test
+    void containsSameDetails_sameTodoDescription_returnsTrue() {
+        assertTrue(taskList.containsSameDetails(new Todo("first")));
+        assertFalse(taskList.containsSameDetails(new Todo("third")));
+    }
+
+    @Test
+    void containsSameDetails_deadlineSameDescriptionDifferentDate_returnsFalse() {
+        TaskList tasks = new TaskList();
+        tasks.add(new Deadline("return book", LocalDate.of(2019, 12, 2)));
+
+        assertFalse(tasks.containsSameDetails(
+                new Deadline("return book", LocalDate.of(2019, 12, 3))));
+        assertTrue(tasks.containsSameDetails(
+                new Deadline("return book", LocalDate.of(2019, 12, 2))));
+    }
+
+    @Test
+    void containsSameDetails_ignoresDoneStatus() {
+        taskList.markDone(0);
+        assertTrue(taskList.containsSameDetails(new Todo("first")));
+    }
+
+    @Test
     void findNearestFreeSlot_emptyList_returnsStartDateAtWorkDayStart() {
         TaskList empty = new TaskList();
         Optional<FreeSlot> slot = empty.findNearestFreeSlot(4, LocalDate.of(2019, 12, 1));

@@ -46,6 +46,23 @@ public abstract class Command {
     }
 
     /**
+     * Saves the task list, running {@code rollback} if writing fails so memory matches disk.
+     *
+     * @param tasks current task list.
+     * @param storage persistence.
+     * @param rollback undoes the in-memory change that has not been saved.
+     * @throws KiwiException If the list could not be written.
+     */
+    protected void saveOrRollback(TaskList tasks, Storage storage, Runnable rollback) throws KiwiException {
+        try {
+            storage.save(tasks.getTasks());
+        } catch (KiwiException e) {
+            rollback.run();
+            throw e;
+        }
+    }
+
+    /**
      * Returns whether this command should end the chatbot loop.
      *
      * @return {@code true} only for exit; default is {@code false}.

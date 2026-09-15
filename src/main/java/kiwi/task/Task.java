@@ -2,6 +2,8 @@ package kiwi.task;
 
 import java.time.LocalDate;
 
+import kiwi.KiwiException;
+
 /**
  * Represents a task with a description, a {@link TaskType}, and a done/not-done status.
  * Subclasses may add extra details such as deadline or event times.
@@ -30,6 +32,34 @@ public class Task {
         this.description = description;
         this.type = type;
         this.isDone = false;
+    }
+
+    /**
+     * Rejects descriptions that would break the save-file format.
+     *
+     * @param description candidate task description.
+     * @throws KiwiException If {@code description} contains the save-field separator.
+     */
+    public static void validateDescription(String description) throws KiwiException {
+        assert description != null : "Parser and Storage always supply a description";
+        if (description.contains(SAVE_FIELD_SEPARATOR)) {
+            throw new KiwiException(
+                    "Task descriptions cannot contain \"" + SAVE_FIELD_SEPARATOR + "\".");
+        }
+    }
+
+    /**
+     * Returns whether {@code other} is the same kind of task with the same details.
+     * Done status is ignored so marking a task done does not make a second copy unique.
+     *
+     * @param other task to compare with.
+     * @return {@code true} if both tasks would look the same aside from done status.
+     */
+    public boolean hasSameDetails(Task other) {
+        if (other == null || type != other.type) {
+            return false;
+        }
+        return description.equals(other.description);
     }
 
     /**

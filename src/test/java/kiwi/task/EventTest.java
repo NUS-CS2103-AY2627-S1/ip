@@ -1,6 +1,7 @@
 package kiwi.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -42,6 +43,22 @@ class EventTest {
                 LocalDate.of(2019, 10, 4),
                 LocalDate.of(2019, 10, 4));
         assertTrue(singleDay.occursOn(LocalDate.of(2019, 10, 4)));
+    }
+
+    @Test
+    void hasSameDetails_sameRangeAndDescription_returnsTrue() throws KiwiException {
+        Event other = new Event("meeting",
+                LocalDate.of(2019, 10, 4),
+                LocalDate.of(2019, 10, 11));
+        assertTrue(event.hasSameDetails(other));
+    }
+
+    @Test
+    void hasSameDetails_differentEndDate_returnsFalse() throws KiwiException {
+        Event other = new Event("meeting",
+                LocalDate.of(2019, 10, 4),
+                LocalDate.of(2019, 10, 12));
+        assertFalse(event.hasSameDetails(other));
     }
 
     @ParameterizedTest

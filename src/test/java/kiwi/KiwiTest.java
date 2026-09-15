@@ -81,4 +81,29 @@ class KiwiTest {
         String response = kiwi.getResponse("free 4 /from 2019-12-01");
         assertEquals("Couldn't find a 4-hour free slot in the next 365 days.", response);
     }
+
+    @Test
+    void getResponse_blankInput_returnsPromptToTypeACommand() {
+        String response = kiwi.getResponse("   ");
+        assertEquals("Please type a command, e.g. todo borrow book", response);
+        assertTrue(kiwi.isError());
+    }
+
+    @Test
+    void getResponse_duplicateTodo_returnsAlreadyInList() {
+        kiwi.getResponse("todo read book");
+        String response = kiwi.getResponse("todo read book");
+        assertEquals("That task is already in your list.", response);
+        assertTrue(kiwi.isError());
+        assertEquals("Here are the tasks in your list:\n1.[T][ ] read book", kiwi.getResponse("list"));
+    }
+
+    @Test
+    void getResponse_impossibleDate_returnsCalendarDateError() {
+        String response = kiwi.getResponse("deadline return book /by 2019-02-30");
+        assertEquals(
+                "2019-02-30 is not a real calendar date. Please use a date as yyyy-MM-dd, e.g. 2019-12-02",
+                response);
+        assertTrue(kiwi.isError());
+    }
 }

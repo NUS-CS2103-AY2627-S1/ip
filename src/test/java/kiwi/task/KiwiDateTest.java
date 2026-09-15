@@ -48,15 +48,24 @@ class KiwiDateTest {
             "02-12-2019",
             "2019/12/02",
             "2019-12",
-            "2019-13-01",
-            "2019-01-32",
-            "2019-02-30",
-            "2019-02-29",
             "not-a-date"
         })
         void parse_invalidInput_throwsKiwiException(String input) {
             KiwiException exception = assertThrows(KiwiException.class, () -> KiwiDate.parse(input));
             assertEquals(PARSE_ERROR_MESSAGE, exception.getMessage());
+        }
+
+        @ParameterizedTest
+        @ValueSource(strings = {
+            "2019-13-01",
+            "2019-01-32",
+            "2019-02-30",
+            "2019-02-29"
+        })
+        void parse_impossibleCalendarDate_throwsKiwiException(String input) {
+            KiwiException exception = assertThrows(KiwiException.class, () -> KiwiDate.parse(input));
+            assertEquals(input + " is not a real calendar date. " + PARSE_ERROR_MESSAGE,
+                    exception.getMessage());
         }
     }
 

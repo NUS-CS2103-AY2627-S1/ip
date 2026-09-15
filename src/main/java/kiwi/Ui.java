@@ -88,10 +88,14 @@ public class Ui {
 
     /**
      * Reads the next full line of user input.
+     * End of input is treated as {@code bye} so the session can close cleanly.
      *
      * @return the command line typed by the user.
      */
     public String readCommand() {
+        if (!in.hasNextLine()) {
+            return "bye";
+        }
         return in.nextLine();
     }
 
