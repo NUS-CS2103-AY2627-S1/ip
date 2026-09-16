@@ -1,0 +1,5 @@
+# Normalize all text files to LF in the repository, regardless of what
+# line endings an editor on Windows/macOS/Linux writes to the working
+# tree. This keeps diffs limited to real content changes instead of
+# CRLF/LF churn between contributors' editors.
+* text=auto eol=lf

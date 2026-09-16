@@ -1,0 +1,158 @@
+/* Will chat window theme: deep teal + warm terracotta. */
+
+.root-pane {
+    -fx-background-color: #FAF7F2;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* --- Header --- */
+
+.header-bar {
+    -fx-background-color: #145C52;
+}
+
+.header-title {
+    -fx-text-fill: white;
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 0 20;
+}
+
+/* --- Chat area --- */
+
+.chat-scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-width: 0;
+}
+
+.chat-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-background-color: transparent;
+    -fx-padding: 16 14 16 14;
+}
+
+.bubble {
+    -fx-padding: 10 15 8 15;
+}
+
+/* A flattened corner nearest each speaker's avatar stands in for a
+   tail, without the extra geometry a literal speech-bubble hook needs. */
+
+.user-bubble {
+    -fx-background-color: #E07856;
+    -fx-background-radius: 16 16 4 16;
+}
+
+.will-bubble {
+    -fx-background-color: white;
+    -fx-border-color: #E7E2D8;
+    -fx-background-radius: 16 16 16 4;
+    -fx-border-radius: 16 16 16 4;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(20,92,82,0.10), 6, 0, 0, 2);
+}
+
+.message-text {
+    -fx-font-size: 13px;
+}
+
+.timestamp-text {
+    -fx-font-size: 10px;
+}
+
+.user-bubble .message-text {
+    -fx-fill: white;
+}
+
+.user-bubble .timestamp-text {
+    -fx-fill: rgba(255,255,255,0.75);
+}
+
+.will-bubble .message-text {
+    -fx-fill: #2B2A28;
+}
+
+.will-bubble .timestamp-text {
+    -fx-fill: #9C988D;
+}
+
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.20), 3, 0, 0, 1);
+}
+
+/* --- Scrollbar --- */
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-padding: 0 2 0 0;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #D9D3C6;
+    -fx-background-radius: 8;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #C7C0AF;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
+}
+
+/* --- Input bar --- */
+
+.input-bar {
+    -fx-background-color: white;
+    -fx-padding: 12 16 12 16;
+    -fx-border-color: #E7E2D8 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+.input-field {
+    -fx-background-color: #F1EDE4;
+    -fx-background-radius: 20;
+    -fx-padding: 10 18 10 18;
+    -fx-font-size: 13px;
+    -fx-border-width: 0;
+    -fx-prompt-text-fill: #9C988D;
+}
+
+.input-field:focused {
+    -fx-background-color: #E6F2EF;
+}
+
+.send-button {
+    -fx-background-color: #145C52;
+    -fx-text-fill: white;
+    -fx-background-radius: 20;
+    -fx-padding: 10 22 10 22;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: #0F4A42;
+}
+
+.send-button:pressed {
+    -fx-background-color: #0A3931;
+}
