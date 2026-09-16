@@ -18,9 +18,9 @@
     -fx-min-height: 44px;
     -fx-pref-width: 44px;
     -fx-pref-height: 44px;
-    -fx-background-color: linear-gradient(to bottom right, #fb7185, #f97356);
+    -fx-background-color: linear-gradient(to bottom right, #4385f5, #2563eb);
     -fx-background-radius: 14px;
-    -fx-effect: dropshadow(gaussian, rgba(251, 113, 133, 0.25), 18, 0.2, 0, 5);
+    -fx-effect: dropshadow(gaussian, rgba(67, 133, 245, 0.25), 18, 0.2, 0, 5);
 }
 
 .brand-letter {
@@ -115,7 +115,7 @@
 }
 
 .zucc-avatar {
-    -fx-background-color: linear-gradient(to bottom right, #fb7185, #f97356);
+    -fx-background-color: linear-gradient(to bottom right, #4385f5, #2563eb);
 }
 
 .user-avatar {
@@ -185,14 +185,14 @@
 }
 
 .command-input:focused {
-    -fx-border-color: #fb7185;
-    -fx-effect: dropshadow(gaussian, rgba(251, 113, 133, 0.18), 10, 0.2, 0, 0);
+    -fx-border-color: #4385f5;
+    -fx-effect: dropshadow(gaussian, rgba(67, 133, 245, 0.18), 10, 0.2, 0, 0);
 }
 
 .send-button {
     -fx-min-width: 104px;
     -fx-pref-height: 48px;
-    -fx-background-color: #fb7185;
+    -fx-background-color: #4385f5;
     -fx-background-radius: 13px;
     -fx-text-fill: #ffffff;
     -fx-font-size: 13px;
@@ -201,11 +201,11 @@
 }
 
 .send-button:hover {
-    -fx-background-color: #f43f5e;
+    -fx-background-color: #2563eb;
 }
 
 .send-button:pressed {
-    -fx-background-color: #e11d48;
+    -fx-background-color: #1d4ed8;
 }
 
 .send-button:disabled,

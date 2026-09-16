@@ -21,6 +21,20 @@ public class ZuccTest {
     private Path temporaryDirectory;
 
     /**
+     * Verifies that the shared greeting introduces Zucc's restrained personality.
+     */
+    @Test
+    public void showGreeting_newSession_introducesZuccPersonality() {
+        RecordingUi ui = new RecordingUi();
+
+        ui.showGreeting();
+
+        assertEquals(
+                "Hello! I'm Zucc.\nReady to keep tabs on your tasks—and only your tasks.",
+                ui.getLastMessage());
+    }
+
+    /**
      * Verifies that a regular command sends its response through the supplied UI.
      *
      * @throws ZuccException if the isolated task store cannot be initialized.

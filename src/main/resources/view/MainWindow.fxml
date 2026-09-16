@@ -28,7 +28,7 @@
             </StackPane>
             <VBox alignment="CENTER_LEFT" spacing="2.0">
                 <Label styleClass="brand-name" text="ZUCC" />
-                <Label styleClass="brand-tagline" text="Your tasks, in conversation" />
+                <Label styleClass="brand-tagline" text="Your tasks, connected" />
             </VBox>
             <Region HBox.hgrow="ALWAYS" />
             <HBox alignment="CENTER" spacing="7.0" styleClass="status-pill">
