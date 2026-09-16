@@ -5,8 +5,12 @@
 
 # Gradle build files
 /.gradle/
+/.gradle-user/
 /build/
 src/main/resources/docs/
+
+# Runtime task data
+/data/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
