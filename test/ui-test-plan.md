@@ -542,7 +542,7 @@ list
 I couldn't process that, Divine One: There are no tasks yet. Add a task before marking it.
 I couldn't process that, Divine One: There are no tasks yet. Add a task before unmarking it.
 I couldn't process that, Divine One: There are no tasks yet. Add a task before deleting it.
-Here are your current mission orders:
+You currently have no mission orders, Divine One.
 ```
 
 ## Test case 16: Exit the chatbot
@@ -693,7 +693,7 @@ list
 
 ```text
 I couldn't process that, Divine One: That deadline date or time is not valid. Try yyyy-mm-dd or dd/MM/yyyy HHmm, for example: 2019-10-15 or 02/12/2019 1800
-Here are your current mission orders:
+You currently have no mission orders, Divine One.
 ```
 
 ## Test case 22: Reject impossible event dates
@@ -717,7 +717,7 @@ list
 
 ```text
 I couldn't process that, Divine One: That event date or time is not valid. Try yyyy-mm-dd or dd/MM/yyyy HHmm, for example: 2019-10-15 or 02/12/2019 1800
-Here are your current mission orders:
+You currently have no mission orders, Divine One.
 ```
 
 ## Test case 23: Reject non-increasing event ranges
@@ -741,7 +741,7 @@ list
 
 ```text
 I couldn't process that, Divine One: An event must end after it starts. Check the /from and /to values.
-Here are your current mission orders:
+You currently have no mission orders, Divine One.
 ```
 
 ## Test case 31: Reject malformed command spacing and duplicate tasks
@@ -795,7 +795,7 @@ list
 
 ```text
 I couldn't process that, Divine One: An event must end after it starts. Check the /from and /to values.
-Here are your current mission orders:
+You currently have no mission orders, Divine One.
 ```
 
 ## Test case 24: Find deadlines and events on a date
@@ -962,7 +962,7 @@ Here are your current contacts:
 This contact has been withdrawn:
 Mrs Tan (phone: 81234567, address: 12 Engage Road #04-05)
 Now you have 0 contacts in the list.
-Here are your current contacts:
+You currently have no contacts, Divine One.
 ```
 
 ## Test case 30: Reject incomplete contact commands
@@ -1041,5 +1041,59 @@ listcontacts
 ```text
 I couldn't process that, Divine One: A phone number must contain a digit and may contain only digits, spaces, +, -, and parentheses.
 I couldn't process that, Divine One: A phone number must contain a digit and may contain only digits, spaces, +, -, and parentheses.
-Here are your current contacts:
+You currently have no contacts, Divine One.
+```
+
+## Test case 35: List empty tasks and contacts
+
+### Aim
+
+Verify that a fresh battle plan clearly reports both empty lists.
+
+### Comparison
+
+`contains`
+
+### Input
+
+```text
+list
+listcontacts
+```
+
+### Expected output
+
+```text
+You currently have no mission orders, Divine One.
+You currently have no contacts, Divine One.
+```
+
+## Test case 36: List tasks after deleting the last mission order
+
+### Aim
+
+Verify that removing the final task restores the empty-list message while populated lists retain their heading.
+
+### Comparison
+
+`contains`
+
+### Input
+
+```text
+todo prepare supplies
+list
+delete 1
+list
+```
+
+### Expected output
+
+```text
+Here are your current mission orders:
+1.[T][ ] prepare supplies
+This order has been withdrawn:
+[T][ ] prepare supplies
+Now you have 0 tasks in the list.
+You currently have no mission orders, Divine One.
 ```

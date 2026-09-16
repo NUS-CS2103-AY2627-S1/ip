@@ -141,6 +141,10 @@ public class Ui {
      * @param tasks the task list to display.
      */
     public void showTasks(TaskList tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("     You currently have no mission orders, Divine One.");
+            return;
+        }
         System.out.println(LIST_TASKS_MESSAGE);
         for (int i = 0; i < tasks.size(); i++) {
             showNumberedTask(i + 1, tasks.get(i));
@@ -191,6 +195,10 @@ public class Ui {
 
     /** Displays all contacts in their current order. */
     public void showContacts(ContactList contacts) {
+        if (contacts.size() == 0) {
+            System.out.println("     You currently have no contacts, Divine One.");
+            return;
+        }
         System.out.println("     Here are your current contacts:");
         for (int i = 0; i < contacts.size(); i++) {
             showNumberedContact(i + 1, contacts.get(i));
