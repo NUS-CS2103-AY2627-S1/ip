@@ -42,7 +42,7 @@ public class DialogBox extends HBox {
         }
         speaker.setText(speakerName);
         message.setText("Kia".equals(speakerName) && !text.endsWith("Arf!")
-                ? text + " Arf!" : text);
+                ? text + "\nArf!" : text);
         if ("Kia".equals(speakerName)) {
             setStyle("-fx-padding: 4 8 4 4;");
             avatar.setImage(new Image(DialogBox.class.getResourceAsStream("/images/kia-profile.jpg")));
