@@ -9,6 +9,10 @@ your tasks.
 > Back up any existing `data/arin.txt` before starting another session; the
 > next successful change or sort replaces that file with the current list.
 
+![Arin's full welcome window showing the robot avatar and console launch instructions](Ui.png)
+
+*The current JavaFX welcome window. Task commands run in a separate console.*
+
 ## Contents
 
 - [Quick start](#quick-start)
@@ -42,7 +46,7 @@ your tasks.
 
    Keep the terminal open. Arin shows its welcome message and waits for a
    command. Double-clicking the JAR or using `java -jar arin-all.jar` opens
-   only the current `Hello World!` JavaFX placeholder, not the task console.
+   the robot welcome window pictured above, not the task console.
 4. Type these commands **one at a time**, pressing Enter after each:
 
    ```text
@@ -210,7 +214,7 @@ folder is writable and that `data/arin.txt` is a file, not a directory.
 
 | Problem | What to do |
 | --- | --- |
-| Only a `Hello World!` window appears | Close it and use `java -ea -cp arin-all.jar arin.Arin` in a terminal. |
+| Only the robot welcome window appears | Close it and use `java -ea -cp arin-all.jar arin.Arin` in a terminal. |
 | Java reports an incompatible class version | Run `java -version` in the same terminal and switch to Java 25. |
 | Java cannot find `arin.Arin` | Check that you are in the folder containing the bundled `arin-all.jar`, and use the command above exactly. |
 | Arin does not recognize a command | Check lowercase spelling and remove leading spaces. Use the command summary below. |
@@ -239,3 +243,8 @@ including private task descriptions or your full data file.
 | Sort by due date | `sort deadline` | `sort deadline` |
 | Remove a task | `delete NUMBER` | `delete 1` |
 | Exit | `bye` | `bye` |
+
+## Artwork credit
+
+The robot illustration was supplied by the project owner. Its original
+source was not provided; it is not claimed as original project artwork.
