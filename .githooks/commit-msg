@@ -1,0 +1,65 @@
+#!/bin/sh
+
+# Validates the mechanical commit-message rules from the project Git conventions.
+set -eu
+
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <commit-message-file|->" >&2
+    exit 2
+fi
+
+message_source=$1
+normalized_message=$(mktemp)
+trap 'rm -f "$normalized_message"' EXIT HUP INT TERM
+
+if [ "$message_source" = "-" ]; then
+    git stripspace --strip-comments > "$normalized_message"
+elif [ -f "$message_source" ]; then
+    git stripspace --strip-comments < "$message_source" > "$normalized_message"
+else
+    echo "Commit message file not found: $message_source" >&2
+    exit 2
+fi
+
+awk '
+    BEGIN {
+        is_valid = 1
+    }
+
+    length($0) > 72 {
+        printf "Commit message line %d has %d characters; the limit is 72.\n", \
+            NR, length($0) > "/dev/stderr"
+        is_valid = 0
+    }
+
+    NR == 1 {
+        if (length($0) > 50) {
+            printf "Warning: subject has %d characters; prefer 50 or fewer.\n", \
+                length($0) > "/dev/stderr"
+        }
+
+        subject = $0
+        sub(/^[^:]+: /, "", subject)
+        if (subject !~ /^[[:upper:]]/) {
+            print "Commit subject must begin with a capital letter." > "/dev/stderr"
+            is_valid = 0
+        }
+        if (subject ~ /\.$/) {
+            print "Commit subject must not end with a period." > "/dev/stderr"
+            is_valid = 0
+        }
+    }
+
+    NR == 2 && length($0) != 0 {
+        print "Separate the subject and body with a blank line." > "/dev/stderr"
+        is_valid = 0
+    }
+
+    END {
+        if (NR == 0) {
+            print "Commit message must not be empty." > "/dev/stderr"
+            is_valid = 0
+        }
+        exit is_valid ? 0 : 1
+    }
+' "$normalized_message"

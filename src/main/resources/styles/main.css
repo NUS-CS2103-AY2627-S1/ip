@@ -1,0 +1,220 @@
+.root {
+    -fx-font-family: "System";
+    -fx-font-smoothing-type: gray;
+}
+
+.app-shell {
+    -fx-background-color: #111827;
+}
+
+.app-header {
+    -fx-background-color: #172033;
+    -fx-border-color: transparent transparent #2a3549 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.brand-mark {
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
+    -fx-background-color: linear-gradient(to bottom right, #4385f5, #2563eb);
+    -fx-background-radius: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(67, 133, 245, 0.25), 18, 0.2, 0, 5);
+}
+
+.brand-letter {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 19px;
+    -fx-font-weight: 800;
+}
+
+.brand-name {
+    -fx-text-fill: #f8fafc;
+    -fx-font-size: 17px;
+    -fx-font-weight: 800;
+}
+
+.brand-tagline {
+    -fx-text-fill: #94a3b8;
+    -fx-font-size: 12px;
+}
+
+.status-pill {
+    -fx-padding: 7px 11px;
+    -fx-background-color: #202b3e;
+    -fx-background-radius: 999px;
+    -fx-border-color: #344158;
+    -fx-border-radius: 999px;
+}
+
+.status-dot {
+    -fx-fill: #4ade80;
+}
+
+.status-dot-unavailable {
+    -fx-fill: #fb7185;
+}
+
+.status-dot-ended {
+    -fx-fill: #94a3b8;
+}
+
+.status-label {
+    -fx-text-fill: #cbd5e1;
+    -fx-font-size: 10px;
+    -fx-font-weight: 700;
+}
+
+.conversation-scroll,
+.conversation-scroll > .viewport,
+.dialog-container {
+    -fx-background-color: #111827;
+}
+
+.conversation-scroll {
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.conversation-scroll .scroll-bar:vertical {
+    -fx-pref-width: 10px;
+    -fx-background-color: transparent;
+}
+
+.conversation-scroll .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.conversation-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: #3a465b;
+    -fx-background-radius: 10px;
+    -fx-background-insets: 2px;
+}
+
+.conversation-scroll .increment-button,
+.conversation-scroll .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.dialog-row {
+    -fx-spacing: 9px;
+    -fx-max-width: Infinity;
+}
+
+.avatar {
+    -fx-min-width: 28px;
+    -fx-min-height: 28px;
+    -fx-pref-width: 28px;
+    -fx-pref-height: 28px;
+    -fx-max-width: 28px;
+    -fx-max-height: 28px;
+    -fx-background-radius: 9px;
+}
+
+.zucc-avatar {
+    -fx-background-color: linear-gradient(to bottom right, #4385f5, #2563eb);
+}
+
+.error-avatar {
+    -fx-background-color: #f59e0b;
+}
+
+.avatar-text {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 11px;
+    -fx-font-weight: 800;
+}
+
+.message-card {
+    -fx-padding: 11px 14px 12px 14px;
+    -fx-spacing: 4px;
+    -fx-background-radius: 13px;
+}
+
+.zucc-card {
+    -fx-background-color: #1d293b;
+    -fx-border-color: #2d3a50;
+    -fx-border-radius: 13px;
+}
+
+.user-card {
+    -fx-padding: 9px 13px;
+    -fx-background-color: #334155;
+    -fx-background-radius: 13px 13px 4px 13px;
+}
+
+.error-card {
+    -fx-background-color: #342817;
+    -fx-border-color: #7c5a20;
+    -fx-border-radius: 13px;
+}
+
+.error-card .speaker-label {
+    -fx-text-fill: #fbbf24;
+}
+
+.speaker-label {
+    -fx-text-fill: #94a3b8;
+    -fx-font-size: 9px;
+    -fx-font-weight: 800;
+}
+
+.message-text {
+    -fx-text-fill: #e5e7eb;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 3px;
+}
+
+.user-card .message-text {
+    -fx-text-fill: #f1f5f9;
+}
+
+.composer {
+    -fx-background-color: #172033;
+    -fx-border-color: #2a3549 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+.command-input {
+    -fx-pref-height: 44px;
+    -fx-padding: 0 14px;
+    -fx-background-color: #111827;
+    -fx-background-radius: 13px;
+    -fx-border-color: #344158;
+    -fx-border-radius: 13px;
+    -fx-text-fill: #f8fafc;
+    -fx-prompt-text-fill: #64748b;
+    -fx-font-size: 14px;
+}
+
+.command-input:focused {
+    -fx-border-color: #4385f5;
+    -fx-effect: dropshadow(gaussian, rgba(67, 133, 245, 0.18), 10, 0.2, 0, 0);
+}
+
+.send-button {
+    -fx-min-width: 82px;
+    -fx-pref-height: 44px;
+    -fx-background-color: #4385f5;
+    -fx-background-radius: 13px;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+    -fx-font-weight: 800;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: #2563eb;
+}
+
+.send-button:pressed {
+    -fx-background-color: #1d4ed8;
+}
+
+.send-button:disabled,
+.command-input:disabled {
+    -fx-opacity: 0.48;
+}
