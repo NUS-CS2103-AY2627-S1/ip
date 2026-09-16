@@ -43,8 +43,8 @@ public class Event extends Item {
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + " (from: " + from.format(OUTPUT_FORMATTER)
-                + " to: " + to.format(OUTPUT_FORMATTER) + ")";
+                + " (from: " + from.format(OUTPUT_FORMATTER).replace("12:00 AM", "0:00")
+                + " to: " + to.format(OUTPUT_FORMATTER).replace("12:00 AM", "0:00") + ")";
     }
 
     /**

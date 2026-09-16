@@ -1,12 +1,13 @@
 package surveyprogram.persistence;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -71,7 +72,19 @@ public class TaskStorage {
         while ((line = reader.readLine()) != null) {
             records.add(line);
         }
-        return records;
+        Map<String, Integer> idCounts = new HashMap<>();
+        for (String record : records) {
+            String[] parts = splitRecord(record);
+            if (parts.length > 1 && !isDoneMarker(parts[1])) {
+                idCounts.merge(parts[1].trim(), 1, Integer::sum);
+            }
+        }
+        // Reject every ambiguous ID so children cannot bind to the wrong task.
+        return records.stream().filter(record -> {
+            String[] parts = splitRecord(record);
+            return parts.length > 1 && (isDoneMarker(parts[1])
+                    || idCounts.getOrDefault(parts[1].trim(), 0) == 1);
+        }).toList();
     }
 
     /** Parses records that do not depend on another saved task. */
@@ -125,8 +138,8 @@ public class TaskStorage {
 
     /** Returns a task reconstructed from a valid saved record. */
     private static Optional<Item> parseIndependentItem(String line) {
-        String[] parts = line.split("\\|");
-        if (parts.length < 3) {
+        String[] parts = splitRecord(line);
+        if (!hasValidFields(parts)) {
             return Optional.empty();
         }
 
@@ -139,7 +152,12 @@ public class TaskStorage {
             if (item == null) {
                 return Optional.empty();
             }
-            item.setDone(parts[doneIndex].trim().equals("y"));
+            boolean isDone = parts[doneIndex].trim().equals("y");
+            if (isDone && item instanceof AfterTask afterTask
+                    && !afterTask.isAvailable(LocalDateTime.now())) {
+                return Optional.empty();
+            }
+            item.setDone(isDone);
             return Optional.of(item);
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException exception) {
             return Optional.empty();
@@ -175,25 +193,64 @@ public class TaskStorage {
     private static Event createEvent(String id, String description, String fromText, String toText) {
         LocalDateTime from = LocalDateTime.parse(fromText, FILE_FORMATTER);
         LocalDateTime to = LocalDateTime.parse(toText, FILE_FORMATTER);
+        if (!from.isBefore(to)) {
+            return null;
+        }
         return id == null ? new Event(description, from, to) : new Event(id, description, from, to);
     }
 
     /** Returns a parent-dependent task when its saved parent can be resolved. */
     private static Optional<Item> parseDependentItem(String line, Map<String, Item> itemsById) {
-        String[] parts = line.split("\\|");
-        if (parts.length < 6 || !parts[0].trim().equals("A")
+        String[] parts = splitRecord(line);
+        if (!hasValidFields(parts) || parts.length != 6 || !parts[0].trim().equals("A")
                 || !parts[4].trim().equals("TASK")) {
             return Optional.empty();
         }
 
         Item parent = itemsById.get(parts[5].trim());
-        if (parent == null) {
+        if (parent == null || (parts[2].trim().equals("y") && !parent.isDone())) {
             return Optional.empty();
         }
         AfterTask item = new AfterTask(parts[1].trim(), parts[3].trim(), parent);
         item.setDone(parts[2].trim().equals("y"));
         itemsById.put(item.getId(), item);
         return Optional.of(item);
+    }
+
+    /** Validates the exact record shape and required values before constructing a task. */
+    private static boolean hasValidFields(String[] parts) {
+        if (parts.length < 3) {
+            return false;
+        }
+        boolean isLegacy = isDoneMarker(parts[1]);
+        int doneIndex = isLegacy ? 1 : 2;
+        int descriptionIndex = doneIndex + 1;
+        int detailCount = switch (parts[0].trim()) {
+            case "T" -> 0;
+            case "D" -> 1;
+            case "E", "A" -> 2;
+            default -> -1;
+        };
+        return detailCount >= 0 && parts.length == descriptionIndex + 1 + detailCount
+                && (isLegacy || !parts[1].isBlank())
+                && isDoneMarker(parts[doneIndex]) && !parts[descriptionIndex].isBlank();
+    }
+
+    /** Decodes versioned descriptions while preserving literal escape sequences in older files. */
+    private static String[] splitRecord(String line) {
+        boolean isEncoded = line.startsWith("V2 | ");
+        String[] parts = (isEncoded ? line.substring(5) : line).split("\\|", -1);
+        if (isEncoded && parts.length > 3) {
+            parts[3] = parts[3].replace("%7C", "|").replace("%0A", "\n")
+                    .replace("%0D", "\r").replace("%25", "%");
+        }
+        return parts;
+    }
+
+    /** Escapes delimiters and line breaks without confusing existing percent sequences. */
+    private static String encodeDescription(String description) {
+        return description.replace("%", "%25").replace("|", "%7C")
+                .replace("\n", "%0A").replace("\r", "%0D");
     }
 
     /** Returns whether a field is a legacy completion marker. */
@@ -219,28 +276,28 @@ public class TaskStorage {
             return eventToFileString(event, prefix);
         }
         String type = item instanceof Todo ? "T" : "?";
-        return type + " | " + prefix + item.getName();
+        return type + " | " + prefix + encodeDescription(item.getName());
     }
 
     /** Returns the serialized representation of a dependent task. */
     private static String afterTaskToFileString(AfterTask afterTask, String prefix) {
         if (afterTask.hasParent()) {
-            return "A | " + prefix + afterTask.getName() + " | TASK | "
+            return "A | " + prefix + encodeDescription(afterTask.getName()) + " | TASK | "
                     + afterTask.getParent().getId();
         }
-        return "A | " + prefix + afterTask.getName() + " | TIME | "
+        return "A | " + prefix + encodeDescription(afterTask.getName()) + " | TIME | "
                 + afterTask.getReleaseAt().format(FILE_FORMATTER);
     }
 
     /** Returns the serialized representation of a deadline. */
     private static String deadlineToFileString(Deadline deadline, String prefix) {
-        return "D | " + prefix + deadline.getName() + " | "
+        return "D | " + prefix + encodeDescription(deadline.getName()) + " | "
                 + deadline.getBy().format(FILE_FORMATTER);
     }
 
     /** Returns the serialized representation of an event. */
     private static String eventToFileString(Event event, String prefix) {
-        return "E | " + prefix + event.getName() + " | "
+        return "E | " + prefix + encodeDescription(event.getName()) + " | "
                 + event.getFrom().format(FILE_FORMATTER) + " | "
                 + event.getTo().format(FILE_FORMATTER);
     }
@@ -249,8 +306,9 @@ public class TaskStorage {
      * Writes all tasks to the application's default save file.
      *
      * @param taskList task list to save
+     * @throws IOException if writing or atomically replacing the save file fails
      */
-    public static void save(TaskList taskList) {
+    public static void save(TaskList taskList) throws IOException {
         save(taskList, SAVE_FILE);
     }
 
@@ -259,23 +317,28 @@ public class TaskStorage {
      *
      * @param taskList task list to save
      * @param saveFile destination for serialized task records
+     * @throws IOException if writing or atomically replacing the save file fails
      */
-    public static void save(TaskList taskList, Path saveFile) {
+    public static void save(TaskList taskList, Path saveFile) throws IOException {
         List<Item> items = taskList.getList();
-
+        Path destination = saveFile.toAbsolutePath();
+        Files.createDirectories(destination.getParent());
+        Path temporaryFile = Files.createTempFile(destination.getParent(), "tasks-", ".tmp");
         try {
-            File file = saveFile.toFile();
-            File parent = file.getParentFile();
-            if (parent != null) {
-                parent.mkdirs(); // ensure directory exists
+            try (BufferedWriter writer = Files.newBufferedWriter(temporaryFile)) {
+                for (Item item : items) {
+                    writer.write("V2 | " + itemToFileString(item));
+                    writer.newLine();
+                }
             }
-            try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
-                items.stream()
-                        .map(TaskStorage::itemToFileString)
-                        .forEach(writer::println);
-            }
-        } catch (IOException exception) {
-            Secret.error(false);
+            // Fail safely if atomic replacement is unsupported; never truncate the original.
+            Files.move(temporaryFile, destination,
+                    StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+        } finally {
+            Files.deleteIfExists(temporaryFile);
         }
+        /* Terminal-only save warnings are replaced by the task result displayed in the GUI.
+            Secret.error(false);
+        */
     }
 }

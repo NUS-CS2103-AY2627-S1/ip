@@ -95,7 +95,7 @@ public class AfterTask extends Item {
         String lockMarker = isAvailable(LocalDateTime.now()) ? "" : "[L]";
         String condition = hasParent()
                 ? " (after task: " + parent.getName() + ")"
-                : " (after: " + releaseAt.format(OUTPUT_FORMATTER) + ")";
+                : " (after: " + releaseAt.format(OUTPUT_FORMATTER).replace("12:00 AM", "0:00") + ")";
         return "[A]" + lockMarker + super.toString() + condition;
     }
 }
