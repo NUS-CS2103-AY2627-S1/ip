@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -51,6 +52,16 @@ public class TaskListTest {
         assertEquals(1, copiedTasks.getTaskCount());
     }
 
+    /** Verifies that the task list rejects null collections and null task elements. */
+    @Test
+    public void constructor_nullCollectionOrElement_assertionThrown() {
+        assertAll(
+                () -> assertThrows(AssertionError.class, () -> new TaskList(null)),
+                () -> assertThrows(
+                        AssertionError.class,
+                        () -> new TaskList(Arrays.asList(firstTask, null))));
+    }
+
     /**
      * Verifies that adding a task appends the same task instance to the list.
      *
@@ -64,6 +75,13 @@ public class TaskListTest {
 
         assertEquals(3, tasks.getTaskCount());
         assertSame(addedTask, tasks.delete(2));
+    }
+
+    /** Verifies that null cannot be inserted in an established task list. */
+    @Test
+    public void add_nullTask_assertionThrownAndListUnchanged() {
+        assertThrows(AssertionError.class, () -> tasks.add(null));
+        assertEquals(2, tasks.getTaskCount());
     }
 
     /**

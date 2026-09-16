@@ -78,6 +78,19 @@ public class CommandTest {
     }
 
     /**
+     * Verifies that a slash without an option name remains ordinary argument text.
+     *
+     * @throws ZuccException if the command or resulting task cannot be created.
+     */
+    @Test
+    public void parse_standaloneSlash_slashPreservedInDescription() throws ZuccException {
+        TodoCommand command = assertInstanceOf(
+                TodoCommand.class, Command.parse("todo review / notes"));
+
+        assertEquals("[T][ ] review / notes", command.createTask().toString());
+    }
+
+    /**
      * Verifies that a deadline command and its {@code /by} option create the expected task.
      *
      * @throws ZuccException if the valid command or task cannot be created.

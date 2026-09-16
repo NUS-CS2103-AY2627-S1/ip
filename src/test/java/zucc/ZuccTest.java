@@ -4,13 +4,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.junit.jupiter.api.parallel.ResourceLock;
 
+import zucc.ui.TextUi;
 import zucc.ui.Ui;
 
 /**
@@ -84,6 +93,41 @@ public class ZuccTest {
 
         assertTrue(isExit);
         assertEquals("Bye. Hope to see you again soon!", ui.getLastMessage());
+    }
+
+    /**
+     * Verifies that a terminal session greets once, executes commands, and stops after bye.
+     *
+     * @throws IOException if the isolated task file cannot be inspected.
+     * @throws ZuccException if the isolated task store cannot be initialized.
+     */
+    @Test
+    @ResourceLock("SYSTEM_IN")
+    @ResourceLock("SYSTEM_OUT")
+    public void run_commandsBeforeAndAfterBye_onlyCommandsBeforeByeExecuted()
+            throws IOException, ZuccException {
+        InputStream originalInput = System.in;
+        PrintStream originalOutput = System.out;
+        Path taskFile = temporaryDirectory.resolve("tasks.txt");
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setIn(new ByteArrayInputStream(
+                "todo first task\nbye\ntodo ignored task\n".getBytes(StandardCharsets.UTF_8)));
+        System.setOut(new PrintStream(output, true, StandardCharsets.UTF_8));
+
+        try (TextUi ui = new TextUi()) {
+            new Zucc(taskFile).run(ui);
+        } finally {
+            System.setIn(originalInput);
+            System.setOut(originalOutput);
+        }
+
+        assertEquals(
+                List.of("T | 0 | 0 | first task"),
+                Files.readAllLines(taskFile, StandardCharsets.UTF_8));
+        String displayedOutput = output.toString(StandardCharsets.UTF_8);
+        assertTrue(displayedOutput.contains("Hello! I'm Zucc."));
+        assertTrue(displayedOutput.contains("Bye. Hope to see you again soon!"));
+        assertFalse(displayedOutput.contains("ignored task"));
     }
 
     /** Records messages without depending on a concrete frontend toolkit. */
