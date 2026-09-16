@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<fx:root alignment="CENTER_LEFT"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17.0.7"
+         xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="/css/DialogBox.css"
+         styleClass="dialog-box">
+
+    <Label fx:id="dialogLabel"
+           wrapText="true"
+           styleClass="dialog-label"/>
+
+</fx:root>
