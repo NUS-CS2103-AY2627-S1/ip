@@ -10,8 +10,12 @@ The Tasque icon was generated specifically for this project using OpenAI/ChatGPT
 
 ## Quick start
 
-With Java 25 installed, open a terminal in the folder containing `tasque.jar` and
-run `java -jar tasque.jar`.
+Install Java 25 using the
+[installation guide for your operating system](https://se-education.org/guides/tutorials/javaInstallation.html).
+Download `tasque.jar` from this repository's
+[GitHub Releases page](https://github.com/HIIMHEY/ip/releases) and place it in a
+folder of your choice. Open a terminal in that folder and run
+`java -jar tasque.jar`.
 
 1. Type a command in the input field, then press **Enter** or click **Send**.
 2. Try `todo Review CS2103T Week 6 notes`, then `list`.
