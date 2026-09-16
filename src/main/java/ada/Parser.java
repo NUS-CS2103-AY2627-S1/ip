@@ -62,8 +62,8 @@ public class Parser {
     /**
      * Parses one line of user input into a {@code CommandInfo} object.
      *
-     * The method only identifies the command and delegates the detailed
-     * parsing to a corresponding helper method.
+     * The method identifies the command and delegates detailed validation
+     * to the corresponding helper method.
      *
      * @param input raw user input
      * @return parsed command information
@@ -80,39 +80,81 @@ public class Parser {
         String command = getCommandWord(input);
 
         switch (command) {
-        case "list":
-            return parseNoArgumentCommand(input, "list");
-        case "sort":
-            return parseNoArgumentCommand(input, "sort");
-        case "mark":
-            return parseTaskNumberCommand(input, "mark", 4);
-        case "unmark":
-            return parseTaskNumberCommand(input, "unmark", 6);
-        case "todo":
-            return parseTodo(input);
-        case "deadline":
-            return parseDeadline(input);
-        case "event":
-            return parseEvent(input);
-        case "delete":
-            return parseTaskNumberCommand(input, "delete", 6);
-        case "find":
-            return parseFind(input);
-        default:
-            /*
-             * Preserve command-specific errors for inputs such as
-             * "list extra" or "sort extra".
-             */
-            if (input.startsWith("list")) {
+            case "list":
                 return parseNoArgumentCommand(input, "list");
-            }
-
-            if (input.startsWith("sort")) {
+            case "sort":
                 return parseNoArgumentCommand(input, "sort");
-            }
-
-            return new CommandInfo("unknown");
+            case "mark":
+                return parseTaskNumberCommand(input, "mark", 4);
+            case "unmark":
+                return parseTaskNumberCommand(input, "unmark", 6);
+            case "todo":
+                return parseTodo(input);
+            case "deadline":
+                return parseDeadline(input);
+            case "event":
+                return parseEvent(input);
+            case "delete":
+                return parseTaskNumberCommand(input, "delete", 6);
+            case "find":
+                return parseFind(input);
+            default:
+                return parseKnownCommandPrefix(input);
         }
+    }
+
+    /**
+     * Handles inputs that begin with a known command but do not contain
+     * the correct spacing or argument format.
+     *
+     * For example, inputs such as "mark1" or "todoSomething"
+     * should produce a format error instead of being treated as unknown
+     * commands.
+     *
+     * @param input raw user input
+     * @return parsed command information
+     * @throws AdaException if the input begins with a known command
+     *                      but has an invalid format
+     */
+    private CommandInfo parseKnownCommandPrefix(
+            String input) throws AdaException {
+        if (input.startsWith("list")) {
+            return parseNoArgumentCommand(input, "list");
+        }
+
+        if (input.startsWith("sort")) {
+            return parseNoArgumentCommand(input, "sort");
+        }
+
+        if (input.startsWith("mark")) {
+            return parseTaskNumberCommand(input, "mark", 4);
+        }
+
+        if (input.startsWith("unmark")) {
+            return parseTaskNumberCommand(input, "unmark", 6);
+        }
+
+        if (input.startsWith("todo")) {
+            return parseTodo(input);
+        }
+
+        if (input.startsWith("deadline")) {
+            return parseDeadline(input);
+        }
+
+        if (input.startsWith("event")) {
+            return parseEvent(input);
+        }
+
+        if (input.startsWith("delete")) {
+            return parseTaskNumberCommand(input, "delete", 6);
+        }
+
+        if (input.startsWith("find")) {
+            return parseFind(input);
+        }
+
+        return new CommandInfo("unknown");
     }
 
     /**

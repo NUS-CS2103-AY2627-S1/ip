@@ -146,40 +146,40 @@ public class Ada {
         String response;
 
         switch (command.getCommand()) {
-        case "bye":
-            response = ui.getByeText();
-            break;
-        case "list":
-            response = handleList();
-            break;
-        case "mark":
-            response = handleMark(command);
-            break;
-        case "unmark":
-            response = handleUnmark(command);
-            break;
-        case "todo":
-            response = handleTodo(command);
-            break;
-        case "deadline":
-            response = handleDeadline(command);
-            break;
-        case "event":
-            response = handleEvent(command);
-            break;
-        case "delete":
-            response = handleDelete(command);
-            break;
-        case "find":
-            response = handleFind(command);
-            break;
-        case "sort":
-            response = handleSort();
-            break;
-        default:
-            lastResponseWasError = true;
-            response = ui.getUnknownCommandText();
-            break;
+            case "bye":
+                response = ui.getByeText();
+                break;
+            case "list":
+                response = handleList();
+                break;
+            case "mark":
+                response = handleMark(command);
+                break;
+            case "unmark":
+                response = handleUnmark(command);
+                break;
+            case "todo":
+                response = handleTodo(command);
+                break;
+            case "deadline":
+                response = handleDeadline(command);
+                break;
+            case "event":
+                response = handleEvent(command);
+                break;
+            case "delete":
+                response = handleDelete(command);
+                break;
+            case "find":
+                response = handleFind(command);
+                break;
+            case "sort":
+                response = handleSort();
+                break;
+            default:
+                lastResponseWasError = true;
+                response = ui.getUnknownCommandText();
+                break;
         }
 
         return response;
