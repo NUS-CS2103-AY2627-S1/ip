@@ -1,0 +1,51 @@
+.root {
+    -fx-background-color: #eaf7f0;
+    -fx-font-family: "Avenir Next", "Arial";
+    -fx-font-size: 14px;
+}
+.header-content {
+    -fx-padding: 14px 20px;
+    -fx-background-color: #155b43;
+}
+.title { -fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold; }
+.subtitle { -fx-text-fill: #d5efdf; -fx-font-size: 12px; }
+.conversation { -fx-padding: 14px 8px; }
+.conversation-scroll, .conversation-scroll .viewport { -fx-background-color: #eaf7f0; }
+.conversation-scroll { -fx-border-color: transparent; }
+.user-message, .bambolino-message {
+    -fx-padding: 10px 14px;
+    -fx-background-radius: 12px;
+}
+.user-message { -fx-background-color: #d0eadb; }
+.bambolino-message {
+    -fx-background-color: white;
+    -fx-border-color: #b9dfc8;
+    -fx-border-radius: 12px;
+}
+.message-text { -fx-text-fill: #18352b; -fx-font-size: 14px; }
+.message-caption { -fx-text-fill: #426452; -fx-font-size: 10px; -fx-font-weight: bold; }
+.error-message { -fx-background-color: #fff1ed; -fx-border-color: #c45b43; }
+.error-message .message-caption, .error-message .message-text { -fx-text-fill: #8b2e1b; }
+.composer {
+    -fx-padding: 8px;
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    -fx-border-color: #b9dfc8;
+    -fx-border-radius: 12px;
+}
+.command-input {
+    -fx-background-color: #f1faf4;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px 12px;
+}
+.command-input:focused { -fx-background-color: #e2f3e8; }
+.send-button {
+    -fx-background-color: #17734e;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px 16px;
+}
+.send-button:hover { -fx-background-color: #0f5a3c; }
+.send-button:focused { -fx-border-color: #18352b; -fx-border-radius: 8px; }
+.scroll-bar .thumb { -fx-background-color: #81bf9a; -fx-background-radius: 1em; }

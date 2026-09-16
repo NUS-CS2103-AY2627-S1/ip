@@ -1,0 +1,41 @@
+name: Release smoke tests
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/release-smoke.yml'
+      - 'test/smoke/**'
+permissions:
+  contents: read
+jobs:
+  smoke:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '25'
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install Linux display dependencies
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y xvfb openbox xdotool scrot gnome-screenshot python3-tk libgtk-3-0
+      - run: python -m pip install pyautogui==0.9.54 pillow
+      - name: Smoke test on Linux
+        if: runner.os == 'Linux'
+        run: xvfb-run -a -s '-screen 0 1280x900x24' sh -c 'openbox >/tmp/openbox.log 2>&1 & python test/smoke/release_smoke.py'
+      - name: Smoke test on Windows
+        if: runner.os == 'Windows'
+        run: python test/smoke/release_smoke.py
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: smoke-${{ runner.os }}
+          path: smoke-results/

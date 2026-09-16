@@ -1,25 +1,30 @@
-# Duke project template
+# Bambolino
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Bambolino is a task companion with a JavaFX chat interface. Add to-dos, deadlines, and events,
+find tasks, and track their completion. See the [user guide](docs/README.md) for commands.
 
-## Setting up in Intellij
+## Run and develop
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+Use JDK 25 with JavaFX (the project uses Zulu `25.0.3.fx-zulu`). Open this repository in
+IntelliJ IDEA and set the project SDK and Gradle JVM to Java 25.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+- Run the GUI: `./gradlew run`.
+- Run automated tests: `./gradlew test`.
+- Build the packaged application: `./gradlew shadowJar`.
+- Run the packaged application: `java -jar build/libs/bambolino.jar`.
+- For the console interface, run `bambolino.Bambolino.main()` in IntelliJ IDEA.
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+Tasks are saved in `data/bambolino.txt` relative to the directory from which the application
+is launched. A missing file starts an empty list; the folder and file are created when saving.
+
+## Credits
+
+This project is based on the [NUS CS2103/T iP starter template](https://github.com/NUS-CS2103-AY2627-S1/ip).
+The task types and command interaction follow the course's
+[Project Duke specification](https://nus-cs2103-ay2627-s1.github.io/website/projectDuke/index.html).
+Original template contributors are retained in [CONTRIBUTORS.md](CONTRIBUTORS.md).
+
+OpenJFX supplies the GUI toolkit, JUnit supplies the test framework, and Gradle with Shadow
+supplies the build and packaging tools (see `build.gradle`).
+
+OpenAI Codex assisted with the storage-warning fix, regression test, and documentation in this update.
