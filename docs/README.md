@@ -180,3 +180,7 @@ Keep Java source files under `src/main/java`, which is the source layout expecte
 
 Cursor was used for project tasks where AI Guidance was recommended by the course website. The chatbot's personality, 
 behaviour, and design are original. 
+
+## Acknowledgement 
+Remy image credit: https://www.pinterest.com/pin/ratatouille-characters--95842298316977462/
+Linguini image credit: https://costumewall.com/dress-like-linguini/
