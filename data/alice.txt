@@ -1,0 +1,5 @@
+T | 0 | read book
+D | 1 | return book | 2024-12-25
+E | 0 | christmas | 2024-12-25 | 2024-12-27
+T | 1 | buy grocery
+T | 0 | sleep

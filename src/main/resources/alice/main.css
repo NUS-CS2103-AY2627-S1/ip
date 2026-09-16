@@ -1,0 +1,125 @@
+.root {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: #fff9f5;
+}
+
+.header {
+    -fx-background-color: linear-gradient(to right, #f3d7e3, #dceff0);
+}
+
+.title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #443653;
+}
+
+.subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #756682;
+}
+
+.status {
+    -fx-background-color: #d8f0df;
+    -fx-background-radius: 16px;
+    -fx-padding: 8px 14px;
+    -fx-text-fill: #3d6d54;
+    -fx-font-weight: bold;
+}
+
+.status-offline {
+    -fx-background-color: #f4d3d8;
+    -fx-text-fill: #7a4650;
+}
+
+.conversation-scroll {
+    -fx-background-color: #fff9f5;
+    -fx-border-color: transparent;
+}
+
+.conversation-scroll > .viewport {
+    -fx-background-color: #fff9f5;
+}
+
+.conversation {
+    -fx-padding: 24px 28px;
+}
+
+.message-row {
+    -fx-padding: 4px 0;
+}
+
+.message-bubble {
+    -fx-padding: 12px 16px;
+    -fx-background-radius: 18px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #40384f;
+}
+
+.alice-bubble {
+    -fx-background-color: #eadff6;
+    -fx-font-family: "Consolas";
+}
+
+.error-bubble {
+    -fx-background-color: #f8dce2;
+    -fx-border-color: #e5a9b5;
+    -fx-border-radius: 18px;
+    -fx-text-fill: #713d48;
+    -fx-font-family: "Consolas";
+}
+
+.user-bubble {
+    -fx-background-color: #cdeee5;
+}
+
+.avatar {
+    -fx-min-width: 42px;
+    -fx-min-height: 42px;
+    -fx-max-width: 42px;
+    -fx-max-height: 42px;
+    -fx-alignment: center;
+    -fx-background-radius: 24px;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.user-avatar {
+    -fx-background-color: #f2c6b8;
+    -fx-text-fill: #704b55;
+}
+
+.composer {
+    -fx-background-color: #ffffff;
+    -fx-padding: 14px 18px 18px;
+    -fx-border-color: #eadfea transparent transparent transparent;
+}
+
+.command-field {
+    -fx-background-color: #fff9f5;
+    -fx-background-radius: 18px;
+    -fx-border-color: #dbcde2;
+    -fx-border-radius: 18px;
+    -fx-min-height: 43px;
+    -fx-pref-height: 43px;
+    -fx-padding: 12px 16px;
+    -fx-font-size: 14px;
+}
+
+.send-button {
+    -fx-background-color: #c7e8d8;
+    -fx-background-radius: 18px;
+    -fx-min-height: 43px;
+    -fx-pref-height: 43px;
+    -fx-padding: 0 24px;
+    -fx-text-fill: #355646;
+    -fx-font-weight: bold;
+}
+
+.send-button:hover {
+    -fx-background-color: #a9d9c2;
+}
+
+.quick-commands {
+    -fx-text-fill: #8a7890;
+    -fx-font-size: 12px;
+}

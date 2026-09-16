@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="alice.MainController"
+            stylesheets="@main.css" styleClass="root">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="14" styleClass="header">
+            <padding>
+                <Insets top="22" right="28" bottom="22" left="28" />
+            </padding>
+            <ImageView fx:id="headerAvatar" fitHeight="58" fitWidth="58" preserveRatio="true" />
+            <VBox spacing="3">
+                <Label text="Alice" styleClass="title" />
+                <Label text="Your cheerful pastel task companion" styleClass="subtitle" />
+            </VBox>
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="statusLabel" text="READY" styleClass="status" />
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="conversationScroll" fitToWidth="true" hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED" styleClass="conversation-scroll">
+            <content>
+                <VBox fx:id="messageContainer" spacing="10" styleClass="conversation" />
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <VBox spacing="8" styleClass="composer">
+            <HBox spacing="10" alignment="CENTER">
+                <TextField fx:id="commandField" promptText="What would you like to plan?"
+                           onAction="#handleSend" styleClass="command-field" HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton" text="Send" onAction="#handleSend" styleClass="send-button" />
+            </HBox>
+            <Label text="todo  •  deadline  •  event  •  list  •  mark  •  unmark  •  delete  •  find  •  view  •  undo  •  bye"
+                   styleClass="quick-commands" managed="false" visible="false" />
+            <Label text="todo  |  deadline  |  event  |  list  |  mark  |  unmark  |  delete  |  find  |  view  |  undo  |  bye"
+                   styleClass="quick-commands" wrapText="true" />
+        </VBox>
+    </bottom>
+</BorderPane>
