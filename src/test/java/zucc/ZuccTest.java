@@ -21,6 +21,20 @@ public class ZuccTest {
     private Path temporaryDirectory;
 
     /**
+     * Verifies that the shared greeting introduces Zucc's restrained personality.
+     */
+    @Test
+    public void showGreeting_newSession_introducesZuccPersonality() {
+        RecordingUi ui = new RecordingUi();
+
+        ui.showGreeting();
+
+        assertEquals(
+                "Hello! I'm Zucc.\nReady to keep tabs on your tasks—and only your tasks.",
+                ui.getLastMessage());
+    }
+
+    /**
      * Verifies that a regular command sends its response through the supplied UI.
      *
      * @throws ZuccException if the isolated task store cannot be initialized.
@@ -52,6 +66,7 @@ public class ZuccTest {
 
         assertFalse(isExit);
         assertTrue(ui.getLastMessage().contains("doesn't recognize that command"));
+        assertTrue(ui.wasLastMessageError());
     }
 
     /**
@@ -76,15 +91,31 @@ public class ZuccTest {
         /** Messages shown during the test. */
         private final List<String> messages = new ArrayList<>();
 
+        /** Records whether each message was presented as an error. */
+        private final List<Boolean> errorStates = new ArrayList<>();
+
         /** Records one response for later assertion. */
         @Override
         public void showMessage(String message) {
             messages.add(message);
+            errorStates.add(false);
+        }
+
+        /** Records one error for later assertion. */
+        @Override
+        public void showError(String message) {
+            messages.add(message);
+            errorStates.add(true);
         }
 
         /** Returns the most recently recorded response. */
         private String getLastMessage() {
             return messages.getLast();
+        }
+
+        /** Returns whether the most recently recorded response was an error. */
+        private boolean wasLastMessageError() {
+            return errorStates.getLast();
         }
     }
 }

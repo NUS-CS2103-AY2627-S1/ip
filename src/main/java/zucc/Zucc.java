@@ -68,7 +68,7 @@ public class Zucc {
             command.execute(tasks, ui, storage);
             return command.isExit();
         } catch (ZuccException exception) {
-            ui.showMessage(exception.getMessage());
+            ui.showError(exception.getMessage());
             return false;
         }
     }
@@ -83,7 +83,7 @@ public class Zucc {
             try {
                 new Zucc().run(ui);
             } catch (ZuccException exception) {
-                ui.showMessage(exception.getMessage());
+                ui.showError(exception.getMessage());
             }
         }
     }
