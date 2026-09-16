@@ -1,0 +1,4 @@
+T | 1 | Eat food
+T | 0 | Deez Nuts
+T | 0 | deez nuts
+T | 0 | 500 pushups

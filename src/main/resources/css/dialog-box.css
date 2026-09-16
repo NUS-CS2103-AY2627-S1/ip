@@ -1,0 +1,62 @@
+.label {
+    -fx-background-color: #f5c400;
+    -fx-background-radius: 16px 16px 0 16px;
+    -fx-border-color: #111111;
+    -fx-border-radius: 16px 16px 0 16px;
+    -fx-border-width: 2px 5px 2px 2px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.45), 8, 0.15, 2, 3);
+    -fx-font-family: "Avenir Next", "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #111111;
+}
+
+.reply-label {
+    -fx-background-color: #242424;
+    -fx-background-radius: 16px 16px 16px 0;
+    -fx-border-color: #f5c400;
+    -fx-border-radius: 16px 16px 16px 0;
+    -fx-border-width: 2px 2px 2px 5px;
+    -fx-text-fill: #f5f3e8;
+}
+
+.creation-response {
+    -fx-background-color: linear-gradient(to bottom right, #f5c400, #ffda3d);
+    -fx-border-color: #111111;
+    -fx-effect: dropshadow(gaussian, rgba(245, 196, 0, 0.7), 14, 0.25, 0, 2);
+    -fx-font-weight: bold;
+    -fx-text-fill: #111111;
+}
+
+.view-response {
+    -fx-background-color: rgba(245, 243, 232, 0.96);
+    -fx-border-color: #f5c400;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.55), 10, 0.15, 1, 3);
+    -fx-text-fill: #111111;
+}
+
+.error-response {
+    -fx-background-color: linear-gradient(to bottom right, #7f0000, #c62828);
+    -fx-border-color: #ffda3d;
+    -fx-border-width: 3px 3px 3px 8px;
+    -fx-effect: dropshadow(gaussian, rgba(255, 35, 35, 0.9), 20, 0.35, 0, 0);
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.joke-response {
+    -fx-background-color: #242424;
+    -fx-border-color: #ffda3d;
+    -fx-border-style: dashed;
+    -fx-border-width: 3px;
+    -fx-effect: dropshadow(gaussian, rgba(245, 196, 0, 0.75), 16, 0.3, 2, 2);
+    -fx-font-style: italic;
+    -fx-rotate: -1.5;
+    -fx-text-fill: #ffda3d;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(245, 196, 0, 0.35), 9, 0.15, 1, 2);
+    -fx-rotate: 0;
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+}
