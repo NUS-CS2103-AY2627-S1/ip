@@ -24,9 +24,23 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Java coding standard
+
+Follow the [SE-EDU Java basic + intermediate coding standard](https://se-education.org/guides/conventions/java/intermediate.html).
+Use four spaces for indentation, K&R braces, explicit and consistently ordered imports, camelCase names for variables and methods,
+PascalCase names for classes, and SCREAMING_SNAKE_CASE names for constants. Keep lines at or below 120 characters and preferably
+below 110 characters. Separate logical code blocks with blank lines and write clear English comments using American spelling.
+
+The existing default-package layout is intentional for this starter project and should be preserved unless a task explicitly requests
+a package migration.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+
+## UI regression testing
+
+After every Java code update, update `test/ui-test-plan.md` if the console behavior changed, then invoke the project `test-ui` skill. Do not report the update as verified unless its UI test plan passes with Java 25. If Java 25 is unavailable, report that blocker instead of using another Java version.
 
 ## Git
 

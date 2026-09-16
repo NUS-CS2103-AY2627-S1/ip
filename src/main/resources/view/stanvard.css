@@ -1,0 +1,45 @@
+.main-window {
+    -fx-background-color: #f4f6f8;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.normal-message,
+.error-message {
+    -fx-background-radius: 8;
+    -fx-padding: 8 12 8 12;
+}
+
+.normal-message {
+    -fx-background-color: white;
+    -fx-border-color: #d9dee3;
+    -fx-border-radius: 8;
+}
+
+.error-message {
+    -fx-background-color: #fde8e8;
+    -fx-border-color: #f5a6a6;
+}
+
+.error-message .label {
+    -fx-text-fill: #9b1c1c;
+    -fx-font-weight: bold;
+}
+
+.text-field {
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-padding: 8 10 8 10;
+}
+
+.button {
+    -fx-background-radius: 6;
+    -fx-padding: 8 16 8 16;
+}
