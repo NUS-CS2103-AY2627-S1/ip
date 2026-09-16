@@ -34,8 +34,8 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Avatar displayed beside messages entered by the user.
-     * Artwork by sunflower75 on DeviantArt.
-     * Source: https://www.deviantart.com/sunflower75/art/Baby-Peashooter-fan-made-plant-PvZ-2-972885825
+     * Plant illustration from Sketch and Fun, converted from user.webp to PNG for JavaFX.
+     * Source: https://sketchandfun.com/plant-drawing/
      */
     private final Image userImage = new Image(getClass().getResourceAsStream("/images/user.png"));
 
