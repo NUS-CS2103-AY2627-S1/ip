@@ -1,6 +1,6 @@
 # NotMarth User Guide
 
-**NotMarth** is your supportive tactical companion for managing tasks and tutor contacts offline.
+**NotMarth** is your supportive tactical companion for managing tasks and contacts offline.
 Build a battle plan, track completed mission orders, and keep useful contact details close at hand.
 
 ![NotMarth displaying tasks and contacts in its graphical interface](Ui.png)
