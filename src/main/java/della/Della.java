@@ -151,8 +151,8 @@ public class Della {
                 case EVENT -> Parser.parseEvent(argument);
                 default -> throw new AssertionError("Unexpected add command");
             };
-            storage.storeTask(newTask);
             taskList.add(newTask);
+            storage.storeTask(newTask);
             return UI.showAddedTask(newTask, taskList.size());
         } catch (ArrayIndexOutOfBoundsException e) {
             return UI.showError("Bro, cannot add empty " + command.name().toLowerCase());
