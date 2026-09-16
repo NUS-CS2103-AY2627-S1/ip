@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -167,18 +168,25 @@ public class StorageTest {
     }
 
     /**
-     * Verifies that attempting to save tasks to a directory reports an I/O failure.
+     * Verifies that a failed save reports an I/O failure and removes its temporary file.
      *
+     * @throws IOException if the target directory cannot be prepared or inspected.
      * @throws ZuccException if the valid test task cannot be created.
      */
     @Test
-    public void saveTasks_pathIsDirectory_exceptionThrown() throws ZuccException {
-        Storage storage = new Storage(temporaryDirectory);
+    public void saveTasks_pathIsDirectory_exceptionThrownAndTemporaryFileRemoved()
+            throws IOException, ZuccException {
+        Path taskPath = temporaryDirectory.resolve("tasks.txt");
+        Files.createDirectory(taskPath);
+        Storage storage = new Storage(taskPath);
 
         ZuccException exception = assertThrows(
                 ZuccException.class,
                 () -> storage.saveTasks(List.of(new Todo("Read chapter"))));
 
         assertInstanceOf(IOException.class, exception.getCause());
+        try (Stream<Path> files = Files.list(temporaryDirectory)) {
+            assertEquals(List.of(taskPath), files.toList());
+        }
     }
 }

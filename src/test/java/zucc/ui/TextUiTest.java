@@ -57,6 +57,27 @@ public class TextUiTest {
                 output.toString(StandardCharsets.UTF_8));
     }
 
+    /** Verifies that terminal errors use the same readable framing as regular responses. */
+    @Test
+    public void showError_errorMessage_messageFramedAndIndented() {
+        PrintStream originalOutput = System.out;
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output, true, StandardCharsets.UTF_8));
+
+        try (TextUi ui = new TextUi()) {
+            ui.showError("Invalid command");
+        } finally {
+            System.setOut(originalOutput);
+        }
+
+        String separator = "____________________________________________________________";
+        assertEquals(
+                separator.indent(4)
+                        + "Invalid command".indent(5)
+                        + separator.indent(4),
+                output.toString(StandardCharsets.UTF_8));
+    }
+
     /** Verifies that the terminal greeting contains both the logo and shared welcome text. */
     @Test
     public void showGreeting_terminalUi_logoAndGreetingShown() {
@@ -72,6 +93,8 @@ public class TextUiTest {
 
         String displayedOutput = output.toString(StandardCharsets.UTF_8);
         assertTrue(displayedOutput.contains("/_____|\\__,_|\\___\\___|"));
-        assertTrue(displayedOutput.contains("Hello! I'm Zucc.\n     What can I do for you?"));
+        assertTrue(displayedOutput.contains(
+                "Hello! I'm Zucc.\n"
+                        + "     Ready to keep tabs on your tasks—and only your tasks."));
     }
 }

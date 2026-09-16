@@ -15,7 +15,9 @@ public class UiTest {
 
         ui.showGreeting();
 
-        assertEquals("Hello! I'm Zucc.\nWhat can I do for you?", ui.getLastMessage());
+        assertEquals(
+                "Hello! I'm Zucc.\nReady to keep tabs on your tasks—and only your tasks.",
+                ui.getLastMessage());
     }
 
     /** Records the most recent message for assertions. */
@@ -24,6 +26,11 @@ public class UiTest {
 
         @Override
         public void showMessage(String message) {
+            lastMessage = message;
+        }
+
+        @Override
+        public void showError(String message) {
             lastMessage = message;
         }
 

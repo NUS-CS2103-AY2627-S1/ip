@@ -161,6 +161,11 @@ public class CommandExecutionTest {
             messages.add(message);
         }
 
+        @Override
+        public void showError(String message) {
+            messages.add(message);
+        }
+
         /** Returns the most recently recorded response. */
         private String getLastMessage() {
             return messages.getLast();
