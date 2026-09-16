@@ -9,18 +9,14 @@
 }
 
 .header {
-    -fx-padding: 18px 22px;
+    -fx-padding: 10px 12px;
     -fx-background-color: #243b53;
 }
 
 .title {
-    -fx-font-size: 24px;
+    -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
-}
-
-.subtitle {
-    -fx-text-fill: #bcccdc;
 }
 
 .scroll-pane,
@@ -29,47 +25,47 @@
 }
 
 .dialog-container {
-    -fx-padding: 20px 16px;
+    -fx-padding: 10px 8px;
 }
 
 .message-bubble {
-    -fx-padding: 11px 14px;
-    -fx-background-radius: 14px;
+    -fx-padding: 8px 10px;
+    -fx-background-radius: 8px;
     -fx-text-fill: #243b53;
 }
 
 .lobby-dialog .message-bubble {
     -fx-background-color: white;
     -fx-border-color: #d9e2ec;
-    -fx-border-radius: 14px;
+    -fx-border-radius: 8px;
 }
 
 .user-dialog .message-bubble {
-    -fx-background-color: #3e7cb1;
-    -fx-text-fill: white;
+    -fx-background-color: #e1edf7;
+    -fx-text-fill: #243b53;
 }
 
 .avatar {
     -fx-background-color: #243b53;
-    -fx-background-radius: 21px;
+    -fx-background-radius: 14px;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
 }
 
 .user-dialog .avatar {
-    -fx-background-color: #829ab1;
-    -fx-font-size: 10px;
+    -fx-background-color: #526d82;
+    -fx-font-size: 9px;
 }
 
 .composer {
-    -fx-padding: 14px;
+    -fx-padding: 10px;
     -fx-background-color: white;
     -fx-border-color: #d9e2ec transparent transparent transparent;
 }
 
 .text-field {
-    -fx-padding: 10px 12px;
+    -fx-padding: 8px 10px;
     -fx-background-color: #f0f4f8;
     -fx-background-radius: 8px;
     -fx-border-color: #bcccdc;
@@ -77,7 +73,7 @@
 }
 
 .button {
-    -fx-padding: 10px 18px;
+    -fx-padding: 8px 14px;
     -fx-background-color: #3e7cb1;
     -fx-background-radius: 8px;
     -fx-font-weight: bold;

@@ -21,13 +21,12 @@
                 <HBox alignment="CENTER_LEFT" styleClass="header">
                     <children>
                         <Label styleClass="title" text="Lobby" />
-                        <Label styleClass="subtitle" text="  Your personal task companion" />
                     </children>
                 </HBox>
                 <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
                             pannable="true" VBox.vgrow="ALWAYS">
                     <content>
-                        <VBox fx:id="dialogContainer" fillWidth="true" spacing="12.0"
+                        <VBox fx:id="dialogContainer" fillWidth="true" spacing="8.0"
                               styleClass="dialog-container" />
                     </content>
                 </ScrollPane>
