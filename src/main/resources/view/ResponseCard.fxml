@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_LEFT"
+         fillWidth="true"
+         maxHeight="-Infinity"
+         maxWidth="1100.0"
+         minHeight="-Infinity"
+         minWidth="0.0"
+         styleClass="response-card"
+         stylesheets="@../css/response-card.css"
+         type="javafx.scene.layout.VBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="command"
+               maxWidth="1.7976931348623157E308"
+               minHeight="-Infinity"
+               minWidth="0.0"
+               styleClass="command-strip"
+               wrapText="true" />
+        <HBox fx:id="resultSection"
+              alignment="TOP_LEFT"
+              minWidth="0.0"
+              spacing="10.0"
+              styleClass="result-section">
+            <children>
+                <ImageView fx:id="tasqueAvatar"
+                           accessibleText="Tasque"
+                           fitHeight="40.0"
+                           fitWidth="40.0"
+                           preserveRatio="true"
+                           smooth="true" />
+                <Label fx:id="responseText"
+                       maxWidth="1.7976931348623157E308"
+                       minHeight="-Infinity"
+                       minWidth="0.0"
+                       styleClass="result-text"
+                       wrapText="true"
+                       HBox.hgrow="ALWAYS" />
+            </children>
+        </HBox>
+    </children>
+</fx:root>

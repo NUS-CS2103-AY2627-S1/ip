@@ -19,8 +19,9 @@ import javafx.util.Duration;
  */
 public class MainWindow extends AnchorPane {
     private static final Duration EXIT_DELAY = Duration.seconds(1.0);
+    // Load at twice the 40px display size for high-density screens.
+    private static final double AVATAR_IMAGE_SIZE = 80.0;
 
-    private final Image userImage = loadImage("/images/user.png");
     private final Image tasqueImage = loadImage("/images/tasque.png");
 
     @FXML
@@ -40,11 +41,6 @@ public class MainWindow extends AnchorPane {
     public MainWindow() {
     }
 
-    @FXML
-    private void initialize() {
-        this.scrollPane.vvalueProperty().bind(this.dialogContainer.heightProperty());
-    }
-
     /**
      * Supplies the Tasque backend used to process user commands.
      *
@@ -52,23 +48,32 @@ public class MainWindow extends AnchorPane {
      */
     public void setTasque(Tasque tasque) {
         this.tasque = tasque;
-        this.dialogContainer.getChildren().add(
-                DialogBox.getTasqueDialog(tasque.getWelcomeMessage(), this.tasqueImage));
+        addResponseCard(ResponseCard.createStandalone(tasque.getWelcomeResponse(), this.tasqueImage));
         Platform.runLater(this.userInput::requestFocus);
     }
 
     @FXML
     private void handleUserInput() {
         String input = this.userInput.getText();
-        String response = this.tasque.getResponse(input);
-        this.dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, this.userImage),
-                DialogBox.getTasqueDialog(response, this.tasqueImage));
+        TasqueResponse response = this.tasque.getCommandResponse(input);
+        addResponseCard(ResponseCard.createExchange(input, response, this.tasqueImage));
         this.userInput.clear();
 
         if (this.tasque.isExitCommand(input)) {
             exitAfterDelay();
+        } else {
+            this.userInput.requestFocus();
         }
+    }
+
+    private void addResponseCard(ResponseCard card) {
+        this.dialogContainer.getChildren().add(card);
+        Platform.runLater(() -> {
+            // Measure wrapped content before following the newly added result.
+            this.scrollPane.applyCss();
+            this.scrollPane.layout();
+            this.scrollPane.setVvalue(this.scrollPane.getVmax());
+        });
     }
 
     private void exitAfterDelay() {
@@ -83,6 +88,6 @@ public class MainWindow extends AnchorPane {
         InputStream imageStream = Objects.requireNonNull(
                 MainWindow.class.getResourceAsStream(resourcePath),
                 "Missing image resource: " + resourcePath);
-        return new Image(imageStream);
+        return new Image(imageStream, AVATAR_IMAGE_SIZE, AVATAR_IMAGE_SIZE, true, true);
     }
 }

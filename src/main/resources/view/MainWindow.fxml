@@ -15,6 +15,7 @@
         <ScrollPane fx:id="scrollPane"
                     fitToWidth="true"
                     hbarPolicy="NEVER"
+                    minWidth="0.0"
                     pannable="true"
                     vvalue="1.0"
                     AnchorPane.bottomAnchor="64.0"
@@ -23,8 +24,10 @@
                     AnchorPane.topAnchor="12.0">
             <content>
                 <VBox fx:id="dialogContainer"
+                      alignment="TOP_CENTER"
                       fillWidth="true"
-                      spacing="2.0"
+                      minWidth="0.0"
+                      spacing="10.0"
                       styleClass="dialog-container" />
             </content>
         </ScrollPane>

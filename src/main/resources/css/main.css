@@ -1,10 +1,13 @@
 .root {
-    -fx-background-color: #f5f7fb;
+    -fx-background-color:
+        linear-gradient(to bottom, #f8fbff 0%, #edf3fb 100%),
+        radial-gradient(center 50% 8%, radius 75%, rgba(37, 99, 235, 0.07) 0%,
+            rgba(37, 99, 235, 0.0) 72%);
     -fx-font-family: "Segoe UI", sans-serif;
 }
 
 .dialog-container {
-    -fx-padding: 6px;
+    -fx-padding: 8px;
 }
 
 .text-field {
@@ -23,10 +26,18 @@
 .button {
     -fx-background-color: #2563eb;
     -fx-background-radius: 8px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 8px;
+    -fx-border-width: 2px;
     -fx-cursor: hand;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
+}
+
+.button:focused {
+    -fx-border-color: #0f172a;
+    -fx-border-insets: -3px;
 }
 
 .button:hover {

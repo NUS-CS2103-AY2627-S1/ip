@@ -23,6 +23,124 @@ public class TasqueTest {
     Path tempDirectory;
 
     @Test
+    public void getCommandResponse_errorsThenSuccess_usesExplicitStatus() {
+        Tasque tasque = new Tasque(this.tempDirectory.resolve("tasks.txt").toString());
+
+        TasqueResponse invalid = tasque.getCommandResponse("unknown");
+        assertTrue(invalid.isError());
+        assertEquals("OOPS!!! I do not recognize that command.", invalid.getText());
+        assertTrue(tasque.getCommandResponse("todo").isError());
+
+        TasqueResponse added = tasque.getCommandResponse("todo OOPS!!! review error handling");
+        assertFalse(added.isError());
+        assertEquals("Got it. I've added this task:\n"
+                + "[T][ ] OOPS!!! review error handling\n"
+                + "Now you have 1 tasks in the list", added.getText());
+
+        TasqueResponse duplicate = tasque.getCommandResponse("t OOPS!!! review error handling");
+        assertTrue(duplicate.isError());
+        assertEquals("OOPS!!! That task already exists in your task list.", duplicate.getText());
+        TasqueResponse listed = tasque.getCommandResponse("list");
+        assertFalse(listed.isError());
+        assertEquals("Here are the tasks in your list:\n1.[T][ ] OOPS!!! review error handling",
+                listed.getText());
+        assertTrue(invalid.isError());
+        assertFalse(added.isError());
+    }
+
+    @Test
+    public void getCommandResponse_delete_executesExactlyOnce() throws Exception {
+        Path storagePath = this.tempDirectory.resolve("tasks.txt");
+        Files.writeString(storagePath, "T | 0 | first\nT | 0 | second\nT | 0 | third\n");
+        Tasque tasque = new Tasque(storagePath.toString());
+
+        TasqueResponse deleted = tasque.getCommandResponse("delete 1");
+        assertFalse(deleted.isError());
+        assertEquals("Noted. I've removed this task:\n[T][ ] first\nNow you have 2 tasks in the list",
+                deleted.getText());
+        assertEquals("Here are the tasks in your list:\n1.[T][ ] second\n2.[T][ ] third",
+                new Tasque(storagePath.toString()).getResponse("list"));
+
+        assertEquals("Noted. I've removed this task:\n[T][ ] second\nNow you have 1 tasks in the list",
+                tasque.getResponse("delete 1"));
+        assertEquals("Here are the tasks in your list:\n1.[T][ ] third",
+                new Tasque(storagePath.toString()).getResponse("list"));
+    }
+
+    @Test
+    public void getCommandResponse_stringApi_returnsSameTextAndStorage() throws Exception {
+        Path typedPath = this.tempDirectory.resolve("typed.txt");
+        Path stringPath = this.tempDirectory.resolve("string.txt");
+        Tasque typedSession = new Tasque(typedPath.toString());
+        Tasque stringSession = new Tasque(stringPath.toString());
+        String[] commands = {"  t read  notes  ", "d report /by 2026-09-18",
+            "e meeting /from 2026-09-17 /to 2026-09-17", "m 1", "u 1", "f report", "del 1",
+            "d invalid /by tomorrow", "unknown", "l", "b"};
+
+        for (String command : commands) {
+            assertEquals(stringSession.getResponse(command), typedSession.getCommandResponse(command).getText(),
+                    command);
+            assertEquals(Files.readString(stringPath), Files.readString(typedPath), command);
+        }
+    }
+
+    @Test
+    public void getWelcomeResponse_healthySession_preservesGreeting() {
+        Tasque tasque = new Tasque(this.tempDirectory.resolve("tasks.txt").toString());
+
+        TasqueResponse welcome = tasque.getWelcomeResponse();
+        assertFalse(welcome.isError());
+        assertEquals("Hello! I'm Tasque.\nWhat can I do for you?", welcome.getText());
+        assertEquals(welcome.getText(), tasque.getWelcomeMessage());
+    }
+
+    @Test
+    public void getWelcomeResponse_failedLoad_marksCombinedMessageAndBlocksCommands() throws Exception {
+        Path storagePath = this.tempDirectory.resolve("tasks.txt");
+        Files.writeString(storagePath, "T | 0\n");
+        byte[] original = Files.readAllBytes(storagePath);
+        Tasque tasque = new Tasque(storagePath.toString());
+
+        TasqueResponse welcome = tasque.getWelcomeResponse();
+        assertTrue(welcome.isError());
+        assertTrue(welcome.getText().startsWith("Hello! I'm Tasque.\nWhat can I do for you?\nOOPS!!! "));
+        assertEquals(1, countOccurrences(welcome.getText(), "OOPS!!!"));
+        assertEquals(welcome.getText(), tasque.getWelcomeMessage());
+        for (String command : new String[] {"list", "todo blocked task", "unknown"}) {
+            TasqueResponse blocked = tasque.getCommandResponse(command);
+            assertTrue(blocked.isError());
+            assertTrue(welcome.getText().endsWith("\n" + blocked.getText()));
+            assertArrayEquals(original, Files.readAllBytes(storagePath));
+        }
+        for (String command : new String[] {"bye", "  b  "}) {
+            TasqueResponse exit = tasque.getCommandResponse(command);
+            assertFalse(exit.isError());
+            assertEquals("Goodbye! See you again soon.", exit.getText());
+        }
+        assertArrayEquals(original, Files.readAllBytes(storagePath));
+    }
+
+    @Test
+    public void getCommandResponse_saveFailure_reportsErrorAndRollsBack() throws Exception {
+        Path dataDirectory = Files.createDirectory(this.tempDirectory.resolve("data"));
+        Path storagePath = dataDirectory.resolve("tasks.txt");
+        Files.writeString(storagePath, "T | 0 | first\nT | 1 | second\n");
+        Tasque tasque = new Tasque(storagePath.toString());
+        Files.delete(storagePath);
+        Files.delete(dataDirectory);
+        Files.writeString(dataDirectory, "blocks the storage directory");
+
+        for (String command : new String[] {"todo third", "mark 1", "unmark 2", "delete 1"}) {
+            TasqueResponse failed = tasque.getCommandResponse(command);
+            assertTrue(failed.isError());
+            assertEquals("OOPS!!! I couldn't save your tasks.", failed.getText());
+            TasqueResponse listed = tasque.getCommandResponse("list");
+            assertFalse(listed.isError());
+            assertEquals("Here are the tasks in your list:\n1.[T][ ] first\n2.[T][X] second", listed.getText());
+        }
+    }
+
+    @Test
     public void getResponse_unicodeBlankDescriptions_rejectsWithoutBreakingRestart() throws Exception {
         Path storagePath = this.tempDirectory.resolve("tasks.txt");
         Files.writeString(storagePath, "T | 0 | retained task\n");

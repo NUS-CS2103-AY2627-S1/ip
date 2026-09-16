@@ -61,9 +61,20 @@ public class Tasque {
      * @return Tasque greeting, followed by the load error if this session is blocked.
      */
     public String getWelcomeMessage() {
+        return getWelcomeResponse().getText();
+    }
+
+    /**
+     * Returns the startup greeting with explicit storage-load error status.
+     *
+     * @return Formatted welcome response, including any load error.
+     */
+    public TasqueResponse getWelcomeResponse() {
         String greeting = this.ui.getWelcomeMessage();
-        return this.loadErrorMessage == null
-                ? greeting : greeting + "\n" + this.ui.getErrorMessage(this.loadErrorMessage);
+        if (this.loadErrorMessage == null) {
+            return new TasqueResponse(greeting, false);
+        }
+        return new TasqueResponse(greeting + "\n" + this.ui.getErrorMessage(this.loadErrorMessage), true);
     }
 
     /**
@@ -73,10 +84,20 @@ public class Tasque {
      * @return Response to display to the user.
      */
     public String getResponse(String userInput) {
+        return getCommandResponse(userInput).getText();
+    }
+
+    /**
+     * Processes one user command once and returns its text and error status.
+     *
+     * @param userInput Command entered by the user.
+     * @return Formatted command response with explicit error status.
+     */
+    public TasqueResponse getCommandResponse(String userInput) {
         try {
-            return executeCommand(userInput);
+            return new TasqueResponse(executeCommand(userInput), false);
         } catch (TasqueException e) {
-            return this.ui.getErrorMessage(e.getMessage());
+            return new TasqueResponse(this.ui.getErrorMessage(e.getMessage()), true);
         }
     }
 
