@@ -17,9 +17,9 @@ public class Event extends Task {
             "Zucc needs more data: add an event description "
                     + "followed by /from and /to times.";
 
-    /** Error used when an event ends before it starts. */
+    /** Error used when an event does not end after it starts. */
     private static final String INVALID_EVENT_RANGE_ERROR =
-            "Zucc can't schedule an event that ends before it starts.";
+            "Zucc can't schedule an event unless its end is after its start.";
 
     /** Date and time at which the event starts. */
     private final LocalDateTime startDateTime;
@@ -79,12 +79,12 @@ public class Event extends Task {
     }
 
     /**
-     * Ensures that this event's end does not precede its start.
+     * Ensures that this event has a positive duration.
      *
-     * @throws ZuccException if the event has a negative duration.
+     * @throws ZuccException if the event has a zero or negative duration.
      */
     private void requireValidRange() throws ZuccException {
-        if (endDateTime.isBefore(startDateTime)) {
+        if (!endDateTime.isAfter(startDateTime)) {
             throw new ZuccException(INVALID_EVENT_RANGE_ERROR);
         }
     }

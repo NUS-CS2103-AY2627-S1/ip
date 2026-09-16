@@ -2,8 +2,10 @@ package zucc.storage;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.AtomicMoveNotSupportedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,16 +70,52 @@ public final class Storage {
             lines.add(task.toStorageString());
         }
 
+        Path temporaryFile = null;
         try {
-            Path parentDirectory = filePath.getParent();
-            if (parentDirectory != null) {
-                Files.createDirectories(parentDirectory);
-            }
-            Files.write(filePath, lines, StandardCharsets.UTF_8);
+            Path absoluteFilePath = filePath.toAbsolutePath();
+            Path parentDirectory = absoluteFilePath.getParent();
+            Files.createDirectories(parentDirectory);
+
+            temporaryFile = Files.createTempFile(
+                    parentDirectory, absoluteFilePath.getFileName().toString(), ".tmp");
+            Files.write(temporaryFile, lines, StandardCharsets.UTF_8);
+            replaceFile(temporaryFile, absoluteFilePath);
         } catch (IOException exception) {
             throw new ZuccException("Zucc couldn't save tasks to " + filePath
                     + ". Check that the location is writable.", exception);
+        } finally {
+            deleteTemporaryFile(temporaryFile);
         }
     }
 
+    /**
+     * Replaces the task file atomically when the file system supports it.
+     *
+     * @param temporaryFile complete temporary task file.
+     * @param absoluteFilePath final task-file location.
+     * @throws IOException if neither atomic nor regular replacement succeeds.
+     */
+    private void replaceFile(Path temporaryFile, Path absoluteFilePath) throws IOException {
+        try {
+            Files.move(
+                    temporaryFile,
+                    absoluteFilePath,
+                    StandardCopyOption.ATOMIC_MOVE,
+                    StandardCopyOption.REPLACE_EXISTING);
+        } catch (AtomicMoveNotSupportedException exception) {
+            Files.move(temporaryFile, absoluteFilePath, StandardCopyOption.REPLACE_EXISTING);
+        }
+    }
+
+    /** Deletes an unfinished temporary save without masking the original failure. */
+    private void deleteTemporaryFile(Path temporaryFile) {
+        if (temporaryFile == null) {
+            return;
+        }
+        try {
+            Files.deleteIfExists(temporaryFile);
+        } catch (IOException ignored) {
+            // The actionable save error has already been reported to the user.
+        }
+    }
 }
