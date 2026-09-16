@@ -16,6 +16,38 @@ import org.junit.jupiter.api.Test;
  */
 class TaskListTest {
     @Test
+    void getTasks_addedTasks_sizeOrderAndSnapshotSemanticsPreserved() {
+        Task firstTask = new Todo("read book");
+        Task secondTask = new Todo("write notes");
+        TaskList tasks = new TaskList();
+
+        tasks.add(firstTask);
+        List<Task> snapshot = tasks.getTasks();
+        tasks.add(secondTask);
+
+        assertEquals(2, tasks.size());
+        assertEquals(List.of(firstTask), snapshot);
+        assertEquals(List.of(firstTask, secondTask), tasks.getTasks());
+        assertThrows(UnsupportedOperationException.class,
+                () -> snapshot.add(new Todo("extra task")));
+    }
+
+    @Test
+    void delete_middleTask_deletedTaskReturnedAndRemainingOrderPreserved()
+            throws InvalidTaskNumberException {
+        Task firstTask = new Todo("read book");
+        Task middleTask = new Todo("write notes");
+        Task lastTask = new Todo("exercise");
+        TaskList tasks = new TaskList(List.of(firstTask, middleTask, lastTask));
+
+        Task deletedTask = tasks.delete(2);
+
+        assertSame(middleTask, deletedTask);
+        assertEquals(2, tasks.size());
+        assertEquals(List.of(firstTask, lastTask), tasks.getTasks());
+    }
+
+    @Test
     void find_keywordUsesDifferentCase_matchingTasksReturnedInInsertionOrder() {
         Task firstTask = new Todo("Read Book");
         Task secondTask = new Deadline("return book", LocalDate.of(2026, 9, 1));

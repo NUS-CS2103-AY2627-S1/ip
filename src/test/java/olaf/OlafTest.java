@@ -3,6 +3,7 @@ package olaf;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -19,6 +20,21 @@ import org.junit.jupiter.api.io.TempDir;
 class OlafTest {
     @TempDir
     private Path temporaryDirectory;
+
+    @Test
+    void executeCommand_nullInput_nullPointerExceptionThrown() throws StorageException {
+        Olaf olaf = new Olaf(temporaryDirectory.resolve("olaf.txt"));
+
+        assertThrows(NullPointerException.class, () -> olaf.executeCommand(null));
+    }
+
+    @Test
+    void commandResult_nullMessageOrStatus_nullPointerExceptionThrown() {
+        assertThrows(NullPointerException.class,
+                () -> new Olaf.CommandResult(null, Olaf.CommandStatus.CONTINUE));
+        assertThrows(NullPointerException.class,
+                () -> new Olaf.CommandResult("message", null));
+    }
 
     @Test
     void executeCommand_invalidInput_memoryAndFileUnchangedAndSessionContinues() throws Exception {
