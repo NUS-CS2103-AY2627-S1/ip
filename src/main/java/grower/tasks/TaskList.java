@@ -69,7 +69,8 @@ public class TaskList {
     }
 
     /**
-     * Returns a read-only snapshot of the tasks currently in the list.
+     * Returns an unmodifiable snapshot of the current task order.
+     * The task objects are shared with this list and remain mutable.
      *
      * @return Tasks in their current order.
      */

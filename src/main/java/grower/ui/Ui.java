@@ -2,7 +2,6 @@ package grower.ui;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.IntStream;
 
 import grower.tasks.Task;
 
@@ -118,7 +117,9 @@ public class Ui {
      * @param task Task that was unmarked.
      */
     public void showTaskUnmarked(Task task) {
-        display("All trees take time to grow, lets work on this next time.", task.toString());
+        display(
+                "All trees take time to grow, "
+                        + "lets work on this next time. Marking as undone:", task.toString());
     }
 
     /**
@@ -132,9 +133,7 @@ public class Ui {
             return;
         }
 
-        for (int i = 0; i < tasks.size(); i++) {
-            display((i + 1) + ". " + tasks.get(i));
-        }
+        displayNumberedTasks(tasks);
     }
 
     /**
@@ -193,9 +192,16 @@ public class Ui {
             return;
         }
 
-        IntStream.range(0, tasks.size())
-                .mapToObj(i -> (i + 1) + ". " + tasks.get(i))
-                .forEachOrdered(this::display);
+        displayNumberedTasks(tasks);
+    }
+
+    /**
+     * Displays tasks in the supplied order with consecutive one-based numbers.
+     */
+    private void displayNumberedTasks(List<Task> tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            display((i + 1) + ". " + tasks.get(i));
+        }
     }
 
     /**

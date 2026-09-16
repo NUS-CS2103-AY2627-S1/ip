@@ -79,21 +79,10 @@ public class Grower {
         try {
             Command command = Parser.parse(input);
             assert command != null : "Parser must return a command when parsing succeeds";
-            // Rebuild independent task objects so mark, delete and sort cannot change
-            // the active list until the new state has been saved successfully.
-            TaskList candidate = new TaskList();
-            for (String taskData : taskList.getTaskData()) {
-                candidate.addTask(storage.parseTask(taskData));
-            }
+            TaskList candidate = copyTasks();
             Ui commandUi = new Ui(false);
             boolean shouldContinue = command.execute(candidate, commandUi);
-            if (!candidate.getTaskData().equals(taskList.getTaskData())) {
-                if (!isStorageReady) {
-                    throw new GrowerException("Hoom! Changes are disabled to protect saved tasks. "
-                            + "Repair the data file and restart Grower. " + startupMessage);
-                }
-                storage.saveTasks(candidate.getTaskData());
-            }
+            saveChangesIfNeeded(candidate);
             taskList = candidate;
             shouldContinueRunning = shouldContinue;
             ui.showResponse(commandUi.getOutput(), commandUi.getResponseType());
@@ -105,6 +94,33 @@ public class Grower {
         }
 
         return ui.getOutput();
+    }
+
+    /**
+     * Rebuilds independent task objects so commands cannot change the active list
+     * until the new state has been saved successfully.
+     */
+    private TaskList copyTasks() throws GrowerException {
+        TaskList copy = new TaskList();
+        for (String taskData : taskList.getTaskData()) {
+            copy.addTask(storage.parseTask(taskData));
+        }
+        return copy;
+    }
+
+    /**
+     * Saves changed task data before it becomes active, protecting unreadable or corrupt storage.
+     */
+    private void saveChangesIfNeeded(TaskList candidate) throws GrowerException, IOException {
+        List<String> candidateData = candidate.getTaskData();
+        if (candidateData.equals(taskList.getTaskData())) {
+            return;
+        }
+        if (!isStorageReady) {
+            throw new GrowerException("Hoom! Changes are disabled to protect saved tasks. "
+                    + "Repair the data file and restart Grower. " + startupMessage);
+        }
+        storage.saveTasks(candidateData);
     }
 
     /**

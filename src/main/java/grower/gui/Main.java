@@ -17,6 +17,9 @@ import javafx.stage.Stage;
  * Starts the Grower graphical user interface.
  */
 public class Main extends Application {
+    private static final int MIN_WINDOW_HEIGHT = 220;
+    private static final int MIN_WINDOW_WIDTH = 417;
+
     /** Shared application logic used throughout the lifetime of the GUI. */
     private final Grower grower = new Grower();
 
@@ -33,8 +36,8 @@ public class Main extends Application {
             MainWindow controller = fxmlLoader.getController();
 
             controller.setGrower(grower);
-            stage.setMinHeight(220);
-            stage.setMinWidth(417);
+            stage.setMinHeight(MIN_WINDOW_HEIGHT);
+            stage.setMinWidth(MIN_WINDOW_WIDTH);
             stage.setTitle("Grow-er");
             // Tree by diamonjohn (Openclipart), released under CC0 1.0.
             // Source: https://openclipart.org/detail/170749/tree

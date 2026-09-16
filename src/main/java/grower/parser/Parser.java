@@ -193,34 +193,60 @@ public class Parser {
      * @throws GrowerException If the input is invalid or malformed.
      */
     public static Command parse(String userInput) throws GrowerException {
-        // Split the input into the command word and the arguments.
-        // The "2" limits the split to at most two parts.
+        validateInput(userInput);
+        String[] parts = userInput.strip().split("\\s+", 2);
+        String commandWord = parts[0];
+        String args = parts.length > 1 ? parts[1].strip() : "";
+
+        CommandType commandType = parseCommandType(commandWord);
+        validateArguments(commandType, commandWord, args);
+        return createCommand(commandType, args);
+    }
+
+    /**
+     * Rejects empty input and characters that cannot occur in a single command.
+     */
+    private static void validateInput(String userInput) throws GrowerException {
         if (userInput == null || userInput.isBlank()) {
             throw new UnknownCommandException("Hoom! Enter a command, such as list or todo read book.");
         }
         if (userInput.contains("\n") || userInput.contains("\r") || userInput.indexOf('\0') >= 0) {
             throw new GrowerException("Hoom! Please enter one command on a single line.");
         }
-        String[] parts = userInput.strip().split("\\s+", 2);
-        String commandWord = parts[0];
-        String args = parts.length > 1 ? parts[1].strip() : "";
+    }
 
-        CommandType commandType;
+    /**
+     * Recognizes a command word independently of the user's locale and letter case.
+     */
+    private static CommandType parseCommandType(String commandWord) throws UnknownCommandException {
         try {
-            commandType = CommandType.valueOf(commandWord.toUpperCase(Locale.ROOT));
+            return CommandType.valueOf(commandWord.toUpperCase(Locale.ROOT));
         } catch (IllegalArgumentException e) {
             throw new UnknownCommandException("Even for one as wise as me, this task is beyond my strength.");
         }
+    }
 
-        if ((commandType == CommandType.BYE || commandType == CommandType.LIST
-                || commandType == CommandType.SORT) && !args.isEmpty()) {
+    /**
+     * Enforces argument restrictions shared by groups of commands.
+     */
+    private static void validateArguments(CommandType commandType, String commandWord, String args)
+            throws GrowerException {
+        boolean takesNoArguments = commandType == CommandType.BYE || commandType == CommandType.LIST
+                || commandType == CommandType.SORT;
+        if (takesNoArguments && !args.isEmpty()) {
             throw new GrowerException("Hoom! " + commandWord + " does not take any arguments.");
         }
-        if ((commandType == CommandType.TODO || commandType == CommandType.DEADLINE
-                || commandType == CommandType.EVENT) && args.contains("|")) {
+        boolean createsTask = commandType == CommandType.TODO || commandType == CommandType.DEADLINE
+                || commandType == CommandType.EVENT;
+        if (createsTask && args.contains("|")) {
             throw new GrowerException("Hoom! Please remove the | character; it separates fields in saved tasks.");
         }
+    }
 
+    /**
+     * Creates the selected command using its command-specific argument parser.
+     */
+    private static Command createCommand(CommandType commandType, String args) throws GrowerException {
         switch (commandType) {
             case BYE:
                 return new ByeCommand();
@@ -239,20 +265,34 @@ public class Parser {
             case SORT:
                 return new SortCommand();
             case ECHO:
-                if (args.isEmpty()) {
-                    throw new MissingDescriptionException("There is not echo without first, a sound!");
-                }
-                return new EchoCommand(args);
+                return parseEcho(args);
             case DELETE:
                 return parseDelete(args);
             case FIND:
-                if (args.isEmpty()) {
-                    throw new MissingDescriptionException("Hoom Hum! Speak forth your search request first.");
-                }
-                return new FindCommand(args.trim());
+                return parseFind(args);
             default:
                 assert false : "Missing switch case for command type: " + commandType;
                 throw new UnknownCommandException("Even for one as wise as me, this task is beyond my strength.");
         }
+    }
+
+    /**
+     * Creates an echo command after checking that a message was supplied.
+     */
+    private static Command parseEcho(String args) throws MissingDescriptionException {
+        if (args.isEmpty()) {
+            throw new MissingDescriptionException("There is not echo without first, a sound!");
+        }
+        return new EchoCommand(args);
+    }
+
+    /**
+     * Creates a find command after checking that a search keyword was supplied.
+     */
+    private static Command parseFind(String args) throws MissingDescriptionException {
+        if (args.isEmpty()) {
+            throw new MissingDescriptionException("Hoom Hum! Speak forth your search request first.");
+        }
+        return new FindCommand(args.trim());
     }
 }

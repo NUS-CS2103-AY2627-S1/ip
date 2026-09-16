@@ -83,52 +83,65 @@ public class Storage {
             throw new GrowerException("Saved task has an incorrect number of fields: " + line);
         }
 
-        if ((!parts[1].equals("0") && !parts[1].equals("1")) || parts[2].isBlank()
-                || parts[2].contains("|") || line.contains("\n") || line.contains("\r")
-                || line.indexOf('\0') >= 0) {
+        String type = parts[0];
+        String status = parts[1];
+        String description = parts[2];
+        validateCommonFields(status, description, line);
+
+        Task task = createTask(type, description, parts, line);
+        if (status.equals("1")) {
+            task.mark();
+        }
+        return task;
+    }
+
+    /**
+     * Validates the status, description, and single-line format shared by all saved tasks.
+     */
+    private void validateCommonFields(String status, String description, String line) throws GrowerException {
+        boolean hasValidStatus = status.equals("0") || status.equals("1");
+        boolean hasValidDescription = !description.isBlank() && !description.contains("|");
+        boolean hasForbiddenCharacters = line.contains("\n") || line.contains("\r") || line.indexOf('\0') >= 0;
+        if (!hasValidStatus || !hasValidDescription || hasForbiddenCharacters) {
             throw new GrowerException("Saved task has an invalid status or description: " + line);
         }
-        String type = parts[0];
-        boolean isCompleted = parts[1].equals("1");
-        String description = parts[2];
+    }
 
-        Task task;
-
+    /**
+     * Creates an incomplete task from its type-specific saved fields.
+     */
+    private Task createTask(String type, String description, String[] parts, String line) throws GrowerException {
         try {
             switch (type) {
                 case "T":
                     ensureFieldCount(parts, 3, line);
-                    task = new ToDo(description);
-                    break;
+                    return new ToDo(description);
                 case "D":
                     ensureFieldCount(parts, 4, line);
-                    task = new Deadline(
+                    return new Deadline(
                             description,
                             LocalDateTime.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-                    break;
                 case "E":
                     ensureFieldCount(parts, 5, line);
-                    LocalDateTime start = LocalDateTime.parse(
-                            parts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                    LocalDateTime end = LocalDateTime.parse(
-                            parts[4], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                    if (!end.isAfter(start)) {
-                        throw new GrowerException("Saved event ends before it starts: " + line);
-                    }
-                    task = new Event(description, start, end);
-                    break;
+                    return createEvent(description, parts, line);
                 default:
                     throw new GrowerException("Unknown saved task type: " + type);
             }
         } catch (DateTimeParseException e) {
             throw new GrowerException("Saved task has an invalid date and was skipped: " + line);
         }
+    }
 
-        if (isCompleted) {
-            task.mark();
+    /**
+     * Restores an event after validating its saved time range.
+     */
+    private Event createEvent(String description, String[] parts, String line) throws GrowerException {
+        LocalDateTime start = LocalDateTime.parse(parts[3], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        LocalDateTime end = LocalDateTime.parse(parts[4], DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        if (!end.isAfter(start)) {
+            throw new GrowerException("Saved event ends before it starts: " + line);
         }
-
-        return task;
+        return new Event(description, start, end);
     }
 
     /**
