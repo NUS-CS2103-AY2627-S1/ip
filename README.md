@@ -52,7 +52,8 @@ From the project root, run the test suite with the command for your operating sy
 | Git Bash or WSL | `./gradlew test` |
 
 The suite tests command parsing, task operations, rescheduling, persistence, and task encoding,
-including escaped characters and malformed storage records. A successful run ends with
+including escaped characters, malformed storage records, original task numbers in search results,
+and recovery from simulated write and file-replacement failures. A successful run ends with
 `BUILD SUCCESSFUL`, and the HTML report is generated at
 `build/reports/tests/test/index.html`.
 
@@ -172,10 +173,40 @@ as `tomorrow` or `3 days` are unsupported. Commands and date markers ignore lett
 
 Rescheduling preserves the task's description, completion status, type, and list position.
 Completed tasks stay completed; use `unmark <task number>` to reopen them. ToDos have no dates
-and cannot be rescheduled. Use numbers from the full `list`, since `find` numbers its results separately.
+and cannot be rescheduled. Both `list` and `find` display numbers from the full task list.
+For example, if `find book` displays tasks `2` and `4`, use `mark 4` to mark the second matching task.
+Deleting a task renumbers later tasks; run `list` or `find` again to see their current numbers.
 
 Changes are saved automatically and remain after restarting Olaf. Invalid commands show an
 error and leave the tasks unchanged.
+
+## Handling usage errors
+
+Olaf handles the following ten error cases. Correct the input or storage problem and retry as indicated.
+
+| Error | Response and recovery |
+|---|---|
+| Empty or whitespace-only command | Prompts for a command, including when the input uses Unicode spaces. The GUI disables Send for ordinary blank input. |
+| Arguments after `list` or `bye` | Explains that these commands accept no arguments. `bye extra` does not close Olaf. |
+| Missing description, keyword, or date field | Names the missing information and shows the command syntax. |
+| Invalid task number | Distinguishes missing, noninteger, and oversized numbers; shows the valid range or explains that the list is empty. |
+| Invalid date | Identifies the deadline, event start, or event end date and distinguishes incorrect `yyyy-MM-dd` formatting from an impossible calendar date. |
+| Event ends before it starts | Rejects the new event or reschedule. Same-day events and valid past dates are accepted. |
+| Line breaks in a command | Rejects the entire command before saving; enter one command on a single line. |
+| Using a search-result number for the wrong task | Prevents this confusion by showing the full-list task numbers in `find`. |
+| Malformed or unreadable saved data | Stops startup with the file path, reason, and line number when available. Repair the file or restore a backup, then restart. |
+| Failed or interrupted save | Rejects the change and keeps the previous tasks. Check permissions, free space, and the storage location, then retry. Olaf remains usable. |
+
+Olaf never resets or skips malformed saved records automatically. Back up `data/olaf.txt` before
+editing it. The file must be readable UTF-8 text. Existing reversed event ranges from older versions
+remain loadable; use `reschedule` to correct them.
+
+Each change is written to a temporary file beside `data/olaf.txt` and then replaces the saved file
+atomically. The active task list changes only after saving succeeds. If the filesystem does not
+support atomic replacement, Olaf rejects the save; use a local filesystem that supports it.
+Temporary files are removed after handled failures when possible. A forced process termination
+can leave an `olaf-*.tmp` file, which Olaf does not load as task data. Keep only one Olaf session
+open for a given data file; coordinating simultaneous writers is not supported.
 
 **Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
 

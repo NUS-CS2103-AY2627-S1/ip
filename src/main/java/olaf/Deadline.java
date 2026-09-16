@@ -18,6 +18,17 @@ final class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
+    private Deadline(Deadline original) {
+        super(original);
+        dueDate = original.dueDate;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    Task copy() {
+        return new Deadline(this);
+    }
+
     /**
      * Replaces the due date while preserving the task's description and completion status.
      *

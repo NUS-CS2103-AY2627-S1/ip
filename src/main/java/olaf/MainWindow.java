@@ -106,7 +106,7 @@ public class MainWindow {
 
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText().trim();
+        String input = userInput.getText();
         if (!canSubmitCommand(input)) {
             return;
         }

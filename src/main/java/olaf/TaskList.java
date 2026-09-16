@@ -23,6 +23,11 @@ final class TaskList {
         tasks.addAll(initialTasks);
     }
 
+    /** Returns a snapshot whose tasks can be edited without changing this list's tasks. */
+    TaskList copy() {
+        return new TaskList(tasks.stream().map(Task::copy).toList());
+    }
+
     /**
      * Adds the supplied task to the end of the list.
      *
@@ -37,16 +42,17 @@ final class TaskList {
      * Finds tasks whose descriptions contain the supplied keyword, ignoring letter case.
      *
      * @param keyword text to find in task descriptions
-     * @return immutable list of matching tasks in insertion order
+     * @return immutable list of matches with their original task numbers in insertion order
      */
-    List<Task> find(String keyword) {
+    List<TaskMatch> find(String keyword) {
         String normalizedKeyword = keyword.toLowerCase(Locale.ROOT);
-        List<Task> matchingTasks = new ArrayList<>();
+        List<TaskMatch> matchingTasks = new ArrayList<>();
 
-        for (Task task : tasks) {
+        for (int index = 0; index < tasks.size(); index++) {
+            Task task = tasks.get(index);
             String normalizedDescription = task.getDescription().toLowerCase(Locale.ROOT);
             if (normalizedDescription.contains(normalizedKeyword)) {
-                matchingTasks.add(task);
+                matchingTasks.add(new TaskMatch(index + 1, task));
             }
         }
         return List.copyOf(matchingTasks);

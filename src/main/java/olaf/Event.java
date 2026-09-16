@@ -11,6 +11,10 @@ final class Event extends Task {
     /** Identifies an event task in storage and displayed responses. */
     static final String TYPE_CODE = "E";
 
+    /** Explains the date-order requirement shared by creation and rescheduling. */
+    static final String INVALID_DATE_RANGE_MESSAGE =
+            "The event end date must be on or after its start date.";
+
     private LocalDate startDate;
     private LocalDate endDate;
 
@@ -18,6 +22,18 @@ final class Event extends Task {
         super(description);
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    private Event(Event original) {
+        super(original);
+        startDate = original.startDate;
+        endDate = original.endDate;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    Task copy() {
+        return new Event(this);
     }
 
     /**
@@ -32,7 +48,7 @@ final class Event extends Task {
         Objects.requireNonNull(startDate, "startDate");
         Objects.requireNonNull(endDate, "endDate");
         if (endDate.isBefore(startDate)) {
-            throw new TaskRescheduleException("The event end date must be on or after its start date.");
+            throw new TaskRescheduleException(INVALID_DATE_RANGE_MESSAGE);
         }
         this.startDate = startDate;
         this.endDate = endDate;

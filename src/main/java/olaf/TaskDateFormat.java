@@ -26,10 +26,15 @@ final class TaskDateFormat {
      * @throws DateTimeParseException if the text has the wrong format or is not a valid date
      */
     static LocalDate parse(String dateText) {
-        if (!INPUT_PATTERN.matcher(dateText).matches()) {
+        if (!hasInputFormat(dateText)) {
             throw new DateTimeParseException("Date must use yyyy-MM-dd", dateText, 0);
         }
         return LocalDate.parse(dateText, INPUT_FORMATTER);
+    }
+
+    /** Returns whether the text has the required shape, independently of calendar validity. */
+    static boolean hasInputFormat(String dateText) {
+        return INPUT_PATTERN.matcher(dateText).matches();
     }
 
     /**

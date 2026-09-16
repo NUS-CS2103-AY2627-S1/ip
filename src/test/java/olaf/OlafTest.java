@@ -1,11 +1,14 @@
 package olaf;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -16,6 +19,105 @@ import org.junit.jupiter.api.io.TempDir;
 class OlafTest {
     @TempDir
     private Path temporaryDirectory;
+
+    @Test
+    void executeCommand_invalidInput_memoryAndFileUnchangedAndSessionContinues() throws Exception {
+        Path dataFile = temporaryDirectory.resolve("olaf.txt");
+        Olaf olaf = new Olaf(dataFile);
+        olaf.executeCommand("todo original task");
+        String originalList = olaf.executeCommand("list").message();
+        byte[] originalFile = Files.readAllBytes(dataFile);
+        String[] commands = {"", "\u2003", "\u00a0", "unknown", "list extra", "bye extra",
+                "todo", "todo\u2003", "find", "deadline /by 2026-09-01", "deadline book /by",
+                "event meeting /from /to 2026-09-01", "event meeting /from 2026-09-01 /to",
+                "mark", "mark one", "mark 1.5", "delete 2147483648", "mark 0", "unmark -1", "delete 2",
+                "deadline book /by 2026-9-01", "deadline book /by 2026-02-29",
+                "event meeting /from 2026-09-02 /to 2026-09-01", "todo read\nbook",
+                "todo read\rbook", "todo read\r\nbook", "\nbye", "bye\n"};
+
+        for (String command : commands) {
+            Olaf.CommandResult result = olaf.executeCommand(command);
+
+            assertEquals(Olaf.CommandStatus.CONTINUE, result.status(), command);
+            assertTrue(result.message().startsWith("error: "), command);
+            assertEquals(originalList, olaf.executeCommand("list").message(), command);
+            assertArrayEquals(originalFile, Files.readAllBytes(dataFile), command);
+        }
+        assertFalse(olaf.executeCommand("todo next task").message().startsWith("error:"));
+        assertEquals(olaf.executeCommand("list").message(), new Olaf(dataFile).executeCommand("list").message());
+    }
+
+    @Test
+    void executeCommand_taskNumberOutsideList_currentRangeReturned() throws StorageException {
+        Olaf olaf = new Olaf(temporaryDirectory.resolve("olaf.txt"));
+        olaf.executeCommand("todo task one");
+        olaf.executeCommand("todo task two");
+
+        for (String command : new String[] {"mark 0", "unmark -1", "delete 3", "reschedule 3 /by 2026-09-01"}) {
+            assertEquals("error: Task number must be between 1 and 2.", olaf.executeCommand(command).message());
+        }
+    }
+
+    @Test
+    void executeCommand_findThenModify_displayedNumbersTargetMatchingTasks() throws StorageException {
+        Olaf olaf = new Olaf(temporaryDirectory.resolve("olaf.txt"));
+        olaf.executeCommand("todo buy groceries");
+        olaf.executeCommand("todo read book");
+        olaf.executeCommand("todo exercise");
+        olaf.executeCommand("deadline return book /by 2026-09-01");
+
+        assertEquals(String.join(System.lineSeparator(), " Here are the matching tasks in your list:",
+                " 2.[T][ ] read book", " 4.[D][ ] return book (by: Sep 01 2026)"),
+                olaf.executeCommand("find BOOK").message());
+        assertTrue(olaf.executeCommand("mark 2").message().contains("[T][X] read book"));
+        assertTrue(olaf.executeCommand("unmark 2").message().contains("[T][ ] read book"));
+        assertTrue(olaf.executeCommand("reschedule 4 /by 2026-09-20").message()
+                .contains("return book (by: Sep 20 2026)"));
+        assertTrue(olaf.executeCommand("delete 2").message().contains("[T][ ] read book"));
+        assertEquals(" Here are the matching tasks in your list:" + System.lineSeparator()
+                + " 3.[D][ ] return book (by: Sep 20 2026)", olaf.executeCommand("find book").message());
+        assertTrue(olaf.executeCommand("list").message().contains("1.[T][ ] buy groceries"));
+        assertTrue(olaf.executeCommand("list").message().contains("2.[T][ ] exercise"));
+    }
+
+    @Test
+    void executeCommand_saveFailsForEveryMutation_previousStatePreservedAndRetrySucceeds() throws Exception {
+        String[] commands = {"todo added task", "delete 1", "mark 1", "unmark 2",
+                "reschedule 2 /by 2026-09-20", "reschedule 3 /from 2026-09-20 /to 2026-09-22"};
+        List<FailingStorageFiles.Failure> failures = List.of(FailingStorageFiles.Failure.WRITE,
+                FailingStorageFiles.Failure.INTERRUPTED_WRITE, FailingStorageFiles.Failure.REPLACE,
+                FailingStorageFiles.Failure.UNSUPPORTED_MOVE);
+        for (int index = 0; index < commands.length; index++) {
+            for (FailingStorageFiles.Failure failure : failures) {
+                Path dataFile = temporaryDirectory.resolve("olaf" + index + failure + ".txt");
+                FailingStorageFiles files = new FailingStorageFiles();
+                Olaf olaf = new Olaf(new Storage(dataFile, files));
+                olaf.executeCommand("todo read book");
+                olaf.executeCommand("deadline return book /by 2026-09-01");
+                olaf.executeCommand("event meeting /from 2026-09-01 /to 2026-09-02");
+                olaf.executeCommand("mark 2");
+                olaf.executeCommand("mark 3");
+                String originalList = olaf.executeCommand("list").message();
+                byte[] originalFile = Files.readAllBytes(dataFile);
+                files.failure = failure;
+
+                Olaf.CommandResult result = olaf.executeCommand(commands[index]);
+
+                assertEquals(Olaf.CommandStatus.CONTINUE, result.status());
+                assertTrue(result.message().contains("change was not saved"));
+                assertEquals(originalList, olaf.executeCommand("list").message());
+                assertArrayEquals(originalFile, Files.readAllBytes(dataFile));
+                assertEquals(originalList, new Olaf(dataFile).executeCommand("list").message());
+
+                files.failure = FailingStorageFiles.Failure.NONE;
+                Olaf.CommandResult retried = olaf.executeCommand(commands[index]);
+                assertEquals(Olaf.CommandStatus.CONTINUE, retried.status());
+                assertFalse(retried.message().startsWith("error:"), retried.message());
+                assertEquals(olaf.executeCommand("list").message(),
+                        new Olaf(dataFile).executeCommand("list").message());
+            }
+        }
+    }
 
     @Test
     void executeCommand_addAndDelete_exactCountMessagesReturned() throws StorageException {
@@ -141,7 +243,7 @@ class OlafTest {
     }
 
     @Test
-    void executeCommand_storageCannotSave_fatalErrorReturned()
+    void executeCommand_storageCannotSave_recoverableErrorReturned()
             throws IOException, StorageException {
         Path fileInsteadOfDirectory = temporaryDirectory.resolve("blocked");
         Files.writeString(fileInsteadOfDirectory, "not a directory");
@@ -149,7 +251,7 @@ class OlafTest {
 
         Olaf.CommandResult result = olaf.executeCommand("todo read book");
 
-        assertEquals(Olaf.CommandStatus.FATAL_ERROR, result.status());
+        assertEquals(Olaf.CommandStatus.CONTINUE, result.status());
         assertTrue(result.message().startsWith("error: Unable to save task data"));
     }
 
@@ -237,10 +339,9 @@ class OlafTest {
     }
 
     @Test
-    void executeCommand_rescheduleLegacyReversedEvent_validRangeSaved() throws StorageException {
+    void executeCommand_rescheduleLegacyReversedEvent_validRangeSaved() throws IOException, StorageException {
         Path dataFile = temporaryDirectory.resolve("olaf.txt");
-        Olaf olaf = new Olaf(dataFile);
-        olaf.executeCommand("event meeting /from 2026-09-02 /to 2026-09-01");
+        Files.writeString(dataFile, "E | 0 | meeting | 2026-09-02 | 2026-09-01\n");
         Olaf reloadedOlaf = new Olaf(dataFile);
 
         Olaf.CommandResult result = reloadedOlaf.executeCommand(
@@ -254,7 +355,7 @@ class OlafTest {
     }
 
     @Test
-    void executeCommand_rescheduleCannotSave_fatalErrorReturned() throws IOException, StorageException {
+    void executeCommand_rescheduleCannotSave_recoverableErrorReturned() throws IOException, StorageException {
         String[] commands = {"reschedule 1 /by 2026-09-20",
                 "reschedule 2 /from 2026-09-20 /to 2026-09-22"};
         for (int index = 0; index < commands.length; index++) {
@@ -267,7 +368,7 @@ class OlafTest {
 
             Olaf.CommandResult result = olaf.executeCommand(commands[index]);
 
-            assertEquals(Olaf.CommandStatus.FATAL_ERROR, result.status());
+            assertEquals(Olaf.CommandStatus.CONTINUE, result.status());
             assertTrue(result.message().startsWith("error: Unable to save task data"));
         }
     }

@@ -2,6 +2,7 @@ package olaf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 
@@ -21,8 +22,8 @@ class ParserTest {
     }
 
     @Test
-    void parse_unknownOrUnexpectedArguments_unknownCommandMessageReturned() {
-        for (String input : new String[] {"", "  ", "dance", "list extra", "bye extra"}) {
+    void parse_unknownCommand_commandListReturned() {
+        for (String input : new String[] {"dance", "listing"}) {
             assertInvalidCommand(input,
                     "Unknown command. Use todo, deadline, event, find, list, mark, unmark, "
                             + "delete, reschedule, or bye.");
@@ -54,10 +55,9 @@ class ParserTest {
     }
 
     @Test
-    void parse_eventEndBeforeStart_datesPreserved() throws CommandParseException {
-        ParsedCommand command = parser.parse("event meeting /from 2026-09-02 /to 2026-09-01");
-
-        assertEquals("[E][ ] meeting (from: Sep 02 2026 to: Sep 01 2026)", command.getTask().toString());
+    void parse_eventEndBeforeStart_dateOrderErrorReturned() {
+        assertErrorContains("event meeting /from 2026-09-02 /to 2026-09-01",
+                Event.INVALID_DATE_RANGE_MESSAGE);
     }
 
     @Test
@@ -154,7 +154,7 @@ class ParserTest {
         CommandParseException exception = assertThrows(CommandParseException.class,
                 () -> parser.parse("find   "));
 
-        assertEquals("Use 'find <keyword>' to find matching tasks.", exception.getMessage());
+        assertEquals("Missing search keyword. Use 'find <keyword>' to find matching tasks.", exception.getMessage());
     }
 
     @Test
@@ -226,7 +226,91 @@ class ParserTest {
 
     private void assertInvalidCommand(String input, String expectedMessage) {
         CommandParseException exception = assertThrows(CommandParseException.class, () -> parser.parse(input));
-        assertEquals(expectedMessage, exception.getMessage());
+        assertTrue(exception.getMessage().endsWith(expectedMessage), input + ": " + exception.getMessage());
+    }
+
+    @Test
+    void parse_blankInput_specificPromptReturned() {
+        for (String input : new String[] {"", "  \t", "\u2003", "\u00a0\u2002\u202f", "\u00a0\u001c\u00a0"}) {
+            assertErrorContains(input, "Please enter a command");
+        }
+    }
+
+    @Test
+    void parse_noPayloadCommandHasArguments_specificGuidanceReturned() {
+        for (String input : new String[] {"list extra", "BYE extra", "bye 1"}) {
+            assertErrorContains(input, "accepts no arguments");
+        }
+    }
+
+    @Test
+    void parse_requiredFieldMissing_fieldIdentified() {
+        String[][] cases = {
+                {"todo\u2003", "Missing description"},
+                {"todo \u00a0\u001c\u00a0", "Missing description"},
+                {"find\u00a0", "Missing search keyword"},
+                {"deadline /by 2026-09-01", "Missing description"},
+                {"deadline book", "Missing /by date field"},
+                {"deadline book /by\u2003", "Missing deadline date"},
+                {"event meeting /to 2026-09-02", "Missing /from date field"},
+                {"event meeting /from 2026-09-01", "Missing /to date field"},
+                {"event meeting /from /to 2026-09-02", "Missing event start date"},
+                {"event meeting /from 2026-09-01 /to", "Missing event end date"},
+                {"reschedule", "Missing task number"},
+                {"reschedule /by 2026-09-01", "Missing task number"},
+                {"reschedule 1 /by", "Missing deadline date"},
+                {"reschedule 1 /from /to 2026-09-02", "Missing event start date"},
+                {"reschedule 1 /from 2026-09-01 /to", "Missing event end date"}
+        };
+        for (String[] testCase : cases) {
+            assertErrorContains(testCase[0], testCase[1]);
+        }
+    }
+
+    @Test
+    void parse_invalidTaskNumber_reasonIdentified() {
+        for (String command : new String[] {"mark", "unmark", "delete", "reschedule"}) {
+            String schedule = command.equals("reschedule") ? " /by 2026-09-01" : "";
+            assertErrorContains(command, "Missing task number");
+            assertErrorContains(command + " one" + schedule, "must be a whole number");
+            assertErrorContains(command + " 1.5" + schedule, "must be a whole number");
+            assertErrorContains(command + " 2147483648" + schedule, "too large or too small");
+            assertErrorContains(command + " -2147483649" + schedule, "too large or too small");
+        }
+    }
+
+    @Test
+    void parse_invalidDates_formatAndCalendarFailuresDistinguished() {
+        assertErrorContains("deadline book /by 2026-9-01", "Use yyyy-MM-dd");
+        assertErrorContains("deadline book /by 2026-02-29", "not a valid calendar date");
+        assertErrorContains("event meeting /from 2026-02-29 /to 2026-09-01", "Invalid event start date");
+        assertErrorContains("event meeting /from 2026-09-01 /to 2026-09-31", "Invalid event end date");
+        assertErrorContains("reschedule 1 /by tomorrow", "Invalid deadline date");
+        assertErrorContains("reschedule 1 /from 2026-09-01 /to 2026-09-31", "Invalid event end date");
+    }
+
+    @Test
+    void parse_lineBreakAnywhere_commandRejectedBeforeTrimming() {
+        for (String separator : new String[] {"\n", "\r", "\r\n", "\u000b", "\f", "\u0085", "\u2028", "\u2029"}) {
+            assertErrorContains("todo read" + separator + "book", "single line");
+            assertErrorContains(separator + "bye", "single line");
+            assertErrorContains("list" + separator, "single line");
+        }
+    }
+
+    @Test
+    void parse_unicodeWhitespaceAndValidDates_commandsAccepted() throws CommandParseException {
+        assertEquals("read  book", parser.parse("\u00a0todo\u2003read  book\u202f")
+                .getTask().getDescription());
+        assertEquals("[E][ ] meeting (from: Feb 29 2028 to: Feb 29 2028)",
+                parser.parse("event meeting\u2003/from\u00a02028-02-29 /to 2028-02-29").getTask().toString());
+        assertEquals("[D][ ] book (by: Jan 01 2000)",
+                parser.parse("deadline book /by 2000-01-01").getTask().toString());
+    }
+
+    private void assertErrorContains(String input, String expectedText) {
+        CommandParseException exception = assertThrows(CommandParseException.class, () -> parser.parse(input));
+        assertTrue(exception.getMessage().contains(expectedText), input + ": " + exception.getMessage());
     }
 
     private void assertTaskNumberCommand(String input, ParsedCommand.Action expectedAction, int expectedNumber)

@@ -27,14 +27,15 @@ class UiTest {
         deadline.markAsDone();
 
         try (ui) {
-            ui.showResponse(ResponseFormatter.formatMatchingTasks(List.of(todo, deadline)));
+            ui.showResponse(ResponseFormatter.formatMatchingTasks(
+                    List.of(new TaskMatch(2, todo), new TaskMatch(4, deadline))));
         }
 
         String expectedOutput = String.join(LINE_SEPARATOR,
                 DIVIDER,
                 " Here are the matching tasks in your list:",
-                " 1.[T][ ] read book",
-                " 2.[D][X] return book (by: Sep 01 2026)",
+                " 2.[T][ ] read book",
+                " 4.[D][X] return book (by: Sep 01 2026)",
                 DIVIDER,
                 "");
         assertEquals(expectedOutput, outputBytes.toString(StandardCharsets.UTF_8));

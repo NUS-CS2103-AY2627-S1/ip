@@ -15,6 +15,19 @@ abstract class Task {
         this.description = description;
     }
 
+    /** Copies the common fields without sharing mutable task state. */
+    protected Task(Task original) {
+        description = original.description;
+        isDone = original.isDone;
+    }
+
+    /**
+     * Returns an independent copy, including the task's type, dates, and completion status.
+     *
+     * @return task whose mutable state can be changed independently
+     */
+    abstract Task copy();
+
     /**
      * Marks this task as completed.
      */

@@ -1,6 +1,7 @@
 package olaf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,9 +21,9 @@ class TaskListTest {
         Task secondTask = new Deadline("return book", LocalDate.of(2026, 9, 1));
         TaskList tasks = new TaskList(List.of(firstTask, new Todo("buy groceries"), secondTask));
 
-        List<Task> matchingTasks = tasks.find("BOOK");
+        List<TaskMatch> matchingTasks = tasks.find("BOOK");
 
-        assertEquals(List.of(firstTask, secondTask), matchingTasks);
+        assertEquals(List.of(new TaskMatch(1, firstTask), new TaskMatch(3, secondTask)), matchingTasks);
     }
 
     @Test
@@ -30,7 +31,7 @@ class TaskListTest {
         Task matchingTask = new Todo("organize notebook");
         TaskList tasks = new TaskList(List.of(matchingTask));
 
-        assertEquals(List.of(matchingTask), tasks.find("book"));
+        assertEquals(List.of(new TaskMatch(1, matchingTask)), tasks.find("book"));
     }
 
     @Test
@@ -51,10 +52,34 @@ class TaskListTest {
     @Test
     void find_matchingTaskReturned_resultListIsImmutable() {
         TaskList tasks = new TaskList(List.of(new Todo("read book")));
-        List<Task> matchingTasks = tasks.find("book");
+        List<TaskMatch> matchingTasks = tasks.find("book");
 
         assertThrows(UnsupportedOperationException.class,
-                () -> matchingTasks.add(new Todo("write book")));
+                () -> matchingTasks.add(new TaskMatch(2, new Todo("write book"))));
+    }
+
+    @Test
+    void copy_allTaskTypes_mutableStateIsIndependent() throws Exception {
+        LocalDate date = LocalDate.of(2026, 9, 1);
+        TaskList original = new TaskList(List.of(new Todo("read book"), new Deadline("return book", date),
+                new Event("meeting", date, date)));
+        original.markAsDone(1);
+        original.markAsDone(2);
+        original.markAsDone(3);
+        String originalDisplay = ResponseFormatter.formatTaskList(original);
+
+        TaskList copy = original.copy();
+
+        assertEquals(originalDisplay, ResponseFormatter.formatTaskList(copy));
+        for (int index = 0; index < original.size(); index++) {
+            assertNotSame(original.getTasks().get(index), copy.getTasks().get(index));
+        }
+        copy.markAsNotDone(1);
+        copy.rescheduleDeadline(2, date.plusDays(1));
+        copy.rescheduleEvent(3, date.plusDays(2), date.plusDays(3));
+        copy.delete(1);
+        copy.add(new Todo("new task"));
+        assertEquals(originalDisplay, ResponseFormatter.formatTaskList(original));
     }
 
     @Test

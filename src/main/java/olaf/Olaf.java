@@ -11,11 +11,16 @@ public class Olaf {
     private static final Path DATA_FILE_PATH = Path.of("data", "olaf.txt");
 
     private final Storage storage;
-    private final TaskList tasks;
+    private TaskList tasks;
     private final Parser parser;
 
     Olaf(Path dataFilePath) throws StorageException {
-        storage = new Storage(dataFilePath);
+        this(new Storage(dataFilePath));
+    }
+
+    /** Creates a facade with an injectable storage boundary for persistence failure tests. */
+    Olaf(Storage storage) throws StorageException {
+        this.storage = Objects.requireNonNull(storage);
         tasks = storage.load();
         parser = new Parser();
     }
@@ -51,8 +56,8 @@ public class Olaf {
 
     /**
      * Parses and executes one command, returning text and session status for the active interface.
-     * Expected command, task-number, and rescheduling errors are returned as recoverable responses. A storage
-     * failure is fatal because the in-memory task list may no longer match the persisted data.
+     * Expected input and save errors are recoverable. Changes become visible only after saving succeeds,
+     * so a failed save leaves the active task list unchanged and the command can be retried.
      *
      * @param input command entered by the user
      * @return response text and the resulting session status
@@ -64,12 +69,10 @@ public class Olaf {
         try {
             ParsedCommand command = parser.parse(input);
             return execute(command);
-        } catch (CommandParseException | InvalidTaskNumberException | TaskRescheduleException exception) {
+        } catch (CommandParseException | InvalidTaskNumberException | TaskRescheduleException
+                | StorageException exception) {
             return new CommandResult(ResponseFormatter.formatError(exception.getMessage()),
                     CommandStatus.CONTINUE);
-        } catch (StorageException exception) {
-            return new CommandResult(ResponseFormatter.formatError(exception.getMessage()),
-                    CommandStatus.FATAL_ERROR);
         }
     }
 
@@ -107,50 +110,62 @@ public class Olaf {
     }
 
     private CommandResult addTask(Task task) throws StorageException {
-        tasks.add(task);
-        storage.save(tasks);
+        TaskList candidate = tasks.copy();
+        candidate.add(task);
+        saveChanges(candidate);
         return new CommandResult(ResponseFormatter.formatTaskAdded(task, tasks.size()),
                 CommandStatus.CONTINUE);
     }
 
     private CommandResult markTask(int taskNumber)
             throws InvalidTaskNumberException, StorageException {
-        Task markedTask = tasks.markAsDone(taskNumber);
-        storage.save(tasks);
+        TaskList candidate = tasks.copy();
+        Task markedTask = candidate.markAsDone(taskNumber);
+        saveChanges(candidate);
         return new CommandResult(ResponseFormatter.formatTaskMarkedAsDone(markedTask),
                 CommandStatus.CONTINUE);
     }
 
     private CommandResult unmarkTask(int taskNumber)
             throws InvalidTaskNumberException, StorageException {
-        Task unmarkedTask = tasks.markAsNotDone(taskNumber);
-        storage.save(tasks);
+        TaskList candidate = tasks.copy();
+        Task unmarkedTask = candidate.markAsNotDone(taskNumber);
+        saveChanges(candidate);
         return new CommandResult(ResponseFormatter.formatTaskMarkedAsNotDone(unmarkedTask),
                 CommandStatus.CONTINUE);
     }
 
     private CommandResult deleteTask(int taskNumber)
             throws InvalidTaskNumberException, StorageException {
-        Task deletedTask = tasks.delete(taskNumber);
-        storage.save(tasks);
+        TaskList candidate = tasks.copy();
+        Task deletedTask = candidate.delete(taskNumber);
+        saveChanges(candidate);
         return new CommandResult(ResponseFormatter.formatTaskDeleted(deletedTask, tasks.size()),
                 CommandStatus.CONTINUE);
     }
 
     private CommandResult rescheduleDeadline(int taskNumber, LocalDate dueDate)
             throws InvalidTaskNumberException, TaskRescheduleException, StorageException {
-        Task rescheduledTask = tasks.rescheduleDeadline(taskNumber, dueDate);
-        storage.save(tasks);
+        TaskList candidate = tasks.copy();
+        Task rescheduledTask = candidate.rescheduleDeadline(taskNumber, dueDate);
+        saveChanges(candidate);
         return new CommandResult(ResponseFormatter.formatTaskRescheduled(rescheduledTask),
                 CommandStatus.CONTINUE);
     }
 
     private CommandResult rescheduleEvent(int taskNumber, LocalDate startDate, LocalDate endDate)
             throws InvalidTaskNumberException, TaskRescheduleException, StorageException {
-        Task rescheduledTask = tasks.rescheduleEvent(taskNumber, startDate, endDate);
-        storage.save(tasks);
+        TaskList candidate = tasks.copy();
+        Task rescheduledTask = candidate.rescheduleEvent(taskNumber, startDate, endDate);
+        saveChanges(candidate);
         return new CommandResult(ResponseFormatter.formatTaskRescheduled(rescheduledTask),
                 CommandStatus.CONTINUE);
+    }
+
+    /** Publishes a candidate list only after its complete snapshot has been saved successfully. */
+    private void saveChanges(TaskList candidate) throws StorageException {
+        storage.save(candidate);
+        tasks = candidate;
     }
 
     /**
@@ -161,7 +176,7 @@ public class Olaf {
         CONTINUE,
         /** The user requested a normal exit. */
         EXIT_REQUESTED,
-        /** Persistence failed, so accepting further commands would be unsafe. */
+        /** An unrecoverable session failure prevents further commands; retained for interface compatibility. */
         FATAL_ERROR
     }
 

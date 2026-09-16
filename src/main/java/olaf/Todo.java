@@ -13,6 +13,16 @@ final class Todo extends Task {
         super(description);
     }
 
+    private Todo(Todo original) {
+        super(original);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    Task copy() {
+        return new Todo(this);
+    }
+
     /** {@inheritDoc} */
     @Override
     String getTypeCode() {

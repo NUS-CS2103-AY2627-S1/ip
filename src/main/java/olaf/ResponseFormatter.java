@@ -25,9 +25,17 @@ final class ResponseFormatter {
         return formatTasks(" Here are the tasks in your list:", tasks.getTasks());
     }
 
-    /** Formats search results with numbering local to the filtered list. */
-    static String formatMatchingTasks(List<Task> matchingTasks) {
-        return formatTasks(" Here are the matching tasks in your list:", matchingTasks);
+    /** Formats search results with the same task numbers used by all task commands. */
+    static String formatMatchingTasks(List<TaskMatch> matchingTasks) {
+        StringBuilder response = new StringBuilder(" Here are the matching tasks in your list:");
+        for (TaskMatch match : matchingTasks) {
+            response.append(System.lineSeparator())
+                    .append(' ')
+                    .append(match.taskNumber())
+                    .append('.')
+                    .append(match.task());
+        }
+        return response.toString();
     }
 
     static String formatTaskAdded(Task task, int taskCount) {
