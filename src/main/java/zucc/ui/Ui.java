@@ -23,11 +23,8 @@ public abstract class Ui {
 
     /**
      * Shows an error that the user can recover from.
-     * Concrete interfaces may override this method to give errors distinct presentation.
      *
      * @param message explanation of the error and how to recover from it.
      */
-    public void showError(String message) {
-        showMessage(message);
-    }
+    public abstract void showError(String message);
 }

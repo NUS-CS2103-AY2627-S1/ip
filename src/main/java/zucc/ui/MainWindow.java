@@ -89,7 +89,7 @@ public final class MainWindow extends Ui {
      */
     @Override
     public void showMessage(String message) {
-        dialogContainer.getChildren().add(DialogBox.createZuccDialog(message));
+        dialogContainer.getChildren().add(new DialogBox.ZuccDialogBox(message));
     }
 
     /**
@@ -99,7 +99,7 @@ public final class MainWindow extends Ui {
      */
     @Override
     public void showError(String message) {
-        dialogContainer.getChildren().add(DialogBox.createErrorDialog(message));
+        dialogContainer.getChildren().add(new DialogBox.ErrorDialogBox(message));
     }
 
     /**
@@ -112,7 +112,7 @@ public final class MainWindow extends Ui {
             return;
         }
 
-        dialogContainer.getChildren().add(DialogBox.createUserDialog(input));
+        dialogContainer.getChildren().add(new DialogBox.UserDialogBox(input));
         userInput.clear();
 
         boolean isExit = zucc.executeCommand(input, this);
