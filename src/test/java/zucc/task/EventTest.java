@@ -103,17 +103,12 @@ public class EventTest {
                 () -> new Event(EVENT_DESCRIPTION, "12/6/2026 0100", "10/6/2026 2300"));
     }
 
-    /**
-     * Verifies that an event may start and end at the same instant.
-     *
-     * @throws ZuccException if the valid zero-duration event cannot be created.
-     */
+    /** Verifies that an event cannot start and end at the same instant. */
     @Test
-    public void constructor_sameStartAndEnd_eventCreated() throws ZuccException {
-        Event zeroDurationEvent = new Event(
-                "Submit project", "15/6/2026 1200", "15/6/2026 1200");
-
-        assertTrue(zeroDurationEvent.occursOn(LocalDate.of(2026, 6, 15)));
+    public void constructor_sameStartAndEnd_exceptionThrown() {
+        assertThrows(ZuccException.class,
+                () -> new Event(
+                        "Submit project", "15/6/2026 1200", "15/6/2026 1200"));
     }
 
     /**
@@ -171,6 +166,16 @@ public class EventTest {
                 () -> new Event(new String[] {
                     "E", "0", "0", EVENT_DESCRIPTION,
                     "12/6/2026 0100", "10/6/2026 2300"
+                }));
+    }
+
+    /** Verifies that stored event data cannot reconstruct a zero-duration time range. */
+    @Test
+    public void storageConstructor_sameStartAndEnd_exceptionThrown() {
+        assertThrows(ZuccException.class,
+                () -> new Event(new String[] {
+                    "E", "0", "0", EVENT_DESCRIPTION,
+                    "12/6/2026 0100", "12/6/2026 0100"
                 }));
     }
 
