@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+  The chat window: a scrolling conversation above a row holding the text field
+  and the send button.
+
+  A VBox is used rather than an AnchorPane because resizing is the whole point
+  here. VBox.vgrow="ALWAYS" on the scroll pane gives every extra pixel of height
+  to the conversation and none to the input row, and HBox.hgrow="ALWAYS" on the
+  text field does the same for width, so the window can be dragged to any size
+  without a fixed coordinate anywhere in this file needing to be revisited.
+
+  minWidth="0" is what lets the window be dragged narrower than the widest line
+  the chatbot has said. Left to itself a scroll pane refuses to shrink below its
+  contents, which would quietly set a floor on the window the moment a long
+  reply appeared.
+-->
+<VBox minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="460.0" styleClass="chat-window"
+      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="lebronjames.gui.MainWindow">
+    <stylesheets>
+        <URL value="@/view/style.css" />
+    </stylesheets>
+    <children>
+        <!--
+          vbarPolicy is AS_NEEDED rather than ALWAYS so a short conversation is
+          not charged the width of an empty scroll bar.
+        -->
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" minWidth="0.0"
+                    vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
+            <content>
+                <VBox fx:id="dialogContainer" styleClass="conversation" />
+            </content>
+        </ScrollPane>
+        <HBox alignment="CENTER" spacing="8.0" styleClass="input-row">
+            <padding>
+                <Insets bottom="8.0" left="10.0" right="10.0" top="8.0" />
+            </padding>
+            <children>
+                <TextField fx:id="userInput" onAction="#handleUserInput"
+                           promptText="Type a command, then press Enter" HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton" defaultButton="true" minWidth="72.0" mnemonicParsing="false"
+                        onAction="#handleUserInput" text="Send" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

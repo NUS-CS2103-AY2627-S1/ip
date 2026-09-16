@@ -1,0 +1,153 @@
+plugins {
+    id 'java'
+    id 'application'
+    // Builds a "fat" JAR: our classes plus every dependency in one runnable file,
+    // so the chatbot can be handed to someone who only has Java installed.
+    // The plugin moved from com.github.johnrengelman to com.gradleup when the
+    // original was no longer maintained; the old one cannot run on Gradle 8+.
+    id 'com.gradleup.shadow' version '9.6.1'
+    // Measures how much of the code the tests actually reach, so the coverage
+    // target in AGENTS.md is a number we can check rather than a guess.
+    id 'jacoco'
+    // Checks the code against the se-education Java coding standard, so
+    // compliance is enforced by the build rather than by remembering to look.
+    id 'checkstyle'
+    // Puts JavaFX on the compile and run classpath, and picks the build for the
+    // machine the project is opened on. Declaring it here rather than relying on
+    // a JDK that happens to bundle JavaFX keeps the build working on any JDK 25.
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    // Compile and run against Java 25 no matter which JDK happens to be first on
+    // the PATH. Gradle downloads a matching JDK if it cannot find one installed,
+    // so the build behaves the same on another machine.
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+// One place to state the JavaFX version, because it is needed twice: by the
+// plugin below, and by the per-platform artifacts in dependencies. Two copies
+// would eventually disagree.
+ext.javaFxVersion = '25.0.4'
+
+javafx {
+    // Matches the JDK version used above. Only the two modules the chatbot
+    // actually uses are requested: controls for the buttons and text field,
+    // fxml for loading the layouts in src/main/resources/view.
+    version = javaFxVersion
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+dependencies {
+    // The JavaFX plugin resolves only the native libraries of the machine doing
+    // the build, so a fat JAR built on a Mac contains .dylib files and nothing
+    // else. Handed to someone on Windows or Linux it fails at start-up with
+    // "Error initializing QuantumRenderer: no suitable pipeline found", because
+    // the graphics libraries for their machine are simply not in the file.
+    // Asking for these platforms by name puts all of their natives in the one
+    // JAR, which is what lets a single download run on any of them.
+    //
+    // Only one processor architecture per operating system can be listed. Every
+    // JavaFX artifact names its libraries the same way, so mac and mac-aarch64
+    // both contribute a file called libglass.dylib, and a flat JAR can hold
+    // only one of them; whichever is packed last silently wins. The three below
+    // are therefore chosen rather than left to chance: 64-bit Windows, 64-bit
+    // Linux, and Apple Silicon Macs. For an Intel Mac, swap 'mac-aarch64' for
+    // 'mac' and rebuild -- the two cannot be served by the same file.
+    for (String platform : ['win', 'linux', 'mac-aarch64']) {
+        implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: platform
+        implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: platform
+        implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: platform
+        implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: platform
+    }
+
+    // junit-jupiter bundles the api (what tests are written against) and the
+    // engine (what runs them). The platform launcher used to be pulled in
+    // automatically; from Gradle 9 it has to be asked for by name, or the test
+    // task fails with "Failed to load JUnit Platform".
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.14.4'
+    testRuntimeOnly group: 'org.junit.platform', name: 'junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+
+    // An assert is ignored unless the JVM is started with -ea. Gradle already
+    // does this for tests, but saying so keeps the intent visible: a broken
+    // assumption should surface as a failing test, not pass unnoticed.
+    enableAssertions = true
+
+    testLogging {
+        events "passed", "skipped", "failed"
+
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+}
+
+checkstyle {
+    toolVersion = '14.0.0'
+    // config/checkstyle/checkstyle.xml is se-education's own configuration for
+    // https://se-education.org/guides/conventions/java/intermediate.html
+    configDirectory = file("$rootDir/config/checkstyle")
+}
+
+jacoco {
+    // 0.8.15 is the first release that understands Java 25 class files.
+    toolVersion = "0.8.15"
+}
+
+jacocoTestReport {
+    // The report is only meaningful once the tests have run.
+    dependsOn test
+
+    reports {
+        html.required = true
+        xml.required = false
+    }
+}
+
+// Make "gradlew test" produce the coverage report too, so it never goes stale.
+test.finalizedBy jacocoTestReport
+
+application {
+    // The GUI is the way the chatbot is meant to be used, so "gradlew run" and
+    // the packaged JAR both start it. lebronjames.LebronJames still has a main
+    // of its own for driving the chatbot from a terminal.
+    mainClass = "lebronjames.Launcher"
+}
+
+shadowJar {
+    archiveBaseName = "lebronjames"
+    // No classifier, so the file is lebronjames-<version>.jar rather than
+    // lebronjames-<version>-all.jar.
+    archiveClassifier = ""
+}
+
+run {
+    // Unlike the test task, JavaExec leaves assertions off by default, so
+    // without this line every assert in the code would be dead weight when the
+    // app is run through Gradle.
+    enableAssertions = true
+
+    // Harmless for the GUI, but it means "gradlew run -PmainClass=..." style
+    // console use, and the text interface generally, still receives keystrokes.
+    // Without it a console run would see no input at all and exit immediately.
+    standardInput = System.in
+}
+
+// The application plugin's plain "jar" task also produces build/libs/ip.jar,
+// which holds only our classes and is not the file we ever want to hand out.
+// Turning it off leaves shadowJar's fat JAR as the single build output.
+tasks.named('jar') {
+    enabled = false
+}
