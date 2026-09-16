@@ -3,6 +3,7 @@
     -fx-font-size: 14px;
     -fx-background-color: #f4f7fa;
 }
+.text { -fx-font-smoothing-type: gray; }
 .header {
     -fx-padding: 16 20;
     -fx-background-color: white;

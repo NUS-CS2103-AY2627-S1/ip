@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -83,6 +84,7 @@ public class MainWindow {
         Label message = new Label(text);
         message.setWrapText(true);
         message.setMinWidth(0);
+        message.setMinHeight(Region.USE_PREF_SIZE);
         message.setMaxWidth(Double.MAX_VALUE);
         message.setAccessibleText(text);
         message.getStyleClass().add("message-text");
