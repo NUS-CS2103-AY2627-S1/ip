@@ -29,3 +29,10 @@ Run these cases from the repository root. The plan covers the console-facing UI 
 - Expected output: `BUILD SUCCESSFUL`
 - Match mode: `contains`
 - Timeout: `120`
+
+## Manual GUI smoke check
+
+- Launch the JavaFX application and enter `bye`.
+- Expected behavior: the farewell message `Byeee! Hope to see you soooon!`
+  appears in the conversation, remains visible briefly, and then the window
+  closes without an error.

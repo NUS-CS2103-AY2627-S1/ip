@@ -54,7 +54,9 @@ public class CommandProcessorTest {
         CommandResult result = newProcessor().process("bye");
 
         assertTrue(result.shouldExit());
-        assertEquals(1, result.messages().size());
+        assertEquals(
+                List.of("Byeee! Hope to see you soooon!"),
+                result.messages());
     }
 
     @Test
