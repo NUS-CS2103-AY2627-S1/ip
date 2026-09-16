@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -18,37 +19,46 @@ import java.util.stream.IntStream;
 /** Runs the Eli task-list application and responds to user commands. */
 public class Eli {
     private static final String DIVIDER = "____________________________________________________________";
-    private static final Path DEFAULT_DATA_FILE = Path.of("duke.txt");
+    private static final Path DEFAULT_DATA_FILE = Path.of("eli.txt");
+    private static final Path LEGACY_DATA_FILE = Path.of("duke.txt");
 
     private final TaskList tasks;
     private final boolean isStorageEnabled;
     private final Path dataFile;
+    private final Path legacyDataFile;
     private boolean isStorageUsable = true;
     private String storageWarning;
 
     /** Creates Eli and loads any tasks saved previously. */
     public Eli() {
-        this(new TaskList(), DEFAULT_DATA_FILE, true);
+        this(new TaskList(), DEFAULT_DATA_FILE, LEGACY_DATA_FILE, true);
         loadTasks();
     }
 
     /** Creates Eli with an existing task list, primarily for isolated testing. */
     Eli(TaskList tasks) {
-        this(tasks, DEFAULT_DATA_FILE, false);
+        this(tasks, DEFAULT_DATA_FILE, null, false);
     }
 
     /** Creates Eli with storage at a test-controlled path. */
     Eli(Path dataFile) {
-        this(new TaskList(), dataFile, true);
+        this(new TaskList(), dataFile, null, true);
+        loadTasks();
+    }
+
+    /** Creates Eli with current and legacy storage paths for migration testing. */
+    Eli(Path dataFile, Path legacyDataFile) {
+        this(new TaskList(), dataFile, legacyDataFile, true);
         loadTasks();
     }
 
     /** Creates Eli with explicit task and storage dependencies. */
-    private Eli(TaskList tasks, Path dataFile, boolean isStorageEnabled) {
+    private Eli(TaskList tasks, Path dataFile, Path legacyDataFile, boolean isStorageEnabled) {
         assert tasks != null : "Task list must not be null";
         assert dataFile != null : "Data file path must not be null";
         this.tasks = tasks;
         this.dataFile = dataFile;
+        this.legacyDataFile = legacyDataFile;
         this.isStorageEnabled = isStorageEnabled;
     }
 
@@ -218,8 +228,16 @@ public class Eli {
                     "暂时没有任务可以排序。");
         }
 
+        TaskList originalOrder = new TaskList();
+        originalOrder.addAll(tasks);
         tasks.sortTasks();
-        saveTasks();
+        try {
+            saveTasks();
+        } catch (EliException exception) {
+            tasks.clear();
+            tasks.addAll(originalOrder);
+            throw exception;
+        }
         String sections = Arrays.stream(TaskType.values())
                 .sorted(Comparator.comparingInt(TaskType::getSortOrder))
                 .map(this::formatTaskSection)
@@ -341,7 +359,12 @@ public class Eli {
         }
 
         tasks.addTask(task);
-        saveTasks();
+        try {
+            saveTasks();
+        } catch (EliException exception) {
+            tasks.remove(task);
+            throw exception;
+        }
         String english = "Task captured!\n  " + task
                 + "\nYou now have " + tasks.size() + " tasks.";
         String chinese = "任务记下来啦：\n  " + task
@@ -359,15 +382,16 @@ public class Eli {
         }
 
         Task task = tasks.getTask(taskNumber);
+        boolean wasDone = "X".equals(task.getStatusIcon());
         if (isDone) {
             task.markAsDone();
-            saveTasks();
+            saveTasksOrRestoreStatus(task, wasDone);
             return getBilingualMessage(
                     "Nice work!\nThis task is now complete:\n  " + task,
                     "做得好！\n这个任务已经完成：\n  " + task);
         }
         task.markAsNotDone();
-        saveTasks();
+        saveTasksOrRestoreStatus(task, wasDone);
         return getBilingualMessage(
                 "No worries!\nThis task is back on your list:\n  " + task,
                 "没关系！\n这个任务已回到清单：\n  " + task);
@@ -383,7 +407,12 @@ public class Eli {
         }
 
         Task removedTask = tasks.removeTask(taskNumber);
-        saveTasks();
+        try {
+            saveTasks();
+        } catch (EliException exception) {
+            tasks.add(taskNumber - 1, removedTask);
+            throw exception;
+        }
         String english = "Task cleared!\n  " + removedTask
                 + "\nYou now have " + tasks.size() + " tasks.";
         String chinese = "已删除这个任务：\n  " + removedTask
@@ -400,10 +429,10 @@ public class Eli {
         }
     }
 
-    /** Loads saved tasks, if a save file exists. */
-    @SuppressWarnings("unchecked")
+    /** Loads saved tasks, falling back to the pre-Eli filename when necessary. */
     private void loadTasks() {
-        try (FileInputStream fileInput = new FileInputStream(dataFile.toFile());
+        Path sourceFile = getLoadSourceFile();
+        try (FileInputStream fileInput = new FileInputStream(sourceFile.toFile());
                 ObjectInputStream input = new ObjectInputStream(fileInput)) {
             tasks.addAll((TaskList) input.readObject());
         } catch (FileNotFoundException exception) {
@@ -411,11 +440,20 @@ public class Eli {
         } catch (IOException | ClassNotFoundException | ClassCastException | SecurityException exception) {
             isStorageUsable = false;
             storageWarning = getErrorMessage(
-                    "I could not read " + getDataFileName() + ", so I started with an empty list."
+                    "I could not read " + getDataFileName(sourceFile)
+                            + ", so I started with an empty list."
                             + " Fix or remove that file before saving new tasks.",
-                    "无法读取 " + getDataFileName() + "，因此我从空清单开始。"
+                    "无法读取 " + getDataFileName(sourceFile) + "，因此我从空清单开始。"
                             + "请修复或移除该文件后再保存新任务。");
         }
+    }
+
+    /** Uses legacy storage only when the current Eli data file does not exist. */
+    private Path getLoadSourceFile() {
+        if (legacyDataFile != null && Files.notExists(dataFile) && Files.exists(legacyDataFile)) {
+            return legacyDataFile;
+        }
+        return dataFile;
     }
 
     /** Saves the current task list to disk. */
@@ -440,7 +478,26 @@ public class Eli {
 
     /** Returns the user-facing name of the configured storage file. */
     private String getDataFileName() {
-        return dataFile.getFileName().toString();
+        return getDataFileName(dataFile);
+    }
+
+    /** Returns the user-facing name of a storage file. */
+    private String getDataFileName(Path file) {
+        return file.getFileName().toString();
+    }
+
+    /** Saves a status change, restoring the previous status if persistence fails. */
+    private void saveTasksOrRestoreStatus(Task task, boolean wasDone) throws EliException {
+        try {
+            saveTasks();
+        } catch (EliException exception) {
+            if (wasDone) {
+                task.markAsDone();
+            } else {
+                task.markAsNotDone();
+            }
+            throw exception;
+        }
     }
 
     /** Rejects an event whose supported end date-time is not after its start. */

@@ -53,6 +53,44 @@ public class EliStorageTest {
         String response = eli.getResponse("todo read notes");
 
         assertTrue(response.contains("could not save your tasks"));
+        assertTrue(eli.getResponse("list").contains("task list is clear"));
         assertFalse(Files.exists(dataFile));
+    }
+
+    @Test
+    public void unavailableParentFolder_mutatingCommandsRollBackChanges() {
+        Path sourceFile = tempDirectory.resolve("source.dat");
+        Eli savedEli = new Eli(sourceFile);
+        savedEli.getResponse("todo second task");
+        savedEli.getResponse("todo first task");
+
+        Path unavailableFile = tempDirectory.resolve("missing").resolve("tasks.dat");
+        Eli eli = new Eli(unavailableFile, sourceFile);
+
+        assertTrue(eli.getResponse("mark 1").contains("could not save your tasks"));
+        assertTrue(eli.getResponse("delete 1").contains("could not save your tasks"));
+        assertTrue(eli.getResponse("sort").contains("could not save your tasks"));
+
+        String tasks = eli.getResponse("list");
+        assertTrue(tasks.contains("1.[T][ ] second task"));
+        assertTrue(tasks.contains("2.[T][ ] first task"));
+    }
+
+    @Test
+    public void legacyDataFile_loadsAndMigratesOnNextSave() {
+        Path legacyFile = tempDirectory.resolve("duke.txt");
+        Path currentFile = tempDirectory.resolve("eli.txt");
+        Eli legacyEli = new Eli(legacyFile);
+        legacyEli.getResponse("todo existing task");
+
+        Eli eli = new Eli(currentFile, legacyFile);
+        assertTrue(eli.getResponse("list").contains("existing task"));
+        assertTrue(eli.getResponse("todo new task").contains("Task captured!"));
+        assertTrue(Files.exists(currentFile));
+
+        Eli migratedEli = new Eli(currentFile);
+        String tasks = migratedEli.getResponse("list");
+        assertTrue(tasks.contains("existing task"));
+        assertTrue(tasks.contains("new task"));
     }
 }
