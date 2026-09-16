@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
@@ -17,6 +19,9 @@ public class DialogBox extends HBox {
 
     @FXML
     private Label message;
+
+    @FXML
+    private ImageView avatar;
 
     /**
      * Creates a styled chat message.
@@ -35,6 +40,26 @@ public class DialogBox extends HBox {
         }
         speaker.setText(speakerName);
         message.setText(text);
+        if ("Kia".equals(speakerName)) {
+            setStyle("-fx-padding: 4 8 4 4;");
+            avatar.setImage(new Image(DialogBox.class.getResourceAsStream("/images/kia-profile.jpg")));
+            message.setStyle("-fx-font-size: 13px; -fx-text-fill: #25324a;"
+                    + " -fx-background-color: rgba(255,255,255,0.92); -fx-padding: 8 10;"
+                    + " -fx-background-radius: 4 12 12 12;");
+        } else {
+            setStyle("-fx-padding: 4 4 4 48;");
+            avatar.setImage(new Image(DialogBox.class.getResourceAsStream("/images/user-profile.jpg")));
+            avatar.setManaged(true);
+            avatar.setVisible(true);
+            message.setStyle("-fx-font-size: 13px; -fx-text-fill: white;"
+                    + " -fx-background-color: #3978b8; -fx-padding: 8 10;"
+                    + " -fx-background-radius: 12 4 12 12;");
+        }
+        if (text.startsWith("OOPS!!!")) {
+            message.setStyle("-fx-font-size: 13px; -fx-text-fill: #a61b29; -fx-font-weight: bold;"
+                    + " -fx-background-color: #ffe8eb; -fx-padding: 8; -fx-background-radius: 8;");
+            speaker.setStyle("-fx-font-weight: bold; -fx-text-fill: #a61b29;");
+        }
     }
 
     /**

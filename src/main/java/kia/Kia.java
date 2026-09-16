@@ -274,7 +274,7 @@ public class Kia {
 
         if (command.equals("deadline") || command.startsWith("deadline ")) {
             String details = command.length() <= "deadline ".length()
-                    ? "" : command.substring("deadline ".length()).trim();
+                    ? "" : command.substring("deadline ".length()).trim().replaceAll("\\s+", " ");
             int byIndex = details.indexOf(" /by ");
             if (byIndex < 0) {
                 throw new KiaException("A deadline must include a /by date or time.");
@@ -296,7 +296,7 @@ public class Kia {
 
         if (command.equals("event") || command.startsWith("event ")) {
             String details = command.length() <= "event ".length()
-                    ? "" : command.substring("event ".length()).trim();
+                    ? "" : command.substring("event ".length()).trim().replaceAll("\\s+", " ");
             int fromIndex = details.indexOf(" /from ");
             int toIndex = fromIndex < 0 ? -1 : details.indexOf(" /to ", fromIndex + " /from ".length());
             if (fromIndex < 0 || toIndex < 0) {

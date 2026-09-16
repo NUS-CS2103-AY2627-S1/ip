@@ -85,6 +85,22 @@ class MainTest {
         }
     }
 
+    /** Verifies that extra spacing around a deadline marker is accepted. */
+    @Test
+    void getResponse_deadlineWithExtraSpacing_acceptsDate() throws Exception {
+        Path taskFile = Path.of("data", "kia.txt");
+        Files.deleteIfExists(taskFile);
+        try {
+            Kia kia = new Kia();
+
+            String response = kia.getResponse("deadline submit report   /by    2026-10-12");
+
+            assertTrue(response.contains("[D][ ] submit report (by: Oct 12 2026)"));
+        } finally {
+            Files.deleteIfExists(taskFile);
+        }
+    }
+
     /** Verifies that multiple event fields can be changed in one command. */
     @Test
     void getResponse_updateMultipleEventFields_updatesAllFields() throws Exception {

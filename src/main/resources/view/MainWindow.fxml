@@ -10,19 +10,22 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane prefHeight="600.0" prefWidth="420.0"
+            style="-fx-background-color: #f5f7fb;"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="kia.ui.MainWindow">
     <center>
         <ScrollPane fx:id="scrollPane" fitToWidth="true"
-                    hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+                    hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                    style="-fx-background-color: transparent;">
             <content>
-                <VBox fx:id="dialogContainer" spacing="8.0" fillWidth="true" />
+                <VBox fx:id="dialogContainer" spacing="4.0" fillWidth="true"
+                      style="-fx-padding: 12 10 12 10; -fx-background-color: transparent;" />
             </content>
         </ScrollPane>
     </center>
     <bottom>
-        <VBox spacing="8.0" style="-fx-padding: 8;">
+        <VBox spacing="6.0" style="-fx-padding: 8 10 10 10; -fx-background-color: rgba(255,255,255,0.94);">
             <HBox spacing="8.0">
                 <TextField fx:id="userInput" HBox.hgrow="ALWAYS"
                            onAction="#handleUserInput" promptText="Enter a command" />
@@ -36,10 +39,10 @@
                     <Label text="Type" />
                     <ComboBox fx:id="editTypeSelector" />
                 </HBox>
-                <TextField fx:id="editDescription" promptText="Description" />
-                <TextField fx:id="editBy" promptText="Deadline (/by)" />
-                <TextField fx:id="editFrom" promptText="Event start (/from)" />
-                <TextField fx:id="editTo" promptText="Event end (/to)" />
+                <TextField fx:id="editDescription" promptText="/description &lt;task description&gt;" />
+                <TextField fx:id="editBy" promptText="/by &lt;yyyy-MM-dd&gt;" />
+                <TextField fx:id="editFrom" promptText="/from &lt;start date or time&gt;" />
+                <TextField fx:id="editTo" promptText="/to &lt;end date or time&gt;" />
                 <HBox spacing="8.0">
                     <Button mnemonicParsing="false" onAction="#saveEdit" text="Save" />
                     <Button mnemonicParsing="false" onAction="#cancelEdit" text="Cancel" />
