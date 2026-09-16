@@ -1,0 +1,59 @@
+.main-window {
+    -fx-background-color: #f7e7ec;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-padding: 12 8 10 8;
+}
+
+.dialog-box {
+    -fx-spacing: 8;
+}
+
+.dialog-label {
+    -fx-background-radius: 8;
+    -fx-font-family: sans-serif;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 10 12 10 12;
+    -fx-text-fill: #38252c;
+}
+
+.user-dialog .dialog-label {
+    -fx-background-color: #ffd7e6;
+}
+
+.downtown-gurl-dialog .dialog-label {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e5b7c9;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+}
+
+#userInput {
+    -fx-background-color: #fffafc;
+    -fx-border-color: #d590aa;
+    -fx-border-width: 1 0 0 0;
+    -fx-font-size: 13px;
+    -fx-prompt-text-fill: #9a6b7e;
+}
+
+#sendButton {
+    -fx-background-color: #b93d6b;
+    -fx-background-radius: 0;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+#sendButton:hover {
+    -fx-background-color: #9e2e58;
+}
