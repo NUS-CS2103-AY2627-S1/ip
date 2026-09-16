@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane minHeight="520.0" minWidth="420.0"
+            prefHeight="680.0" prefWidth="500.0"
+            styleClass="main-window"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="mira.ui.MainWindow">
+    <children>
+        <VBox fillWidth="true"
+              AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" styleClass="header">
+                    <children>
+                        <VBox spacing="2.0">
+                            <children>
+                                <Label styleClass="app-title" text="Mira" />
+                                <Label styleClass="app-subtitle" text="Your calm little task companion" />
+                            </children>
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label styleClass="status-pill" text="READY" />
+                    </children>
+                </HBox>
+                <ScrollPane fx:id="scrollPane"
+                            fitToWidth="true"
+                            hbarPolicy="NEVER"
+                            pannable="true"
+                            styleClass="conversation-scroll"
+                            VBox.vgrow="ALWAYS">
+                    <content>
+                        <VBox fx:id="dialogContainer"
+                              fillWidth="true"
+                              minHeight="0.0"
+                              spacing="4.0"
+                              styleClass="dialog-container" />
+                    </content>
+                </ScrollPane>
+                <HBox alignment="CENTER" spacing="10.0" styleClass="composer">
+                    <children>
+                        <TextField fx:id="userInput"
+                                   onAction="#handleUserInput"
+                                   promptText="Type a command, e.g. list"
+                                   styleClass="command-input"
+                                   HBox.hgrow="ALWAYS" />
+                        <Button fx:id="sendButton"
+                                defaultButton="true"
+                                onAction="#handleUserInput"
+                                styleClass="send-button"
+                                text="Send" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

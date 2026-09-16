@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_RIGHT"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         spacing="10.0"
+         styleClass="dialog-box"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox fx:id="bubble" minWidth="0.0" spacing="4.0" styleClass="bubble">
+            <children>
+                <Label fx:id="speaker" styleClass="speaker" />
+                <Label fx:id="dialog"
+                       minWidth="0.0"
+                       minHeight="-Infinity"
+                       styleClass="message"
+                       wrapText="true" />
+            </children>
+        </VBox>
+        <StackPane maxHeight="48.0"
+                   maxWidth="48.0"
+                   minHeight="48.0"
+                   minWidth="48.0"
+                   prefHeight="48.0"
+                   prefWidth="48.0"
+                   styleClass="avatar">
+            <children>
+                <Label fx:id="avatarText" styleClass="avatar-text" />
+            </children>
+        </StackPane>
+    </children>
+    <padding>
+        <Insets bottom="8.0" left="14.0" right="14.0" top="8.0" />
+    </padding>
+</fx:root>

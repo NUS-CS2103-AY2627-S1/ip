@@ -16,5 +16,11 @@ bin/
 # Temp files
 _temp/
 
+# Java compiler output
+*.class
+
+# Mira runtime data
+/data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

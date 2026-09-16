@@ -1,0 +1,167 @@
+.root {
+    -fx-font-family: "System";
+    -fx-font-size: 14px;
+}
+
+.main-window {
+    -fx-background-color: #f4f3fa;
+}
+
+.header {
+    -fx-background-color: linear-gradient(to right, #26233d, #3c3663);
+    -fx-padding: 18 20 16 20;
+}
+
+.app-title {
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.app-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #d9d5ef;
+}
+
+.status-pill {
+    -fx-background-color: #5ee0b6;
+    -fx-background-radius: 20;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 10 5 10;
+    -fx-text-fill: #17352c;
+}
+
+.conversation-scroll,
+.conversation-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.conversation-scroll {
+    -fx-border-color: transparent;
+    -fx-padding: 8 0 8 0;
+}
+
+.dialog-container {
+    -fx-padding: 10 0 14 0;
+}
+
+.bubble {
+    -fx-background-radius: 16;
+    -fx-padding: 10 14 11 14;
+}
+
+.speaker {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.message {
+    -fx-line-spacing: 2px;
+}
+
+.avatar {
+    -fx-background-radius: 24;
+    -fx-border-radius: 24;
+    -fx-border-width: 2;
+}
+
+.avatar-text {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.user-dialog .bubble {
+    -fx-background-color: #6c5ce7;
+}
+
+.user-dialog .speaker,
+.user-dialog .message {
+    -fx-text-fill: #ffffff;
+}
+
+.user-dialog .avatar {
+    -fx-background-color: #ebe8ff;
+    -fx-border-color: #6c5ce7;
+}
+
+.user-dialog .avatar-text {
+    -fx-text-fill: #4c3fc4;
+}
+
+.mira-dialog .bubble {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ddd9ec;
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+}
+
+.mira-dialog .speaker {
+    -fx-text-fill: #4c3fc4;
+}
+
+.mira-dialog .message {
+    -fx-text-fill: #302d43;
+}
+
+.mira-dialog .avatar {
+    -fx-background-color: #d9fff2;
+    -fx-border-color: #38b98e;
+}
+
+.mira-dialog .avatar-text {
+    -fx-text-fill: #21765b;
+}
+
+.error-dialog .bubble {
+    -fx-background-color: #fff1f0;
+    -fx-border-color: #cb5959;
+}
+
+.error-dialog .speaker,
+.error-dialog .message {
+    -fx-text-fill: #8c2727;
+}
+
+.error-dialog .avatar {
+    -fx-background-color: #ffe5e2;
+    -fx-border-color: #cb5959;
+}
+
+.error-dialog .avatar-text {
+    -fx-text-fill: #8c2727;
+}
+
+.composer {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0ddec transparent transparent transparent;
+    -fx-padding: 13 14 14 14;
+}
+
+.command-input {
+    -fx-background-color: #f4f3fa;
+    -fx-background-radius: 10;
+    -fx-border-color: #d8d4e8;
+    -fx-border-radius: 10;
+    -fx-padding: 11 13 11 13;
+}
+
+.command-input:focused {
+    -fx-border-color: #6c5ce7;
+}
+
+.send-button {
+    -fx-background-color: #6c5ce7;
+    -fx-background-radius: 10;
+    -fx-font-weight: bold;
+    -fx-padding: 11 19 11 19;
+    -fx-text-fill: #ffffff;
+}
+
+.send-button:hover {
+    -fx-background-color: #5948d3;
+}
+
+.send-button:pressed {
+    -fx-background-color: #4939bd;
+}
