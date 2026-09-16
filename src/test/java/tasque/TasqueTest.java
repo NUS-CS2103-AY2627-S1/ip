@@ -452,6 +452,118 @@ public class TasqueTest {
         assertEquals(expectedList, tasque.getResponse("list"));
     }
 
+    @Test
+    public void getCommandResponse_failedMiddleOrLastDeletion_restoresOriginalOrder() throws Exception {
+        Path storagePath = this.tempDirectory.resolve("tasks.txt");
+        Files.writeString(storagePath, "T | 0 | first\nT | 1 | middle\nT | 0 | last\n");
+        Tasque tasque = new Tasque(storagePath.toString());
+        Files.delete(storagePath);
+        Files.createDirectory(storagePath);
+        Path sentinelPath = storagePath.resolve("sentinel.txt");
+        Files.writeString(sentinelPath, "blocks replacement");
+        String expectedList = "Here are the tasks in your list:\n"
+                + "1.[T][ ] first\n2.[T][X] middle\n3.[T][ ] last";
+
+        for (String command : new String[] {"delete 2", "delete 3"}) {
+            TasqueResponse failed = tasque.getCommandResponse(command);
+
+            assertTrue(failed.isError(), command);
+            assertEquals("OOPS!!! I couldn't save your tasks.", failed.getText(), command);
+            assertEquals(expectedList, tasque.getResponse("list"), command);
+            assertEquals("blocks replacement", Files.readString(sentinelPath));
+        }
+    }
+
+    @Test
+    public void getCommandResponse_saveObstructionRemoved_retryPersistsOnce() throws Exception {
+        Path dataDirectory = this.tempDirectory.resolve("data");
+        Path storagePath = dataDirectory.resolve("tasks.txt");
+        Tasque tasque = new Tasque(storagePath.toString());
+        Files.writeString(dataDirectory, "temporary obstruction");
+
+        TasqueResponse failed = tasque.getCommandResponse("todo retry task");
+        assertTrue(failed.isError());
+        assertEquals("OOPS!!! I couldn't save your tasks.", failed.getText());
+        assertEquals("Here are the tasks in your list:", tasque.getResponse("list"));
+
+        Files.delete(dataDirectory);
+        TasqueResponse retried = tasque.getCommandResponse("todo retry task");
+
+        assertFalse(retried.isError());
+        assertEquals("Got it. I've added this task:\n[T][ ] retry task\nNow you have 1 tasks in the list",
+                retried.getText());
+        assertEquals("T2 | 0 | cmV0cnkgdGFzaw==" + System.lineSeparator(), Files.readString(storagePath));
+        assertEquals("Here are the tasks in your list:\n1.[T][ ] retry task",
+                new Tasque(storagePath.toString()).getResponse("list"));
+    }
+
+    @Test
+    public void getCommandResponse_deleteOnlyTask_persistsEmptyListAcrossRestart() throws Exception {
+        Path storagePath = this.tempDirectory.resolve("tasks.txt");
+        Files.writeString(storagePath, "T | 1 | only task\n");
+        Tasque tasque = new Tasque(storagePath.toString());
+
+        TasqueResponse deleted = tasque.getCommandResponse("delete 1");
+
+        assertFalse(deleted.isError());
+        assertEquals("Noted. I've removed this task:\n[T][X] only task\nNow you have 0 tasks in the list",
+                deleted.getText());
+        assertEquals("Here are the tasks in your list:", tasque.getResponse("list"));
+        assertEquals("", Files.readString(storagePath));
+        assertEquals("Here are the tasks in your list:", new Tasque(storagePath.toString()).getResponse("list"));
+    }
+
+    @Test
+    public void getCommandResponse_readOnlyOperations_preservesLegacyFileBytes() throws Exception {
+        Path storagePath = this.tempDirectory.resolve("tasks.txt");
+        Files.writeString(storagePath, "T | 0 | read book\r\n\r\nT | 1 | return book\r\n");
+        byte[] original = Files.readAllBytes(storagePath);
+        Tasque tasque = new Tasque(storagePath.toString());
+        tasque.getWelcomeResponse();
+        assertArrayEquals(original, Files.readAllBytes(storagePath));
+        String expectedTasks = "\n1.[T][ ] read book\n2.[T][X] return book";
+        String expectedList = "Here are the tasks in your list:" + expectedTasks;
+        String[][] commands = {
+            {"list", expectedList},
+            {"find book", "Here are the matching tasks in your list:" + expectedTasks},
+            {"find absent", "Here are the matching tasks in your list:"},
+            {"bye", "Goodbye! See you again soon."}
+        };
+
+        for (String[] command : commands) {
+            TasqueResponse response = tasque.getCommandResponse(command[0]);
+
+            assertFalse(response.isError(), command[0]);
+            assertEquals(command[1], response.getText(), command[0]);
+            assertArrayEquals(original, Files.readAllBytes(storagePath), command[0]);
+        }
+        assertEquals(expectedList, tasque.getResponse("list"));
+        assertArrayEquals(original, Files.readAllBytes(storagePath));
+    }
+
+    @Test
+    public void getCommandResponse_invalidIndexedOperations_preservesMemoryAndStorage() throws Exception {
+        Path storagePath = this.tempDirectory.resolve("tasks.txt");
+        Files.writeString(storagePath, "T | 0 | first\nT | 1 | second\n");
+        byte[] original = Files.readAllBytes(storagePath);
+        Tasque tasque = new Tasque(storagePath.toString());
+        String expectedList = "Here are the tasks in your list:\n1.[T][ ] first\n2.[T][X] second";
+        String[][] commands = {
+            {"mark 0", "OOPS!!! The task number must be a positive whole number."},
+            {"unmark 3", "OOPS!!! Task 3 does not exist in the list."},
+            {"delete 1 2", "OOPS!!! The task number must be a positive whole number."}
+        };
+
+        for (String[] command : commands) {
+            TasqueResponse rejected = tasque.getCommandResponse(command[0]);
+
+            assertTrue(rejected.isError(), command[0]);
+            assertEquals(command[1], rejected.getText(), command[0]);
+            assertEquals(expectedList, tasque.getResponse("list"), command[0]);
+            assertArrayEquals(original, Files.readAllBytes(storagePath), command[0]);
+        }
+    }
+
     private int countOccurrences(String text, String target) {
         return text.split(java.util.regex.Pattern.quote(target), -1).length - 1;
     }

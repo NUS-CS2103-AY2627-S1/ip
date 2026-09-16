@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -124,6 +125,41 @@ public class StorageTest {
     }
 
     @Test
+    public void saveAndLoadTasks_unicodeDescriptions_preservesTextAndCompletion() throws Exception {
+        Path storagePath = this.tempDirectory.resolve("tasks.txt");
+        Storage storage = new Storage(storagePath.toString());
+        List<String> descriptions = List.of("复习  Java | café 📚", "提交  报告 | résumé 📝", "讨论  项目 | 团队 🤝");
+        Task deadline = new Deadline(descriptions.get(1), "2026-08-26");
+        deadline.markAsDone();
+
+        storage.saveTasks(List.of(new Todo(descriptions.get(0)), deadline,
+                new Event(descriptions.get(2), "2026-08-28", "2026-08-29")));
+        List<Task> loadedTasks = storage.loadTasks();
+
+        assertEquals(descriptions, loadedTasks.stream().map(Task::getDescription).toList());
+        assertEquals(List.of(false, true, false), loadedTasks.stream().map(Task::isDone).toList());
+    }
+
+    @Test
+    public void saveTasks_nonEmptyDestinationDirectory_preservesContentsAndCleansUp() throws Exception {
+        Path storagePath = Files.createDirectory(this.tempDirectory.resolve("tasks.txt"));
+        Path sentinelPath = storagePath.resolve("sentinel.txt");
+        Files.writeString(sentinelPath, "keep original contents");
+        byte[] original = Files.readAllBytes(sentinelPath);
+        Storage storage = new Storage(storagePath.toString());
+
+        TasqueException exception = assertThrows(TasqueException.class, () -> storage.saveTasks(
+                List.of(new Todo("new task"))));
+
+        assertEquals("I couldn't save your tasks.", exception.getMessage());
+        assertTrue(Files.isDirectory(storagePath));
+        assertArrayEquals(original, Files.readAllBytes(sentinelPath));
+        try (Stream<Path> remainingFiles = Files.list(this.tempDirectory)) {
+            assertEquals(List.of(storagePath), remainingFiles.toList());
+        }
+    }
+
+    @Test
     public void loadTasks_legacyRecords_preservesExistingFormat() throws Exception {
         Path storagePath = this.tempDirectory.resolve("tasque.txt");
         Files.writeString(storagePath, "T | 0 | read book\n"
@@ -155,5 +191,8 @@ public class StorageTest {
                 "D2 | 1 | cmV0dXJuIGJvb2s= | 2026-08-26",
                 "E2 | 0 | cHJvamVjdCBtZWV0aW5n | 2026-08-28 | 2026-08-29", "");
         assertEquals(expected, Files.readString(storagePath));
+        try (Stream<Path> remainingFiles = Files.list(this.tempDirectory)) {
+            assertEquals(List.of(storagePath), remainingFiles.toList());
+        }
     }
 }

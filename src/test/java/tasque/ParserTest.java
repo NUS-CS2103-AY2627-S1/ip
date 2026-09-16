@@ -38,6 +38,18 @@ public class ParserTest {
     }
 
     @Test
+    public void parseTaskNumber_invalidIntegerText_throwsSpecificError() {
+        Parser parser = new Parser();
+
+        for (String taskNumber : new String[] {"2147483648", "1.5", "1 2"}) {
+            TasqueException exception = assertThrows(TasqueException.class, () -> parser.parseTaskNumber(
+                    "delete " + taskNumber, "delete", 5), taskNumber);
+
+            assertEquals("The task number must be a positive whole number.", exception.getMessage(), taskNumber);
+        }
+    }
+
+    @Test
     public void parseTaskNumber_negativeTaskNumber_throwsTasqueException() {
         Parser parser = new Parser();
         assertThrows(TasqueException.class, () -> parser.parseTaskNumber("delete -1", "delete", 5));
@@ -87,6 +99,44 @@ public class ParserTest {
         TasqueException exception = assertThrows(TasqueException.class, () -> parser.parseFindKeyword(
                 "find   "));
         assertEquals("The find command needs a keyword.", exception.getMessage());
+    }
+
+    @Test
+    public void parseDeadline_validLeapDay_preservesIsoDate() throws TasqueException {
+        Parser parser = new Parser();
+
+        assertEquals("D2 | 0 | cmVwb3J0 | 2028-02-29",
+                parser.parseDeadline("deadline report /by 2028-02-29").toStorageString());
+    }
+
+    @Test
+    public void parseDeadline_nonLeapYearFebruary29_throwsSpecificError() {
+        Parser parser = new Parser();
+
+        TasqueException exception = assertThrows(TasqueException.class, () -> parser.parseDeadline(
+                "deadline report /by 2026-02-29"));
+
+        assertEquals("Please enter the date as yyyy-MM-dd.", exception.getMessage());
+    }
+
+    @Test
+    public void parseEvent_reversedDelimiters_throwsFormatError() {
+        Parser parser = new Parser();
+
+        TasqueException exception = assertThrows(TasqueException.class, () -> parser.parseEvent(
+                "event meeting /to 2026-08-29 /from 2026-08-28"));
+
+        assertEquals("Use the format: event DESCRIPTION /from START /to END.", exception.getMessage());
+    }
+
+    @Test
+    public void parseEvent_validStartInvalidEnd_throwsSpecificError() {
+        Parser parser = new Parser();
+
+        TasqueException exception = assertThrows(TasqueException.class, () -> parser.parseEvent(
+                "event meeting /from 2026-02-28 /to 2026-02-29"));
+
+        assertEquals("Please enter the dates as yyyy-MM-dd.", exception.getMessage());
     }
 
     @Test

@@ -3,13 +3,45 @@ package tasque.task;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
+    @Test
+    public void constructor_suppliedListChanges_preservesCopiedContents() {
+        Task firstTask = new Todo("first task");
+        Task secondTask = new Todo("second task");
+        List<Task> suppliedTasks = new ArrayList<>(List.of(firstTask, secondTask));
+        TaskList tasks = new TaskList(suppliedTasks);
+
+        suppliedTasks.clear();
+        suppliedTasks.add(new Todo("replacement task"));
+
+        assertEquals(List.of(firstTask, secondTask), tasks.getTasks());
+        assertEquals(2, tasks.getSize());
+    }
+
+    @Test
+    public void getTasks_listChanges_returnsUnmodifiableBackedView() {
+        Task firstTask = new Todo("first task");
+        Task secondTask = new Todo("second task");
+        TaskList tasks = new TaskList(List.of(firstTask));
+        List<Task> view = tasks.getTasks();
+
+        assertThrows(UnsupportedOperationException.class, view::clear);
+        assertEquals(List.of(firstTask), tasks.getTasks());
+
+        tasks.add(secondTask);
+        assertEquals(List.of(firstTask, secondTask), view);
+        tasks.delete(1);
+        assertEquals(List.of(secondTask), view);
+    }
+
     @Test
     public void hasIncompleteDuplicate_comparesDetailsAndIgnoresCompletedTasks() {
         Task[] tasks = {new Todo("task"), new Deadline("task", "2026-08-26"),
@@ -104,5 +136,30 @@ public class TaskListTest {
 
         assertEquals(List.of(), matches);
         assertEquals(List.of(task), tasks.getTasks());
+    }
+
+    @Test
+    public void findTasks_mixedCaseAndCompletion_matchesSubstringsInListOrder() {
+        Task substringMatch = new Todo("read notebook");
+        Task differentCase = new Todo("Book club");
+        Task completedMatch = new Todo("return book");
+        completedMatch.markAsDone();
+        TaskList tasks = new TaskList(List.of(substringMatch, differentCase, completedMatch));
+
+        assertEquals(List.of(substringMatch, completedMatch), tasks.findTasks("book"));
+        assertEquals(List.of(differentCase), tasks.findTasks("Book"));
+    }
+
+    @Test
+    public void findTasks_keywordOnlyInMetadata_returnsNoMatches() {
+        Task completedTask = new Todo("read book");
+        completedTask.markAsDone();
+        TaskList tasks = new TaskList(List.of(completedTask,
+                new Deadline("submit report", "2026-08-26"),
+                Event.fromStoredValues("team meeting", "Monday", "Tuesday")));
+
+        for (String keyword : new String[] {"[D]", "[X]", "2026", "Monday"}) {
+            assertEquals(List.of(), tasks.findTasks(keyword), keyword);
+        }
     }
 }

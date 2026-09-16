@@ -75,23 +75,41 @@ public class CommandAliasTest {
     public void getResponse_invalidAliasArguments_matchesCanonicalErrors() {
         Tasque tasque = new Tasque(this.tempDirectory.resolve("tasks.txt").toString());
         String[][] commands = {
-            {"todo", "t"}, {"deadline report", "d report"},
-            {"deadline report /by tomorrow", "d report /by tomorrow"},
-            {"event meeting /from 2026-09-20", "e meeting /from 2026-09-20"},
-            {"mark", "m"}, {"unmark abc", "u abc"}, {"delete 1", "del 1"},
-            {"find", "f"}, {"list extra", "l extra"}, {"bye extra", "b extra"}
+            {"todo", "t", "OOPS!!! The description of a todo cannot be empty."},
+            {"deadline report", "d report", "OOPS!!! A deadline must include /by followed by when it is due."},
+            {"deadline report /by tomorrow", "d report /by tomorrow", "OOPS!!! Please enter the date as yyyy-MM-dd."},
+            {"event meeting /from 2026-09-20", "e meeting /from 2026-09-20",
+                "OOPS!!! An event must include /to followed by its end."},
+            {"mark", "m", "OOPS!!! The mark command needs a task number."},
+            {"unmark abc", "u abc", "OOPS!!! The task number must be a positive whole number."},
+            {"delete 1", "del 1", "OOPS!!! Task 1 does not exist in the list."},
+            {"find", "f", "OOPS!!! The find command needs a keyword."},
+            {"list extra", "l extra", "OOPS!!! I do not recognize that command."},
+            {"bye extra", "b extra", "OOPS!!! I do not recognize that command."}
         };
-        for (String[] pair : commands) {
-            assertEquals(tasque.getResponse(pair[0]), tasque.getResponse(pair[1]), pair[1]);
+        for (String[] invalidCase : commands) {
+            assertEquals(invalidCase[2], tasque.getResponse(invalidCase[0]), invalidCase[0]);
+            assertEquals(invalidCase[2], tasque.getResponse(invalidCase[1]), invalidCase[1]);
         }
         assertEquals("Here are the tasks in your list:", tasque.getResponse("list"));
+    }
+
+    @Test
+    public void getResponse_blankInput_returnsUnknownCommand() {
+        Tasque tasque = new Tasque(this.tempDirectory.resolve("tasks.txt").toString());
+
+        for (String input : new String[] {"", " \t ", "\u2003"}) {
+            assertEquals("OOPS!!! I do not recognize that command.", tasque.getResponse(input), input);
+        }
     }
 
     @Test
     public void getResponse_nearMatches_remainUnknownCommands() {
         Tasque tasque = new Tasque(this.tempDirectory.resolve("tasks.txt").toString());
         String[] inputs = {"tree book", "dreport", "echo", "later", "m1", "update", "del1",
-            "foo", "banana", "T book", "B", "t\tbook"};
+            "foo", "banana", "T book", "B", "t\tbook", "todos book", "deadlines report",
+            "events meeting", "listing", "mark1", "unmark1", "delete1", "findbook", "byebye",
+            "Todo book", "todo\tbook"};
         for (String input : inputs) {
             assertEquals("OOPS!!! I do not recognize that command.", tasque.getResponse(input), input);
         }
