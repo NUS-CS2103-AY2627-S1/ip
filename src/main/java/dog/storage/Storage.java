@@ -32,22 +32,24 @@ public class Storage {
      */
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
-        try {
-            File file = new File(filePath);
-            if (file.exists()) {
-                Scanner scanner = new Scanner(file);
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    Task task = parseTask(line);
-                    if (task != null) {
-                        tasks.add(task);
-                    }
+        File file = getStorageFile();
+
+        if (!file.exists()) {
+            return tasks;
+        }
+
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                Task task = parseTask(scanner.nextLine());
+
+                if (task != null) {
+                    tasks.add(task);
                 }
-                scanner.close();
             }
         } catch (FileNotFoundException e) {
             System.out.println("Error loading tasks: File not found");
         }
+
         return tasks;
     }
 
@@ -57,18 +59,32 @@ public class Storage {
      * @param tasks the list of tasks to save.
      */
     public void save(ArrayList<Task> tasks) {
-        try {
-            File file = new File(filePath);
-            FileWriter fileWriter = new FileWriter(file);
-            BufferedWriter writer = new BufferedWriter(fileWriter);
+        File file = getStorageFile();
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (Task task : tasks) {
                 writer.write(task.toSaveFormat());
                 writer.newLine();
             }
-            writer.close();
         } catch (IOException e) {
             System.out.println("Error saving tasks: " + e.getMessage());
         }
+    }
+
+    /**
+     * Gets the storage file and ensures its parent directory exists.
+     *
+     * @return the storage file.
+     */
+    private File getStorageFile() {
+        File file = new File(filePath);
+        File directory = file.getParentFile();
+
+        if (directory != null && !directory.exists()) {
+            directory.mkdirs();
+        }
+
+        return file;
     }
 
     /**
