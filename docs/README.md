@@ -211,7 +211,7 @@ All your tasks are automatically saved when you exit, so you won't lose any of y
 
 Dog automatically saves your tasks to a file so your data persists between sessions.
 
-- **Save location:** `./data/dog.txt` (in the project directory)
+- **Save location:** `[JAR file location]/data/dog.txt`
 - **Format:** Each task is saved on a separate line with the format:
     - Todo: `T | [X or space] | description`
     - Deadline: `D | [X or space] | date | description`
