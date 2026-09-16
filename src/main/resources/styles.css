@@ -1,0 +1,105 @@
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: #f5f7fb;
+}
+
+.app-layout {
+    -fx-background-color: #f5f7fb;
+}
+
+.app-header {
+    -fx-background-color: #172033;
+    -fx-padding: 18 22 18 22;
+}
+
+.app-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.app-subtitle {
+    -fx-text-fill: #aebbd0;
+    -fx-font-size: 12px;
+}
+
+.status-label {
+    -fx-background-color: #dcfce7;
+    -fx-background-radius: 14;
+    -fx-padding: 6 11 6 11;
+    -fx-text-fill: #166534;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.conversation-scroll {
+    -fx-background-color: transparent;
+}
+
+.conversation-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-padding: 20 16 20 16;
+}
+
+.aider-dialog .message-label {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 14 14 14 4;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 14 14 14 4;
+    -fx-text-fill: #1e293b;
+}
+
+.user-dialog .message-label {
+    -fx-background-color: #2563eb;
+    -fx-background-radius: 14 14 4 14;
+    -fx-text-fill: #ffffff;
+}
+
+.error-dialog .message-label {
+    -fx-background-color: #fff1f2;
+    -fx-background-radius: 14 14 14 4;
+    -fx-border-color: #fda4af;
+    -fx-border-radius: 14 14 14 4;
+    -fx-text-fill: #be123c;
+    -fx-font-weight: bold;
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 10;
+    -fx-padding: 10 12 10 12;
+    -fx-prompt-text-fill: #94a3b8;
+}
+
+.text-field:focused {
+    -fx-border-color: #2563eb;
+    -fx-border-width: 2;
+}
+
+.input-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f0 transparent transparent transparent;
+}
+
+.button {
+    -fx-background-color: #2563eb;
+    -fx-background-radius: 10;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-padding: 10 18 10 18;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #1d4ed8;
+}
+
+.button:disabled {
+    -fx-background-color: #94a3b8;
+    -fx-cursor: default;
+}
