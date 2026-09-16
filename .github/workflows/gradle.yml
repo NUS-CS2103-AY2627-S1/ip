@@ -1,3 +1,11 @@
+# Attribution:
+# This workflow was adapted from:
+# Source: https://github.com/se-edu/duke/blob/full-template/.github/workflows/gradle.yml
+# Reused parts: multi-platform build matrix, Gradle wrapper validation,
+# Java setup, and Gradle check step.
+# Modifications: adapted the workflow for the Ada project.
+# Accessed: 16 September 2026
+
 name: Java CI
 
 on: [push, pull_request]
