@@ -1,7 +1,8 @@
 # Arin
 
 Arin is a console task tracker for to-dos, deadlines, and events.
-Its JavaFX window is currently a placeholder.
+Its JavaFX window welcomes you with a robot avatar and console instructions;
+task commands are not yet available in the window itself.
 
 Read the [published User Guide](https://goh-wei-chong.github.io/ip/) for
 setup, all commands, and current limitations, or view the
@@ -56,7 +57,9 @@ Java assertions. Gradle's `run` and `test` tasks enable them automatically.
 Assertions check internal assumptions about already validated task data;
 ordinary command errors are still handled through user-facing messages.
 
-The application opens a JavaFX window displaying `Hello World!`.
+The application opens Arin's robot welcome window with instructions for
+starting the task console. See the [User Guide](docs/README.md) for its
+full-window screenshot and commands.
 JavaFX does not need to be installed separately, but Java 25 is required.
 
 The JAR includes JavaFX native libraries for x86-64 Windows and Linux,
@@ -68,7 +71,7 @@ so a single build includes only one of them.
 ## Sorting tasks (C-Sort extension)
 
 The task commands currently run in the console, separately from the
-placeholder JavaFX window. After building the bundled JAR, start the console
+JavaFX welcome window. After building the bundled JAR, start the console
 with Java 25:
 
 ```bash
