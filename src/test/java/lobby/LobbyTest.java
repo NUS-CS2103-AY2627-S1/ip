@@ -1,6 +1,7 @@
 package lobby;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -18,6 +19,61 @@ public class LobbyTest {
 
     @TempDir
     private Path temporaryDirectory;
+
+    @Test
+    public void processCommand_unknownCommand_clearsInputButStillReportsError() {
+        Lobby lobby = new Lobby(temporaryDirectory.resolve("lobby.txt").toString());
+        for (String command : List.of("hello", "lsit", "  HELO  ", "t odo buy milk")) {
+            Lobby.Response response = lobby.processCommand(command);
+            assertTrue(response.isError(), command);
+            assertFalse(response.shouldRetainInput(), command);
+        }
+    }
+
+    @Test
+    public void processCommand_recognizedInvalidCommand_retainsInputForCorrection() {
+        Lobby lobby = new Lobby(temporaryDirectory.resolve("lobby.txt").toString());
+        for (String command : List.of("todo", "  TODO  ", "deadline report /by Monday", "mark abc", "find")) {
+            Lobby.Response response = lobby.processCommand(command);
+            assertTrue(response.isError(), command);
+            assertTrue(response.shouldRetainInput(), command);
+        }
+    }
+
+    @Test
+    public void processCommand_invalidThenCorrectedCommand_reportsStatusAndExecutesOnce() {
+        Lobby lobby = new Lobby(temporaryDirectory.resolve("lobby.txt").toString());
+        for (String command : List.of("hello", "todo", "deadline report /by Monday", "delete 1", "find")) {
+            assertTrue(lobby.processCommand(command).isError(), command);
+        }
+        Lobby.Response invalidDate = lobby.processCommand("deadline report /by Monday");
+        assertTrue(invalidDate.text().contains("yyyy-MM-dd"));
+
+        Lobby.Response corrected = lobby.processCommand("deadline report /by 2026-09-20");
+        assertFalse(corrected.isError());
+        assertFalse(corrected.shouldRetainInput());
+        assertTrue(corrected.text().contains("Now you have 1 task in the list."));
+        assertFalse(lobby.processCommand("list").isError());
+        assertFalse(lobby.processCommand("find missing").isError());
+        assertFalse(lobby.processCommand("bye").isError());
+    }
+
+    @Test
+    public void processCommand_failedSaves_reportsErrorsAndKeepsTasks() throws IOException {
+        Path saveFile = temporaryDirectory.resolve("lobby.txt");
+        Lobby lobby = new Lobby(saveFile.toString());
+        lobby.processCommand("todo original");
+        String originalList = lobby.getResponse("list");
+        blockSaving(saveFile);
+
+        for (String command : List.of("todo unsaved", "mark 1", "unmark 1", "delete 1")) {
+            Lobby.Response response = lobby.processCommand(command);
+            assertTrue(response.isError(), command);
+            assertTrue(response.shouldRetainInput(), command);
+            assertTrue(response.text().contains("I couldn't save your changes."), command);
+            assertEquals(originalList, lobby.getResponse("list"));
+        }
+    }
 
     @Test
     public void getResponse_addAndListTask_returnsUpdatedResponses() {

@@ -60,6 +60,18 @@ public class DialogBox extends HBox {
         return dialogBox;
     }
 
+    /**
+     * Creates a visibly labeled error response that does not rely on color alone.
+     *
+     * @param text explanation of the error and how to correct it.
+     * @return the error dialog box
+     */
+    public static DialogBox getErrorDialog(String text) {
+        DialogBox dialogBox = getLobbyDialog("Error" + System.lineSeparator() + text);
+        dialogBox.getStyleClass().add("error-dialog");
+        return dialogBox;
+    }
+
     private void flip() {
         ObservableList<Node> children = FXCollections.observableArrayList(getChildren());
         Collections.reverse(children);

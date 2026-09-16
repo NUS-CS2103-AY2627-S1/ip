@@ -51,11 +51,15 @@ public class MainWindow extends AnchorPane {
             return;
         }
 
-        String response = lobby.getResponse(input);
+        Lobby.Response response = lobby.processCommand(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input),
-                DialogBox.getLobbyDialog(response.trim()));
-        userInput.clear();
+                response.isError() ? DialogBox.getErrorDialog(response.text().trim())
+                        : DialogBox.getLobbyDialog(response.text().trim()));
+        if (!response.shouldRetainInput()) {
+            userInput.clear();
+        }
+        userInput.requestFocus();
 
         if (input.equalsIgnoreCase("bye")) {
             userInput.setDisable(true);
