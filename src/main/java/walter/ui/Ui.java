@@ -112,7 +112,7 @@ public class Ui {
      * @param message Error message to display.
      */
     public void showError(String message) {
-        output.println("Precision matters, Jesse. " + message);
+        output.println(message + " Stay sharp, Jesse.");
     }
 
     /**
@@ -126,7 +126,7 @@ public class Ui {
             return;
         }
 
-        output.println("Here is the current operation:");
+        output.println("Here are your tasks:");
         showNumberedTasks(tasks);
     }
 
@@ -150,16 +150,19 @@ public class Ui {
     /**
      * Displays tasks whose descriptions matched a find keyword.
      *
-     * @param matches Matching tasks in display order.
+     * @param tasks Complete task list.
+     * @param matchingIndices Zero-based indices of matching tasks.
      */
-    public void showFindResults(List<Task> matches) {
-        if (matches.isEmpty()) {
+    public void showFindResults(List<Task> tasks, List<Integer> matchingIndices) {
+        if (matchingIndices.isEmpty()) {
             output.println("I found no tasks matching that keyword.");
             return;
         }
 
         output.println("Here's what I found:");
-        showNumberedTasks(matches);
+        for (int taskIndex : matchingIndices) {
+            output.println((taskIndex + 1) + ". " + tasks.get(taskIndex));
+        }
     }
 
     /**

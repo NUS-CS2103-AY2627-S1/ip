@@ -41,14 +41,63 @@ public class TaskList {
      * Adds one task while enforcing Walter's existing capacity.
      *
      * @param task Task to append to the list.
-     * @throws DukeException If the task list has reached its supported capacity.
+     * @throws DukeException If the task duplicates an existing task or the task list is full.
      */
     public void add(Task task) throws DukeException {
         assert task != null : "Only a valid task should be added to the task list";
+        rejectDuplicateTask(task);
         if (tasks.size() >= MAX_TASKS) {
             throw new DukeException("Task list is full.");
         }
         tasks.add(task);
+    }
+
+    /**
+     * Rejects a task whose type and logical fields match an existing task. Descriptions and
+     * free-text event timings are compared case-insensitively after insignificant whitespace is
+     * collapsed. Completion status deliberately does not affect duplicate identity.
+     *
+     * @param candidate Task being considered for addition.
+     * @throws DukeException If the candidate duplicates an existing task.
+     */
+    private void rejectDuplicateTask(Task candidate) throws DukeException {
+        if (tasks.stream().anyMatch(existing -> isDuplicate(existing, candidate))) {
+            throw new DukeException("That task already exists.");
+        }
+    }
+
+    /**
+     * Checks whether two tasks have the same type and duplicate-defining fields.
+     */
+    private static boolean isDuplicate(Task first, Task second) {
+        if (first.getClass() != second.getClass()
+                || !normalizeText(first.getDescription())
+                        .equals(normalizeText(second.getDescription()))) {
+            return false;
+        }
+        if (first instanceof Todo) {
+            return true;
+        }
+        if (first instanceof Deadline firstDeadline && second instanceof Deadline secondDeadline) {
+            return firstDeadline.getBy().equals(secondDeadline.getBy());
+        }
+        Event firstEvent = (Event) first;
+        Event secondEvent = (Event) second;
+        if (firstEvent.isAtFormat() != secondEvent.isAtFormat()) {
+            return false;
+        }
+        if (firstEvent.isAtFormat()) {
+            return normalizeText(firstEvent.getAt()).equals(normalizeText(secondEvent.getAt()));
+        }
+        return normalizeText(firstEvent.getFrom()).equals(normalizeText(secondEvent.getFrom()))
+                && normalizeText(firstEvent.getTo()).equals(normalizeText(secondEvent.getTo()));
+    }
+
+    /**
+     * Removes insignificant whitespace and case differences from user-entered identity fields.
+     */
+    private static String normalizeText(String text) {
+        return text.strip().replaceAll("\\s+", " ").toLowerCase(Locale.ROOT);
     }
 
     /**
@@ -165,6 +214,24 @@ public class TaskList {
                         .toLowerCase(Locale.ROOT)
                         .contains(normalizedKeyword))
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * Returns zero-based indices of tasks whose descriptions contain the keyword.
+     *
+     * @param keyword Text to match against task descriptions.
+     * @return Matching indices in task-list order.
+     */
+    public List<Integer> findMatchingIndices(String keyword) {
+        String normalizedKeyword = keyword.toLowerCase(Locale.ROOT);
+        List<Integer> matches = new ArrayList<>();
+        for (int index = 0; index < tasks.size(); index++) {
+            if (tasks.get(index).getDescription().toLowerCase(Locale.ROOT)
+                    .contains(normalizedKeyword)) {
+                matches.add(index);
+            }
+        }
+        return matches;
     }
 
     /**

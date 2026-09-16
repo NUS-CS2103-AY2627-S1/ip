@@ -1,7 +1,13 @@
 package walter.parser;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
+import java.util.List;
+import java.util.Locale;
 
 import walter.DukeException;
 import walter.command.AddCommand;
@@ -27,6 +33,15 @@ import walter.task.Todo;
  * input/output, mutating the task list, or saving data.
  */
 public class Parser {
+    private static final String UNKNOWN_COMMAND_HELP = "Unknown command. Try: todo DESCRIPTION; "
+            + "deadline DESCRIPTION /by yyyy-MM-dd; event DESCRIPTION /at TIME; list; "
+            + "find KEYWORD; mark INDEX; unmark INDEX; delete INDEX; on yyyy-MM-dd; or bye.";
+    private static final List<DateTimeFormatter> EVENT_DATE_TIME_FORMATTERS = List.of(
+            eventDateTimeFormatter("uuuu-MM-dd HH:mm"),
+            eventDateTimeFormatter("uuuu-MM-dd h:mma"),
+            eventDateTimeFormatter("uuuu-MM-dd ha"),
+            eventDateTimeFormatter("uuuu-MM-dd h:mm a"),
+            eventDateTimeFormatter("uuuu-MM-dd h a"));
     private static final String DEADLINE_DELIMITER = "/by";
     private static final String EVENT_AT_DELIMITER = "/at";
     private static final String EVENT_FROM_DELIMITER = "/from";
@@ -60,7 +75,7 @@ public class Parser {
             case "deadline" -> new AddCommand(parseDeadline(command));
             case "event" -> new AddCommand(parseEvent(command));
             case "place" -> new AddPlaceCommand(parsePlace(command));
-            default -> throw new DukeException("Unknown command.");
+            default -> throw new DukeException(UNKNOWN_COMMAND_HELP);
         };
     }
 
@@ -86,7 +101,7 @@ public class Parser {
     private static Command parseExactCommand(String input, String commandWord, Command command)
             throws DukeException {
         if (!normalize(input).equals(commandWord)) {
-            throw new DukeException("Unknown command.");
+            throw new DukeException(commandWord + " does not take arguments.");
         }
         return command;
     }
@@ -261,7 +276,58 @@ public class Parser {
         if (endTime.isEmpty()) {
             throw new DukeException("Event end cannot be empty.");
         }
+        validateComparableEventRange(startTime, endTime);
         return new Event(description, startTime, endTime);
+    }
+
+    /**
+     * Rejects a reversed event range when both endpoints are comparable ISO dates or dated
+     * times. Time-only and other free-text descriptions remain accepted because an earlier clock
+     * time can legitimately mean an overnight event.
+     *
+     * @param startTime Event start text.
+     * @param endTime Event end text.
+     * @throws DukeException If both values are comparable dates and the start is after the end.
+     */
+    private static void validateComparableEventRange(String startTime, String endTime)
+            throws DukeException {
+        LocalDateTime startDateTime = parseComparableEventDateTime(startTime);
+        LocalDateTime endDateTime = parseComparableEventDateTime(endTime);
+        if (startDateTime != null && endDateTime != null && startDateTime.isAfter(endDateTime)) {
+            throw new DukeException("Event start must not be after its end.");
+        }
+    }
+
+    /**
+     * Parses one supported event endpoint, returning {@code null} for intentionally free text.
+     */
+    private static LocalDateTime parseComparableEventDateTime(String text) {
+        if (hasSupportedDateFormat(text)) {
+            try {
+                return LocalDate.parse(text).atStartOfDay();
+            } catch (DateTimeParseException exception) {
+                return null;
+            }
+        }
+        for (DateTimeFormatter formatter : EVENT_DATE_TIME_FORMATTERS) {
+            try {
+                return LocalDateTime.parse(text.strip().replaceAll("\\s+", " "), formatter);
+            } catch (DateTimeParseException exception) {
+                // Try the next explicitly supported dated-time representation.
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Creates a strict, case-insensitive formatter for a documented event dated-time pattern.
+     */
+    private static DateTimeFormatter eventDateTimeFormatter(String pattern) {
+        return new DateTimeFormatterBuilder()
+                .parseCaseInsensitive()
+                .appendPattern(pattern)
+                .toFormatter(Locale.ENGLISH)
+                .withResolverStyle(ResolverStyle.STRICT);
     }
 
     /**
@@ -360,7 +426,7 @@ public class Parser {
         try {
             return LocalDate.parse(dateText);
         } catch (DateTimeParseException exception) {
-            throw new DukeException("Date must be in yyyy-MM-dd format.", exception);
+            throw new DukeException("Date is not a valid calendar date.", exception);
         }
     }
 
@@ -400,7 +466,7 @@ public class Parser {
         try {
             return LocalDate.parse(dateText);
         } catch (DateTimeParseException exception) {
-            throw new DukeException("Deadline date must be in yyyy-MM-dd format.", exception);
+            throw new DukeException("Deadline date is not a valid calendar date.", exception);
         }
     }
 

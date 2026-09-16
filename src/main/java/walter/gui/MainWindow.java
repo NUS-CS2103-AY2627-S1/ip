@@ -61,6 +61,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        if (isBlankInput(input)) {
+            userInput.clear();
+            return;
+        }
         String response = walter.getResponse(input);
         CommandCategory commandCategory = walter.getLastCommandCategory();
         dialogContainer.getChildren().addAll(
@@ -74,6 +78,16 @@ public class MainWindow extends AnchorPane {
             exitDelay.setOnFinished(event -> Platform.exit());
             exitDelay.play();
         }
+    }
+
+    /**
+     * Reports whether GUI input should be ignored without creating a conversation bubble.
+     *
+     * @param input Current text-field content.
+     * @return {@code true} for null, empty, or whitespace-only input.
+     */
+    static boolean isBlankInput(String input) {
+        return input == null || input.isBlank();
     }
 
     /**

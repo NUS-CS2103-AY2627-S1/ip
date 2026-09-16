@@ -59,7 +59,12 @@ public class ParserTest {
 
     @Test
     public void parse_invalidDeadlineDates_exceptionThrown() {
-        assertThrows(DukeException.class, () -> Parser.parse("deadline report /by 2027-02-29"));
+        DukeException nonexistentDate = assertThrows(DukeException.class, () ->
+                Parser.parse("deadline report /by 2027-02-29"));
+        DukeException malformedDate = assertThrows(DukeException.class, () ->
+                Parser.parse("deadline report /by 2027-2-29"));
+        assertEquals("Deadline date is not a valid calendar date.", nonexistentDate.getMessage());
+        assertEquals("Deadline date must be in yyyy-MM-dd format.", malformedDate.getMessage());
         assertThrows(DukeException.class, () -> Parser.parse("deadline report /by 2026-02-30"));
         assertThrows(DukeException.class, () -> Parser.parse("deadline report /by 2026-04-31"));
         assertThrows(DukeException.class, () -> Parser.parse("deadline report /by 2026-01-00"));
@@ -89,6 +94,33 @@ public class ParserTest {
         assertInstanceOf(
                 AddCommand.class,
                 Parser.parse("event meeting /from 2pm /to 4pm"));
+    }
+
+    @Test
+    public void parse_isoDateEventRanges_orderValidated() throws DukeException {
+        assertInstanceOf(AddCommand.class,
+                Parser.parse("event trip /from 2026-12-10 /to 2026-12-20"));
+        assertInstanceOf(AddCommand.class,
+                Parser.parse("event release /from 2026-12-10 /to 2026-12-10"));
+
+        DukeException exception = assertThrows(DukeException.class, () ->
+                Parser.parse("event trip /from 2026-12-20 /to 2026-12-10"));
+        assertEquals("Event start must not be after its end.", exception.getMessage());
+    }
+
+    @Test
+    public void parse_datedTimeEventRanges_orderValidatedWithoutRejectingFreeText()
+            throws DukeException {
+        assertInstanceOf(AddCommand.class, Parser.parse(
+                "event overnight /from 2026-12-10 23:00 /to 2026-12-11 01:00"));
+        assertInstanceOf(AddCommand.class,
+                Parser.parse("event free text /from Monday 11pm /to Tuesday 1am"));
+        assertInstanceOf(AddCommand.class,
+                Parser.parse("event ambiguous overnight /from 11pm /to 1am"));
+
+        DukeException reversed = assertThrows(DukeException.class, () -> Parser.parse(
+                "event meeting /from 2026-12-10 4pm /to 2026-12-10 2pm"));
+        assertEquals("Event start must not be after its end.", reversed.getMessage());
     }
 
     @Test
@@ -202,7 +234,12 @@ public class ParserTest {
 
     @Test
     public void parse_invalidOnDate_exceptionThrown() {
-        assertThrows(DukeException.class, () -> Parser.parse("on 2026-02-30"));
+        DukeException nonexistentDate = assertThrows(DukeException.class, () ->
+                Parser.parse("on 2026-02-30"));
+        DukeException malformedDate = assertThrows(DukeException.class, () ->
+                Parser.parse("on 2026-2-28"));
+        assertEquals("Date is not a valid calendar date.", nonexistentDate.getMessage());
+        assertEquals("Date must be in yyyy-MM-dd format.", malformedDate.getMessage());
         assertThrows(DukeException.class, () -> Parser.parse("on +2026-01-01"));
         assertThrows(DukeException.class, () -> Parser.parse("on 10000-01-01"));
         assertThrows(DukeException.class, () -> Parser.parse("on 0000-01-01"));

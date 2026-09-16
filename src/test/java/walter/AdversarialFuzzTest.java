@@ -25,6 +25,9 @@ public class AdversarialFuzzTest {
     private static final int SEQUENCE_COUNT = 20;
     private static final int COMMANDS_PER_SEQUENCE = 250;
     private static final int MAX_TASKS = 100;
+    private static final String UNKNOWN_COMMAND_HELP = "Unknown command. Try: todo DESCRIPTION; "
+            + "deadline DESCRIPTION /by yyyy-MM-dd; event DESCRIPTION /at TIME; list; "
+            + "find KEYWORD; mark INDEX; unmark INDEX; delete INDEX; on yyyy-MM-dd; or bye.";
     private static final DateTimeFormatter DISPLAY_DATE =
             DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH);
     private static final String[] HOSTILE_INDEXES = {
@@ -190,7 +193,7 @@ public class AdversarialFuzzTest {
                     "I found no tasks matching that keyword.");
         }
         return new FuzzCase("find " + keyword,
-                "Here's what I found:\n" + numberedTasks(matches));
+                "Here's what I found:\n" + numberedFindResults(tasks, keyword));
     }
 
     private FuzzCase queryDate(Random random, List<ModelTask> tasks) {
@@ -234,7 +237,18 @@ public class AdversarialFuzzTest {
     private FuzzCase invalidRawCommand(Random random) {
         String command = INVALID_COMMANDS[random.nextInt(INVALID_COMMANDS.length)];
         String normalized = command.strip();
-        String message = normalized.isBlank() ? "Command cannot be blank." : "Unknown command.";
+        String message;
+        if (normalized.isBlank()) {
+            message = "Command cannot be blank.";
+        } else if (normalized.equals("list x")) {
+            message = "list does not take arguments.";
+        } else if (normalized.equals("places 1")) {
+            message = "places does not take arguments.";
+        } else if (normalized.equals("bye extra")) {
+            message = "bye does not take arguments.";
+        } else {
+            message = UNKNOWN_COMMAND_HELP;
+        }
         return new FuzzCase(command, error(message));
     }
 
@@ -268,7 +282,7 @@ public class AdversarialFuzzTest {
             case "place home /at" -> error("Place address cannot be empty.");
             case "place a /at b /at c" -> error("Place requires exactly one /at.");
             case "on" -> error("Date is required for the on command.");
-            case "on 2026-02-30" -> error("Date must be in yyyy-MM-dd format.");
+            case "on 2026-02-30" -> error("Date is not a valid calendar date.");
             default -> throw new AssertionError("Unhandled fuzz command: " + command);
         };
         return new FuzzCase(command, response);
@@ -311,7 +325,7 @@ public class AdversarialFuzzTest {
     private static String renderTaskList(List<ModelTask> tasks) {
         return tasks.isEmpty()
                 ? "The board is clean. Nothing needs doing."
-                : "Here is the current operation:\n" + numberedTasks(tasks);
+                : "Here are your tasks:\n" + numberedTasks(tasks);
     }
 
     private static String renderPlaceList(List<ModelPlace> places) {
@@ -336,8 +350,23 @@ public class AdversarialFuzzTest {
         return result.toString();
     }
 
+    private static String numberedFindResults(List<ModelTask> tasks, String keyword) {
+        StringBuilder result = new StringBuilder();
+        String normalizedKeyword = keyword.toLowerCase(Locale.ROOT);
+        for (int i = 0; i < tasks.size(); i++) {
+            if (!tasks.get(i).description.toLowerCase(Locale.ROOT).contains(normalizedKeyword)) {
+                continue;
+            }
+            if (!result.isEmpty()) {
+                result.append('\n');
+            }
+            result.append(i + 1).append(". ").append(tasks.get(i).render());
+        }
+        return result.toString();
+    }
+
     private static String error(String message) {
-        return "Precision matters, Jesse. " + message;
+        return message + " Stay sharp, Jesse.";
     }
 
     private static String failureContext(int sequence, int step, String command,

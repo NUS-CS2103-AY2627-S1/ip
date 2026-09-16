@@ -135,7 +135,7 @@ public class IndexAdversarialTest {
                 secondDone = true;
             }
         }
-        StringBuilder result = new StringBuilder("Here is the current operation:");
+        StringBuilder result = new StringBuilder("Here are your tasks:");
         int displayIndex = 1;
         if (firstPresent) {
             result.append('\n').append(displayIndex++).append(". [T][")
@@ -172,7 +172,7 @@ public class IndexAdversarialTest {
     }
 
     private static String error(String message) {
-        return "Precision matters, Jesse. " + message;
+        return message + " Stay sharp, Jesse.";
     }
 
     private record IndexExpectation(int index, String error) {

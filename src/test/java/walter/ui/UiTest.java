@@ -35,7 +35,7 @@ public class UiTest {
         ui.showTaskList(List.of(new Todo("read book")));
 
         assertEquals("The board is clean. Nothing needs doing.\n"
-                + "Here is the current operation:\n"
+                + "Here are your tasks:\n"
                 + "1. [T][ ] read book\n", getOutput());
     }
 
@@ -43,12 +43,12 @@ public class UiTest {
     public void showFindResults_emptyAndPopulated_correctOutput() {
         Task task = new Todo("read book");
 
-        ui.showFindResults(List.of());
-        ui.showFindResults(List.of(task));
+        ui.showFindResults(List.of(task), List.of());
+        ui.showFindResults(List.of(new Todo("skip"), task), List.of(1));
 
         assertEquals("I found no tasks matching that keyword.\n"
                 + "Here's what I found:\n"
-                + "1. [T][ ] read book\n", getOutput());
+                + "2. [T][ ] read book\n", getOutput());
     }
 
     @Test
@@ -104,7 +104,7 @@ public class UiTest {
     public void showError_messageRemainsClearAndInCharacter() {
         ui.showError("Task number is out of range.");
 
-        assertEquals("Precision matters, Jesse. Task number is out of range.\n", getOutput());
+        assertEquals("Task number is out of range. Stay sharp, Jesse.\n", getOutput());
     }
 
     /**

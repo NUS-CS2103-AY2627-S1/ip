@@ -37,7 +37,7 @@ public class WalterTest {
         Walter walter = createWalter();
 
         assertTrue(walter.getResponse("todo read book").contains("[T][ ] read book"));
-        assertEquals("Here is the current operation:\n1. [T][ ] read book",
+        assertEquals("Here are your tasks:\n1. [T][ ] read book",
                 walter.getResponse("list"));
         assertTrue(walter.getResponse("mark 1").contains("[T][X] read book"));
     }
@@ -46,21 +46,24 @@ public class WalterTest {
     public void getResponse_invalidCommand_errorReturned() {
         Walter walter = createWalter();
 
-        assertEquals("Precision matters, Jesse. Unknown command.",
-                walter.getResponse("archive book"));
+        String response = walter.getResponse("archive book");
+        assertTrue(response.startsWith("Unknown command. Try:"));
+        assertTrue(response.contains("todo DESCRIPTION"));
+        assertTrue(response.contains("deadline DESCRIPTION /by yyyy-MM-dd"));
+        assertTrue(response.endsWith("Stay sharp, Jesse."));
     }
 
     @Test
     public void getResponse_knownErrorTypes_personalityPreservesSpecificDiagnostics() {
         Walter walter = createWalter();
 
-        assertEquals("Precision matters, Jesse. Todo description cannot be empty.",
+        assertEquals("Todo description cannot be empty. Stay sharp, Jesse.",
                 walter.getResponse("todo"));
-        assertEquals("Precision matters, Jesse. Task number is out of range.",
+        assertEquals("Task number is out of range. Stay sharp, Jesse.",
                 walter.getResponse("mark 1"));
-        assertEquals("Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format.",
+        assertEquals("Deadline date must be in yyyy-MM-dd format. Stay sharp, Jesse.",
                 walter.getResponse("deadline report /by tomorrow"));
-        assertEquals("Precision matters, Jesse. Keyword is required for the find command.",
+        assertEquals("Keyword is required for the find command. Stay sharp, Jesse.",
                 walter.getResponse("find"));
     }
 
@@ -95,8 +98,7 @@ public class WalterTest {
         Walter walter = createWalter();
         walter.getResponse("todo read book");
 
-        assertEquals("Precision matters, Jesse. Unknown command.",
-                walter.getResponse("archive book"));
+        assertTrue(walter.getResponse("archive book").startsWith("Unknown command. Try:"));
         assertEquals(CommandCategory.ERROR, walter.getLastCommandCategory());
     }
 
@@ -128,6 +130,50 @@ public class WalterTest {
         Walter secondWalter = new Walter(storage);
 
         assertTrue(secondWalter.getResponse("list").contains("submit report (by: Sep 4 2026)"));
+    }
+
+    @Test
+    public void getResponse_normalizedDuplicatesAfterRestart_rejectedAndStorageUnchanged()
+            throws IOException {
+        Path saveFile = temporaryDirectory.resolve("walter.txt");
+        Storage storage = new Storage(saveFile);
+        Walter firstWalter = new Walter(storage);
+        assertTrue(firstWalter.getResponse("todo Read   book").contains("[T][ ] Read   book"));
+        firstWalter.getResponse("mark 1");
+        assertTrue(firstWalter.getResponse("deadline Submit report /by 2026-12-10")
+                .contains("[D][ ] Submit report"));
+        assertTrue(firstWalter.getResponse(
+                "event Workshop /from 2026-12-01 /to 2026-12-10")
+                .contains("[E][ ] Workshop"));
+        String storedBeforeRejections = Files.readString(saveFile, StandardCharsets.UTF_8);
+
+        Walter restartedWalter = new Walter(storage);
+        assertEquals("That task already exists. Stay sharp, Jesse.",
+                restartedWalter.getResponse("todo read book"));
+        assertEquals("That task already exists. Stay sharp, Jesse.",
+                restartedWalter.getResponse("deadline submit   REPORT /by 2026-12-10"));
+        assertEquals("That task already exists. Stay sharp, Jesse.", restartedWalter.getResponse(
+                "event workshop /from 2026-12-01 /to 2026-12-10"));
+        assertEquals(storedBeforeRejections, Files.readString(saveFile, StandardCharsets.UTF_8));
+        assertEquals("Here are your tasks:\n"
+                + "1. [T][X] Read   book\n"
+                + "2. [D][ ] Submit report (by: Dec 10 2026)\n"
+                + "3. [E][ ] Workshop (from: 2026-12-01 to: 2026-12-10)",
+                restartedWalter.getResponse("list"));
+    }
+
+    @Test
+    public void getResponse_reversedIsoEventRange_notAddedOrPersisted() {
+        Storage storage = new Storage(temporaryDirectory.resolve("walter.txt"));
+        Walter walter = new Walter(storage);
+
+        assertEquals("Event start must not be after its end. Stay sharp, Jesse.",
+                walter.getResponse("event Trip /from 2026-12-20 /to 2026-12-10"));
+        assertEquals("The board is clean. Nothing needs doing.", walter.getResponse("list"));
+
+        Walter restartedWalter = new Walter(storage);
+        assertEquals("The board is clean. Nothing needs doing.",
+                restartedWalter.getResponse("list"));
     }
 
     @Test
@@ -169,17 +215,17 @@ public class WalterTest {
     public void getResponse_invalidPlaceCommands_errorsReturnedWithoutChangingPlaces() {
         Walter walter = createWalter();
 
-        assertEquals("Precision matters, Jesse. Place name cannot be empty.",
+        assertEquals("Place name cannot be empty. Stay sharp, Jesse.",
                 walter.getResponse("place"));
-        assertEquals("Precision matters, Jesse. Place requires exactly one /at.",
+        assertEquals("Place requires exactly one /at. Stay sharp, Jesse.",
                 walter.getResponse("place Alex's home"));
-        assertEquals("Precision matters, Jesse. Place name cannot be empty.",
+        assertEquals("Place name cannot be empty. Stay sharp, Jesse.",
                 walter.getResponse("place /at 123 Clementi Ave 3"));
-        assertEquals("Precision matters, Jesse. Place address cannot be empty.",
+        assertEquals("Place address cannot be empty. Stay sharp, Jesse.",
                 walter.getResponse("place Alex's home /at"));
-        assertEquals("Precision matters, Jesse. Place number must be an integer.",
+        assertEquals("Place number must be an integer. Stay sharp, Jesse.",
                 walter.getResponse("deleteplace abc"));
-        assertEquals("Precision matters, Jesse. Place number is out of range.",
+        assertEquals("Place number is out of range. Stay sharp, Jesse.",
                 walter.getResponse("deleteplace 999"));
         assertEquals("The location list is empty.",
                 walter.getResponse("places"));
@@ -198,10 +244,10 @@ public class WalterTest {
             "mark 1.0", "done 1e3", "unmark NaN", "delete abc"
         };
         for (String command : boundaryCommands) {
-            assertTrue(walter.getResponse(command).startsWith("Precision matters, Jesse."));
+            assertTrue(walter.getResponse(command).endsWith("Stay sharp, Jesse."));
         }
 
-        assertEquals("Here is the current operation:\n"
+        assertEquals("Here are your tasks:\n"
                 + "1. [T][ ] first\n"
                 + "2. [T][ ] second", walter.getResponse("list"));
     }
@@ -232,7 +278,7 @@ public class WalterTest {
         Files.writeString(placeFile, "P\tname\tdangling\\", StandardCharsets.UTF_8);
         Walter walter = new Walter(new Storage(saveFile));
 
-        assertEquals("Precision matters, Jesse. Malformed saved place text.",
+        assertEquals("Malformed saved place text. Stay sharp, Jesse.",
                 walter.getResponse("places"));
         assertEquals("The board is clean. Nothing needs doing.", walter.getResponse("list"));
     }
@@ -243,16 +289,16 @@ public class WalterTest {
         Walter walter = new Walter(storage);
         walter.getResponse("todo test");
 
-        assertEquals("Precision matters, Jesse. Task is already not done.",
+        assertEquals("Task is already not done. Stay sharp, Jesse.",
                 walter.getResponse("unmark 1"));
         assertTrue(walter.getResponse("mark 1").contains("[T][X] test"));
-        assertEquals("Precision matters, Jesse. Task is already marked as done.",
+        assertEquals("Task is already marked as done. Stay sharp, Jesse.",
                 walter.getResponse("mark 1"));
-        assertEquals("Precision matters, Jesse. Task is already marked as done.",
+        assertEquals("Task is already marked as done. Stay sharp, Jesse.",
                 walter.getResponse("done 1"));
 
         Walter restartedWalter = new Walter(storage);
-        assertEquals("Here is the current operation:\n1. [T][X] test",
+        assertEquals("Here are your tasks:\n1. [T][X] test",
                 restartedWalter.getResponse("list"));
     }
 
@@ -266,7 +312,7 @@ public class WalterTest {
                     .contains("The list now contains " + i + " task"));
         }
 
-        assertEquals("Precision matters, Jesse. Task list is full.",
+        assertEquals("Task list is full. Stay sharp, Jesse.",
                 walter.getResponse("todo rejected-overflow"));
         assertEquals(100, storage.load().size());
 
@@ -296,7 +342,7 @@ public class WalterTest {
         second.getResponse("deleteplace 1");
 
         Walter third = new Walter(storage);
-        assertEquals("Here is the current operation:\n"
+        assertEquals("Here are your tasks:\n"
                 + "1. [D][ ] B (by: Dec 1 2026)\n"
                 + "2. [E][ ] C (at: noon)\n"
                 + "3. [E][ ] D (from: 1pm to: 2pm)", third.getResponse("list"));

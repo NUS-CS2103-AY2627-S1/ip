@@ -27,6 +27,9 @@ Example: `todo read the chemistry notes`
 
 The description must not be empty.
 
+Walter rejects a todo when another todo has the same description, ignoring capitalization and
+extra whitespace. Completed tasks still count when checking for duplicates.
+
 ### Add a deadline
 
 Use `deadline DESCRIPTION /by yyyy-MM-dd` to add a task due on a particular date.
@@ -35,6 +38,9 @@ Example: `deadline submit project report /by 2026-10-16`
 
 The date must be a real calendar date written in year-month-day format. Use exactly one `/by`
 between the description and date.
+
+Walter rejects a deadline when another deadline has the same normalized description and due date.
+The same description can be used with a different due date.
 
 ### Add an event
 
@@ -49,7 +55,14 @@ Examples:
 - `event laboratory session /from Tuesday 10am /to 12pm`
 
 Use either one `/at`, or one `/from` followed by one `/to`. Event times are saved as the text you
-enter; Walter does not check whether they represent real dates or times.
+enter. Walter compares a range when both values are either `yyyy-MM-dd` dates or dated times such
+as `yyyy-MM-dd HH:mm` and `yyyy-MM-dd h:mma`. The start must not be after the end. An event can run
+overnight when its explicit end date is later, for example `2026-10-16 11pm` to
+`2026-10-17 1am`. Other descriptions, including `Monday 2pm` and time-only ranges, remain free-form.
+
+Walter rejects an event when another event uses the same format (`/at` or `/from ... /to`),
+normalized description, and normalized timing text. The same description can be used at a
+different time, and `/at` is distinct from `/from ... /to`.
 
 ### List tasks
 
@@ -82,7 +95,8 @@ For task commands that use an index, enter the number shown by `list`.
 ### Find tasks
 
 Use `find KEYWORD` to find tasks whose descriptions contain the keyword. Matching is not
-case-sensitive.
+case-sensitive. Results keep their original numbers from the full task list, so those numbers can
+be used directly with `mark`, `unmark`, and `delete`.
 
 Example: `find report`
 
@@ -130,6 +144,8 @@ Example: `bye`
 - Deadline and `on` dates use `yyyy-MM-dd`, for example `2026-10-16`.
 - Delimiters such as `/by`, `/at`, `/from`, and `/to` must be separate tokens with the required
   text on each side.
+- Duplicate-task comparison ignores capitalization and leading, trailing, or repeated whitespace
+  in descriptions. It does not remove or merge duplicates already present in saved data.
 
 ## Command summary
 

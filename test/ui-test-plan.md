@@ -50,16 +50,16 @@ Expected responses omit the surrounding separator lines.
         ],
         [
           "Here's what I found:",
-          "1. [T][ ] buy milk"
+          "3. [T][ ] buy milk"
         ],
         ["I found no tasks matching that keyword."],
-        ["Precision matters, Jesse. Keyword is required for the find command."],
+        ["Keyword is required for the find command. Stay sharp, Jesse."],
         [
           "Done. Consider this one handled:",
           "[D][X] return book (by: Aug 30 2026)"
         ],
         [
-          "Here is the current operation:",
+          "Here are your tasks:",
           "1. [T][ ] Read Book",
           "2. [D][X] return book (by: Aug 30 2026)",
           "3. [T][ ] buy milk"
@@ -98,7 +98,7 @@ Expected responses omit the surrounding separator lines.
           "The list now contains 3 tasks."
         ],
         [
-          "Here is the current operation:",
+          "Here are your tasks:",
           "1. [T][ ] read book",
           "2. [T][ ] return book",
           "3. [T][ ] buy bread"
@@ -108,7 +108,7 @@ Expected responses omit the surrounding separator lines.
           "[T][X] return book"
         ],
         [
-          "Here is the current operation:",
+          "Here are your tasks:",
           "1. [T][ ] read book",
           "2. [T][X] return book",
           "3. [T][ ] buy bread"
@@ -118,7 +118,7 @@ Expected responses omit the surrounding separator lines.
           "[T][ ] return book"
         ],
         [
-          "Here is the current operation:",
+          "Here are your tasks:",
           "1. [T][ ] read book",
           "2. [T][ ] return book",
           "3. [T][ ] buy bread"
@@ -146,13 +146,13 @@ Expected responses omit the surrounding separator lines.
           "[T][ ] test",
           "The list now contains 1 task."
         ],
-        ["Precision matters, Jesse. Task is already not done."],
+        ["Task is already not done. Stay sharp, Jesse."],
         ["Done. Consider this one handled:", "[T][X] test"],
-        ["Precision matters, Jesse. Task is already marked as done."],
-        ["Precision matters, Jesse. Task is already marked as done."],
+        ["Task is already marked as done. Stay sharp, Jesse."],
+        ["Task is already marked as done. Stay sharp, Jesse."],
         ["Understood. This goes back into the mix:", "[T][ ] test"],
-        ["Precision matters, Jesse. Task is already not done."],
-        ["Here is the current operation:", "1. [T][ ] test"],
+        ["Task is already not done. Stay sharp, Jesse."],
+        ["Here are your tasks:", "1. [T][ ] test"],
         ["All right. The operation is closed. Stay focused, Jesse."]
       ]
     },
@@ -185,7 +185,7 @@ Expected responses omit the surrounding separator lines.
           "The list now contains 3 tasks."
         ],
         [
-          "Here is the current operation:",
+          "Here are your tasks:",
           "1. [T][ ] borrow book",
           "2. [D][ ] return book (by: Aug 30 2026)",
           "3. [E][ ] project meeting (at: Mon 2-4pm)"
@@ -195,7 +195,7 @@ Expected responses omit the surrounding separator lines.
           "[D][X] return book (by: Aug 30 2026)"
         ],
         [
-          "Here is the current operation:",
+          "Here are your tasks:",
           "1. [T][ ] borrow book",
           "2. [D][X] return book (by: Aug 30 2026)",
           "3. [E][ ] project meeting (at: Mon 2-4pm)"
@@ -218,7 +218,7 @@ Expected responses omit the surrounding separator lines.
           "The list now contains 1 task."
         ],
         [
-          "Here is the current operation:",
+          "Here are your tasks:",
           "1. [E][ ] project meeting (from: Mon 2pm to: 4pm)"
         ],
         ["All right. The operation is closed. Stay focused, Jesse."]
@@ -241,15 +241,15 @@ Expected responses omit the surrounding separator lines.
         "bye"
       ],
       "expected_outputs": [
-        ["Precision matters, Jesse. Command cannot be blank."],
-        ["Precision matters, Jesse. Command cannot be blank."],
-        ["Precision matters, Jesse. Unknown command."],
-        ["Precision matters, Jesse. Unknown command."],
-        ["Precision matters, Jesse. Unknown command."],
-        ["Precision matters, Jesse. Unknown command."],
-        ["Precision matters, Jesse. Unknown command."],
-        ["Precision matters, Jesse. Unknown command."],
-        ["Precision matters, Jesse. Unknown command."],
+        ["Command cannot be blank. Stay sharp, Jesse."],
+        ["Command cannot be blank. Stay sharp, Jesse."],
+        ["Unknown command. Try: todo DESCRIPTION; deadline DESCRIPTION /by yyyy-MM-dd; event DESCRIPTION /at TIME; list; find KEYWORD; mark INDEX; unmark INDEX; delete INDEX; on yyyy-MM-dd; or bye. Stay sharp, Jesse."],
+        ["Unknown command. Try: todo DESCRIPTION; deadline DESCRIPTION /by yyyy-MM-dd; event DESCRIPTION /at TIME; list; find KEYWORD; mark INDEX; unmark INDEX; delete INDEX; on yyyy-MM-dd; or bye. Stay sharp, Jesse."],
+        ["Unknown command. Try: todo DESCRIPTION; deadline DESCRIPTION /by yyyy-MM-dd; event DESCRIPTION /at TIME; list; find KEYWORD; mark INDEX; unmark INDEX; delete INDEX; on yyyy-MM-dd; or bye. Stay sharp, Jesse."],
+        ["Unknown command. Try: todo DESCRIPTION; deadline DESCRIPTION /by yyyy-MM-dd; event DESCRIPTION /at TIME; list; find KEYWORD; mark INDEX; unmark INDEX; delete INDEX; on yyyy-MM-dd; or bye. Stay sharp, Jesse."],
+        ["Unknown command. Try: todo DESCRIPTION; deadline DESCRIPTION /by yyyy-MM-dd; event DESCRIPTION /at TIME; list; find KEYWORD; mark INDEX; unmark INDEX; delete INDEX; on yyyy-MM-dd; or bye. Stay sharp, Jesse."],
+        ["Unknown command. Try: todo DESCRIPTION; deadline DESCRIPTION /by yyyy-MM-dd; event DESCRIPTION /at TIME; list; find KEYWORD; mark INDEX; unmark INDEX; delete INDEX; on yyyy-MM-dd; or bye. Stay sharp, Jesse."],
+        ["bye does not take arguments. Stay sharp, Jesse."],
         ["The board is clean. Nothing needs doing."],
         ["All right. The operation is closed. Stay focused, Jesse."]
       ]
@@ -283,27 +283,27 @@ Expected responses omit the surrounding separator lines.
         "bye"
       ],
       "expected_outputs": [
-        ["Precision matters, Jesse. Todo description cannot be empty."],
-        ["Precision matters, Jesse. Todo description cannot be empty."],
-        ["Precision matters, Jesse. Deadline description cannot be empty."],
-        ["Precision matters, Jesse. Deadline requires /by."],
-        ["Precision matters, Jesse. Deadline description cannot be empty."],
-        ["Precision matters, Jesse. Deadline date/time cannot be empty."],
-        ["Precision matters, Jesse. Deadline requires /by."],
-        ["Precision matters, Jesse. Deadline requires exactly one /by."],
-        ["Precision matters, Jesse. Event description cannot be empty."],
-        ["Precision matters, Jesse. Event requires /at or /from and /to."],
-        ["Precision matters, Jesse. Event description cannot be empty."],
-        ["Precision matters, Jesse. Event date/time cannot be empty."],
-        ["Precision matters, Jesse. Event requires /at or /from and /to."],
-        ["Precision matters, Jesse. Event requires /to command when given /from command."],
-        ["Precision matters, Jesse. Event requires /from command when given /to command."],
-        ["Precision matters, Jesse. Event description cannot be empty."],
-        ["Precision matters, Jesse. Event start cannot be empty."],
-        ["Precision matters, Jesse. Event end cannot be empty."],
-        ["Precision matters, Jesse. Event must use either one /at or one /from and one /to."],
-        ["Precision matters, Jesse. Event requires exactly one /from and one /to."],
-        ["Precision matters, Jesse. Event /from must appear before /to."],
+        ["Todo description cannot be empty. Stay sharp, Jesse."],
+        ["Todo description cannot be empty. Stay sharp, Jesse."],
+        ["Deadline description cannot be empty. Stay sharp, Jesse."],
+        ["Deadline requires /by. Stay sharp, Jesse."],
+        ["Deadline description cannot be empty. Stay sharp, Jesse."],
+        ["Deadline date/time cannot be empty. Stay sharp, Jesse."],
+        ["Deadline requires /by. Stay sharp, Jesse."],
+        ["Deadline requires exactly one /by. Stay sharp, Jesse."],
+        ["Event description cannot be empty. Stay sharp, Jesse."],
+        ["Event requires /at or /from and /to. Stay sharp, Jesse."],
+        ["Event description cannot be empty. Stay sharp, Jesse."],
+        ["Event date/time cannot be empty. Stay sharp, Jesse."],
+        ["Event requires /at or /from and /to. Stay sharp, Jesse."],
+        ["Event requires /to command when given /from command. Stay sharp, Jesse."],
+        ["Event requires /from command when given /to command. Stay sharp, Jesse."],
+        ["Event description cannot be empty. Stay sharp, Jesse."],
+        ["Event start cannot be empty. Stay sharp, Jesse."],
+        ["Event end cannot be empty. Stay sharp, Jesse."],
+        ["Event must use either one /at or one /from and one /to. Stay sharp, Jesse."],
+        ["Event requires exactly one /from and one /to. Stay sharp, Jesse."],
+        ["Event /from must appear before /to. Stay sharp, Jesse."],
         ["The board is clean. Nothing needs doing."],
         ["All right. The operation is closed. Stay focused, Jesse."]
       ]
@@ -353,21 +353,21 @@ Expected responses omit the surrounding separator lines.
           "[D][ ] leap (by: Feb 29 2028)",
           "The list now contains 4 tasks."
         ],
-        ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
-        ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
-        ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
-        ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
-        ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
-        ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
-        ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
-        ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
-        ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
-        ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
-        ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
-        ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
-        ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
+        ["Deadline date must be in yyyy-MM-dd format. Stay sharp, Jesse."],
+        ["Deadline date must be in yyyy-MM-dd format. Stay sharp, Jesse."],
+        ["Deadline date must be in yyyy-MM-dd format. Stay sharp, Jesse."],
+        ["Deadline date must be in yyyy-MM-dd format. Stay sharp, Jesse."],
+        ["Deadline date must be in yyyy-MM-dd format. Stay sharp, Jesse."],
+        ["Deadline date is not a valid calendar date. Stay sharp, Jesse."],
+        ["Deadline date is not a valid calendar date. Stay sharp, Jesse."],
+        ["Deadline date is not a valid calendar date. Stay sharp, Jesse."],
+        ["Deadline date is not a valid calendar date. Stay sharp, Jesse."],
+        ["Deadline date must be in yyyy-MM-dd format. Stay sharp, Jesse."],
+        ["Deadline date must be in yyyy-MM-dd format. Stay sharp, Jesse."],
+        ["Deadline date must be in yyyy-MM-dd format. Stay sharp, Jesse."],
+        ["Deadline date must be in yyyy-MM-dd format. Stay sharp, Jesse."],
         [
-          "Here is the current operation:",
+          "Here are your tasks:",
           "1. [D][ ] submit CS2103 tutorial (by: Aug 30 2026)",
           "2. [D][ ] christmas (by: Dec 25 2026)",
           "3. [D][ ] january (by: Jan 5 2027)",
@@ -437,19 +437,19 @@ Expected responses omit the surrounding separator lines.
           "1. [D][ ] MA2116 homework (by: Aug 31 2026)"
         ],
         ["No deadlines are scheduled for Dec 31 2026."],
-        ["Precision matters, Jesse. Date must be in yyyy-MM-dd format."],
-        ["Precision matters, Jesse. Date must be in yyyy-MM-dd format."],
-        ["Precision matters, Jesse. Date must be in yyyy-MM-dd format."],
-        ["Precision matters, Jesse. Date must be in yyyy-MM-dd format."],
-        ["Precision matters, Jesse. Date must be in yyyy-MM-dd format."],
-        ["Precision matters, Jesse. Date must be in yyyy-MM-dd format."],
-        ["Precision matters, Jesse. Date must be in yyyy-MM-dd format."],
-        ["Precision matters, Jesse. Date must be in yyyy-MM-dd format."],
+        ["Date must be in yyyy-MM-dd format. Stay sharp, Jesse."],
+        ["Date must be in yyyy-MM-dd format. Stay sharp, Jesse."],
+        ["Date must be in yyyy-MM-dd format. Stay sharp, Jesse."],
+        ["Date is not a valid calendar date. Stay sharp, Jesse."],
+        ["Date is not a valid calendar date. Stay sharp, Jesse."],
+        ["Date is not a valid calendar date. Stay sharp, Jesse."],
+        ["Date must be in yyyy-MM-dd format. Stay sharp, Jesse."],
+        ["Date must be in yyyy-MM-dd format. Stay sharp, Jesse."],
         ["No deadlines are scheduled for Feb 29 2028."],
-        ["Precision matters, Jesse. Date is required for the on command."],
-        ["Precision matters, Jesse. Unknown command."],
+        ["Date is required for the on command. Stay sharp, Jesse."],
+        ["Unknown command. Try: todo DESCRIPTION; deadline DESCRIPTION /by yyyy-MM-dd; event DESCRIPTION /at TIME; list; find KEYWORD; mark INDEX; unmark INDEX; delete INDEX; on yyyy-MM-dd; or bye. Stay sharp, Jesse."],
         [
-          "Here is the current operation:",
+          "Here are your tasks:",
           "1. [D][ ] submit CS2103 (by: Aug 30 2026)",
           "2. [D][ ] MA2116 homework (by: Aug 31 2026)",
           "3. [D][X] project report (by: Aug 30 2026)",
@@ -485,34 +485,34 @@ Expected responses omit the surrounding separator lines.
         "bye"
       ],
       "expected_outputs": [
-        ["Precision matters, Jesse. Task number is out of range."],
+        ["Task number is out of range. Stay sharp, Jesse."],
         [
           "Good. That's on the list now:",
           "[T][ ] read book",
           "The list now contains 1 task."
         ],
-        ["Precision matters, Jesse. Task number is required."],
-        ["Precision matters, Jesse. Task number must be an integer."],
-        ["Precision matters, Jesse. Task number must be an integer."],
-        ["Precision matters, Jesse. Task number must be an integer."],
-        ["Precision matters, Jesse. Task number must be an integer."],
-        ["Precision matters, Jesse. Task number is out of range."],
-        ["Precision matters, Jesse. Task number is out of range."],
-        ["Precision matters, Jesse. Task number is out of range."],
-        ["Precision matters, Jesse. Task number must be an integer."],
-        ["Precision matters, Jesse. Task number must be an integer."],
-        ["Precision matters, Jesse. Task number is out of range."],
-        ["Precision matters, Jesse. Task number must be an integer."],
-        ["Precision matters, Jesse. Task number is out of range."],
-        ["Precision matters, Jesse. Task number must be an integer."],
-        ["Precision matters, Jesse. Task number must be an integer."],
-        ["Precision matters, Jesse. Task number is out of range."],
+        ["Task number is required. Stay sharp, Jesse."],
+        ["Task number must be an integer. Stay sharp, Jesse."],
+        ["Task number must be an integer. Stay sharp, Jesse."],
+        ["Task number must be an integer. Stay sharp, Jesse."],
+        ["Task number must be an integer. Stay sharp, Jesse."],
+        ["Task number is out of range. Stay sharp, Jesse."],
+        ["Task number is out of range. Stay sharp, Jesse."],
+        ["Task number is out of range. Stay sharp, Jesse."],
+        ["Task number must be an integer. Stay sharp, Jesse."],
+        ["Task number must be an integer. Stay sharp, Jesse."],
+        ["Task number is out of range. Stay sharp, Jesse."],
+        ["Task number must be an integer. Stay sharp, Jesse."],
+        ["Task number is out of range. Stay sharp, Jesse."],
+        ["Task number must be an integer. Stay sharp, Jesse."],
+        ["Task number must be an integer. Stay sharp, Jesse."],
+        ["Task number is out of range. Stay sharp, Jesse."],
         [
           "Done. Consider this one handled:",
           "[T][X] read book"
         ],
         [
-          "Here is the current operation:",
+          "Here are your tasks:",
           "1. [T][X] read book"
         ],
         ["All right. The operation is closed. Stay focused, Jesse."]
@@ -533,26 +533,26 @@ Expected responses omit the surrounding separator lines.
         "bye"
       ],
       "expected_outputs": [
-        ["Precision matters, Jesse. Todo description cannot be empty."],
+        ["Todo description cannot be empty. Stay sharp, Jesse."],
         [
           "Good. That's on the list now:",
           "[T][ ] read book",
           "The list now contains 1 task."
         ],
-        ["Precision matters, Jesse. Deadline requires /by."],
+        ["Deadline requires /by. Stay sharp, Jesse."],
         [
           "Good. That's on the list now:",
           "[D][ ] return book (by: Aug 30 2026)",
           "The list now contains 2 tasks."
         ],
-        ["Precision matters, Jesse. Task number must be an integer."],
+        ["Task number must be an integer. Stay sharp, Jesse."],
         [
           "Done. Consider this one handled:",
           "[T][X] read book"
         ],
-        ["Precision matters, Jesse. Unknown command."],
+        ["Unknown command. Try: todo DESCRIPTION; deadline DESCRIPTION /by yyyy-MM-dd; event DESCRIPTION /at TIME; list; find KEYWORD; mark INDEX; unmark INDEX; delete INDEX; on yyyy-MM-dd; or bye. Stay sharp, Jesse."],
         [
-          "Here is the current operation:",
+          "Here are your tasks:",
           "1. [T][X] read book",
           "2. [D][ ] return book (by: Aug 30 2026)"
         ],
@@ -591,7 +591,7 @@ Expected responses omit the surrounding separator lines.
           "The list now contains 3 tasks."
         ],
         [
-          "Here is the current operation:",
+          "Here are your tasks:",
           "1. [T][ ] read book",
           "2. [D][ ] return book (by: Aug 30 2026)",
           "3. [E][ ] project meeting (at: Mon 2-4pm)"
@@ -606,7 +606,7 @@ Expected responses omit the surrounding separator lines.
           "The list now contains 2 tasks."
         ],
         [
-          "Here is the current operation:",
+          "Here are your tasks:",
           "1. [D][X] return book (by: Aug 30 2026)",
           "2. [E][ ] project meeting (at: Mon 2-4pm)"
         ],
@@ -616,7 +616,7 @@ Expected responses omit the surrounding separator lines.
           "The list now contains 1 task."
         ],
         [
-          "Here is the current operation:",
+          "Here are your tasks:",
           "1. [D][X] return book (by: Aug 30 2026)"
         ],
         ["All right. The operation is closed. Stay focused, Jesse."]
@@ -658,39 +658,135 @@ Expected responses omit the surrounding separator lines.
         "bye"
       ],
       "expected_outputs": [
-        ["Precision matters, Jesse. Task number is out of range."],
+        ["Task number is out of range. Stay sharp, Jesse."],
         ["The board is clean. Nothing needs doing."],
         [
           "Good. That's on the list now:",
           "[T][ ] keep me",
           "The list now contains 1 task."
         ],
-        ["Precision matters, Jesse. Task number is required."],
-        ["Here is the current operation:", "1. [T][ ] keep me"],
-        ["Precision matters, Jesse. Task number is required."],
-        ["Here is the current operation:", "1. [T][ ] keep me"],
-        ["Precision matters, Jesse. Task number must be an integer."],
-        ["Here is the current operation:", "1. [T][ ] keep me"],
-        ["Precision matters, Jesse. Task number must be an integer."],
-        ["Here is the current operation:", "1. [T][ ] keep me"],
-        ["Precision matters, Jesse. Task number must be an integer."],
-        ["Here is the current operation:", "1. [T][ ] keep me"],
-        ["Precision matters, Jesse. Task number is out of range."],
-        ["Here is the current operation:", "1. [T][ ] keep me"],
-        ["Precision matters, Jesse. Task number is out of range."],
-        ["Here is the current operation:", "1. [T][ ] keep me"],
-        ["Precision matters, Jesse. Task number is out of range."],
-        ["Here is the current operation:", "1. [T][ ] keep me"],
-        ["Precision matters, Jesse. Task number must be an integer."],
-        ["Here is the current operation:", "1. [T][ ] keep me"],
-        ["Precision matters, Jesse. Task number must be an integer."],
-        ["Here is the current operation:", "1. [T][ ] keep me"],
-        ["Precision matters, Jesse. Unknown command."],
-        ["Here is the current operation:", "1. [T][ ] keep me"],
-        ["Precision matters, Jesse. Unknown command."],
-        ["Here is the current operation:", "1. [T][ ] keep me"],
-        ["Precision matters, Jesse. Unknown command."],
-        ["Here is the current operation:", "1. [T][ ] keep me"],
+        ["Task number is required. Stay sharp, Jesse."],
+        ["Here are your tasks:", "1. [T][ ] keep me"],
+        ["Task number is required. Stay sharp, Jesse."],
+        ["Here are your tasks:", "1. [T][ ] keep me"],
+        ["Task number must be an integer. Stay sharp, Jesse."],
+        ["Here are your tasks:", "1. [T][ ] keep me"],
+        ["Task number must be an integer. Stay sharp, Jesse."],
+        ["Here are your tasks:", "1. [T][ ] keep me"],
+        ["Task number must be an integer. Stay sharp, Jesse."],
+        ["Here are your tasks:", "1. [T][ ] keep me"],
+        ["Task number is out of range. Stay sharp, Jesse."],
+        ["Here are your tasks:", "1. [T][ ] keep me"],
+        ["Task number is out of range. Stay sharp, Jesse."],
+        ["Here are your tasks:", "1. [T][ ] keep me"],
+        ["Task number is out of range. Stay sharp, Jesse."],
+        ["Here are your tasks:", "1. [T][ ] keep me"],
+        ["Task number must be an integer. Stay sharp, Jesse."],
+        ["Here are your tasks:", "1. [T][ ] keep me"],
+        ["Task number must be an integer. Stay sharp, Jesse."],
+        ["Here are your tasks:", "1. [T][ ] keep me"],
+        ["Unknown command. Try: todo DESCRIPTION; deadline DESCRIPTION /by yyyy-MM-dd; event DESCRIPTION /at TIME; list; find KEYWORD; mark INDEX; unmark INDEX; delete INDEX; on yyyy-MM-dd; or bye. Stay sharp, Jesse."],
+        ["Here are your tasks:", "1. [T][ ] keep me"],
+        ["Unknown command. Try: todo DESCRIPTION; deadline DESCRIPTION /by yyyy-MM-dd; event DESCRIPTION /at TIME; list; find KEYWORD; mark INDEX; unmark INDEX; delete INDEX; on yyyy-MM-dd; or bye. Stay sharp, Jesse."],
+        ["Here are your tasks:", "1. [T][ ] keep me"],
+        ["Unknown command. Try: todo DESCRIPTION; deadline DESCRIPTION /by yyyy-MM-dd; event DESCRIPTION /at TIME; list; find KEYWORD; mark INDEX; unmark INDEX; delete INDEX; on yyyy-MM-dd; or bye. Stay sharp, Jesse."],
+        ["Here are your tasks:", "1. [T][ ] keep me"],
+        ["All right. The operation is closed. Stay focused, Jesse."]
+      ]
+    },
+    {
+      "id": "scheduled-range-and-duplicate-validation",
+      "aim": "Verify ISO event range ordering and exact scheduled-item duplicate rejection without over-restricting distinct items or Todos.",
+      "inputs": [
+        "event Workshop /from 2026-12-20 /to 2026-12-10",
+        "event Workshop /from 2026-12-01 /to 2026-12-10",
+        "event Release /from 2026-12-10 /to 2026-12-10",
+        "event Workshop /from 2026-12-01 /to 2026-12-10",
+        "event Lab /from 2026-12-01 /to 2026-12-10",
+        "event Workshop /from 2026-12-01 /to 2026-12-11",
+        "deadline Submit report /by 2026-12-10",
+        "deadline Submit report /by 2026-12-10",
+        "deadline Submit report /by 2026-12-11",
+        "deadline Other report /by 2026-12-10",
+        "event Meeting /at 2pm",
+        "event Meeting /at 2pm",
+        "event Meeting /at 3pm",
+        "event Consultation /at 2pm",
+        "todo Read book",
+        "todo Read book",
+        "list",
+        "bye"
+      ],
+      "expected_outputs": [
+        ["Event start must not be after its end. Stay sharp, Jesse."],
+        ["Good. That's on the list now:", "[E][ ] Workshop (from: 2026-12-01 to: 2026-12-10)", "The list now contains 1 task."],
+        ["Good. That's on the list now:", "[E][ ] Release (from: 2026-12-10 to: 2026-12-10)", "The list now contains 2 tasks."],
+        ["That task already exists. Stay sharp, Jesse."],
+        ["Good. That's on the list now:", "[E][ ] Lab (from: 2026-12-01 to: 2026-12-10)", "The list now contains 3 tasks."],
+        ["Good. That's on the list now:", "[E][ ] Workshop (from: 2026-12-01 to: 2026-12-11)", "The list now contains 4 tasks."],
+        ["Good. That's on the list now:", "[D][ ] Submit report (by: Dec 10 2026)", "The list now contains 5 tasks."],
+        ["That task already exists. Stay sharp, Jesse."],
+        ["Good. That's on the list now:", "[D][ ] Submit report (by: Dec 11 2026)", "The list now contains 6 tasks."],
+        ["Good. That's on the list now:", "[D][ ] Other report (by: Dec 10 2026)", "The list now contains 7 tasks."],
+        ["Good. That's on the list now:", "[E][ ] Meeting (at: 2pm)", "The list now contains 8 tasks."],
+        ["That task already exists. Stay sharp, Jesse."],
+        ["Good. That's on the list now:", "[E][ ] Meeting (at: 3pm)", "The list now contains 9 tasks."],
+        ["Good. That's on the list now:", "[E][ ] Consultation (at: 2pm)", "The list now contains 10 tasks."],
+        ["Good. That's on the list now:", "[T][ ] Read book", "The list now contains 11 tasks."],
+        ["That task already exists. Stay sharp, Jesse."],
+        [
+          "Here are your tasks:",
+          "1. [E][ ] Workshop (from: 2026-12-01 to: 2026-12-10)",
+          "2. [E][ ] Release (from: 2026-12-10 to: 2026-12-10)",
+          "3. [E][ ] Lab (from: 2026-12-01 to: 2026-12-10)",
+          "4. [E][ ] Workshop (from: 2026-12-01 to: 2026-12-11)",
+          "5. [D][ ] Submit report (by: Dec 10 2026)",
+          "6. [D][ ] Submit report (by: Dec 11 2026)",
+          "7. [D][ ] Other report (by: Dec 10 2026)",
+          "8. [E][ ] Meeting (at: 2pm)",
+          "9. [E][ ] Meeting (at: 3pm)",
+          "10. [E][ ] Consultation (at: 2pm)",
+          "11. [T][ ] Read book"
+        ],
+        ["All right. The operation is closed. Stay focused, Jesse."]
+      ]
+    },
+    {
+      "id": "normalized-duplicates-and-dated-time-ranges",
+      "aim": "Verify normalized duplicates include completed todos, event formats remain distinct, and explicit dated times enforce chronological order while allowing overnight events.",
+      "inputs": [
+        "todo Read book",
+        "mark 1",
+        "todo read   BOOK",
+        "deadline Submit report /by 2026-12-10",
+        "deadline submit   REPORT /by 2026-12-10",
+        "event Meeting /at Monday 2PM",
+        "event meeting /at monday   2pm",
+        "event Meeting /from Monday 2PM /to Monday 3PM",
+        "event late /from 2026-12-10 4pm /to 2026-12-10 2pm",
+        "event overnight /from 2026-12-10 11pm /to 2026-12-11 1am",
+        "list",
+        "bye"
+      ],
+      "expected_outputs": [
+        ["Good. That's on the list now:", "[T][ ] Read book", "The list now contains 1 task."],
+        ["Done. Consider this one handled:", "[T][X] Read book"],
+        ["That task already exists. Stay sharp, Jesse."],
+        ["Good. That's on the list now:", "[D][ ] Submit report (by: Dec 10 2026)", "The list now contains 2 tasks."],
+        ["That task already exists. Stay sharp, Jesse."],
+        ["Good. That's on the list now:", "[E][ ] Meeting (at: Monday 2PM)", "The list now contains 3 tasks."],
+        ["That task already exists. Stay sharp, Jesse."],
+        ["Good. That's on the list now:", "[E][ ] Meeting (from: Monday 2PM to: Monday 3PM)", "The list now contains 4 tasks."],
+        ["Event start must not be after its end. Stay sharp, Jesse."],
+        ["Good. That's on the list now:", "[E][ ] overnight (from: 2026-12-10 11pm to: 2026-12-11 1am)", "The list now contains 5 tasks."],
+        [
+          "Here are your tasks:",
+          "1. [T][X] Read book",
+          "2. [D][ ] Submit report (by: Dec 10 2026)",
+          "3. [E][ ] Meeting (at: Monday 2PM)",
+          "4. [E][ ] Meeting (from: Monday 2PM to: Monday 3PM)",
+          "5. [E][ ] overnight (from: 2026-12-10 11pm to: 2026-12-11 1am)"
+        ],
         ["All right. The operation is closed. Stay focused, Jesse."]
       ]
     },
@@ -730,13 +826,13 @@ Expected responses omit the surrounding separator lines.
           "1. Alex's home — 123 Clementi Ave 3",
           "2. NUS Central Library — 12 Computing Drive"
         ],
-        ["Precision matters, Jesse. Place name cannot be empty."],
-        ["Precision matters, Jesse. Place requires exactly one /at."],
-        ["Precision matters, Jesse. Place name cannot be empty."],
-        ["Precision matters, Jesse. Place address cannot be empty."],
-        ["Precision matters, Jesse. Place requires exactly one /at."],
-        ["Precision matters, Jesse. Place number must be an integer."],
-        ["Precision matters, Jesse. Place number is out of range."],
+        ["Place name cannot be empty. Stay sharp, Jesse."],
+        ["Place requires exactly one /at. Stay sharp, Jesse."],
+        ["Place name cannot be empty. Stay sharp, Jesse."],
+        ["Place address cannot be empty. Stay sharp, Jesse."],
+        ["Place requires exactly one /at. Stay sharp, Jesse."],
+        ["Place number must be an integer. Stay sharp, Jesse."],
+        ["Place number is out of range. Stay sharp, Jesse."],
         [
           "Done. I've removed this location:",
           "Alex's home — 123 Clementi Ave 3",

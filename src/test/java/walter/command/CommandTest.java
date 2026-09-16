@@ -21,6 +21,7 @@ import walter.DukeException;
 import walter.place.Place;
 import walter.storage.Storage;
 import walter.task.Deadline;
+import walter.task.Event;
 import walter.task.Task;
 import walter.task.TaskList;
 import walter.task.Todo;
@@ -43,6 +44,37 @@ public class CommandTest {
 
         assertSame(task, tasks.get(0));
         assertEquals("read book", storage.load().get(0).getDescription());
+    }
+
+    @Test
+    public void execute_duplicateTask_rejectedWithoutSavingOrSuccessOutput()
+            throws DukeException {
+        TaskList tasks = new TaskList();
+        RecordingStorage storage = new RecordingStorage(
+                temporaryDirectory.resolve("walter.txt"));
+        ByteArrayOutputStream outputBytes = new ByteArrayOutputStream();
+        Ui ui = new Ui(new PrintStream(outputBytes, true, StandardCharsets.UTF_8));
+        Deadline deadline = new Deadline("Submit report", LocalDate.of(2026, 12, 10));
+        Event event = new Event("Meeting", "2pm");
+        Todo todo = new Todo("Read book");
+
+        new AddCommand(deadline).execute(tasks, ui, storage);
+        new AddCommand(event).execute(tasks, ui, storage);
+        new AddCommand(todo).execute(tasks, ui, storage);
+        assertEquals(3, storage.getSaveCount());
+        outputBytes.reset();
+
+        assertThrows(DukeException.class, () ->
+                new AddCommand(new Deadline("Submit report", LocalDate.of(2026, 12, 10)))
+                        .execute(tasks, ui, storage));
+        assertThrows(DukeException.class, () ->
+                new AddCommand(new Event("Meeting", "2pm")).execute(tasks, ui, storage));
+        assertThrows(DukeException.class, () ->
+                new AddCommand(new Todo("read  BOOK")).execute(tasks, ui, storage));
+
+        assertEquals(3, tasks.size());
+        assertEquals(3, storage.getSaveCount());
+        assertEquals("", outputBytes.toString(StandardCharsets.UTF_8));
     }
 
     @Test
@@ -180,7 +212,7 @@ public class CommandTest {
 
         new ListCommand().execute(tasks, ui, storage);
 
-        assertEquals("Here is the current operation:\n1. [T][ ] read book\n",
+        assertEquals("Here are your tasks:\n1. [T][ ] read book\n",
                 outputBytes.toString(StandardCharsets.UTF_8));
         assertEquals(0, storage.getSaveCount());
     }

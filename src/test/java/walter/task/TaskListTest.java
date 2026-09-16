@@ -33,6 +33,48 @@ public class TaskListTest {
     }
 
     @Test
+    public void add_duplicates_rejectedUsingNormalizedLogicalFields()
+            throws DukeException {
+        LocalDate firstDate = LocalDate.of(2026, 12, 10);
+        LocalDate secondDate = LocalDate.of(2026, 12, 11);
+        TaskList tasks = new TaskList();
+
+        tasks.add(new Deadline("  Submit   report ", firstDate));
+        DukeException duplicateDeadline = assertThrows(DukeException.class, () ->
+                tasks.add(new Deadline("submit report", firstDate)));
+        assertEquals("That task already exists.", duplicateDeadline.getMessage());
+        tasks.add(new Deadline("Submit report", secondDate));
+        tasks.add(new Deadline("Different report", firstDate));
+
+        tasks.add(new Event("Meeting", "Monday  2PM"));
+        DukeException duplicateAtEvent = assertThrows(DukeException.class, () ->
+                tasks.add(new Event(" meeting ", "monday 2pm")));
+        assertEquals("That task already exists.", duplicateAtEvent.getMessage());
+        tasks.add(new Event("Meeting", "3pm"));
+        tasks.add(new Event("Different meeting", "2pm"));
+
+        tasks.add(new Event("Workshop", "2026-12-01", "2026-12-10"));
+        DukeException duplicateRangeEvent = assertThrows(DukeException.class, () ->
+                tasks.add(new Event("Workshop", "2026-12-01", "2026-12-10")));
+        assertEquals("That task already exists.", duplicateRangeEvent.getMessage());
+        tasks.add(new Event("Workshop", "2026-12-01", "2026-12-11"));
+        tasks.add(new Event("Workshop", "2026-12-02", "2026-12-10"));
+        tasks.add(new Event("Different workshop", "2026-12-01", "2026-12-10"));
+
+        Todo completedTodo = new Todo("Read   book");
+        completedTodo.markAsDone();
+        tasks.add(completedTodo);
+        DukeException duplicateTodo = assertThrows(DukeException.class, () ->
+                tasks.add(new Todo(" read book ")));
+        assertEquals("That task already exists.", duplicateTodo.getMessage());
+
+        tasks.add(new Deadline("Read book", firstDate));
+        tasks.add(new Event("Read book", "Monday 2pm"));
+        tasks.add(new Event("Meeting", "Monday 2pm", "Monday 3pm"));
+        assertEquals(14, tasks.size());
+    }
+
+    @Test
     public void delete_validIndex_correctTaskRemovedAndReturned() throws DukeException {
         Task first = new Todo("first");
         Task second = new Todo("second");
@@ -94,6 +136,7 @@ public class TaskListTest {
         TaskList tasks = new TaskList(List.of(firstMatch, nonMatch, secondMatch, thirdMatch));
 
         assertEquals(List.of(firstMatch, secondMatch, thirdMatch), tasks.find("bOoK"));
+        assertEquals(List.of(0, 2, 3), tasks.findMatchingIndices("bOoK"));
     }
 
     @Test
