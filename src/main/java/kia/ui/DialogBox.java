@@ -23,6 +23,8 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView avatar;
 
+
+
     /**
      * Creates a styled chat message.
      *
@@ -39,7 +41,8 @@ public class DialogBox extends HBox {
             throw new IllegalStateException("Unable to load the dialog layout.", e);
         }
         speaker.setText(speakerName);
-        message.setText(text);
+        message.setText("Kia".equals(speakerName) && !text.endsWith("Arf!")
+                ? text + " Arf!" : text);
         if ("Kia".equals(speakerName)) {
             setStyle("-fx-padding: 4 8 4 4;");
             avatar.setImage(new Image(DialogBox.class.getResourceAsStream("/images/kia-profile.jpg")));

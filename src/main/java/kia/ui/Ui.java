@@ -73,6 +73,11 @@ public class Ui {
         output.println(SEPARATOR);
     }
 
+    /** Prints Kia's playful response to a recognised dog command. */
+    public void showPetResponse(String response) {
+        output.println(response);
+    }
+
     /** Prints the farewell message. */
     public void showBye() {
         output.println("Aww, goodbye. Hope to see you again soon!");
