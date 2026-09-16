@@ -100,7 +100,7 @@ Removes that crumb and renumbers the remaining ones.
 `find KEYWORD`
 
 Shows crumbs whose description contains `KEYWORD` (case-insensitive).
-Match numbers in the result are only among the matches, not the full list.
+Each match is numbered with its `list` index, so `delete`, `mark`, `unmark`, and `priority` can use that same number.
 
 Example: `find book`
 

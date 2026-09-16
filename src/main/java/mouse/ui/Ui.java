@@ -142,13 +142,27 @@ public class Ui {
     }
 
     /**
-     * Returns matching tasks from a find, numbered from 1 among matches only.
+     * Returns matching tasks from a find, numbered with their stash indices.
      *
+     * @param tasks Full task list, used for the displayed indices.
      * @param matches Tasks that matched the keyword.
      * @return Find result text.
      */
-    public String formatFind(TaskList matches) {
-        return formatNumberedTasks("Crumbs matching that sniff:", matches);
+    public String formatFind(TaskList tasks, TaskList matches) {
+        String[] lines = new String[matches.size() + 1];
+        lines[0] = "Crumbs matching that sniff:";
+        int lineIndex = 1;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            for (int j = 0; j < matches.size(); j++) {
+                if (task == matches.get(j)) {
+                    lines[lineIndex] = (i + 1) + "." + task;
+                    lineIndex++;
+                    break;
+                }
+            }
+        }
+        return joinLines(lines);
     }
 
     /**

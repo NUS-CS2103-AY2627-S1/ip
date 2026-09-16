@@ -145,7 +145,7 @@ public class TaskList {
      * Returns tasks whose description contains {@code keyword} (case-insensitive).
      *
      * @param keyword Text to look for in descriptions.
-     * @return A new list of matching tasks, numbered independently when printed.
+     * @return A new list of matching tasks.
      */
     public TaskList find(String keyword) {
         String needle = keyword.toLowerCase();

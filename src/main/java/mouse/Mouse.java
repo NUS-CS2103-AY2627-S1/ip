@@ -167,7 +167,7 @@ public class Mouse {
         case EVENT:
             return addTask(Parser.parseEvent(input));
         case FIND:
-            return ui.formatFind(tasks.find(Parser.parseFind(input)));
+            return ui.formatFind(tasks, tasks.find(Parser.parseFind(input)));
         case HELP:
             Parser.assertBareCommand(input, "help");
             return ui.formatHelp();
