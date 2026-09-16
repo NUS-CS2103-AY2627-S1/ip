@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -70,6 +72,18 @@ public class TaskTest {
     @Test
     public void markAsNotDone_incompleteTask_exceptionThrown() {
         assertThrows(ZuccException.class, todo::markAsNotDone);
+    }
+
+    /**
+     * Verifies that the base convenience constructor creates a task with no priority marker.
+     *
+     * @throws ZuccException if the valid task description is rejected.
+     */
+    @Test
+    public void constructor_descriptionOnly_taskHasNoPriorityMarker() throws ZuccException {
+        Task task = new BasicTask("Read chapter");
+
+        assertEquals("[ ] Read chapter", task.toString());
     }
 
     /**
@@ -141,6 +155,14 @@ public class TaskTest {
                                 "E | 0 | workshop | 3/9/2026 0900")));
     }
 
+    /** Verifies that subtype storage constructors reject a missing field array. */
+    @Test
+    public void storageConstructor_nullFields_exceptionThrown() {
+        assertAll(
+                () -> assertThrows(ZuccException.class, () -> new Todo((String[]) null)),
+                () -> assertThrows(ZuccException.class, () -> new Deadline((String[]) null)));
+    }
+
     /**
      * Verifies that saving and loading one task preserves its concrete type and data.
      *
@@ -155,5 +177,23 @@ public class TaskTest {
         assertInstanceOf(expectedType, restored);
         assertEquals(original.toStorageString(), restored.toStorageString());
         assertEquals(original.toString(), restored.toString());
+    }
+
+    /** Minimal concrete task used to exercise behavior implemented entirely by Task. */
+    private static final class BasicTask extends Task {
+        /** Creates an undated task through Task's description-only constructor. */
+        private BasicTask(String description) throws ZuccException {
+            super(description);
+        }
+
+        @Override
+        public boolean occursOn(LocalDate date) {
+            return false;
+        }
+
+        @Override
+        protected String[] getStorageFields() {
+            return new String[] {"B"};
+        }
     }
 }
