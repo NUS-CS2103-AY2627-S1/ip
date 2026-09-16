@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="rootPane"
+            minHeight="320.0" minWidth="420.0"
+            prefHeight="650.0" prefWidth="900.0"
+            styleClass="app-root"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="turtley.gui.MainWindow">
+    <children>
+        <BorderPane styleClass="app-shell"
+                    AnchorPane.bottomAnchor="14.0"
+                    AnchorPane.leftAnchor="14.0"
+                    AnchorPane.rightAnchor="14.0"
+                    AnchorPane.topAnchor="14.0">
+            <top>
+                <HBox alignment="CENTER_LEFT" styleClass="app-header">
+                    <children>
+                        <VBox spacing="1.0">
+                            <children>
+                                <Label text="Turtley" styleClass="app-title" />
+                                <Label text="Your friendly task companion" styleClass="app-subtitle" />
+                            </children>
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label text="READY" styleClass="status-pill" />
+                    </children>
+                </HBox>
+            </top>
+            <center>
+                <ScrollPane fx:id="scrollPane"
+                            fitToWidth="true"
+                            hbarPolicy="NEVER"
+                            vvalue="1.0"
+                            styleClass="dialog-scroll-pane">
+                    <content>
+                        <VBox fx:id="dialogContainer"
+                              fillWidth="true"
+                              styleClass="dialog-container" />
+                    </content>
+                </ScrollPane>
+            </center>
+            <bottom>
+                <HBox spacing="10.0" styleClass="composer">
+                    <children>
+                        <TextField fx:id="userInput"
+                                   onAction="#handleUserInput"
+                                   promptText="Type a command, e.g. todo read book"
+                                   styleClass="command-input"
+                                   HBox.hgrow="ALWAYS" />
+                        <Button fx:id="sendButton"
+                                defaultButton="true"
+                                mnemonicParsing="false"
+                                onAction="#handleUserInput"
+                                text="Send"
+                                styleClass="send-button" />
+                    </children>
+                </HBox>
+            </bottom>
+        </BorderPane>
+    </children>
+</AnchorPane>
