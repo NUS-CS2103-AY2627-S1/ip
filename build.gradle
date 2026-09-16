@@ -64,6 +64,9 @@ jar {
 
 shadowJar {
     archiveFileName = 'device-g.jar'
+    manifest {
+        attributes 'Enable-Native-Access': 'ALL-UNNAMED'
+    }
 }
 
 checkstyle {

@@ -41,6 +41,8 @@ public class MainWindow {
             "/images/Kris (Art by JMK-Prime).png"));
     private Image assistantImage = new Image(this.getClass().getResourceAsStream(
             "/images/Double Green Gaster from Deltarune.png"));
+    private Image farewellImage = new Image(this.getClass().getResourceAsStream(
+            "/images/Not a man.png"));
 
     /** Initializes the animated background and automatic dialogue scrolling. */
     @FXML
@@ -75,9 +77,10 @@ public class MainWindow {
         String response = result.shouldContinue()
                 ? result.response()
                 : Secret.getClosingDialogue();
+        Image replyImage = result.shouldContinue() ? assistantImage : farewellImage;
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getReplyDialog(response, assistantImage, result.replyType())
+                DialogBox.getReplyDialog(response, replyImage, result.replyType())
         );
         userInput.clear();
 
