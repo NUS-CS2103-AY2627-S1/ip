@@ -1,8 +1,7 @@
 # Sumo User Guide
 
-Sumo is a professional JavaFX chatbot that helps you keep assignments, errands, and appointments in one place.
+Sumo is a professional JavaFX chatbot that helps you keep assignments, errands, and appointments in one place. <br>
 As its name implies, Sumo does the heavy lifting of keeping track of all your tasks and saves them automatically.
-With a quick command, Sumo can help you to add a task, review your schedule, or complete an item.
 
 <img src="Ui.png" alt="Sumo chat window showing a task list and a chronological view" width="500">
 
