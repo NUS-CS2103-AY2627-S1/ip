@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
 
 <fx:root alignment="TOP_LEFT" maxHeight="1.7976931348623157E308"
          maxWidth="1.7976931348623157E308" prefWidth="420.0"
@@ -10,8 +12,12 @@
          xmlns="http://javafx.com/javafx/17"
          xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="speaker" minWidth="45.0" />
-        <Label fx:id="message" maxWidth="300.0" wrapText="true" />
+        <ImageView fx:id="avatar" fitHeight="32.0" fitWidth="32.0" preserveRatio="true" />
+        <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+            <Label fx:id="speaker" style="-fx-font-weight: bold; -fx-text-fill: #405070;" />
+            <Label fx:id="message" maxWidth="360.0" wrapText="true"
+                   style="-fx-font-size: 13px; -fx-text-fill: #25324a;" />
+        </VBox>
     </children>
     <padding>
         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
