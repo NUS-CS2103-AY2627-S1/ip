@@ -36,3 +36,10 @@
     -fx-rotate: 0;
 }
 
+.error-label {
+    -fx-background-color: #ffebee;
+    -fx-border-color: #d32f2f;
+    -fx-border-width: 3px;
+    -fx-text-fill: #b71c1c;
+    -fx-font-weight: bold;
+}
