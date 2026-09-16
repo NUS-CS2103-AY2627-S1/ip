@@ -42,3 +42,9 @@ To work on the project in IntelliJ IDEA, open the project folder, import the Gra
 - **User profile picture:** Plant illustration from [40+ Easy Cute Plant Drawing Ideas](https://sketchandfun.com/plant-drawing/) by Sketch and Fun.
 - **Grower profile picture:** [Father Charles](https://amulet.fandom.com/wiki/Father_Charles), sourced from the Amulet Wiki on Fandom.
 - **Application icon:** [Tree](https://openclipart.org/detail/170749/tree) by diamonjohn on Openclipart, released under [CC0 1.0 (public-domain dedication)](https://creativecommons.org/publicdomain/zero/1.0/).
+
+## AI usage acknowledgement
+
+The project author used OpenAI Codex to assist with various parts of the codebase. This includes using AI for debugging,
+feedback on ideas and implementation, writing the Gui, A-BetterGui, A-Personality, A-MoreErrorHandling,
+and A-MoreTesting tags of the code. Furthermore, some unit tests were written by codex. 
