@@ -118,6 +118,10 @@
     -fx-background-color: linear-gradient(to bottom right, #fb7185, #f97356);
 }
 
+.error-avatar {
+    -fx-background-color: #f59e0b;
+}
+
 .user-avatar {
     -fx-background-color: #334155;
     -fx-border-color: #475569;
@@ -144,6 +148,16 @@
 
 .user-card {
     -fx-background-color: #f97356;
+}
+
+.error-card {
+    -fx-background-color: #342817;
+    -fx-border-color: #7c5a20;
+    -fx-border-radius: 15px;
+}
+
+.error-card .speaker-label {
+    -fx-text-fill: #fbbf24;
 }
 
 .speaker-label {

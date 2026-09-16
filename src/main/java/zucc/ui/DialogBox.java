@@ -21,7 +21,8 @@ public final class DialogBox extends HBox {
      * @param avatarText letters displayed in the speaker avatar.
      * @param isUser {@code true} when the message was entered by the user.
      */
-    private DialogBox(String message, String speaker, String avatarText, boolean isUser) {
+    private DialogBox(String message, String speaker, String avatarText, boolean isUser,
+                      boolean isError) {
         getStyleClass().add("dialog-row");
         setAlignment(isUser ? Pos.TOP_RIGHT : Pos.TOP_LEFT);
 
@@ -34,20 +35,22 @@ public final class DialogBox extends HBox {
         messageLabel.getStyleClass().add("message-text");
 
         VBox messageCard = new VBox(speakerLabel, messageLabel);
-        messageCard.getStyleClass().addAll("message-card", isUser ? "user-card" : "zucc-card");
+        String cardStyleClass = isError ? "error-card" : isUser ? "user-card" : "zucc-card";
+        messageCard.getStyleClass().addAll("message-card", cardStyleClass);
         messageCard.setMaxWidth(MESSAGE_CARD_MAXIMUM_WIDTH);
 
         Label avatarLabel = new Label(avatarText);
         avatarLabel.getStyleClass().add("avatar-text");
         StackPane avatar = new StackPane(avatarLabel);
-        avatar.getStyleClass().addAll("avatar", isUser ? "user-avatar" : "zucc-avatar");
+        String avatarStyleClass = isError ? "error-avatar" : isUser ? "user-avatar" : "zucc-avatar";
+        avatar.getStyleClass().addAll("avatar", avatarStyleClass);
 
         if (isUser) {
             getChildren().addAll(messageCard, avatar);
             getStyleClass().add("user-dialog");
         } else {
             getChildren().addAll(avatar, messageCard);
-            getStyleClass().add("zucc-dialog");
+            getStyleClass().add(isError ? "error-dialog" : "zucc-dialog");
         }
     }
 
@@ -58,7 +61,7 @@ public final class DialogBox extends HBox {
      * @return styled user dialog row.
      */
     public static DialogBox createUserDialog(String message) {
-        return new DialogBox(message, "YOU", "Y", true);
+        return new DialogBox(message, "YOU", "Y", true, false);
     }
 
     /**
@@ -68,6 +71,16 @@ public final class DialogBox extends HBox {
      * @return styled Zucc dialog row.
      */
     public static DialogBox createZuccDialog(String message) {
-        return new DialogBox(message, "ZUCC", "Z", false);
+        return new DialogBox(message, "ZUCC", "Z", false, false);
+    }
+
+    /**
+     * Creates a dialog row for a recoverable command error.
+     *
+     * @param message explanation of the error and how to recover from it.
+     * @return styled error dialog row.
+     */
+    public static DialogBox createErrorDialog(String message) {
+        return new DialogBox(message, "CHECK COMMAND", "!", false, true);
     }
 }

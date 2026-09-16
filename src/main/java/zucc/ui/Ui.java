@@ -20,4 +20,14 @@ public abstract class Ui {
      * @param message response to show.
      */
     public abstract void showMessage(String message);
+
+    /**
+     * Shows an error that the user can recover from.
+     * Concrete interfaces may override this method to give errors distinct presentation.
+     *
+     * @param message explanation of the error and how to recover from it.
+     */
+    public void showError(String message) {
+        showMessage(message);
+    }
 }
