@@ -1,0 +1,5 @@
+D | 1 | return car | 2021-01-01 0800
+D | 0 | return book | 2026-09-03 1800
+T | 0 | ekjke
+T | 0 | wmkeejkqejkqejkq
+E | 0 | a | 2026-09-03 0000 | 2026-09-04 0000

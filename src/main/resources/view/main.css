@@ -1,0 +1,86 @@
+/* Application Main Root Background */
+.root {
+    -fx-background-color: #282a36;
+    -fx-font-family: "Georgia", "Times New Roman", serif;
+    -fx-font-size: 13pt;
+    -fx-font-smoothing-type: lcd;
+}
+
+/* ScrollPane Configuration */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-fit-to-width: true;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #1e1f29;
+}
+
+/* ScrollBar Styling */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #44475a;
+    -fx-background-radius: 4px;
+}
+
+/* Text Input Area */
+.text-field {
+    -fx-background-color: #44475a;
+    -fx-text-fill: #f8f8f2;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-radius: 12px;
+    -fx-prompt-text-fill: #6272a4;
+}
+
+/* Send Button */
+.button {
+    -fx-background-color: #6272a4;
+    -fx-text-fill: #f8f8f2;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #bd93f9;
+    -fx-text-fill: #282a36;
+}
+
+.button:pressed {
+    -fx-background-color: #ff79c6;
+}
+
+/* Generic Dialog Label Base */
+.label {
+    -fx-font-size: 13pt;
+    -fx-font-family: "Georgia", "Times New Roman", serif;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-smoothing-type: lcd;
+}
+
+/* User Speech Bubble Style */
+.user-label {
+    -fx-background-color: #50fa7b;
+    -fx-text-fill: #282a36;
+    -fx-background-radius: 15px 15px 0px 15px;
+    -fx-padding: 10px 14px;
+}
+
+/* Chatbot (Puyo) Speech Bubble Style */
+.puyo-label {
+    -fx-background-color: #44475a;
+    -fx-text-fill: #f8f8f2;
+    -fx-background-radius: 15px 15px 15px 0px;
+    -fx-padding: 10px 14px;
+}
+
+.dialog-box {
+    -fx-font-family: "Segoe UI", sans-serif;
+}
