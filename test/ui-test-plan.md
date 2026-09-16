@@ -990,3 +990,56 @@ I couldn't process that, Divine One: A contact needs a name, phone number, and a
 I couldn't process that, Divine One: Findcontact needs a name or keyword. Try: findcontact <keyword>
 I couldn't process that, Divine One: There are no contacts yet. Add a contact before deleting one.
 ```
+
+## Test case 33: Accept documented phone punctuation
+
+### Aim
+
+Verify that a phone number beginning with parentheses is accepted and preserved in the contact list.
+
+### Comparison
+
+`contains`
+
+### Input
+
+```text
+contact Vander /phone (65)-8765-4321 /address Somniel
+listcontacts
+```
+
+### Expected output
+
+```text
+Contact added to the battle plan:
+Vander (phone: (65)-8765-4321, address: Somniel)
+Now you have 1 contact in the list.
+Here are your current contacts:
+1.Vander (phone: (65)-8765-4321, address: Somniel)
+```
+
+## Test case 34: Reject phone numbers without digits or with unsupported characters
+
+### Aim
+
+Verify that relaxing phone punctuation does not accept letters or punctuation-only numbers.
+
+### Comparison
+
+`contains`
+
+### Input
+
+```text
+contact Vander /phone ()+- /address Somniel
+contact Vander /phone 8765abcd /address Somniel
+listcontacts
+```
+
+### Expected output
+
+```text
+I couldn't process that, Divine One: A phone number must contain a digit and may contain only digits, spaces, +, -, and parentheses.
+I couldn't process that, Divine One: A phone number must contain a digit and may contain only digits, spaces, +, -, and parentheses.
+Here are your current contacts:
+```

@@ -66,6 +66,22 @@ class ParserTest {
                 parser.parse("contact Mrs Tan /phone 81234567 /address 12 Engage Road #04-05"));
     }
 
+    @Test
+    void parse_phoneWithDocumentedCharacters_returnsAddContactCommand() throws NotMarthException {
+        for (String phone : List.of("(65)-8765-4321", "+65 8765 4321", "87654321", "(+65) 8765-4321")) {
+            assertInstanceOf(AddContactCommand.class,
+                    parser.parse("contact Vander /phone " + phone + " /address Somniel"));
+        }
+    }
+
+    @Test
+    void parse_phoneWithoutDigitsOrWithUnsupportedCharacters_throwsNotMarthException() {
+        for (String phone : List.of("()+-", "8765abcd", "8765.4321", "8765/4321")) {
+            assertThrows(NotMarthException.class,
+                    () -> parser.parse("contact Vander /phone " + phone + " /address Somniel"));
+        }
+    }
+
     /** Verifies rejection of empty and unknown commands. */
     @Test
     void parse_emptyOrUnknownCommand_throwsNotMarthException() {

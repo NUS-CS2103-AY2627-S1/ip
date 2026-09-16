@@ -143,8 +143,9 @@ public final class Parser {
         if (name.isEmpty() || phone.isEmpty() || address.isEmpty()) {
             throw invalidContactMessage();
         }
-        if (!phone.matches("\\+?[0-9][0-9 ()-]*")) {
-            throw new NotMarthException("A phone number may contain only digits, spaces, +, -, and parentheses.");
+        if (!phone.matches("[0-9 +()-]+") || !phone.matches(".*[0-9].*")) {
+            throw new NotMarthException("A phone number must contain a digit and may contain only digits, "
+                    + "spaces, +, -, and parentheses.");
         }
         return new Contact(name, phone, address);
     }

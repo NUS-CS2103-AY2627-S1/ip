@@ -72,7 +72,8 @@ Add a contact with their name, phone number, and address:
 contact Vander /phone 65161234 /address Somniel Training Yard
 ```
 
-The phone number may contain digits, spaces, `+`, `-`, and parentheses.
+The phone number must contain at least one digit and may contain spaces, `+`, `-`, and parentheses.
+For example, `(65)-8765-4321` and `+65 8765 4321` are valid.
 
 - `listcontacts` — show every contact and its number.
 - `findcontact <keyword>` — find contacts by name.
@@ -83,7 +84,8 @@ to see their current numbers.
 
 ### Exit NotMarth
 
-Enter `bye` to end the session. Your latest battle plan has already been saved automatically.
+Enter `bye` to end the session. The graphical window displays the farewell for 2.5 seconds
+before closing. Your latest battle plan has already been saved automatically.
 
 ## Command summary
 

@@ -3,6 +3,7 @@ package notmarth;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.util.stream.Collectors;
 
 import notmarth.command.Command;
 import notmarth.exception.NotMarthException;
@@ -69,6 +70,9 @@ public final class NotMarthGui {
         } finally {
             System.setOut(originalOutput);
         }
-        return output.toString(StandardCharsets.UTF_8);
+        // Bubble padding supplies the margin for both the first and wrapped lines.
+        return output.toString(StandardCharsets.UTF_8).lines()
+                .map(String::stripLeading)
+                .collect(Collectors.joining("\n"));
     }
 }

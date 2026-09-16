@@ -2,6 +2,7 @@
     -fx-font-family: "Trebuchet MS", "System";
     -fx-font-size: 14px;
     -fx-line-spacing: 2px;
+    -fx-text-alignment: left;
     -fx-text-fill: #2f2b24;
 }
 

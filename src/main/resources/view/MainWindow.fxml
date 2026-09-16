@@ -42,7 +42,8 @@
                        prefHeight="44.0"
                        promptText="Enter a mission order"
                        HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false"
+            <Button fx:id="sendButton"
+                    mnemonicParsing="false"
                     onAction="#handleUserInput"
                     prefHeight="44.0"
                     prefWidth="86.0"

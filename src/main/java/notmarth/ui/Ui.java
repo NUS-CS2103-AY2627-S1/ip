@@ -96,9 +96,7 @@ public class Ui {
 
     /** Displays the farewell message and closes the current output section. */
     public void showFarewell() {
-        showSeparator();
         System.out.println("Until we meet again. Stay strong, Divine One!");
-        showSeparator();
     }
 
     /** Displays the divider line used between console sections. */

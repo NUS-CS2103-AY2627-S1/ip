@@ -1,16 +1,20 @@
 package notmarth.ui;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import notmarth.NotMarthGui;
 
 /** Controller for the FXML-defined NotMarth chat window. */
 public final class MainWindow extends AnchorPane {
+    private static final Duration EXIT_DELAY = Duration.seconds(2.5);
     private static final String ERROR_MESSAGE_PREFIX = "I couldn't process that";
 
     @FXML
@@ -19,6 +23,10 @@ public final class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
+    @FXML
+    private Button sendButton;
+
+    private boolean isClosing;
 
     private final Image userImage = new Image(
             MainWindow.class.getResourceAsStream("/images/sommie.png"));
@@ -42,6 +50,9 @@ public final class MainWindow extends AnchorPane {
     /** Adds the user's command and NotMarth's response to the conversation. */
     @FXML
     private void handleUserInput() {
+        if (isClosing) {
+            return;
+        }
         String input = userInput.getText().trim();
         if (input.isEmpty()) {
             return;
@@ -55,9 +66,19 @@ public final class MainWindow extends AnchorPane {
                         : DialogBox.getNotMarthDialog(response, notMarthImage));
         userInput.clear();
         if (notMarth.isExitRequested()) {
-            Stage stage = (Stage) userInput.getScene().getWindow();
-            stage.close();
+            closeAfterFarewell();
         }
+    }
+
+    /** Leaves the farewell visible without blocking rendering or accepting further commands. */
+    private void closeAfterFarewell() {
+        isClosing = true;
+        userInput.setDisable(true);
+        sendButton.setDisable(true);
+        Stage stage = (Stage) userInput.getScene().getWindow();
+        PauseTransition exitPause = new PauseTransition(EXIT_DELAY);
+        exitPause.setOnFinished(event -> stage.close());
+        exitPause.play();
     }
 
     private boolean isErrorResponse(String response) {
