@@ -93,14 +93,14 @@ class ParserTest {
 
     @Test
     void parseTaskNumber_validAndInvalidNumbers_handledCorrectly() throws KopiException {
-        assertEquals(1, parser.parseTaskNumber("mark 2", "mark", 3));
+        assertEquals(1, parser.parseTaskNumber("  mark 2  ", "mark", 3));
         assertThrows(KopiException.class, () -> parser.parseTaskNumber("mark zero", "mark", 3));
         assertThrows(KopiException.class, () -> parser.parseTaskNumber("mark 4", "mark", 3));
     }
 
     @Test
     void parseKeyword_presentAndMissingKeywords_handledCorrectly() throws KopiException {
-        assertEquals("return book", parser.parseKeyword("find return book", "find"));
+        assertEquals("return book", parser.parseKeyword("  find return book  ", "find"));
         assertThrows(KopiException.class, () -> parser.parseKeyword("find", "find"));
     }
 }

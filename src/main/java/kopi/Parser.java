@@ -69,7 +69,7 @@ public class Parser {
 
     /** Converts a one-based task number into a valid list index. */
     public int parseTaskNumber(String input, String command, int taskCount) throws KopiException {
-        String numberText = input.substring(command.length()).trim();
+        String numberText = input.strip().substring(command.length()).trim();
         int taskNumber;
         try {
             taskNumber = Integer.parseInt(numberText);
@@ -93,7 +93,7 @@ public class Parser {
 
     /** Extracts and validates the keyword supplied to a command. */
     public String parseKeyword(String input, String command) throws KopiException {
-        String keyword = input.substring(command.length()).trim();
+        String keyword = input.strip().substring(command.length()).trim();
         requireText(keyword, "Give me a keyword to find.");
         return keyword;
     }
