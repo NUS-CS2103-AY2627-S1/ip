@@ -1,0 +1,44 @@
+.root { -fx-font-family: "Segoe UI"; -fx-font-size: 14px; -fx-background-color: #faf8f2; }
+.coach-panel { -fx-background-color: #174f43; -fx-padding: 14 12 20 12; }
+.app-subtitle { -fx-text-fill: #f2cf62; -fx-font-size: 12px; }
+.hype-title { -fx-text-fill: #f2cf62; -fx-font-size: 32px; -fx-font-weight: bold; -fx-font-style: italic; }
+.coach-caption { -fx-text-fill: #d6e7de; }
+.coach-message { -fx-background-color: #fff7dd; -fx-background-radius: 16; -fx-padding: 18; -fx-text-fill: #174f43; -fx-font-size: 16px; -fx-font-weight: normal; -fx-alignment: center; -fx-text-alignment: center; }
+.workspace { -fx-padding: 24 26 18 26; }
+.workspace-header { -fx-padding: 0 0 20 0; }
+.page-title { -fx-font-size: 29px; -fx-font-weight: bold; -fx-text-fill: #153e34; }
+.scroll-pane, .scroll-pane > .viewport { -fx-background-color: transparent; }
+.feed { -fx-padding: 2 10 14 2; }
+.input-area { -fx-padding: 14 0 0 0; }
+.text-field, .combo-box { -fx-background-color: white; -fx-border-color: #c8d4cd; -fx-border-radius: 9; -fx-background-radius: 9; -fx-padding: 10; }
+.text-field:focused { -fx-border-color: #238268; }
+.command-input { -fx-padding: 10 44 10 10; }
+.button.clear-command-button { -fx-background-color: transparent; -fx-text-fill: #536e62; -fx-padding: 0; -fx-font-size: 20px; -fx-font-weight: normal; }
+.button.clear-command-button:hover { -fx-background-color: #e5ebe7; -fx-text-fill: #174f43; }
+.button { -fx-background-color: #19644f; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 9; -fx-padding: 11 18; -fx-cursor: hand; }
+.button:hover { -fx-background-color: #267e64; }
+.button:focused { -fx-border-color: #ae8624; -fx-border-radius: 9; }
+.button:disabled { -fx-opacity: 0.5; }
+.gold-button { -fx-background-color: #efc557; -fx-text-fill: #183e33; }
+.gold-button:hover { -fx-background-color: #f6d779; }
+.secondary-button { -fx-background-color: #eeeae0; -fx-text-fill: #23473c; }
+.secondary-button:hover { -fx-background-color: #dfe7df; }
+.task-board, .response-card { -fx-background-color: white; -fx-background-radius: 14; -fx-padding: 20; -fx-border-color: #e4e7df; -fx-border-radius: 14; }
+.card-title { -fx-font-size: 19px; -fx-font-weight: bold; -fx-text-fill: #184638; }
+.card-body { -fx-text-fill: #304b41; -fx-line-spacing: 3; }
+.user-command { -fx-background-color: #e5ebe7; -fx-background-radius: 10; -fx-padding: 9 14; -fx-text-fill: #3a5147; }
+.error-card { -fx-background-color: #fff1eb; -fx-border-color: #d5987b; }
+.error-card .card-title { -fx-text-fill: #9a4024; }
+.success-card { -fx-border-color: #91b9a4; -fx-background-color: #f5fbf6; }
+.task-row { -fx-padding: 10 0; -fx-border-color: #edf0ea transparent transparent transparent; }
+.muted { -fx-text-fill: #6a7c73; -fx-font-size: 12px; }
+.completed-task { -fx-text-fill: #7b877f; }
+.dialog-pane { -fx-background-color: #faf8f2; }
+
+.task-actions .button { -fx-padding: 8 13; }
+.delete-button { -fx-background-color: #faeae3; -fx-text-fill: #963f26; }
+.delete-button:hover { -fx-background-color: #f1d2c4; }
+.form-error {
+    -fx-text-fill: #a63620;
+    -fx-font-weight: bold;
+}

@@ -1,25 +1,54 @@
-# Duke project template
+# DisciTrack
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+DisciTrack is a desktop task manager with a motivational coach personality. It helps users organise todos,
+deadlines, and events, search their schedule, group tasks with tags, and keep their progress saved automatically.
 
-## Setting up in Intellij
+![DisciTrack task board](docs/Ui.png)
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+## User Guide
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Read the [DisciTrack User Guide](https://ngweijien35.github.io/ip/) for all commands, GUI controls, examples,
+and data-recovery instructions.
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## Setting up in IntelliJ
+
+### Prerequisites
+
+- JDK 25
+- A recent version of IntelliJ IDEA
+
+### Setup
+
+1. Open IntelliJ. If another project is open, select **File → Close Project** first.
+2. Select **Open**, choose this project directory, and accept the default import settings.
+3. Configure the project to use **JDK 25** and set the project language level to **SDK default**. See
+   [IntelliJ's SDK setup guide](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk) if needed.
+4. Open `src/main/java/discitrack/gui/Launcher.java` and run `Launcher.main()`.
+
+Keep `src/main/java` as the source root. Gradle and IntelliJ rely on this standard project structure.
+
+## Building and running
+
+From the project root, build the application with:
+
+```text
+./gradlew clean shadowJar
+```
+
+On Windows PowerShell, use:
+
+```text
+.\gradlew.bat clean shadowJar
+```
+
+The cross-platform fat JAR is created at `build/libs/discitrack.jar`. Run it with Java 25:
+
+```text
+java -jar build/libs/discitrack.jar
+```
+
+Run the automated tests and Checkstyle checks with:
+
+```text
+./gradlew check
+```

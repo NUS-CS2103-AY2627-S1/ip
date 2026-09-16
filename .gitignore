@@ -16,5 +16,19 @@ bin/
 # Temp files
 _temp/
 
+# Codex
+.codex/
+!.codex/
+.codex/*
+!.codex/skills/
+.codex/skills/*
+!.codex/skills/seedu-java-coding-standard/
+!.codex/skills/seedu-java-coding-standard/SKILL.md
+!.codex/skills/seedu-git-standard/
+!.codex/skills/seedu-git-standard/SKILL.md
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# User data
+/data

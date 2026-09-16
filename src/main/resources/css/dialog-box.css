@@ -1,0 +1,39 @@
+.message-label {
+    -fx-background-color: #e3ebe7;
+    -fx-background-radius: 10px;
+    -fx-padding: 9px 12px;
+    -fx-text-fill: #21332d;
+}
+
+.message-label:hover {
+    -fx-effect: dropshadow(gaussian, rgba(29, 74, 61, 0.14), 8, 0.15, 0, 2);
+}
+
+.avatar-label {
+    -fx-alignment: center;
+    -fx-background-color: #345e52;
+    -fx-background-radius: 25px;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.user-dialog {
+    -fx-alignment: top-right;
+}
+
+.user-dialog .message-label {
+    -fx-background-color: #d9efe6;
+}
+
+.user-dialog .avatar-label {
+    -fx-background-color: #59736b;
+}
+
+.discitrack-dialog {
+    -fx-alignment: top-left;
+}
+
+.discitrack-dialog .avatar-label {
+    -fx-background-color: transparent;
+}

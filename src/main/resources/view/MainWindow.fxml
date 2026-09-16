@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<BorderPane fx:id="root" prefWidth="1100" prefHeight="760" stylesheets="@../css/main.css"
+ xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+ fx:controller="discitrack.gui.MainWindow">
+ <left>
+  <VBox fx:id="coachPanel" alignment="TOP_CENTER" spacing="12" styleClass="coach-panel" prefWidth="270">
+   <ImageView fitWidth="238" preserveRatio="true"><image><Image url="@../images/discitrack-logo.png"/></image></ImageView>
+   <Label text="Build discipline. Keep moving." styleClass="app-subtitle"/>
+    <ImageView fx:id="coachImage" fitWidth="246" fitHeight="330" preserveRatio="true">
+     <image><Image url="@../images/discitrack-coach-hype.png"/></image>
+    </ImageView>
+   <Label text="Let's gooo!" styleClass="hype-title"/>
+   <Label text="Your discipline coach" styleClass="coach-caption"/>
+   <Label fx:id="coachMessage" text="Big energy. One task at a time." wrapText="true" maxWidth="240"
+    styleClass="coach-message"/>
+  </VBox>
+ </left>
+ <center>
+  <BorderPane styleClass="workspace">
+   <top>
+    <VBox spacing="14" styleClass="workspace-header">
+     <Label text="Ready for your next win?" wrapText="true" styleClass="page-title"/>
+     <FlowPane hgap="10" vgap="8">
+      <Button text="+ Add task" onAction="#handleAdd" styleClass="gold-button"/>
+      <Button text="View tasks" onAction="#handleList" styleClass="secondary-button"/>
+      <Button text="Commands" onAction="#handleHelp" styleClass="secondary-button"/>
+     </FlowPane>
+     <HBox spacing="8" alignment="CENTER_LEFT">
+      <TextField fx:id="searchInput" promptText="Search task descriptions..." onAction="#handleFind"
+       HBox.hgrow="ALWAYS"/>
+      <Button fx:id="searchButton" text="Search" onAction="#handleFind"/>
+      <Button text="Show all" onAction="#handleList" styleClass="secondary-button"/>
+     </HBox>
+     <Label text="Manage tasks below: mark, unmark, tag, untag or delete." wrapText="true" styleClass="muted"/>
+    </VBox>
+   </top>
+   <center>
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER">
+     <VBox spacing="16" styleClass="feed">
+      <VBox fx:id="dialogContainer" spacing="12"/>
+      <VBox fx:id="taskContainer" spacing="8" styleClass="task-board"/>
+     </VBox>
+    </ScrollPane>
+   </center>
+   <bottom>
+    <VBox spacing="7" styleClass="input-area">
+     <Label text="Your move. Use a button or type a command." styleClass="muted"/>
+     <HBox spacing="10" alignment="CENTER_LEFT">
+      <StackPane HBox.hgrow="ALWAYS" minWidth="0">
+       <TextField fx:id="userInput" promptText="Type a command..." onAction="#handleUserInput"
+        styleClass="command-input"/>
+       <Button fx:id="clearCommandButton" text="&#215;" onAction="#handleClearCommand"
+        accessibleText="Clear command" styleClass="clear-command-button" StackPane.alignment="CENTER_RIGHT"
+        minWidth="28" prefWidth="28" maxWidth="28" minHeight="28" prefHeight="28" maxHeight="28">
+        <StackPane.margin><Insets right="8"/></StackPane.margin>
+        <tooltip><Tooltip text="Clear command"/></tooltip>
+       </Button>
+      </StackPane>
+      <Button fx:id="sendButton" text="Send" onAction="#handleUserInput"/>
+     </HBox>
+    </VBox>
+   </bottom>
+  </BorderPane>
+ </center>
+</BorderPane>
