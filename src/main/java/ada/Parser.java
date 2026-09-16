@@ -74,11 +74,25 @@ public class Parser {
             return new CommandInfo("bye");
         }
 
-        if (input.equals("list")) {
+        if (input.startsWith("list")) {
+            String extra = input.substring(4).trim();
+
+            if (!extra.isEmpty()) {
+                throw new AdaException(
+                        "Invalid format. Please use: list");
+            }
+
             return new CommandInfo("list");
         }
 
-        if (input.equals("sort")) {
+        if (input.startsWith("sort")) {
+            String extra = input.substring(4).trim();
+
+            if (!extra.isEmpty()) {
+                throw new AdaException(
+                        "Invalid format. Please use: sort");
+            }
+
             return new CommandInfo("sort");
         }
 
