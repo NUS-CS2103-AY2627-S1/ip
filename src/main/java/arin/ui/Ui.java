@@ -14,6 +14,7 @@ public class Ui {
 
     private final Scanner scanner;
     private final PrintStream output;
+    private final boolean shouldShowDividers;
 
     /**
      * Creates a UI that reads from standard input and writes to standard output.
@@ -29,15 +30,46 @@ public class Ui {
      * @param output Destination for messages.
      */
     public Ui(Scanner scanner, PrintStream output) {
+        this(scanner, output, true);
+    }
+
+    /**
+     * Creates a message formatter with optional console dividers.
+     *
+     * @param scanner Source of user commands.
+     * @param output Destination for messages.
+     * @param shouldShowDividers Whether messages need console separators.
+     */
+    public Ui(Scanner scanner, PrintStream output, boolean shouldShowDividers) {
         this.scanner = scanner;
         this.output = output;
+        this.shouldShowDividers = shouldShowDividers;
+    }
+
+    /**
+     * Displays a compact reference to the supported commands.
+     */
+    public void showHelp() {
+        output.println("Your next task starts here:");
+        output.println("todo <description>");
+        output.println("deadline <description> /by <yyyy-MM-dd>");
+        output.println("event <description> /from <start> /to <end>");
+        output.println("list | find <keyword> | sort name | sort deadline");
+        output.println("mark <number> | unmark <number> | delete <number> | help | bye");
+        output.println("Use numbers from the latest list, not the search results. Changes save automatically.");
+    }
+
+    private void showDivider() {
+        if (shouldShowDividers) {
+            output.println(DIVIDER);
+        }
     }
 
     /**
      * Displays Arin's welcome message.
      */
     public void showWelcome() {
-        output.println(DIVIDER);
+        showDivider();
         output.println("    _         _       ");
         output.println("   / \\   _ __(_)_ __  ");
         output.println("  / _ \\ | '__| | '_ \\ ");
@@ -47,7 +79,7 @@ public class Ui {
         output.println("My name is Arin.");
         output.println("And I am a Wilderness Explorer in Tribe 54, Sweat Lodge 12.");
         output.println("Are you in need of any assistance today, sir?");
-        output.println(DIVIDER);
+        showDivider();
     }
 
     /**
@@ -102,11 +134,11 @@ public class Ui {
      * @param taskCount Number of tasks after the addition.
      */
     public void showAddedTask(Task task, int taskCount) {
-        output.println(DIVIDER);
+        showDivider();
         output.println("Got it. I've added this task:");
         output.println(task);
         output.println("Now you have " + taskCount + " tasks in the list.");
-        output.println(DIVIDER);
+        showDivider();
     }
 
     /**
@@ -116,11 +148,11 @@ public class Ui {
      * @param taskCount Number of tasks after the deletion.
      */
     public void showDeletedTask(Task task, int taskCount) {
-        output.println(DIVIDER);
+        showDivider();
         output.println("Noted. I've removed this task:");
         output.println("  " + task);
         output.println("Now you have " + taskCount + " tasks in the list.");
-        output.println(DIVIDER);
+        showDivider();
     }
 
     /**
@@ -129,18 +161,18 @@ public class Ui {
      * @param message Error message to display.
      */
     public void showError(String message) {
-        output.println(DIVIDER);
+        showDivider();
         output.println("Oops! " + message);
-        output.println(DIVIDER);
+        showDivider();
     }
 
     /**
      * Displays Arin's goodbye message.
      */
     public void showGoodbye() {
-        output.println(DIVIDER);
+        showDivider();
         output.println("Bye. Hope to see you again soon!");
-        output.println(DIVIDER);
+        showDivider();
     }
 
     /**
@@ -150,12 +182,12 @@ public class Ui {
      * @param tasks Tasks to display in their existing order.
      */
     private void showNumberedTasks(String heading, List<Task> tasks) {
-        output.println(DIVIDER);
+        showDivider();
         output.println(heading);
         for (int i = 0; i < tasks.size(); i++) {
             output.println((i + 1) + ". " + tasks.get(i));
         }
-        output.println(DIVIDER);
+        showDivider();
     }
 
     /**
@@ -165,9 +197,9 @@ public class Ui {
      * @param task Task to display.
      */
     private void showTaskMessage(String message, Task task) {
-        output.println(DIVIDER);
+        showDivider();
         output.println(message);
         output.println(task);
-        output.println(DIVIDER);
+        showDivider();
     }
 }

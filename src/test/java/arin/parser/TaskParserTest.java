@@ -40,7 +40,7 @@ class TaskParserTest {
                 TaskParser.parse("event meeting /from Aug 6th 2pm /to Aug 6th 4pm"));
 
         assertEquals("[E][ ] meeting (from: Aug 6th 2pm to: Aug 6th 4pm)", task.toString());
-        assertEquals("E |   | meeting | Aug 6th 2pm Aug 6th 4pm", task.storageToString());
+        assertEquals("E |   | meeting | Aug 6th 2pm | Aug 6th 4pm", task.storageToString());
     }
 
     @ParameterizedTest

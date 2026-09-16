@@ -29,7 +29,7 @@ public class Event extends Task {
      */
     @Override
     public String storageToString() {
-        return "E" + super.storageToString() + " | " + this.start + " " + this.end;
+        return "E" + super.storageToString() + " | " + this.start + " | " + this.end;
     }
 
     /**

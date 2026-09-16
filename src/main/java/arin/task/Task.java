@@ -37,6 +37,10 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
     /**
      * Marks this task as complete.
      */

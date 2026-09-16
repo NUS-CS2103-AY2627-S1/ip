@@ -62,7 +62,7 @@ class SortCommandTest {
         assertEquals(List.of(deadline, event, todo), tasks);
         assertEquals(List.of(
                 "D | X | apple delivery | 2026-09-12",
-                "E |   | Book club | 2pm 4pm",
+                "E |   | Book club | 2pm | 4pm",
                 "T |   | Zoo visit"
         ), Files.readAllLines(taskFile));
         assertEquals(String.join(System.lineSeparator(),
@@ -104,7 +104,7 @@ class SortCommandTest {
                 "D |   | January task | 2026-01-01",
                 "D |   | distant task | +999999999-12-31",
                 "T |   | buy milk",
-                "E |   | meeting | tomorrow Friday"
+                "E |   | meeting | tomorrow | Friday"
         ), Files.readAllLines(taskFile));
     }
 

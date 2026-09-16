@@ -40,7 +40,7 @@ class StorageTest {
         assertEquals(List.of(
                 "T | X | read book",
                 "D |   | return book | 2019-12-02",
-                "E |   | project meeting | Aug 6th 2pm Aug 6th 4pm"
+                "E |   | project meeting | Aug 6th 2pm | Aug 6th 4pm"
         ), Files.readAllLines(taskFile));
     }
 
