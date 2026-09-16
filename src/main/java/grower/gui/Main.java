@@ -1,3 +1,6 @@
+//@@author damithc-reused
+//Code below and all Gui code is reused from: https://se-education.org/guides/tutorials/javaFxPart1.html
+// With minor modifications
 package grower.gui;
 
 import java.io.IOException;
