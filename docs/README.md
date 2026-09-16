@@ -1,21 +1,19 @@
-# Welcome to Dog! 🐶
+# WOOF WOOF! I'm **Dog**! 🐶
 
-WOOF WOOF! I'm Dog, a task management application that helps you organize your tasks with a friendly interface. Whether
-you
-have deadlines to meet, events to plan, or simple todos to track, I'm here to help! WOOF!
+Dog is a task management application that helps you organize your tasks with a friendly interface.
+Whether you have deadlines to meet, events to plan, or simple todos to track, Dog is here to help! WOOF!
 
 ## Table of Contents
 
 - [Getting Started](#getting-started)
-- [Features](#features)
-    - [Adding Tasks](#adding-tasks)
-        - [Todo](#todo)
-        - [Deadline](#deadline)
-        - [Event](#event)
-    - [Viewing Tasks](#viewing-tasks)
-    - [Marking Tasks as Done](#marking-tasks-as-done)
-    - [Deleting Tasks](#deleting-tasks)
-    - [Finding Tasks](#finding-tasks)
+- [Adding Tasks](#adding-tasks)
+    - [Todo](#todo)
+    - [Deadline](#deadline)
+    - [Event](#event)
+- [Viewing Tasks](#viewing-tasks)
+- [Marking Tasks as Done](#marking-tasks-as-done)
+- [Deleting Tasks](#deleting-tasks)
+- [Finding Tasks](#finding-tasks)
 - [File Storage](#file-storage)
 - [Tips](#tips)
 - [Command Reference](#command-reference)
@@ -31,13 +29,11 @@ WOOF WOOF! How can I help? WOOF
 Just type your commands in the input box at the bottom of the window and press Enter, and Dog will obey them like a
 _gooooood booooyyy_.
 
-## Features
-
-### Adding Tasks
+## Adding Tasks
 
 Dog supports three types of tasks: Todo, Deadline, and Event.
 
-#### Todo
+### Todo
 
 A todo is a task without a specific deadline.
 
@@ -58,7 +54,7 @@ WOOF! I've added a new task:
 [T][ ] buy groceries
 ```
 
-#### Deadline
+### Deadline
 
 A deadline is a task that must be completed by a specific date.
 
@@ -81,7 +77,7 @@ WOOF! I've added a new task:
 [D][ ] submit assignment (by: Sept 18 2026)
 ```
 
-#### Event
+### Event
 
 An event is a task that occurs within a specific time period.
 
@@ -104,7 +100,7 @@ WOOF! I've added a new task:
 [E][ ] party (from: Sept 18 2026 to: Sept 20 2026)
 ```
 
-### Viewing Tasks
+## Viewing Tasks
 
 To see all your tasks, use the `list` command.
 
@@ -127,7 +123,7 @@ WOOF! I've fetched the tasks in your list:
 3. [E][ ] party (from: Sept 18 2026 to: Sept 20 2026)
 ```
 
-### Marking Tasks as Done
+## Marking Tasks as Done
 
 Mark a task as completed when you finish it.
 
@@ -150,7 +146,7 @@ WOOF! I've marked this task as done:
 
 💡 **Tip:** You can view the task numbers using the `list` command.
 
-### Deleting Tasks
+## Deleting Tasks
 
 Remove tasks you no longer need.
 
@@ -172,7 +168,7 @@ WOOF! I've deleted this task:
 You have 2 tasks left in your list! WOOF!
 ```
 
-### Finding Tasks
+## Finding Tasks
 
 Find tasks that match a keyword.
 
@@ -195,7 +191,7 @@ WOOF! I've fetched these matching tasks from your list:
 
 💡 **Tip:** Search is case-insensitive. "assignment", "Assignment", and "ASSIGNMENT" will all find the same tasks.
 
-### Exiting the Application
+## Exiting the Application
 
 When you're done managing your tasks, you can exit the application using the `bye` command.
 
@@ -233,16 +229,16 @@ You don't need to manually save your tasks. Dog saves each time you update your 
 
 ## Command Reference
 
-| Command                                       | Description          | Aliases                 | Example                                       |
-|-----------------------------------------------|----------------------|-------------------------|-----------------------------------------------|
-| `todo <description>`                          | Add a todo task      | `t`, `task`, `add`      | `todo buy groceries`                          |
-| `deadline <description> /by <date>`           | Add a deadline task  | `d`                     | `deadline submit assignment /by 2026-09-18`   |
-| `event <description> /from <date> /to <date>` | Add an event task    | `e`                     | `event party /from 2026-09-18 /to 2026-09-20` |
-| `list`                                        | View all tasks       | `l`, `ls`               | `list`                                        |
-| `mark <number>`                               | Mark a task as done  | `m`, `done`, `complete` | `mark 1`                                      |
-| `delete <number>`                             | Delete a task        | `del`, `remove`, `rm`   | `delete 2`                                    |
-| `find <keyword>`                              | Search for tasks     | `f`, `search`           | `find assignment`                             |
-| `woof`                                        | Get a dog response   | `arf`, `bark`           | `woof`                                        |
-| `bye`                                         | Exit the application | `exit`, `q`             | `bye`                                         |
+| Command                                       | Description              | Aliases                 | Example                                       |
+|-----------------------------------------------|--------------------------|-------------------------|-----------------------------------------------|
+| `todo <description>`                          | Add a todo task          | `t`, `task`, `add`      | `todo buy groceries`                          |
+| `deadline <description> /by <date>`           | Add a deadline task      | `d`                     | `deadline submit assignment /by 2026-09-18`   |
+| `event <description> /from <date> /to <date>` | Add an event task        | `e`                     | `event party /from 2026-09-18 /to 2026-09-20` |
+| `list`                                        | View all tasks           | `l`, `ls`               | `list`                                        |
+| `mark <number>`                               | Mark a task as done      | `m`, `done`, `complete` | `mark 1`                                      |
+| `delete <number>`                             | Delete a task            | `del`, `remove`, `rm`   | `delete 2`                                    |
+| `find <keyword>`                              | Search for tasks         | `f`, `search`           | `find assignment`                             |
+| `woof`                                        | Get a surprise response! | `arf`, `bark`           | `woof`                                        |
+| `bye`                                         | Exit the application     | `exit`, `q`             | `bye`                                         |
 
-**Happy task managing! WOOF!**
+**Happy task managing! WOOF! 🐶**
