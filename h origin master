@@ -1,0 +1,16 @@
+*   [33m34fa71f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;33mtag: [m[1;33mLevel-8[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge branch-Level-8
+[31m|[m[32m\[m  
+[31m|[m * [33me573cb5[m[33m ([m[1;31morigin/branch-Level-8[m[33m, [m[1;32mbranch-Level-8[m[33m)[m allow user to filter by end or start time for tasks
+[31m|[m * [33m4c1b08f[m Implement dates using Java.LocalDate instead of strings
+[31m|[m[31m/[m  
+*   [33m361c57b[m[33m ([m[1;33mtag: [m[1;33mLevel-7[m[33m)[m Merge branch-Level-7
+[33m|[m[34m\[m  
+[33m|[m * [33mbff57c0[m[33m ([m[1;31morigin/branch-Level-7[m[33m, [m[1;32mbranch-Level-7[m[33m)[m Add clear command to empty list
+[33m|[m * [33m66d0b1f[m Change code to align with coding standard
+[33m|[m * [33m1d7b34e[m Add saving
+[33m|[m[33m/[m  
+* [33mb876d46[m[33m ([m[1;33mtag: [m[1;33mA-Enums[m[33m)[m make commands an enum
+* [33mb710524[m[33m ([m[1;33mtag: [m[1;33mLevel-6[m[33m)[m Add Level 6 task deletion
+* [33m5fd30d8[m[33m ([m[1;33mtag: [m[1;33mLevel-5[m[33m)[m Handle invalid commands with Anaconda exceptions
+* [33m9e4c41e[m[33m ([m[1;33mtag: [m[1;33mLevel-4[m[33m)[m Implement Level 4 typed task support
+* [33m1869f62[m[33m ([m[1;33mtag: [m[1;33mLevel-3[m[33m)[m added marking and unmarking
