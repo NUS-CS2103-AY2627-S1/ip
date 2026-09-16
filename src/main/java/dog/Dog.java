@@ -151,7 +151,6 @@ public class Dog {
 
     private String handleFindTasks(String rest) throws DogException {
         TaskList foundTasks = taskList.findTasks(rest);
-        handleSaveTasksToStorage();
         return "WOOF! I've fetched these matching tasks from your list:\n" + foundTasks;
     }
 
