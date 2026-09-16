@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Tasque UI"
+  short_description: "Run Tasque console regression tests"
+  default_prompt: "Use $test-ui to run the persistent Tasque console tests and show the transcripts."

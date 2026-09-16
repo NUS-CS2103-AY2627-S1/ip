@@ -1,0 +1,68 @@
+.root {
+    -fx-background-color:
+        linear-gradient(to bottom, #f8fbff 0%, #edf3fb 100%),
+        radial-gradient(center 50% 8%, radius 75%, rgba(37, 99, 235, 0.07) 0%,
+            rgba(37, 99, 235, 0.0) 72%);
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.dialog-container {
+    -fx-padding: 8px;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 8px;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 12px;
+}
+
+.text-field:focused {
+    -fx-border-color: #2563eb;
+}
+
+.button {
+    -fx-background-color: #2563eb;
+    -fx-background-radius: 8px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 8px;
+    -fx-border-width: 2px;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.button:focused {
+    -fx-border-color: #0f172a;
+    -fx-border-insets: -3px;
+}
+
+.button:hover {
+    -fx-background-color: #1d4ed8;
+}
+
+.button:pressed {
+    -fx-background-color: #1e40af;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #cbd5e1;
+    -fx-background-radius: 5px;
+}
