@@ -16,5 +16,8 @@ bin/
 # Temp files
 _temp/
 
+# Crow task data generated at runtime
+crow.txt
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

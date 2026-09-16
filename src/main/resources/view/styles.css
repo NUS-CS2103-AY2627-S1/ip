@@ -1,0 +1,76 @@
+.chat-root {
+    -fx-background-color: #ffffff;
+    -fx-font-family: "System";
+    -fx-font-size: 14px;
+}
+
+.app-header {
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #e5e5e5 transparent;
+}
+
+.app-title {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #202123;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: #ffffff;
+}
+
+.scroll-pane {
+    -fx-border-color: transparent;
+}
+
+.message-row {
+    -fx-alignment: top-left;
+}
+
+.user-message {
+    -fx-background-color: #f7f7f8;
+}
+
+.crow-message {
+    -fx-background-color: #ffffff;
+}
+
+.sender-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #202123;
+}
+
+.message-label {
+    -fx-text-fill: #343541;
+    -fx-line-spacing: 2px;
+}
+
+.composer {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e5e5e5 transparent transparent transparent;
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px;
+    -fx-border-color: #d9d9e3;
+    -fx-border-radius: 12px;
+    -fx-padding: 11px 14px;
+}
+
+.text-field:focused {
+    -fx-border-color: #8e8ea0;
+}
+
+.button {
+    -fx-background-color: #202123;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+    -fx-padding: 10px 16px;
+    -fx-text-fill: #ffffff;
+}
+
+.button:hover {
+    -fx-background-color: #343541;
+}
