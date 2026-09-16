@@ -24,6 +24,7 @@ public class Main extends Application {
             scene.getStylesheets().add(
                     Main.class.getResource("/css/main.css").toExternalForm());
             stage.setScene(scene);
+            stage.setTitle("Della");
             stage.setMinHeight(500);
             stage.setMinWidth(417);
             fxmlLoader.<MainWindow>getController().setDella(this.della); // inject the Della instance
