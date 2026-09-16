@@ -1,0 +1,80 @@
+.dialog-box {
+    -fx-padding: 6px 14px;
+    -fx-spacing: 10px;
+}
+
+.message-label {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ead5e2;
+    -fx-border-width: 1px;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 8px 11px;
+    -fx-text-fill: #392d4f;
+}
+
+.user-label {
+    -fx-background-color: #7c3aed;
+    -fx-background-radius: 16px 16px 4px 16px;
+    -fx-border-color: #7c3aed;
+    -fx-border-radius: 16px 16px 4px 16px;
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+}
+
+.reply-label {
+    -fx-background-radius: 16px 16px 16px 4px;
+    -fx-border-radius: 16px 16px 16px 4px;
+}
+
+.error-status {
+    -fx-background-color: #b42318;
+    -fx-background-radius: 4px;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 2px 6px;
+    -fx-text-fill: white;
+}
+
+.error-label {
+    -fx-background-color: #fff1f2;
+    -fx-border-color: #e05260;
+    -fx-border-width: 1px 1px 1px 4px;
+    -fx-text-fill: #8f1d2c;
+}
+
+.add-label {
+    -fx-background-color: #fdf2f8;
+    -fx-border-color: #f472b6;
+    -fx-border-width: 1px 1px 1px 4px;
+}
+
+.marked-label {
+    -fx-background-color: #ecfdf5;
+    -fx-border-color: #10b981;
+    -fx-border-width: 1px 1px 1px 4px;
+}
+
+.unmarked-label {
+    -fx-background-color: #fffbeb;
+    -fx-border-color: #fbbf24;
+    -fx-border-width: 1px 1px 1px 4px;
+}
+
+.delete-label {
+    -fx-background-color: #fff1f2;
+    -fx-border-color: #f43f5e;
+    -fx-border-width: 1px 1px 1px 4px;
+}
+
+.priority-label {
+    -fx-background-color: #f5f3ff;
+    -fx-border-color: #8b5cf6;
+    -fx-border-width: 1px 1px 1px 4px;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(219, 39, 119, 0.28), 8, 0.3, 0, 2);
+}

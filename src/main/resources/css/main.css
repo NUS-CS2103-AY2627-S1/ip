@@ -1,0 +1,108 @@
+.root {
+    -fx-background-color: #fff8fc;
+    -fx-font-family: "Trebuchet MS", "System";
+    -fx-font-size: 14px;
+}
+
+.header {
+    -fx-background-color: linear-gradient(to right, #7c3aed, #db2777);
+    -fx-padding: 16px 18px 14px 18px;
+}
+
+.header-title {
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.header-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #fde7f3;
+}
+
+.composer {
+    -fx-background-color: #fffdf5;
+    -fx-border-color: #f4cce0 transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 10px 12px;
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e9b9d2;
+    -fx-border-radius: 14px;
+    -fx-background-radius: 14px;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 11px;
+    -fx-text-fill: #392d4f;
+    -fx-prompt-text-fill: #9a718b;
+}
+
+.text-field:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #db2777;
+    -fx-effect: dropshadow(gaussian, rgba(219, 39, 119, 0.22), 8, 0.3, 0, 0);
+}
+
+.text-field:error {
+    -fx-border-color: #e05260;
+    -fx-effect: dropshadow(gaussian, rgba(224, 82, 96, 0.2), 8, 0.3, 0, 0);
+}
+
+.button {
+    -fx-background-color: #7c3aed;
+    -fx-background-radius: 14px;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 14px;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #db2777;
+}
+
+.button:pressed {
+    -fx-background-color: #9d174d;
+}
+
+.button:focused {
+    -fx-effect: dropshadow(gaussian, rgba(219, 39, 119, 0.3), 8, 0.35, 0, 0);
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-padding: 4px 0;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-padding: 2px;
+    -fx-pref-width: 9px;
+}
+
+.scroll-bar .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #d8b4cf;
+    -fx-background-radius: 999px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+    -fx-opacity: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane .corner {
+    -fx-background-color: transparent;
+}
