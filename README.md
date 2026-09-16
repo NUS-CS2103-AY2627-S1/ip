@@ -2,6 +2,12 @@
 
 This is a project template for a greenfield Java project. Given below are instructions on how to use it.
 
+## Acknowledgements
+
+Edrich Yu ([@ed3yuu](https://github.com/ed3yuu)) used OpenAI Codex to assist with the development of Lobby
+throughout the project, including code review and test verification. This AI assistance was used across
+the project rather than being limited to a few methods or classes.
+
 ## Finding tasks
 
 Use `find <keywords>` to search task descriptions.
