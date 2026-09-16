@@ -30,7 +30,7 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
 
-    String javaFxVersion = '17.0.7'
+    String javaFxVersion = '25.0.3'
 
     implementation("org.openjfx:javafx-base:${javaFxVersion}:win")
     implementation("org.openjfx:javafx-base:${javaFxVersion}:mac")
