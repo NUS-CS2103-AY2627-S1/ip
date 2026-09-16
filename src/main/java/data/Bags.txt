@@ -1,0 +1,7 @@
+T | [ ] | Read book
+<<<<<<< HEAD
+T | [X] | Do homework
+=======
+T | [ ] | homework1
+T | [ ] | homework 3
+>>>>>>> branch-Level-9

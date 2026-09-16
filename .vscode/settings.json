@@ -1,0 +1,7 @@
+{
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "mainClass": "bags.Bags",
+    "java.debug.settings.onBuildFailureProceed": true,
+    "editor.formatOnSave": false
+
+}

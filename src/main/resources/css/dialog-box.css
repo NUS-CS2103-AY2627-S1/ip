@@ -1,0 +1,40 @@
+.label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-padding: 8px 12px;
+}
+
+.user-dialog {
+    -fx-alignment: top-right;
+}
+
+.user-label {
+    -fx-background-color: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+    -fx-background-radius: 14px 14px 2px 14px;
+    -fx-border-color: linear-gradient(to right, #a6c0fe 0%, #f68084 100%);
+    -fx-border-radius: 14px 14px 2px 14px;
+    -fx-border-width: 1px;
+    -fx-text-fill: #312e81;
+}
+
+.bags-label {
+    -fx-background-color: linear-gradient(to top, #dbeafe 0%, #e0f2fe 100%);
+    -fx-background-radius: 14px 14px 14px 2px;
+    -fx-border-color: linear-gradient(to right, #93c5fd 0%, #67e8f9 100%);
+    -fx-border-radius: 14px 14px 14px 2px;
+    -fx-border-width: 1px;
+    -fx-text-fill: #0f3d5e;
+}
+
+.error-label {
+    -fx-background-color: #fff1f2;
+    -fx-background-radius: 10px;
+    -fx-border-color: #fda4af;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px 1px 1px 4px;
+    -fx-text-fill: #9f1239;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.3, 0, 2);
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+
+<fx:root alignment="TOP_RIGHT"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css/dialog-box.css">
+
+    <children>
+
+        <Label fx:id="dialog"
+               text="Label"
+               wrapText="true"
+               maxWidth="300.0"
+               minHeight="-Infinity"/>
+
+         <ImageView fx:id="displayPicture" 
+               fitHeight="41.0" 
+               fitWidth="41.0" 
+               pickOnBounds="true" 
+               preserveRatio="false">
+            <clip>
+                <Circle centerX="20.5" centerY="20.5" radius="20.5" />
+            </clip>
+        </ImageView>
+
+    </children>
+
+    <spacing>10.0</spacing>
+
+    <padding>
+        <Insets top="10.0"
+                right="10.0"
+                bottom="10.0"
+                left="10.0"/>
+    </padding>
+
+</fx:root>

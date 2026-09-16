@@ -1,0 +1,63 @@
+.root {
+    main-color: rgb(223, 246, 255);
+    -fx-background-color: main-color;
+    -fx-background-image: url("../images/User.png");
+    -fx-background-size: cover;
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-background-insets: 0;
+    -fx-border-color: #cbd5e1;
+    -fx-border-width: 1px 0 0 0;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+    -fx-padding: 12px 14px;
+    -fx-prompt-text-fill: #64748b;
+    -fx-text-fill: #1e293b;
+}
+
+.text-field:focused {
+    -fx-border-color: #2563eb;
+    -fx-border-width: 2px 0 0 0;
+}
+
+.button {
+    -fx-background-color: rgb(173, 190, 207);
+    -fx-background-radius: 0;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+.button:hover {
+    -fx-background-color: rgb(67, 102, 137);
+}
+
+.button:pressed {
+    -fx-background-color: rgb(119, 152, 185);
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    /* Change width of scroll bar. */
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #d7dfe4;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
