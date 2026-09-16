@@ -18,6 +18,7 @@ public class Ada {
     private final Storage storage;
     private final TaskList taskList;
     private final Parser parser;
+    private boolean lastResponseWasError;
 
     /**
      * Constructs an Ada application instance.
@@ -110,6 +111,8 @@ public class Ada {
      * @return response to display in the GUI
      */
     public String getResponse(String input) {
+        lastResponseWasError = false;
+
         try {
             Parser.CommandInfo cmd = parser.parse(input);
 
@@ -134,6 +137,7 @@ public class Ada {
                         Deadline deadline = addDeadlineTask(cmd);
                         return ui.getAddTaskText(deadline, taskList.size());
                     } catch (DateTimeException e) {
+                        lastResponseWasError = true;
                         return ui.getDateTimeErrorDeadlineText();
                     }
                 case "event":
@@ -143,6 +147,7 @@ public class Ada {
                     } catch (DateTimeException
                             | NumberFormatException
                             | IndexOutOfBoundsException e) {
+                        lastResponseWasError = true;
                         return ui.getDateTimeErrorEventText();
                     }
 
@@ -157,9 +162,11 @@ public class Ada {
                     storage.save(taskList.getAllTasks());
                     return ui.getSortedTaskListText(taskList.getAllTasks());
                 default:
+                    lastResponseWasError = true;
                     return ui.getUnknownCommandText();
             }
         } catch (AdaException e) {
+            lastResponseWasError = true;
             return e.getMessage();
         }
     }
@@ -260,6 +267,10 @@ public class Ada {
         Task removed = taskList.removeTask(taskNum - 1);
         storage.save(taskList.getAllTasks());
         return removed;
+    }
+
+    public boolean wasLastResponseError() {
+        return this.lastResponseWasError;
     }
 
     /**

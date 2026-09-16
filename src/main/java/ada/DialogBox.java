@@ -77,6 +77,9 @@ public class DialogBox extends HBox {
             case "delete":
                 dialog.getStyleClass().add("delete-label");
                 break;
+            case "error":
+                dialog.getStyleClass().add("error-label");
+                break;
             default:
                 // Keep the default reply style.
         }
