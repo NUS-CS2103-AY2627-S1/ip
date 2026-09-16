@@ -70,19 +70,22 @@ public class Ui {
      * Shows a warning that malformed saved records were ignored.
      *
      * @param skippedLines number of invalid records.
+     * @param filePath location of the save file.
      */
-    public void showSkippedLinesWarning(int skippedLines) {
+    public void showSkippedLinesWarning(int skippedLines, String filePath) {
         String lineWord = skippedLines == 1 ? "line" : "lines";
         System.out.println(" I skipped " + skippedLines + " invalid " + lineWord
-                + " while loading data/lobby.txt.");
+                + " while loading " + filePath + ".");
         endResponse();
     }
 
     /**
      * Shows a warning that the save file could not be read.
+     *
+     * @param filePath location of the save file.
      */
-    public void showLoadingError() {
-        System.out.println(" I couldn't read data/lobby.txt, so I started with an empty task list.");
+    public void showLoadingError(String filePath) {
+        System.out.println(" I couldn't read " + filePath + ", so I started with an empty task list.");
         endResponse();
     }
 

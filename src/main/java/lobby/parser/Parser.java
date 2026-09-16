@@ -63,6 +63,21 @@ public class Parser {
     }
 
     /**
+     * Rejects arguments after commands that do not accept any.
+     *
+     * @param command complete trimmed command.
+     * @param commandType recognized command.
+     * @throws LobbyException if list or bye has arguments.
+     */
+    public void validateNoArguments(String command, Command commandType) throws LobbyException {
+        if ((commandType == Command.LIST || commandType == Command.BYE)
+                && command.split("\\s+", 2).length > 1) {
+            throw new LobbyException("The " + commandType.name().toLowerCase(Locale.ROOT)
+                    + " command does not accept arguments.");
+        }
+    }
+
+    /**
      * Reads a task number following a command word.
      *
      * @param command the complete command entered by the user.
@@ -119,6 +134,7 @@ public class Parser {
      */
     public Deadline parseDeadline(String command) throws LobbyException {
         String deadlineDetails = command.substring("deadline".length()).trim();
+        rejectRepeatedMarker(deadlineDetails, "/by");
         int byIndex = findMarker(deadlineDetails, "/by");
         if (byIndex < 0) {
             throw new LobbyException("A deadline needs a /by time. Try: deadline <description> /by <when>.");
@@ -148,12 +164,19 @@ public class Parser {
      */
     public Event parseEvent(String command) throws LobbyException {
         String eventDetails = command.substring("event".length()).trim();
+        rejectRepeatedMarker(eventDetails, "/from");
+        rejectRepeatedMarker(eventDetails, "/to");
         int fromIndex = findMarker(eventDetails, "/from");
         if (fromIndex < 0) {
             throw new LobbyException(
                     "An event needs a /from start time. Try: event <description> /from <start> /to <end>.");
         }
 
+        int firstToIndex = findMarker(eventDetails, "/to");
+        if (firstToIndex >= 0 && firstToIndex < fromIndex) {
+            throw new LobbyException("An event needs /from before /to. "
+                    + "Try: event <description> /from <start> /to <end>.");
+        }
         String description = eventDetails.substring(0, fromIndex).trim();
         String timeDetails = eventDetails.substring(fromIndex + "/from".length()).trim();
         int toIndex = findMarker(timeDetails, "/to");
@@ -177,11 +200,21 @@ public class Parser {
     }
 
     /**
-     * Finds a case-insensitive marker surrounded by whitespace or string boundaries.
+     * Rejects repeated complete markers, ignoring case.
      *
      * @param text command details to search.
      * @param marker marker to find, such as {@code /by}.
-     * @return the marker's starting index, or {@code -1} if it is absent
+     * @throws LobbyException if the marker appears more than once.
+     */
+    private void rejectRepeatedMarker(String text, String marker) throws LobbyException {
+        int firstIndex = findMarker(text, marker);
+        if (firstIndex >= 0 && findMarker(text.substring(firstIndex + marker.length()), marker) >= 0) {
+            throw new LobbyException("Please specify " + marker + " exactly once.");
+        }
+    }
+
+    /**
+     * Finds the first complete marker, ignoring case.
      */
     private int findMarker(String text, String marker) {
         // Callers supply fixed command markers; an empty marker would incorrectly match a boundary.
