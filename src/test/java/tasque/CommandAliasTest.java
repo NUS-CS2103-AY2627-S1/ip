@@ -40,13 +40,14 @@ public class CommandAliasTest {
             {"find read  book", "f read  book"}, {"delete 2", "del 2"}, {"bye", "b"}
         };
         for (String[] pair : commands) {
-            String response = canonical.getResponse("   " + pair[0] + "   ");
-            assertFalse(response.startsWith("OOPS!!!"), response);
+            TasqueResponse result = canonical.getCommandResponse("   " + pair[0] + "   ");
+            String response = result.getText();
+            assertFalse(result.isError(), response);
             assertEquals(response,
                     aliases.getResponse("\t " + pair[1] + " \t"), pair[1]);
             assertEquals(Files.readString(canonicalPath), Files.readString(aliasPath));
         }
-        assertEquals("Here are the tasks in your list:\n1.[T][ ] read  book\n"
+        assertEquals("Tasks:\n1.[T][ ] read  book\n"
                 + "2.[E][ ] meeting (from: Aug 26 2026 to: Aug 27 2026)", canonical.getResponse("list"));
     }
 
@@ -75,23 +76,23 @@ public class CommandAliasTest {
     public void getResponse_invalidAliasArguments_matchesCanonicalErrors() {
         Tasque tasque = new Tasque(this.tempDirectory.resolve("tasks.txt").toString());
         String[][] commands = {
-            {"todo", "t", "OOPS!!! The description of a todo cannot be empty."},
-            {"deadline report", "d report", "OOPS!!! A deadline must include /by followed by when it is due."},
-            {"deadline report /by tomorrow", "d report /by tomorrow", "OOPS!!! Please enter the date as yyyy-MM-dd."},
+            {"todo", "t", "The description of a todo cannot be empty."},
+            {"deadline report", "d report", "A deadline must include /by followed by when it is due."},
+            {"deadline report /by tomorrow", "d report /by tomorrow", "Enter a valid date in yyyy-MM-dd format."},
             {"event meeting /from 2026-09-20", "e meeting /from 2026-09-20",
-                "OOPS!!! An event must include /to followed by its end."},
-            {"mark", "m", "OOPS!!! The mark command needs a task number."},
-            {"unmark abc", "u abc", "OOPS!!! The task number must be a positive whole number."},
-            {"delete 1", "del 1", "OOPS!!! Task 1 does not exist in the list."},
-            {"find", "f", "OOPS!!! The find command needs a keyword."},
-            {"list extra", "l extra", "OOPS!!! I do not recognize that command."},
-            {"bye extra", "b extra", "OOPS!!! I do not recognize that command."}
+                "An event must include /to followed by its end."},
+            {"mark", "m", "The mark command needs a task number."},
+            {"unmark abc", "u abc", "The task number must be a positive whole number."},
+            {"delete 1", "del 1", "Task 1 doesn't exist."},
+            {"find", "f", "The find command needs a keyword."},
+            {"list extra", "l extra", "Yeah, I don't know what that means."},
+            {"bye extra", "b extra", "Yeah, I don't know what that means."}
         };
         for (String[] invalidCase : commands) {
             assertEquals(invalidCase[2], tasque.getResponse(invalidCase[0]), invalidCase[0]);
             assertEquals(invalidCase[2], tasque.getResponse(invalidCase[1]), invalidCase[1]);
         }
-        assertEquals("Here are the tasks in your list:", tasque.getResponse("list"));
+        assertEquals("Tasks:", tasque.getResponse("list"));
     }
 
     @Test
@@ -99,7 +100,7 @@ public class CommandAliasTest {
         Tasque tasque = new Tasque(this.tempDirectory.resolve("tasks.txt").toString());
 
         for (String input : new String[] {"", " \t ", "\u2003"}) {
-            assertEquals("OOPS!!! I do not recognize that command.", tasque.getResponse(input), input);
+            assertEquals("Yeah, I don't know what that means.", tasque.getResponse(input), input);
         }
     }
 
@@ -111,7 +112,7 @@ public class CommandAliasTest {
             "events meeting", "listing", "mark1", "unmark1", "delete1", "findbook", "byebye",
             "Todo book", "todo\tbook"};
         for (String input : inputs) {
-            assertEquals("OOPS!!! I do not recognize that command.", tasque.getResponse(input), input);
+            assertEquals("Yeah, I don't know what that means.", tasque.getResponse(input), input);
         }
     }
 }

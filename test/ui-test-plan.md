@@ -27,21 +27,21 @@ todo should not be added
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+Task registered.
 [T][ ] read  book
-Now you have 1 tasks in the list
-Here are the tasks in your list:
+Tasks: 1
+Tasks:
 1.[T][ ] read  book
-Nice! I've marked this task as done:
+Task completed.
 [T][X] read  book
-OK, I've marked this task as not done yet:
+Task reopened.
 [T][ ] read  book
-Here are the matching tasks in your list:
+Matches:
 1.[T][ ] read  book
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-EH-02: Reject reversed Events and accept same-day Events
@@ -65,20 +65,20 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-OOPS!!! The end date of an event cannot be before its start date.
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+Unless you've invented time travel, the end date can't be before the start date.
+Task registered.
 [E][ ] meeting (from: Aug 28 2026 to: Aug 28 2026)
-Now you have 1 tasks in the list
-Got it. I've added this task:
+Tasks: 1
+Task registered.
 [E][ ] meeting (from: Aug 28 2026 to: Aug 29 2026)
-Now you have 2 tasks in the list
-Here are the tasks in your list:
+Tasks: 2
+Tasks:
 1.[E][ ] meeting (from: Aug 28 2026 to: Aug 28 2026)
 2.[E][ ] meeting (from: Aug 28 2026 to: Aug 29 2026)
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-EH-03: Reject exact active duplicates and allow a completed task to repeat
@@ -107,32 +107,32 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+Task registered.
 [T][ ] read book
-Now you have 1 tasks in the list
-OOPS!!! That task already exists in your task list.
-Got it. I've added this task:
+Tasks: 1
+Already got that one.
+Task registered.
 [D][ ] report (by: Aug 26 2026)
-Now you have 2 tasks in the list
-OOPS!!! That task already exists in your task list.
-Got it. I've added this task:
+Tasks: 2
+Already got that one.
+Task registered.
 [E][ ] meeting (from: Aug 26 2026 to: Aug 27 2026)
-Now you have 3 tasks in the list
-OOPS!!! That task already exists in your task list.
-Nice! I've marked this task as done:
+Tasks: 3
+Already got that one.
+Task completed.
 [T][X] read book
-Got it. I've added this task:
+Task registered.
 [T][ ] read book
-Now you have 4 tasks in the list
-Here are the tasks in your list:
+Tasks: 4
+Tasks:
 1.[T][X] read book
 2.[D][ ] report (by: Aug 26 2026)
 3.[E][ ] meeting (from: Aug 26 2026 to: Aug 27 2026)
 4.[T][ ] read book
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-EH-04: Exit with a padded short alias
@@ -154,10 +154,10 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
+Hey, I'm Tasque.
+Ready when you are.
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L9-01: Find matching tasks
@@ -181,22 +181,22 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+Task registered.
 [T][ ] read book
-Now you have 1 tasks in the list
-Got it. I've added this task:
+Tasks: 1
+Task registered.
 [D][ ] return book (by: Aug 26 2026)
-Now you have 2 tasks in the list
-Got it. I've added this task:
+Tasks: 2
+Task registered.
 [T][ ] submit report
-Now you have 3 tasks in the list
-Here are the matching tasks in your list:
+Tasks: 3
+Matches:
 1.[T][ ] read book
 2.[D][ ] return book (by: Aug 26 2026)
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L9-02: Find with no matches
@@ -218,14 +218,14 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+Task registered.
 [T][ ] read book
-Now you have 1 tasks in the list
-Here are the matching tasks in your list:
+Tasks: 1
+Matches:
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L9-03: Reject blank find keyword
@@ -249,17 +249,17 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-OOPS!!! The find command needs a keyword.
-OOPS!!! The find command needs a keyword.
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+The find command needs a keyword.
+The find command needs a keyword.
+Task registered.
 [T][ ] read book
-Now you have 1 tasks in the list
-Here are the matching tasks in your list:
+Tasks: 1
+Matches:
 1.[T][ ] read book
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L3-01: Add, list, mark, and unmark a task
@@ -283,19 +283,19 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+Task registered.
 [T][ ] read book
-Now you have 1 tasks in the list
-Here are the tasks in your list:
+Tasks: 1
+Tasks:
 1.[T][ ] read book
-Nice! I've marked this task as done:
+Task completed.
 [T][X] read book
-OK, I've marked this task as not done yet:
+Task reopened.
 [T][ ] read book
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L8-01: Parse and format ISO deadline dates
@@ -317,15 +317,15 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+Task registered.
 [D][ ] submit report (by: Aug 26 2026)
-Now you have 1 tasks in the list
-Here are the tasks in your list:
+Tasks: 1
+Tasks:
 1.[D][ ] submit report (by: Aug 26 2026)
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L8-02: Persist ISO deadline dates across restart
@@ -349,23 +349,23 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+Task registered.
 [D][ ] submit report (by: Aug 26 2026)
-Now you have 1 tasks in the list
+Tasks: 1
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ========================================
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-Here are the tasks in your list:
+Hey, I'm Tasque.
+Ready when you are.
+Tasks:
 1.[D][ ] submit report (by: Aug 26 2026)
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L8-03: Reject invalid deadline dates and continue
@@ -389,17 +389,17 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-OOPS!!! Please enter the date as yyyy-MM-dd.
-OOPS!!! Please enter the date as yyyy-MM-dd.
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+Enter a valid date in yyyy-MM-dd format.
+Enter a valid date in yyyy-MM-dd format.
+Task registered.
 [D][ ] valid date (by: Aug 26 2026)
-Now you have 1 tasks in the list
-Here are the tasks in your list:
+Tasks: 1
+Tasks:
 1.[D][ ] valid date (by: Aug 26 2026)
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L8-04: Parse, validate, and persist event dates
@@ -425,25 +425,25 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-OOPS!!! Please enter the dates as yyyy-MM-dd.
-OOPS!!! Please enter the dates as yyyy-MM-dd.
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+Enter valid dates in yyyy-MM-dd format.
+Enter valid dates in yyyy-MM-dd format.
+Task registered.
 [E][ ] project meeting (from: Aug 28 2026 to: Aug 29 2026)
-Now you have 1 tasks in the list
+Tasks: 1
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ========================================
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-Here are the tasks in your list:
+Hey, I'm Tasque.
+Ready when you are.
+Tasks:
 1.[E][ ] project meeting (from: Aug 28 2026 to: Aug 29 2026)
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L7-01: Persist tasks across restart
@@ -469,31 +469,31 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+Task registered.
 [T][ ] read book
-Now you have 1 tasks in the list
-Got it. I've added this task:
+Tasks: 1
+Task registered.
 [D][ ] submit report (by: Aug 26 2026)
-Now you have 2 tasks in the list
-Got it. I've added this task:
+Tasks: 2
+Task registered.
 [E][ ] team meeting (from: Aug 28 2026 to: Aug 29 2026)
-Now you have 3 tasks in the list
+Tasks: 3
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ========================================
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-Here are the tasks in your list:
+Hey, I'm Tasque.
+Ready when you are.
+Tasks:
 1.[T][ ] read book
 2.[D][ ] submit report (by: Aug 26 2026)
 3.[E][ ] team meeting (from: Aug 28 2026 to: Aug 29 2026)
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L7-02: Persist task descriptions containing pipes
@@ -519,31 +519,31 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+Task registered.
 [T][ ] read | book
-Now you have 1 tasks in the list
-Got it. I've added this task:
+Tasks: 1
+Task registered.
 [D][ ] submit | report (by: Aug 28 2026)
-Now you have 2 tasks in the list
-Got it. I've added this task:
+Tasks: 2
+Task registered.
 [E][ ] team | meeting (from: Aug 28 2026 to: Aug 29 2026)
-Now you have 3 tasks in the list
+Tasks: 3
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ========================================
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-Here are the tasks in your list:
+Hey, I'm Tasque.
+Ready when you are.
+Tasks:
 1.[T][ ] read | book
 2.[D][ ] submit | report (by: Aug 28 2026)
 3.[E][ ] team | meeting (from: Aug 28 2026 to: Aug 29 2026)
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L5-01: Reject empty Todo descriptions
@@ -567,17 +567,17 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-OOPS!!! The description of a todo cannot be empty.
-OOPS!!! The description of a todo cannot be empty.
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+The description of a todo cannot be empty.
+The description of a todo cannot be empty.
+Task registered.
 [T][ ] read book
-Now you have 1 tasks in the list
-Here are the tasks in your list:
+Tasks: 1
+Tasks:
 1.[T][ ] read book
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L5-02: Reject incomplete Deadlines
@@ -603,19 +603,19 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-OOPS!!! The description of a deadline cannot be empty.
-OOPS!!! The description of a deadline cannot be empty.
-OOPS!!! A deadline must include /by followed by when it is due.
-OOPS!!! The /by value of a deadline cannot be empty.
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+The description of a deadline cannot be empty.
+The description of a deadline cannot be empty.
+A deadline must include /by followed by when it is due.
+The /by value of a deadline cannot be empty.
+Task registered.
 [D][ ] return book (by: Aug 26 2026)
-Now you have 1 tasks in the list
-Here are the tasks in your list:
+Tasks: 1
+Tasks:
 1.[D][ ] return book (by: Aug 26 2026)
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L5-03: Reject incomplete Events
@@ -643,21 +643,21 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-OOPS!!! The description of an event cannot be empty.
-OOPS!!! The description of an event cannot be empty.
-OOPS!!! An event must include /from followed by its start.
-OOPS!!! An event must include /to followed by its end.
-OOPS!!! The /from value of an event cannot be empty.
-OOPS!!! The /to value of an event cannot be empty.
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+The description of an event cannot be empty.
+The description of an event cannot be empty.
+An event must include /from followed by its start.
+An event must include /to followed by its end.
+The /from value of an event cannot be empty.
+The /to value of an event cannot be empty.
+Task registered.
 [E][ ] project meeting (from: Aug 28 2026 to: Aug 29 2026)
-Now you have 1 tasks in the list
-Here are the tasks in your list:
+Tasks: 1
+Tasks:
 1.[E][ ] project meeting (from: Aug 28 2026 to: Aug 29 2026)
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L5-04: Reject invalid commands and task numbers
@@ -690,28 +690,28 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-OOPS!!! I do not recognize that command.
-OOPS!!! The mark command needs a task number.
-OOPS!!! The unmark command needs a task number.
-OOPS!!! The task number must be a positive whole number.
-OOPS!!! The task number must be a positive whole number.
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+Yeah, I don't know what that means.
+The mark command needs a task number.
+The unmark command needs a task number.
+The task number must be a positive whole number.
+The task number must be a positive whole number.
+Task registered.
 [T][ ] read book
-Now you have 1 tasks in the list
-OOPS!!! The task number must be a positive whole number.
-OOPS!!! The task number must be a positive whole number.
-OOPS!!! Task 2 does not exist in the list.
-OOPS!!! Task 2 does not exist in the list.
-Nice! I've marked this task as done:
+Tasks: 1
+The task number must be a positive whole number.
+The task number must be a positive whole number.
+Task 2 doesn't exist.
+Task 2 doesn't exist.
+Task completed.
 [T][X] read book
-OK, I've marked this task as not done yet:
+Task reopened.
 [T][ ] read book
-Here are the tasks in your list:
+Tasks:
 1.[T][ ] read book
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L4-01: Create and list a Todo using aliases
@@ -735,15 +735,15 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+Task registered.
 [T][ ] borrow book
-Now you have 1 tasks in the list
-Here are the tasks in your list:
+Tasks: 1
+Tasks:
 1.[T][ ] borrow book
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L4-02: Create and list a Deadline
@@ -765,15 +765,15 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+Task registered.
 [D][ ] return book (by: Aug 26 2026)
-Now you have 1 tasks in the list
-Here are the tasks in your list:
+Tasks: 1
+Tasks:
 1.[D][ ] return book (by: Aug 26 2026)
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L4-03: Create and list an Event
@@ -795,15 +795,15 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+Task registered.
 [E][ ] project meeting (from: Aug 28 2026 to: Aug 29 2026)
-Now you have 1 tasks in the list
-Here are the tasks in your list:
+Tasks: 1
+Tasks:
 1.[E][ ] project meeting (from: Aug 28 2026 to: Aug 29 2026)
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L4-04: Mark and unmark a mixed task list
@@ -834,39 +834,39 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+Task registered.
 [T][ ] borrow book
-Now you have 1 tasks in the list
-Got it. I've added this task:
+Tasks: 1
+Task registered.
 [D][ ] return book (by: Aug 26 2026)
-Now you have 2 tasks in the list
-Got it. I've added this task:
+Tasks: 2
+Task registered.
 [E][ ] project meeting (from: Aug 28 2026 to: Aug 29 2026)
-Now you have 3 tasks in the list
-Nice! I've marked this task as done:
+Tasks: 3
+Task completed.
 [T][X] borrow book
-Nice! I've marked this task as done:
+Task completed.
 [D][X] return book (by: Aug 26 2026)
-Nice! I've marked this task as done:
+Task completed.
 [E][X] project meeting (from: Aug 28 2026 to: Aug 29 2026)
-Here are the tasks in your list:
+Tasks:
 1.[T][X] borrow book
 2.[D][X] return book (by: Aug 26 2026)
 3.[E][X] project meeting (from: Aug 28 2026 to: Aug 29 2026)
-OK, I've marked this task as not done yet:
+Task reopened.
 [T][ ] borrow book
-OK, I've marked this task as not done yet:
+Task reopened.
 [D][ ] return book (by: Aug 26 2026)
-OK, I've marked this task as not done yet:
+Task reopened.
 [E][ ] project meeting (from: Aug 28 2026 to: Aug 29 2026)
-Here are the tasks in your list:
+Tasks:
 1.[T][ ] borrow book
 2.[D][ ] return book (by: Aug 26 2026)
 3.[E][ ] project meeting (from: Aug 28 2026 to: Aug 29 2026)
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L6-01: Delete the only task
@@ -889,17 +889,17 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+Task registered.
 [T][ ] read book
-Now you have 1 tasks in the list
-Noted. I've removed this task:
+Tasks: 1
+Task removed.
 [T][ ] read book
-Now you have 0 tasks in the list
-Here are the tasks in your list:
+Tasks: 0
+Tasks:
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L6-02: Delete first and middle tasks
@@ -930,42 +930,42 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+Task registered.
 [T][ ] first task
-Now you have 1 tasks in the list
-Got it. I've added this task:
+Tasks: 1
+Task registered.
 [D][ ] second task (by: Aug 26 2026)
-Now you have 2 tasks in the list
-Got it. I've added this task:
+Tasks: 2
+Task registered.
 [E][ ] third task (from: Aug 28 2026 to: Aug 29 2026)
-Now you have 3 tasks in the list
-Got it. I've added this task:
+Tasks: 3
+Task registered.
 [T][ ] fourth task
-Now you have 4 tasks in the list
-Noted. I've removed this task:
+Tasks: 4
+Task removed.
 [T][ ] first task
-Now you have 3 tasks in the list
-Here are the tasks in your list:
+Tasks: 3
+Tasks:
 1.[D][ ] second task (by: Aug 26 2026)
 2.[E][ ] third task (from: Aug 28 2026 to: Aug 29 2026)
 3.[T][ ] fourth task
-Noted. I've removed this task:
+Task removed.
 [E][ ] third task (from: Aug 28 2026 to: Aug 29 2026)
-Now you have 2 tasks in the list
-Here are the tasks in your list:
+Tasks: 2
+Tasks:
 1.[D][ ] second task (by: Aug 26 2026)
 2.[T][ ] fourth task
-Nice! I've marked this task as done:
+Task completed.
 [T][X] fourth task
-OK, I've marked this task as not done yet:
+Task reopened.
 [T][ ] fourth task
-Here are the tasks in your list:
+Tasks:
 1.[D][ ] second task (by: Aug 26 2026)
 2.[T][ ] fourth task
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```
 
 ## TC-L6-03: Reject invalid delete commands
@@ -993,19 +993,19 @@ bye
                  TASQUE                 
 ========================================
 
-Hello! I'm Tasque.
-What can I do for you?
-OOPS!!! The delete command needs a task number.
-OOPS!!! The task number must be a positive whole number.
-OOPS!!! The task number must be a positive whole number.
-OOPS!!! The task number must be a positive whole number.
-OOPS!!! Task 1 does not exist in the list.
-Got it. I've added this task:
+Hey, I'm Tasque.
+Ready when you are.
+The delete command needs a task number.
+The task number must be a positive whole number.
+The task number must be a positive whole number.
+The task number must be a positive whole number.
+Task 1 doesn't exist.
+Task registered.
 [T][ ] read book
-Now you have 1 tasks in the list
-OOPS!!! Task 2 does not exist in the list.
-Here are the tasks in your list:
+Tasks: 1
+Task 2 doesn't exist.
+Tasks:
 1.[T][ ] read book
 
-Goodbye! See you again soon.
+Whew that was exhausting! Good luck with the tasks!
 ```

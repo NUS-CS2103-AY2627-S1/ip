@@ -59,7 +59,7 @@ public class Parser {
             }
         }
 
-        throw new TasqueException("I do not recognize that command.");
+        throw new TasqueException("Yeah, I don't know what that means.");
     }
 
     /**
@@ -89,7 +89,7 @@ public class Parser {
             throw new TasqueException("The task number must be a positive whole number.");
         }
         if (taskNumber > numberOfTasks) {
-            throw new TasqueException("Task " + taskNumber + " does not exist in the list.");
+            throw new TasqueException("Task " + taskNumber + " doesn't exist.");
         }
         return taskNumber;
     }
@@ -155,7 +155,7 @@ public class Parser {
         try {
             return new Deadline(description, by);
         } catch (DateTimeParseException e) {
-            throw new TasqueException("Please enter the date as yyyy-MM-dd.");
+            throw new TasqueException("Enter a valid date in yyyy-MM-dd format.");
         }
     }
 
@@ -203,11 +203,12 @@ public class Parser {
         try {
             Event event = new Event(description, from, to);
             if (event.hasReversedDates()) {
-                throw new TasqueException("The end date of an event cannot be before its start date.");
+                throw new TasqueException("Unless you've invented time travel, "
+                        + "the end date can't be before the start date.");
             }
             return event;
         } catch (DateTimeParseException e) {
-            throw new TasqueException("Please enter the dates as yyyy-MM-dd.");
+            throw new TasqueException("Enter valid dates in yyyy-MM-dd format.");
         }
     }
 }

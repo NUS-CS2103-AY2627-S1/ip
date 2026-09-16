@@ -136,13 +136,13 @@ public class Tasque {
             case "find":
                 return findTask(userInput);
             default:
-                throw new TasqueException("I do not recognize that command.");
+                throw new TasqueException("Yeah, I don't know what that means.");
         }
     }
 
     private String addTask(Task task) throws TasqueException {
         if (this.tasks.hasIncompleteDuplicate(task)) {
-            throw new TasqueException("That task already exists in your task list.");
+            throw new TasqueException("Already got that one.");
         }
         this.tasks.add(task);
         try {

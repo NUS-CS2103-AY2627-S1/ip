@@ -28,21 +28,21 @@ public class TasqueTest {
 
         TasqueResponse invalid = tasque.getCommandResponse("unknown");
         assertTrue(invalid.isError());
-        assertEquals("OOPS!!! I do not recognize that command.", invalid.getText());
+        assertEquals("Yeah, I don't know what that means.", invalid.getText());
         assertTrue(tasque.getCommandResponse("todo").isError());
 
         TasqueResponse added = tasque.getCommandResponse("todo OOPS!!! review error handling");
         assertFalse(added.isError());
-        assertEquals("Got it. I've added this task:\n"
+        assertEquals("Task registered.\n"
                 + "[T][ ] OOPS!!! review error handling\n"
-                + "Now you have 1 tasks in the list", added.getText());
+                + "Tasks: 1", added.getText());
 
         TasqueResponse duplicate = tasque.getCommandResponse("t OOPS!!! review error handling");
         assertTrue(duplicate.isError());
-        assertEquals("OOPS!!! That task already exists in your task list.", duplicate.getText());
+        assertEquals("Already got that one.", duplicate.getText());
         TasqueResponse listed = tasque.getCommandResponse("list");
         assertFalse(listed.isError());
-        assertEquals("Here are the tasks in your list:\n1.[T][ ] OOPS!!! review error handling",
+        assertEquals("Tasks:\n1.[T][ ] OOPS!!! review error handling",
                 listed.getText());
         assertTrue(invalid.isError());
         assertFalse(added.isError());
@@ -56,14 +56,14 @@ public class TasqueTest {
 
         TasqueResponse deleted = tasque.getCommandResponse("delete 1");
         assertFalse(deleted.isError());
-        assertEquals("Noted. I've removed this task:\n[T][ ] first\nNow you have 2 tasks in the list",
+        assertEquals("Task removed.\n[T][ ] first\nTasks: 2",
                 deleted.getText());
-        assertEquals("Here are the tasks in your list:\n1.[T][ ] second\n2.[T][ ] third",
+        assertEquals("Tasks:\n1.[T][ ] second\n2.[T][ ] third",
                 new Tasque(storagePath.toString()).getResponse("list"));
 
-        assertEquals("Noted. I've removed this task:\n[T][ ] second\nNow you have 1 tasks in the list",
+        assertEquals("Task removed.\n[T][ ] second\nTasks: 1",
                 tasque.getResponse("delete 1"));
-        assertEquals("Here are the tasks in your list:\n1.[T][ ] third",
+        assertEquals("Tasks:\n1.[T][ ] third",
                 new Tasque(storagePath.toString()).getResponse("list"));
     }
 
@@ -90,7 +90,7 @@ public class TasqueTest {
 
         TasqueResponse welcome = tasque.getWelcomeResponse();
         assertFalse(welcome.isError());
-        assertEquals("Hello! I'm Tasque.\nWhat can I do for you?", welcome.getText());
+        assertEquals("Hey, I'm Tasque.\nReady when you are.", welcome.getText());
         assertEquals(welcome.getText(), tasque.getWelcomeMessage());
     }
 
@@ -103,8 +103,8 @@ public class TasqueTest {
 
         TasqueResponse welcome = tasque.getWelcomeResponse();
         assertTrue(welcome.isError());
-        assertTrue(welcome.getText().startsWith("Hello! I'm Tasque.\nWhat can I do for you?\nOOPS!!! "));
-        assertEquals(1, countOccurrences(welcome.getText(), "OOPS!!!"));
+        assertTrue(welcome.getText().startsWith("Hey, I'm Tasque.\nReady when you are.\n"));
+        assertEquals(1, countOccurrences(welcome.getText(), "I couldn't load your tasks"));
         assertEquals(welcome.getText(), tasque.getWelcomeMessage());
         for (String command : new String[] {"list", "todo blocked task", "unknown"}) {
             TasqueResponse blocked = tasque.getCommandResponse(command);
@@ -115,7 +115,7 @@ public class TasqueTest {
         for (String command : new String[] {"bye", "  b  "}) {
             TasqueResponse exit = tasque.getCommandResponse(command);
             assertFalse(exit.isError());
-            assertEquals("Goodbye! See you again soon.", exit.getText());
+            assertEquals("Whew that was exhausting! Good luck with the tasks!", exit.getText());
         }
         assertArrayEquals(original, Files.readAllBytes(storagePath));
     }
@@ -133,10 +133,10 @@ public class TasqueTest {
         for (String command : new String[] {"todo third", "mark 1", "unmark 2", "delete 1"}) {
             TasqueResponse failed = tasque.getCommandResponse(command);
             assertTrue(failed.isError());
-            assertEquals("OOPS!!! I couldn't save your tasks.", failed.getText());
+            assertEquals("I couldn't save your tasks.", failed.getText());
             TasqueResponse listed = tasque.getCommandResponse("list");
             assertFalse(listed.isError());
-            assertEquals("Here are the tasks in your list:\n1.[T][ ] first\n2.[T][X] second", listed.getText());
+            assertEquals("Tasks:\n1.[T][ ] first\n2.[T][X] second", listed.getText());
         }
     }
 
@@ -152,10 +152,10 @@ public class TasqueTest {
             {"todo \u2003", "a todo"}
         };
         for (String[] command : commands) {
-            assertEquals("OOPS!!! The description of " + command[1] + " cannot be empty.",
+            assertEquals("The description of " + command[1] + " cannot be empty.",
                     tasque.getResponse(command[0]));
             assertArrayEquals(original, Files.readAllBytes(storagePath));
-            assertEquals("Here are the tasks in your list:\n1.[T][ ] retained task", tasque.getResponse("list"));
+            assertEquals("Tasks:\n1.[T][ ] retained task", tasque.getResponse("list"));
             assertEquals(tasque.getResponse("list"), new Tasque(storagePath.toString()).getResponse("list"));
         }
     }
@@ -175,7 +175,7 @@ public class TasqueTest {
             Tasque tasque = new Tasque(storagePath.toString());
             String originalList = tasque.getResponse("list");
             for (int i = 1; i < duplicateCase.length; i++) {
-                assertEquals("OOPS!!! That task already exists in your task list.",
+                assertEquals("Already got that one.",
                         tasque.getResponse(duplicateCase[i]));
                 assertEquals(originalList, tasque.getResponse("list"));
                 assertArrayEquals(original, Files.readAllBytes(storagePath));
@@ -196,7 +196,7 @@ public class TasqueTest {
             "event read book /from 2026-08-26 /to 2026-08-28"
         };
         for (String command : commands) {
-            assertTrue(tasque.getResponse(command).startsWith("Got it. I've added this task:"), command);
+            assertTrue(tasque.getResponse(command).startsWith("Task registered."), command);
         }
         assertEquals(commands.length, new Storage(storagePath.toString()).loadTasks().size());
     }
@@ -208,16 +208,16 @@ public class TasqueTest {
         for (int i = 0; i < commands.length; i++) {
             Path storagePath = this.tempDirectory.resolve("tasks-" + i + ".txt");
             Tasque tasque = new Tasque(storagePath.toString());
-            assertTrue(tasque.getResponse(commands[i]).startsWith("Got it."));
-            assertTrue(tasque.getResponse("mark 1").startsWith("Nice!"));
-            assertTrue(tasque.getResponse(commands[i]).startsWith("Got it."));
+            assertTrue(tasque.getResponse(commands[i]).startsWith("Task registered."));
+            assertTrue(tasque.getResponse("mark 1").startsWith("Task completed."));
+            assertTrue(tasque.getResponse(commands[i]).startsWith("Task registered."));
             String originalList = tasque.getResponse("list");
             byte[] original = Files.readAllBytes(storagePath);
 
-            assertEquals("OOPS!!! That task already exists in your task list.", tasque.getResponse(commands[i]));
+            assertEquals("Already got that one.", tasque.getResponse(commands[i]));
             assertEquals(originalList, tasque.getResponse("list"));
             assertArrayEquals(original, Files.readAllBytes(storagePath));
-            assertTrue(tasque.getResponse("unmark 1").startsWith("OK,"));
+            assertTrue(tasque.getResponse("unmark 1").startsWith("Task reopened."));
             assertEquals(2, new Storage(storagePath.toString()).loadTasks().size());
             assertEquals(tasque.getResponse("list"), new Tasque(storagePath.toString()).getResponse("list"));
         }
@@ -230,9 +230,9 @@ public class TasqueTest {
         byte[] original = Files.readAllBytes(storagePath);
         Tasque tasque = new Tasque(storagePath.toString());
         for (String command : new String[] {"event", "   e"}) {
-            assertEquals("OOPS!!! The end date of an event cannot be before its start date.",
+            assertEquals("Unless you've invented time travel, the end date can't be before the start date.",
                     tasque.getResponse(command + " meeting /from 2026-08-17 /to 2026-08-16   "));
-            assertEquals("Here are the tasks in your list:\n1.[T][ ] retained task", tasque.getResponse("list"));
+            assertEquals("Tasks:\n1.[T][ ] retained task", tasque.getResponse("list"));
             assertArrayEquals(original, Files.readAllBytes(storagePath));
         }
     }
@@ -245,11 +245,11 @@ public class TasqueTest {
         Tasque tasque = assertDoesNotThrow(() -> new Tasque(storagePath.toString()));
         String error = tasque.getResponse("list");
 
-        assertTrue(error.startsWith("OOPS!!! I couldn't load your tasks"));
+        assertTrue(error.startsWith("I couldn't load your tasks"));
         assertTrue(error.contains("line 2"));
         assertTrue(error.contains("has not changed the file"));
         assertTrue(error.contains("restart Tasque"));
-        assertEquals(1, countOccurrences(error, "OOPS!!!"));
+        assertEquals(1, countOccurrences(error, "I couldn't load your tasks"));
         assertTrue(tasque.getWelcomeMessage().contains(error));
         String[] commands = {"list", "l", "find valuable", "f valuable", "todo new task", "t new task",
             "deadline task /by 2026-09-16", "d task /by 2026-09-16",
@@ -261,7 +261,7 @@ public class TasqueTest {
             assertArrayEquals(original, Files.readAllBytes(storagePath));
         }
         for (String command : new String[] {"bye", "b", "   bye   ", "\t b \t"}) {
-            assertEquals("Goodbye! See you again soon.", tasque.getResponse(command));
+            assertEquals("Whew that was exhausting! Good luck with the tasks!", tasque.getResponse(command));
             assertTrue(tasque.isExitCommand(command));
         }
 
@@ -269,7 +269,7 @@ public class TasqueTest {
         Files.writeString(storagePath, repaired);
         assertEquals(error, tasque.getResponse("todo still blocked"));
         assertEquals(repaired, Files.readString(storagePath));
-        assertEquals("Here are the tasks in your list:\n1.[T][X] valuable task",
+        assertEquals("Tasks:\n1.[T][X] valuable task",
                 new Tasque(storagePath.toString()).getResponse("list"));
     }
 
@@ -292,7 +292,7 @@ public class TasqueTest {
             String output = outputBytes.toString(StandardCharsets.UTF_8);
             assertFalse(output.contains("OOPS!!!"), output);
             assertFalse(output.contains("should not be added"), output);
-            assertTrue(output.endsWith("Goodbye! See you again soon."));
+            assertTrue(output.endsWith("Whew that was exhausting! Good luck with the tasks!"));
             assertFalse(Files.exists(storagePath));
         }
     }
@@ -329,10 +329,10 @@ public class TasqueTest {
         }
 
         String output = outputBytes.toString(StandardCharsets.UTF_8);
-        assertTrue(output.contains("OOPS!!! I couldn't load your tasks"));
+        assertTrue(output.contains("I couldn't load your tasks"));
         assertTrue(output.contains("line 1"));
-        assertEquals(1, countOccurrences(output, "OOPS!!!"));
-        assertTrue(output.endsWith("Goodbye! See you again soon."));
+        assertEquals(1, countOccurrences(output, "I couldn't load your tasks"));
+        assertTrue(output.endsWith("Whew that was exhausting! Good luck with the tasks!"));
         assertEquals("T | 0\n", Files.readString(storagePath));
     }
 
@@ -341,34 +341,34 @@ public class TasqueTest {
         Path storagePath = this.tempDirectory.resolve("data").resolve("tasque.txt");
         Tasque tasque = new Tasque(storagePath.toString());
 
-        assertEquals("Hello! I'm Tasque.\nWhat can I do for you?", tasque.getWelcomeMessage());
-        assertEquals("Got it. I've added this task:\n"
+        assertEquals("Hey, I'm Tasque.\nReady when you are.", tasque.getWelcomeMessage());
+        assertEquals("Task registered.\n"
                 + "[T][ ] read book\n"
-                + "Now you have 1 tasks in the list", tasque.getResponse("todo read book"));
-        assertEquals("Got it. I've added this task:\n"
+                + "Tasks: 1", tasque.getResponse("todo read book"));
+        assertEquals("Task registered.\n"
                 + "[D][ ] submit report (by: Aug 26 2026)\n"
-                + "Now you have 2 tasks in the list",
+                + "Tasks: 2",
                 tasque.getResponse("deadline submit report /by 2026-08-26"));
-        assertEquals("Got it. I've added this task:\n"
+        assertEquals("Task registered.\n"
                 + "[E][ ] project meeting (from: Aug 28 2026 to: Aug 29 2026)\n"
-                + "Now you have 3 tasks in the list",
+                + "Tasks: 3",
                 tasque.getResponse("event project meeting /from 2026-08-28 /to 2026-08-29"));
-        assertEquals("Here are the tasks in your list:\n"
+        assertEquals("Tasks:\n"
                 + "1.[T][ ] read book\n"
                 + "2.[D][ ] submit report (by: Aug 26 2026)\n"
                 + "3.[E][ ] project meeting (from: Aug 28 2026 to: Aug 29 2026)",
                 tasque.getResponse("list"));
-        assertEquals("Nice! I've marked this task as done:\n[T][X] read book",
+        assertEquals("Task completed.\n[T][X] read book",
                 tasque.getResponse("mark 1"));
-        assertEquals("OK, I've marked this task as not done yet:\n[T][ ] read book",
+        assertEquals("Task reopened.\n[T][ ] read book",
                 tasque.getResponse("unmark 1"));
-        assertEquals("Here are the matching tasks in your list:\n"
+        assertEquals("Matches:\n"
                 + "1.[E][ ] project meeting (from: Aug 28 2026 to: Aug 29 2026)",
                 tasque.getResponse("find meeting"));
-        assertEquals("Noted. I've removed this task:\n"
+        assertEquals("Task removed.\n"
                 + "[D][ ] submit report (by: Aug 26 2026)\n"
-                + "Now you have 2 tasks in the list", tasque.getResponse("delete 2"));
-        assertEquals("Goodbye! See you again soon.", tasque.getResponse("bye"));
+                + "Tasks: 2", tasque.getResponse("delete 2"));
+        assertEquals("Whew that was exhausting! Good luck with the tasks!", tasque.getResponse("bye"));
     }
 
     @Test
@@ -376,12 +376,12 @@ public class TasqueTest {
         Path storagePath = this.tempDirectory.resolve("data").resolve("tasque.txt");
         Tasque tasque = new Tasque(storagePath.toString());
 
-        assertEquals("OOPS!!! I do not recognize that command.", tasque.getResponse("unknown"));
-        assertEquals("OOPS!!! Please enter the date as yyyy-MM-dd.",
+        assertEquals("Yeah, I don't know what that means.", tasque.getResponse("unknown"));
+        assertEquals("Enter a valid date in yyyy-MM-dd format.",
                 tasque.getResponse("deadline submit report /by tomorrow"));
-        assertEquals("Got it. I've added this task:\n"
+        assertEquals("Task registered.\n"
                 + "[T][ ] session continues\n"
-                + "Now you have 1 tasks in the list", tasque.getResponse("todo session continues"));
+                + "Tasks: 1", tasque.getResponse("todo session continues"));
     }
 
     @Test
@@ -393,7 +393,7 @@ public class TasqueTest {
 
         Tasque secondSession = new Tasque(storagePath.toString());
 
-        assertEquals("Here are the tasks in your list:\n1.[T][X] persistent task",
+        assertEquals("Tasks:\n1.[T][X] persistent task",
                 secondSession.getResponse("list"));
     }
 
@@ -423,11 +423,11 @@ public class TasqueTest {
         }
 
         String output = outputBytes.toString(StandardCharsets.UTF_8);
-        assertEquals(4, countOccurrences(output, "OOPS!!! I couldn't save your tasks."));
-        assertFalse(output.contains("Got it. I've added this task:"));
-        assertFalse(output.contains("Nice! I've marked this task as done:"));
-        assertFalse(output.contains("OK, I've marked this task as not done yet:"));
-        assertFalse(output.contains("Noted. I've removed this task:"));
+        assertEquals(4, countOccurrences(output, "I couldn't save your tasks."));
+        assertFalse(output.contains("Task registered."));
+        assertFalse(output.contains("Task completed."));
+        assertFalse(output.contains("Task reopened."));
+        assertFalse(output.contains("Task removed."));
         assertTrue(output.contains("1.[T][ ] first task"));
         assertTrue(output.contains("2.[T][X] second task"));
         assertFalse(output.contains("third task"));
@@ -444,11 +444,11 @@ public class TasqueTest {
         Files.delete(dataDirectory);
         Files.writeString(dataDirectory, "blocks the storage directory");
 
-        String expectedList = "Here are the tasks in your list:\n"
+        String expectedList = "Tasks:\n"
                 + "1.[T][ ] first task\n2.[T][X] second task";
-        assertEquals("OOPS!!! I couldn't save your tasks.", tasque.getResponse("mark 2"));
+        assertEquals("I couldn't save your tasks.", tasque.getResponse("mark 2"));
         assertEquals(expectedList, tasque.getResponse("list"));
-        assertEquals("OOPS!!! I couldn't save your tasks.", tasque.getResponse("unmark 1"));
+        assertEquals("I couldn't save your tasks.", tasque.getResponse("unmark 1"));
         assertEquals(expectedList, tasque.getResponse("list"));
     }
 
@@ -461,14 +461,14 @@ public class TasqueTest {
         Files.createDirectory(storagePath);
         Path sentinelPath = storagePath.resolve("sentinel.txt");
         Files.writeString(sentinelPath, "blocks replacement");
-        String expectedList = "Here are the tasks in your list:\n"
+        String expectedList = "Tasks:\n"
                 + "1.[T][ ] first\n2.[T][X] middle\n3.[T][ ] last";
 
         for (String command : new String[] {"delete 2", "delete 3"}) {
             TasqueResponse failed = tasque.getCommandResponse(command);
 
             assertTrue(failed.isError(), command);
-            assertEquals("OOPS!!! I couldn't save your tasks.", failed.getText(), command);
+            assertEquals("I couldn't save your tasks.", failed.getText(), command);
             assertEquals(expectedList, tasque.getResponse("list"), command);
             assertEquals("blocks replacement", Files.readString(sentinelPath));
         }
@@ -483,17 +483,17 @@ public class TasqueTest {
 
         TasqueResponse failed = tasque.getCommandResponse("todo retry task");
         assertTrue(failed.isError());
-        assertEquals("OOPS!!! I couldn't save your tasks.", failed.getText());
-        assertEquals("Here are the tasks in your list:", tasque.getResponse("list"));
+        assertEquals("I couldn't save your tasks.", failed.getText());
+        assertEquals("Tasks:", tasque.getResponse("list"));
 
         Files.delete(dataDirectory);
         TasqueResponse retried = tasque.getCommandResponse("todo retry task");
 
         assertFalse(retried.isError());
-        assertEquals("Got it. I've added this task:\n[T][ ] retry task\nNow you have 1 tasks in the list",
+        assertEquals("Task registered.\n[T][ ] retry task\nTasks: 1",
                 retried.getText());
         assertEquals("T2 | 0 | cmV0cnkgdGFzaw==" + System.lineSeparator(), Files.readString(storagePath));
-        assertEquals("Here are the tasks in your list:\n1.[T][ ] retry task",
+        assertEquals("Tasks:\n1.[T][ ] retry task",
                 new Tasque(storagePath.toString()).getResponse("list"));
     }
 
@@ -506,11 +506,11 @@ public class TasqueTest {
         TasqueResponse deleted = tasque.getCommandResponse("delete 1");
 
         assertFalse(deleted.isError());
-        assertEquals("Noted. I've removed this task:\n[T][X] only task\nNow you have 0 tasks in the list",
+        assertEquals("Task removed.\n[T][X] only task\nTasks: 0",
                 deleted.getText());
-        assertEquals("Here are the tasks in your list:", tasque.getResponse("list"));
+        assertEquals("Tasks:", tasque.getResponse("list"));
         assertEquals("", Files.readString(storagePath));
-        assertEquals("Here are the tasks in your list:", new Tasque(storagePath.toString()).getResponse("list"));
+        assertEquals("Tasks:", new Tasque(storagePath.toString()).getResponse("list"));
     }
 
     @Test
@@ -522,12 +522,12 @@ public class TasqueTest {
         tasque.getWelcomeResponse();
         assertArrayEquals(original, Files.readAllBytes(storagePath));
         String expectedTasks = "\n1.[T][ ] read book\n2.[T][X] return book";
-        String expectedList = "Here are the tasks in your list:" + expectedTasks;
+        String expectedList = "Tasks:" + expectedTasks;
         String[][] commands = {
             {"list", expectedList},
-            {"find book", "Here are the matching tasks in your list:" + expectedTasks},
-            {"find absent", "Here are the matching tasks in your list:"},
-            {"bye", "Goodbye! See you again soon."}
+            {"find book", "Matches:" + expectedTasks},
+            {"find absent", "Matches:"},
+            {"bye", "Whew that was exhausting! Good luck with the tasks!"}
         };
 
         for (String[] command : commands) {
@@ -547,11 +547,11 @@ public class TasqueTest {
         Files.writeString(storagePath, "T | 0 | first\nT | 1 | second\n");
         byte[] original = Files.readAllBytes(storagePath);
         Tasque tasque = new Tasque(storagePath.toString());
-        String expectedList = "Here are the tasks in your list:\n1.[T][ ] first\n2.[T][X] second";
+        String expectedList = "Tasks:\n1.[T][ ] first\n2.[T][X] second";
         String[][] commands = {
-            {"mark 0", "OOPS!!! The task number must be a positive whole number."},
-            {"unmark 3", "OOPS!!! Task 3 does not exist in the list."},
-            {"delete 1 2", "OOPS!!! The task number must be a positive whole number."}
+            {"mark 0", "The task number must be a positive whole number."},
+            {"unmark 3", "Task 3 doesn't exist."},
+            {"delete 1 2", "The task number must be a positive whole number."}
         };
 
         for (String[] command : commands) {

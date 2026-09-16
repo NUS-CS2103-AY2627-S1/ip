@@ -13,7 +13,8 @@ public class ParserTest {
         TasqueException exception = assertThrows(TasqueException.class, () -> parser.parseEvent(
                 "event meeting /from 2026-08-17 /to 2026-08-16"));
 
-        assertEquals("The end date of an event cannot be before its start date.", exception.getMessage());
+        assertEquals("Unless you've invented time travel, the end date can't be before the start date.",
+                exception.getMessage());
     }
 
     @Test
@@ -76,7 +77,7 @@ public class ParserTest {
         Parser parser = new Parser();
         TasqueException exception = assertThrows(TasqueException.class, () -> parser.parseTaskNumber(
                 "delete 6", "delete", 5));
-        assertEquals("Task 6 does not exist in the list.", exception.getMessage());
+        assertEquals("Task 6 doesn't exist.", exception.getMessage());
     }
 
     @Test
@@ -116,7 +117,7 @@ public class ParserTest {
         TasqueException exception = assertThrows(TasqueException.class, () -> parser.parseDeadline(
                 "deadline report /by 2026-02-29"));
 
-        assertEquals("Please enter the date as yyyy-MM-dd.", exception.getMessage());
+        assertEquals("Enter a valid date in yyyy-MM-dd format.", exception.getMessage());
     }
 
     @Test
@@ -136,7 +137,7 @@ public class ParserTest {
         TasqueException exception = assertThrows(TasqueException.class, () -> parser.parseEvent(
                 "event meeting /from 2026-02-28 /to 2026-02-29"));
 
-        assertEquals("Please enter the dates as yyyy-MM-dd.", exception.getMessage());
+        assertEquals("Enter valid dates in yyyy-MM-dd format.", exception.getMessage());
     }
 
     @Test
@@ -156,6 +157,6 @@ public class ParserTest {
         TasqueException exception = assertThrows(TasqueException.class, () -> parser.parseEvent(
                 "event project meeting /from tomorrow /to 2026-08-29"));
 
-        assertEquals("Please enter the dates as yyyy-MM-dd.", exception.getMessage());
+        assertEquals("Enter valid dates in yyyy-MM-dd format.", exception.getMessage());
     }
 }
