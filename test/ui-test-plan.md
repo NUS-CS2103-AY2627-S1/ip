@@ -28,7 +28,7 @@ todo should not be added
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Task registered.
 [T][ ] read  book
 Tasks: 1
@@ -66,7 +66,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Unless you've invented time travel, the end date can't be before the start date.
 Task registered.
 [E][ ] meeting (from: Aug 28 2026 to: Aug 28 2026)
@@ -108,7 +108,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Task registered.
 [T][ ] read book
 Tasks: 1
@@ -155,7 +155,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 
 Whew that was exhausting! Good luck with the tasks!
 ```
@@ -182,7 +182,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Task registered.
 [T][ ] read book
 Tasks: 1
@@ -219,7 +219,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Task registered.
 [T][ ] read book
 Tasks: 1
@@ -250,7 +250,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 The find command needs a keyword.
 The find command needs a keyword.
 Task registered.
@@ -284,7 +284,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Task registered.
 [T][ ] read book
 Tasks: 1
@@ -318,7 +318,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Task registered.
 [D][ ] submit report (by: Aug 26 2026)
 Tasks: 1
@@ -350,7 +350,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Task registered.
 [D][ ] submit report (by: Aug 26 2026)
 Tasks: 1
@@ -361,7 +361,7 @@ Whew that was exhausting! Good luck with the tasks!
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Tasks:
 1.[D][ ] submit report (by: Aug 26 2026)
 
@@ -390,7 +390,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Enter a valid date in yyyy-MM-dd format.
 Enter a valid date in yyyy-MM-dd format.
 Task registered.
@@ -426,7 +426,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Enter valid dates in yyyy-MM-dd format.
 Enter valid dates in yyyy-MM-dd format.
 Task registered.
@@ -439,7 +439,7 @@ Whew that was exhausting! Good luck with the tasks!
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Tasks:
 1.[E][ ] project meeting (from: Aug 28 2026 to: Aug 29 2026)
 
@@ -470,7 +470,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Task registered.
 [T][ ] read book
 Tasks: 1
@@ -487,7 +487,7 @@ Whew that was exhausting! Good luck with the tasks!
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Tasks:
 1.[T][ ] read book
 2.[D][ ] submit report (by: Aug 26 2026)
@@ -520,7 +520,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Task registered.
 [T][ ] read | book
 Tasks: 1
@@ -537,7 +537,7 @@ Whew that was exhausting! Good luck with the tasks!
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Tasks:
 1.[T][ ] read | book
 2.[D][ ] submit | report (by: Aug 28 2026)
@@ -568,7 +568,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 The description of a todo cannot be empty.
 The description of a todo cannot be empty.
 Task registered.
@@ -604,7 +604,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 The description of a deadline cannot be empty.
 The description of a deadline cannot be empty.
 A deadline must include /by followed by when it is due.
@@ -644,7 +644,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 The description of an event cannot be empty.
 The description of an event cannot be empty.
 An event must include /from followed by its start.
@@ -691,7 +691,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Yeah, I don't know what that means.
 The mark command needs a task number.
 The unmark command needs a task number.
@@ -736,7 +736,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Task registered.
 [T][ ] borrow book
 Tasks: 1
@@ -766,7 +766,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Task registered.
 [D][ ] return book (by: Aug 26 2026)
 Tasks: 1
@@ -796,7 +796,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Task registered.
 [E][ ] project meeting (from: Aug 28 2026 to: Aug 29 2026)
 Tasks: 1
@@ -835,7 +835,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Task registered.
 [T][ ] borrow book
 Tasks: 1
@@ -890,7 +890,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Task registered.
 [T][ ] read book
 Tasks: 1
@@ -931,7 +931,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 Task registered.
 [T][ ] first task
 Tasks: 1
@@ -994,7 +994,7 @@ bye
 ========================================
 
 Hey, I'm Tasque.
-Ready when you are.
+Ready when you are!
 The delete command needs a task number.
 The task number must be a positive whole number.
 The task number must be a positive whole number.

@@ -90,7 +90,7 @@ public class TasqueTest {
 
         TasqueResponse welcome = tasque.getWelcomeResponse();
         assertFalse(welcome.isError());
-        assertEquals("Hey, I'm Tasque.\nReady when you are.", welcome.getText());
+        assertEquals("Hey, I'm Tasque.\nReady when you are!", welcome.getText());
         assertEquals(welcome.getText(), tasque.getWelcomeMessage());
     }
 
@@ -103,7 +103,7 @@ public class TasqueTest {
 
         TasqueResponse welcome = tasque.getWelcomeResponse();
         assertTrue(welcome.isError());
-        assertTrue(welcome.getText().startsWith("Hey, I'm Tasque.\nReady when you are.\n"));
+        assertTrue(welcome.getText().startsWith("Hey, I'm Tasque.\nReady when you are!\n"));
         assertEquals(1, countOccurrences(welcome.getText(), "I couldn't load your tasks"));
         assertEquals(welcome.getText(), tasque.getWelcomeMessage());
         for (String command : new String[] {"list", "todo blocked task", "unknown"}) {
@@ -341,7 +341,7 @@ public class TasqueTest {
         Path storagePath = this.tempDirectory.resolve("data").resolve("tasque.txt");
         Tasque tasque = new Tasque(storagePath.toString());
 
-        assertEquals("Hey, I'm Tasque.\nReady when you are.", tasque.getWelcomeMessage());
+        assertEquals("Hey, I'm Tasque.\nReady when you are!", tasque.getWelcomeMessage());
         assertEquals("Task registered.\n"
                 + "[T][ ] read book\n"
                 + "Tasks: 1", tasque.getResponse("todo read book"));
