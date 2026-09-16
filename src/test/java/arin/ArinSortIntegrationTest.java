@@ -21,6 +21,12 @@ class ArinSortIntegrationTest {
     Path temporaryDirectory;
 
     @Test
+    void main_endOfInput_exitsNormallyAndLoadsTasksOnRestart() throws Exception {
+        assertTrue(runConsole("todo persisted\n").contains("added"));
+        assertTrue(runConsole("list\n").contains("1. [T][ ] persisted"));
+    }
+
+    @Test
     void main_sortThenEditTasks_usesNewTaskNumbers() throws Exception {
         String output = runConsole(String.join("\n",
                 "todo zebra",
@@ -47,7 +53,7 @@ class ArinSortIntegrationTest {
                 "1. [D][ ] alpha (by: Sep 11 2026)")));
         assertEquals(List.of(
                 "D |   | alpha | 2026-09-11",
-                "E |   | charlie | 2pm 4pm",
+                "E |   | charlie | 2pm | 4pm",
                 "T |   | zebra"
         ), Files.readAllLines(temporaryDirectory.resolve("data/arin.txt")));
     }

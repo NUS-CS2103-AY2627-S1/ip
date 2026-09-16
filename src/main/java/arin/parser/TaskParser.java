@@ -28,6 +28,10 @@ public final class TaskParser {
      * @throws ArinException If the command is unknown or its details are invalid.
      */
     public static Task parse(String command) throws ArinException {
+        if (command.contains("|") || command.contains("\n") || command.contains("\r")) {
+            throw new ArinException("Please keep a task on one line without the reserved | character.");
+        }
+        command = command.trim();
         if (command.equals("todo") || command.startsWith("todo ")) {
             return parseTodo(command.substring("todo".length()).trim());
         }
@@ -102,6 +106,9 @@ public final class TaskParser {
         String end = details.substring(toIndex + EVENT_END_SEPARATOR.length()).trim();
         if (description.isEmpty() || start.isEmpty() || end.isEmpty()) {
             throw new ArinException("An event needs a description, start time, and end time.");
+        }
+        if (start.contains("/from") || end.contains("/from") || end.contains("/to")) {
+            throw new ArinException("Use each event separator /from and /to exactly once.");
         }
         return new Event(description, start, end);
     }
