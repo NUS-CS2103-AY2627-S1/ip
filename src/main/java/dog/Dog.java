@@ -131,7 +131,7 @@ public class Dog {
             int index = Integer.parseInt(rest.trim()) - 1;
             taskList.markTask(index);
             handleSaveTasksToStorage();
-            return "WOOF! I've marked this task as done:\n " + taskList.getTask(index);
+            return "WOOF! I've marked this task as done:\n" + taskList.getTask(index);
         } catch (NumberFormatException e) {
             throw new DogException("woof...? Please give me a valid task number... (e.g., 'mark 2').");
         }
@@ -142,7 +142,7 @@ public class Dog {
             int index = Integer.parseInt(rest.trim()) - 1;
             Task deletedTask = taskList.deleteTask(index);
             handleSaveTasksToStorage();
-            return "WOOF! I've deleted this task:\n " + deletedTask
+            return "WOOF! I've deleted this task:\n" + deletedTask
                     + "\nYou have " + taskList.size() + " tasks left in your list! WOOF!";
         } catch (NumberFormatException e) {
             throw new DogException("woof...? Please give me a valid task number... (e.g., 'delete 2').");
