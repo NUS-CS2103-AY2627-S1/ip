@@ -1,0 +1,62 @@
+/* Ocean colors, to match the fish in the divider the console prints. */
+.root {
+    main-color: rgb(233, 246, 249);
+    trim-color: rgb(122, 179, 196);
+    -fx-background-color: main-color;
+}
+
+/* The input box and button have round ends, to match the speech bubbles. */
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 2em;
+    -fx-border-color: trim-color;
+    -fx-border-width: 2px;
+    -fx-border-radius: 2em;
+    -fx-padding: 0 14px 0 14px;
+    -fx-font-family: "Trebuchet MS", "DejaVu Sans", sans-serif;
+    -fx-font-size: 15px;
+    -fx-prompt-text-fill: rgb(160, 176, 182);
+}
+
+.button {
+    -fx-background-color: trim-color;
+    -fx-text-fill: white;
+    -fx-font-family: "Trebuchet MS", "DejaVu Sans", sans-serif;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 2em;
+}
+
+.button:hover {
+    -fx-background-color: rgb(96, 156, 175);
+}
+
+.button:pressed {
+    -fx-background-color: rgb(70, 130, 150);
+}
+
+.button:disabled {
+    -fx-opacity: 0.5;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: trim-color;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

@@ -1,25 +1,83 @@
-# Duke project template
+# serangooner
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+[![Java CI](https://github.com/limenxi07/ip/actions/workflows/gradle.yml/badge.svg)](https://github.com/limenxi07/ip/actions/workflows/gradle.yml)
 
-## Setting up in Intellij
+```text
+  ____   U _____ u   ____        _      _   _     ____    U  ___ u   U  ___ u  _   _   U _____ u   ____     
+ / __"| u\| ___"|/U |  _"\ u U  /"\  u | \ |"| U /"___|u   \/"_ \/    \/"_ \/ | \ |"|  \| ___"|/U |  _"\ u  
+<\___ \/  |  _|"   \| |_) |/  \/ _ \/ <|  \| |>\| |  _ /   | | | |    | | | |<|  \| |>  |  _|"   \| |_) |/  
+ u___) |  | |___    |  _ <    / ___ \ U| |\  |u | |_| |.-,_| |_| |.-,_| |_| |U| |\  |u  | |___    |  _ <    
+ |____/>> |_____|   |_| \_\  /_/   \_\ |_| \_|   \____| \_)-\___/  \_)-\___/  |_| \_|   |_____|   |_| \_\   
+  )(  (__)<<   >>   //   \\_  \\    >> ||   \\,-._)(|_       \\         \\    ||   \\,-.<<   >>   //   \\_  
+ (__)    (__) (__) (__)  (__)(__)  (__)(_")  (_/(__)__)     (__)       (__)   (_")  (_/(__) (__) (__)  (__) 
+```
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+a AI* chatbot that helps you track stuff
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+*AI = average intelligence
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## how to use serangooner
+
+you need java 25 or later. check yours with `java -version`.
+
+### run the released jar
+
+1. download `serangooner.jar` from the [latest release](https://github.com/limenxi07/ip/releases/latest)
+2. put it in a folder of its own
+3. open a command window in that folder and run:
+
+```bash
+java -jar "serangooner.jar"
+```
+
+that opens serangooner's chat window. type a command in the box at the
+bottom and press enter, or click send.
+
+serangooner keeps your tasks in `data/serangooner.txt` beside the jar, and
+makes that folder itself on the first save. run it from the same folder
+each time and your list will still be waiting.
+
+### build the jar yourself
+
+from the project root:
+
+```bash
+./gradlew shadowJar
+```
+
+that writes `build/libs/serangooner.jar`, dependencies and all. to start
+serangooner without packaging it, run:
+
+```bash
+./gradlew run
+```
+
+### talk to serangooner in a terminal
+
+serangooner answers on the command line as well as in a window, which is
+handy when you want to pipe a batch of commands in. name the command line
+version yourself and you get it instead of the window:
+
+```bash
+java -cp "serangooner.jar" serangooner.Serangooner
+```
+
+it understands exactly the same commands and shares the same
+`data/serangooner.txt`, so you can switch between the two whenever you like.
+
+enjoy talking to serangooner!
+
+## why serangooner?
+i'm not even a serangoon resident. i just think serangoon is cool, and
+that people living in serangoon should be called serangooners.
+
+## AI declaration
+
+Claude Code (Opus 5 - High) was used to write code, and refactored the 
+codebase to follow the Java coding standard.
+
+## credits
+
+the gui (`Launcher`, `Main`, `MainWindow`, `DialogBox` and their fxml) is
+based on the [javafx tutorial](https://se-education.org/guides/tutorials/javaFx.html)
+from the cs2103t website.

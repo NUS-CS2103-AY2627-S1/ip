@@ -1,0 +1,22 @@
+/* What the user said: a bubble with its tail on the right. */
+.label {
+    -fx-background-color: rgb(183, 226, 236);
+    -fx-text-fill: rgb(28, 52, 61);
+    -fx-font-family: "Trebuchet MS", "DejaVu Sans", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-padding: 8px 12px 8px 12px;
+    -fx-background-insets: 0 6px 0 6px;
+}
+
+/* What the chatbot said: the same bubble, tail on the left. */
+.reply-label {
+    -fx-background-color: white;
+    -fx-background-radius: 1em 1em 1em 0;
+}
+
+/* A command the chatbot refused, so that a mistake is easy to spot. */
+.error-label {
+    -fx-background-color: rgb(255, 226, 226);
+    -fx-text-fill: rgb(140, 40, 40);
+}

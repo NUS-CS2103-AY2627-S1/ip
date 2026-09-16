@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="600.0" prefWidth="400.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="serangooner.gui.MainWindow">
+    <stylesheets>
+        <URL value="@../css/main.css" />
+    </stylesheets>
+    <children>
+        <TextField fx:id="userInput"
+                   layoutX="6.0"
+                   layoutY="553.0"
+                   onAction="#handleUserInput"
+                   prefHeight="41.0"
+                   prefWidth="306.0"
+                   promptText="type a command, or 'help'"
+                   AnchorPane.bottomAnchor="6.0"
+                   AnchorPane.leftAnchor="6.0"
+                   AnchorPane.rightAnchor="88.0" />
+        <Button fx:id="sendButton"
+                layoutX="318.0"
+                layoutY="553.0"
+                mnemonicParsing="false"
+                onAction="#handleUserInput"
+                prefHeight="41.0"
+                prefWidth="76.0"
+                text="Send"
+                AnchorPane.bottomAnchor="6.0"
+                AnchorPane.rightAnchor="6.0" />
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    hvalue="1.0"
+                    prefHeight="547.0"
+                    prefWidth="400.0"
+                    vvalue="1.0"
+                    AnchorPane.bottomAnchor="53.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="0.0">
+            <content>
+                <VBox fx:id="dialogContainer"
+                      prefHeight="542.0"
+                      prefWidth="388.0" />
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>
