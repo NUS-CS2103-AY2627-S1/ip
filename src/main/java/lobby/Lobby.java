@@ -14,6 +14,16 @@ import lobby.ui.Ui;
  * Starts the Lobby chatbot application.
  */
 public class Lobby {
+    /**
+     * Carries response text, error status, and whether the input should remain available for correction.
+     *
+     * @param text response shown to the user.
+     * @param isError whether the command failed.
+     * @param shouldRetainInput whether a recognized command failed and should remain editable.
+     */
+    public record Response(String text, boolean isError, boolean shouldRetainInput) {
+    }
+
     private final Ui ui;
     private final Storage storage;
     private final Parser parser;
@@ -62,9 +72,20 @@ public class Lobby {
      * @return Lobby's response to the command
      */
     public String getResponse(String command) {
+        return processCommand(command).text();
+    }
+
+    /**
+     * Executes a command once and returns its text together with its success or failure status.
+     *
+     * @param command complete command entered by the user.
+     * @return response with an error flag for validation and storage failures
+     */
+    public Response processCommand(String command) {
         String normalizedCommand = command.trim();
+        Parser.Command commandType = parser.parseCommand(normalizedCommand);
         try {
-            return switch (parser.parseCommand(normalizedCommand)) {
+            String text = switch (commandType) {
                 case BYE -> " Bye. Hope to see you again soon!";
                 case LIST -> responseFormatter.formatTaskList(" Here are the tasks in your list:", tasks);
                 case FIND -> handleFind(normalizedCommand);
@@ -74,10 +95,12 @@ public class Lobby {
                 case DEADLINE -> addTask(parser.parseDeadline(normalizedCommand));
                 case EVENT -> addTask(parser.parseEvent(normalizedCommand));
                 case DELETE -> handleDelete(normalizedCommand);
-                default -> " Please use todo, deadline, event, list, find, mark, unmark, delete, or bye.";
+                default -> throw new LobbyException(
+                        "Please use todo, deadline, event, list, find, mark, unmark, delete, or bye.");
             };
+            return new Response(text, false, false);
         } catch (LobbyException e) {
-            return " " + e.getMessage();
+            return new Response(" " + e.getMessage(), true, commandType != Parser.Command.UNKNOWN);
         }
     }
 
@@ -156,7 +179,7 @@ public class Lobby {
         setTaskCompletion(taskNumber, isMarkingDone);
         if (!trySaveTasks()) {
             setTaskCompletion(taskNumber, wasDone);
-            return getSaveErrorMessage();
+            throw new LobbyException(getSaveErrorMessage());
         }
         return isMarkingDone
                 ? responseFormatter.formatTaskMarked(task)
@@ -188,7 +211,7 @@ public class Lobby {
     /**
      * Adds and saves a task, removing it again if saving fails.
      */
-    private String addTask(Task task) {
+    private String addTask(Task task) throws LobbyException {
         int originalSize = tasks.size();
         tasks.add(task);
         if (!trySaveTasks()) {
@@ -197,7 +220,7 @@ public class Lobby {
             tasks.delete(tasks.size());
             // Rejecting an addition must restore the task count seen before the command.
             assert tasks.size() == originalSize : "Add rollback must restore the original task count";
-            return getSaveErrorMessage();
+            throw new LobbyException(getSaveErrorMessage());
         }
         return responseFormatter.formatTaskAdded(task, tasks.size());
     }
@@ -212,13 +235,13 @@ public class Lobby {
             tasks.add(taskNumber, removedTask);
             // Restoring the same object at its old position preserves task numbering and completion state.
             assert tasks.get(taskNumber) == removedTask : "Delete rollback must restore the original task position";
-            return getSaveErrorMessage();
+            throw new LobbyException(getSaveErrorMessage());
         }
         return responseFormatter.formatTaskDeleted(removedTask, tasks.size());
     }
 
     private String getSaveErrorMessage() {
-        return " I couldn't save your changes. Please check that data/lobby.txt is writable.";
+        return "I couldn't save your changes. Please check that data/lobby.txt is writable.";
     }
 
 }

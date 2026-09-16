@@ -45,6 +45,12 @@
     -fx-text-fill: #243b53;
 }
 
+.error-dialog .message-bubble {
+    -fx-background-color: #fff1f0;
+    -fx-border-color: #b94a48;
+    -fx-text-fill: #842522;
+}
+
 .avatar {
     -fx-background-color: #243b53;
     -fx-background-radius: 14px;
