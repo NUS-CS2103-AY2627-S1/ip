@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run required post-change UI regression tests"
+  default_prompt: "Use $test-ui after the current code update: update the UI test plan if needed, run every case, and report the transcript."

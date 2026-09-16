@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Intermediate
+* IDE and level of expertise: Basic
 
 # Guidance for interacting with users
 
@@ -27,6 +27,15 @@ Unless the user says otherwise, assume that you are assisting a student working 
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+
+## Required UI regression workflow
+
+After every update to application code:
+
+1. Invoke the project-specific `test-ui` skill.
+2. Inspect `test/ui-test-plan.md` and update it when the code change adds or changes observable console behaviour. Leave it unchanged when the existing cases already cover the change.
+3. Run the complete UI test plan before reporting the code update as complete.
+4. If a test fails, stop the test session immediately and report the actual output, expected output, and console transcript. Do not continue with later test cases.
 
 ## Git
 
