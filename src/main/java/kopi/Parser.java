@@ -25,30 +25,28 @@ public class Parser {
     /** Creates a task from a validated task-creation command. */
     public Task parseTask(String input, Command command) throws KopiException {
         if (command == Command.TODO) {
-            String description = input.substring(4).trim();
+            String description = input.strip().substring(4).trim();
             requireDescription(description, "A todo needs a description.");
             return new Todo(description);
         }
         if (command == Command.DEADLINE) {
-            int byIndex = input.indexOf(" /by ");
-            if (byIndex < 0) {
-                throw new KopiException("Use: deadline DESCRIPTION /by DATE");
-            }
-            String description = input.substring(8, byIndex).trim();
-            String by = input.substring(byIndex + 5).trim();
+            String arguments = input.strip().substring(8).trim();
+            String[] parts = splitOnParameter(
+                    arguments, "by", "Use: deadline DESCRIPTION /by DATE");
+            String description = parts[0].trim();
+            String by = parts[1].trim();
             requireDescription(description, "A deadline needs a description.");
             requireText(by, "A deadline needs a date after /by.");
             return new Deadline(description, parseDate(by));
         }
         if (command == Command.EVENT) {
-            int fromIndex = input.indexOf(" /from ");
-            int toIndex = input.indexOf(" /to ");
-            if (fromIndex < 0 || toIndex < fromIndex) {
-                throw new KopiException("Use: event DESCRIPTION /from START /to END");
-            }
-            String description = input.substring(5, fromIndex).trim();
-            String from = input.substring(fromIndex + 7, toIndex).trim();
-            String to = input.substring(toIndex + 5).trim();
+            String usage = "Use: event DESCRIPTION /from START /to END";
+            String arguments = input.strip().substring(5).trim();
+            String[] fromParts = splitOnParameter(arguments, "from", usage);
+            String[] toParts = splitOnParameter(fromParts[1], "to", usage);
+            String description = fromParts[0].trim();
+            String from = toParts[0].trim();
+            String to = toParts[1].trim();
             requireDescription(description, "An event needs a description.");
             requireText(from, "An event needs a start date after /from.");
             requireText(to, "An event needs an end date after /to.");
@@ -60,6 +58,13 @@ public class Parser {
             return new Event(description, startDate, endDate);
         }
         throw new KopiException("That command cannot create a task.");
+    }
+
+    /** Rejects arguments supplied to a command that does not accept any. */
+    public void validateNoArguments(String input, String command) throws KopiException {
+        if (!input.strip().equalsIgnoreCase(command)) {
+            throw new KopiException("Use: " + command);
+        }
     }
 
     /** Converts a one-based task number into a valid list index. */
@@ -104,5 +109,13 @@ public class Parser {
         if (description.contains("|")) {
             throw new KopiException("Task descriptions cannot contain |.");
         }
+    }
+
+    private String[] splitOnParameter(String input, String parameter, String usage) throws KopiException {
+        String[] parts = input.split("(?i)\\s+/" + parameter + "\\s+", -1);
+        if (parts.length != 2) {
+            throw new KopiException(usage);
+        }
+        return parts;
     }
 }
