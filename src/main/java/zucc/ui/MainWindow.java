@@ -76,7 +76,7 @@ public final class MainWindow extends Ui {
      * @param message reason the application is unavailable.
      */
     public void showUnavailable(String message) {
-        showMessage(message);
+        showError(message);
         setStatus("UNAVAILABLE", "status-dot-unavailable");
         userInput.setPromptText("Zucc could not start");
         disableInput();
@@ -89,7 +89,17 @@ public final class MainWindow extends Ui {
      */
     @Override
     public void showMessage(String message) {
-        dialogContainer.getChildren().add(DialogBox.createZuccDialog(message));
+        dialogContainer.getChildren().add(new DialogBox.ZuccDialogBox(message));
+    }
+
+    /**
+     * Adds a visually prominent, recoverable error to the conversation.
+     *
+     * @param message explanation of the error and how to recover from it.
+     */
+    @Override
+    public void showError(String message) {
+        dialogContainer.getChildren().add(new DialogBox.ErrorDialogBox(message));
     }
 
     /**
@@ -102,7 +112,7 @@ public final class MainWindow extends Ui {
             return;
         }
 
-        dialogContainer.getChildren().add(DialogBox.createUserDialog(input));
+        dialogContainer.getChildren().add(new DialogBox.UserDialogBox(input));
         userInput.clear();
 
         boolean isExit = zucc.executeCommand(input, this);

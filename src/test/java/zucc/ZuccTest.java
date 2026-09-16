@@ -52,6 +52,7 @@ public class ZuccTest {
 
         assertFalse(isExit);
         assertTrue(ui.getLastMessage().contains("doesn't recognize that command"));
+        assertTrue(ui.wasLastMessageError());
     }
 
     /**
@@ -76,15 +77,31 @@ public class ZuccTest {
         /** Messages shown during the test. */
         private final List<String> messages = new ArrayList<>();
 
+        /** Records whether each message was presented as an error. */
+        private final List<Boolean> errorStates = new ArrayList<>();
+
         /** Records one response for later assertion. */
         @Override
         public void showMessage(String message) {
             messages.add(message);
+            errorStates.add(false);
+        }
+
+        /** Records one error for later assertion. */
+        @Override
+        public void showError(String message) {
+            messages.add(message);
+            errorStates.add(true);
         }
 
         /** Returns the most recently recorded response. */
         private String getLastMessage() {
             return messages.getLast();
+        }
+
+        /** Returns whether the most recently recorded response was an error. */
+        private boolean wasLastMessageError() {
+            return errorStates.getLast();
         }
     }
 }
