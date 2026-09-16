@@ -198,7 +198,7 @@ public class Della {
         try {
             ArrayList<Task> searchResult = Parser.parseFindTask(
                     Parser.parseArguments(input), taskList.getTasks());
-            return UI.showTasks(searchResult);
+            return UI.showSearchResult(searchResult);
         } catch (ArrayIndexOutOfBoundsException e) {
             return UI.showError("Bro, cannot find nothing");
         } catch (IllegalArgumentException e) {

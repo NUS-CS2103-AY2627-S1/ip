@@ -35,7 +35,7 @@ public class UiTest {
                                                 "read book",
                                                 LocalDateTime.of(2030, 9, 9, 21, 30),
                                                 LocalDateTime.of(2050, 9, 9, 21, 30))))));
-        assertEquals("", UI.showTasks(new ArrayList<>()));
+        assertEquals("Wow you have no tasks!", UI.showTasks(new ArrayList<>()));
     }
 
     @Test

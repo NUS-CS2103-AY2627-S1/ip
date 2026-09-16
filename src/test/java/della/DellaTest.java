@@ -15,7 +15,7 @@ public class DellaTest {
     @Test
     public void getResponse_listOnEmptyStorage_emptyResponseReturned() {
         Della della = new Della(temporaryDirectory.resolve("tasks.txt").toString());
-        assertEquals("", della.getResponse("list"));
+        assertEquals("Wow you have no tasks!", della.getResponse("list"));
     }
 
     @Test
@@ -30,7 +30,7 @@ public class DellaTest {
         della.getResponse("unmark 1");
         assertEquals("1. [T][ ] read book", della.getResponse("list"));
         della.getResponse("delete 1");
-        assertEquals("", della.getResponse("list"));
+        assertEquals("Wow you have no tasks!", della.getResponse("list"));
         assertEquals(false, Files.readAllLines(file).size() > 0);
     }
 

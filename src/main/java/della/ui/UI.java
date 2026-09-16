@@ -40,6 +40,10 @@ public class UI {
      * @param taskList Tasks to display.
      */
     public static String showTasks(ArrayList<Task> taskList) {
+        if (taskList.isEmpty()) {
+            return "Wow you have no tasks!";
+        }
+
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
             output.append(String.format("%d. %s\n", i + 1, taskList.get(i)));
@@ -87,5 +91,17 @@ public class UI {
         return String.format(
                 "Noted. I've removed this task:\n%s\nNow you have %d tasks in the list.",
                 task, numTasks);
+    }
+
+    /**
+     * Displays the search result in a numbered list.
+     *
+     * @param taskList Tasks to display.
+     */
+    public static String showSearchResult(ArrayList<Task> taskList) {
+        if (taskList.isEmpty()) {
+            return "No results found! Sorry!";
+        }
+        return UI.showTasks(taskList);
     }
 }
