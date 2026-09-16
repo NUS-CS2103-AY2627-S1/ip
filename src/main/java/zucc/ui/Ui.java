@@ -5,7 +5,8 @@ package zucc.ui;
  */
 public abstract class Ui {
     /** Welcome message shared by every user interface. */
-    protected static final String GREETING = "Hello! I'm Zucc.\nWhat can I do for you?";
+    protected static final String GREETING =
+            "Hello! I'm Zucc.\nReady to keep tabs on your tasks—and only your tasks.";
 
     /**
      * Shows the welcome message for a newly started session.
