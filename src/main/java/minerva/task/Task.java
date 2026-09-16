@@ -65,7 +65,7 @@ public class Task {
      * @return serialized task representation
      */
     public String toFileFormat() {
-        return " | " + (isDone ? "1" : "0") + " | " + description;
+        return (isDone ? "1" : "0") + " | " + description;
     }
 }
 

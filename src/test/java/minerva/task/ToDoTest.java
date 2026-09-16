@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+/** Tests todo display and storage formatting. */
 public class ToDoTest {
 
     @Test
@@ -15,6 +16,6 @@ public class ToDoTest {
     @Test
     public void toFileFormat_unmarkedTask_success() {
         ToDo todo = new ToDo("read book");
-        assertEquals("T |  | 0 | read book", todo.toFileFormat());
+        assertEquals("T | 0 | read book", todo.toFileFormat());
     }
 }

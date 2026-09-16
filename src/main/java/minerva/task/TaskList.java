@@ -17,7 +17,7 @@ public class TaskList {
 
     /**
      * Creates a task list backed by the specified task collection.
-     *
+     * Basically a copy of task list for deque purposes
      * @param tasks existing tasks to store
      */
     public TaskList(ArrayList<Task> tasks) {
@@ -76,7 +76,7 @@ public class TaskList {
      * @return task at the specified index
      */
     public Task get(int index) {
-        assertValidIndex(index);
+        validateIndex(index);
         return tasks.get(index);
     }
 
@@ -97,7 +97,7 @@ public class TaskList {
      * @return removed task
      */
     public Task delete(int index) {
-        assertValidIndex(index);
+        validateIndex(index);
         return tasks.remove(index);
     }
 
@@ -107,7 +107,7 @@ public class TaskList {
      * @param index index of the task to mark
      */
     public void mark(int index) {
-        assertValidIndex(index);
+        validateIndex(index);
         tasks.get(index).markDone();
     }
     /**
@@ -116,7 +116,7 @@ public class TaskList {
      * @param index index of the task to unmark
      */
     public void unmark(int index) {
-        assertValidIndex(index);
+        validateIndex(index);
         tasks.get(index).markUnDone();
     }
     /**
@@ -124,8 +124,9 @@ public class TaskList {
      *
      * @param index index to validate
      */
-    private void assertValidIndex(int index) {
-        assert index >= 0 && index < tasks.size()
-                : "Task index must be within the task list";
+    private void validateIndex(int index) {
+        if (index < 0 || index >= tasks.size()) {
+            throw new IndexOutOfBoundsException("Task index must be within the task list");
+        }
     }
 }

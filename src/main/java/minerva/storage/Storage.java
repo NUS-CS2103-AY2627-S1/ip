@@ -12,13 +12,26 @@ import minerva.task.Event;
 import minerva.task.Task;
 import minerva.task.ToDo;
 
+/** Reads and writes tasks using the pipe-separated storage format. */
 public class Storage {
+    /** Path of the saved task file. */
     private final String filePath;
 
+    /**
+     * Creates storage at the specified path.
+     *
+     * @param filePath path of the saved task file
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads supported tasks from the saved file.
+     *
+     * @return tasks read from the file
+     * @throws FileNotFoundException if the file cannot be opened
+     */
     public ArrayList<Task> load() throws FileNotFoundException {
         File file = new File(filePath);
         if (!file.exists()) {
@@ -79,19 +92,26 @@ public class Storage {
         return loadedTasks;
     }
 
-    public void save(ArrayList<Task> tasks) {
+    /**
+     * Saves tasks and reports whether the write succeeded.
+     *
+     * @param tasks tasks to save
+     * @return true if all tasks were written and the file was closed successfully
+     */
+    public boolean save(ArrayList<Task> tasks) {
         try {
             File file = new File(filePath);
             if (file.getParentFile() != null) {
                 file.getParentFile().mkdirs();
             }
-            FileWriter writer = new FileWriter(file);
-            for (Task task : tasks) {
-                writer.write(task.toFileFormat() + System.lineSeparator());
+            try (FileWriter writer = new FileWriter(file)) {
+                for (Task task : tasks) {
+                    writer.write(task.toFileFormat() + System.lineSeparator());
+                }
             }
-            writer.close();
+            return true;
         } catch (IOException | SecurityException e) {
-            System.out.println("I couldn’t save your tasks right now. Please check the storage location.");
+            return false;
         }
     }
 }

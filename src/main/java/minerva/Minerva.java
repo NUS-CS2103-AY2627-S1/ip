@@ -2,7 +2,12 @@ package minerva;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import minerva.common.Keyword;
@@ -87,6 +92,12 @@ public class Minerva {
         };
 
         String argument = parts.length > 1 ? parts[1].trim() : "";
+
+        if ((keyword == Keyword.TODO || keyword == Keyword.TASK
+                || keyword == Keyword.DEADLINE || keyword == Keyword.EVENT)
+                && (argument.contains("|") || argument.contains("\n") || argument.contains("\r"))) {
+            return "Please avoid pipes (|) and line breaks in task details.";
+        }
 
         return switch (keyword) {
             case BYE -> "Bye. And I hope to see you again soon!";
@@ -205,13 +216,11 @@ public class Minerva {
     private String markTask(String argument) {
         try {
             int index = Integer.parseInt(argument) - 1;
+            Objects.checkIndex(index, tasks.getSize());
             deque.add(new TaskList(tasks));
             tasks.mark(index);
-            storage.save(tasks.getTasks());
-
-
-            return "Nice! I've marked this task as done, what's next? :\n"
-                    + tasks.get(index);
+            return saveResponse("Nice! I've marked this task as done, what's next? :\n"
+                    + tasks.get(index));
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             return "I couldn’t find that task. Please choose a number from 1 to " + tasks.getSize() + ".";
         }
@@ -226,13 +235,11 @@ public class Minerva {
     private String unmarkTask(String argument) {
         try {
             int index = Integer.parseInt(argument) - 1;
+            Objects.checkIndex(index, tasks.getSize());
             deque.add(new TaskList(tasks));
             tasks.unmark(index);
-            storage.save(tasks.getTasks());
-
-
-            return "OK, I've marked this task as not done yet, make up your mind next time:\n"
-                    + tasks.get(index);
+            return saveResponse("OK, I've marked this task as not done yet, make up your mind next time:\n"
+                    + tasks.get(index));
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             return "I couldn’t find that task. Please choose a number from 1 to " + tasks.getSize() + ".";
         }
@@ -252,11 +259,8 @@ public class Minerva {
         Task newTask = new ToDo(description);
         deque.add(new TaskList(tasks));
         tasks.add(newTask);
-        storage.save(tasks.getTasks());
-
-
-        return "Got it. I've added this task:\n" + newTask
-                + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+        return saveResponse("Got it. I've added this task:\n" + newTask
+                + "\nNow you have " + tasks.getSize() + " tasks in the list.");
     }
 
     /**
@@ -276,11 +280,8 @@ public class Minerva {
             Task newTask = new Deadline(due[0], due[1]);
             deque.add(new TaskList(tasks));
             tasks.add(newTask);
-            storage.save(tasks.getTasks());
-
-
-            return "Got it. I've added this task:\n" + newTask
-                    + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+            return saveResponse("Got it. I've added this task:\n" + newTask
+                    + "\nNow you have " + tasks.getSize() + " tasks in the list.");
         } catch (MinervaArgumentException e) {
             return e.getMessage();
         } catch (java.time.format.DateTimeParseException e) {
@@ -296,21 +297,21 @@ public class Minerva {
      */
     private String addEvent(String details) {
         try {
-            String[] fromTo = details.split(" /from | /to ", 3);
+            String[] from = details.split(" /from ", 2);
+            String[] times = from.length == 2 ? from[1].split(" /to ", 2) : new String[0];
 
-            if (fromTo.length < 3 || fromTo[0].isBlank()
-                    || fromTo[1].isBlank() || fromTo[2].isBlank()) {
+            if (from.length < 2 || times.length < 2 || from[0].isBlank()
+                    || times[0].isBlank() || times[1].isBlank()
+                    || from[0].contains(" /to ") || times[1].contains(" /from ")
+                    || times[1].contains(" /to ")) {
                 throw new MinervaArgumentException("An event needs a description, a start time, and an end time. Please try again.");
             }
 
-            Task newTask = new Event(fromTo[0], fromTo[1], fromTo[2]);
+            Task newTask = new Event(from[0], times[0], times[1]);
             deque.add(new TaskList(tasks));
             tasks.add(newTask);
-            storage.save(tasks.getTasks());
-
-
-            return "Got it. I've added this task:\n" + newTask
-                    + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+            return saveResponse("Got it. I've added this task:\n" + newTask
+                    + "\nNow you have " + tasks.getSize() + " tasks in the list.");
         } catch (MinervaArgumentException e) {
             return e.getMessage();
         } catch (java.time.format.DateTimeParseException e) {
@@ -327,13 +328,11 @@ public class Minerva {
     private String deleteTask(String argument) {
         try {
             int index = Integer.parseInt(argument) - 1;
+            Objects.checkIndex(index, tasks.getSize());
             deque.add(new TaskList(tasks));
             Task removed = tasks.delete(index);
-            storage.save(tasks.getTasks());
-
-
-            return "Noted. I've removed this task:\n" + removed
-                    + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+            return saveResponse("Noted. I've removed this task:\n" + removed
+                    + "\nNow you have " + tasks.getSize() + " tasks in the list.");
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
             return "I couldn’t find that task. Please choose a number from 1 to " + tasks.getSize() + ".";
         }
@@ -354,10 +353,7 @@ public class Minerva {
         Task newTask = new Task(description);
         deque.add(new TaskList(tasks));
         tasks.add(newTask);
-        storage.save(tasks.getTasks());
-
-
-        return "added: " + description + " as Task at index: " + tasks.getSize();
+        return saveResponse("added: " + description + " as Task at index: " + tasks.getSize());
     }
 
     /**
@@ -367,12 +363,22 @@ public class Minerva {
     private String undo() {
         try {
             tasks = deque.removeLast();
-            storage.save(tasks.getTasks());
-            return "Alright, I've undone the previous valid operation. Current state: <3 \n"
-                    + listTasks();
+            return saveResponse("Alright, I've undone the previous valid operation. Current state: <3 \n"
+                    + listTasks());
         } catch (NoSuchElementException e) {
             return "There’s nothing to undo yet, but I’m ready when you are.";
         }
+    }
+
+    /**
+     * Saves the current tasks and adds a visible warning if saving fails.
+     *
+     * @param response response describing the in-memory change
+     * @return response with a warning when the change could not be saved
+     */
+    private String saveResponse(String response) {
+        return storage.save(tasks.getTasks()) ? response
+                : response + "\nChanges could not be saved. Please check the storage location.";
     }
 
     /**
