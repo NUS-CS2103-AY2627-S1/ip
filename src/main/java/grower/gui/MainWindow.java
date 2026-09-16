@@ -32,10 +32,18 @@ public class MainWindow extends AnchorPane {
     /** Shared application logic injected after the FXML document is loaded. */
     private Grower grower;
 
-    /** Avatar displayed beside messages entered by the user. */
+    /**
+     * Avatar displayed beside messages entered by the user.
+     * Artwork by sunflower75 on DeviantArt.
+     * Source: https://www.deviantart.com/sunflower75/art/Baby-Peashooter-fan-made-plant-PvZ-2-972885825
+     */
     private final Image userImage = new Image(getClass().getResourceAsStream("/images/user.png"));
 
-    /** Avatar displayed beside responses produced by Grower. */
+    /**
+     * Avatar displayed beside responses produced by Grower.
+     * Father Charles image sourced from the Amulet Wiki on Fandom.
+     * Source: https://amulet.fandom.com/wiki/Father_Charles
+     */
     private final Image growerImage = new Image(getClass().getResourceAsStream("/images/grower.png"));
 
     /**

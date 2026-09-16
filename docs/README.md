@@ -62,3 +62,9 @@ Changes are saved immediately to `data/grower.txt`, relative to the folder where
 - **Invalid command:** Check the format above and the error message, then try again.
 - **Could not save tasks:** The change was not applied. Check the data folder's write permissions and available disk space, then retry.
 - **Could not load tasks or invalid saved data:** Changes are disabled to protect the file; successfully loaded tasks remain viewable. Back up `data/grower.txt`, fix the reported file or access problem, and restart the app.
+
+## Acknowledgement
+
+- **User profile picture:** [Baby Peashooter (fan-made plant PvZ 2)](https://www.deviantart.com/sunflower75/art/Baby-Peashooter-fan-made-plant-PvZ-2-972885825) by sunflower75 on DeviantArt.
+- **Grower profile picture:** [Father Charles](https://amulet.fandom.com/wiki/Father_Charles), sourced from the Amulet Wiki on Fandom.
+- **Application icon:** [Tree](https://openclipart.org/detail/170749/tree) by diamonjohn on Openclipart, released under [CC0 1.0 (public-domain dedication)](https://creativecommons.org/publicdomain/zero/1.0/).

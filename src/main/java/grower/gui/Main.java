@@ -33,7 +33,10 @@ public class Main extends Application {
             stage.setMinHeight(220);
             stage.setMinWidth(417);
             stage.setTitle("Grow-er");
-            stage.getIcons().add(new Image(Main.class.getResource("/images/icon.jpg").toExternalForm()));
+            // Tree by diamonjohn (Openclipart), released under CC0 1.0.
+            // Source: https://openclipart.org/detail/170749/tree
+            // Licence: https://creativecommons.org/publicdomain/zero/1.0/
+            stage.getIcons().add(new Image(Main.class.getResource("/images/icon.png").toExternalForm()));
             stage.setScene(new Scene(mainWindow));
             stage.show();
         } catch (IOException e) {
