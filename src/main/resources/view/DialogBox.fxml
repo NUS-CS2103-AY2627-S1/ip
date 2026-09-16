@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root alignment="TOP_RIGHT"
+         maxWidth="1.7976931348623157E308"
+         spacing="10.0"
+         stylesheets="@../css/dialog-box.css"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialog" maxWidth="330.0" wrapText="true" />
+        <Label fx:id="avatar" alignment="CENTER" minHeight="46.0" minWidth="46.0" />
+    </children>
+</fx:root>
