@@ -35,6 +35,11 @@ public abstract class Task {
         return description;
     }
 
+    /** Returns whether this task has been completed. */
+    public boolean isDone() {
+        return isDone;
+    }
+
     /** Returns whether another task has the same type and user-supplied details. */
     public boolean hasSameDetails(Task other) {
         return other != null

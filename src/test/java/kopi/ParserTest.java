@@ -11,9 +11,10 @@ class ParserTest {
     @Test
     void parseTask_validCommands_tasksCreated() throws KopiException {
         Task todo = parser.parseTask("todo read book", Command.TODO);
-        Task deadline = parser.parseTask("deadline return book /by 2026-09-06", Command.DEADLINE);
+        Task deadline = parser.parseTask(
+                "deadline   return book   /by   2026-09-06", Command.DEADLINE);
         Task event = parser.parseTask(
-                "event project meeting /from 2026-09-07 /to 2026-09-08",
+                "event  project meeting   /from   2026-09-07   /to   2026-09-08",
                 Command.EVENT);
 
         assertEquals("T | 0 | read book", todo.toDataString());
@@ -25,10 +26,13 @@ class ParserTest {
 
     @Test
     void parseTask_invalidDate_exceptionThrown() {
-        KopiException exception = assertThrows(KopiException.class, () ->
+        KopiException textException = assertThrows(KopiException.class, () ->
                 parser.parseTask("deadline return book /by Sunday", Command.DEADLINE));
+        KopiException nonexistentDateException = assertThrows(KopiException.class, () ->
+                parser.parseTask("deadline return book /by 2026-02-30", Command.DEADLINE));
 
-        assertEquals("Use dates in yyyy-MM-dd format.", exception.getMessage());
+        assertEquals("Use dates in yyyy-MM-dd format.", textException.getMessage());
+        assertEquals("Use dates in yyyy-MM-dd format.", nonexistentDateException.getMessage());
     }
 
     @Test
@@ -60,6 +64,31 @@ class ParserTest {
                 parser.parseTask("todo buy milk | eggs", Command.TODO));
 
         assertEquals("Task descriptions cannot contain |.", exception.getMessage());
+    }
+
+    @Test
+    void parseTask_repeatedParameters_exceptionThrown() {
+        KopiException deadlineException = assertThrows(KopiException.class, () ->
+                parser.parseTask(
+                        "deadline return book /by 2026-09-06 /by 2026-09-07",
+                        Command.DEADLINE));
+        KopiException eventException = assertThrows(KopiException.class, () ->
+                parser.parseTask(
+                        "event meeting /from 2026-09-07 /from 2026-09-08 /to 2026-09-09",
+                        Command.EVENT));
+
+        assertEquals("Use: deadline DESCRIPTION /by DATE", deadlineException.getMessage());
+        assertEquals("Use: event DESCRIPTION /from START /to END", eventException.getMessage());
+    }
+
+    @Test
+    void validateNoArguments_extraArguments_exceptionThrown() throws KopiException {
+        parser.validateNoArguments("  LIST  ", "list");
+
+        KopiException exception = assertThrows(KopiException.class, () ->
+                parser.validateNoArguments("list later", "list"));
+
+        assertEquals("Use: list", exception.getMessage());
     }
 
     @Test

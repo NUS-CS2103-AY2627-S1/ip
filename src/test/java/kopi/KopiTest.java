@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
@@ -36,8 +38,11 @@ class KopiTest {
         assertTrue(kopi.getResponse("unmark 1").contains("[T][ ] read book"));
         assertTrue(kopi.getResponse("delete 3").contains("project meeting"));
         assertEquals("Bye. Hope to see you again soon!", kopi.getResponse("bye"));
+        assertEquals("OOPS!!! Use: list", kopi.getResponse("list later"));
+        assertEquals("OOPS!!! Use: bye", kopi.getResponse("bye later"));
         assertEquals("OOPS!!! I don't understand that command.", kopi.getResponse("dance"));
         assertTrue(kopi.isExitCommand("bye"));
+        assertFalse(kopi.isExitCommand("bye later"));
     }
 
     @Test
@@ -65,5 +70,33 @@ class KopiTest {
         assertEquals("OOPS!!! That task is already in the list.", duplicateResponse);
         assertTrue(taskList.contains("1. [T][X] read book"));
         assertFalse(taskList.contains("2. [T]"));
+    }
+
+    @Test
+    void getResponse_corruptStorage_modifyingCommandRejectedAndFilePreserved() throws IOException {
+        Path dataPath = tempDirectory.resolve("kopi.txt");
+        Files.writeString(dataPath, "not a task");
+        Kopi kopi = new Kopi(dataPath);
+
+        String response = kopi.getResponse("todo do not overwrite data");
+
+        assertEquals(
+                "OOPS!!! I won't change tasks because the data file could not be loaded. "
+                        + "Fix or remove it, then restart Kopi.",
+                response);
+        assertEquals("not a task", Files.readString(dataPath));
+    }
+
+    @Test
+    void getResponse_saveFailure_taskListUnchanged() throws IOException {
+        Path blockedParent = tempDirectory.resolve("not-a-directory");
+        Files.writeString(blockedParent, "file blocks directory creation");
+        Path dataPath = blockedParent.resolve("kopi.txt");
+        Kopi kopi = new Kopi(dataPath);
+
+        String response = kopi.getResponse("todo should not remain in memory");
+
+        assertEquals("OOPS!!! I couldn't save tasks to " + dataPath + ".", response);
+        assertFalse(kopi.getResponse("list").contains("should not remain in memory"));
     }
 }

@@ -1,6 +1,8 @@
 package kopi;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Coordinates the components of the Kopi chatbot.
@@ -11,6 +13,7 @@ public class Kopi {
     private final TaskList tasks;
     private final Ui ui;
     private final String startupMessage;
+    private final boolean storageLoaded;
 
     /** Creates a chatbot that stores its tasks at the given path. */
     public Kopi(Path dataPath) {
@@ -20,14 +23,17 @@ public class Kopi {
 
         TaskList loadedTasks;
         String loadMessage = null;
+        boolean loadedSuccessfully = false;
         try {
             loadedTasks = new TaskList(storage.load());
+            loadedSuccessfully = true;
         } catch (KopiException e) {
             loadMessage = ui.getError(e.getMessage());
             loadedTasks = new TaskList();
         }
         tasks = loadedTasks;
         startupMessage = loadMessage;
+        storageLoaded = loadedSuccessfully;
     }
 
     /** Reads and executes commands until the user exits. */
@@ -67,7 +73,11 @@ public class Kopi {
     /** Returns whether the input asks Kopi to exit. */
     public boolean isExitCommand(String input) {
         try {
-            return parser.parseCommand(input) == Command.BYE;
+            if (parser.parseCommand(input) != Command.BYE) {
+                return false;
+            }
+            parser.validateNoArguments(input, "bye");
+            return true;
         } catch (KopiException e) {
             return false;
         }
@@ -81,8 +91,10 @@ public class Kopi {
     private String execute(Command command, String input) throws KopiException {
         switch (command) {
             case BYE:
+                parser.validateNoArguments(input, "bye");
                 return ui.getGoodbye();
             case LIST:
+                parser.validateNoArguments(input, "list");
                 return ui.getTaskList(tasks);
             case FIND:
                 String keyword = parser.parseKeyword(input, "find");
@@ -105,36 +117,68 @@ public class Kopi {
     }
 
     private String markTask(String input) throws KopiException {
+        requireLoadedStorage();
         int index = parser.parseTaskNumber(input, "mark", tasks.size());
         Task task = tasks.get(index);
+        boolean wasDone = task.isDone();
         task.markAsDone();
-        storage.save(tasks.getAll());
+        try {
+            storage.save(tasks.getAll());
+        } catch (KopiException e) {
+            if (!wasDone) {
+                task.markAsNotDone();
+            }
+            throw e;
+        }
         return ui.getMarked(task);
     }
 
     private String unmarkTask(String input) throws KopiException {
+        requireLoadedStorage();
         int index = parser.parseTaskNumber(input, "unmark", tasks.size());
         Task task = tasks.get(index);
+        boolean wasDone = task.isDone();
         task.markAsNotDone();
-        storage.save(tasks.getAll());
+        try {
+            storage.save(tasks.getAll());
+        } catch (KopiException e) {
+            if (wasDone) {
+                task.markAsDone();
+            }
+            throw e;
+        }
         return ui.getUnmarked(task);
     }
 
     private String deleteTask(String input) throws KopiException {
+        requireLoadedStorage();
         int index = parser.parseTaskNumber(input, "delete", tasks.size());
-        Task removedTask = tasks.delete(index);
-        storage.save(tasks.getAll());
+        List<Task> updatedTasks = new ArrayList<>(tasks.getAll());
+        Task removedTask = updatedTasks.remove(index);
+        storage.save(updatedTasks);
+        tasks.delete(index);
         return ui.getDeleted(removedTask, tasks.size());
     }
 
     private String addTask(String input, Command command) throws KopiException {
+        requireLoadedStorage();
         Task task = parser.parseTask(input, command);
         if (tasks.hasDuplicateOf(task)) {
             throw new KopiException("That task is already in the list.");
         }
+        List<Task> updatedTasks = new ArrayList<>(tasks.getAll());
+        updatedTasks.add(task);
+        storage.save(updatedTasks);
         tasks.add(task);
-        storage.save(tasks.getAll());
         return ui.getAdded(task);
+    }
+
+    private void requireLoadedStorage() throws KopiException {
+        if (!storageLoaded) {
+            throw new KopiException(
+                    "I won't change tasks because the data file could not be loaded. "
+                            + "Fix or remove it, then restart Kopi.");
+        }
     }
 
     /** Starts Kopi using its default data file. */

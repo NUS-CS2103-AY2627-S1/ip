@@ -2,8 +2,10 @@ package kopi;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.AtomicMoveNotSupportedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -40,14 +42,21 @@ public class Storage {
 
     /** Saves all tasks, creating the data directory when necessary. */
     public void save(List<Task> tasks) throws KopiException {
+        Path temporaryFile = filePath.resolveSibling(filePath.getFileName() + ".tmp");
         try {
             Path parent = filePath.getParent();
             if (parent != null) {
                 Files.createDirectories(parent);
             }
             List<String> lines = tasks.stream().map(Task::toDataString).toList();
-            Files.write(filePath, lines, StandardCharsets.UTF_8);
+            Files.write(temporaryFile, lines, StandardCharsets.UTF_8);
+            replaceFile(temporaryFile);
         } catch (IOException e) {
+            try {
+                Files.deleteIfExists(temporaryFile);
+            } catch (IOException cleanupError) {
+                e.addSuppressed(cleanupError);
+            }
             throw new KopiException("I couldn't save tasks to " + filePath + ".");
         }
     }
@@ -106,6 +115,18 @@ public class Storage {
     private void requireDescription(String description, String taskType) throws KopiException {
         if (description.isBlank()) {
             throw new KopiException("The data file contains an invalid " + taskType + ".");
+        }
+    }
+
+    private void replaceFile(Path temporaryFile) throws IOException {
+        try {
+            Files.move(
+                    temporaryFile,
+                    filePath,
+                    StandardCopyOption.ATOMIC_MOVE,
+                    StandardCopyOption.REPLACE_EXISTING);
+        } catch (AtomicMoveNotSupportedException e) {
+            Files.move(temporaryFile, filePath, StandardCopyOption.REPLACE_EXISTING);
         }
     }
 }
