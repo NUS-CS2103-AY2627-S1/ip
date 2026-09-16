@@ -90,7 +90,7 @@ public class GrowerTest {
 
         String response = grower.getResponse("bye");
 
-        assertTrue(response.contains("departing"));
+        assertTrue(response.contains("May the shade of many trees provide comfort as you depart!"));
         assertFalse(grower.isRunning());
     }
 

@@ -100,7 +100,7 @@ public class Ui {
      * @param task Task that was deleted.
      */
     public void showTaskDeleted(Task task) {
-        display("Removed:\n" + task + "Hasty does it.");
+        display("Removed:\n" + task + "\nHasty does it.");
     }
 
     /**
@@ -109,7 +109,7 @@ public class Ui {
      * @param task Task that was marked.
      */
     public void showTaskMarked(Task task) {
-        display("Fine work young one! marking as done:\n", task.toString());
+        display("Fine work, young one! Marking as done:", task.toString());
     }
 
     /**
@@ -118,7 +118,7 @@ public class Ui {
      * @param task Task that was unmarked.
      */
     public void showTaskUnmarked(Task task) {
-        display("Marking following task as not done :(", task.toString());
+        display("All trees take time to grow, lets work on this next time.", task.toString());
     }
 
     /**
@@ -172,7 +172,7 @@ public class Ui {
      * Displays the goodbye message.
      */
     public void showGoodbye() {
-        display("May the shade of many tress provide comfort on your departing!");
+        display("May the shade of many trees provide comfort as you depart!");
     }
 
     /**
