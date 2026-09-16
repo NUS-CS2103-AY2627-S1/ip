@@ -1,6 +1,13 @@
-# Arin project template
+# Arin
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Arin_. Given below are instructions on how to use it.
+Arin is a console task tracker for to-dos, deadlines, and events.
+Its JavaFX window is currently a placeholder.
+
+Read the [published User Guide](https://goh-wei-chong.github.io/ip/) for
+setup, all commands, and current limitations, or view the
+[guide in this repository](docs/README.md).
+
+The instructions below are for developers building the project.
 
 ## Setting up in Intellij
 
@@ -13,7 +20,7 @@ Prerequisites: JDK 25, update Intellij to the most recent version.
    1. If there are any further prompts, accept the defaults.
 1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Arin.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+1. After that, locate the `src/main/java/arin/Arin.java` file, right-click it, and choose `Run Arin.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
        _         _      
       / \   _ __(_)_ __  
