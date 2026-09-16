@@ -81,10 +81,13 @@ public class TaskList {
      *
      * @param taskIndex Zero-based index of the task to mark as done.
      * @return Task whose status was changed.
-     * @throws DukeException If the index does not identify an existing task.
+     * @throws DukeException If the index is invalid or the task is already done.
      */
     public Task markAsDone(int taskIndex) throws DukeException {
         Task task = get(taskIndex);
+        if (task.isDone()) {
+            throw new DukeException("Task is already marked as done.");
+        }
         task.markAsDone();
         return task;
     }
@@ -94,10 +97,13 @@ public class TaskList {
      *
      * @param taskIndex Zero-based index of the task to mark as not done.
      * @return Task whose status was changed.
-     * @throws DukeException If the index does not identify an existing task.
+     * @throws DukeException If the index is invalid or the task is already not done.
      */
     public Task markAsNotDone(int taskIndex) throws DukeException {
         Task task = get(taskIndex);
+        if (!task.isDone()) {
+            throw new DukeException("Task is already not done.");
+        }
         task.markAsNotDone();
         return task;
     }

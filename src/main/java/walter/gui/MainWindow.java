@@ -3,6 +3,8 @@ package walter.gui;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -10,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import walter.Walter;
 import walter.command.CommandCategory;
 
@@ -67,6 +70,9 @@ public class MainWindow extends AnchorPane {
         if (walter.wasLastCommandExit()) {
             userInput.setDisable(true);
             sendButton.setDisable(true);
+            PauseTransition exitDelay = new PauseTransition(Duration.seconds(2.5));
+            exitDelay.setOnFinished(event -> Platform.exit());
+            exitDelay.play();
         }
     }
 

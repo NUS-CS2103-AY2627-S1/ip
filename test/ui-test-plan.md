@@ -23,6 +23,8 @@ Expected responses omit the surrounding separator lines.
         "find milk",
         "find 2026",
         "find",
+        "mark 2",
+        "list",
         "bye"
       ],
       "expected_outputs": [
@@ -52,6 +54,16 @@ Expected responses omit the surrounding separator lines.
         ],
         ["I found no tasks matching that keyword."],
         ["Precision matters, Jesse. Keyword is required for the find command."],
+        [
+          "Done. Consider this one handled:",
+          "[D][X] return book (by: Aug 30 2026)"
+        ],
+        [
+          "Here is the current operation:",
+          "1. [T][ ] Read Book",
+          "2. [D][X] return book (by: Aug 30 2026)",
+          "3. [T][ ] buy milk"
+        ],
         ["All right. The operation is closed. Stay focused, Jesse."]
       ]
     },
@@ -111,6 +123,36 @@ Expected responses omit the surrounding separator lines.
           "2. [T][ ] return book",
           "3. [T][ ] buy bread"
         ],
+        ["All right. The operation is closed. Stay focused, Jesse."]
+      ]
+    },
+    {
+      "id": "task-state-machine-rejects-no-ops",
+      "aim": "Verify repeated mark, done, and unmark operations are rejected without changing task state.",
+      "inputs": [
+        "todo test",
+        "unmark 1",
+        "mark 1",
+        "mark 1",
+        "done 1",
+        "unmark 1",
+        "unmark 1",
+        "list",
+        "bye"
+      ],
+      "expected_outputs": [
+        [
+          "Good. That's on the list now:",
+          "[T][ ] test",
+          "The list now contains 1 task."
+        ],
+        ["Precision matters, Jesse. Task is already not done."],
+        ["Done. Consider this one handled:", "[T][X] test"],
+        ["Precision matters, Jesse. Task is already marked as done."],
+        ["Precision matters, Jesse. Task is already marked as done."],
+        ["Understood. This goes back into the mix:", "[T][ ] test"],
+        ["Precision matters, Jesse. Task is already not done."],
+        ["Here is the current operation:", "1. [T][ ] test"],
         ["All right. The operation is closed. Stay focused, Jesse."]
       ]
     },
@@ -282,6 +324,11 @@ Expected responses omit the surrounding separator lines.
         "deadline report /by 2026-02-30",
         "deadline report /by 2027-02-29",
         "deadline report /by 2026-13-01",
+        "deadline report /by 2026-00-01",
+        "deadline report /by 2026-1-1",
+        "deadline report /by 26-01-01",
+        "deadline report /by 0000-01-01",
+        "deadline report /by -0001-01-01",
         "list",
         "bye"
       ],
@@ -306,6 +353,11 @@ Expected responses omit the surrounding separator lines.
           "[D][ ] leap (by: Feb 29 2028)",
           "The list now contains 4 tasks."
         ],
+        ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
+        ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
+        ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
+        ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
+        ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
         ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
         ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
         ["Precision matters, Jesse. Deadline date must be in yyyy-MM-dd format."],
@@ -342,6 +394,8 @@ Expected responses omit the surrounding separator lines.
         "on 2026-02-30",
         "on 2027-02-29",
         "on 2026-13-01",
+        "on 0000-01-01",
+        "on -0001-01-01",
         "on 2028-02-29",
         "on",
         "onward 2026-08-30",
@@ -389,6 +443,8 @@ Expected responses omit the surrounding separator lines.
         ["Precision matters, Jesse. Date must be in yyyy-MM-dd format."],
         ["Precision matters, Jesse. Date must be in yyyy-MM-dd format."],
         ["Precision matters, Jesse. Date must be in yyyy-MM-dd format."],
+        ["Precision matters, Jesse. Date must be in yyyy-MM-dd format."],
+        ["Precision matters, Jesse. Date must be in yyyy-MM-dd format."],
         ["No deadlines are scheduled for Feb 29 2028."],
         ["Precision matters, Jesse. Date is required for the on command."],
         ["Precision matters, Jesse. Unknown command."],
@@ -404,7 +460,7 @@ Expected responses omit the surrounding separator lines.
     },
     {
       "id": "task-number-errors",
-      "aim": "Verify task-number validation, whitespace handling, recovery, and state integrity.",
+      "aim": "Verify task-number validation including integer boundaries, whitespace handling, recovery, and state integrity.",
       "inputs": [
         "done 1",
         "todo read book",
@@ -418,6 +474,10 @@ Expected responses omit the surrounding separator lines.
         "done 999",
         "done 1 2",
         "done 999999999999999999999999999999999999",
+        "done 2147483647",
+        "done 2147483648",
+        "done -2147483648",
+        "done -2147483649",
         "mark abc",
         "unmark 2",
         "done\t1",
@@ -440,6 +500,10 @@ Expected responses omit the surrounding separator lines.
         ["Precision matters, Jesse. Task number is out of range."],
         ["Precision matters, Jesse. Task number is out of range."],
         ["Precision matters, Jesse. Task number must be an integer."],
+        ["Precision matters, Jesse. Task number must be an integer."],
+        ["Precision matters, Jesse. Task number is out of range."],
+        ["Precision matters, Jesse. Task number must be an integer."],
+        ["Precision matters, Jesse. Task number is out of range."],
         ["Precision matters, Jesse. Task number must be an integer."],
         ["Precision matters, Jesse. Task number must be an integer."],
         ["Precision matters, Jesse. Task number is out of range."],

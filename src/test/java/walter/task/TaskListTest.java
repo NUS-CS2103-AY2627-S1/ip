@@ -50,11 +50,14 @@ public class TaskListTest {
         Task task = new Todo("read book");
         TaskList tasks = new TaskList(List.of(task));
 
+        assertThrows(DukeException.class, () -> tasks.markAsNotDone(0));
         assertSame(task, tasks.markAsDone(0));
         assertTrue(task.isDone());
+        assertThrows(DukeException.class, () -> tasks.markAsDone(0));
 
         assertSame(task, tasks.markAsNotDone(0));
         assertFalse(task.isDone());
+        assertThrows(DukeException.class, () -> tasks.markAsNotDone(0));
     }
 
     @Test

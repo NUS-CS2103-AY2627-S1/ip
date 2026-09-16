@@ -62,6 +62,33 @@ public class CommandTest {
     }
 
     @Test
+    public void execute_repeatedStateTransitions_rejectedWithoutSaving() throws DukeException {
+        Task task = new Todo("read book");
+        TaskList tasks = new TaskList(List.of(task));
+        RecordingStorage storage = new RecordingStorage(
+                temporaryDirectory.resolve("walter.txt"));
+
+        assertThrows(DukeException.class, () ->
+                new UnmarkCommand(0).execute(tasks, new Ui(), storage));
+        assertEquals(0, storage.getSaveCount());
+        assertFalse(task.isDone());
+
+        new MarkCommand(0).execute(tasks, new Ui(), storage);
+        assertEquals(1, storage.getSaveCount());
+        assertThrows(DukeException.class, () ->
+                new MarkCommand(0).execute(tasks, new Ui(), storage));
+        assertEquals(1, storage.getSaveCount());
+        assertTrue(task.isDone());
+
+        new UnmarkCommand(0).execute(tasks, new Ui(), storage);
+        assertEquals(2, storage.getSaveCount());
+        assertThrows(DukeException.class, () ->
+                new UnmarkCommand(0).execute(tasks, new Ui(), storage));
+        assertEquals(2, storage.getSaveCount());
+        assertFalse(task.isDone());
+    }
+
+    @Test
     public void execute_deleteCommand_taskRemovedAndPersistenceUpdated()
             throws IOException, DukeException {
         Task first = new Todo("first");
@@ -93,9 +120,21 @@ public class CommandTest {
         second.markAsDone();
         assertThrows(DukeException.class, () -> new UnmarkCommand(1).execute(tasks, ui, storage));
 
+        Storage seededPlaceStorage = new Storage(temporaryDirectory.resolve("walter.txt"));
+        Place originalPlace = new Place("home", "original address");
+        seededPlaceStorage.savePlaces(List.of(originalPlace));
+        assertThrows(DukeException.class, () ->
+                new AddPlaceCommand(new Place("work", "new address"))
+                        .execute(tasks, ui, storage));
+        assertThrows(DukeException.class, () ->
+                new DeletePlaceCommand(0).execute(tasks, ui, storage));
+
         assertEquals(List.of(first, second), tasks.getTasks());
         assertFalse(first.isDone());
         assertTrue(second.isDone());
+        assertEquals(List.of("home"), seededPlaceStorage.loadPlaces().stream()
+                .map(Place::getName)
+                .toList());
         assertEquals("", outputBytes.toString(StandardCharsets.UTF_8));
     }
 
@@ -221,6 +260,11 @@ public class CommandTest {
         @Override
         public void save(List<Task> tasks) throws DukeException {
             throw new DukeException("Walter could not save your tasks.");
+        }
+
+        @Override
+        public void savePlaces(List<Place> places) throws DukeException {
+            throw new DukeException("Walter could not save your places.");
         }
     }
 }

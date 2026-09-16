@@ -52,12 +52,21 @@ public class ParserTest {
         assertInstanceOf(
                 AddCommand.class,
                 Parser.parse("deadline submit report /by 2028-02-29"));
+        assertInstanceOf(
+                AddCommand.class,
+                Parser.parse("deadline far future /by 9999-12-31"));
     }
 
     @Test
     public void parse_invalidDeadlineDates_exceptionThrown() {
         assertThrows(DukeException.class, () -> Parser.parse("deadline report /by 2027-02-29"));
         assertThrows(DukeException.class, () -> Parser.parse("deadline report /by 2026-02-30"));
+        assertThrows(DukeException.class, () -> Parser.parse("deadline report /by 2026-04-31"));
+        assertThrows(DukeException.class, () -> Parser.parse("deadline report /by 2026-01-00"));
+        assertThrows(DukeException.class, () -> Parser.parse("deadline report /by +2026-01-01"));
+        assertThrows(DukeException.class, () -> Parser.parse("deadline report /by 10000-01-01"));
+        assertThrows(DukeException.class, () -> Parser.parse("deadline report /by 0000-01-01"));
+        assertThrows(DukeException.class, () -> Parser.parse("deadline report /by -0001-01-01"));
     }
 
     @Test
@@ -72,6 +81,7 @@ public class ParserTest {
     @Test
     public void parse_validAtEvent_addCommandReturned() throws DukeException {
         assertInstanceOf(AddCommand.class, Parser.parse("event meeting /at 3pm"));
+        assertInstanceOf(AddCommand.class, Parser.parse("event atlas meeting /at noon"));
     }
 
     @Test
@@ -87,6 +97,8 @@ public class ParserTest {
         assertThrows(DukeException.class, () -> Parser.parse("event meeting /from 2pm"));
         assertThrows(DukeException.class, () -> Parser.parse("event meeting /to 4pm"));
         assertThrows(DukeException.class, () -> Parser.parse("event meeting /at"));
+        assertThrows(DukeException.class, () -> Parser.parse("event x /atlas noon"));
+        assertThrows(DukeException.class, () -> Parser.parse("event x /fromage a /tofu b"));
     }
 
     @Test
@@ -161,6 +173,9 @@ public class ParserTest {
         assertThrows(DukeException.class, () -> Parser.parse("place Alex's home /at"));
         assertThrows(DukeException.class, () ->
                 Parser.parse("place home /at first /at second"));
+        assertThrows(DukeException.class, () -> Parser.parse("place a/at b"));
+        assertThrows(DukeException.class, () -> Parser.parse("place a /atb"));
+        assertThrows(DukeException.class, () -> Parser.parse("place a /atlas b"));
     }
 
     @Test
@@ -188,6 +203,10 @@ public class ParserTest {
     @Test
     public void parse_invalidOnDate_exceptionThrown() {
         assertThrows(DukeException.class, () -> Parser.parse("on 2026-02-30"));
+        assertThrows(DukeException.class, () -> Parser.parse("on +2026-01-01"));
+        assertThrows(DukeException.class, () -> Parser.parse("on 10000-01-01"));
+        assertThrows(DukeException.class, () -> Parser.parse("on 0000-01-01"));
+        assertThrows(DukeException.class, () -> Parser.parse("on -0001-01-01"));
     }
 
     @Test

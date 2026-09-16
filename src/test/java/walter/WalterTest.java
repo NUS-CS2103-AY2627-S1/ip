@@ -185,6 +185,140 @@ public class WalterTest {
                 walter.getResponse("places"));
     }
 
+    @Test
+    public void getResponse_boundaryTaskIndexes_errorsReturnedWithoutChangingTasks() {
+        Walter walter = createWalter();
+        walter.getResponse("todo first");
+        walter.getResponse("todo second");
+
+        String[] boundaryCommands = {
+            "mark 0", "done -1", "unmark -999", "delete 999999",
+            "mark 2147483647", "delete -2147483648",
+            "mark 2147483648", "delete -2147483649",
+            "mark 1.0", "done 1e3", "unmark NaN", "delete abc"
+        };
+        for (String command : boundaryCommands) {
+            assertTrue(walter.getResponse(command).startsWith("Precision matters, Jesse."));
+        }
+
+        assertEquals("Here is the current operation:\n"
+                + "1. [T][ ] first\n"
+                + "2. [T][ ] second", walter.getResponse("list"));
+    }
+
+    @Test
+    public void getResponse_taskAndPlaceState_coexistsAcrossRestart() {
+        Storage storage = new Storage(temporaryDirectory.resolve("data").resolve("walter.txt"));
+        Walter firstWalter = new Walter(storage);
+        firstWalter.getResponse("todo read book");
+        firstWalter.getResponse("deadline submit report /by 2026-09-04");
+        firstWalter.getResponse("event consultation /at Monday 2pm");
+        firstWalter.getResponse("event lab /from Tuesday 10am /to 12pm");
+        firstWalter.getResponse("mark 2");
+        firstWalter.getResponse("place library /at 12 Computing Drive");
+
+        Walter restartedWalter = new Walter(storage);
+
+        assertEquals(firstWalter.getResponse("list"), restartedWalter.getResponse("list"));
+        assertEquals(firstWalter.getResponse("places"), restartedWalter.getResponse("places"));
+    }
+
+    @Test
+    public void getResponse_corruptedPlaceFile_errorReturnedWithoutCrashingSession()
+            throws IOException {
+        Path saveFile = temporaryDirectory.resolve("data").resolve("walter.txt");
+        Path placeFile = saveFile.resolveSibling("places.txt");
+        Files.createDirectories(placeFile.getParent());
+        Files.writeString(placeFile, "P\tname\tdangling\\", StandardCharsets.UTF_8);
+        Walter walter = new Walter(new Storage(saveFile));
+
+        assertEquals("Precision matters, Jesse. Malformed saved place text.",
+                walter.getResponse("places"));
+        assertEquals("The board is clean. Nothing needs doing.", walter.getResponse("list"));
+    }
+
+    @Test
+    public void getResponse_repeatedStateTransitions_errorsAndPersistenceRemainCorrect() {
+        Storage storage = new Storage(temporaryDirectory.resolve("walter.txt"));
+        Walter walter = new Walter(storage);
+        walter.getResponse("todo test");
+
+        assertEquals("Precision matters, Jesse. Task is already not done.",
+                walter.getResponse("unmark 1"));
+        assertTrue(walter.getResponse("mark 1").contains("[T][X] test"));
+        assertEquals("Precision matters, Jesse. Task is already marked as done.",
+                walter.getResponse("mark 1"));
+        assertEquals("Precision matters, Jesse. Task is already marked as done.",
+                walter.getResponse("done 1"));
+
+        Walter restartedWalter = new Walter(storage);
+        assertEquals("Here is the current operation:\n1. [T][X] test",
+                restartedWalter.getResponse("list"));
+    }
+
+    @Test
+    public void getResponse_capacityBoundary_persistsAndRecoversAfterDeletion()
+            throws DukeException {
+        Storage storage = new Storage(temporaryDirectory.resolve("capacity").resolve("walter.txt"));
+        Walter walter = new Walter(storage);
+        for (int i = 1; i <= 100; i++) {
+            assertTrue(walter.getResponse("todo capacity-" + i)
+                    .contains("The list now contains " + i + " task"));
+        }
+
+        assertEquals("Precision matters, Jesse. Task list is full.",
+                walter.getResponse("todo rejected-overflow"));
+        assertEquals(100, storage.load().size());
+
+        Walter restartedWalter = new Walter(storage);
+        assertTrue(restartedWalter.getResponse("delete 50").contains("capacity-50"));
+        assertTrue(restartedWalter.getResponse("todo replacement").contains("100 tasks"));
+        assertEquals(100, storage.load().size());
+        assertEquals("replacement", storage.load().get(99).getDescription());
+    }
+
+    @Test
+    public void getResponse_multipleMutationRestartCycles_exactStateRestored() {
+        Storage storage = new Storage(temporaryDirectory.resolve("cycles").resolve("walter.txt"));
+        Walter first = new Walter(storage);
+        first.getResponse("todo A");
+        first.getResponse("deadline B /by 2026-12-01");
+        first.getResponse("event C /at noon");
+        first.getResponse("event D /from 1pm /to 2pm");
+        first.getResponse("mark 2");
+        first.getResponse("place Home /at Somewhere");
+
+        Walter second = new Walter(storage);
+        assertEquals(first.getResponse("list"), second.getResponse("list"));
+        assertEquals(first.getResponse("places"), second.getResponse("places"));
+        second.getResponse("unmark 2");
+        second.getResponse("delete 1");
+        second.getResponse("deleteplace 1");
+
+        Walter third = new Walter(storage);
+        assertEquals("Here is the current operation:\n"
+                + "1. [D][ ] B (by: Dec 1 2026)\n"
+                + "2. [E][ ] C (at: noon)\n"
+                + "3. [E][ ] D (from: 1pm to: 2pm)", third.getResponse("list"));
+        assertEquals("The location list is empty.", third.getResponse("places"));
+    }
+
+    @Test
+    public void getResponse_largeUnicodeFields_surviveCommandsAndRestart() {
+        Storage storage = new Storage(temporaryDirectory.resolve("large").resolve("walter.txt"));
+        Walter walter = new Walter(storage);
+        String longText = "中文🚀! long-field ".repeat(400) + "end";
+
+        assertTrue(walter.getResponse("todo " + longText).contains(longText));
+        assertTrue(walter.getResponse("event long-event /at " + longText).contains(longText));
+        assertTrue(walter.getResponse("place long-place /at " + longText).contains(longText));
+        assertTrue(walter.getResponse("find 中文🚀").contains(longText));
+
+        Walter restarted = new Walter(storage);
+        assertTrue(restarted.getResponse("list").contains(longText));
+        assertTrue(restarted.getResponse("places").contains(longText));
+    }
+
     /**
      * Creates Walter with an isolated save file for one test.
      */

@@ -51,10 +51,13 @@ public class StorageTest {
     @Test
     public void saveLoad_todo_roundTripPreserved() throws IOException, DukeException {
         Storage storage = createStorage();
+        assertFalse(Files.exists(temporaryDirectory.resolve("data")));
+
         storage.save(List.of(new Todo("read book")));
 
         List<Task> loaded = storage.load();
 
+        assertTrue(Files.isDirectory(temporaryDirectory.resolve("data")));
         assertEquals(1, loaded.size());
         assertInstanceOf(Todo.class, loaded.get(0));
         assertEquals("read book", loaded.get(0).getDescription());
@@ -131,8 +134,8 @@ public class StorageTest {
     public void saveLoad_escapedControlCharacters_roundTripPreserved()
             throws IOException, DukeException {
         Storage storage = createStorage();
-        Todo todo = new Todo("tab\tnewline\nbackslash\\carriage\rreturn");
-        Event event = new Event("event\\description", "from\tline", "to\nline");
+        Todo todo = new Todo("tab\tnewline\nbackslash\\carriage\rreturn café 中文 🚀");
+        Event event = new Event("event\\description 😀", "from\tline", "to\nline");
         storage.save(List.of(todo, event));
 
         List<Task> loaded = storage.load();
@@ -145,10 +148,52 @@ public class StorageTest {
     }
 
     @Test
-    public void load_malformedRecord_exceptionThrown() throws IOException {
-        writeSaveFile("not-a-task");
+    public void saveReloadSaveReload_allEntityFieldsRemainStable() throws DukeException {
+        Storage storage = createStorage();
+        Task markedTodo = new Todo("  todo \\ \t\n\r | /by /at /from /to 中文 🚀  ");
+        markedTodo.markAsDone();
+        List<Task> originalTasks = List.of(
+                markedTodo,
+                new Deadline("deadline \\ | 中文", LocalDate.of(9999, 12, 31)),
+                new Event("event /at text", "Monday 2:30 PM | 中文"),
+                new Event("event range", "start\t\\ /from", "end\n\r /to 🚀"));
+        List<Place> originalPlaces = List.of(
+                new Place("  place \\ \t 中文  ", "  address\n\r | /at 🚀  "),
+                new Place("duplicate", "same"),
+                new Place("duplicate", "same"));
 
-        assertThrows(DukeException.class, () -> createStorage().load());
+        storage.save(originalTasks);
+        storage.savePlaces(originalPlaces);
+        List<Task> firstTasks = storage.load();
+        List<Place> firstPlaces = storage.loadPlaces();
+        storage.save(firstTasks);
+        storage.savePlaces(firstPlaces);
+        List<Task> secondTasks = storage.load();
+        List<Place> secondPlaces = storage.loadPlaces();
+
+        assertEquals(originalTasks.stream().map(Task::toString).toList(),
+                secondTasks.stream().map(Task::toString).toList());
+        assertEquals(originalPlaces.stream().map(Place::toString).toList(),
+                secondPlaces.stream().map(Place::toString).toList());
+    }
+
+    @Test
+    public void load_malformedRecord_exceptionThrown() throws IOException, DukeException {
+        writeSaveFile("");
+        assertTrue(createStorage().load().isEmpty());
+
+        String[] malformedRecords = {
+            "\n", "   ", "not-a-task", "t\t0\tdescription", "T\t0",
+            "T\t\tdescription", "T\t0\tdescription\textra",
+            "E\t0\tAT\tdescription", "E\t0\tFROM_TO\tdescription\tstart",
+            "E\t0\tUNKNOWN\tdescription\ttime", "T\t0\tdangling\\",
+            "T\t0\tbad\\q", "T\t0\tembedded\ttab",
+            "T\t0\tvalid\ncorrupt", "corrupt\nT\t0\tvalid"
+        };
+        for (String record : malformedRecords) {
+            writeSaveFile(record);
+            assertThrows(DukeException.class, () -> createStorage().load());
+        }
     }
 
     @Test
@@ -195,24 +240,31 @@ public class StorageTest {
         Storage storage = createStorage();
         storage.savePlaces(List.of(
                 new Place("Alex's home", "123 Clementi Ave 3"),
-                new Place("NUS\\tLibrary", "12 Computing Drive\\nLevel 1")));
+                new Place("NUS\tLibrary\\中文", "12 Computing Drive\nLevel 1\r🚀")));
 
         List<Place> loaded = storage.loadPlaces();
 
         assertEquals(2, loaded.size());
         assertEquals("Alex's home", loaded.get(0).getName());
         assertEquals("123 Clementi Ave 3", loaded.get(0).getAddress());
-        assertEquals("NUS\\tLibrary", loaded.get(1).getName());
-        assertEquals("12 Computing Drive\\nLevel 1", loaded.get(1).getAddress());
+        assertEquals("NUS\tLibrary\\中文", loaded.get(1).getName());
+        assertEquals("12 Computing Drive\nLevel 1\r🚀", loaded.get(1).getAddress());
     }
 
     @Test
     public void loadPlaces_malformedRecord_exceptionThrown() throws IOException {
         Path placeFile = temporaryDirectory.resolve("data").resolve("places.txt");
         Files.createDirectories(placeFile.getParent());
-        Files.writeString(placeFile, "P\\tmissing-address", StandardCharsets.UTF_8);
-
-        assertThrows(DukeException.class, () -> createStorage().loadPlaces());
+        String[] malformedRecords = {
+            "\n", "   ", "P\\tmissing-address", "p\tname\taddress",
+            "P\tname", "P\tname\taddress\textra", "P\tname\tdangling\\",
+            "P\tname\tbad\\q", "P\tname\tembedded\ttab",
+            "P\tvalid\taddress\ncorrupt", "corrupt\nP\tvalid\taddress"
+        };
+        for (String record : malformedRecords) {
+            Files.writeString(placeFile, record, StandardCharsets.UTF_8);
+            assertThrows(DukeException.class, () -> createStorage().loadPlaces());
+        }
     }
 
     @Test

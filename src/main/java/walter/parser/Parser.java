@@ -354,6 +354,9 @@ public class Parser {
         if (dateText.isEmpty()) {
             throw new DukeException("Date is required for the on command.");
         }
+        if (!hasSupportedDateFormat(dateText)) {
+            throw new DukeException("Date must be in yyyy-MM-dd format.");
+        }
         try {
             return LocalDate.parse(dateText);
         } catch (DateTimeParseException exception) {
@@ -391,11 +394,25 @@ public class Parser {
      * @throws DukeException If the text is not a valid ISO date.
      */
     private static LocalDate parseDeadlineDate(String dateText) throws DukeException {
+        if (!hasSupportedDateFormat(dateText)) {
+            throw new DukeException("Deadline date must be in yyyy-MM-dd format.");
+        }
         try {
             return LocalDate.parse(dateText);
         } catch (DateTimeParseException exception) {
             throw new DukeException("Deadline date must be in yyyy-MM-dd format.", exception);
         }
+    }
+
+    /**
+     * Checks that a date uses Walter's documented four-digit positive-year representation.
+     *
+     * @param dateText Date text to validate before calendar parsing.
+     * @return {@code true} when the text has the supported {@code yyyy-MM-dd} shape and year.
+     */
+    private static boolean hasSupportedDateFormat(String dateText) {
+        return dateText.matches("[0-9]{4}-[0-9]{2}-[0-9]{2}")
+                && !dateText.startsWith("0000");
     }
 
     /**
