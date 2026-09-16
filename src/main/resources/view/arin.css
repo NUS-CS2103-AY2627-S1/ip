@@ -1,0 +1,29 @@
+.app {
+    -fx-font-family: "System";
+    -fx-font-size: 14px;
+    -fx-background-color: #f4f7fa;
+}
+.text { -fx-font-smoothing-type: gray; }
+.header {
+    -fx-padding: 16 20;
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #dde6ee transparent;
+}
+.title { -fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #145c82; }
+.subtitle, .hint { -fx-text-fill: #52616b; -fx-font-size: 12px; }
+.chat-scroll, .chat-scroll > .viewport { -fx-background-color: #f4f7fa; }
+.chat-scroll { -fx-padding: 0; -fx-background-insets: 0; }
+.message { -fx-padding: 12 16; -fx-background-radius: 12; }
+.bot-message { -fx-background-color: white; -fx-border-color: #dbe5ee; -fx-border-radius: 12; }
+.user-message { -fx-background-color: #dcedf9; }
+.message-sender { -fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #145c82; }
+.message-text { -fx-text-fill: #233747; -fx-line-spacing: 3px; }
+.error-message { -fx-background-color: #fff2ee; -fx-border-color: #d18c79; }
+.error-message .message-sender { -fx-text-fill: #9d3218; }
+.composer { -fx-padding: 14 20 18 20; -fx-background-color: white; }
+.input-label { -fx-font-weight: bold; -fx-text-fill: #233747; }
+.text-field { -fx-padding: 10 12; -fx-background-radius: 8; -fx-border-radius: 8; }
+.button { -fx-padding: 9 15; -fx-background-radius: 8; -fx-cursor: hand; }
+.send-button { -fx-background-color: #145c82; -fx-text-fill: white; -fx-font-weight: bold; }
+.send-button:hover { -fx-background-color: #0d4564; }
+.button:focused, .text-field:focused { -fx-border-color: #2387b7; -fx-border-radius: 8; }

@@ -1,0 +1,88 @@
+plugins {
+    id 'application'
+    id 'checkstyle'
+    id 'com.gradleup.shadow' version '9.6.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+application {
+    mainClass = 'arin.Launcher'
+    applicationDefaultJvmArgs = ['-ea']
+}
+
+def javaFxVersion = '17.0.7'
+def javaFxPlatforms = ['win', 'linux', 'mac', 'mac-aarch64']
+def javaFxNativeConfigurations = javaFxPlatforms.collectEntries { platform ->
+    [(platform): configurations.create("javafxNatives-${platform}") { transitive = false }]
+}
+def osName = System.getProperty('os.name').toLowerCase(Locale.ROOT)
+def hostPlatform = osName.contains('mac')
+        ? (System.getProperty('os.arch') == 'aarch64' ? 'mac-aarch64' : 'mac')
+        : (osName.contains('win') ? 'win' : 'linux')
+
+dependencies {
+    ['base', 'controls', 'fxml', 'graphics'].each { module ->
+        implementation "org.openjfx:javafx-${module}:${javaFxVersion}:${hostPlatform}"
+        javaFxPlatforms.findAll { it != hostPlatform }.each { platform ->
+            runtimeOnly "org.openjfx:javafx-${module}:${javaFxVersion}:${platform}"
+        }
+    }
+    javaFxNativeConfigurations.each { platform, nativeConfiguration ->
+        add(nativeConfiguration.name, "org.openjfx:javafx-graphics:${javaFxVersion}:${platform}")
+    }
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.12.1'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+// Keep identically named Mac libraries apart, then select the correct platform at launch.
+def bundledNatives = layout.buildDirectory.dir('generated/javafx-natives')
+tasks.register('bundleJavaFxNatives', Sync) {
+    into bundledNatives
+    javaFxNativeConfigurations.each { platform, nativeConfiguration ->
+        from({ nativeConfiguration.collect { zipTree(it) } }) {
+            include '*.dll', '*.so', '*.dylib'
+            into "natives/${platform}"
+        }
+    }
+    doLast {
+        javaFxPlatforms.each { platform ->
+            def directory = bundledNatives.get().dir("natives/${platform}").asFile
+            def libraries = directory.listFiles().findAll { it.name != 'index.txt' }.collect { it.name }.sort()
+            new File(directory, 'index.txt').setText(libraries.join('\n') + '\n', 'UTF-8')
+        }
+    }
+}
+
+tasks.named('processResources') {
+    dependsOn 'bundleJavaFxNatives'
+    from bundledNatives
+}
+
+tasks.named('shadowJar') {
+    // NativeLibraries supplies the selected binaries; root copies would bypass that selection.
+    eachFile { details ->
+        if (!details.path.contains('/') && details.name ==~ /.*\.(dll|so|dylib)/) {
+            details.exclude()
+        }
+    }
+    manifest { attributes 'Enable-Native-Access': 'ALL-UNNAMED' }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+    enableAssertions = true
+}
