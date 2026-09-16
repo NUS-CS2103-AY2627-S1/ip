@@ -4,7 +4,7 @@ This repository is a starter template for a greenfield Java project used in an i
 
 # Default user context
 
-Unless the user says otherwise, assume that you are assisting a student working on a project in this repository. If the user identifies themselves as an instructor or another project stakeholder, adapt your response to that role.
+Unless the user says otherwise, assume that you are assisting a student working on this repository. If the user identifies themselves as an instructor or another project stakeholder, adapt your response to that role.
 
 # Student profile
 
@@ -33,3 +33,7 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## seedu-java-coding-standard:
+
+All code must follow the intermediate Java coding conventions at https://se-education.org/guides/conventions/java/intermediate.html. Key requirements: no wildcard imports; boolean methods/variables prefixed with `is`/`has`/`was`; constants as `static final`; Javadoc headers for public classes/methods; 4-space indentation; max 120 chars/line; K&R brackets.

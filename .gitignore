@@ -3,6 +3,9 @@
 /out/
 /*.iml
 
+# Class files
+*.class
+
 # Gradle build files
 /.gradle/
 /build/
@@ -18,3 +21,6 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# data file
+data/

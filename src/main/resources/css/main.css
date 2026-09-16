@@ -1,0 +1,75 @@
+.root-pane {
+    -fx-background-color: #20251f;
+    -fx-font-family: "DejaVu Sans";
+}
+
+.scroll-pane {
+    -fx-background: #20251f;
+    -fx-background-color: #20251f;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #20251f;
+}
+
+.dialog-container {
+    -fx-background-color: #20251f;
+}
+
+.input-bar {
+    -fx-background-color: #292f27;
+    -fx-border-color: #59614d transparent transparent transparent;
+}
+
+.text-field {
+    -fx-background-color: #292f27;
+    -fx-text-fill: #f0f2e8;
+    -fx-prompt-text-fill: #b9c1ac;
+    -fx-border-color: #71795e;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 9 10;
+    -fx-font-size: 14px;
+}
+
+.button {
+    -fx-background-color: #4f6035;
+    -fx-background-radius: 6;
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-padding: 9 16;
+}
+
+.button:disabled,
+.text-field:disabled {
+    -fx-opacity: 0.65;
+}
+
+.mission-header {
+    -fx-background-color: #161b16;
+    -fx-padding: 16 18;
+}
+
+.mission-title {
+    -fx-font-family: "Monospaced";
+    -fx-text-fill: #f1c36a;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.mission-subtitle {
+    -fx-text-fill: #d1d7c5;
+    -fx-font-size: 12px;
+}
+
+.button:hover {
+    -fx-background-color: #637644;
+}
+
+.button:focused,
+.text-field:focused {
+    -fx-border-color: #f1c36a;
+    -fx-border-width: 2;
+    -fx-border-radius: 6;
+}

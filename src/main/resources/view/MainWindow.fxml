@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="420.0" minWidth="360.0"
+            prefHeight="520.0" prefWidth="420.0" styleClass="root-pane"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="rambo.gui.MainWindow">
+  <children>
+    <VBox spacing="3.0" styleClass="mission-header" prefHeight="76.0"
+          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <Label text="★ RAMBO / MISSION CONTROL" styleClass="mission-title" />
+        <Label text="Stay focused. One mission at a time." styleClass="mission-subtitle" />
+      </children>
+    </VBox>
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
+      <content>
+        <VBox fx:id="dialogContainer" prefWidth="400.0" spacing="12.0" styleClass="dialog-container">
+          <padding>
+            <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+          </padding>
+        </VBox>
+      </content>
+    </ScrollPane>
+    <HBox alignment="CENTER" spacing="8.0" styleClass="input-bar"
+          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0">
+      <children>
+        <TextField fx:id="userInput" onAction="#handleUserInput" promptText="Enter a mission... (help for commands)"
+                   HBox.hgrow="ALWAYS" />
+        <Button mnemonicParsing="false" onAction="#handleUserInput" text="Send" />
+      </children>
+      <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      </padding>
+    </HBox>
+  </children>
+</AnchorPane>
