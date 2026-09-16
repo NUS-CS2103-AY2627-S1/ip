@@ -14,10 +14,10 @@
 }
 
 .brand-mark {
-    -fx-min-width: 44px;
-    -fx-min-height: 44px;
-    -fx-pref-width: 44px;
-    -fx-pref-height: 44px;
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
     -fx-background-color: linear-gradient(to bottom right, #fb7185, #f97356);
     -fx-background-radius: 14px;
     -fx-effect: dropshadow(gaussian, rgba(251, 113, 133, 0.25), 18, 0.2, 0, 5);
@@ -25,7 +25,7 @@
 
 .brand-letter {
     -fx-text-fill: #ffffff;
-    -fx-font-size: 21px;
+    -fx-font-size: 19px;
     -fx-font-weight: 800;
 }
 
@@ -100,18 +100,18 @@
 }
 
 .dialog-row {
-    -fx-spacing: 11px;
+    -fx-spacing: 9px;
     -fx-max-width: Infinity;
 }
 
 .avatar {
-    -fx-min-width: 34px;
-    -fx-min-height: 34px;
-    -fx-pref-width: 34px;
-    -fx-pref-height: 34px;
-    -fx-max-width: 34px;
-    -fx-max-height: 34px;
-    -fx-background-radius: 11px;
+    -fx-min-width: 28px;
+    -fx-min-height: 28px;
+    -fx-pref-width: 28px;
+    -fx-pref-height: 28px;
+    -fx-max-width: 28px;
+    -fx-max-height: 28px;
+    -fx-background-radius: 9px;
 }
 
 .zucc-avatar {
@@ -122,38 +122,34 @@
     -fx-background-color: #f59e0b;
 }
 
-.user-avatar {
-    -fx-background-color: #334155;
-    -fx-border-color: #475569;
-    -fx-border-radius: 11px;
-}
-
 .avatar-text {
     -fx-text-fill: #ffffff;
-    -fx-font-size: 13px;
+    -fx-font-size: 11px;
     -fx-font-weight: 800;
 }
 
 .message-card {
-    -fx-padding: 12px 15px 14px 15px;
-    -fx-spacing: 5px;
-    -fx-background-radius: 15px;
+    -fx-padding: 11px 14px 12px 14px;
+    -fx-spacing: 4px;
+    -fx-background-radius: 13px;
 }
 
 .zucc-card {
     -fx-background-color: #1d293b;
     -fx-border-color: #2d3a50;
-    -fx-border-radius: 15px;
+    -fx-border-radius: 13px;
 }
 
 .user-card {
-    -fx-background-color: #f97356;
+    -fx-padding: 9px 13px;
+    -fx-background-color: #334155;
+    -fx-background-radius: 13px 13px 4px 13px;
 }
 
 .error-card {
     -fx-background-color: #342817;
     -fx-border-color: #7c5a20;
-    -fx-border-radius: 15px;
+    -fx-border-radius: 13px;
 }
 
 .error-card .speaker-label {
@@ -166,10 +162,6 @@
     -fx-font-weight: 800;
 }
 
-.user-card .speaker-label {
-    -fx-text-fill: rgba(255, 255, 255, 0.72);
-}
-
 .message-text {
     -fx-text-fill: #e5e7eb;
     -fx-font-size: 14px;
@@ -177,7 +169,7 @@
 }
 
 .user-card .message-text {
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #f1f5f9;
 }
 
 .composer {
@@ -187,8 +179,8 @@
 }
 
 .command-input {
-    -fx-pref-height: 48px;
-    -fx-padding: 0 16px;
+    -fx-pref-height: 44px;
+    -fx-padding: 0 14px;
     -fx-background-color: #111827;
     -fx-background-radius: 13px;
     -fx-border-color: #344158;
@@ -204,8 +196,8 @@
 }
 
 .send-button {
-    -fx-min-width: 104px;
-    -fx-pref-height: 48px;
+    -fx-min-width: 82px;
+    -fx-pref-height: 44px;
     -fx-background-color: #fb7185;
     -fx-background-radius: 13px;
     -fx-text-fill: #ffffff;
