@@ -107,6 +107,10 @@ public class Ada {
     /**
      * Processes one user command and returns Ada's response for the GUI.
      *
+     * The method is responsible only for resetting the error state,
+     * parsing the input, and handling parsing errors. Command-specific
+     * execution is delegated to {@link #executeCommand(Parser.CommandInfo)}.
+     *
      * @param input command entered by the user
      * @return response to display in the GUI
      */
@@ -114,61 +118,192 @@ public class Ada {
         lastResponseWasError = false;
 
         try {
-            Parser.CommandInfo cmd = parser.parse(input);
+            Parser.CommandInfo command = parser.parse(input);
 
-            assert cmd != null && cmd.getCommand() != null : "The parser must return a command with a command name";
+            assert command != null
+                    && command.getCommand() != null
+                    : "The parser must return a valid command";
 
-            switch (cmd.getCommand()) {
-                case "bye":
-                    return ui.getByeText();
-                case "list":
-                    return ui.getTaskListText(taskList.getAllTasks());
-                case "mark":
-                    Task markedTask = markTask(cmd.getTaskNum());
-                    return ui.getMarkDoneText(markedTask);
-                case "unmark":
-                    Task unmarkedTask = unmarkTask(cmd.getTaskNum());
-                    return ui.getMarkUndoneText(unmarkedTask);
-                case "todo":
-                    Todo todo = addTodoTask(cmd.getDescription());
-                    return ui.getAddTaskText(todo, taskList.size());
-                case "deadline":
-                    try {
-                        Deadline deadline = addDeadlineTask(cmd);
-                        return ui.getAddTaskText(deadline, taskList.size());
-                    } catch (DateTimeException e) {
-                        lastResponseWasError = true;
-                        return ui.getDateTimeErrorDeadlineText();
-                    }
-                case "event":
-                    try {
-                        Event event = addEventTask(cmd);
-                        return ui.getAddTaskText(event, taskList.size());
-                    } catch (DateTimeException
-                            | NumberFormatException
-                            | IndexOutOfBoundsException e) {
-                        lastResponseWasError = true;
-                        return ui.getDateTimeErrorEventText();
-                    }
-
-                case "delete":
-                    Task removed = deleteTask(cmd.getTaskNum());
-                    return ui.getDeleteTaskText(removed, taskList.size());
-                case "find":
-                    List<Task> matched = taskList.matchTasksByKeyword(cmd.getKeyword());
-                    return ui.getFindResultText(matched);
-                case "sort":
-                    taskList.sortTasks();
-                    storage.save(taskList.getAllTasks());
-                    return ui.getSortedTaskListText(taskList.getAllTasks());
-                default:
-                    lastResponseWasError = true;
-                    return ui.getUnknownCommandText();
-            }
-        } catch (AdaException e) {
+            return executeCommand(command);
+        } catch (AdaException exception) {
             lastResponseWasError = true;
-            return e.getMessage();
+            return exception.getMessage();
         }
+    }
+
+    /**
+     * Executes a parsed command and generates the corresponding response.
+     *
+     * This method only dispatches the command to the appropriate handler.
+     * The detailed logic for each command is kept in separate methods.
+     *
+     * @param command parsed command information
+     * @return response text for the GUI
+     * @throws AdaException if a task number is invalid
+     */
+    private String executeCommand(Parser.CommandInfo command)
+            throws AdaException {
+        String response;
+
+        switch (command.getCommand()) {
+        case "bye":
+            response = ui.getByeText();
+            break;
+        case "list":
+            response = handleList();
+            break;
+        case "mark":
+            response = handleMark(command);
+            break;
+        case "unmark":
+            response = handleUnmark(command);
+            break;
+        case "todo":
+            response = handleTodo(command);
+            break;
+        case "deadline":
+            response = handleDeadline(command);
+            break;
+        case "event":
+            response = handleEvent(command);
+            break;
+        case "delete":
+            response = handleDelete(command);
+            break;
+        case "find":
+            response = handleFind(command);
+            break;
+        case "sort":
+            response = handleSort();
+            break;
+        default:
+            lastResponseWasError = true;
+            response = ui.getUnknownCommandText();
+            break;
+        }
+
+        return response;
+    }
+
+    /**
+     * Handles the list command.
+     *
+     * @return formatted task-list response
+     */
+    private String handleList() {
+        return ui.getTaskListText(taskList.getAllTasks());
+    }
+
+    /**
+     * Handles the todo command.
+     *
+     * @param command parsed todo command
+     * @return response confirming that the todo was added
+     */
+    private String handleTodo(Parser.CommandInfo command) {
+        Todo todo = addTodoTask(command.getDescription());
+        return ui.getAddTaskText(todo, taskList.size());
+    }
+
+    /**
+     * Handles the deadline command.
+     *
+     * @param command parsed deadline command
+     * @return response confirming the result
+     */
+    private String handleDeadline(Parser.CommandInfo command) {
+        try {
+            Deadline deadline = addDeadlineTask(command);
+            return ui.getAddTaskText(deadline, taskList.size());
+        } catch (DateTimeException exception) {
+            lastResponseWasError = true;
+            return ui.getDateTimeErrorDeadlineText();
+        }
+    }
+
+    /**
+     * Handles the event command.
+     *
+     * @param command parsed event command
+     * @return response confirming the result
+     */
+    private String handleEvent(Parser.CommandInfo command) {
+        try {
+            Event event = addEventTask(command);
+            return ui.getAddTaskText(event, taskList.size());
+        } catch (DateTimeException
+                 | NumberFormatException
+                 | IndexOutOfBoundsException exception) {
+            lastResponseWasError = true;
+            return ui.getDateTimeErrorEventText();
+        }
+    }
+
+    /**
+     * Handles the mark command.
+     *
+     * @param command parsed mark command
+     * @return response confirming that the task was marked
+     * @throws AdaException if the task number is invalid
+     */
+    private String handleMark(Parser.CommandInfo command)
+            throws AdaException {
+        Task markedTask = markTask(command.getTaskNum());
+        return ui.getMarkDoneText(markedTask);
+    }
+
+    /**
+     * Handles the unmark command.
+     *
+     * @param command parsed unmark command
+     * @return response confirming that the task was unmarked
+     * @throws AdaException if the task number is invalid
+     */
+    private String handleUnmark(Parser.CommandInfo command)
+            throws AdaException {
+        Task unmarkedTask = unmarkTask(command.getTaskNum());
+        return ui.getMarkUndoneText(unmarkedTask);
+    }
+
+    /**
+     * Handles the delete command.
+     *
+     * @param command parsed delete command
+     * @return response confirming that the task was deleted
+     * @throws AdaException if the task number is invalid
+     */
+    private String handleDelete(Parser.CommandInfo command)
+            throws AdaException {
+        Task removedTask = deleteTask(command.getTaskNum());
+        return ui.getDeleteTaskText(
+                removedTask,
+                taskList.size());
+    }
+
+    /**
+     * Handles the find command.
+     *
+     * @param command parsed find command
+     * @return formatted search result
+     */
+    private String handleFind(Parser.CommandInfo command) {
+        List<Task> matchedTasks =
+                taskList.matchTasksByKeyword(command.getKeyword());
+
+        return ui.getFindResultText(matchedTasks);
+    }
+
+    /**
+     * Handles the sort command.
+     *
+     * @return formatted sorted task-list response
+     */
+    private String handleSort() {
+        taskList.sortTasks();
+        storage.save(taskList.getAllTasks());
+
+        return ui.getSortedTaskListText(
+                taskList.getAllTasks());
     }
 
     /**

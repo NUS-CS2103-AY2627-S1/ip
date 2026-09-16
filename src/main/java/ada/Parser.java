@@ -60,150 +60,294 @@ public class Parser {
     }
 
     /**
-     * Parses one line of user input into a {@code CommandInfo}.
-     * Validates input syntax and extracts relevant command arguments.
+     * Parses one line of user input into a {@code CommandInfo} object.
      *
-     * @param input raw text line entered by the user
-     * @return structured parsed command information
-     * @throws AdaException when input format is invalid or required arguments are missing
+     * The method only identifies the command and delegates the detailed
+     * parsing to a corresponding helper method.
+     *
+     * @param input raw user input
+     * @return parsed command information
+     * @throws AdaException if the command format is invalid
      */
     public CommandInfo parse(String input) throws AdaException {
-        assert input != null : "The parser must receive a command string";
+        assert input != null
+                : "The parser must receive a command string";
 
         if (input.equals("bye")) {
             return new CommandInfo("bye");
         }
 
-        if (input.startsWith("list")) {
-            String extra = input.substring(4).trim();
+        String command = getCommandWord(input);
 
-            if (!extra.isEmpty()) {
-                throw new AdaException(
-                        "Invalid format. Please use: list");
-            }
-
-            return new CommandInfo("list");
-        }
-
-        if (input.startsWith("sort")) {
-            String extra = input.substring(4).trim();
-
-            if (!extra.isEmpty()) {
-                throw new AdaException(
-                        "Invalid format. Please use: sort");
-            }
-
-            return new CommandInfo("sort");
-        }
-
-        if (input.startsWith("mark")) {
+        switch (command) {
+        case "list":
+            return parseNoArgumentCommand(input, "list");
+        case "sort":
+            return parseNoArgumentCommand(input, "sort");
+        case "mark":
             return parseTaskNumberCommand(input, "mark", 4);
-        }
-
-        if (input.startsWith("unmark")) {
+        case "unmark":
             return parseTaskNumberCommand(input, "unmark", 6);
-        }
-
-        if (input.startsWith("todo")) {
-            String desc = input.substring(4).trim();
-            if (desc.isEmpty()) {
-                throw new AdaException("Todo description can not be empty. Please input task content.");
-            }
-            if (input.charAt(4) != ' ') {
-                throw new AdaException("Wrong format. Use exactly one space: todo <>");
-            }
-            CommandInfo ci = new CommandInfo("todo");
-            ci.description = desc;
-            return ci;
-        }
-
-        if (input.startsWith("deadline")) {
-            String content = input.substring(8).trim();
-            if (content.isEmpty()) {
-                throw new AdaException("Deadline can not be empty. Please input task content.");
-            }
-            if (input.charAt(8) != ' ') {
-                throw new AdaException("Wrong format. Use exactly one space: deadline <>");
-            }
-            int byIdx = content.indexOf(" /by");
-            if (byIdx == -1) {
-                throw new AdaException("Missing marker '/by'. Please follow format: deadline xxx /by xxx.");
-            }
-            String desc = content.substring(0, byIdx);
-            if (desc.isEmpty()) {
-                throw new AdaException("Deadline description can not be empty. Please input task description.");
-            }
-            String by = content.substring(byIdx + 4).trim();
-            if (by.isEmpty()) {
-                throw new AdaException("Deadline time can not be empty, enter 'not know' is also valid.");
-            }
-            CommandInfo ci = new CommandInfo("deadline");
-            ci.description = desc;
-            ci.by = by;
-            return ci;
-        }
-
-        if (input.startsWith("event")) {
-            String content = input.substring(5).trim();
-            if (content.isEmpty()) {
-                throw new AdaException("Event can not be empty. Please input task content.");
-            }
-            if (input.charAt(5) != ' ') {
-                throw new AdaException("Wrong format. Use exactly one space: event <>");
-            }
-            int fromIdx = content.indexOf(" /from");
-            int toIdx = content.indexOf(" /to");
-            if (fromIdx == -1) {
-                throw new AdaException("Missing marker '/from'. Format: event xxx /from xxx /to xxx");
-            }
-            if (toIdx == -1) {
-                throw new AdaException("Missing marker '/to'. Format: event xxx /from xxx /to xxx");
-            }
-            if (fromIdx > toIdx) {
-                throw new AdaException("Wrong format.Marker order should be: event xxx /from xxx /to xxx");
-            }
-            String desc = content.substring(0, fromIdx);
-            if (desc.isEmpty()) {
-                throw new AdaException("Event description can not be empty. Please input task description.");
-            }
-            String from = content.substring(fromIdx + 6, toIdx).trim();
-            if (from.isEmpty()) {
-                throw new AdaException("Starting time can not be empty, enter 'not know' is also valid.");
-            }
-            String to = content.substring(toIdx + 4).trim();
-            if (to.isEmpty()) {
-                throw new AdaException("Ending time can not be empty, enter 'not know' is also valid.");
-            }
-            CommandInfo ci = new CommandInfo("event");
-            ci.description = desc;
-            ci.from = from;
-            ci.to = to;
-            return ci;
-        }
-
-        if (input.startsWith("delete")) {
+        case "todo":
+            return parseTodo(input);
+        case "deadline":
+            return parseDeadline(input);
+        case "event":
+            return parseEvent(input);
+        case "delete":
             return parseTaskNumberCommand(input, "delete", 6);
-        }
+        case "find":
+            return parseFind(input);
+        default:
+            /*
+             * Preserve command-specific errors for inputs such as
+             * "list extra" or "sort extra".
+             */
+            if (input.startsWith("list")) {
+                return parseNoArgumentCommand(input, "list");
+            }
 
-        if (input.startsWith("find")) {
-            String trimmedInput = input.trim();
-            if (trimmedInput.length() == 4) {
-                throw new AdaException("Please provide a keyword to find");
+            if (input.startsWith("sort")) {
+                return parseNoArgumentCommand(input, "sort");
             }
-            if (trimmedInput.charAt(4) != ' ') {
-                throw new AdaException("Invalid format for find command. Usage: find KEYWORD");
-            }
-            String rest = trimmedInput.substring(4).trim();
-            if (rest.isEmpty()) {
-                throw new AdaException("Please provide a keyword to find");
-            }
-            CommandInfo ci = new CommandInfo("find");
-            ci.keyword = rest;
-            return ci;
+
+            return new CommandInfo("unknown");
         }
-        return new CommandInfo("unknown");
     }
 
+    /**
+     * Extracts the first word from the input as the command name.
+     *
+     * @param input raw user input
+     * @return first word of the input, or an empty string for blank input
+     */
+    private String getCommandWord(String input) {
+        String trimmedInput = input.trim();
+
+        if (trimmedInput.isEmpty()) {
+            return "";
+        }
+
+        String[] parts = trimmedInput.split("\\s+", 2);
+        return parts[0];
+    }
+
+    /**
+     * Parses a command that does not accept arguments.
+     *
+     * @param input raw user input
+     * @param command expected command name
+     * @return command information
+     * @throws AdaException if extra arguments are provided
+     */
+    private CommandInfo parseNoArgumentCommand(
+            String input,
+            String command) throws AdaException {
+        String extra = input.substring(command.length()).trim();
+
+        if (!extra.isEmpty()) {
+            throw new AdaException(
+                    "Invalid format. Please use: " + command);
+        }
+
+        return new CommandInfo(command);
+    }
+
+    /**
+     * Parses a todo command.
+     *
+     * @param input raw todo command
+     * @return parsed todo command information
+     * @throws AdaException if the description is missing or malformed
+     */
+    private CommandInfo parseTodo(String input) throws AdaException {
+        String description = input.substring(4).trim();
+
+        if (description.isEmpty()) {
+            throw new AdaException(
+                    "Todo description can not be empty. "
+                            + "Please input task content.");
+        }
+
+        if (input.charAt(4) != ' ') {
+            throw new AdaException(
+                    "Wrong format. Use exactly one space: todo <>");
+        }
+
+        CommandInfo commandInfo = new CommandInfo("todo");
+        commandInfo.description = description;
+        return commandInfo;
+    }
+
+    /**
+     * Parses a deadline command.
+     *
+     * @param input raw deadline command
+     * @return parsed deadline command information
+     * @throws AdaException if the deadline format is invalid
+     */
+    private CommandInfo parseDeadline(String input)
+            throws AdaException {
+        String content = input.substring(8).trim();
+
+        if (content.isEmpty()) {
+            throw new AdaException(
+                    "Deadline can not be empty. "
+                            + "Please input task content.");
+        }
+
+        if (input.charAt(8) != ' ') {
+            throw new AdaException(
+                    "Wrong format. Use exactly one space: deadline <>");
+        }
+
+        int byIndex = content.indexOf(" /by");
+
+        if (byIndex == -1) {
+            throw new AdaException(
+                    "Missing marker '/by'. "
+                            + "Please follow format: "
+                            + "deadline xxx /by xxx.");
+        }
+
+        String description = content.substring(0, byIndex);
+
+        if (description.isEmpty()) {
+            throw new AdaException(
+                    "Deadline description can not be empty. "
+                            + "Please input task description.");
+        }
+
+        String by = content.substring(byIndex + 4).trim();
+
+        if (by.isEmpty()) {
+            throw new AdaException(
+                    "Deadline time can not be empty.");
+        }
+
+        CommandInfo commandInfo = new CommandInfo("deadline");
+        commandInfo.description = description;
+        commandInfo.by = by;
+        return commandInfo;
+    }
+
+    /**
+     * Parses an event command.
+     *
+     * @param input raw event command
+     * @return parsed event command information
+     * @throws AdaException if the event format is invalid
+     */
+    private CommandInfo parseEvent(String input)
+            throws AdaException {
+        String content = input.substring(5).trim();
+
+        if (content.isEmpty()) {
+            throw new AdaException(
+                    "Event can not be empty. "
+                            + "Please input task content.");
+        }
+
+        if (input.charAt(5) != ' ') {
+            throw new AdaException(
+                    "Wrong format. Use exactly one space: event <>");
+        }
+
+        int fromIndex = content.indexOf(" /from");
+        int toIndex = content.indexOf(" /to");
+
+        if (fromIndex == -1) {
+            throw new AdaException(
+                    "Missing marker '/from'. "
+                            + "Format: event xxx /from xxx /to xxx");
+        }
+
+        if (toIndex == -1) {
+            throw new AdaException(
+                    "Missing marker '/to'. "
+                            + "Format: event xxx /from xxx /to xxx");
+        }
+
+        if (fromIndex > toIndex) {
+            throw new AdaException(
+                    "Wrong format. Marker order should be: "
+                            + "event xxx /from xxx /to xxx");
+        }
+
+        String description = content.substring(0, fromIndex);
+
+        if (description.isEmpty()) {
+            throw new AdaException(
+                    "Event description can not be empty. "
+                            + "Please input task description.");
+        }
+
+        String from = content
+                .substring(fromIndex + 6, toIndex)
+                .trim();
+
+        if (from.isEmpty()) {
+            throw new AdaException(
+                    "Starting time can not be empty.");
+        }
+
+        String to = content.substring(toIndex + 4).trim();
+
+        if (to.isEmpty()) {
+            throw new AdaException(
+                    "Ending time can not be empty.");
+        }
+
+        CommandInfo commandInfo = new CommandInfo("event");
+        commandInfo.description = description;
+        commandInfo.from = from;
+        commandInfo.to = to;
+        return commandInfo;
+    }
+
+    /**
+     * Parses a find command.
+     *
+     * @param input raw find command
+     * @return parsed find command information
+     * @throws AdaException if the keyword is missing
+     */
+    private CommandInfo parseFind(String input)
+            throws AdaException {
+        String trimmedInput = input.trim();
+
+        if (trimmedInput.length() == 4) {
+            throw new AdaException(
+                    "Please provide a keyword to find");
+        }
+
+        if (trimmedInput.charAt(4) != ' ') {
+            throw new AdaException(
+                    "Invalid format for find command. "
+                            + "Usage: find KEYWORD");
+        }
+
+        String keyword = trimmedInput.substring(4).trim();
+
+        if (keyword.isEmpty()) {
+            throw new AdaException(
+                    "Please provide a keyword to find");
+        }
+
+        CommandInfo commandInfo = new CommandInfo("find");
+        commandInfo.keyword = keyword;
+        return commandInfo;
+    }
+
+    /**
+     * Parses commands that require a task number.
+     *
+     * @param input raw user input
+     * @param command command name
+     * @param commandLength length of the command name
+     * @return parsed task-number command information
+     * @throws AdaException if the task number is missing or invalid
+     */
     private CommandInfo parseTaskNumberCommand(
             String input,
             String command,
