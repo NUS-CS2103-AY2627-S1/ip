@@ -16,16 +16,16 @@ import zucc.ui.MainWindow;
  */
 public final class Main extends Application {
     /** Initial width of the application window. */
-    private static final double WINDOW_INITIAL_WIDTH = 760.0;
+    private static final double WINDOW_INITIAL_WIDTH = 720.0;
 
     /** Initial height of the application window. */
-    private static final double WINDOW_INITIAL_HEIGHT = 720.0;
+    private static final double WINDOW_INITIAL_HEIGHT = 680.0;
 
     /** Minimum width at which the application layout remains usable. */
-    private static final double WINDOW_MINIMUM_WIDTH = 560.0;
+    private static final double WINDOW_MINIMUM_WIDTH = 420.0;
 
     /** Minimum height at which the application layout remains usable. */
-    private static final double WINDOW_MINIMUM_HEIGHT = 600.0;
+    private static final double WINDOW_MINIMUM_HEIGHT = 480.0;
 
     /**
      * Loads the main view, connects it to Zucc, and displays the primary stage.

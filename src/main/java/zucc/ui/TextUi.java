@@ -72,6 +72,11 @@ public final class TextUi extends Ui implements AutoCloseable {
         System.out.print(SEPARATOR.indent(OUTPUT_SEPARATOR_INDENT));
     }
 
+    @Override
+    public void showError(String message) {
+        showMessage(message);
+    }
+
     /**
      * Releases the input scanner when the application finishes.
      */
