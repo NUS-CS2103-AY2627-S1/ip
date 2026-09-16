@@ -21,11 +21,14 @@ public class CommandLoop {
         this.commandProcessor = commandProcessor;
     }
 
-    /** Runs until the user enters the exit command. */
+    /** Runs until the user enters the exit command or the input stream ends. */
     public void run() {
         try (Scanner scanner = new Scanner(inputStream)) {
             CommandResult result;
             do {
+                if (!scanner.hasNextLine()) {
+                    break;
+                }
                 result = commandProcessor.process(scanner.nextLine());
                 if (!result.response().isEmpty()) {
                     System.out.println(result.response());

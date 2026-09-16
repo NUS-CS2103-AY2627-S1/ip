@@ -14,6 +14,15 @@ import surveyprogram.object.TaskList;
 /** Tests that the command loop reads commands in order and stops at exit. */
 class CommandLoopTest {
     @Test
+    void run_endOfInput_stopsNormally() {
+        for (String text : List.of("", "list")) {
+            RecordingProcessor processor = new RecordingProcessor();
+            new CommandLoop(new ByteArrayInputStream(text.getBytes(StandardCharsets.UTF_8)), processor).run();
+            assertEquals(text.isEmpty() ? List.of() : List.of("list"), processor.inputs);
+        }
+    }
+
+    @Test
     void run_commandsEndingInBye_processesEachCommandExactlyOnce() {
         RecordingProcessor processor = new RecordingProcessor();
         ByteArrayInputStream input = new ByteArrayInputStream(

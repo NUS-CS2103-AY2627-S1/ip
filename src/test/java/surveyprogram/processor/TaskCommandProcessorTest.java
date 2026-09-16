@@ -23,6 +23,33 @@ import surveyprogram.object.Todo;
 /** Tests command recognition, parsing, fallback behavior, and routing. */
 class TaskCommandProcessorTest {
     @Test
+    void process_impossibleCalendarDate_returnsSpecialErrorWithoutAddingTask() {
+        for (String command : List.of("deadline work /by 2026-2-30 24:00",
+                "event work /from 2026-4-31 /to 2026-5-2", "pending work /after 29/2/2026",
+                "date 2026-13-1", "date 2026-1-0")) {
+            RecordingList list = new RecordingList();
+            CommandResult result = new TaskCommandProcessor(list).process(command);
+            assertEquals(ReplyType.ERROR, result.replyType());
+            assertEquals("OH, HOW VERY SMART OF YOU TO PROPOSE THAT DATE. DENIED.", result.response());
+            assertTrue(list.addedItems.isEmpty());
+        }
+    }
+
+    @Test
+    void process_endOfDay_rollsAcrossCalendarBoundaries() {
+        List<String> dates = List.of("2026-2-28 24:00", "29/2/2028 2400", "2026-12-31 24:00");
+        List<LocalDateTime> expected = List.of(LocalDateTime.of(2026, 3, 1, 0, 0),
+                LocalDateTime.of(2028, 3, 1, 0, 0), LocalDateTime.of(2027, 1, 1, 0, 0));
+        for (int index = 0; index < dates.size(); index++) {
+            RecordingList list = new RecordingList();
+            new TaskCommandProcessor(list).process("deadline work /by " + dates.get(index));
+            Deadline deadline = assertInstanceOf(Deadline.class, list.addedItems.getFirst());
+            assertEquals(expected.get(index), deadline.getBy());
+            assertTrue(deadline.toString().contains(", 0:00)"));
+        }
+    }
+
+    @Test
     void process_byeWithWhitespaceAndMixedCase_returnsFalse() {
         RecordingList list = new RecordingList();
         TaskCommandProcessor processor = new TaskCommandProcessor(list);
@@ -98,7 +125,7 @@ class TaskCommandProcessorTest {
         TaskCommandProcessor processor = new TaskCommandProcessor(list);
 
         String deadlineOutput = processor.process("deadline submit /by someday").response();
-        String eventOutput = processor.process("event meeting /from now").response();
+        String eventOutput = processor.process("event meeting /from now /to later").response();
 
         assertInstanceOf(Todo.class, list.addedItems.get(0));
         assertInstanceOf(Todo.class, list.addedItems.get(1));
@@ -193,6 +220,51 @@ class TaskCommandProcessorTest {
         assertTrue(processor.process("delete ").response().contains("NOT SPECIFIED"));
         assertTrue(processor.process("pending child /aftertask nope").response().contains("INVALID"));
         assertTrue(list.addedItems.isEmpty());
+    }
+
+    @Test
+    void process_invalidEventEndpoints_rejectsWithoutAddingTasks() {
+        List<String> arguments = List.of(
+                "", "/from 2026-9-16", "/to 2026-9-17",
+                "/from 2026-9-16 /from 2026-9-17",
+                "/to 2026-9-16 /to 2026-9-17",
+                "/from 2026-9-16 /to 2026-9-17 /to 2026-9-18",
+                "/from /to 2026-9-17", "/from 2026-9-16 /to",
+                "/from 2026-9-17 /to 2026-9-16",
+                "/from 2026-9-16 12:00 /to 2026-9-16 12:00");
+        RecordingList list = new RecordingList();
+        TaskCommandProcessor processor = new TaskCommandProcessor(list);
+
+        for (String argument : arguments) {
+            assertEquals(ReplyType.ERROR, processor.process("event meeting " + argument).replyType(), argument);
+        }
+        assertTrue(list.addedItems.isEmpty());
+    }
+
+    @Test
+    void process_reversedEventKeywords_usesNamedEndpoints() {
+        RecordingList list = new RecordingList();
+        new TaskCommandProcessor(list).process("event meeting /TO 2026-9-17 /FROM 2026-9-16");
+
+        Event event = assertInstanceOf(Event.class, list.addedItems.getFirst());
+        assertEquals(LocalDateTime.of(2026, 9, 16, 0, 0), event.getFrom());
+        assertEquals(LocalDateTime.of(2026, 9, 17, 0, 0), event.getTo());
+    }
+
+    @Test
+    void process_extraPendingConditions_rejectsWithoutAddingTasks() {
+        List<String> conditions = List.of(
+                "/after 2026-9-17 /aftertask 1", "/aftertask 1 /after 2026-9-17",
+                "/after 2026-9-17 /after 2026-9-18", "/aftertask 1 /aftertask 2",
+                "/AFTER 2026-9-17 /AFTERTASK");
+        RecordingList list = new RecordingList();
+        TaskCommandProcessor processor = new TaskCommandProcessor(list);
+
+        for (String condition : conditions) {
+            assertEquals(ReplyType.ERROR, processor.process("pending work " + condition).replyType(), condition);
+        }
+        assertTrue(list.addedItems.isEmpty());
+        assertEquals(null, list.afterTaskDescription);
     }
 
     /** Minimal list double that records processor calls without touching persistence. */

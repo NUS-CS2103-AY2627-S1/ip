@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,10 +15,42 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import surveyprogram.processor.CommandResult;
+import surveyprogram.processor.ReplyType;
+import surveyprogram.processor.TaskCommandProcessor;
+
 /** Tests task-list validation, mutation, filtering, and persistence integration. */
 class TaskListTest {
     @TempDir
     Path temporaryDirectory;
+
+    @Test
+    void commands_saveFails_returnGuiErrorsAndRecoverOnNextChange() throws IOException {
+        Path blockedParent = temporaryDirectory.resolve("blocked");
+        Files.writeString(blockedParent, "not a directory");
+        Path saveFile = blockedParent.resolve("tasks.txt");
+        TaskList list = new TaskList(10, saveFile);
+        TaskCommandProcessor processor = new TaskCommandProcessor(list);
+
+        for (String command : new String[]{"todo work", "mark 1", "unmark 1", "delete 1"}) {
+            CommandResult result = processor.process(command);
+            assertEquals(ReplyType.ERROR, result.replyType());
+            assertTrue(result.response().contains("YOUR CHANGES COULD NOT BE SAVED"));
+            assertTrue(result.response().contains("THEY REMAIN IN THIS SESSION ONLY"));
+            assertTrue(result.shouldContinue());
+        }
+        assertTrue(list.getList().isEmpty());
+        processor.process("todo retained in memory");
+        Files.delete(blockedParent);
+
+        CommandResult recovered = processor.process("todo saved after recovery");
+
+        assertEquals(ReplyType.TASK_CREATED, recovered.replyType());
+        TaskList restored = new TaskList(10, saveFile);
+        restored.load();
+        assertEquals(2, restored.getList().size());
+        assertEquals("retained in memory", restored.getList().getFirst().getName());
+    }
 
     @Test
     void add_emptyAndOverCapacity_rejectsInvalidItems() {

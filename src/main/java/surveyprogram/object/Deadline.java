@@ -38,7 +38,7 @@ public class Deadline extends Item {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(OUTPUT_FORMATTER) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(OUTPUT_FORMATTER).replace("12:00 AM", "0:00") + ")";
     }
 
     /**

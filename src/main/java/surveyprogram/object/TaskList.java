@@ -1,5 +1,6 @@
 package surveyprogram.object;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -72,9 +73,16 @@ public class TaskList {
         assertConsistentState();
     }
 
-    /** Saves all current tasks and completion states to the configured file. */
-    private void save() {
-        TaskStorage.save(this, saveFile);
+    /** Returns success only after saving, or a visible warning that changes remain in memory. */
+    private TaskListResult save(String response) {
+        try {
+            TaskStorage.save(this, saveFile);
+            return success(response);
+        } catch (IOException exception) {
+            return error("BUT, YOUR CHANGES COULD NOT BE SAVED.\n"
+                    + "THEY REMAIN IN THIS SESSION ONLY.\n"
+                    + "CHECK FILE ACCESS AND DISK SPACE BEFORE MAKING ANOTHER CHANGE TO RETRY.");
+        }
     }
 
     /**
@@ -94,8 +102,7 @@ public class TaskList {
         items.add(item);
         itemCount++;
         assertConsistentState();
-        save(); // persist after addition
-        return success("ORDER PROCESSED: " + item.toString().toUpperCase());
+        return save("ORDER PROCESSED: " + item.toString().toUpperCase());
     }
 
     /**
@@ -174,8 +181,7 @@ public class TaskList {
         if (isReverse && !selectedItem.isDone()) {
             unmarkDescendants(selectedItem);
         }
-        save(); // persist status change
-        return success(response);
+        return save(response);
     }
 
     /**
@@ -195,11 +201,10 @@ public class TaskList {
         removeWithDescendants(selectedItem);
         int deletedCount = originalCount - itemCount;
         assertConsistentState();
-        save(); // persist after deletion
         String cascadeMessage = deletedCount > 1
                 ? String.format("\nAS WITH ITS %d CHILDREN.", deletedCount - 1)
                 : "";
-        return success(deletedItem + "\nIT WAS AS IF IT WAS NEVER THERE\nAT ALL." + cascadeMessage);
+        return save(deletedItem + "\nIT WAS AS IF IT WAS NEVER THERE\nAT ALL." + cascadeMessage);
     }
 
     /**

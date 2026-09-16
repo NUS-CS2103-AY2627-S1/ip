@@ -1,5 +1,71 @@
 # UI test plan
 
+## Test: Impossible dates are denied and midnight overflows correctly
+
+**Aim:** Reject impossible dates without creating todos, display the next day's midnight, and exit on EOF.
+
+### Input
+
+```text
+deadline work /by 2026-2-30
+pending work /after 2026-4-31
+event work /from 2026-2-29 /to 2026-3-1
+date 2026-13-1
+list
+deadline work /by 2026-12-31 24:00
+list
+```
+
+### Expected output
+
+```text
+OH, HOW VERY SMART OF YOU TO PROPOSE THAT DATE. DENIED.
+OH, HOW VERY SMART OF YOU TO PROPOSE THAT DATE. DENIED.
+OH, HOW VERY SMART OF YOU TO PROPOSE THAT DATE. DENIED.
+OH, HOW VERY SMART OF YOU TO PROPOSE THAT DATE. DENIED.
+VERY WELL. HERE IS YOUR LIST:
+BUT, THERE WAS NOTHING TO READ.
+ORDER PROCESSED: [D][ ] WORK (BY: JAN 01 2027, 0:00)
+VERY WELL. HERE IS YOUR LIST:
+1.[D][ ] work (by: Jan 01 2027, 0:00)
+```
+
+## Test: Pipes and escape-like text remain visible in descriptions
+
+**Aim:** Preserve literal pipes, backslashes, and percent sequences when adding and displaying tasks.
+Storage round-trip and invalid-record skipping are additionally covered by `TaskStorageTest`.
+
+### Input
+
+```text
+todo read | write \| %7C
+list
+bye
+```
+
+### Expected output
+
+```text
+ORDER PROCESSED: [T][ ] READ | WRITE \| %7C
+---
+1.[T][ ] read | write \| %7C
+```
+
+### Save failure verification
+
+The automated command tests in `TaskListTest.commands_saveFails_returnGuiErrorsAndRecoverOnNextChange`
+use an inaccessible destination to verify add, mark, unmark, and delete return `ReplyType.ERROR`.
+The GUI renders this result using its existing error dialogue, with no terminal-only save warning or timed pause:
+
+```text
+BUT, YOUR CHANGES COULD NOT BE SAVED.
+THEY REMAIN IN THIS SESSION ONLY.
+CHECK FILE ACCESS AND DISK SPACE BEFORE MAKING ANOTHER CHANGE TO RETRY.
+```
+
+Changes remain in memory. After file access is restored, the next successful modifying command saves
+the complete current list. Normal console cases below retain their existing expected output.
+
 ## Test: Find lists only matching tasks
 
 **Aim:** Verify that find matches task descriptions case-insensitively, renumbers results, and handles missing and blank matches.
@@ -21,7 +87,7 @@ bye
 ```text
 VERY WELL. HERE IS YOUR MATCHING LIST:
 1.[T][ ] read book
-2.[D][ ] return BOOK (by: Jun 06 2026, 12:00 AM)
+2.[D][ ] return BOOK (by: Jun 06 2026, 0:00)
 ---
 BUT, THERE WAS NOTHING THAT CONFORMS TO THE TERM.
 ---
@@ -68,7 +134,7 @@ ORDER PROCESSED: [E][ ] PROJECT MEETING (FROM: AUG 25 2026, 2:00 PM TO: AUG 25 2
 
 ## Test: Invalid task details preserve the documented fallback state
 
-**Aim:** Verify that an empty todo is rejected and malformed dated commands follow their existing todo fallback behavior.
+**Aim:** Verify that an empty todo and missing event keywords are rejected, while deadlines retain their fallback.
 
 ### Input
 
@@ -97,14 +163,10 @@ ORDER PROCESSED: [T][ ] REVISE NOTES
 ---
 1.[T][ ] revise notes
 ---
-YOU MUST BE
-MISTAKEN.
-
-HERE.
-ORDER PROCESSED: [T][ ] ORIENTATION /FROM MONDAY
+BUT, AN EVENT NEEDS EXACTLY ONE /FROM AND ONE /TO.
 ---
+VERY WELL. HERE IS YOUR LIST:
 1.[T][ ] revise notes
-2.[T][ ] orientation /from Monday
 ```
 
 ## Test: Invalid marking leaves task state unchanged
@@ -188,10 +250,10 @@ bye
 ### Expected output
 
 ```text
-ORDER PROCESSED: [A][ ] ALREADY AVAILABLE (AFTER: SEP 01 2026, 12:00 AM)
+ORDER PROCESSED: [A][ ] ALREADY AVAILABLE (AFTER: SEP 01 2026, 0:00)
 ---
 THEN, IT IS DONE.
-[A][X] already available (after: Sep 01 2026, 12:00 AM)
+[A][X] already available (after: Sep 01 2026, 0:00)
 ---
 BUT, ITS CONDITIONS ARE NOT SATISFIED.
 ---
@@ -201,11 +263,48 @@ THEN, IT IS DONE.
 THEN, IT IS DONE.
 [A][X] return book (after task: finish exam)
 ---
-1.[A][X] already available (after: Sep 01 2026, 12:00 AM)
+1.[A][X] already available (after: Sep 01 2026, 0:00)
 2.[T][ ] finish exam
 3.[A][L][ ] return book (after task: finish exam)
 ---
 AS WITH ITS 1 CHILDREN.
 ---
-1.[A][X] already available (after: Sep 01 2026, 12:00 AM)
+1.[A][X] already available (after: Sep 01 2026, 0:00)
+```
+
+## Test: Invalid event ranges and extra conditions do not create tasks
+
+**Aim:** Reject equal or reversed ranges, repeated event keywords, and conflicting or repeated pending conditions.
+
+### Input
+
+```text
+event meeting /from 2026-9-17 /to 2026-9-16
+event meeting /from 2026-9-16 /to 2026-9-16
+event meeting /from 2026-9-16 /from 2026-9-17
+pending work /after 2026-9-17 /aftertask 1
+pending work /aftertask 1 /after 2026-9-17
+pending work /after 2026-9-17 /after 2026-9-18
+pending work /aftertask 1 /aftertask 2
+list
+event meeting /TO 2026-9-17 /FROM 2026-9-16
+list
+bye
+```
+
+### Expected output
+
+```text
+BUT, THE EVENT MUST START BEFORE IT ENDS.
+BUT, THE EVENT MUST START BEFORE IT ENDS.
+BUT, AN EVENT NEEDS EXACTLY ONE /FROM AND ONE /TO.
+BUT, A PENDING TASK CAN HAVE ONLY ONE CONDITION.
+BUT, A PENDING TASK CAN HAVE ONLY ONE CONDITION.
+BUT, A PENDING TASK CAN HAVE ONLY ONE CONDITION.
+BUT, A PENDING TASK CAN HAVE ONLY ONE CONDITION.
+VERY WELL. HERE IS YOUR LIST:
+BUT, THERE WAS NOTHING TO READ.
+---
+VERY WELL. HERE IS YOUR LIST:
+1.[E][ ] meeting (from: Sep 16 2026, 0:00 to: Sep 17 2026, 0:00)
 ```

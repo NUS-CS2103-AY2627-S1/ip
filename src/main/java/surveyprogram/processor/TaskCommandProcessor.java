@@ -4,10 +4,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.regex.MatchResult;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import surveyprogram.object.AfterTask;
@@ -56,6 +59,16 @@ public class TaskCommandProcessor {
      * @return dialogue and whether the application should accept another command
      */
     public CommandResult process(String input) {
+        try {
+            return processCommand(input);
+        } catch (InvalidCalendarDateException exception) {
+            return new CommandResult("OH, HOW VERY SMART OF YOU TO PROPOSE THAT DATE. DENIED.",
+                    true, ReplyType.ERROR);
+        }
+    }
+
+    /** Routes a command after establishing the shared calendar-error handler. */
+    private CommandResult processCommand(String input) {
         ParsedCommand command = ParsedCommand.from(input);
         return switch (command.name()) {
             case "bye" -> command.hasNonBlankArguments() ? unknownCommand() : new CommandResult("", false);
@@ -175,27 +188,46 @@ public class TaskCommandProcessor {
     }
 
     /**
-     * Parses and adds an event, falling back to a todo when its range is invalid.
+     * Parses named event endpoints and rejects missing, repeated, or non-increasing endpoints.
      *
      * @param arguments event description and date-range arguments entered by the user
      */
     private CommandResult addEvent(String arguments) {
-        String[] parts = arguments.split("(?i) /from |(?i) /to ", 3);
-        if (parts.length == 3) {
-            try {
-                LocalDateTime from = parseDateTime(parts[1].trim());
-                LocalDateTime to = parseDateTime(parts[2].trim());
-                return toCommandResult(taskList.add(new Event(parts[0].trim(), from, to)),
-                        ReplyType.TASK_CREATED);
-            } catch (DateTimeParseException exception) {
-                // fall through
+        List<MatchResult> keywords = Pattern.compile("(?i)(?<!\\S)/(from|to)(?=\\s|$)")
+                .matcher(arguments).results().toList();
+        if (keywords.size() != 2 || keywords.get(0).group(1).equalsIgnoreCase(keywords.get(1).group(1))) {
+            return new CommandResult("BUT, AN EVENT NEEDS EXACTLY ONE /FROM AND ONE /TO.",
+                    true, ReplyType.ERROR);
+        }
+        MatchResult first = keywords.get(0);
+        MatchResult second = keywords.get(1);
+        String firstValue = arguments.substring(first.end(), second.start()).trim();
+        String secondValue = arguments.substring(second.end()).trim();
+        boolean isFromFirst = first.group(1).equalsIgnoreCase("from");
+        if (firstValue.isEmpty() || secondValue.isEmpty()) {
+            return new CommandResult("BUT, BOTH EVENT DATES MUST BE SPECIFIED.", true, ReplyType.ERROR);
+        }
+        try {
+            LocalDateTime from = parseDateTime(isFromFirst ? firstValue : secondValue);
+            LocalDateTime to = parseDateTime(isFromFirst ? secondValue : firstValue);
+            if (!from.isBefore(to)) {
+                return new CommandResult("BUT, THE EVENT MUST START BEFORE IT ENDS.", true, ReplyType.ERROR);
             }
+            String description = arguments.substring(0, first.start()).trim();
+            return toCommandResult(taskList.add(new Event(description, from, to)), ReplyType.TASK_CREATED);
+        } catch (DateTimeParseException exception) {
+            // Preserve the todo fallback for unparseable date values.
         }
         return mistakeWith(taskList.add(new Todo(arguments)));
     }
 
     /** Parses and adds a task whose availability depends on a time or another task. */
     private CommandResult addPending(String arguments) {
+        long conditionCount = Pattern.compile("(?i)(?<!\\S)/(aftertask|after)(?=\\s|$)")
+                .matcher(arguments).results().count();
+        if (conditionCount > 1) {
+            return new CommandResult("BUT, A PENDING TASK CAN HAVE ONLY ONE CONDITION.", true, ReplyType.ERROR);
+        }
         String[] taskParts = arguments.split("(?i) /aftertask ", 2);
         if (taskParts.length == 2) {
             try {
@@ -234,6 +266,7 @@ public class TaskCommandProcessor {
      * @throws DateTimeParseException if none of the patterns match
      */
     private LocalDateTime parseDateTime(String dateTimeString) throws DateTimeParseException {
+        validateCalendarDate(dateTimeString);
         Stream<LocalDateTime> parsedDateTimes = DATETIME_FORMATTERS.stream()
                 .map(formatter -> tryParseDateTime(dateTimeString, formatter))
                 .flatMap(Optional::stream);
@@ -245,6 +278,26 @@ public class TaskCommandProcessor {
                 .findFirst()
                 .orElseThrow(() -> new DateTimeParseException(
                         "Unable to parse: " + dateTimeString, dateTimeString, 0));
+    }
+
+    /** Rejects impossible numeric calendar dates before SMART parsing can normalize them. */
+    private void validateCalendarDate(String dateTimeString) {
+        String date = dateTimeString.split("\\s+", 2)[0];
+        if (!date.matches("\\d+[-/]\\d+[-/]\\d+")) {
+            return;
+        }
+        for (String pattern : List.of("uuuu-M-d", "uuuu/M/d", "d-M-uuuu", "d/M/uuuu")) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern)
+                    .withResolverStyle(ResolverStyle.STRICT);
+            if (tryParseDate(date, formatter).isPresent()) {
+                return;
+            }
+        }
+        throw new InvalidCalendarDateException();
+    }
+
+    /** Distinguishes impossible calendar dates from malformed input eligible for the todo fallback. */
+    private static class InvalidCalendarDateException extends RuntimeException {
     }
 
     /** Returns the parsed date-time, or an empty result when the format does not match. */
