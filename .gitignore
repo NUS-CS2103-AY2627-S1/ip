@@ -16,5 +16,15 @@ bin/
 # Temp files
 _temp/
 
-/text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+# Local task data
+/data/
+
+# Local Codex agent configuration
+/.agents/*
+!/.agents/AGENTS.md
+!/.agents/skills/
+/.agents/skills/*
+!/.agents/skills/seedu-java-coding-standard/
+!/.agents/skills/seedu-java-coding-standard/SKILL.md
+!/.agents/skills/seedu-git-standard/
+!/.agents/skills/seedu-git-standard/SKILL.md

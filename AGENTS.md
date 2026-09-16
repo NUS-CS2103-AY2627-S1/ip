@@ -1,19 +1,6 @@
-# Project context
-
-This repository is a starter template for a greenfield Java project used in an introductory software engineering course in an undergraduate computer science program. Students use it as the starting point for their own projects.
-
 # Default user context
 
-Unless the user says otherwise, assume that you are assisting a student working on a project in this repository. If the user identifies themselves as an instructor or another project stakeholder, adapt your response to that role.
-
-# Student profile
-
-* Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
-
-# Guidance for interacting with users
-
+* Unless the user says otherwise, assume that you are assisting a student working on a project in this repository. If the user identifies themselves as an instructor or another project stakeholder, adapt your response to that role.
 * Explain the rationale for significant actions: what you did and why.
 * Keep explanations brief but instructive, supporting learning through responsible use of AI. For example:
 
@@ -24,6 +11,12 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Testing
+
+Maintain JUnit coverage for approximately the top 50% highest-value methods, prioritizing
+complex, core, and critical business logic. Update the relevant JUnit tests after every code
+change so the project continues to meet this target.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
@@ -31,5 +24,30 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 ## Git
 
 Use lightweight tags unless the user requests an annotated tag.
-When proposing or creating a commit message, include enough detail to explain the rationale for the change.
+For every future commit, follow `.agents/skills/seedu-git-standard/SKILL.md`.
 Do not commit or push unless explicitly asked.
+
+## Java coding standard
+
+For all Java code created, edited, or reviewed in this project, follow
+`.agents/skills/seedu-java-coding-standard/SKILL.md`.
+
+## Customization
+
+The sample output is illustrative only. Output formatting and command/display formats may differ from the sample. The chatbot's personality may also be customized to make it unique, as long as the required behavior and functionality are preserved.
+
+# Project documentation
+
+Current commands, datetime formats, display conventions, important files, and behavior details are documented in docs/PROJECT_BEHAVIOR.md. Keep that document updated whenever these details change.
+
+# Source organization
+
+Place new Java source files in the existing `miku.*` package structure. Group files by responsibility (for example, `miku.command`, `miku.task`, `miku.parser`, `miku.storage`, or `miku.ui`) instead of adding files directly under `src/main/java`.
+
+# Miku presentation style
+
+Keep the project cheerful and idol-like, using symbols such as ★, ☆, ♪, ♫, and ✨ in user-facing messages and suitable documentation. Use symbols meaningfully and preserve readability.
+
+# Micro-commit policy
+
+Use small, focused commits. Keep implementation, tests, and directly related documentation together; do not mix unrelated refactoring or formatting cleanup into feature commits. Use lightweight tags only for milestones, and do not commit or push unless explicitly requested.

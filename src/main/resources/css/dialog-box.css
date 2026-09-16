@@ -1,0 +1,50 @@
+.command-row {
+    -fx-padding: 5px 2px 2px 2px;
+}
+
+.command-content {
+    -fx-background-color: #fff0f2;
+    -fx-background-radius: 10px 10px 3px 10px;
+    -fx-border-color: #e4a8b5;
+    -fx-border-radius: 10px 10px 3px 10px;
+    -fx-border-width: 1px;
+    -fx-padding: 8px 10px;
+}
+
+.command-content .text {
+    -fx-fill: #3d2930;
+    -fx-font-size: 13px;
+}
+
+.command-content .command-verb {
+    -fx-fill: #0b6f6a;
+    -fx-font-weight: bold;
+}
+
+.command-content .command-marker {
+    -fx-fill: #0b6f6a;
+    -fx-font-weight: bold;
+}
+
+.reply-row {
+    -fx-padding: 2px 0 5px 0;
+}
+
+.reply-content {
+    -fx-background-color: #eaf7ff;
+    -fx-background-radius: 10px 10px 10px 3px;
+    -fx-border-color: #a5d5e9;
+    -fx-border-radius: 10px 10px 10px 3px;
+    -fx-border-width: 1px;
+    -fx-padding: 8px 10px;
+}
+
+.reply-content .text {
+    -fx-fill: #22313b;
+    -fx-font-size: 14px;
+}
+
+.reply-content .oops-prefix {
+    -fx-fill: #b4233c;
+    -fx-font-weight: bold;
+}

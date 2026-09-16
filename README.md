@@ -1,25 +1,48 @@
-# Duke project template
+# Miku ★
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Miku is a Java 25 desktop task tracker with a cheerful JavaFX chat interface.
+Type task commands into the message field, then press Enter or select `Send ♪`.
 
-## Setting up in Intellij
+## Running Miku
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+Use Java 25, then start the GUI from Windows PowerShell:
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+```powershell
+.\gradlew.bat run
+```
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+To build the self-contained distribution JAR:
+
+```powershell
+.\gradlew.bat shadowJar
+java -jar build/libs/miku.jar
+```
+
+On macOS or Linux, use `./gradlew run` and `./gradlew shadowJar` instead. ☆
+
+Gradle development tasks run with Java assertions enabled. When diagnosing a
+development build launched directly from the JAR, use
+`java -ea -jar build/libs/miku.jar`. The standard `java -jar` command remains
+suitable for end users. ♪
+
+## Chat window
+
+The resizable window opens at 465 × 660 px. Miku's portrait background shows
+through a light tint behind the conversation. ☆
+
+Miku shows your submitted commands in rosy bubbles and its replies in blue
+bubbles, with small avatars beside each. Recognized command words and their
+syntax markers (`/by`, `/from`, `/to`) are highlighted in teal, even if the
+arguments need correction. Unknown command words stay plain. An error keeps
+Miku's blue bubble and emphasizes only `OOPS!!!` in bold red. The input stays
+ready for the next command. ♪
+
+## Commands
+
+- `todo <description>`
+- `deadline <description> /by <date or time>`
+- `event <description> /from <start> /to <end>`
+- `reschedule <number> /by <new date or time>` for deadlines
+- `reschedule <number> /from <new start> /to <new end>` for events
+- `list`, `find <keyword>`, `mark <number>`, `unmark <number>`, and `delete <number>`
+- `bye` shows a farewell, then closes the window.
