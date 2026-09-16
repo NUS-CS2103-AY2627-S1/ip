@@ -2,31 +2,90 @@
 
 <img src="Ui.png" alt="Nova GUI" width="700">
 
-Nova is a desktop task management chatbot that helps you manage your todos, deadlines, and events using simple text commands.
+**Nova** is a desktop task management chatbot for managing todos, deadlines, and events through simple text commands.
 
-Simply type a command into the input box and press **Enter** or click **Send**.
-
-For commands involving dates and times, use the format:
-
-`d/M/yyyy HHmm`
-
-For example, `18/9/2026 2359` represents **18 September 2026 at 11:59 PM**.
+Type a command into the input box and press **Enter**, or click **Send**, to get started.
 
 ---
 
-## Adding todos
+## Quick Start
 
-Adds a task without a specific date or time.
+1. Ensure you have **Java 25 or above** installed on your computer.
 
-Format:
+   Verify your Java version by running:
 
-`todo DESCRIPTION`
+   ```bash
+   java -version
+   ```
 
-Example:
+2. Download the latest Nova JAR file.
 
-`todo Read CS2103T textbook`
+3. Move the JAR file into a folder where you would like Nova and its task data to be stored.
 
-Expected outcome:
+4. Open your terminal and navigate to that folder.
+
+5. Launch Nova:
+
+   ```bash
+   java -jar nova.jar
+   ```
+
+> [!NOTE]
+> The exact JAR filename may differ depending on the downloaded version.
+
+Nova automatically saves your tasks locally and restores them the next time you launch the application.
+
+---
+
+## Command Overview
+
+| Action | Command | Example |
+| --- | --- | --- |
+| Add a todo | `todo DESCRIPTION` | `todo Read book` |
+| Add a deadline | `deadline DESCRIPTION /by DATE TIME` | `deadline Submit report /by 18/9/2026 2359` |
+| Add an event | `event DESCRIPTION /from DATE TIME /to DATE TIME` | `event Meeting /from 19/9/2026 1400 /to 19/9/2026 1600` |
+| View all tasks | `list` | `list` |
+| Mark a task | `mark NUMBER` | `mark 1` |
+| Unmark a task | `unmark NUMBER` | `unmark 1` |
+| Find tasks | `find KEYWORD` | `find book` |
+| Delete a task | `delete NUMBER` | `delete 2` |
+| Exit Nova | `bye` | `bye` |
+
+### Date and time format
+
+Commands involving dates and times use:
+
+```text
+d/M/yyyy HHmm
+```
+
+For example:
+
+```text
+18/9/2026 2359
+```
+
+represents **18 September 2026 at 11:59 PM**.
+
+---
+
+## Adding a todo: `todo`
+
+Adds a task that does not have a specific date or time.
+
+**Format**
+
+```text
+todo DESCRIPTION
+```
+
+**Example**
+
+```text
+todo Read CS2103T textbook
+```
+
+Nova responds with:
 
 ```text
 Got it. I've added this task:
@@ -35,19 +94,23 @@ Got it. I've added this task:
 
 ---
 
-## Adding deadlines
+## Adding a deadline: `deadline`
 
 Adds a task that must be completed by a specific date and time.
 
-Format:
+**Format**
 
-`deadline DESCRIPTION /by DATE TIME`
+```text
+deadline DESCRIPTION /by DATE TIME
+```
 
-Example:
+**Example**
 
-`deadline Submit assignment /by 18/9/2026 2359`
+```text
+deadline Submit assignment /by 18/9/2026 2359
+```
 
-Expected outcome:
+Nova responds with:
 
 ```text
 Got it. I've added this task:
@@ -56,19 +119,23 @@ Got it. I've added this task:
 
 ---
 
-## Adding events
+## Adding an event: `event`
 
-Adds an event with a start and end time.
+Adds an event with a specified start and end time.
 
-Format:
+**Format**
 
-`event DESCRIPTION /from DATE TIME /to DATE TIME`
+```text
+event DESCRIPTION /from DATE TIME /to DATE TIME
+```
 
-Example:
+**Example**
 
-`event Project meeting /from 19/9/2026 1400 /to 19/9/2026 1600`
+```text
+event Project meeting /from 19/9/2026 1400 /to 19/9/2026 1600
+```
 
-Expected outcome:
+Nova responds with:
 
 ```text
 Got it. I've added this task:
@@ -76,33 +143,37 @@ Got it. I've added this task:
 (from: Sep 19 2026, 2:00 PM to: Sep 19 2026, 4:00 PM)
 ```
 
-Nova will also warn you if a newly added event overlaps with an existing event.
+### Detecting event clashes
 
-For example, if the following event already exists:
+Nova automatically warns you when a newly added event overlaps with an existing event.
 
-`event Project meeting /from 19/9/2026 1400 /to 19/9/2026 1600`
+For example, suppose you already have:
 
-and you enter:
+```text
+event Project meeting /from 19/9/2026 1400 /to 19/9/2026 1600
+```
 
-`event Consultation /from 19/9/2026 1500 /to 19/9/2026 1700`
+and attempt to add:
 
-Nova will warn you that the events clash.
+```text
+event Consultation /from 19/9/2026 1500 /to 19/9/2026 1700
+```
+
+Nova will warn you that the two events clash.
 
 ---
 
-## Listing tasks
+## Viewing your tasks: `list`
 
 Displays all tasks currently stored in Nova.
 
-Format:
+**Format**
 
-`list`
+```text
+list
+```
 
-Example:
-
-`list`
-
-Expected outcome:
+**Example output**
 
 ```text
 Here are the tasks in your list:
@@ -111,23 +182,27 @@ Here are the tasks in your list:
 3.[E][ ] Project meeting
 ```
 
-The number beside each task can be used with commands such as `mark`, `unmark`, and `delete`.
+The number beside each task is its **task number**. Use this number with commands such as `mark`, `unmark`, and `delete`.
 
 ---
 
-## Marking a task as done
+## Marking a task as done: `mark`
 
-Marks a task as completed.
+Marks an existing task as completed.
 
-Format:
+**Format**
 
-`mark NUMBER`
+```text
+mark NUMBER
+```
 
-Example:
+**Example**
 
-`mark 1`
+```text
+mark 1
+```
 
-Expected outcome:
+Nova responds with:
 
 ```text
 Nice! I've marked this task as done:
@@ -136,19 +211,23 @@ Nice! I've marked this task as done:
 
 ---
 
-## Unmarking a task
+## Marking a task as not done: `unmark`
 
-Marks a completed task as not completed.
+Changes a completed task back to incomplete.
 
-Format:
+**Format**
 
-`unmark NUMBER`
+```text
+unmark NUMBER
+```
 
-Example:
+**Example**
 
-`unmark 1`
+```text
+unmark 1
+```
 
-Expected outcome:
+Nova responds with:
 
 ```text
 OK, I've marked this task as not done yet:
@@ -157,19 +236,25 @@ OK, I've marked this task as not done yet:
 
 ---
 
-## Finding tasks
+## Finding tasks: `find`
 
-Finds tasks whose descriptions contain a given keyword.
+Searches for tasks containing a given keyword in their descriptions.
 
-Format:
+The search is case-insensitive. For example, `find book` can match tasks containing `Book` or `BOOK`.
 
-`find KEYWORD`
+**Format**
 
-Example:
+```text
+find KEYWORD
+```
 
-`find assignment`
+**Example**
 
-Expected outcome:
+```text
+find assignment
+```
+
+Nova responds with:
 
 ```text
 Here are the matching tasks:
@@ -178,67 +263,59 @@ Here are the matching tasks:
 
 ---
 
-## Deleting tasks
+## Deleting a task: `delete`
 
-Deletes a task from Nova using its task number.
+Permanently removes a task using its task number.
 
-Format:
+**Format**
 
-`delete NUMBER`
+```text
+delete NUMBER
+```
 
-Example:
+**Example**
 
-`delete 2`
+```text
+delete 2
+```
 
-Expected outcome:
+Nova responds with:
 
 ```text
 Noted. I've removed this task:
 [D][ ] Submit assignment (by: Sep 18 2026, 11:59 PM)
 ```
 
-Use the `list` command first if you are unsure of the task number.
+> [!TIP]
+> Use `list` first if you are unsure of a task's number.
 
 ---
 
-## Exiting Nova
+## Exiting Nova: `bye`
 
 Exits the application.
 
-Format:
+**Format**
 
-`bye`
+```text
+bye
+```
 
-Example:
-
-`bye`
-
-Expected outcome:
+Nova responds with:
 
 ```text
 Bye. Hope to see you again soon!
 ```
 
----
-
-## Command Summary
-
-| Action | Format | Example |
-| --- | --- | --- |
-| Add a todo | `todo DESCRIPTION` | `todo Read book` |
-| Add a deadline | `deadline DESCRIPTION /by DATE TIME` | `deadline Submit report /by 18/9/2026 2359` |
-| Add an event | `event DESCRIPTION /from DATE TIME /to DATE TIME` | `event Meeting /from 19/9/2026 1400 /to 19/9/2026 1600` |
-| List tasks | `list` | `list` |
-| Mark a task | `mark NUMBER` | `mark 1` |
-| Unmark a task | `unmark NUMBER` | `unmark 1` |
-| Find tasks | `find KEYWORD` | `find book` |
-| Delete a task | `delete NUMBER` | `delete 2` |
-| Exit Nova | `bye` | `bye` |
+Your tasks are saved automatically before you leave.
 
 ---
 
 ## Saving your tasks
 
-Nova automatically saves your tasks to local storage.
+Nova automatically stores your tasks locally.
 
-Your tasks will be loaded again the next time you start Nova, so you do not need to manually save your task list.s
+You do not need to manually save after adding, deleting, marking, or unmarking a task. Your saved tasks will be loaded automatically the next time Nova starts.
+
+> [!WARNING]
+> Avoid manually editing Nova's data file while the application is running, as invalid data may prevent tasks from loading correctly. you start Nova, so you do not need to manually save your task list.s
