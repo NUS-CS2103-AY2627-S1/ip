@@ -10,8 +10,8 @@ The Tasque icon was generated specifically for this project using OpenAI/ChatGPT
 
 ## Quick start
 
-With Java 25 installed, open a terminal in the folder containing `duke.jar` and
-run `java -jar duke.jar`.
+With Java 25 installed, open a terminal in the folder containing `tasque.jar` and
+run `java -jar tasque.jar`.
 
 1. Type a command in the input field, then press **Enter** or click **Send**.
 2. Try `todo Review CS2103T Week 6 notes`, then `list`.
