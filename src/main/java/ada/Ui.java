@@ -32,8 +32,8 @@ public class Ui {
     public void showWelcome() {
         System.out.println(LINE);
         System.out.print(BANNER);
-        System.out.println(" Hello, I'm Ada.Ada.");
-        System.out.println(" What can I do for you?");
+        System.out.println(" Hello, I'm Ada, your task coordinator.");
+        System.out.println(" Give me a command and I'll keep the list organized.");
         System.out.println(LINE);
     }
 
@@ -90,7 +90,7 @@ public class Ui {
      * The error message for invalid date format in deadline object
      */
     public void showDateTimeErrorDeadline() {
-        System.out.println("Oops! Invalid date format.");
+        System.out.println("I couldn't read that date.");
         System.out.println("Please use format yyyy-MM-dd (e.g. 2026-08-27) or yyyy-MM-dd HHmm (e.g. 2026-08-27 1800)");
     }
 
@@ -98,7 +98,7 @@ public class Ui {
      * The error message for invalid date format in event object
      */
     public void showDateTimeErrorEvent() {
-        System.out.println("Oops! Invalid date format.");
+        System.out.println("I couldn't read that date.");
         System.out.println("Please use format yyyy-MM-dd or yyyy-MM-dd HHmm (e.g. 2026-08-27 1800) for /from.");
         System.out.println("Please use format yyyy-MM-dd HHmm (e.g. 2026-08-27 1800) or HHmm (e.g. 1800) for /to");
     }
@@ -147,8 +147,8 @@ public class Ui {
      * @return welcome message
      */
     public String getWelcomeText() {
-        return " Hello, I'm Ada.\n"
-                + " What can I do for you?";
+        return " Hello, I'm Ada, your task coordinator.\n"
+                + " Give me a command and I'll keep the list organized.";
     }
 
     /**
@@ -157,7 +157,7 @@ public class Ui {
      * @return goodbye message
      */
     public String getByeText() {
-        return "Bye. Hope to see you again soon!";
+        return "Goodbye. Your task list is ready for next time.";
     }
 
     /**
@@ -184,7 +184,7 @@ public class Ui {
      * @return response message
      */
     public String getMarkDoneText(Task task) {
-        return "Nice! I've marked this task as done:\n  " + task;
+        return "I've marked this task as done:\n  " + task;
     }
 
     /**
@@ -194,7 +194,7 @@ public class Ui {
      * @return response message
      */
     public String getMarkUndoneText(Task task) {
-        return "OK, I've marked this task as not done yet:\n  " + task;
+        return "I've marked this task as not done yet:\n  " + task;
     }
 
     /**
@@ -205,7 +205,7 @@ public class Ui {
      * @return response message
      */
     public String getAddTaskText(Task task, int total) {
-        return "Got it. I've added this task:\n  "
+        return "I've added this task:\n  "
                 + task
                 + "\nNow you have "
                 + total
@@ -220,7 +220,7 @@ public class Ui {
      * @return response message
      */
     public String getDeleteTaskText(Task task, int total) {
-        return "Noted. I've removed this task:\n  "
+        return "I've removed this task:\n  "
                 + task
                 + "\nNow you have "
                 + total
@@ -254,7 +254,7 @@ public class Ui {
      * @return unknown-command message
      */
     public String getUnknownCommandText() {
-        return "OOPS!!! I'm sorry, but I don't know what that means :-(";
+        return "I couldn't interpret that command. Please use a supported command format";
     }
 
     /**
@@ -263,7 +263,7 @@ public class Ui {
      * @return deadline error message
      */
     public String getDateTimeErrorDeadlineText() {
-        return "Oops! Invalid date format.\n"
+        return "I couldn't read the date.\n"
                 + "Please use yyyy-MM-dd or yyyy-MM-dd HHmm.";
     }
 
@@ -273,7 +273,7 @@ public class Ui {
      * @return event error message
      */
     public String getDateTimeErrorEventText() {
-        return "Oops! Invalid date format.\n"
+        return "I couldn't read the date.\n"
                 + "Use yyyy-MM-dd or yyyy-MM-dd HHmm for /from, "
                 + "and yyyy-MM-dd HHmm or HHmm for /to.";
     }
