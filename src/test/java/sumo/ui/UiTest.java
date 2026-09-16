@@ -56,6 +56,16 @@ public class UiTest {
     }
 
     @Test
+    public void taskQueries_noMatches_explicitEmptyMessages() {
+        ui.showTaskList(List.of());
+        ui.showMatchingTasks(List.of());
+        ui.showTasksOnDate(LocalDate.of(2026, 2, 3).atStartOfDay(), List.of());
+
+        assertEquals(List.of(" No tasks in your list yet.", " No matching tasks found.",
+                " No tasks on Feb 03 2026."), output);
+    }
+
+    @Test
     public void taskQueries_multipleTasks_numberedWithExpectedHeadings() {
         List<Task> tasks = List.of(new Todo("read"), new Todo("write"));
 

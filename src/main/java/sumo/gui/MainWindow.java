@@ -2,6 +2,8 @@ package sumo.gui;
 
 import java.net.URL;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,6 +14,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 
 import sumo.Sumo;
 
@@ -20,6 +23,7 @@ public class MainWindow extends AnchorPane {
     private static final String USER_IMAGE_PATH = "/images/UserPfp.png";
     private static final String SUMO_IMAGE_PATH = "/images/SumoPfp.png";
     private static final double SCROLL_SPEED_MULTIPLIER = 1.3;
+    private static final Duration EXIT_DELAY = Duration.seconds(5);
 
     private final Image userImage = loadImage(USER_IMAGE_PATH);
     private final Image sumoImage = loadImage(SUMO_IMAGE_PATH);
@@ -94,8 +98,12 @@ public class MainWindow extends AnchorPane {
         if (sumo.isExit()) {
             userInput.setDisable(true);
             sendButton.setDisable(true);
-            sessionStatus.setText("Session ended");
+            sessionStatus.setText("Closing in 5 seconds");
             statusRing.getStyleClass().add("ended");
+            // Keep the farewell visible without blocking JavaFX rendering or scrolling.
+            PauseTransition exitDelay = new PauseTransition(EXIT_DELAY);
+            exitDelay.setOnFinished(event -> Platform.exit());
+            exitDelay.play();
         }
     }
 

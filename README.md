@@ -26,82 +26,15 @@ Prerequisites: JDK 25, update Intellij to the most recent version.
    Enter the same commands supported by the console version, such as `todo read book`, `list`,
    `mark 1`, and `bye`. Press **Enter** or click **Send** to submit a command.
 
-   The original console interface remains available by running `sumo.Sumo.main()`. If the setup is
-   correct, its output should look like the following:
-   ```
-   ____________________________________________________________
-     ██████  ██    ██ ███    ███  ██████
-    ██       ██    ██ ████  ████ ██    ██
-     █████   ██    ██ ██ ████ ██ ██    ██
-         ██  ██    ██ ██  ██  ██ ██    ██
-    ██████    ██████  ██      ██  ██████
-   Hello! I'm Sumo.
-   What can I do for you?
-   ____________________________________________________________
-
-   read book
-   ____________________________________________________________
-    added: read book
-   ____________________________________________________________
-
-   return book
-   ____________________________________________________________
-    added: return book
-   ____________________________________________________________
-
-   buy bread
-   ____________________________________________________________
-    added: buy bread
-   ____________________________________________________________
-
-   list
-   ____________________________________________________________
-    Here are the tasks in your list:
-    1.[ ] read book
-    2.[ ] return book
-    3.[ ] buy bread
-   ____________________________________________________________
-
-   mark 2
-   ____________________________________________________________
-    Nice! I've marked this task as done:
-      [X] return book
-   ____________________________________________________________
-
-   list
-   ____________________________________________________________
-   Here are the tasks in your list:
-    1.[ ] read book
-    2.[X] return book
-    3.[ ] buy bread
-   ____________________________________________________________
-
-   unmark 2
-   ____________________________________________________________
-    OK, I've marked this task as not done yet:
-      [ ] return book
-   ____________________________________________________________
-
-   list
-   ____________________________________________________________
-    Here are the tasks in your list:
-    1.[ ] read book
-    2.[ ] return book
-    3.[ ] buy bread
-   ____________________________________________________________
-
-   bye
-   ____________________________________________________________
-   Bye. Hope to see you again soon!
-   ____________________________________________________________
-   ```
+   The original console interface remains available by running `sumo.Sumo.main()`.
+   See the [User Guide](docs/README.md) for current commands, examples, and JAR launch instructions.
 
 **Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
 
 ## Command validation and saved-data recovery
 
 Sumo accepts leading, trailing, and repeated horizontal whitespace (including tabs), and stores
-descriptions with single spaces. Commands are case-sensitive. `list`, `sort`, and `bye` take no arguments;
+descriptions with single spaces. Command words are case-sensitive; `find` matches descriptions without regard to capitalization. `list`, `sort`, and `bye` take no arguments;
 task numbers must contain only digits and refer to a task in the normal list.
 
 Use `deadline <description> /by <date> [HHmm]` or

@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.jupiter.api.Test;
 
@@ -144,10 +145,28 @@ public class TaskListTest {
     }
 
     @Test
-    public void find_keywordWithDifferentCase_noTasksReturned() {
-        TaskList taskList = new TaskList(List.of(new Todo("read book")));
+    public void find_keywordWithDifferentCase_matchesInOriginalOrder() {
+        Todo first = new Todo("read BOOK");
+        Todo second = new Todo("Book a room");
+        TaskList taskList = new TaskList(List.of(first, new Todo("write notes"), second));
 
-        assertTrue(taskList.find("Book").isEmpty());
+        assertEquals(List.of(first, second), taskList.find("bOoK"));
+        assertEquals("read BOOK", first.getDescription());
+        assertTrue(taskList.find("missing").isEmpty());
+    }
+
+    @Test
+    public void find_turkishDefaultLocale_matchesIndependentlyOfSystemLocale() {
+        Locale originalLocale = Locale.getDefault();
+        try {
+            Locale.setDefault(Locale.forLanguageTag("tr-TR"));
+            Todo task = new Todo("FINISH report");
+            TaskList taskList = new TaskList(List.of(task));
+
+            assertEquals(List.of(task), taskList.find("finish"));
+        } finally {
+            Locale.setDefault(originalLocale);
+        }
     }
 
     @Test

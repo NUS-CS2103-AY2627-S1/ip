@@ -10,7 +10,7 @@ Run `.\gradlew.bat run` from the repository root before each test case unless st
   appear.
 - Enter `list` and click **Send**. Confirm a user dialog and a response containing the added task
   appear.
-- Enter `bye`. Confirm the farewell appears and the input field and button become disabled.
+- Enter `bye`. Confirm the farewell appears and the input field and button become disabled. Confirm the window and Java process exit after five seconds.
 
 ## GUI-002 — Continue without avatar files
 
@@ -45,6 +45,16 @@ file must remain unchanged. Close Sumo and restore the backup after this check.
 - Use Tab to reach the command field and Send button; confirm visible focus indicators.
 - Send a command with the button and confirm focus returns to the command field.
 - Confirm the command examples remain readable and Enter still submits.
-- Send bye and confirm the ring becomes gray, the status reads Session ended, and both
-  input controls are disabled. The farewell must remain readable.
+- Send bye and confirm the ring becomes gray, the status reads Closing in 5 seconds, and both
+  input controls are disabled. The farewell must remain readable for five seconds, then the window and Java process must exit.
 - Confirm the theme works offline and has no animation or flashing.
+
+## GUI-006 — Delayed exit and invalid exit input
+
+- Enter `bye now`. Confirm a usage error appears and the app remains usable after five seconds.
+- Add `todo keep after exit`, then submit `  bye  `.
+- Confirm the farewell, disabled input controls, gray ring, and `Closing in 5 seconds` status.
+- During the delay, confirm scrolling and window movement remain responsive and extra commands
+  cannot be submitted. The window and Java process must exit after approximately five seconds.
+- Relaunch from the same working folder and use `list` to confirm the task was saved.
+- Repeat `bye`, then close the window manually during the delay; the process should exit cleanly.

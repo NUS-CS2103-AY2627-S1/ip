@@ -138,6 +138,8 @@ This is a temporary view: saved order and task numbers stay the same. Use `list`
 
 Ends the chat and disables input. Close the window; reopen Sumo when you're ready to continue.
 
+The window closes automatically five seconds after `bye`.
+
 ## Saving your tasks
 
 Every successful addition, deletion, or status change is saved to `data/sumo.txt` in the folder

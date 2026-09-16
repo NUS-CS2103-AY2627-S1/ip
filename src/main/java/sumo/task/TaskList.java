@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import sumo.exception.SumoException;
@@ -134,15 +135,16 @@ public class TaskList {
     }
 
     /**
-     * Finds tasks whose descriptions contain the requested keyword.
+     * Finds tasks whose descriptions contain the requested keyword, ignoring capitalization.
      *
      * @param keyword text to search for.
      * @return matching tasks in their original order.
      */
     public List<Task> find(String keyword) {
         assert keyword != null : "A keyword is required when searching tasks.";
+        String normalizedKeyword = keyword.toLowerCase(Locale.ROOT);
         return tasks.stream()
-                .filter(task -> task.getDescription().contains(keyword))
+                .filter(task -> task.getDescription().toLowerCase(Locale.ROOT).contains(normalizedKeyword))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
