@@ -6,6 +6,7 @@ import java.util.List;
 
 import esther.command.CommandProcessor;
 import esther.command.CommandResult;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -13,11 +14,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Window;
+import javafx.util.Duration;
 
 /**
  * Controller for Esther's main JavaFX window.
  */
 public class MainWindow extends AnchorPane {
+    /**
+     * Time reserved for the farewell message to render before the window closes.
+     */
+    private static final Duration GOODBYE_DISPLAY_DURATION = Duration.seconds(1);
+
     @FXML
     private ScrollPane scrollPane;
 
@@ -92,7 +100,14 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
 
         if (result.shouldExit() && userInput.getScene() != null) {
-            userInput.getScene().getWindow().hide();
+            Window window = userInput.getScene().getWindow();
+            userInput.setDisable(true);
+            sendButton.setDisable(true);
+
+            PauseTransition goodbyeDelay = new PauseTransition(
+                    GOODBYE_DISPLAY_DURATION);
+            goodbyeDelay.setOnFinished(event -> window.hide());
+            goodbyeDelay.play();
         }
     }
 
