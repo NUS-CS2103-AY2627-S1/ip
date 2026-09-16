@@ -1,0 +1,73 @@
+.app-root {
+    -fx-background-color: #f4f1ea;
+    -fx-padding: 10px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #b8aa98;
+    -fx-background-radius: 8px;
+}
+
+.panda-dialog,
+.user-dialog {
+    -fx-padding: 4px 8px;
+    -fx-spacing: 8px;
+    -fx-alignment: center-left;
+}
+
+.panda-dialog {
+    -fx-alignment: top-left;
+}
+
+.user-dialog {
+    -fx-alignment: center-right;
+}
+
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(47, 59, 58, 0.22), 5, 0.2, 0, 2);
+}
+
+.panda-bubble,
+.user-bubble {
+    -fx-padding: 10px 14px;
+    -fx-background-radius: 14px;
+    -fx-font-size: 14px;
+}
+
+.panda-bubble {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #2f3b3a;
+}
+
+.user-bubble {
+    -fx-background-color: #315c5b;
+    -fx-text-fill: #ffffff;
+}
+
+.text-field {
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #c9c0b4;
+    -fx-padding: 9px;
+}
+
+.button {
+    -fx-background-color: #d96c4f;
+    -fx-background-radius: 8px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 9px 16px;
+}
+
+.button:hover {
+    -fx-background-color: #bd563d;
+}

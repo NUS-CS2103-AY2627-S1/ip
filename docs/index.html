@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panda User Guide</title>
+    <style>
+        :root {
+            color-scheme: light;
+            font-family: Arial, sans-serif;
+            line-height: 1.55;
+            color: #243238;
+            background: #f5faf8;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        main {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 48px 24px 64px;
+        }
+
+        header {
+            background: #dff3e8;
+            border-radius: 18px;
+            padding: 32px;
+        }
+
+        h1, h2, h3 {
+            line-height: 1.2;
+        }
+
+        h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+        }
+
+        section {
+            margin-top: 40px;
+        }
+
+        code {
+            background: #e8efec;
+            border-radius: 4px;
+            padding: 2px 5px;
+        }
+
+        pre {
+            overflow-x: auto;
+            background: #243238;
+            border-radius: 10px;
+            color: #f4fbf7;
+            padding: 18px;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .feature {
+            background: white;
+            border: 1px solid #d5e4dc;
+            border-radius: 10px;
+            padding: 18px;
+        }
+
+        .feature h3 {
+            margin-top: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border-bottom: 1px solid #d5e4dc;
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .note {
+            background: #fff7d6;
+            border-left: 4px solid #e3b341;
+            border-radius: 4px;
+            padding: 12px 16px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <h1>Panda User Guide</h1>
+            <p><strong>Panda</strong> is a desktop chatbot for keeping todos, deadlines, and events in one task list.</p>
+            <p>Enter a command in the chat box, then press <strong>Enter</strong> or select <strong>Send</strong>.</p>
+        </header>
+
+        <section>
+            <h2>Quick start</h2>
+            <p>Try these commands one at a time:</p>
+            <pre><code>todo buy groceries
+deadline submit report /by 2026-10-22 1800
+event team meeting /from 2026-10-20 1400 /to 2026-10-20 1600
+list</code></pre>
+        </section>
+
+        <section>
+            <h2>Command format</h2>
+            <ul>
+                <li>Use exactly one space between command parts.</li>
+                <li>Task numbers start at <code>1</code> and use the order currently shown.</li>
+                <li>Dates can be <code>2026-10-22</code> or <code>22/10/2026</code>.</li>
+                <li>Times can be <code>1800</code>, <code>18:00</code>, or <code>6:00 PM</code>.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Features</h2>
+            <div class="feature-grid">
+                <article class="feature">
+                    <h3>Add a todo</h3>
+                    <p><code>todo DESCRIPTION</code></p>
+                    <p>Example: <code>todo buy groceries</code></p>
+                </article>
+                <article class="feature">
+                    <h3>Add a deadline</h3>
+                    <p><code>deadline DESCRIPTION /by DATE [TIME]</code></p>
+                    <p>Example: <code>deadline report /by 2026-10-22 1800</code></p>
+                </article>
+                <article class="feature">
+                    <h3>Add an event</h3>
+                    <p><code>event DESCRIPTION /from DATE [TIME] /to DATE [TIME]</code></p>
+                    <p>The end must be after the start.</p>
+                </article>
+                <article class="feature">
+                    <h3>Find tasks</h3>
+                    <p><code>find KEYWORD</code></p>
+                    <p>Searches descriptions without considering letter case.</p>
+                </article>
+                <article class="feature">
+                    <h3>Update tasks</h3>
+                    <p><code>mark INDEX</code>, <code>unmark INDEX</code>, or <code>delete INDEX</code></p>
+                    <p>Example: <code>mark 2</code></p>
+                </article>
+                <article class="feature">
+                    <h3>View or exit</h3>
+                    <p><code>list</code> shows all tasks. <code>bye</code> closes Panda.</p>
+                </article>
+            </div>
+        </section>
+
+        <section>
+            <h2>Sort deadlines by date</h2>
+            <p>Select <strong>Sort deadlines by date</strong> above the chat history. Use the
+                <strong>Ascending</strong>/<strong>Descending</strong> button to choose the direction.</p>
+            <p>Only deadlines are sorted. Todos and events follow in the order they were added. While sorting
+                is enabled, task numbers for <code>mark</code>, <code>unmark</code>, and <code>delete</code>
+                refer to the displayed order.</p>
+        </section>
+
+        <section>
+            <h2>Command summary</h2>
+            <table>
+                <thead>
+                    <tr><th>Action</th><th>Command</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Todo</td><td><code>todo DESCRIPTION</code></td></tr>
+                    <tr><td>Deadline</td><td><code>deadline DESCRIPTION /by DATE [TIME]</code></td></tr>
+                    <tr><td>Event</td><td><code>event DESCRIPTION /from DATE [TIME] /to DATE [TIME]</code></td></tr>
+                    <tr><td>List / find</td><td><code>list</code> / <code>find KEYWORD</code></td></tr>
+                    <tr><td>Update</td><td><code>mark INDEX</code>, <code>unmark INDEX</code>, <code>delete INDEX</code></td></tr>
+                    <tr><td>Exit</td><td><code>bye</code></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="note">
+            Panda saves tasks automatically in <code>data/panda.txt</code>. Invalid commands do not change your
+            current task list, and Panda prevents identical tasks from being added twice.
+        </section>
+    </main>
+</body>
+</html>

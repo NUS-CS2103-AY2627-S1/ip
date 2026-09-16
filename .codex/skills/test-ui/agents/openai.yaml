@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI Test"
+  short_description: "Run command and output UI tests"
+  default_prompt: "Use $test-ui to run the project UI test plan and report the console session."

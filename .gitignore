@@ -16,5 +16,8 @@ bin/
 # Temp files
 _temp/
 
+# Panda runtime data
+data/panda.txt
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
