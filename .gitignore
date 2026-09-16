@@ -1,12 +1,10 @@
 # IDEA files
 /.idea/
 /out/
-/*.iml
 
 # Gradle build files
 /.gradle/
 /build/
-src/main/resources/docs/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
@@ -16,5 +14,5 @@ bin/
 # Temp files
 _temp/
 
-/text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+# Runtime save file (see Storage.java)
+/data/

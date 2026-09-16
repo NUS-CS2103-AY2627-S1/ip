@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Intermediate
+* IDE and level of expertise: Intermediate
 
 # Guidance for interacting with users
 
@@ -28,8 +28,21 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## Java coding standard
+
+All Java code written or edited in this project (new code and edits to existing code) must follow the `seedu-java-coding-standard` skill (`.claude/skills/seedu-java-coding-standard/`), based on the SE-EDU intermediate Java conventions. Invoke it before writing or reviewing Java source, and fix non-compliant code you touch even if the change wasn't otherwise about style.
+
+This standard is also enforced mechanically via Checkstyle (`config/checkstyle/`, wired into `build.gradle`). Run `./gradlew checkstyleMain checkstyleTest` after changing Java source and before committing it; fix any reported violations (see `build/reports/checkstyle/main.html` / `test.html` for details) rather than suppressing them, unless the user says otherwise.
+
 ## Git
 
 Use lightweight tags unless the user requests an annotated tag.
-When proposing or creating a commit message, include enough detail to explain the rationale for the change.
+Every commit message (subject and, where needed, body) must follow the `seedu-git-standard` skill (`.claude/skills/seedu-git-standard/`), based on the SE-EDU Git conventions. Invoke it before proposing or creating a commit message.
 Do not commit or push unless explicitly asked.
+
+## Testing
+
+After any change to the program's source (e.g. `Eve.java`, `Task.java`, or new classes):
+
+1. Update `test/ui-test-plan.md` if the change added, removed, or altered the behavior of a command -- verify any new or changed expected output by running the program manually before writing it down.
+2. Invoke the `test-ui` skill (`.claude/skills/test-ui/`) to compile the program and run the full test plan against it. Report the printed session record and result; if a test case fails, do not proceed (e.g. to committing) until it is resolved.

@@ -1,0 +1,56 @@
+.root {
+    -fx-background-color: #fff8ec;
+    -fx-font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+.scroll-pane, .scroll-pane .viewport, .scroll-pane .corner {
+    -fx-background-color: transparent;
+}
+
+.label {
+    -fx-font-size: 13pt;
+    -fx-text-fill: #2b2b2b;
+}
+
+.user-dialog {
+    -fx-background-color: #ff6f59;
+    -fx-text-fill: white;
+    -fx-background-radius: 16;
+    -fx-padding: 8 12 8 12;
+}
+
+.eve-dialog {
+    -fx-background-color: #ffd23f;
+    -fx-text-fill: #4a3200;
+    -fx-background-radius: 16;
+    -fx-padding: 8 12 8 12;
+}
+
+.error-dialog {
+    -fx-background-color: #ffe3ef;
+    -fx-background-radius: 16;
+    -fx-border-color: #ff2d78;
+    -fx-border-radius: 16;
+    -fx-border-width: 1.4;
+    -fx-padding: 6.6 10.6 6.6 10.6;
+    -fx-text-fill: #c2005c;
+    -fx-font-weight: bold;
+}
+
+#userInput {
+    -fx-background-radius: 18;
+    -fx-padding: 8 14 8 14;
+    -fx-font-size: 12pt;
+}
+
+#sendButton {
+    -fx-background-color: #ff2d78;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 18;
+    -fx-padding: 8 18 8 18;
+}
+
+#sendButton:hover {
+    -fx-background-color: #e0195f;
+}
