@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" styleClass="app">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="14" styleClass="header">
+            <ImageView fitHeight="76" fitWidth="72" preserveRatio="true"
+                       accessibleText="Arin's white robot avatar with blue eyes">
+                <image><Image url="@../images/arin-avatar.jpg"/></image>
+            </ImageView>
+            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                <Label text="Arin" styleClass="title"/>
+                <Label text="A little help for your next adventure." wrapText="true" styleClass="subtitle"/>
+            </VBox>
+            <Button fx:id="helpButton" text="Help" onAction="#showHelp" accessibleText="Show command help"/>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" styleClass="chat-scroll">
+            <content>
+                <VBox fx:id="conversation" spacing="14" fillWidth="true" minWidth="0">
+                    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <VBox spacing="8" styleClass="composer">
+            <Label text="What would you like to do?" styleClass="input-label"/>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="commandInput" promptText="Try: todo read a book" onAction="#sendCommand"
+                           HBox.hgrow="ALWAYS" minWidth="0" accessibleText="Task command"/>
+                <Button fx:id="sendButton" text="Send" onAction="#sendCommand" styleClass="send-button"/>
+            </HBox>
+            <Label text="Enter to send · Changes save automatically · Type help for commands"
+                   wrapText="true" styleClass="hint"/>
+        </VBox>
+    </bottom>
+</BorderPane>

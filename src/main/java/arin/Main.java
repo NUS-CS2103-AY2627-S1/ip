@@ -1,70 +1,33 @@
 package arin;
 
+import java.io.IOException;
 import java.util.Objects;
 
+import arin.ui.MainWindow;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 /**
- * Displays Arin's welcome window and explains how to open the task console.
+ * Opens Arin's interactive JavaFX task companion.
  */
 public class Main extends Application {
     /**
-     * Shows the robot artwork with the product name and console instructions.
+     * Loads the responsive chat layout and connects it to a persistent command session.
      *
      * @param stage Primary stage provided by JavaFX.
+     * @throws IOException If the packaged layout cannot be loaded.
      */
     @Override
-    public void start(Stage stage) {
-        Label title = new Label("Hello, I'm Arin.");
-        title.setFont(Font.font("System", FontWeight.BOLD, 28));
-        title.setTextFill(Color.web("#145c82"));
-
-        Label tagline = new Label("Your Wilderness Explorer task companion.");
-        tagline.setFont(Font.font("System", 14));
-
-        Image robotImage = new Image(Objects.requireNonNull(
-                Main.class.getResource("/images/arin-avatar.jpg"), "Robot artwork is missing").toExternalForm());
-        ImageView avatar = new ImageView(robotImage);
-        avatar.setFitHeight(260);
-        avatar.setPreserveRatio(true);
-        avatar.setSmooth(true);
-        avatar.setAccessibleText("Arin's white robot avatar with blue eyes");
-
-        Label instructions = new Label("The task console is ready for your next adventure.\n"
-                + "To manage tasks, open a terminal in the JAR folder and run:");
-        instructions.setWrapText(true);
-        instructions.setTextAlignment(TextAlignment.CENTER);
-        instructions.setFont(Font.font("System", 13));
-
-        Label command = new Label("java -ea -cp arin-all.jar arin.Arin");
-        command.setFont(Font.font("Monospaced", 13));
-        command.setStyle("-fx-background-color: #edf5fa; -fx-padding: 12; -fx-background-radius: 8;");
-
-        Label notice = new Label("Welcome window only - enter task commands in the console.");
-        notice.setFont(Font.font("System", 11));
-        notice.setTextFill(Color.web("#52616b"));
-
-        VBox content = new VBox(16, title, tagline, avatar, instructions, command, notice);
-        content.setAlignment(Pos.CENTER);
-        content.setPadding(new Insets(28));
-        content.setStyle("-fx-background-color: white;");
-
-        Scene scene = new Scene(content, 520, 600);
+    public void start(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(Main.class.getResource("/view/MainWindow.fxml")));
+        loader.setController(new MainWindow(new Arin()));
+        Scene scene = new Scene(loader.load(), 640, 700);
+        scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("/view/arin.css")).toExternalForm());
         stage.setTitle("Arin");
-        stage.setMinWidth(520);
-        stage.setMinHeight(620);
+        stage.setMinWidth(440);
+        stage.setMinHeight(480);
         stage.setScene(scene);
         stage.show();
     }
