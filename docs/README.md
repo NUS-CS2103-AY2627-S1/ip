@@ -181,4 +181,16 @@ The GitHub Actions workflow in `.github/workflows/gradle.yml` was adapted from a
 Damith C. Rajapakse`
 * **Reused parts:** Multi-platform build matrix, Gradle wrapper validation, Java setup, and Gradle check step
 * **Modifications:** Adapted the workflow for the Ada project
-* **Date accessed:** 09 September 2026
+* **Accessed:** 09 September 2026
+  
+The plugins, dependencies, Gradle build configuration, and overall project
+structure were adapted from the following resource:
+
+- **Title:** Working with jar files
+- **Author/Organization:** NA
+- **Source:** `https://se-education.org/guides/tutorials/jar.html`
+- **Accessed:** 2026-09-17
+
+The original resource was used as the foundation for this project's build
+configuration and dependency setup. The configuration has been adapted and
+modified for the purposes of this project.
