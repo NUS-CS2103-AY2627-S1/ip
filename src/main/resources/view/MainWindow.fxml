@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane prefHeight="600.0" prefWidth="420.0"
-            style="-fx-background-color: #f5f7fb;"
+            style="-fx-background-color: #d8b894;"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="kia.ui.MainWindow">
@@ -25,7 +25,7 @@
         </ScrollPane>
     </center>
     <bottom>
-        <VBox spacing="6.0" style="-fx-padding: 8 10 10 10; -fx-background-color: rgba(255,255,255,0.94);">
+        <VBox spacing="6.0" style="-fx-padding: 8 10 10 10; -fx-background-color: #f3e3cf;">
             <HBox spacing="8.0">
                 <TextField fx:id="userInput" HBox.hgrow="ALWAYS"
                            onAction="#handleUserInput" promptText="Enter a command" />

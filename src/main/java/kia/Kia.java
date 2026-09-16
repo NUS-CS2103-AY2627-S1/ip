@@ -165,6 +165,26 @@ public class Kia {
     private boolean processCommand(String command, Ui ui) throws KiaException {
         assert command != null : "Command processing requires a normalized command.";
         assert ui != null : "Command processing requires a user interface.";
+        String petCommand = command.trim().toLowerCase();
+        switch (petCommand) {
+            case "hello":
+                ui.showPetResponse("Woof!");
+                return false;
+            case "stay":
+                ui.showPetResponse("🐕 ");
+                return false;
+            case "fetch":
+                ui.showPetResponse("Yip yip!");
+                return false;
+            case "sit":
+                ui.showPetResponse("🐕‍🦺 ");
+                return false;
+            case "go":
+                ui.showPetResponse("🐾 ");
+                return false;
+            default:
+                break;
+        }
         CommandType commandType = classifyCommand(command);
         if (commandType == CommandType.BYE) {
             Command exitCommand = new ExitCommand();
