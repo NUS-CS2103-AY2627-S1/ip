@@ -1,8 +1,10 @@
 package lobby.storage;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -194,5 +196,64 @@ public class StorageTest {
         assertEquals(2, result.skippedLines());
         assertEquals(List.of("T | 0 | before invalid dates", "D | 1 | valid leap day | 2024-02-29"),
                 result.tasks().stream().map(Task::toDataString).toList());
+    }
+
+    @Test
+    public void save_corruptFile_preservesOriginalOnceAcrossSaves() throws IOException {
+        Path saveFile = temporaryDirectory.resolve("lobby.txt");
+        byte[] original = "T | 0 | valid\r\ninvalid record\r\n".getBytes(StandardCharsets.UTF_8);
+        Files.write(saveFile, original);
+        Storage storage = new Storage(saveFile.toString());
+        Storage.LoadResult loaded = storage.load();
+        storage.save(loaded.tasks());
+        storage.save(List.of(new Todo("replacement")));
+        try (var files = Files.list(temporaryDirectory)) {
+            List<Path> backups = files.filter(path -> path.toString().endsWith(".bak")).toList();
+            assertEquals(1, backups.size());
+            assertArrayEquals(original, Files.readAllBytes(backups.get(0)));
+        }
+        assertFalse(storage.needsRecoveryBackup());
+        assertEquals("replacement", storage.load().tasks().get(0).getDescription());
+    }
+
+    @Test
+    public void save_invalidUtf8_preservesUnreadableBytes() throws IOException {
+        Path saveFile = temporaryDirectory.resolve("lobby.txt");
+        byte[] original = {(byte) 0xc3, (byte) 0x28};
+        Files.write(saveFile, original);
+        Storage storage = new Storage(saveFile.toString());
+        assertTrue(storage.load().readFailed());
+        storage.save(List.of(new Todo("new task")));
+        try (var files = Files.list(temporaryDirectory)) {
+            Path backup = files.filter(path -> path.toString().endsWith(".bak")).findFirst().orElseThrow();
+            assertArrayEquals(original, Files.readAllBytes(backup));
+        }
+    }
+
+    @Test
+    public void save_originalUnavailable_blocksUntilPreservationSucceeds() throws IOException {
+        Path saveFile = temporaryDirectory.resolve("lobby.txt");
+        Files.writeString(saveFile, "invalid record");
+        Storage storage = new Storage(saveFile.toString());
+        storage.load();
+        Files.delete(saveFile);
+        assertThrows(IOException.class, () -> storage.save(List.of(new Todo("unsaved"))));
+        assertTrue(storage.needsRecoveryBackup());
+        assertFalse(Files.exists(saveFile));
+        Files.writeString(saveFile, "invalid record");
+        storage.save(List.of(new Todo("saved")));
+        assertFalse(storage.needsRecoveryBackup());
+    }
+
+    @Test
+    public void save_parentlessPath_savesInWorkingDirectory() throws IOException {
+        Path saveFile = Path.of("lobby-test-" + java.util.UUID.randomUUID() + ".txt");
+        try {
+            Storage storage = new Storage(saveFile.toString());
+            storage.save(List.of(new Todo("relative path")));
+            assertEquals("relative path", storage.load().tasks().get(0).getDescription());
+        } finally {
+            Files.deleteIfExists(saveFile);
+        }
     }
 }

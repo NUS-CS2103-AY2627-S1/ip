@@ -182,7 +182,7 @@ public class LobbyTest {
         };
 
         for (String command : commands) {
-            assertEquals(" I couldn't save your changes. Please check that data/lobby.txt is writable.",
+            assertEquals(" I couldn't save your changes. Please check that " + saveFile + " is writable.",
                     lobby.getResponse(command), command);
             assertEquals(originalList, lobby.getResponse("list"), command);
         }
@@ -227,5 +227,49 @@ public class LobbyTest {
         for (String command : List.of("mark 0", "unmark 2", "delete -1")) {
             assertEquals(" Please enter the number of a task in the list.", lobby.getResponse(command));
         }
+    }
+
+    @Test
+    public void processCommand_invalidMarkersAndArguments_rejectsWithoutMutation() {
+        Lobby lobby = new Lobby(temporaryDirectory.resolve("lobby.txt").toString());
+        String[][] cases = {
+            {"deadline report /by 2026-09-30 /BY 2026-10-01", "Please specify /by exactly once."},
+            {"event meeting /from Mon /FROM Tue /to Wed", "Please specify /from exactly once."},
+            {"event meeting /from Mon /to Tue /TO Wed", "Please specify /to exactly once."},
+            {"event meeting /TO Tue /FROM Mon", "An event needs /from before /to. "
+                    + "Try: event <description> /from <start> /to <end>."},
+            {"  LIST extra  ", "The list command does not accept arguments."},
+            {"BYE\textra", "The bye command does not accept arguments."}
+        };
+        for (String[] testCase : cases) {
+            Lobby.Response response = lobby.processCommand(testCase[0]);
+            assertTrue(response.isError());
+            assertTrue(response.shouldRetainInput());
+            assertEquals(" " + testCase[1], response.text());
+            assertEquals(" Here are the tasks in your list:", lobby.getResponse("list"));
+        }
+        assertFalse(lobby.processCommand("  LIST  ").isError());
+        assertFalse(lobby.processCommand("  BYE  ").isError());
+    }
+
+    @Test
+    public void startupAndSave_customUnreadablePath_reportsPathAndRollsBack() throws IOException {
+        Path saveFile = temporaryDirectory.resolve("custom.txt");
+        Files.createDirectory(saveFile);
+        Lobby lobby = new Lobby(saveFile.toString());
+        assertTrue(lobby.getStartupMessage().contains("I couldn't read " + saveFile));
+        Lobby.Response response = lobby.processCommand("todo unsaved");
+        assertTrue(response.isError());
+        assertTrue(response.text().contains("I couldn't preserve the original " + saveFile));
+        assertEquals(" Here are the tasks in your list:", lobby.getResponse("list"));
+        assertTrue(Files.isDirectory(saveFile));
+    }
+
+    @Test
+    public void startup_corruptCustomFile_reportsActualPath() throws IOException {
+        Path saveFile = temporaryDirectory.resolve("custom.txt");
+        Files.writeString(saveFile, "invalid record");
+        assertTrue(new Lobby(saveFile.toString()).getStartupMessage()
+                .contains("I skipped 1 invalid line while loading " + saveFile + "."));
     }
 }

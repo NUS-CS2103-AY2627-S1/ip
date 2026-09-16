@@ -32,6 +32,8 @@ public class Storage {
     private static final int FIELD_COUNT_EVENT = 5;
 
     private final Path filePath;
+    private final String displayPath;
+    private boolean needsRecoveryBackup;
 
     /**
      * Contains the usable tasks and any warning discovered while loading them.
@@ -49,7 +51,16 @@ public class Storage {
      * @param filePath location of the task data file.
      */
     public Storage(String filePath) {
-        this.filePath = Path.of(filePath);
+        this.displayPath = filePath;
+        this.filePath = Path.of(filePath).toAbsolutePath();
+    }
+
+    public String getDisplayPath() {
+        return displayPath;
+    }
+
+    public boolean needsRecoveryBackup() {
+        return needsRecoveryBackup;
     }
 
     /**
@@ -59,9 +70,10 @@ public class Storage {
      * @return the loaded tasks and details of any loading problem
      */
     public LoadResult load() {
+        needsRecoveryBackup = false;
         List<Task> tasks = new ArrayList<>();
         try {
-            if (!Files.exists(filePath)) {
+            if (Files.notExists(filePath)) {
                 return new LoadResult(tasks, 0, false);
             }
 
@@ -76,8 +88,10 @@ public class Storage {
                     skippedLines++;
                 }
             }
+            needsRecoveryBackup = skippedLines > 0;
             return new LoadResult(tasks, skippedLines, false);
         } catch (IOException | SecurityException e) {
+            needsRecoveryBackup = true;
             return new LoadResult(new ArrayList<>(), 0, true);
         }
     }
@@ -91,6 +105,7 @@ public class Storage {
      */
     public void save(List<Task> tasks) throws IOException {
         Files.createDirectories(filePath.getParent());
+        preserveOriginal();
         List<String> taskLines = tasks.stream()
                 .map(Task::toDataString)
                 .toList();
@@ -106,6 +121,27 @@ public class Storage {
         } finally {
             Files.deleteIfExists(temporaryFile);
         }
+    }
+
+    /**
+     * Preserves the original bytes before replacing data that could not be fully loaded.
+     * A unique backup avoids overwriting any earlier recovery copy.
+     */
+    private void preserveOriginal() throws IOException {
+        if (!needsRecoveryBackup) {
+            return;
+        }
+        if (!Files.isRegularFile(filePath)) {
+            throw new IOException("The original save path is not a readable regular file.");
+        }
+        Path backup = Files.createTempFile(filePath.getParent(), filePath.getFileName() + ".recovery-", ".bak");
+        try {
+            Files.copy(filePath, backup, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException | SecurityException e) {
+            Files.deleteIfExists(backup);
+            throw e;
+        }
+        needsRecoveryBackup = false;
     }
 
     /**

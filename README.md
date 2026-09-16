@@ -15,6 +15,18 @@ If nothing matches, Lobby displays `No matching tasks found.`
 Search results keep their original order but are numbered from 1 within the results.
 Use `list` to check the full task numbers before using `mark`, `unmark`, or `delete`.
 
+## Command errors and data recovery
+
+`list` and `bye` take no arguments. Invalid commands such as `bye extra` show an error and keep Lobby running.
+Specify `/by` only once for deadlines. For events, specify `/from` and `/to` once each, in that order.
+Markers are case-insensitive and can be separated by multiple spaces or tabs.
+
+If Lobby skips malformed saved records or cannot read the save file, it preserves the original bytes before
+the next save. Recovery copies appear beside the save file as `<filename>.recovery-<unique number>.bak`.
+Keep this copy if you need to inspect or recover records that were not loaded. Existing recovery copies are
+never overwritten. If the original cannot be preserved, Lobby rejects the save and undoes the task change.
+File-error messages identify the configured save path; a filename without a folder is also supported.
+
 ## Continuous integration
 
 The workflow in [`.github/workflows/gradle.yml`](.github/workflows/gradle.yml) is based on

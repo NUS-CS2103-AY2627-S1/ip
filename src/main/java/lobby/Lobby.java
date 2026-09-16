@@ -55,9 +55,10 @@ public class Lobby {
         while ((command = ui.readCommand()) != null) {
             ui.startResponse();
             Parser.Command commandType = parser.parseCommand(command);
-            ui.showResponse(getResponse(command));
+            Response response = processCommand(command);
+            ui.showResponse(response.text());
             ui.endResponse();
-            if (commandType == Parser.Command.BYE) {
+            if (commandType == Parser.Command.BYE && !response.isError()) {
                 return;
             }
         }
@@ -85,6 +86,7 @@ public class Lobby {
         String normalizedCommand = command.trim();
         Parser.Command commandType = parser.parseCommand(normalizedCommand);
         try {
+            parser.validateNoArguments(normalizedCommand, commandType);
             String text = switch (commandType) {
                 case BYE -> " Bye. Hope to see you again soon!";
                 case LIST -> responseFormatter.formatTaskList(" Here are the tasks in your list:", tasks);
@@ -113,12 +115,12 @@ public class Lobby {
         String greeting = "Hello! I'm Lobby." + System.lineSeparator() + "What can I do for you?";
         if (loadResult.readFailed()) {
             return greeting + System.lineSeparator()
-                    + "I couldn't read data/lobby.txt, so I started with an empty task list.";
+                    + "I couldn't read " + storage.getDisplayPath() + ", so I started with an empty task list.";
         }
         if (loadResult.skippedLines() > 0) {
             String lineWord = loadResult.skippedLines() == 1 ? "line" : "lines";
             return greeting + System.lineSeparator() + "I skipped " + loadResult.skippedLines()
-                    + " invalid " + lineWord + " while loading data/lobby.txt.";
+                    + " invalid " + lineWord + " while loading " + storage.getDisplayPath() + ".";
         }
         return greeting;
     }
@@ -137,9 +139,9 @@ public class Lobby {
      */
     private void showLoadWarning() {
         if (loadResult.readFailed()) {
-            ui.showLoadingError();
+            ui.showLoadingError(storage.getDisplayPath());
         } else if (loadResult.skippedLines() > 0) {
-            ui.showSkippedLinesWarning(loadResult.skippedLines());
+            ui.showSkippedLinesWarning(loadResult.skippedLines(), storage.getDisplayPath());
         }
     }
 
@@ -241,7 +243,11 @@ public class Lobby {
     }
 
     private String getSaveErrorMessage() {
-        return "I couldn't save your changes. Please check that data/lobby.txt is writable.";
+        if (storage.needsRecoveryBackup()) {
+            return "I couldn't save your changes. I couldn't preserve the original " + storage.getDisplayPath()
+                    + ". Please check that the file is readable and its folder is writable, then retry.";
+        }
+        return "I couldn't save your changes. Please check that " + storage.getDisplayPath() + " is writable.";
     }
 
 }

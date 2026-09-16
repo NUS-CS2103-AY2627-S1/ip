@@ -699,3 +699,148 @@ This file is the source of truth for console UI test cases. Add one section per 
 
 - Comparison rule: exact, after normalizing Windows line endings to `\n`.
 - Setup: Compile all files in `src/main/java` to the `out` folder with Java 25 before running the command.
+
+### UI-016 Reject repeated markers, reversed markers, and extra arguments without exiting
+
+- Aim: Reject repeated markers, reversed markers, and extra arguments without exiting.
+- Command: `java -ea -cp out lobby.Lobby`
+- Inputs, in order:
+  1. `deadline report /by 2026-09-30 /BY 2026-10-01`
+  2. `event meeting /from Mon /FROM Tue /to Wed`
+  3. `event meeting /from Mon /to Tue /TO Wed`
+  4. `event meeting /TO Tue /FROM Mon`
+  5. `list extra`
+  6. `bye extra`
+  7. `list`
+  8. `bye`
+- Expected output:
+
+  ```text
+  ____________________________________________________________
+   _           _     _
+  | |    ___  | |__ | |__  _   _
+  | |   / _ \ | '_ \| '_ \| | | |
+  | |__| (_) | |_) | |_) | |_| |
+  |_____\___/|_.__/|_.__/ \__, |
+                           |___/
+  Hello! I'm Lobby.
+  What can I do for you?
+  ____________________________________________________________
+  ____________________________________________________________
+   Please specify /by exactly once.
+  ____________________________________________________________
+  ____________________________________________________________
+   Please specify /from exactly once.
+  ____________________________________________________________
+  ____________________________________________________________
+   Please specify /to exactly once.
+  ____________________________________________________________
+  ____________________________________________________________
+   An event needs /from before /to. Try: event <description> /from <start> /to <end>.
+  ____________________________________________________________
+  ____________________________________________________________
+   The list command does not accept arguments.
+  ____________________________________________________________
+  ____________________________________________________________
+   The bye command does not accept arguments.
+  ____________________________________________________________
+  ____________________________________________________________
+   Here are the tasks in your list:
+  ____________________________________________________________
+  ____________________________________________________________
+   Bye. Hope to see you again soon!
+  ____________________________________________________________
+  ```
+
+- Setup: Compile all files in `src/main/java` to `out` with Java 25.
+
+### UI-017 Preserve malformed original data before saving recovered tasks
+
+- Aim: Preserve malformed original data before saving recovered tasks.
+- Command: `java -ea -cp out lobby.Lobby`
+- Inputs, in order:
+  1. `todo new task`
+  2. `list`
+  3. `bye`
+- Expected output:
+
+  ```text
+  ____________________________________________________________
+   _           _     _
+  | |    ___  | |__ | |__  _   _
+  | |   / _ \ | '_ \| '_ \| | | |
+  | |__| (_) | |_) | |_) | |_| |
+  |_____\___/|_.__/|_.__/ \__, |
+                           |___/
+  Hello! I'm Lobby.
+  What can I do for you?
+  ____________________________________________________________
+   I skipped 1 invalid line while loading data/lobby.txt.
+  ____________________________________________________________
+  ____________________________________________________________
+   Got it. I've added this task:
+     [T][ ] new task
+   Now you have 2 tasks in the list.
+  ____________________________________________________________
+  ____________________________________________________________
+   Here are the tasks in your list:
+   1.[T][ ] recovered
+   2.[T][ ] new task
+  ____________________________________________________________
+  ____________________________________________________________
+   Bye. Hope to see you again soon!
+  ____________________________________________________________
+  ```
+
+- Setup: Compile all files in `src/main/java` to `out` with Java 25.
+- Additional setup: Create `data/lobby.txt` with this exact UTF-8 content:
+
+     ```text
+     T | 0 | recovered
+     invalid record
+     ```
+- Expected saved file (`data/lobby.txt`):
+
+  ```text
+  T | 0 | recovered
+  T | 0 | new task
+  ```
+- Additional check: Exactly one `data/lobby.txt.recovery-*.bak` file contains the original file bytes, including the malformed line.
+
+### UI-018 Block changes when the original save path cannot be preserved
+
+- Aim: Block changes when the original save path cannot be preserved.
+- Command: `java -ea -cp out lobby.Lobby`
+- Inputs, in order:
+  1. `todo unsaved`
+  2. `list`
+  3. `bye`
+- Expected output:
+
+  ```text
+  ____________________________________________________________
+   _           _     _
+  | |    ___  | |__ | |__  _   _
+  | |   / _ \ | '_ \| '_ \| | | |
+  | |__| (_) | |_) | |_) | |_| |
+  |_____\___/|_.__/|_.__/ \__, |
+                           |___/
+  Hello! I'm Lobby.
+  What can I do for you?
+  ____________________________________________________________
+   I couldn't read data/lobby.txt, so I started with an empty task list.
+  ____________________________________________________________
+  ____________________________________________________________
+   I couldn't save your changes. I couldn't preserve the original data/lobby.txt. Please check that the file is readable and its folder is writable, then retry.
+  ____________________________________________________________
+  ____________________________________________________________
+   Here are the tasks in your list:
+  ____________________________________________________________
+  ____________________________________________________________
+   Bye. Hope to see you again soon!
+  ____________________________________________________________
+  ```
+
+- Setup: Compile all files in `src/main/java` to `out` with Java 25.
+- Additional setup: Create a directory at `data/lobby.txt`.
+- Additional check: `data/lobby.txt` remains a directory and no recovery backup is created.
