@@ -1,8 +1,10 @@
 # Arin
 
-Arin is a console task tracker for to-dos, deadlines, and events.
-Its JavaFX window welcomes you with a robot avatar and console instructions;
-task commands are not yet available in the window itself.
+Arin is a desktop task companion for to-dos, deadlines, and events.
+Type commands in its JavaFX chat window to track, find, and sort tasks.
+Successful changes are saved automatically and restored on the next launch.
+
+[Download the latest JAR](https://github.com/Goh-Wei-Chong/ip/releases/latest).
 
 Read the [published User Guide](https://goh-wei-chong.github.io/ip/) for
 setup, all commands, and current limitations, or view the
@@ -21,14 +23,8 @@ Prerequisites: JDK 25, update Intellij to the most recent version.
    1. If there are any further prompts, accept the defaults.
 1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/arin/Arin.java` file, right-click it, and choose `Run Arin.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-       _         _      
-      / \   _ __(_)_ __  
-     / _ \ | '__| | '_ \
-    / ___ \| |  | | | | |
-   /_/   \_\_|  |_|_| |_|
-   ```
+1. Run the Gradle `run` task to open the GUI with its generated native resources.
+   For console-only development, run `arin.Arin.main()` instead.
 
 **Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
 
@@ -37,7 +33,8 @@ Prerequisites: JDK 25, update Intellij to the most recent version.
 Use JDK 25 to build the project. From the project root, run:
 
 ```bash
-./gradlew shadowJar
+java -version
+./gradlew clean check shadowJar
 ```
 
 On Windows, use `gradlew.bat shadowJar`. The
@@ -57,22 +54,23 @@ Java assertions. Gradle's `run` and `test` tasks enable them automatically.
 Assertions check internal assumptions about already validated task data;
 ordinary command errors are still handled through user-facing messages.
 
-The application opens Arin's robot welcome window with instructions for
-starting the task console. See the [User Guide](docs/README.md) for its
+The application opens Arin's interactive chat window. See the [User Guide](docs/README.md) for its
 full-window screenshot and commands.
 JavaFX does not need to be installed separately, but Java 25 is required.
 
-The JAR includes JavaFX native libraries for x86-64 Windows and Linux,
-plus one macOS architecture selected from the Java runtime running Gradle.
-Build with an ARM64 Java runtime for Apple Silicon Macs, or an x86-64 Java
-runtime for Intel Macs. The two macOS variants share library filenames,
-so a single build includes only one of them.
+The same JAR includes JavaFX classes and native libraries for x86-64 Windows
+and Linux, plus both Intel and Apple-silicon macOS. `NativeLibraries` extracts
+the matching binaries into a temporary directory before JavaFX starts.
+Native selection follows OpenJFX's
+[documented source-level library search order](https://github.com/openjdk/jfx/blob/jfx17/modules/javafx.graphics/src/main/java/com/sun/glass/utils/NativeLibLoader.java).
+This prevents identically named Mac binaries from overwriting one another.
+Linux requires a graphical desktop and GTK 3. Other CPU/OS combinations are
+not bundled. No separate JavaFX SDK is required.
 
 ## Sorting tasks (C-Sort extension)
 
-The task commands currently run in the console, separately from the
-JavaFX welcome window. After building the bundled JAR, start the console
-with Java 25:
+The task commands work in the GUI and in the optional console. After
+building the bundled JAR, start the console with Java 25:
 
 ```bash
 java -ea -cp build/libs/arin-all.jar arin.Arin

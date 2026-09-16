@@ -4,14 +4,12 @@ Arin is your task-tracking Wilderness Explorer. Use short commands to keep
 to-dos, deadlines, and events together, mark work as done, and find or sort
 your tasks.
 
-> **Before you begin:** Task commands currently work in the **console**, not
-> the JavaFX window. Saved tasks are **not reloaded when you restart Arin**.
-> Back up any existing `data/arin.txt` before starting another session; the
-> next successful change or sort replaces that file with the current list.
+Type commands directly in the chat window. Arin saves successful changes
+automatically and reloads your tasks when you next start it from the same folder.
 
-![Arin's full welcome window showing the robot avatar and console launch instructions](Ui.png)
+![Arin's full chat window showing the robot avatar, task list, and command input](Ui.png)
 
-*The current JavaFX welcome window. Task commands run in a separate console.*
+*The interactive Arin window. Enter a command below the conversation and press Enter or Send.*
 
 ## Contents
 
@@ -25,29 +23,22 @@ your tasks.
 ## Quick start
 
 1. Install **Java 25** and check that `java -version` reports version 25.
-2. Obtain `arin-all.jar`. There is currently no downloadable release; if you
-   have not been given the JAR, build it from the
-   [Arin repository](https://github.com/Goh-Wei-Chong/ip):
-
-   - Download and extract the source using **Code → Download ZIP**, or clone
-     the repository with Git.
-   - Open a terminal in the project folder containing `build.gradle`.
-   - Run `./gradlew shadowJar` on macOS/Linux, or `gradlew.bat shadowJar` on
-     Windows Command Prompt (`.\gradlew.bat shadowJar` in PowerShell).
-   - Find the bundled JAR at `build/libs/arin-all.jar`. Building requires
-     a JDK 25 installation and internet access to obtain dependencies.
-
+2. Download **arin-all.jar** under **Assets** in the
+   [latest Arin release](https://github.com/Goh-Wei-Chong/ip/releases/latest).
+   Choose the JAR, not the source-code ZIP. JavaFX is included; no separate
+   JavaFX installation or internet connection is needed to run Arin.
+   The same JAR includes support for Windows/Linux x64 and macOS Intel/Apple silicon.
 3. Copy `arin-all.jar` into a new, empty folder and open a terminal there.
-   Start the console with:
+   Start Arin with:
 
    ```bash
-   java -ea -cp arin-all.jar arin.Arin
+   java -jar arin-all.jar
    ```
 
-   Keep the terminal open. Arin shows its welcome message and waits for a
-   command. Double-clicking the JAR or using `java -jar arin-all.jar` opens
-   the robot welcome window pictured above, not the task console.
-4. Type these commands **one at a time**, pressing Enter after each:
+   Keep the terminal open. The window pictured above opens and shows how
+   many tasks were loaded. Always launch from this folder to reuse its data.
+4. Type these commands **one at a time** in the window's input box,
+   pressing Enter or clicking **Send** after each:
 
    ```text
    todo read book
@@ -63,18 +54,26 @@ your tasks.
    2. [D][ ] return book (by: Sep 20 2026)
    3. [E][ ] project meeting (from: Sep 18 2pm to: Sep 18 4pm)
    ```
-5. Try `mark 1` to complete the first task. Use `bye` when finished.
+5. Try `mark 1` to complete the first task. Click **Help** or type `help` for
+   a command reminder. Use `bye` when finished; Arin closes after its farewell.
+
+Prefer a terminal interface? Run `java -cp arin-all.jar arin.Arin` instead.
+It supports the same commands and data file. Do not run both interfaces
+against the same data folder at the same time.
 
 ## Command format
 
 - Use lowercase command words and options, such as `todo` and `sort name`.
   Task descriptions may contain uppercase letters and spaces.
-- Type commands without leading spaces. Enter `list` and `bye` exactly,
-  without trailing spaces. Use ordinary spaces, not tabs, between parts.
+- Leading and trailing spaces are ignored. Extra spaces after a command
+  word are allowed; use ordinary spaces, not tabs, between parts.
+  `list`, `help`, and `bye` take no arguments.
+- Keep each task on one line and do not use the reserved `|` character.
 - Uppercase words in the formats below, such as `DESCRIPTION` and `NUMBER`,
   are placeholders: replace them with your own values. Do not type them
   literally. Every shown argument is required.
 - Keep spaces around `/by`, `/from`, and `/to`; put `/from` before `/to`.
+  Use each separator only once.
 - `NUMBER` is a whole number from 1 to the size of the **full task list**.
   Run `list` before changing a task if you are unsure of its number.
 
@@ -181,14 +180,21 @@ position. **There is no undo**, so check the full list before deleting.
 
 ### Exit: `bye`
 
-Enter `bye` to close the console session. Arin replies:
+Enter `bye` to close Arin after a short farewell. Arin replies:
 
 ```text
 Bye. Hope to see you again soon!
 ```
 
-Changes are saved when made, not by `bye`. See the restart limitation below
-before closing a session you want to keep.
+Changes are saved when made, not by `bye`. Closing the window also keeps
+all successfully saved changes. The conversation itself is not saved.
+
+### Show command help: `help`
+
+Enter `help` or click **Help** to display the command formats without
+changing your tasks. Errors appear in a labeled, warm-colored message;
+correct your command and try again. You can resize the window or scroll
+back to read previous responses.
 
 ## Saving your tasks
 
@@ -197,32 +203,58 @@ current list to `data/arin.txt` under the folder from which you launched it.
 The `data` folder and file are created when first needed. Viewing or finding
 tasks does not write the file. No `save` command is needed.
 
-**This version saves a record but does not load it back.** Every launch
-starts with an empty list, even if `data/arin.txt` exists. A successful
-change or sort then replaces the previously saved contents. Copy the file
-somewhere safe before another session, or use a different working folder
-for each session. Editing or copying a file back does not import its tasks;
-you must re-enter them as commands.
+On startup, Arin reloads task types, descriptions, dates/times, completion
+states, duplicates, and list order. A missing file means a new empty list.
+To back up your tasks, close Arin and copy `data/arin.txt` somewhere safe.
+To restore a backup, close Arin, copy it back to that path, and restart.
+Use one Arin instance per folder; do not edit the data file while it is running.
 
-If Arin reports a save error, do not assume the file contains your latest
-changes. Check `list` and keep a separate record before closing the app.
-An add, mark, unmark, or delete may already have changed the in-memory list;
-a failed sort leaves the in-memory order unchanged. Check that the working
-folder is writable and that `data/arin.txt` is a file, not a directory.
+If a save fails, **no change is applied** to the in-memory list. Arin writes
+a temporary file before atomically replacing the previous file. Check
+folder permissions, free space, and that `data/arin.txt` is a file rather
+than a directory. Use a local filesystem that supports atomic replacement.
+
+If loading fails, Arin reports the file and offending line when available.
+It blocks task operations instead of overwriting your original data; `help`
+and `bye` remain available. Back up the file, correct the problem, and restart.
+
+### Upgrading an older task file
+
+Older to-dos and deadlines load unchanged. Older event records joined their
+start and end with a space, which cannot be split reliably when times contain
+spaces. After backing up your file and closing Arin, insert a ` | ` separator
+between each event's start and end. For example, change:
+
+```text
+E |   | meeting | Sep 18 2pm Sep 18 4pm
+```
+
+to:
+
+```text
+E |   | meeting | Sep 18 2pm | Sep 18 4pm
+```
+
+Keep `X` for a completed task or a blank status for an incomplete one. Restart
+Arin after repairing the reported line. Do not discard an unreadable file;
+it may still contain recoverable tasks.
 
 ## Troubleshooting
 
 | Problem | What to do |
 | --- | --- |
-| Only the robot welcome window appears | Close it and use `java -ea -cp arin-all.jar arin.Arin` in a terminal. |
+| Only the old welcome window appears | Download the latest `arin-all.jar` and replace the old JAR while Arin is closed. |
 | Java reports an incompatible class version | Run `java -version` in the same terminal and switch to Java 25. |
-| Java cannot find `arin.Arin` | Check that you are in the folder containing the bundled `arin-all.jar`, and use the command above exactly. |
-| Arin does not recognize a command | Check lowercase spelling and remove leading spaces. Use the command summary below. |
+| Java cannot find the JAR or JavaFX | Check that you are in the folder containing the complete `arin-all.jar`; run `java -jar arin-all.jar`. |
+| Arin does not recognize a command | Check lowercase spelling and required arguments. Type `help` or use the command summary below. |
 | A deadline date is rejected | Use a real date such as `2026-09-20`, not `20/09/2026`, `tomorrow`, or `2026-02-30`. |
 | An event command is rejected | Supply a description, `/from START`, and `/to END` in that order, with spaces around the separators. |
 | A task number is rejected | Run `list`, then supply an existing whole-number position, such as `mark 1`. |
 | `sort` shows a usage message | Supply exactly one supported option: `sort name` or `sort deadline`. |
-| Tasks are missing after a restart | Automatic loading is not implemented. Keep backups and re-enter tasks; see [Saving your tasks](#saving-your-tasks). |
+| Tasks are missing after a restart | Launch from the same folder as before and check its `data/arin.txt`; see [Saving your tasks](#saving-your-tasks). |
+| Arin cannot load or save tasks | Follow the displayed error. Preserve a backup, check permissions/space, or repair the reported data line, then restart. |
+| Native-library warnings appear in the terminal | JavaFX may print compatibility warnings on Java 25. If the window opens and commands work, these warnings alone are not a failure. |
+| No graphical window opens on Linux | Use a graphical desktop with GTK 3 installed; a headless server cannot display the GUI. |
 
 For an unexpected problem, [report an issue](https://github.com/Goh-Wei-Chong/ip/issues)
 with the command, error message, Java version, and operating system. Avoid
@@ -242,9 +274,16 @@ including private task descriptions or your full data file.
 | Sort by description | `sort name` | `sort name` |
 | Sort by due date | `sort deadline` | `sort deadline` |
 | Remove a task | `delete NUMBER` | `delete 1` |
+| Show command help | `help` | `help` |
 | Exit | `bye` | `bye` |
 
-## Artwork credit
+## Credits
+
+Arin began with the [SE-EDU Duke project](https://se-education.org/projectDuke/).
+The GUI's FXML/controller structure follows the
+[SE-EDU JavaFX tutorial](https://se-education.org/guides/tutorials/javaFxPart4.html).
+It uses [OpenJFX](https://openjfx.io/) for its graphical interface. AI assistance
+was used to implement and test the final GUI and error-handling increments.
 
 The robot illustration was supplied by the project owner. Its original
 source was not provided; it is not claimed as original project artwork.
