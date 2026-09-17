@@ -41,6 +41,11 @@ class KiwiDateTest {
             assertEquals(LocalDate.of(2020, 2, 29), KiwiDate.parse("2020-02-29"));
         }
 
+        @Test
+        void parse_yearZeroDate_returnsLocalDate() throws KiwiException {
+            assertEquals(LocalDate.of(0, 1, 1), KiwiDate.parse("0000-01-01"));
+        }
+
         @ParameterizedTest
         @ValueSource(strings = {
             "",
@@ -48,7 +53,12 @@ class KiwiDateTest {
             "02-12-2019",
             "2019/12/02",
             "2019-12",
-            "not-a-date"
+            "not-a-date",
+            "-0005-03-01",
+            "+10000-01-01",
+            "10000-01-01",
+            "+2019-12-02",
+            "-2019-12-02"
         })
         void parse_invalidInput_throwsKiwiException(String input) {
             KiwiException exception = assertThrows(KiwiException.class, () -> KiwiDate.parse(input));
@@ -85,7 +95,9 @@ class KiwiDateTest {
                 Arguments.of(LocalDate.of(2019, 12, 2), "Dec 02 2019"),
                 Arguments.of(LocalDate.of(2020, 2, 29), "Feb 29 2020"),
                 Arguments.of(LocalDate.of(2020, 1, 1), "Jan 01 2020"),
-                Arguments.of(LocalDate.of(2019, 7, 4), "Jul 04 2019")
+                Arguments.of(LocalDate.of(2019, 7, 4), "Jul 04 2019"),
+                Arguments.of(LocalDate.of(0, 1, 1), "Jan 01 0000"),
+                Arguments.of(LocalDate.of(1, 1, 1), "Jan 01 0001")
         );
     }
 }

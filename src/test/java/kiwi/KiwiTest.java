@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -105,5 +107,19 @@ class KiwiTest {
                 "2019-02-30 is not a real calendar date. Please use a date as yyyy-MM-dd, e.g. 2019-12-02",
                 response);
         assertTrue(kiwi.isError());
+    }
+
+    @Test
+    void getResponse_doesNotPrintToStandardOutput() {
+        ByteArrayOutputStream captured = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(captured));
+        try {
+            kiwi.getResponse("todo read book");
+            kiwi.getResponse("list");
+        } finally {
+            System.setOut(originalOut);
+        }
+        assertEquals("", captured.toString());
     }
 }

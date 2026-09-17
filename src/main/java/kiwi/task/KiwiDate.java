@@ -10,17 +10,25 @@ import kiwi.KiwiException;
 
 /**
  * Shared date parsing/formatting for deadlines and events ({@code yyyy-MM-dd} in,
- * {@code MMM dd yyyy} out).
+ * {@code MMM dd uuuu} out).
  */
 public final class KiwiDate {
     /** How dates are accepted from the user and stored on disk, e.g. {@code 2019-10-15}. */
     public static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE;
 
-    /** How dates are shown in the chatbot UI, e.g. {@code Oct 15 2019}. */
+    /**
+     * How dates are shown in the chatbot UI, e.g. {@code Oct 15 2019}.
+     * Uses {@code uuuu} (proleptic year) so year 0000 is not shown as 0001.
+     */
     public static final DateTimeFormatter OUTPUT_FORMAT =
-            DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH);
+            DateTimeFormatter.ofPattern("MMM dd uuuu", Locale.ENGLISH);
 
-    private static final Pattern ISO_DATE_SHAPE = Pattern.compile("\\d{4}-\\d{2}-\\d{2}");
+    /**
+     * Strict {@code yyyy-MM-dd} shape: unsigned 4-digit year, 2-digit month, 2-digit day.
+     * {@link DateTimeFormatter#ISO_LOCAL_DATE} also accepts signed years such as
+     * {@code -0005-03-01} and years outside 0000-9999 such as {@code +10000-01-01}.
+     */
+    private static final Pattern YYYY_MM_DD_SHAPE = Pattern.compile("\\d{4}-\\d{2}-\\d{2}");
     private static final String PARSE_ERROR_MESSAGE =
             "Please use a date as yyyy-MM-dd, e.g. 2019-12-02";
 
@@ -33,19 +41,19 @@ public final class KiwiDate {
      *
      * @param text date text such as {@code 2019-12-02}.
      * @return the parsed date.
-     * @throws KiwiException If the text is not a valid ISO local date.
+     * @throws KiwiException If the text is not an unsigned {@code yyyy-MM-dd} calendar date.
      */
     public static LocalDate parse(String text) throws KiwiException {
         assert text != null : "Parser and Storage always pass a date string";
         String trimmed = text.trim();
+        if (!YYYY_MM_DD_SHAPE.matcher(trimmed).matches()) {
+            throw new KiwiException(PARSE_ERROR_MESSAGE);
+        }
         try {
             return LocalDate.parse(trimmed, INPUT_FORMAT);
         } catch (DateTimeParseException e) {
-            if (ISO_DATE_SHAPE.matcher(trimmed).matches()) {
-                throw new KiwiException(trimmed + " is not a real calendar date. "
-                        + PARSE_ERROR_MESSAGE);
-            }
-            throw new KiwiException(PARSE_ERROR_MESSAGE);
+            throw new KiwiException(trimmed + " is not a real calendar date. "
+                    + PARSE_ERROR_MESSAGE);
         }
     }
 

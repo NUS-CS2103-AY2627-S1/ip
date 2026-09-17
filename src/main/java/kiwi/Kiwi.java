@@ -38,6 +38,7 @@ public class Kiwi {
      * Runs the chatbot loop until an {@link ExitCommand} is executed.
      */
     public void run() {
+        ui.showLoadWarnings(storage.getLoadWarnings());
         ui.showWelcome();
         boolean shouldExit = false;
         while (!shouldExit) {
@@ -50,6 +51,7 @@ public class Kiwi {
             } catch (KiwiException e) {
                 ui.showError(e.getMessage());
             } finally {
+                ui.printResponse();
                 ui.showLine();
             }
         }

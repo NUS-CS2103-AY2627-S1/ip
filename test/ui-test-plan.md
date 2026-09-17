@@ -13,7 +13,7 @@ runs each test case against the program, shows the console session, and
 - **Task storage:** `ArrayList<Task>` (dynamic size; add/delete via list operations)
 - **Task kinds:** `TaskType` enum (`TODO`, `DEADLINE`, `EVENT`) for type icons `[T]` / `[D]` / `[E]`
 - **Hard-disk file:** `./data/kiwi.txt` — loaded at startup; rewritten (via temp file + replace) whenever the list changes. Missing save → empty list. Unreadable path, a folder in place of the file, or I/O errors → empty list with a message. Corrupted, duplicated, or impossible-date lines are skipped with a warning; valid lines still load. Save failures surface as an error and the in-memory change is rolled back.
-- **Deadline/event dates:** accepted/stored as `yyyy-MM-dd`, shown as `MMM dd yyyy`. Impossible calendar dates (e.g. 2019-02-30) are rejected. Event end date cannot be before the start date (same-day events are allowed). Command `on yyyy-MM-dd` lists deadlines due that day and events whose range covers it.
+- **Deadline/event dates:** accepted/stored as unsigned `yyyy-MM-dd` (year 0000-9999), shown as `MMM dd uuuu` (year 0000 displays as `0000`, not `0001`). Signed or extra-digit years (e.g. `-0005-03-01`, `+10000-01-01`) and impossible calendar dates (e.g. 2019-02-30) are rejected. Event end date cannot be before the start date (same-day events are allowed). Command `on yyyy-MM-dd` lists deadlines due that day and events whose range covers it.
 - **Duplicates:** adding a task with the same type, description, and dates as one already in the list is rejected.
 - **Command format:** leading, trailing, and repeated spaces are treated as a single space. Extra words on `list`/`bye`/`mark`/`unmark`/`delete`/`on`, missing or repeated `/by` `/from` `/to`, and descriptions containing ` | ` are rejected with a usage hint.
 - **Find:** `find KEYWORD` lists tasks whose description contains the keyword (case-sensitive substring). Matching tasks are numbered from 1 in the result; no matches prints `None found.`
@@ -1356,6 +1356,50 @@ ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] read book
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
+### TC26: Reject signed years and display year 0000 correctly
+
+**Aim:** Dates must be unsigned `yyyy-MM-dd`. Negative years and years outside 0000-9999 are rejected with the usual format error; year `0000` is accepted and shown as `0000`.
+
+**Inputs:**
+```text
+deadline dl1 /by -0005-03-01
+deadline dl2 /by +10000-01-01
+deadline dl3 /by 0000-01-01
+list
+bye
+```
+
+**Expected output:**
+```text
+____________________________________________________________
+ _  ___          _ 
+| |/ (_)_      _(_)
+| ' /| \ \ /\ / / |
+| . \| |\ V  V /| |
+|_|\_\_| \_/\_/ |_|
+Hello! I'm Kiwi.
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+Please use a date as yyyy-MM-dd, e.g. 2019-12-02
+____________________________________________________________
+____________________________________________________________
+Please use a date as yyyy-MM-dd, e.g. 2019-12-02
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [D][ ] dl3 (by: Jan 01 0000)
+Now you have 1 task in the list.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[D][ ] dl3 (by: Jan 01 0000)
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!

@@ -165,7 +165,6 @@ public class Storage {
 
     private void warn(String message) {
         loadWarnings.add(message);
-        System.out.println(message);
     }
 
     private void deleteTempQuietly() {

@@ -1,6 +1,7 @@
 package kiwi;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 import kiwi.task.FreeSlot;
@@ -9,8 +10,8 @@ import kiwi.task.Task;
 import kiwi.task.TaskList;
 
 /**
- * Handles all interactions with the user: reading commands and printing messages.
- * Keeps console I/O out of the rest of the application.
+ * Builds user-facing messages and, for the text UI, writes them to the console.
+ * The GUI reads the same messages via {@link #consumeResponse()} without printing.
  */
 public class Ui {
     private static final String LINE = "____________________________________________________________";
@@ -30,13 +31,12 @@ public class Ui {
     }
 
     /**
-     * Prints each of {@code messages} to the console and records them for {@link #consumeResponse()}.
+     * Records each of {@code messages} for {@link #consumeResponse()} or {@link #printResponse()}.
      *
      * @param messages one or more lines of chatbot output.
      */
     private void show(String... messages) {
         for (String message : messages) {
-            System.out.println(message);
             if (response.length() > 0) {
                 response.append('\n');
             }
@@ -45,8 +45,8 @@ public class Ui {
     }
 
     /**
-     * Returns messages shown since the last consume, then clears the buffer.
-     * Used by the GUI so a dialog box can display the same text the console would print.
+     * Returns messages recorded since the last consume, then clears the buffer.
+     * Used by the GUI so a dialog box can display the reply without printing to the terminal.
      *
      * @return the accumulated reply, or an empty string if nothing was shown.
      */
@@ -54,6 +54,30 @@ public class Ui {
         String result = response.toString();
         response.setLength(0);
         return result;
+    }
+
+    /**
+     * Writes the buffered reply to standard output, then clears the buffer.
+     * Used by the text UI loop; the GUI uses {@link #consumeResponse()} instead.
+     */
+    public void printResponse() {
+        String reply = consumeResponse();
+        if (!reply.isEmpty()) {
+            System.out.println(reply);
+        }
+    }
+
+    /**
+     * Prints save-file warnings before the welcome banner (text UI only).
+     * The GUI shows the same warnings inside the opening chat bubble.
+     *
+     * @param warnings load warnings from {@link Storage#getLoadWarnings()}.
+     */
+    public void showLoadWarnings(List<String> warnings) {
+        assert warnings != null : "Storage.getLoadWarnings() always returns a list";
+        for (String warning : warnings) {
+            System.out.println(warning);
+        }
     }
 
     /** Prints the horizontal divider used between chatbot messages. */

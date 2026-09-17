@@ -34,7 +34,7 @@ Kiwi is a **desktop chatbot for managing to-dos, deadlines, and events**. Type c
    java -jar kiwi.jar
    ```
 
-   A window titled **Kiwi** should appear in a few seconds.
+   A window titled **Kiwi** should appear in a few seconds. Chat replies stay in that window — they are not printed in the terminal.
 5. Type a command and press Enter. For example, try `list`, then `todo borrow book`.
 
 If you are running from the project source instead of a JAR, use `./gradlew run`.
