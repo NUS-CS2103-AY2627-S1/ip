@@ -1,0 +1,21 @@
+.label {
+    -fx-background-color: #c0e8ff;
+    -fx-border-color: #607480;
+    -fx-border-width: 1px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.reply-label {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #787878;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.error-label {
+    -fx-background-color: #ffd0c0;
+    -fx-border-color: #ff6860;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}

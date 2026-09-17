@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: 6.7 / 10
+* IDE and level of expertise: IntelliJ IDEA, 6.7 / 10
 
 # Guidance for interacting with users
 
@@ -33,3 +33,31 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## Java Coding Standard (MANDATORY)
+
+ALL Java code MUST follow the [[seedu-java-coding-standard]] skill. This is mandatory for all source files in this project.
+
+Key requirements:
+- Follow SE-Education.org Java coding conventions exactly
+- Use 4-space indentation (no tabs)
+- PascalCase for classes, camelCase for methods/variables
+- SCREAMING_SNAKE_CASE for constants
+- Javadoc for all public classes and methods
+- No wildcard imports
+- K&R bracket style
+- Test methods follow: `featureUnderTest_scenario_expectedBehavior()` format
+
+When making any code changes, verify compliance with this skill's guidelines.
+
+ ## Git Standard (MANDATORY)
+ 
+ ALL Git commits MUST follow the [[seedu-git-standard]] skill. This is mandatory for all commits in this project.
+ 
+ Key requirements:
+ - Subject line: max 50 chars (hard limit 72), imperative mood, capitalize first letter, no trailing period
+ - Use scope: prefix when applicable (Person class:, Main.java:, bug fix:, chore:)
+ - Body: explain WHAT and WHY, not HOW; wrap at 72 chars; use bullet points when helpful
+ - Branch names: kebab-case format (e.g., refactor-ui-tests, issueNumber-keywords)
+ 
+When making any commits, verify compliance with this skill's guidelines.
