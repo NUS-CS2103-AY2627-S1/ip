@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<fx:root alignment="TOP_LEFT" maxWidth="1.7976931348623157E308"
+         spacing="18.0" styleClass="dialog-row"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <StackPane fx:id="avatarFrame" maxHeight="76.0" maxWidth="76.0"
+                   minHeight="76.0" minWidth="76.0"
+                   prefHeight="76.0" prefWidth="76.0"
+                   styleClass="avatar-frame">
+            <children>
+                <ImageView fx:id="displayPicture" fitHeight="68.0" fitWidth="68.0"
+                           pickOnBounds="true" preserveRatio="true">
+                    <clip>
+                        <Circle centerX="34.0" centerY="34.0" radius="34.0" />
+                    </clip>
+                </ImageView>
+            </children>
+        </StackPane>
+        <VBox fx:id="bubbleContainer" maxWidth="760.0" spacing="8.0"
+              styleClass="dialog-bubble">
+            <padding>
+                <Insets bottom="18.0" left="22.0" right="22.0" top="16.0" />
+            </padding>
+            <children>
+                <Label fx:id="speakerName" styleClass="speaker-name" text="SPEAKER" />
+                <Label fx:id="dialog" minHeight="-Infinity" styleClass="dialog-text"
+                       text="Message" wrapText="true" />
+            </children>
+        </VBox>
+    </children>
+</fx:root>
