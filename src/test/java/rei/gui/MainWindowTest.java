@@ -64,6 +64,39 @@ public class MainWindowTest {
         });
     }
 
+    @Test
+    public void userInput_invalidCommand_displaysErrorAndAllowsRecovery() throws InterruptedException {
+        runOnJavaFxThread(() -> {
+            FXMLLoader loader = new FXMLLoader(MainWindow.class.getResource("/view/MainWindow.fxml"));
+            loader.load();
+            MainWindow controller = loader.getController();
+            controller.setRei(new Rei(testDirectory.resolve("tasks.txt")));
+            TextField input = (TextField) loader.getNamespace().get("userInput");
+            VBox dialogs = (VBox) loader.getNamespace().get("dialogContainer");
+
+            input.setText("mark 1");
+            input.fireEvent(new ActionEvent());
+            assertTrue(dialogs.getChildren().getLast().getStyleClass().contains("error-dialog"));
+            input.setText("todo recover");
+            input.fireEvent(new ActionEvent());
+            assertTrue(dialogs.getChildren().getLast().getStyleClass().contains("rei-dialog"));
+            assertEquals("", input.getText());
+        });
+    }
+
+    @Test
+    public void dialog_resize_expandsReplyWidth() throws InterruptedException {
+        runOnJavaFxThread(() -> {
+            DialogBox dialog = DialogBox.getReiDialog("A long task description ".repeat(30));
+            Label message = (Label) dialog.lookup(".message-bubble");
+            dialog.resize(400, 200);
+            double narrowWidth = message.getMaxWidth();
+            dialog.resize(700, 200);
+            assertTrue(message.getMaxWidth() > narrowWidth);
+            assertTrue(message.isWrapText());
+        });
+    }
+
     /** Executes assertions on the JavaFX application thread and reports any failure to JUnit. */
     private static void runOnJavaFxThread(ThrowingRunnable action) throws InterruptedException {
         CountDownLatch completionLatch = new CountDownLatch(1);

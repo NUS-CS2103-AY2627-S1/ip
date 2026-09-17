@@ -3,6 +3,7 @@ package rei.gui;
 import java.io.IOException;
 import java.util.Collections;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,6 +32,7 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         avatar.setText(avatarText);
+        dialog.maxWidthProperty().bind(Bindings.max(0, widthProperty().subtract(64)));
     }
 
     /** Creates a right-aligned message entered by the user. */
@@ -45,6 +47,13 @@ public class DialogBox extends HBox {
         DialogBox dialogBox = new DialogBox(text, "REI");
         dialogBox.getStyleClass().add("rei-dialog");
         dialogBox.flip();
+        return dialogBox;
+    }
+
+    /** Creates an error response with a visible label as well as a distinct color. */
+    public static DialogBox getErrorDialog(String text) {
+        DialogBox dialogBox = getReiDialog("Please try again\n" + text);
+        dialogBox.getStyleClass().add("error-dialog");
         return dialogBox;
     }
 

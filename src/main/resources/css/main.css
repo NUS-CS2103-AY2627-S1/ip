@@ -58,6 +58,19 @@
 
 .rei-dialog .message-bubble {
     -fx-background-color: white;
+    -fx-background-radius: 2 14 14 14;
+    -fx-border-color: #d8e2ef;
+    -fx-border-radius: 2 14 14 14;
+}
+
+.error-dialog .message-bubble {
+    -fx-background-color: #fff1ee;
+    -fx-border-color: #be4734;
+    -fx-text-fill: #852e20;
+}
+
+.error-dialog .avatar {
+    -fx-background-color: #a53928;
 }
 
 .composer {
