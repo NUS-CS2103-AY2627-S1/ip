@@ -25,7 +25,7 @@ public class Ui {
     public void showWelcome() {
         System.out.println(LINE);
         System.out.print(BANNER);
-        System.out.println("Hey, I'm Lebron -- your coach for today.");
+        System.out.println("Hey, I'm Lebron, your coach for today.");
         System.out.println("What's the game plan?");
         System.out.println(LINE);
     }

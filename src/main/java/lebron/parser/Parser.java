@@ -211,7 +211,7 @@ public class Parser {
     private static void requireNoPipe(String description) throws LebronException {
         if (description.contains("|")) {
             throw new LebronException("OOPS!!! A task description can't contain '|' "
-                    + "(it's used internally to store tasks) -- please remove it.");
+                    + "because it's used internally to store tasks. Please remove it.");
         }
     }
 

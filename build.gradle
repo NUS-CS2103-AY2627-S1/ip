@@ -75,5 +75,5 @@ jar {
 }
 
 shadowJar {
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'Lebron.jar'
 }

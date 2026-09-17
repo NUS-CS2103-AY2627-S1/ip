@@ -31,7 +31,7 @@ public class MainWindow {
 
     private Lebron lebron;
 
-    private final Image lebronImage = new Image(getClass().getResourceAsStream("/images/lebron.png"));
+    private final Image lebronImage = new Image(getClass().getResourceAsStream("/images/lebron.jpg"));
 
     /** Keeps the scroll pane pinned to the newest message. */
     @FXML
@@ -53,7 +53,7 @@ public class MainWindow {
     public void showGreeting() {
         dialogContainer.getChildren().add(
                 DialogBox.getLebronDialog(
-                        "Hey, I'm Lebron -- your coach for today. What's the game plan?", lebronImage, false));
+                        "Hey, I'm Lebron, your coach for today. What's the game plan?", lebronImage, false));
     }
 
     /**

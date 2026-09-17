@@ -1,55 +1,104 @@
-/*
- * Visual styling for the GUI (A-BetterGui). Kept separate from the FXML
- * layout files so colours/fonts can be tuned without touching structure.
- */
-
 .root {
-    -fx-font-family: "Helvetica Neue", Arial, sans-serif;
+    -fx-font-family: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
     -fx-font-size: 13px;
-    -fx-background-color: #FAFAFA;
+    -fx-background-color: #F7F1E8;
 }
 
-/* User's own messages: a neutral bubble, right-aligned. */
+.app-header {
+    -fx-background-color: #552583;
+    -fx-border-color: transparent transparent #FDB927 transparent;
+    -fx-border-width: 0 0 4 0;
+}
+
+.header-title {
+    -fx-font-size: 21px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #FFFFFF;
+}
+
+.header-subtitle {
+    -fx-font-size: 11px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #FDE7A9;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport,
+.dialog-container {
+    -fx-background-color: #F7F1E8;
+}
+
+.scroll-pane {
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.dialog-container {
+    -fx-background-insets: 0;
+}
+
 .user-bubble {
-    -fx-background-color: #E4E7EB;
-    -fx-text-fill: #1F2937;
-    -fx-background-radius: 14 14 4 14;
-    -fx-padding: 8 12 8 12;
+    -fx-background-color: #552583;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 15 15 4 15;
+    -fx-padding: 9 12 9 12;
 }
 
-/* Lebron's normal replies: a warm accent tying into his avatar's orange. */
 .lebron-bubble {
-    -fx-background-color: #FFE3C2;
-    -fx-text-fill: #7C2D12;
-    -fx-background-radius: 14 14 14 4;
-    -fx-padding: 8 12 8 12;
+    -fx-background-color: #FFFDF9;
+    -fx-text-fill: #2D2039;
+    -fx-background-radius: 4 15 15 15;
+    -fx-border-color: #E7DED3;
+    -fx-border-width: 1;
+    -fx-border-radius: 4 15 15 15;
+    -fx-padding: 8 11 8 11;
 }
 
-/* Lebron's OOPS!!! errors: same shape as a normal reply, but eye-catching. */
 .error-bubble {
-    -fx-background-color: #FDE2E2;
-    -fx-text-fill: #991B1B;
-    -fx-background-radius: 14 14 14 4;
-    -fx-border-color: #DC2626;
-    -fx-border-width: 1.5;
-    -fx-border-radius: 14 14 14 4;
-    -fx-padding: 7 11 7 11;
-    -fx-font-weight: bold;
+    -fx-background-color: #FFF1F0;
+    -fx-text-fill: #8F1D24;
+    -fx-background-radius: 4 15 15 15;
+    -fx-border-color: #F0BFC3;
+    -fx-border-width: 1;
+    -fx-border-radius: 4 15 15 15;
+    -fx-padding: 8 11 8 11;
+    -fx-font-weight: 700;
+}
+
+.composer {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E0D3C3 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
 }
 
 .text-field {
-    -fx-background-radius: 8;
-    -fx-border-radius: 8;
-    -fx-border-color: #D1D5DB;
+    -fx-background-color: #F8F5F0;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #D8CCBE;
+    -fx-padding: 8 11 8 11;
+    -fx-prompt-text-fill: #807486;
+}
+
+.text-field:focused {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #552583;
+    -fx-border-width: 1.5;
 }
 
 .button {
-    -fx-background-color: #F97316;
-    -fx-text-fill: white;
-    -fx-background-radius: 8;
-    -fx-font-weight: bold;
+    -fx-background-color: #FDB927;
+    -fx-text-fill: #2D174A;
+    -fx-background-radius: 10;
+    -fx-padding: 8 15 8 15;
+    -fx-font-weight: 800;
+    -fx-cursor: hand;
 }
 
 .button:hover {
-    -fx-background-color: #EA580C;
+    -fx-background-color: #F3A712;
+}
+
+.button:pressed {
+    -fx-background-color: #E29A08;
 }

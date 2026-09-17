@@ -43,7 +43,7 @@ public class UiTest {
         Ui ui = newUiReading("");
         ui.showWelcome();
         String output = capturedOut.toString(StandardCharsets.UTF_8);
-        assertTrue(output.contains("Hey, I'm Lebron -- your coach for today."));
+        assertTrue(output.contains("Hey, I'm Lebron, your coach for today."));
         assertTrue(output.contains("What's the game plan?"));
     }
 

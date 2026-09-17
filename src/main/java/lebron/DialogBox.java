@@ -8,11 +8,13 @@ import java.util.List;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * One row of the conversation: a speech-bubble label, optionally next to a
@@ -22,12 +24,15 @@ import javafx.scene.layout.HBox;
  * other.
  */
 public class DialogBox extends HBox {
+    private static final double AVATAR_SIZE = 34;
+    private static final Rectangle2D LEBRON_AVATAR_CROP = new Rectangle2D(65, 10, 250, 250);
+
     /**
      * Margin (px) reserved outside the label for spacing/avatar, so the
      * label's max width can track this row's own width instead of being
      * capped at a fixed pixel width.
      */
-    private static final double WIDTH_MARGIN = 46;
+    private static final double WIDTH_MARGIN = 54;
 
     @FXML
     private Label dialog;
@@ -51,6 +56,12 @@ public class DialogBox extends HBox {
             displayPicture.setManaged(false);
         } else {
             displayPicture.setImage(image);
+            displayPicture.setViewport(LEBRON_AVATAR_CROP);
+            displayPicture.setFitWidth(AVATAR_SIZE);
+            displayPicture.setFitHeight(AVATAR_SIZE);
+            displayPicture.setPreserveRatio(false);
+            displayPicture.setClip(new Circle(AVATAR_SIZE / 2, AVATAR_SIZE / 2, AVATAR_SIZE / 2));
+            displayPicture.setAccessibleText("Lebron");
         }
     }
 

@@ -89,7 +89,7 @@ public class LebronTest {
         Lebron lebron = newLebron();
         lebron.getResponse("todo read book");
         lebron.getResponse("mark 1");
-        assertEquals("Timeout -- back on the clock, not done yet:" + System.lineSeparator() + "  [ ] read book",
+        assertEquals("Timeout. Back on the clock, not done yet:" + System.lineSeparator() + "  [ ] read book",
                 lebron.getResponse("unmark 1"));
     }
 
@@ -115,7 +115,7 @@ public class LebronTest {
     @Test
     public void getResponse_bye_confirmsAndSetsIsExit() {
         Lebron lebron = newLebron();
-        assertEquals("Good game -- I'll see you back on the court soon!", lebron.getResponse("bye"));
+        assertEquals("Good game! I'll see you back on the court soon.", lebron.getResponse("bye"));
         assertTrue(lebron.isExit());
     }
 

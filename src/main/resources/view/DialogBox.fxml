@@ -18,5 +18,5 @@
         (DialogBox.getUserDialog), giving that space back to the text.
     -->
     <Label fx:id="dialog" text="Label" wrapText="true"/>
-    <ImageView fx:id="displayPicture" fitHeight="28.0" fitWidth="28.0" preserveRatio="true"/>
+    <ImageView fx:id="displayPicture"/>
 </fx:root>

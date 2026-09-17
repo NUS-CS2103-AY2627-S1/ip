@@ -87,7 +87,7 @@ public class Lebron {
             case FIND:
                 return handleFind(command);
             case BYE:
-                return "Good game -- I'll see you back on the court soon!";
+                return "Good game! I'll see you back on the court soon.";
             default:
                 // Parser only ever returns the types handled above, so this
                 // is unreachable given correct code; the assert documents
@@ -148,7 +148,7 @@ public class Lebron {
         }
         String header = isMark
                 ? "Nice bucket! Marked as done:"
-                : "Timeout -- back on the clock, not done yet:";
+                : "Timeout. Back on the clock, not done yet:";
         return header + System.lineSeparator() + "  " + task;
     }
 

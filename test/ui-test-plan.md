@@ -17,9 +17,9 @@ Each test case runs in its own fresh working directory, so tasks the
 program saves to `data/lebron.txt` in one test case never carry over to the
 next. Two optional blocks support the save/load feature:
 
-- **Data file:** — contents written to `data/lebron.txt` *before* the run,
+- **Data file:**: contents written to `data/lebron.txt` *before* the run,
   for testing that previously saved tasks are loaded on startup.
-- **Expected data file:** — contents `data/lebron.txt` must have *after*
+- **Expected data file:**: contents `data/lebron.txt` must have *after*
   the run, for testing that task-list changes are saved. An empty block
   asserts the file is absent or empty.
 
@@ -37,7 +37,7 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -66,7 +66,7 @@ blocks.
   2.[ ] return book
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -85,7 +85,7 @@ blocks.
   OOPS!!! A todo needs a description, e.g. todo read book
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -106,7 +106,7 @@ blocks.
   OOPS!!! I don't understand that command. Try: list, todo, deadline, event, mark, unmark, delete, find, or bye.
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -140,7 +140,7 @@ blocks.
   2.[ ] return book
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -163,7 +163,7 @@ blocks.
   OOPS!!! Tell me which task number to mark, e.g. mark 2
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -186,7 +186,7 @@ blocks.
   OOPS!!! 'two' doesn't look like a task number.
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -210,7 +210,7 @@ blocks.
   OOPS!!! There is no task 5 in your list. You have 1 task(s).
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -245,7 +245,7 @@ blocks.
     [X] return book
   ____________________________________________________________
   ____________________________________________________________
-  Timeout -- back on the clock, not done yet:
+  Timeout. Back on the clock, not done yet:
     [ ] return book
   ____________________________________________________________
   ____________________________________________________________
@@ -254,7 +254,7 @@ blocks.
   2.[ ] return book
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -277,7 +277,7 @@ blocks.
   OOPS!!! There is no task 5 in your list. You have 1 task(s).
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -317,7 +317,7 @@ blocks.
   2.[ ] buy bread
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -340,7 +340,7 @@ blocks.
   OOPS!!! Tell me which task number to delete, e.g. delete 2
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -369,7 +369,7 @@ blocks.
   1.[ ] read book
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -388,7 +388,7 @@ blocks.
   Here's the playbook:
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -409,7 +409,7 @@ blocks.
   2.[X] return book
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 - **Data file:**
@@ -437,7 +437,7 @@ blocks.
   2.[X] return book
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 - **Data file:**
@@ -468,7 +468,7 @@ blocks.
     [X] read book
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 - **Expected data file:**
@@ -493,7 +493,7 @@ blocks.
   Now you've got 1 plays left in the game plan.
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 - **Data file:**
@@ -526,7 +526,7 @@ blocks.
   1.[D][ ] return book (by: Dec 02 2019)
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 - **Expected data file:**
@@ -549,7 +549,7 @@ blocks.
   on the board: [D][ ] submit report (by: Dec 02 2019 6:00pm)
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 - **Expected data file:**
@@ -572,7 +572,7 @@ blocks.
   on the board: [D][ ] pay bill (by: Dec 02 2019 6:00pm)
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 - **Expected data file:**
@@ -599,7 +599,7 @@ blocks.
   1.[E][ ] project meeting (from: Dec 02 2019 2:00pm to: Dec 02 2019 4:00pm)
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 - **Expected data file:**
@@ -622,7 +622,7 @@ blocks.
   OOPS!!! A deadline needs a description and a /by date, e.g. deadline return book /by 2019-12-02 1800 [/every day|week|month]
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -645,7 +645,7 @@ blocks.
   Here's the playbook:
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -667,7 +667,7 @@ blocks.
   2.[E][ ] camp (from: Jun 01 2019 to: Jun 03 2019)
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 - **Data file:**
@@ -694,7 +694,7 @@ blocks.
   1.[D][ ] return book (by: Dec 02 2019)
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 - **Data file:**
@@ -738,7 +738,7 @@ blocks.
   2.[ ] return book
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -761,7 +761,7 @@ blocks.
   Here's what matches from the playbook:
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -780,7 +780,7 @@ blocks.
   OOPS!!! Tell me what to search for, e.g. find book
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -811,7 +811,7 @@ blocks.
   1.[D][ ] pay rent (by: Feb 01 2025) (every: month)
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -836,7 +836,7 @@ blocks.
     [E][ ] standup (from: Jan 13 2025 9:00am to: Jan 13 2025 9:30am) (every: week)
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -859,7 +859,7 @@ blocks.
   Here's the playbook:
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -878,7 +878,7 @@ blocks.
   OOPS!!! Tell me how often, e.g. /every week (day, week, or month).
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -900,7 +900,7 @@ blocks.
   2.[E][ ] old event (from: Jun 01 2019 to: Jun 03 2019)
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 - **Data file:**
@@ -927,7 +927,7 @@ blocks.
   1.[D][ ] good deadline (by: Jan 01 2025) (every: month)
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 - **Data file:**
@@ -955,7 +955,7 @@ blocks.
   Here's the playbook:
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -974,7 +974,7 @@ blocks.
   OOPS!!! An event's /to must be after its /from.
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -991,10 +991,10 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  OOPS!!! A task description can't contain '|' (it's used internally to store tasks) -- please remove it.
+  OOPS!!! A task description can't contain '|' because it's used internally to store tasks. Please remove it.
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -1013,7 +1013,7 @@ blocks.
   OOPS!!! Give /by only once.
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
 
@@ -1044,6 +1044,6 @@ blocks.
   2.[ ] buy milk
   ____________________________________________________________
   ____________________________________________________________
-  Good game -- I'll see you back on the court soon!
+  Good game! I'll see you back on the court soon.
   ____________________________________________________________
   ```
