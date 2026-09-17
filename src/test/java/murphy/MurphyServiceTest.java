@@ -72,4 +72,28 @@ public class MurphyServiceTest {
         assertTrue(response.startsWith("OOPS!"));
         assertEquals(0, service.getTasks().size());
     }
+
+    @Test
+    public void respond_rejectsMissingTodoDescription() throws Exception {
+        MurphyService service = new MurphyService(Files.createTempDirectory("murphy-test").resolve("tasks.txt"));
+
+        assertTrue(service.respond("todo").contains("A todo needs a description"));
+        assertEquals(0, service.getTasks().size());
+    }
+
+    @Test
+    public void respond_rejectsInvalidTaskNumber() throws Exception {
+        MurphyService service = new MurphyService(Files.createTempDirectory("murphy-test").resolve("tasks.txt"));
+
+        assertTrue(service.respond("mark nope").contains("Please tell me which task number"));
+        assertTrue(service.respond("delete 1").contains("I couldn't find that task"));
+    }
+
+    @Test
+    public void respond_rejectsMalformedEventFields() throws Exception {
+        MurphyService service = new MurphyService(Files.createTempDirectory("murphy-test").resolve("tasks.txt"));
+
+        assertTrue(service.respond("event meeting /from /to 4pm").startsWith("OOPS!"));
+        assertEquals(0, service.getTasks().size());
+    }
 }
