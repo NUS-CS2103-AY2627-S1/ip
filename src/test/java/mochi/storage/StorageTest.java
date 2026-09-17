@@ -61,4 +61,28 @@ class StorageTest {
 
         assertEquals("Saved task data is invalid at line 1.", exception.getMessage());
     }
+
+    @Test
+    void saveFileWithoutParentDirectory_succeeds() throws Exception {
+        Path file = tempDir.resolve("tasks.txt").getFileName();
+        Storage storage = new Storage(file);
+        TaskList tasks = new TaskList();
+        tasks.add(new Todo("portable save"));
+
+        storage.save(tasks);
+
+        assertEquals(1, storage.load().size());
+        Files.deleteIfExists(file);
+    }
+
+    @Test
+    void loadBlankTaskField_reportsFriendlyError() throws Exception {
+        Path file = tempDir.resolve("blank.txt");
+        Files.writeString(file, "T | 0 | \n", StandardCharsets.UTF_8);
+
+        MochiException exception = org.junit.jupiter.api.Assertions.assertThrows(
+                MochiException.class, () -> new Storage(file).load());
+
+        assertEquals("Saved task data is invalid at line 1.", exception.getMessage());
+    }
 }

@@ -61,6 +61,7 @@ public class Parser {
         if (description.isEmpty()) {
             throw new MochiException("A todo needs a description.");
         }
+        validateDescription(description);
         return new Todo(description);
     }
 
@@ -84,6 +85,10 @@ public class Parser {
         if (by.isEmpty()) {
             throw new MochiException("A deadline needs a date or time after '/by'.");
         }
+        if (input.indexOf(DEADLINE_SEPARATOR, byIndex + DEADLINE_SEPARATOR.length()) >= 0) {
+            throw new MochiException("A deadline must contain '/by' only once.");
+        }
+        validateDescription(description);
         try {
             return new Deadline(description, LocalDate.parse(by));
         } catch (DateTimeParseException e) {
@@ -113,7 +118,27 @@ public class Parser {
         if (from.isEmpty() || to.isEmpty()) {
             throw new MochiException("An event needs values after both '/from' and '/to'.");
         }
+        if (input.indexOf(EVENT_FROM_SEPARATOR, fromIndex + EVENT_FROM_SEPARATOR.length()) >= 0
+                || input.indexOf(EVENT_TO_SEPARATOR, toIndex + EVENT_TO_SEPARATOR.length()) >= 0) {
+            throw new MochiException("An event must contain '/from' and '/to' only once each.");
+        }
+        validateDescription(description);
         return new Event(description, from, to);
+    }
+
+    /**
+     * Rejects descriptions that cannot be stored safely or displayed clearly.
+     *
+     * @param description task description to validate
+     * @throws MochiException if the description contains unsupported content
+     */
+    private static void validateDescription(String description) throws MochiException {
+        if (description.indexOf('|') >= 0) {
+            throw new MochiException("Task descriptions cannot contain the '|' character.");
+        }
+        if (description.chars().anyMatch(Character::isISOControl)) {
+            throw new MochiException("Task descriptions cannot contain control characters.");
+        }
     }
 
     private static String getCommandDetails(String input, Command command) {

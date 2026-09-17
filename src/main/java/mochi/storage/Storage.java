@@ -67,9 +67,12 @@ public class Storage {
             lines.add(task.toFileString());
         }
         try {
-            Files.createDirectories(filePath.getParent());
+            Path parent = filePath.getParent();
+            if (parent != null) {
+                Files.createDirectories(parent);
+            }
             Files.write(filePath, lines, StandardCharsets.UTF_8);
-        } catch (IOException e) {
+        } catch (IOException | SecurityException e) {
             throw new MochiException("I couldn't save your tasks: " + e.getMessage());
         }
     }
@@ -120,8 +123,17 @@ public class Storage {
      * @param expectedCount expected number of fields
      */
     private void requireFieldCount(String[] fields, int expectedCount) {
-        if (fields.length != expectedCount || fields[1].isBlank()) {
+        if (fields.length != expectedCount || containsBlankField(fields)) {
             throw new IllegalArgumentException("invalid field count");
         }
+    }
+
+    private boolean containsBlankField(String[] fields) {
+        for (String field : fields) {
+            if (field.isBlank()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

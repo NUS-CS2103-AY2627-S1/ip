@@ -57,4 +57,18 @@ class ParserTest {
         assertEquals(Command.LIST, Parser.parseCommand("list\t"));
         assertEquals(Command.UNKNOWN, Parser.parseCommand("   "));
     }
+
+    @Test
+    void parseTask_duplicateMarkersAndUnsafeDescription_throwActionableErrors() {
+        MochiException duplicateDeadline = assertThrows(MochiException.class,
+                () -> Parser.parseTask("deadline report /by 2026-08-30 /by 2026-09-01", Command.DEADLINE));
+        MochiException duplicateEvent = assertThrows(MochiException.class,
+                () -> Parser.parseTask("event meeting /from 2pm /to 4pm /to 5pm", Command.EVENT));
+        MochiException unsafeDescription = assertThrows(MochiException.class,
+                () -> Parser.parseTask("todo save | backup", Command.TODO));
+
+        assertEquals("A deadline must contain '/by' only once.", duplicateDeadline.getMessage());
+        assertEquals("An event must contain '/from' and '/to' only once each.", duplicateEvent.getMessage());
+        assertEquals("Task descriptions cannot contain the '|' character.", unsafeDescription.getMessage());
+    }
 }
