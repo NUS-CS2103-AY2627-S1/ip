@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Moderate to high, you are working with the same student who has done your past projects
+* IDE and level of expertise: IntelliJ IDEA
 
 # Guidance for interacting with users
 
@@ -28,8 +28,33 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## Java coding standard
+
+For every Java creation, edit, refactor, or review, read and follow the project-specific `$seedu-java-coding-standard` skill at `.codex/skills/seedu-java-coding-standard/SKILL.md`. This is mandatory for production and test code.
+
 ## Git
 
+Before naming a branch or proposing, reviewing, or creating a commit, read and follow the project-specific `$seedu-git-standard` skill at `.codex/skills/seedu-git-standard/SKILL.md`. This is mandatory for all future commits.
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## Exceptions and Errors
+Always throw a new CrystalException with the message that the user should see as the parameter, and print .getUserMessage() unless otherwise stated.
+
+## JUnit unit testing
+
+After every application code update:
+
+1. Review the corresponding JUnit tests under `src/test/java` and update them to cover every changed nontrivial public behavior and all reasonable normal, boundary, and error cases.
+2. Follow Gradle and JUnit conventions: mirror the production package beneath `src/test/java` and name a test for `Example` as `ExampleTest`.
+3. Select Java 25 and run `./gradlew test` from the project root.
+4. Stop at the first failing unit test. Report the failure and do not claim the code update is complete until it is resolved or the user directs otherwise.
+
+## Console UI regression testing
+
+After every application code update:
+
+1. Review `test/ui-test-plan.md` and update its test cases or expected output when observable console behavior changes or new behavior needs coverage.
+2. Invoke the project-specific `$test-ui` skill at `.codex/skills/test-ui/SKILL.md` before reporting completion.
+3. Stop at the first failing UI test. Report the actual and expected output and do not claim the code update is complete until the failure is resolved or the user directs otherwise.
