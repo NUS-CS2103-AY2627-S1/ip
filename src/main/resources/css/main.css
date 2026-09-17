@@ -1,0 +1,68 @@
+.user-bubble {
+    -fx-background-color: #d7f5d0;
+    -fx-background-radius: 14px 14px 2px 14px;
+    -fx-padding: 9px 13px;
+    -fx-font-size: 14px;
+}
+
+.meow-bubble {
+    -fx-background-color: #2b2b2b;
+    -fx-background-radius: 14px 14px 14px 2px;
+    -fx-padding: 9px 13px;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+}
+
+.error-bubble {
+    -fx-background-color: #ffd6d6;
+    -fx-text-fill: #8b0000;
+    -fx-background-radius: 14px 14px 14px 2px;
+    -fx-padding: 9px 13px;
+    -fx-font-size: 14px;
+}
+
+.avatar {
+    -fx-background-color: white;
+    -fx-background-radius: 50%;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 50%;
+
+    -fx-min-width: 38px;
+    -fx-min-height: 38px;
+    -fx-max-width: 38px;
+    -fx-max-height: 38px;
+
+    -fx-alignment: center;
+    -fx-font-size: 20px;
+}
+
+.input-field {
+    -fx-background-radius: 18px;
+    -fx-border-radius: 18px;
+    -fx-border-color: #cccccc;
+    -fx-padding: 8px 14px;
+    -fx-font-size: 14px;
+}
+
+.input-field:focused {
+    -fx-border-color: #888888;
+}
+
+.send-button {
+    -fx-background-radius: 18px;
+    -fx-padding: 8px 18px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-opacity: 0.85;
+}
+
+.send-button:pressed {
+    -fx-opacity: 0.7;
+}
+
+.dialog-container {
+    -fx-padding: 10px;
+}
