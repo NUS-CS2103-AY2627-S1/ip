@@ -8,13 +8,27 @@
 /build/
 src/main/resources/docs/
 
+.gradle-user-home/
+.gradle/
+.gradle-test-cache/
+build/
+
+*.jar
+
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
 bin/
+
+Thumbs.db
 
 # Temp files
 _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+*.class
+
+data/della.txt
+

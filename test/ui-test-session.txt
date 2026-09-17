@@ -1,0 +1,2 @@
+=== Test Session ===
+Execution blocked: Gradle wrapper distribution download was denied by the environment network policy.

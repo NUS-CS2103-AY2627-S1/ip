@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Average
+* IDE and level of expertise: Average
 
 # Guidance for interacting with users
 
@@ -23,6 +23,40 @@ Unless the user says otherwise, assume that you are assisting a student working 
   * When faced with a design choice, choose the simplest option that is sufficient for the requirements, while briefly explaining relevant more advanced alternatives.
 
 # Project-specific requirements
+
+## Mandatory UI testing after code updates
+
+After every code update, inspect `test/ui-test-plan.md` and update it when the change adds,
+removes, or alters user-visible behavior or otherwise requires new UI coverage. Then invoke
+the project-specific `test-ui` skill by reading and following
+`.codex/skills/test-ui/SKILL.md`, and run all applicable test cases from the plan. This is
+mandatory even when the code update appears small. The skill must record the console input
+and output; if a test fails, stop immediately and report the expected and actual output.
+
+## Mandatory Git standard
+
+All future commits in this project MUST follow the project-specific
+`seedu-git-standard` skill, based on the
+[SE-EDU Git conventions](https://se-education.org/guides/conventions/git.html).
+Before creating or reviewing a commit, read and apply
+`.codex/skills/seedu-git-standard/SKILL.md`. This requirement applies to commit subjects,
+commit bodies, and branch names. Do not commit or push unless the user explicitly authorises it.
+
+## Mandatory Java coding standard
+
+All Java production code and Java tests in this project MUST follow the project-specific
+`seedu-java-coding-standard` skill, based on the
+[SE-EDU Java coding standard (basic + intermediate)](https://se-education.org/guides/conventions/java/intermediate.html).
+Before creating, editing, or reviewing Java code, read and apply
+`.codex/skills/seedu-java-coding-standard/SKILL.md`. This requirement applies to every
+Java code change in the repository, including delegated work and tests. For topics not
+covered by the SE-EDU standard, follow the Google Java Style Guide as directed there.
+
+## Java coding standard:
+
+Before creating, editing, or reviewing Java code in this project, read and follow
+`.codex/skills/seedu-java-coding-standard/SKILL.md`. This requirement applies to all
+production Java code and Java tests.
 
 ## Java version:
 
