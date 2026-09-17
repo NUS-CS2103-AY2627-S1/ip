@@ -6,6 +6,30 @@ to help you organise your day.
 
 ![Esther user interface](Ui.png)
 
+## Getting started
+
+1. Install Java 25. Open a terminal (PowerShell on Windows) and run
+   `java -version` to check that it reports version 25.
+2. Download `esther.jar` from the assets in the
+   [latest Esther release](https://github.com/yangzhiloh/ip/releases/latest).
+3. Put the JAR in a folder where you want to keep your tasks. Open a terminal
+   in that folder and run:
+
+   ```shell
+   java -jar esther.jar
+   ```
+
+4. When Esther opens, type `todo read book` into the input box and press Enter
+   or click Send. Enter `list` to see your tasks.
+
+Esther stores your tasks in `data/esther.txt`, relative to the folder from
+which you run the command. Launch her from the same folder each time to
+reload those tasks. Keep the `data` folder when replacing the JAR with a
+new release.
+
+If Java reports `Unable to access jarfile`, check that your terminal is in
+the folder containing `esther.jar` and that the filename matches exactly.
+
 ## Adding tasks
 
 ### Todo
