@@ -127,24 +127,59 @@ public class Rei {
             return new CommandResult("", false, true);
         }
 
-        int firstSpace = userInput.indexOf(" ");
-        String commandText = firstSpace == -1
-                ? userInput
-                : userInput.substring(0, firstSpace);
-        String details = firstSpace == -1
-                ? ""
-                : userInput.substring(firstSpace).trim();
+        String[] parts = userInput.split("\\s+", 2);
+        String commandText = parts[0];
+        String details = parts.length == 1 ? "" : parts[1].trim();
         Command command = Command.fromText(commandText);
+        List<Task> previousTasks = copyTasks();
         try {
             if (command == null) {
                 throw new ReiException("I'm sorry, I don't know what is '" + commandText
                         + "'. Try todo, deadline, event, list, find, delete, mark, unmark, tag, or bye.");
             }
-            return dispatchCommand(command, details, ui);
+            if (!startupMessage.isEmpty() && isMutating(command)) {
+                throw new ReiException("Your saved data needs attention. Back up and repair data/rei.txt, "
+                        + "then restart Rei before changing tasks.");
+            }
+            // Hold confirmations until persistence succeeds so a failed write never looks successful.
+            ByteArrayOutputStream response = new ByteArrayOutputStream();
+            try (PrintStream output = new PrintStream(response, true, StandardCharsets.UTF_8)) {
+                CommandResult result = dispatchCommand(command, details, Ui.forOutput(output));
+                ui.showResponse(response.toString(StandardCharsets.UTF_8).stripTrailing());
+                return result;
+            }
         } catch (ReiException exception) {
+            tasks.clear();
+            tasks.addAll(previousTasks);
             ui.showError(exception.getMessage());
             return new CommandResult("", false, true);
         }
+    }
+
+    /** Identifies commands that could overwrite saved data. */
+    private static boolean isMutating(Command command) {
+        return command != Command.LIST && command != Command.FIND && command != Command.BYE;
+    }
+
+    /** Copies mutable task state so a failed save can roll back the entire command. */
+    private List<Task> copyTasks() {
+        List<Task> copies = new ArrayList<>();
+        for (Task task : tasks) {
+            Task copy;
+            if (task instanceof Deadlines deadline) {
+                copy = new Deadlines(task.getDescription(), deadline.getBy());
+            } else if (task instanceof Events event) {
+                copy = new Events(task.getDescription(), event.getStart(), event.getEnd());
+            } else {
+                copy = new Task(task.getDescription());
+            }
+            if (task.isDone()) {
+                copy.markAsDone();
+            }
+            task.getTags().forEach(copy::addTag);
+            copies.add(copy);
+        }
+        return copies;
     }
 
     /** Routes a recognized command and reports whether it requests application exit. */
@@ -272,8 +307,8 @@ public class Rei {
         }
         LocalDateTime start = parseDateTime(timeParts[0]);
         LocalDateTime end = parseDateTime(timeParts[1]);
-        if (end.isBefore(start)) {
-            throw new ReiException("An event's end time cannot be before its start time.");
+        if (!end.isAfter(start)) {
+            throw new ReiException("An event's end time must be after its start time.");
         }
         return new Events(eventParts[0], start, end);
     }
@@ -282,7 +317,7 @@ public class Rei {
     private static LocalDateTime parseDateTime(String text) throws ReiException {
         for (DateTimeFormatter formatter : INPUT_DATE_FORMATS) {
             try {
-                return LocalDateTime.parse(text, formatter);
+                return LocalDateTime.parse(text.trim().replaceAll("\\s+", " "), formatter);
             } catch (DateTimeParseException ignored) {
                 // Try the next supported format.
             }

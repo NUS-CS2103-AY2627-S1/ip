@@ -456,7 +456,7 @@ You have a total of 4 tasks in the list.
 ------------------------------------------------------------
 Please use a valid date and time in yyyy-MM-dd, yyyy/MM/dd, dd/MM/yyyy, or dd-MM-yyyy format, followed by a 24-hour time such as 1800.
 ------------------------------------------------------------
-An event's end time cannot be before its start time.
+An event's end time must be after its start time.
 ------------------------------------------------------------
 Here are the tasks in your list:
 No. of tasks: 4
@@ -640,6 +640,31 @@ The list command does not take any extra text. Try: list
 The bye command does not take any extra text. Try: bye
 ------------------------------------------------------------
 I'm sorry, I don't know what is 'blah'. Try todo, deadline, event, list, find, delete, mark, unmark, tag, or bye.
+------------------------------------------------------------
+See you soon. Make room for a little rest, too.
+------------------------------------------------------------
+```
+
+## Test case: Reject equal event times and recover
+
+**Aim:** Reject zero-length events while accepting extra whitespace before a time.
+
+**Input:**
+
+```text
+event study /from 2026-09-18 1800 /to 2026-09-18 1800
+deadline report /by 2026-09-18   1800
+bye
+```
+
+**Expected output:**
+
+```text
+{{ANY_PREFIX}}
+An event's end time must be after its start time.
+------------------------------------------------------------
+One less thing to remember. I've added: [D][ ] report (by: Sep 18 2026, 6:00 PM)
+You have a total of 1 tasks in the list.
 ------------------------------------------------------------
 See you soon. Make room for a little rest, too.
 ------------------------------------------------------------

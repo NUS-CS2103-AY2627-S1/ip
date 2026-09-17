@@ -2,8 +2,11 @@ package rei.storage;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.AtomicMoveNotSupportedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -41,7 +44,7 @@ public class Storage {
         for (String line : Files.readAllLines(filePath, StandardCharsets.UTF_8)) {
             try {
                 tasks.add(deserialise(line));
-            } catch (IllegalArgumentException exception) {
+            } catch (IllegalArgumentException | DateTimeException exception) {
                 skippedLines++;
             }
         }
@@ -55,7 +58,18 @@ public class Storage {
             Files.createDirectories(parent);
         }
         List<String> lines = tasks.stream().map(this::serialise).toList();
-        Files.write(filePath, lines, StandardCharsets.UTF_8);
+        Path temporaryFile = Files.createTempFile(filePath.toAbsolutePath().getParent(), "rei-", ".tmp");
+        try {
+            Files.write(temporaryFile, lines, StandardCharsets.UTF_8);
+            try {
+                Files.move(temporaryFile, filePath, StandardCopyOption.ATOMIC_MOVE,
+                        StandardCopyOption.REPLACE_EXISTING);
+            } catch (AtomicMoveNotSupportedException exception) {
+                Files.move(temporaryFile, filePath, StandardCopyOption.REPLACE_EXISTING);
+            }
+        } finally {
+            Files.deleteIfExists(temporaryFile);
+        }
     }
 
     /** Converts one task into a delimiter-separated record with safely encoded text. */
@@ -101,6 +115,9 @@ public class Storage {
             }
             default -> throw new IllegalArgumentException("Unknown task type");
         };
+        if (task instanceof Events event && !event.getEnd().isAfter(event.getStart())) {
+            throw new IllegalArgumentException("Event end must be after its start");
+        }
         int legacyLength = switch (fields[0]) {
             case "T" -> 3;
             case "D" -> 4;
