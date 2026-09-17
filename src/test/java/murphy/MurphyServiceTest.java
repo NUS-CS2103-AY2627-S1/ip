@@ -62,4 +62,14 @@ public class MurphyServiceTest {
 
         assertEquals(3, service.getTasks().size());
     }
+
+    @Test
+    public void respond_rejectsRepeatedEventMarkers() throws Exception {
+        MurphyService service = new MurphyService(Files.createTempDirectory("murphy-test").resolve("tasks.txt"));
+
+        String response = service.respond("event meeting /from 2pm /from 3pm /to 4pm");
+
+        assertTrue(response.startsWith("OOPS!"));
+        assertEquals(0, service.getTasks().size());
+    }
 }
