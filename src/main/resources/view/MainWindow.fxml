@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="640.0" prefWidth="460.0"
+            stylesheets="@../css/main.css"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="nova.gui.MainWindow">
+    <children>
+        <VBox spacing="0.0"
+              AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="88.0" spacing="12.0" styleClass="title-bar">
+                    <children>
+                        <Label styleClass="title-icon" text="✦" />
+                        <VBox alignment="CENTER_LEFT" spacing="2.0">
+                            <children>
+                                <Label styleClass="title" text="NOVA" />
+                                <Label styleClass="subtitle" text="YOUR MISSION NAVIGATOR" />
+                            </children>
+                        </VBox>
+                        <Label styleClass="status-pill" text="● ONLINE" HBox.hgrow="ALWAYS">
+                            <HBox.margin>
+                                <Insets left="12.0" />
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                </HBox>
+                <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                            VBox.vgrow="ALWAYS">
+                    <content>
+                        <VBox fx:id="dialogContainer" fillWidth="true" spacing="4.0"
+                              styleClass="dialog-container" />
+                    </content>
+                </ScrollPane>
+                <HBox spacing="10.0" styleClass="input-bar">
+                    <children>
+                        <TextField fx:id="userInput" onAction="#handleUserInput"
+                                   promptText="Enter your next mission..." HBox.hgrow="ALWAYS" />
+                        <Button fx:id="sendButton" defaultButton="true"
+                                onAction="#handleUserInput" text="LAUNCH  ➜" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
