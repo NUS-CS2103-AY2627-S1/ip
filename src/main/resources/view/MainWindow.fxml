@@ -11,7 +11,7 @@
             minWidth="340" minHeight="220" prefWidth="400" prefHeight="600"
             fx:controller="lebron.MainWindow">
     <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" fitToWidth="true"
-                AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="50.0"
+                AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="58.0"
                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <VBox fx:id="dialogContainer" spacing="10">
             <padding>
@@ -21,8 +21,8 @@
     </ScrollPane>
 
     <TextField fx:id="userInput" onAction="#handleUserInput" promptText="Type a command..."
-               AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="70.0"/>
+               AnchorPane.leftAnchor="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="80.0"/>
 
     <Button fx:id="sendButton" text="Send" onAction="#handleUserInput"
-            AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0"/>
+            AnchorPane.rightAnchor="10.0" AnchorPane.bottomAnchor="10.0"/>
 </AnchorPane>

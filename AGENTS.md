@@ -50,7 +50,8 @@ After each update to the program's code, before considering the change done:
 
 ## JUnit test coverage
 
-- **Target: cover roughly the top 50% highest-value methods** — the complex, core, or business-critical ones (currently: command parsing, the data-file format, `TaskList` operations, and date/time handling). Trivial getters, thin I/O wrappers (`Ui`), simple value objects (`ParsedCommand`), and glue code (`Lebron.main`) do not need dedicated tests.
-- **JUnit tests must be kept up to date after every code change** to keep meeting this target: add tests for any new high-value method, and revise existing tests whose expected values the change alters. A code change is not done until `./gradlew test` passes.
+- **Target: cover nearly all code that can be tested automatically.** This includes not just the obviously complex classes (command parsing, the data-file format, `TaskList` operations, date/time handling) but also glue/integration code (`Lebron.getResponse`, dispatching every command type end to end), thin I/O wrappers (`Ui`, tested by redirecting `System.in`/`System.out`), and simple value objects (`ParsedCommand`'s static factories). Trivial one-line pass-throughs (e.g. `LebronException`'s constructor, `Lebron.main`) still don't need a dedicated test.
+- **The JavaFX GUI (`Main`, `MainWindow`, `DialogBox`) is exempt** — it isn't practically unit-testable without a UI test framework this project doesn't have. Verify GUI changes manually (`./gradlew run`) instead.
+- **JUnit tests must be kept up to date after every code change** to keep meeting this target: add tests for any new automatable method, and revise existing tests whose expected values the change alters. A code change is not done until `./gradlew test` passes.
 - Test classes mirror the package of the class under test and are named `<ClassName>Test` (Gradle/JUnit convention), e.g. `lebron.parser.Parser` → `src/test/java/lebron/parser/ParserTest.java`.
 - Long test method names may use the `featureUnderTest_scenario_expectedBehavior()` convention, e.g. `parse_todoWithoutDescription_throws()`.

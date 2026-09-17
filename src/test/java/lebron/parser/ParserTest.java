@@ -57,6 +57,13 @@ public class ParserTest {
         assertThrows(LebronException.class, () -> Parser.parse("todo"));
     }
 
+    @Test
+    public void parse_todoWithPipeCharacter_throws() {
+        // '|' is the data-file field separator; letting it through would
+        // silently corrupt this task on the next save/load round trip.
+        assertThrows(LebronException.class, () -> Parser.parse("todo buy milk | eggs"));
+    }
+
     // ---- deadline --------------------------------------------------
 
     @Test
@@ -114,6 +121,17 @@ public class ParserTest {
         assertThrows(LebronException.class, () -> Parser.parse("deadline pay rent /every month /by 2025-01-01"));
     }
 
+    @Test
+    public void parse_deadlineWithPipeCharacter_throws() {
+        assertThrows(LebronException.class, () -> Parser.parse("deadline pay | rent /by 2025-01-01"));
+    }
+
+    @Test
+    public void parse_deadlineByGivenTwice_throws() {
+        assertThrows(LebronException.class, () ->
+                Parser.parse("deadline pay rent /by 2025-01-01 /by 2025-02-01"));
+    }
+
     // ---- event -----------------------------------------------------
 
     @Test
@@ -159,6 +177,31 @@ public class ParserTest {
     public void parse_eventEveryBeforeTo_throws() {
         assertThrows(LebronException.class, () ->
                 Parser.parse("event standup /every week /from 2025-01-06 0900 /to 2025-01-06 0930"));
+    }
+
+    @Test
+    public void parse_eventWithPipeCharacter_throws() {
+        assertThrows(LebronException.class, () ->
+                Parser.parse("event stand | up /from 2025-01-06 0900 /to 2025-01-06 0930"));
+    }
+
+    @Test
+    public void parse_eventFromGivenTwice_throws() {
+        assertThrows(LebronException.class, () ->
+                Parser.parse("event standup /from 2025-01-06 /from 2025-01-07 /to 2025-01-08"));
+    }
+
+    @Test
+    public void parse_eventToNotAfterFrom_throws() {
+        assertThrows(LebronException.class, () ->
+                Parser.parse("event backwards /from 2025-01-10 /to 2025-01-01"));
+    }
+
+    @Test
+    public void parse_eventToEqualsFrom_throws() {
+        // A zero-duration event isn't valid: /to must be strictly after /from.
+        assertThrows(LebronException.class, () ->
+                Parser.parse("event instant /from 2025-01-01 0900 /to 2025-01-01 0900"));
     }
 
     // ---- mark / unmark / delete ----------------------------------

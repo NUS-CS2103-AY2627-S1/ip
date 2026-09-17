@@ -87,7 +87,7 @@ public class Lebron {
             case FIND:
                 return handleFind(command);
             case BYE:
-                return "Bye. Hope to see you again soon!";
+                return "Good game -- I'll see you back on the court soon!";
             default:
                 // Parser only ever returns the types handled above, so this
                 // is unreachable given correct code; the assert documents
@@ -101,21 +101,35 @@ public class Lebron {
 
     /** Handles {@code LIST}: shows every task. */
     private String handleList() {
-        return formatTaskList("Here are the tasks in your list:", tasks.asList());
+        return formatTaskList("Here's the playbook:", tasks.asList());
     }
 
     /** Handles {@code TODO}: adds a todo and saves. */
     private String handleTodo(ParsedCommand command) {
-        tasks.add(new Todo(command.getDescription()));
+        Todo todo = new Todo(command.getDescription());
+        boolean isDuplicate = tasks.hasDuplicateDetails(todo);
+        tasks.add(todo);
         storage.save(tasks);
-        return "added: " + command.getDescription();
+        return "on the board: " + command.getDescription() + duplicateNote(isDuplicate);
     }
 
     /** Handles {@code DEADLINE}/{@code EVENT}: adds the pre-built task and saves. */
     private String handleNewTask(ParsedCommand command) {
-        tasks.add(command.getTask());
+        Task task = command.getTask();
+        boolean isDuplicate = tasks.hasDuplicateDetails(task);
+        tasks.add(task);
         storage.save(tasks);
-        return "added: " + command.getTask();
+        return "on the board: " + task + duplicateNote(isDuplicate);
+    }
+
+    /**
+     * Returns a short note to append to an "added" message when the new task
+     * duplicates an existing one's details, or an empty string otherwise.
+     * This only warns -- the task is added either way -- since a deliberate
+     * repeat (e.g. "call mom" on two different days) is a legitimate case.
+     */
+    private static String duplicateNote(boolean isDuplicate) {
+        return isDuplicate ? " (note: you already have a task just like this)" : "";
     }
 
     /**
@@ -129,12 +143,12 @@ public class Lebron {
         Task task = isMark ? tasks.mark(command.getIndex()) : tasks.unmark(command.getIndex());
         storage.save(tasks);
         if (isMark && task.isRecurring()) {
-            return "Nice! I've marked this task as done. Since it recurs, "
-                    + "I've scheduled the next occurrence:" + System.lineSeparator() + "  " + task;
+            return "Nice bucket! Since this one's a repeat play, "
+                    + "I've already queued up the next rep:" + System.lineSeparator() + "  " + task;
         }
         String header = isMark
-                ? "Nice! I've marked this task as done:"
-                : "OK, I've marked this task as not done yet:";
+                ? "Nice bucket! Marked as done:"
+                : "Timeout -- back on the clock, not done yet:";
         return header + System.lineSeparator() + "  " + task;
     }
 
@@ -142,13 +156,13 @@ public class Lebron {
     private String handleDelete(ParsedCommand command) throws LebronException {
         Task removed = tasks.delete(command.getIndex());
         storage.save(tasks);
-        return "Noted. I've removed this task:" + System.lineSeparator() + "  " + removed
-                + System.lineSeparator() + "Now you have " + tasks.size() + " tasks in the list.";
+        return "Cut from the roster:" + System.lineSeparator() + "  " + removed
+                + System.lineSeparator() + "Now you've got " + tasks.size() + " plays left in the game plan.";
     }
 
     /** Handles {@code FIND}: shows the tasks matching a keyword. */
     private String handleFind(ParsedCommand command) {
-        return formatTaskList("Here are the matching tasks in your list:", tasks.find(command.getDescription()));
+        return formatTaskList("Here's what matches from the playbook:", tasks.find(command.getDescription()));
     }
 
     /**

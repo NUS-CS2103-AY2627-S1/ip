@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 /**
  * A calendar date, optionally with a time of day, as used by deadline and
@@ -16,17 +17,24 @@ import java.time.format.DateTimeParseException;
  * friendlier form such as {@code Oct 15 2019} or {@code Dec 02 2019 6:00pm},
  * and stored in the data file in a single canonical form that always
  * re-parses.
+ *
+ * <p>Parsing uses {@link ResolverStyle#STRICT} so a non-existent calendar
+ * date (e.g. {@code 2025-02-30}) is rejected rather than silently rolled
+ * over to the nearest valid date.
  */
-public class DateTime {
+public class DateTime implements Comparable<DateTime> {
+    // "u" (proleptic year), not "y" (year-of-era), is required here: under
+    // STRICT resolution "y" needs an era to resolve and would reject every
+    // input, since these patterns never specify one.
     /** Input formats that include a time; tried before the date-only ones. */
     private static final DateTimeFormatter[] DATE_TIME_INPUTS = {
-        DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
-        DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
+        DateTimeFormatter.ofPattern("uuuu-MM-dd HHmm").withResolverStyle(ResolverStyle.STRICT),
+        DateTimeFormatter.ofPattern("d/M/uuuu HHmm").withResolverStyle(ResolverStyle.STRICT),
     };
     /** Input formats without a time. */
     private static final DateTimeFormatter[] DATE_INPUTS = {
-        DateTimeFormatter.ofPattern("yyyy-MM-dd"),
-        DateTimeFormatter.ofPattern("d/M/yyyy"),
+        DateTimeFormatter.ofPattern("uuuu-MM-dd").withResolverStyle(ResolverStyle.STRICT),
+        DateTimeFormatter.ofPattern("d/M/uuuu").withResolverStyle(ResolverStyle.STRICT),
     };
     private static final DateTimeFormatter DATE_OUTPUT = DateTimeFormatter.ofPattern("MMM dd yyyy");
     private static final DateTimeFormatter TIME_OUTPUT = DateTimeFormatter.ofPattern("h:mma");
@@ -93,6 +101,23 @@ public class DateTime {
         return time == null
                 ? date.format(FILE_DATE)
                 : LocalDateTime.of(date, time).format(FILE_DATE_TIME);
+    }
+
+    /**
+     * Compares chronologically. A date with no time is treated as midnight
+     * that day, so it sorts before a same-day date/time that has one.
+     *
+     * @param other the date/time to compare against
+     * @return negative, zero, or positive as this is before, equal to, or
+     *     after {@code other}
+     */
+    @Override
+    public int compareTo(DateTime other) {
+        return toLocalDateTime().compareTo(other.toLocalDateTime());
+    }
+
+    private LocalDateTime toLocalDateTime() {
+        return LocalDateTime.of(date, time == null ? LocalTime.MIDNIGHT : time);
     }
 
     /**

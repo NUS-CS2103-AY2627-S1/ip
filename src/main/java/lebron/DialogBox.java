@@ -15,12 +15,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * One row of the conversation: a speech-bubble label next to a round avatar.
- * Created only through {@link #getUserDialog(String, Image)} and
- * {@link #getLebronDialog(String, Image)}, which lay the two speakers out as
- * mirror images of each other.
+ * One row of the conversation: a speech-bubble label, optionally next to a
+ * small avatar. Created only through {@link #getUserDialog(String)} and
+ * {@link #getLebronDialog(String, Image, boolean)}, which style and lay out
+ * the two speakers differently rather than as plain mirror images of each
+ * other.
  */
 public class DialogBox extends HBox {
+    /**
+     * Margin (px) reserved outside the label for spacing/avatar, so the
+     * label's max width can track this row's own width instead of being
+     * capped at a fixed pixel width.
+     */
+    private static final double WIDTH_MARGIN = 46;
+
     @FXML
     private Label dialog;
     @FXML
@@ -37,7 +45,13 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        displayPicture.setImage(image);
+        dialog.maxWidthProperty().bind(widthProperty().subtract(WIDTH_MARGIN));
+        if (image == null) {
+            displayPicture.setVisible(false);
+            displayPicture.setManaged(false);
+        } else {
+            displayPicture.setImage(image);
+        }
     }
 
     /** Mirrors the row (avatar on the left) so Lebron's messages read as replies. */
@@ -49,26 +63,34 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Returns a dialog box for something the user typed.
+     * Returns a dialog box for something the user typed. The user's avatar is
+     * omitted entirely (rather than shown small): with only two fixed
+     * speakers, right-alignment and the bubble colour already say who's
+     * speaking, so the avatar would just be reclaimed empty space.
      *
      * @param text the user's input
-     * @param image the user's avatar
-     * @return the dialog box, avatar on the right
+     * @return the dialog box, right-aligned, styled as a user message
      */
-    public static DialogBox getUserDialog(String text, Image image) {
-        return new DialogBox(text, image);
+    public static DialogBox getUserDialog(String text) {
+        DialogBox dialogBox = new DialogBox(text, null);
+        dialogBox.dialog.getStyleClass().add("user-bubble");
+        return dialogBox;
     }
 
     /**
-     * Returns a dialog box for one of Lebron's responses.
+     * Returns a dialog box for one of Lebron's responses, styled as an error
+     * bubble when the response is one of Lebron's {@code OOPS!!!} messages so
+     * mistakes stand out at a glance.
      *
      * @param text Lebron's response text
      * @param image Lebron's avatar
-     * @return the dialog box, avatar on the left
+     * @param isError whether this response is an error message
+     * @return the dialog box, left-aligned, avatar on the left
      */
-    public static DialogBox getLebronDialog(String text, Image image) {
+    public static DialogBox getLebronDialog(String text, Image image, boolean isError) {
         DialogBox dialogBox = new DialogBox(text, image);
         dialogBox.flip();
+        dialogBox.dialog.getStyleClass().add(isError ? "error-bubble" : "lebron-bubble");
         return dialogBox;
     }
 }

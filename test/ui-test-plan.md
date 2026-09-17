@@ -37,7 +37,7 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -55,18 +55,18 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  added: read book
+  on the board: read book
   ____________________________________________________________
   ____________________________________________________________
-  added: return book
+  on the board: return book
   ____________________________________________________________
   ____________________________________________________________
-  Here are the tasks in your list:
+  Here's the playbook:
   1.[ ] read book
   2.[ ] return book
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -85,7 +85,7 @@ blocks.
   OOPS!!! A todo needs a description, e.g. todo read book
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -106,7 +106,7 @@ blocks.
   OOPS!!! I don't understand that command. Try: list, todo, deadline, event, mark, unmark, delete, find, or bye.
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -125,22 +125,22 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  added: read book
+  on the board: read book
   ____________________________________________________________
   ____________________________________________________________
-  added: return book
+  on the board: return book
   ____________________________________________________________
   ____________________________________________________________
-  Nice! I've marked this task as done:
+  Nice bucket! Marked as done:
     [X] read book
   ____________________________________________________________
   ____________________________________________________________
-  Here are the tasks in your list:
+  Here's the playbook:
   1.[X] read book
   2.[ ] return book
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -157,13 +157,13 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  added: read book
+  on the board: read book
   ____________________________________________________________
   ____________________________________________________________
   OOPS!!! Tell me which task number to mark, e.g. mark 2
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -180,13 +180,13 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  added: read book
+  on the board: read book
   ____________________________________________________________
   ____________________________________________________________
   OOPS!!! 'two' doesn't look like a task number.
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -204,13 +204,13 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  added: read book
+  on the board: read book
   ____________________________________________________________
   ____________________________________________________________
   OOPS!!! There is no task 5 in your list. You have 1 task(s).
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -231,30 +231,30 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  added: read book
+  on the board: read book
   ____________________________________________________________
   ____________________________________________________________
-  added: return book
+  on the board: return book
   ____________________________________________________________
   ____________________________________________________________
-  Nice! I've marked this task as done:
+  Nice bucket! Marked as done:
     [X] read book
   ____________________________________________________________
   ____________________________________________________________
-  Nice! I've marked this task as done:
+  Nice bucket! Marked as done:
     [X] return book
   ____________________________________________________________
   ____________________________________________________________
-  OK, I've marked this task as not done yet:
+  Timeout -- back on the clock, not done yet:
     [ ] return book
   ____________________________________________________________
   ____________________________________________________________
-  Here are the tasks in your list:
+  Here's the playbook:
   1.[X] read book
   2.[ ] return book
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -271,13 +271,13 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  added: read book
+  on the board: read book
   ____________________________________________________________
   ____________________________________________________________
   OOPS!!! There is no task 5 in your list. You have 1 task(s).
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -298,26 +298,26 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  added: read book
+  on the board: read book
   ____________________________________________________________
   ____________________________________________________________
-  added: return book
+  on the board: return book
   ____________________________________________________________
   ____________________________________________________________
-  added: buy bread
+  on the board: buy bread
   ____________________________________________________________
   ____________________________________________________________
-  Noted. I've removed this task:
+  Cut from the roster:
     [ ] return book
-  Now you have 2 tasks in the list.
+  Now you've got 2 plays left in the game plan.
   ____________________________________________________________
   ____________________________________________________________
-  Here are the tasks in your list:
+  Here's the playbook:
   1.[ ] read book
   2.[ ] buy bread
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -334,13 +334,13 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  added: read book
+  on the board: read book
   ____________________________________________________________
   ____________________________________________________________
   OOPS!!! Tell me which task number to delete, e.g. delete 2
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -359,17 +359,17 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  added: read book
+  on the board: read book
   ____________________________________________________________
   ____________________________________________________________
   OOPS!!! There is no task 5 in your list. You have 1 task(s).
   ____________________________________________________________
   ____________________________________________________________
-  Here are the tasks in your list:
+  Here's the playbook:
   1.[ ] read book
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -385,10 +385,10 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  Here are the tasks in your list:
+  Here's the playbook:
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -404,12 +404,12 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  Here are the tasks in your list:
+  Here's the playbook:
   1.[ ] read book
   2.[X] return book
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 - **Data file:**
@@ -432,12 +432,12 @@ blocks.
   ```
   OOPS!!! Skipped 1 unreadable line(s) in your data file.
   ____________________________________________________________
-  Here are the tasks in your list:
+  Here's the playbook:
   1.[ ] read book
   2.[X] return book
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 - **Data file:**
@@ -461,14 +461,14 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  added: read book
+  on the board: read book
   ____________________________________________________________
   ____________________________________________________________
-  Nice! I've marked this task as done:
+  Nice bucket! Marked as done:
     [X] read book
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 - **Expected data file:**
@@ -488,12 +488,12 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  Noted. I've removed this task:
+  Cut from the roster:
     [ ] read book
-  Now you have 1 tasks in the list.
+  Now you've got 1 plays left in the game plan.
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 - **Data file:**
@@ -519,14 +519,14 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  added: [D][ ] return book (by: Dec 02 2019)
+  on the board: [D][ ] return book (by: Dec 02 2019)
   ____________________________________________________________
   ____________________________________________________________
-  Here are the tasks in your list:
+  Here's the playbook:
   1.[D][ ] return book (by: Dec 02 2019)
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 - **Expected data file:**
@@ -546,10 +546,10 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  added: [D][ ] submit report (by: Dec 02 2019 6:00pm)
+  on the board: [D][ ] submit report (by: Dec 02 2019 6:00pm)
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 - **Expected data file:**
@@ -569,10 +569,10 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  added: [D][ ] pay bill (by: Dec 02 2019 6:00pm)
+  on the board: [D][ ] pay bill (by: Dec 02 2019 6:00pm)
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 - **Expected data file:**
@@ -592,14 +592,14 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  added: [E][ ] project meeting (from: Dec 02 2019 2:00pm to: Dec 02 2019 4:00pm)
+  on the board: [E][ ] project meeting (from: Dec 02 2019 2:00pm to: Dec 02 2019 4:00pm)
   ____________________________________________________________
   ____________________________________________________________
-  Here are the tasks in your list:
+  Here's the playbook:
   1.[E][ ] project meeting (from: Dec 02 2019 2:00pm to: Dec 02 2019 4:00pm)
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 - **Expected data file:**
@@ -622,7 +622,7 @@ blocks.
   OOPS!!! A deadline needs a description and a /by date, e.g. deadline return book /by 2019-12-02 1800 [/every day|week|month]
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -642,10 +642,10 @@ blocks.
   OOPS!!! I don't understand the date 'someday'. Try e.g. 2019-12-02 or 2019-12-02 1800.
   ____________________________________________________________
   ____________________________________________________________
-  Here are the tasks in your list:
+  Here's the playbook:
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -662,12 +662,12 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  Here are the tasks in your list:
+  Here's the playbook:
   1.[D][X] return book (by: Dec 02 2019 6:00pm)
   2.[E][ ] camp (from: Jun 01 2019 to: Jun 03 2019)
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 - **Data file:**
@@ -690,11 +690,11 @@ blocks.
   ```
   OOPS!!! Skipped 1 unreadable line(s) in your data file.
   ____________________________________________________________
-  Here are the tasks in your list:
+  Here's the playbook:
   1.[D][ ] return book (by: Dec 02 2019)
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 - **Data file:**
@@ -720,25 +720,25 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  added: read book
+  on the board: read book
   ____________________________________________________________
   ____________________________________________________________
-  added: return book
+  on the board: return book
   ____________________________________________________________
   ____________________________________________________________
-  added: buy bread
+  on the board: buy bread
   ____________________________________________________________
   ____________________________________________________________
-  Nice! I've marked this task as done:
+  Nice bucket! Marked as done:
     [X] read book
   ____________________________________________________________
   ____________________________________________________________
-  Here are the matching tasks in your list:
+  Here's what matches from the playbook:
   1.[X] read book
   2.[ ] return book
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -755,13 +755,13 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  added: read book
+  on the board: read book
   ____________________________________________________________
   ____________________________________________________________
-  Here are the matching tasks in your list:
+  Here's what matches from the playbook:
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -780,7 +780,7 @@ blocks.
   OOPS!!! Tell me what to search for, e.g. find book
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -800,18 +800,18 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  added: [D][ ] pay rent (by: Jan 01 2025) (every: month)
+  on the board: [D][ ] pay rent (by: Jan 01 2025) (every: month)
   ____________________________________________________________
   ____________________________________________________________
-  Nice! I've marked this task as done. Since it recurs, I've scheduled the next occurrence:
+  Nice bucket! Since this one's a repeat play, I've already queued up the next rep:
     [D][ ] pay rent (by: Feb 01 2025) (every: month)
   ____________________________________________________________
   ____________________________________________________________
-  Here are the tasks in your list:
+  Here's the playbook:
   1.[D][ ] pay rent (by: Feb 01 2025) (every: month)
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -829,14 +829,14 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  added: [E][ ] standup (from: Jan 06 2025 9:00am to: Jan 06 2025 9:30am) (every: week)
+  on the board: [E][ ] standup (from: Jan 06 2025 9:00am to: Jan 06 2025 9:30am) (every: week)
   ____________________________________________________________
   ____________________________________________________________
-  Nice! I've marked this task as done. Since it recurs, I've scheduled the next occurrence:
+  Nice bucket! Since this one's a repeat play, I've already queued up the next rep:
     [E][ ] standup (from: Jan 13 2025 9:00am to: Jan 13 2025 9:30am) (every: week)
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -856,10 +856,10 @@ blocks.
   OOPS!!! 'fortnight' isn't a recurrence I understand. Try day, week, or month.
   ____________________________________________________________
   ____________________________________________________________
-  Here are the tasks in your list:
+  Here's the playbook:
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -878,7 +878,7 @@ blocks.
   OOPS!!! Tell me how often, e.g. /every week (day, week, or month).
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 
@@ -895,12 +895,12 @@ blocks.
 - **Expected output:**
   ```
   ____________________________________________________________
-  Here are the tasks in your list:
+  Here's the playbook:
   1.[D][ ] old deadline (by: Dec 02 2019)
   2.[E][ ] old event (from: Jun 01 2019 to: Jun 03 2019)
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 - **Data file:**
@@ -923,15 +923,127 @@ blocks.
   ```
   OOPS!!! Skipped 1 unreadable line(s) in your data file.
   ____________________________________________________________
-  Here are the tasks in your list:
+  Here's the playbook:
   1.[D][ ] good deadline (by: Jan 01 2025) (every: month)
   ____________________________________________________________
   ____________________________________________________________
-  Bye. Hope to see you again soon!
+  Good game -- I'll see you back on the court soon!
   ____________________________________________________________
   ```
 - **Data file:**
   ```
   D | 0 | good deadline | 2025-01-01 | month
   D | 0 | bad recurrence | 2025-01-01 | fortnight
+  ```
+
+## Test Case: Reject a non-existent calendar date
+
+- **Aim:** A date that doesn't exist (e.g. Feb 30) is rejected outright,
+  instead of silently rolling over to the nearest valid date (Feb 28).
+- **Commands:**
+  ```
+  deadline bad date /by 2025-02-30
+  list
+  bye
+  ```
+- **Expected output:**
+  ```
+  ____________________________________________________________
+  OOPS!!! I don't understand the date '2025-02-30'. Try e.g. 2019-12-02 or 2019-12-02 1800.
+  ____________________________________________________________
+  ____________________________________________________________
+  Here's the playbook:
+  ____________________________________________________________
+  ____________________________________________________________
+  Good game -- I'll see you back on the court soon!
+  ____________________________________________________________
+  ```
+
+## Test Case: Reject an event whose /to is not after its /from
+
+- **Aim:** An event ending at or before its start is rejected, rather than
+  being stored with a nonsensical negative or zero duration.
+- **Commands:**
+  ```
+  event backwards /from 2025-01-10 /to 2025-01-01
+  bye
+  ```
+- **Expected output:**
+  ```
+  ____________________________________________________________
+  OOPS!!! An event's /to must be after its /from.
+  ____________________________________________________________
+  ____________________________________________________________
+  Good game -- I'll see you back on the court soon!
+  ____________________________________________________________
+  ```
+
+## Test Case: Reject a task description containing the storage delimiter
+
+- **Aim:** A description containing `|` is rejected up front, since it
+  would otherwise silently corrupt that task's line in the data file (the
+  task would be lost entirely on the next load).
+- **Commands:**
+  ```
+  todo buy milk | eggs
+  bye
+  ```
+- **Expected output:**
+  ```
+  ____________________________________________________________
+  OOPS!!! A task description can't contain '|' (it's used internally to store tasks) -- please remove it.
+  ____________________________________________________________
+  ____________________________________________________________
+  Good game -- I'll see you back on the court soon!
+  ____________________________________________________________
+  ```
+
+## Test Case: Reject a flag given more than once
+
+- **Aim:** Giving `/by` twice is rejected with a clear message instead of
+  the second occurrence silently getting swallowed into the date text.
+- **Commands:**
+  ```
+  deadline pay rent /by 2025-01-01 /by 2025-02-01
+  bye
+  ```
+- **Expected output:**
+  ```
+  ____________________________________________________________
+  OOPS!!! Give /by only once.
+  ____________________________________________________________
+  ____________________________________________________________
+  Good game -- I'll see you back on the court soon!
+  ____________________________________________________________
+  ```
+
+## Test Case: Warn (but still add) a likely-duplicate task
+
+- **Aim:** Adding a task with the same type, description and date(s) as an
+  existing one is still added (a deliberate repeat, e.g. "call mom" on two
+  different occasions, is legitimate) but flagged with a note so an
+  accidental duplicate doesn't go unnoticed.
+- **Commands:**
+  ```
+  todo buy milk
+  todo buy milk
+  list
+  bye
+  ```
+- **Expected output:**
+  ```
+  ____________________________________________________________
+  on the board: buy milk
+  ____________________________________________________________
+  ____________________________________________________________
+  on the board: buy milk (note: you already have a task just like this)
+  ____________________________________________________________
+  ____________________________________________________________
+  Here's the playbook:
+  1.[ ] buy milk
+  2.[ ] buy milk
+  ____________________________________________________________
+  ____________________________________________________________
+  Good game -- I'll see you back on the court soon!
+  ____________________________________________________________
   ```
