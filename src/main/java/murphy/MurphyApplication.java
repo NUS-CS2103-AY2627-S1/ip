@@ -16,10 +16,17 @@ import javafx.stage.Stage;
 
 /** JavaFX presentation for Murphy's task chatbot. */
 public class MurphyApplication extends Application {
-    private final MurphyService service = new MurphyService();
     private final VBox messages = new VBox(12);
     private final Label taskCount = new Label();
     private final TextField input = new TextField();
+    private final MurphyService service = new MurphyService(java.nio.file.Paths.get("data", "murphy.txt"), this::showStorageMessage);
+
+    /** Shows a recoverable storage warning in the conversation. */
+    private void showStorageMessage(String message) {
+        if (messages != null) {
+            addMessage("MURPHY", message.trim(), false);
+        }
+    }
 
     /** Builds and displays Murphy's main window. */
     @Override

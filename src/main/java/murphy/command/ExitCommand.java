@@ -9,7 +9,7 @@ public class ExitCommand extends Command {
     /** Displays the farewell message. */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showMessage("Bye. Hope to see you again soon! Even command lines need a punchline.");
+        ui.showMessage("Bye! I'll be here guarding your task list. Tiny paws, big responsibility.");
     }
 
     /** Indicates that Murphy should stop after this command. */

@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -71,5 +73,18 @@ class StorageTest {
 
         assertEquals(2, loaded.size());
         assertTrue(loaded.get(1).isDone());
+    }
+
+    /** Verifies that unreadable save-file problems are reported to the caller. */
+    @Test
+    void load_unreadableFile_reportsRecoverableError() throws Exception {
+        Path directory = temporaryDirectory.resolve("not-a-file");
+        Files.createDirectories(directory);
+        List<String> messages = new ArrayList<>();
+
+        TaskList loaded = new Storage(directory, 10, messages::add).load();
+
+        assertEquals(0, loaded.size());
+        assertTrue(messages.stream().anyMatch(message -> message.contains("couldn't read")));
     }
 }

@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.stream.IntStream;
+import java.util.function.Consumer;
 import murphy.parser.Parser;
 import murphy.storage.Storage;
 import murphy.task.Deadline;
@@ -17,7 +18,7 @@ import murphy.task.Todo;
 /** Provides command processing independently of Murphy's user interface. */
 public class MurphyService {
     private static final int MAX_TASKS = 100;
-    private static final Path DATA_FILE_PATH = Paths.get("data", "duke.txt");
+    private static final Path DATA_FILE_PATH = Paths.get("data", "murphy.txt");
     private final Parser parser = new Parser();
     private final TaskList tasks;
     private final Storage storage;
@@ -29,7 +30,12 @@ public class MurphyService {
 
     /** Creates a service using the supplied task data path. */
     public MurphyService(Path dataFilePath) {
-        storage = new Storage(dataFilePath, MAX_TASKS, message -> { });
+        this(dataFilePath, message -> { });
+    }
+
+    /** Creates a service and sends recoverable storage messages to the consumer. */
+    public MurphyService(Path dataFilePath, Consumer<String> messageConsumer) {
+        storage = new Storage(dataFilePath, MAX_TASKS, messageConsumer);
         tasks = storage.load();
     }
 
@@ -40,6 +46,9 @@ public class MurphyService {
 
     /** Processes one command and returns Murphy's response text. */
     public String respond(String input) {
+        if (input == null || input.isBlank()) {
+            return "OOPS! Please enter a command. Murphy cannot fetch a task from thin air.";
+        }
         Parser.ParsedCommand parsed = parser.parse(input);
         try {
             return switch (parsed.command()) {

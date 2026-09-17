@@ -96,4 +96,12 @@ public class MurphyServiceTest {
         assertTrue(service.respond("event meeting /from /to 4pm").startsWith("OOPS!"));
         assertEquals(0, service.getTasks().size());
     }
+
+    @Test
+    public void respond_rejectsNullAndBlankInput() throws Exception {
+        MurphyService service = new MurphyService(Files.createTempDirectory("murphy-test").resolve("tasks.txt"));
+
+        assertTrue(service.respond(null).startsWith("OOPS!"));
+        assertTrue(service.respond("   ").startsWith("OOPS!"));
+    }
 }

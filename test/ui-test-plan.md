@@ -1,72 +1,51 @@
 # Murphy UI Test Plan
 
-This file is the source of truth for console-level UI tests. Run the cases in order and stop at the first failure.
+This plan covers the current command-line entry point and the JavaFX GUI. Run the command-line cases with a fresh `data/murphy.txt` before each case.
 
 ## Test environment
 
-- **Program command:** `javac -d _temp/classes src/main/java/*.java` followed by `java -cp _temp/classes Murphy`
+- **Program command:** `./gradlew run`
 - **Working directory:** repository root
 - **Java version:** Java 25 (`sdk use java 25.0.3.fx-zulu` on macOS, if needed)
-- **Output comparison:** exact stdout/stderr, including prompts, whitespace, and line breaks
-- **Test isolation:** Start a fresh Murphy process and apply the stated data setup before each case.
+- **Input:** one command per line through standard input
 
-## Test Case: Save without an existing data directory
+## Test Case: Friendly startup and exit
 
-**Aim:** Verify that Murphy starts with an empty list when no save file exists, creates the missing directory, and saves UTF-8 text containing a pipe.
-
-**Data setup:** The `data` directory does not exist.
+**Aim:** Verify that Murphy starts with the correct product name and exits with the current personality response.
 
 **Inputs:**
 
 ```text
-todo compare A | B 😀
 bye
 ```
 
-**Expected output:**
+**Expected output:** The welcome banner identifies Murphy, no legacy product name appears, and the final response is:
 
 ```text
-____________________________________________________________
-M   M  U   U  RRRR   PPPP   H   H  Y   Y
-MM MM  U   U  R   R  P   P  H   H   Y Y
-M M M  U   U  RRRR   PPPP   HHHHH    Y
-M   M  U   U  R  R   P      H   H    Y
-M   M   UUU   R   R  P      H   H    Y
-Hi there! I'm Murphy, your command-line conversationalist.
-What can I do for you? (I promise not to judge your typing.)
-____________________________________________________________
-____________________________________________________________
-     Got it. I've added this task:
-       [T][ ] compare A | B 😀
-     Now you have 1 tasks in the list.
-____________________________________________________________
-____________________________________________________________
-Bye. Hope to see you again soon! Even command lines need a punchline.
-____________________________________________________________
+Bye! I'll be here guarding your task list. Tiny paws, big responsibility.
 ```
 
-**Expected data file:**
+## Test Case: Recoverable command errors
+
+**Aim:** Verify that malformed commands are reported without terminating the program.
+
+**Inputs:**
 
 ```text
-T | 0 | compare A \| B 😀
+todo
+deadline report /by not-a-date
+event meeting /from /to 4pm
+mark nope
+bye
 ```
 
-## Test Case: Recover valid tasks from corrupted data
+**Expected output:** Each invalid command produces one `OOPS!` response explaining the correction, and Murphy still processes the later commands and exits normally.
 
-**Aim:** Verify that Murphy ignores blank lines, reports malformed lines, and loads every valid task that remains.
+## Test Case: Save-file recovery
 
-**Data file before test:**
+**Aim:** Verify that a missing or malformed `data/murphy.txt` file does not crash Murphy.
 
-```text
-T | 1 | read book
-
-T | maybe | invalid status
-D | 0 | submit report | 2019-10-15
-E | 0 | missing end | 2pm |
-Z | 0 | unknown task
-E | 1 | café meeting | 2pm | 4pm
-T | 0 | compare A \| B
-```
+**Data setup:** Remove `data/murphy.txt`, run `todo test recovery`, then replace the file with one valid task line and one malformed line before a second run.
 
 **Inputs:**
 
@@ -75,210 +54,11 @@ list
 bye
 ```
 
-**Expected output:**
+**Expected output:** Murphy starts with an empty list when the file is missing, and reports a recoverable corrupted-line warning while retaining valid records on the second run.
 
-```text
-____________________________________________________________
-M   M  U   U  RRRR   PPPP   H   H  Y   Y
-MM MM  U   U  R   R  P   P  H   H   Y Y
-M M M  U   U  RRRR   PPPP   HHHHH    Y
-M   M  U   U  R  R   P      H   H    Y
-M   M   UUU   R   R  P      H   H    Y
-Hi there! I'm Murphy, your command-line conversationalist.
-What can I do for you? (I promise not to judge your typing.)
-____________________________________________________________
-     OOPS! I skipped corrupted save-file line 3.
-     OOPS! I skipped corrupted save-file line 5.
-     OOPS! I skipped corrupted save-file line 6.
-____________________________________________________________
-     Here are the tasks in your list:
-     1.[T][X] read book
-     2.[D][ ] submit report (by: Oct 15 2019)
-     3.[E][X] café meeting (from: 2pm to: 4pm)
-     4.[T][ ] compare A | B
-____________________________________________________________
-____________________________________________________________
-Bye. Hope to see you again soon! Even command lines need a punchline.
-____________________________________________________________
+## GUI manual checks
 
-## Test Case: Parse and display an ISO deadline date
-
-**Aim:** Verify that Murphy parses a deadline date into a typed date, displays it in a different format, persists it in ISO format, and rejects an incorrectly formatted date.
-
-**Data setup:** The `data` directory does not exist.
-
-**Inputs:**
-
-```text
-deadline submit report /by 2019-10-15
-list
-deadline invalid date /by 15-10-2019
-bye
-```
-
-**Expected output:**
-
-```text
-____________________________________________________________
-M   M  U   U  RRRR   PPPP   H   H  Y   Y
-MM MM  U   U  R   R  P   P  H   H   Y Y
-M M M  U   U  RRRR   PPPP   HHHHH    Y
-M   M  U   U  R  R   P      H   H    Y
-M   M   UUU   R   R  P      H   H    Y
-Hi there! I'm Murphy, your command-line conversationalist.
-What can I do for you? (I promise not to judge your typing.)
-____________________________________________________________
-____________________________________________________________
-     Got it. I've added this task:
-       [D][ ] submit report (by: Oct 15 2019)
-     Now you have 1 tasks in the list.
-____________________________________________________________
-____________________________________________________________
-     Here are the tasks in your list:
-     1.[D][ ] submit report (by: Oct 15 2019)
-____________________________________________________________
-____________________________________________________________
-     OOPS! Please enter the deadline date as yyyy-MM-dd, like: 2019-10-15
-____________________________________________________________
-____________________________________________________________
-Bye. Hope to see you again soon! Even command lines need a punchline.
-____________________________________________________________
-```
-
-**Expected data file:**
-
-```text
-D | 0 | submit report | 2019-10-15
-```
-
-## Test Case: Find deadlines and events on a date
-
-**Aim:** Verify that Murphy prints deadlines and ISO-date events occurring on a requested date, and rejects an invalid query date.
-
-**Data file before test:**
-
-```text
-D | 0 | submit report | 2019-10-15
-E | 0 | conference | 2019-10-15 | 2019-10-16
-```
-
-## Test Case: Find tasks by keyword
-
-**Aim:** Verify that `find` displays tasks whose descriptions contain the keyword, without regard to letter case.
-
-**Data file before test:**
-
-```text
-T | 0 | read book
-D | 0 | return book | 2019-10-15
-T | 0 | buy milk
-```
-
-**Inputs:**
-
-```text
-find BOOK
-bye
-```
-
-**Expected output:**
-
-```text
-____________________________________________________________
-M   M  U   U  RRRR   PPPP   H   H  Y   Y
-MM MM  U   U  R   R  P   P  H   H   Y Y
-M M M  U   U  RRRR   PPPP   HHHHH    Y
-M   M  U   U  R  R   P      H   H    Y
-M   M   UUU   R   R  P      H   H    Y
-Hi there! I'm Murphy, your command-line conversationalist.
-What can I do for you? (I promise not to judge your typing.)
-____________________________________________________________
-____________________________________________________________
-     Here are the matching tasks in your list:
-     1.[T][ ] read book
-     2.[D][ ] return book (by: Oct 15 2019)
-____________________________________________________________
-____________________________________________________________
-Bye. Hope to see you again soon! Even command lines need a punchline.
-____________________________________________________________
-```
-
-**Inputs:**
-
-```text
-on 2019-10-15
-on bad-date
-bye
-```
-
-**Expected output:**
-
-```text
-____________________________________________________________
-M   M  U   U  RRRR   PPPP   H   H  Y   Y
-MM MM  U   U  R   R  P   P  H   H   Y Y
-M M M  U   U  RRRR   PPPP   HHHHH    Y
-M   M  U   U  R  R   P      H   H    Y
-M   M   UUU   R   R  P      H   H    Y
-Hi there! I'm Murphy, your command-line conversationalist.
-What can I do for you? (I promise not to judge your typing.)
-____________________________________________________________
-____________________________________________________________
-     Tasks on 2019-10-15:
-     1.[D][ ] submit report (by: Oct 15 2019)
-     2.[E][ ] conference (from: 2019-10-15 to: 2019-10-16)
-____________________________________________________________
-____________________________________________________________
-     OOPS! Please enter the date as yyyy-MM-dd, like: 2019-10-15
-____________________________________________________________
-____________________________________________________________
-Bye. Hope to see you again soon! Even command lines need a punchline.
-____________________________________________________________
-```
-
-## Test Case: Reject a duplicate task
-
-**Aim:** Verify that Murphy rejects a newly added task with the same type and description, ignoring case and surrounding whitespace, without changing the task count or save file.
-
-**Data setup:** The `data` directory does not exist.
-
-**Inputs:**
-
-```text
-todo Buy milk
-todo   buy MILK
-list
-bye
-```
-
-**Expected output:**
-
-```text
-____________________________________________________________
-M   M  U   U  RRRR   PPPP   H   H  Y   Y
-MM MM  U   U  R   R  P   P  H   H   Y Y
-M M M  U   U  RRRR   PPPP   HHHHH    Y
-M   M  U   U  R  R   P      H   H    Y
-M   M   UUU   R   R  P      H   H    Y
-Hi there! I'm Murphy, your command-line conversationalist.
-What can I do for you? (I promise not to judge your typing.)
-____________________________________________________________
-____________________________________________________________
-     Got it. I've added this task:
-       [T][ ] Buy milk
-     Now you have 1 tasks in the list.
-____________________________________________________________
-____________________________________________________________
-     OOPS! This task is already in your list:
-       [T][ ] Buy milk
-     I kept the existing task and did not add a duplicate.
-____________________________________________________________
-____________________________________________________________
-     Here are the tasks in your list:
-     1.[T][ ] Buy milk
-____________________________________________________________
-____________________________________________________________
-Bye. Hope to see you again soon! Even command lines need a punchline.
-____________________________________________________________
-```
-```
+1. Launch `murphy.Launcher` and confirm the window title and header say Murphy.
+2. Resize the window from the minimum size to a wide window; confirm message bubbles and the input field resize without overlap.
+3. Enter an invalid command; confirm the error appears in the red error style and the application remains usable.
+4. Use a deliberately unreadable/corrupted save file; confirm the storage warning appears in the conversation.

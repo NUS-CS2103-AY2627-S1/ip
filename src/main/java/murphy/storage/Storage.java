@@ -48,7 +48,10 @@ public class Storage {
             taskData.add(task.toDataString());
         }
         try {
-            Files.createDirectories(filePath.getParent());
+            Path parent = filePath.getParent();
+            if (parent != null) {
+                Files.createDirectories(parent);
+            }
             Files.write(filePath, taskData, StandardCharsets.UTF_8);
         } catch (IOException exception) {
             throw new MurphyException("I changed the task list in memory, but couldn't save it to disk.");
