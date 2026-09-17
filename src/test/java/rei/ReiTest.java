@@ -18,6 +18,64 @@ public class ReiTest {
     private Path testDirectory;
 
     @Test
+    public void getResponse_invalidCommands_neverChangeSavedTasks() throws IOException {
+        Path dataFile = testDirectory.resolve("validation.txt");
+        Rei rei = new Rei(dataFile);
+        rei.getResponse("todo original");
+        String saved = Files.readString(dataFile);
+        String listed = rei.getResponse("list").response();
+
+        for (String command : List.of("", "unknown", "todo", "deadline", "event", "find", "tag",
+                "mark", "unmark", "delete", "list extra", "bye extra", "mark -1", "delete 0",
+                "unmark 2", "mark 999999999999999999999", "tag 1 #bad!", "tag 1 #two #tags",
+                "deadline task /by 2026-09-18 1800 /by 2026-09-19 1800",
+                "event task /from 2026-09-18 1900 /to 2026-09-18 1800")) {
+            Rei.CommandResult result = rei.getResponse(command);
+            assertTrue(result.isError(), command);
+            assertFalse(result.shouldExit(), command);
+            assertEquals(saved, Files.readString(dataFile), command);
+            assertEquals(listed, rei.getResponse("list").response(), command);
+        }
+    }
+
+    @Test
+    public void getResponse_supportedDateFormats_findSameLeapDay() {
+        Rei rei = new Rei(testDirectory.resolve("dates.txt"));
+        for (String date : List.of("2028-02-29", "2028/02/29", "29/02/2028", "29-02-2028")) {
+            assertFalse(rei.getResponse("deadline report /by " + date + " 2359").isError());
+            assertTrue(rei.getResponse("find " + date).response().contains("report"));
+        }
+        assertTrue(rei.getResponse("find 2027-02-29").isError());
+        assertTrue(rei.getResponse("deadline bad /by 2028-02-29 2400").isError());
+    }
+
+    @Test
+    public void getResponse_eventDateSearch_includesBoundariesAndExcludesOutsideDates() {
+        Rei rei = new Rei(testDirectory.resolve("range.txt"));
+        rei.getResponse("todo unrelated");
+        rei.getResponse("event retreat /from 2026-09-18 1800 /to 2026-09-20 0900");
+
+        for (String date : List.of("2026-09-18", "2026-09-19", "2026-09-20")) {
+            assertTrue(rei.getResponse("find " + date).response().contains("2.[E][ ] retreat"));
+        }
+        for (String date : List.of("2026-09-17", "2026-09-21")) {
+            assertTrue(rei.getResponse("find " + date).response().contains("No deadlines or events"));
+        }
+    }
+
+    @Test
+    public void getResponse_unreadableData_remainsUsableWithoutWriting() throws IOException {
+        Path directory = Files.createDirectory(testDirectory.resolve("not-a-file"));
+        Rei rei = new Rei(directory);
+
+        assertFalse(rei.getStartupMessage().isEmpty());
+        assertFalse(rei.getResponse("list").isError());
+        assertTrue(rei.getResponse("todo blocked").isError());
+        assertTrue(rei.getResponse("bye").shouldExit());
+        assertTrue(Files.isDirectory(directory));
+    }
+
+    @Test
     public void getResponse_failedSave_rollsBackEveryMutation() throws IOException {
         Path dataFile = testDirectory.resolve("tasks.txt");
         Rei rei = new Rei(dataFile);
