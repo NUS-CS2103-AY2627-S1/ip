@@ -1,9 +1,9 @@
-# Rei v0.2 release verification
+# Rei v0.2.1 release verification
 
 Validated on Windows with Java 25.0.4 on 17 September 2026.
 
 - Clean Gradle build: `gradlew clean test checkstyleMain checkstyleTest shadowJar`.
-- All 33 JUnit tests pass, including JavaFX interaction tests.
+- All 34 JUnit tests pass, including JavaFX interaction tests.
 - All 14 recorded console sessions pass using the project-local test-ui runner.
 - Checkstyle passes for production and test code.
 - The packaged JAR starts from a separate folder without existing task data.
@@ -30,3 +30,4 @@ Linux to download the release and run `java -jar rei.jar` with Java 25 from an
 empty writable folder, add a task, exit, and restart to verify persistence.
 Record their OS, CPU architecture, Java version, and result before claiming
 cross-platform execution has been verified.
+
