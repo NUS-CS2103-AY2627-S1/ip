@@ -1,0 +1,42 @@
+.message-card {
+    -fx-padding: 10 12;
+}
+
+.dialog-text {
+    -fx-text-fill: #e8f0f4;
+    -fx-line-spacing: 3px;
+}
+
+.user-card {
+    -fx-background-color: #2b4854;
+    -fx-background-radius: 12 12 3 12;
+    -fx-padding: 9 12;
+}
+
+.user-card .dialog-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #edf5f8;
+}
+
+.reply-card {
+    -fx-background-color: #172a35;
+    -fx-background-radius: 0 8 8 0;
+    -fx-border-color: #739f94;
+    -fx-border-width: 0 0 0 2;
+    -fx-padding: 11 12;
+}
+
+.error-card {
+    -fx-background-color: #35272d;
+    -fx-border-color: #f3a294;
+}
+
+.error-card .dialog-text {
+    -fx-text-fill: #ffe4dd;
+}
+
+.message-type {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffb6a7;
+}

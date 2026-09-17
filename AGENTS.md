@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: experienced in java
+* IDE and level of expertise: IntelliJ IDEA, have some experience
 
 # Guidance for interacting with users
 
@@ -26,7 +26,14 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 ## Java version:
 
-Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+Ensure that java 25.0.3.fx-zulu is used when running the application or build tasks. Im using MacOS.
+
+## JUnit testing
+
+Maintain JUnit tests for at least the top 50% highest-value methods, prioritizing
+complex, core, or critical business logic over trivial accessors. After each code
+change, update the JUnit tests as needed to keep meeting this coverage target and
+run the complete JUnit suite using the required JDK.
 
 ## Git
 
