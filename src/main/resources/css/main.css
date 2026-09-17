@@ -1,0 +1,138 @@
+.app-root {
+    yachiyo-night: #11152f;
+    yachiyo-indigo: #242653;
+    yachiyo-violet: #7772b8;
+    yachiyo-moon: #f7e8bd;
+    yachiyo-gold: #c9a96e;
+    yachiyo-silver: #d9d9ef;
+
+    -fx-background-color: yachiyo-night;
+    -fx-background-image: url("../images/festival-background.png");
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-font-family: "Avenir Next";
+    -fx-padding: 12px;
+}
+
+.task-summary {
+    -fx-background-color: rgba(17, 21, 47, 0.92);
+    -fx-background-radius: 15px;
+    -fx-border-color: rgba(247, 232, 189, 0.72);
+    -fx-border-radius: 15px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(3, 5, 18, 0.42), 10, 0.14, 0, 3);
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 6px 16px;
+    -fx-text-fill: yachiyo-moon;
+}
+
+.task-summary.task-summary-complete {
+    -fx-background-color: linear-gradient(to right, #5f579f, #c48ac8, #c9a96e);
+    -fx-border-color: #fff5cf;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 235, 157, 0.9), 24, 0.58, 0, 0);
+    -fx-text-fill: #fffaf0;
+}
+
+.chat-scroll {
+    -fx-background-color: rgba(13, 16, 42, 0.2);
+    -fx-background-insets: 0;
+    -fx-background-radius: 18px;
+    -fx-border-color: rgba(217, 217, 239, 0.34);
+    -fx-border-radius: 18px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(3, 5, 18, 0.55), 18, 0.18, 0, 7);
+    -fx-padding: 4px;
+}
+
+.chat-scroll > .viewport,
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-padding: 10px 4px 16px 4px;
+    -fx-spacing: 4px;
+}
+
+.message-input {
+    -fx-background-color: rgba(17, 21, 47, 0.94);
+    -fx-background-radius: 18px 0 0 18px;
+    -fx-border-color: rgba(217, 217, 239, 0.55);
+    -fx-border-radius: 18px 0 0 18px;
+    -fx-border-width: 1px 0 1px 1px;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 14px;
+    -fx-prompt-text-fill: rgba(217, 217, 239, 0.58);
+    -fx-text-fill: #f8f4ff;
+}
+
+.message-input:hover {
+    -fx-background-color: rgba(28, 31, 67, 0.97);
+    -fx-border-color: rgba(247, 232, 189, 0.72);
+}
+
+.message-input:focused {
+    -fx-border-color: yachiyo-moon;
+    -fx-effect: dropshadow(gaussian, rgba(247, 232, 189, 0.30), 10, 0.15, 0, 0);
+}
+
+.send-button {
+    -fx-background-color: linear-gradient(to bottom, yachiyo-moon, yachiyo-gold);
+    -fx-background-radius: 0 18px 18px 0;
+    -fx-border-color: rgba(255, 248, 221, 0.72);
+    -fx-border-radius: 0 18px 18px 0;
+    -fx-border-width: 1px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(3, 5, 18, 0.50), 10, 0.15, 0, 3);
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #24203d;
+}
+
+.send-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #fff5d7, #dfc184);
+    -fx-effect: dropshadow(gaussian, rgba(247, 232, 189, 0.48), 14, 0.18, 0, 3);
+}
+
+.send-button:pressed {
+    -fx-background-color: linear-gradient(to bottom, #817bc1, #5a568e);
+    -fx-effect: innershadow(gaussian, rgba(9, 10, 30, 0.55), 8, 0.20, 0, 2);
+    -fx-text-fill: #fffaf0;
+}
+
+.send-button:focused {
+    -fx-border-color: #fff7dc;
+    -fx-border-width: 2px;
+}
+
+.chat-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.chat-scroll .scroll-bar:vertical .track {
+    -fx-background-color: rgba(17, 21, 47, 0.45);
+    -fx-background-radius: 8px;
+}
+
+.chat-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: linear-gradient(to bottom, yachiyo-violet, yachiyo-gold);
+    -fx-background-insets: 2px;
+    -fx-background-radius: 8px;
+}
+
+.chat-scroll .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: linear-gradient(to bottom, #9993d5, yachiyo-moon);
+}
+
+.chat-scroll .increment-button,
+.chat-scroll .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}
+
+.chat-scroll .corner {
+    -fx-background-color: transparent;
+}

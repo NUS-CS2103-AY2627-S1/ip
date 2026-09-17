@@ -1,0 +1,83 @@
+.dialog-box {
+    -fx-padding: 9px 6px;
+}
+
+.message-bubble {
+    -fx-background-color: linear-gradient(to bottom right, #f7e8bd, #d9c9e8);
+    -fx-background-insets: 0 8px 0 8px;
+    -fx-background-radius: 18px 18px 4px 18px;
+    -fx-border-color: rgba(255, 250, 229, 0.88);
+    -fx-border-insets: 0 8px 0 8px;
+    -fx-border-radius: 18px 18px 4px 18px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(4, 5, 22, 0.48), 12, 0.16, 0, 4);
+    -fx-font-family: "Avenir Next";
+    -fx-font-size: 14px;
+    -fx-padding: 10px 12px;
+    -fx-text-fill: #28213f;
+}
+
+.reply-label {
+    -fx-background-color: linear-gradient(to bottom right, #39386f, #242653);
+    -fx-background-radius: 18px 18px 18px 4px;
+    -fx-border-color: rgba(201, 169, 110, 0.88);
+    -fx-border-radius: 18px 18px 18px 4px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fff8e7;
+}
+
+.error-heading {
+    -fx-font-weight: bold;
+    -fx-underline: true;
+}
+
+.warning-label {
+    -fx-background-color: linear-gradient(to bottom right, #fff1bd, #e8c76c);
+    -fx-border-color: #c38a22;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-text-fill: #3c2b0f;
+}
+
+.warning-label .error-heading {
+    -fx-text-fill: #3c2b0f;
+}
+
+.invalid-operation-label {
+    -fx-background-color: linear-gradient(to bottom right, #9b5746, #64312f);
+    -fx-border-color: #efa265;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-text-fill: #fff8e7;
+}
+
+.invalid-operation-label .error-heading {
+    -fx-text-fill: #fff8e7;
+}
+
+.system-error-label {
+    -fx-background-color: linear-gradient(to bottom right, #741f35, #3f101e);
+    -fx-border-color: #ff7582;
+    -fx-border-style: solid;
+    -fx-border-width: 3px;
+    -fx-effect: dropshadow(gaussian, rgba(255, 75, 92, 0.48), 16, 0.20, 0, 4);
+    -fx-text-fill: #fff4f4;
+}
+
+.system-error-label .error-heading {
+    -fx-text-fill: #fff4f4;
+}
+
+.profile-image {
+    -fx-effect: dropshadow(gaussian, rgba(247, 232, 189, 0.42), 14, 0.18, 0, 4);
+    -fx-opacity: 0.94;
+    -fx-scale-x: 0.92;
+    -fx-scale-y: 0.92;
+}
+
+.profile-image:hover {
+    -fx-effect: dropshadow(gaussian, rgba(247, 232, 189, 0.72), 18, 0.20, 0, 4);
+    -fx-opacity: 1;
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
