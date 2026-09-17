@@ -1,0 +1,6 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run fail-fast console UI tests"
+  default_prompt: "Use $test-ui to run the recorded console UI test plan and report the session transcript."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,75 @@
+.root {
+    -fx-background-color: #101b2d;
+    -fx-background-image: url("../images/somniel.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-font-family: "Trebuchet MS", "System";
+}
+
+.main-window {
+    -fx-border-color: #c9a227;
+    -fx-border-width: 0 0 4px 0;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-padding: 0;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-padding: 2px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #c9a227;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.input-bar {
+    -fx-background-color: rgba(247, 242, 226, 0.96);
+    -fx-background-radius: 12px;
+    -fx-border-color: #d9c99b;
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+    -fx-padding: 7px;
+}
+
+.text-field {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #8a8170;
+}
+
+.text-field:focused {
+    -fx-background-color: #fffdf8;
+    -fx-background-radius: 7px;
+    -fx-border-color: #c9a227;
+    -fx-border-radius: 7px;
+}
+
+.button {
+    -fx-background-color: #8d2635;
+    -fx-background-radius: 8px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #b53642;
+}
+
+.button:pressed {
+    -fx-background-color: #6e1d25;
+}

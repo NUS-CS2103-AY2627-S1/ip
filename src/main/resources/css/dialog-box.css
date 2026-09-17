@@ -1,0 +1,49 @@
+.label {
+    -fx-font-family: "Trebuchet MS", "System";
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+    -fx-text-alignment: left;
+    -fx-text-fill: #2f2b24;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.22), 6, 0.35, 1, 1);
+}
+
+.user-dialog,
+.notmarth-dialog,
+.error-dialog {
+    -fx-spacing: 8px;
+}
+
+.user-dialog {
+    -fx-alignment: center-right;
+}
+
+.user-dialog .label {
+    -fx-background-color: #9d2933;
+    -fx-background-radius: 14px 14px 3px 14px;
+    -fx-text-fill: white;
+}
+
+.notmarth-dialog,
+.error-dialog {
+    -fx-alignment: center-left;
+}
+
+.notmarth-dialog .label {
+    -fx-background-color: #f7e7a8;
+    -fx-background-radius: 14px 14px 14px 3px;
+    -fx-border-color: #d9b83f;
+    -fx-border-radius: 14px 14px 14px 3px;
+    -fx-border-width: 1px;
+}
+
+.error-dialog .label {
+    -fx-background-color: #fff0ed;
+    -fx-background-radius: 10px;
+    -fx-border-color: #c23b45;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1.5px;
+    -fx-text-fill: #8b1e2b;
+}
