@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="600.0" prefWidth="420.0"
+            style="-fx-background-color: #d8b894;"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="kia.ui.MainWindow">
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true"
+                    hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                    style="-fx-background-color: transparent;">
+            <content>
+                <VBox fx:id="dialogContainer" spacing="4.0" fillWidth="true"
+                      style="-fx-padding: 12 10 12 10; -fx-background-color: transparent;" />
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <VBox spacing="6.0" style="-fx-padding: 8 10 10 10; -fx-background-color: #f3e3cf;">
+            <HBox spacing="8.0">
+                <TextField fx:id="userInput" HBox.hgrow="ALWAYS"
+                           onAction="#handleUserInput" promptText="Enter a command" />
+                <Button mnemonicParsing="false" onAction="#handleUserInput" text="Send" />
+                <Button mnemonicParsing="false" onAction="#showEditPanel" text="Edit task" />
+            </HBox>
+            <VBox fx:id="editPanel" managed="false" spacing="5.0" visible="false">
+                <HBox spacing="8.0">
+                    <Label text="Task" />
+                    <ComboBox fx:id="taskSelector" HBox.hgrow="ALWAYS" />
+                    <Label text="Type" />
+                    <ComboBox fx:id="editTypeSelector" />
+                </HBox>
+                <TextField fx:id="editDescription" promptText="/description &lt;task description&gt;" />
+                <TextField fx:id="editBy" promptText="/by &lt;yyyy-MM-dd&gt;" />
+                <TextField fx:id="editFrom" promptText="/from &lt;start date or time&gt;" />
+                <TextField fx:id="editTo" promptText="/to &lt;end date or time&gt;" />
+                <HBox spacing="8.0">
+                    <Button mnemonicParsing="false" onAction="#saveEdit" text="Save" />
+                    <Button mnemonicParsing="false" onAction="#cancelEdit" text="Cancel" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </bottom>
+</BorderPane>

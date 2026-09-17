@@ -24,9 +24,30 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Java coding standard
+
+For every Java change in this project, follow the project-specific
+[`seedu-java-coding-standard`](.codex/skills/seedu-java-coding-standard/SKILL.md)
+skill, which is based on the SE-EDU intermediate Java coding standard. Review all
+changed Java files against that skill before completing the work.
+
+## Git standard
+
+For every future commit in this project, follow the project-specific
+[`seedu-git-standard`](.codex/skills/seedu-git-standard/SKILL.md) skill, which is
+based on the SE-EDU Git conventions. Check branch names, commit subjects, commit
+bodies, and the staged diff against that skill before creating a commit.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+
+## Testing:
+
+Maintain JUnit tests for approximately the highest-value 50% of methods, prioritizing
+core behavior, state transitions, formatting, persistence, and other critical logic.
+After every code change, update or add the relevant JUnit tests so the test suite
+continues to meet this coverage target and verifies the changed behavior.
 
 ## Git
 

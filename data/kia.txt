@@ -1,0 +1,5 @@
+D | 1 | homework | 2026-10-12
+T | 0 | laugh
+T | 1 | task
+T | 0 | smile
+T | 0 | laugh
