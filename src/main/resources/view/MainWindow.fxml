@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" stylesheets="@MainWindow.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="panda.gui.MainWindow">
+    <children>
+        <TextField fx:id="userInput" onAction="#sendUserCommand" prefHeight="41.0" promptText="Enter a command..." style="-fx-background-color: b;" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="76.0" />
+        <Button fx:id="goButton" mnemonicParsing="false" onAction="#sendUserCommand" prefHeight="41.0" prefWidth="76.0" text="Ask" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0">
+            <font>
+                <Font name="Dubai Bold" size="12.0" />
+            </font>
+        </Button>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" vvalue="1.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="588.0" />
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

@@ -1,6 +1,7 @@
 # IDEA files
 /.idea/
 /out/
+/data/
 /*.iml
 
 # Gradle build files
@@ -18,3 +19,11 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Skills
+/skills/*
+!/skills/seedu-git-standard/
+!/skills/seedu-git-standard/**
+!/skills/seedu-java-coding-standard/
+!/skills/seedu-java-coding-standard/**
+

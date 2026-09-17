@@ -1,0 +1,44 @@
+.dialog-label {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-padding: 10 12;
+}
+
+.user-dialog {
+    -fx-background-color: #e8f3ff;
+    -fx-border-color: #8dbce8;
+}
+
+.panda-dialog {
+    -fx-background-color: #f7f7f7;
+    -fx-border-color: #b8b8b8;
+}
+
+.parsing-error-dialog {
+    -fx-background-color: #fff7ed;
+    -fx-border-color: #d97706;
+    -fx-border-width: 1 1 1 4;
+    -fx-text-fill: #9a3412;
+}
+
+.application-error-dialog {
+    -fx-background-color: #fff1f2;
+    -fx-border-color: #e11d48;
+    -fx-border-width: 1 1 1 4;
+    -fx-text-fill: #9f1239;
+}
+
+.background-bamboo > .viewport {
+    -fx-background-image: url("../images/backgrounds/bamboo-mist-muted.png");
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+.background-mountain > .viewport {
+    -fx-background-image: url("../images/backgrounds/mountain-lake-muted.png");
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
