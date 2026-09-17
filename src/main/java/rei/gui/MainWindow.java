@@ -13,7 +13,8 @@ import rei.Rei;
 
 /** Controls the main chatbot window and passes user commands to Rei. */
 public class MainWindow extends AnchorPane {
-    private static final String GREETING = "Hey there, my name is Rei!\nHow can I help you today?";
+    private static final String GREETING = "Hey, I'm Rei, your calm study companion.\n"
+            + "One task at a time. Try: todo read book";
     private static final Duration EXIT_DELAY = Duration.seconds(1.2);
 
     @FXML

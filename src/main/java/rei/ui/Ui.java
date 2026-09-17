@@ -60,8 +60,8 @@ public class Ui {
         divider();
         output.println(ZonedDateTime.now().format(CURRENT_DATE_FORMAT));
         divider();
-        output.println("Hey there, my name is Rei!");
-        output.println("How can I help you today?");
+        output.println("Hey, I'm Rei, your calm study companion.");
+        output.println("One task at a time. Try: todo read book");
         divider();
     }
 
@@ -95,19 +95,19 @@ public class Ui {
 
     /** Displays the farewell message. */
     public void showExit() {
-        output.println("Bye! Hope to see you again soon!");
+        output.println("See you soon. Make room for a little rest, too.");
     }
 
     /** Displays confirmation that a task was added. */
     public void showTaskAdded(Task task, int taskCount) {
-        output.println("Okay, I've added: [" + task.getTaskType() + "]"
+        output.println("One less thing to remember. I've added: [" + task.getTaskType() + "]"
                 + "[" + task.getStatusIcon() + "] " + task);
         output.println("You have a total of " + taskCount + " tasks in the list.");
     }
 
     /** Displays confirmation that a task was deleted. */
     public void showTaskDeleted(Task task, int taskCount) {
-        output.println("Gotcha, I will remove this task from your list:");
+        output.println("Making room. Removed this task from your list:");
         output.println("  [" + task.getTaskType() + "]"
                 + "[" + task.getStatusIcon() + "] " + task);
         output.println("Now you have " + taskCount + " tasks in the list.");
@@ -116,9 +116,9 @@ public class Ui {
     /** Displays confirmation that a task's completion status changed. */
     public void showTaskStatusChanged(Task task, boolean isDone) {
         if (isDone) {
-            output.println("Alright! I have set it to done! Good Work!\n");
+            output.println("A little progress counts. Marked as done!\n");
         } else {
-            output.println("Got it! I have set it to not done!\n");
+            output.println("No rush. Put it back on your list.\n");
         }
         output.println("[" + task.getTaskType() + "]"
                 + "[" + task.getStatusIcon() + "] " + task);
@@ -134,7 +134,7 @@ public class Ui {
     /** Displays all tasks in their current list order. */
     public void showTasks(List<Task> tasks) {
         if (tasks.isEmpty()) {
-            output.println("Yay! You have completed all your tasks");
+            output.println("Your list is clear. Add a task whenever you are ready.");
             return;
         }
         output.println("Here are the tasks in your list:");
