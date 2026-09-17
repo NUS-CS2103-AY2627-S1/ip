@@ -1,30 +1,19 @@
-# Duke User Guide
+# Bro User Guide
 
-// Update the title above to match the actual product name
+Bro is your laid-back productivity wingman. Give Bro a short command and keep
+your tasks moving without losing the friendly vibe.
 
-// Product screenshot goes here
+## Adding tasks
 
-// Product intro goes here
+Use `todo <description>` to add a task. Bro confirms the addition and tells you
+how many tasks are being tracked.
 
-## Adding deadlines
+## Adding deadlines and events
 
-// Describe the action and its outcome.
+Use `deadline <description> /by <date>` for a due date, or
+`event <description> /from <start> /to <end>` for an event.
 
-// Give examples of usage
+## Managing the list
 
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+Use `list`, `find <keyword>`, `mark <task number>`, `unmark <task number>`, or
+`delete <task number>` to manage existing tasks. Type `bye` when you are done.

@@ -24,9 +24,36 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Project-local standards
+
+Read the relevant project-local skill before changing Java code, reviewing Java
+code, or preparing Git history. The skill files are versioned project
+requirements, not optional suggestions.
+
+All Java source and test code in this repository must follow
+`.codex/skills/seedu-java-coding-standard/SKILL.md`. In particular, keep every
+class in a named lower-case package, use the `bro` package for the current
+application, and apply the standard's naming, layout, visibility, and Javadoc
+rules to new and modified code.
+
+All future commits and branch names must follow
+`.codex/skills/seedu-git-standard/SKILL.md`. Use imperative, capitalized
+subjects without final periods, keep subjects within the stated length limits,
+write wrapped WHAT/WHY bodies for non-trivial commits, and use meaningful
+kebab-case branch names. Do not commit or push unless explicitly asked.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+
+## JUnit coverage target:
+
+Aim to cover approximately the highest-value 50% of non-trivial public methods
+with JUnit tests, prioritizing core parsing, persistence, task management, and
+user-interface behavior. This is a prioritization goal, not a measured line or
+branch coverage claim. Update tests when behavior or contracts change; comments
+and formatting alone do not require test edits. Run the relevant existing checks
+and fix failures caused by the requested change without repeated approval.
 
 ## Git
 

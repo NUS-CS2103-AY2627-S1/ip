@@ -1,0 +1,118 @@
+.root {
+    -fx-background-color: #080d1c;
+    -fx-font-family: "Avenir Next", "Inter", "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+}
+
+.header {
+    -fx-background-color: linear-gradient(to bottom right, #111b3b, #382064);
+    -fx-border-color: transparent transparent #5264a8 transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.bro-mark {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffb25c;
+}
+
+.title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f4f6ff;
+}
+
+.subtitle {
+    -fx-text-fill: #c5d7e8;
+}
+
+.status {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffb25c;
+    -fx-padding: 10px 0 0 44px;
+}
+
+.chat-scroll,
+.chat-scroll > .viewport {
+    -fx-background-color: #080d1c;
+    -fx-border-color: transparent;
+}
+
+.dialog-container {
+    -fx-background-color: #080d1c;
+}
+
+.dialog-label {
+    -fx-background-radius: 16px;
+    -fx-padding: 11px 15px;
+}
+
+.user-dialog {
+    -fx-background-color: #7ef5cf;
+    -fx-text-fill: #08121f;
+}
+
+.bro-dialog {
+    -fx-background-color: #151f3b;
+    -fx-border-color: #34477f;
+    -fx-border-radius: 16px;
+    -fx-text-fill: #e9edff;
+}
+
+.user-avatar {
+    -fx-fill: #7ef5cf;
+    -fx-stroke: #c0ffec;
+    -fx-stroke-width: 2px;
+}
+
+.bro-avatar {
+    -fx-fill: #ffb25c;
+    -fx-stroke: #ffe0ad;
+    -fx-stroke-width: 2px;
+}
+
+.avatar-initial {
+    -fx-font-weight: bold;
+    -fx-text-fill: #08121f;
+}
+
+.composer {
+    -fx-background-color: #0f1730;
+    -fx-border-color: #283a69 transparent transparent transparent;
+}
+
+.text-field {
+    -fx-background-color: #111b36;
+    -fx-background-radius: 10px;
+    -fx-border-color: #354a7d;
+    -fx-border-radius: 10px;
+    -fx-padding: 10px 12px;
+    -fx-text-fill: #e9edff;
+}
+
+.text-field:focused {
+    -fx-border-color: #ffb25c;
+}
+
+.button {
+    -fx-background-color: #ffb25c;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 18px;
+    -fx-text-fill: #08121f;
+}
+
+.button:hover {
+    -fx-background-color: #ffc982;
+}
+
+.chat-scroll .scroll-bar:vertical {
+    -fx-background-color: #080d1c;
+}
+
+.chat-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: #304572;
+    -fx-background-radius: 8px;
+}

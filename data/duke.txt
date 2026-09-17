@@ -1,0 +1,4 @@
+T | 1 | buy milo
+D | 0 | buy milo | 2020-12-12T00:00 | 0
+T | 0 | sleep
+T | 0 | buy milo

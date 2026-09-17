@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="640.0" prefWidth="460.0"
+            stylesheets="@../css/main.css"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="bro.gui.MainWindow">
+    <top>
+        <VBox styleClass="header">
+            <padding>
+                <Insets bottom="14.0" left="20.0" right="20.0" top="16.0" />
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="12.0">
+                <Label styleClass="bro-mark" text="✦" />
+                <VBox spacing="2.0">
+                    <Label styleClass="title" text="Bro" />
+                    <Label styleClass="subtitle" text="Your laid-back productivity wingman" />
+                </VBox>
+            </HBox>
+            <Label styleClass="status" text="BRO // READY TO ROLL" />
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                    pannable="true" styleClass="chat-scroll">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true" spacing="14.0"
+                      styleClass="dialog-container">
+                    <padding>
+                        <Insets bottom="20.0" left="16.0" right="16.0" top="20.0" />
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER" spacing="10.0" styleClass="composer">
+            <padding>
+                <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+            </padding>
+            <TextField fx:id="userInput" onAction="#handleUserInput"
+                       promptText="Tell Bro what to do…" HBox.hgrow="ALWAYS" />
+            <Button fx:id="sendButton" defaultButton="true" onAction="#handleUserInput" text="Send it" />
+        </HBox>
+    </bottom>
+</BorderPane>
