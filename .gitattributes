@@ -1,0 +1,9 @@
+# Normalize text files to LF on checkout, regardless of the contributor's OS.
+* text=auto eol=lf
+
+# Windows batch scripts conventionally use CRLF.
+*.bat text eol=crlf
+
+# Never let Git treat these as text and rewrite their line endings.
+*.png binary
+*.jar binary

@@ -1,0 +1,41 @@
+/*
+ * Chat bubble styling. The base .dialog-label rules (including the shared
+ * drop shadow that lifts every bubble off the warm gradient background)
+ * apply to every bubble; .user-bubble / .bot-bubble give each side of the
+ * conversation its own look instead of mirroring the same style.
+ * .error-bubble and .task-list-bubble layer on top of .bot-bubble for
+ * Lion's error replies and numbered task lists respectively. Border radius
+ * is the same 16px used by the input field and Send button (see main.css)
+ * across every bubble.
+ */
+
+.dialog-label {
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-font-size: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(80, 50, 20, 0.16), 6, 0.1, 0, 2);
+}
+
+.user-bubble {
+    -fx-background-color: #dbe7ff;
+    -fx-text-fill: #1a4b91;
+}
+
+.bot-bubble {
+    -fx-background-color: #fffdf9;
+    -fx-border-color: #f0e4d5;
+    -fx-border-width: 1;
+    -fx-text-fill: #1c1c1e;
+}
+
+.error-bubble {
+    -fx-background-color: #fdecec;
+    -fx-border-color: #e6b3b3;
+    -fx-border-width: 1;
+    -fx-text-fill: #9b1c1c;
+}
+
+.task-list-bubble {
+    -fx-font-family: "Consolas", "Menlo", monospace;
+    -fx-line-spacing: 4px;
+}

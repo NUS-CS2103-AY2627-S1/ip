@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308" spacing="10.0" stylesheets="@../css/dialog-box.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+
+    <children>
+        <Label fx:id="dialog" minHeight="-Infinity" styleClass="dialog-label user-bubble" text="Label" wrapText="true">
+            <padding>
+                <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+            </padding>
+        </Label>
+    </children>
+
+    <padding>
+        <Insets bottom="0.0" left="20.0" right="20.0" top="0.0" />
+    </padding>
+
+</fx:root>

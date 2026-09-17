@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.SVGPath?>
+
+<AnchorPane prefHeight="600.0" prefWidth="400.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lion.MainWindow">
+
+    <children>
+
+        <Pane fx:id="chatBackground" mouseTransparent="true" prefHeight="600.0" prefWidth="400.0" styleClass="chat-background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Group fx:id="backgroundArt">
+                    <children>
+                        <Circle centerX="27.0" centerY="105.0" radius="30.0" styleClass="cloud" />
+                        <Circle centerX="60.0" centerY="109.0" radius="23.0" styleClass="cloud" />
+                        <Circle centerX="84.0" centerY="116.0" radius="14.0" styleClass="cloud" />
+                        <Circle centerX="346.0" centerY="171.0" radius="23.0" styleClass="cloud-light" />
+                        <Circle centerX="375.0" centerY="163.0" radius="31.0" styleClass="cloud-light" />
+                        <Circle centerX="409.0" centerY="170.0" radius="20.0" styleClass="cloud-light" />
+                        <Circle centerX="318.0" centerY="459.0" radius="65.0" styleClass="sun" />
+                        <SVGPath content="M0 501 C47 480 76 478 116 492 C163 509 198 469 244 480 C284 490 313 457 354 465 C425 478 460 501 520 486 C583 470 632 496 690 485 C760 472 827 489 900 476 C970 464 1038 488 1100 480 L1100 600 L0 600 Z" styleClass="back-hill" />
+                        <SVGPath content="M0 536 C52 518 91 529 132 539 C177 550 215 516 254 524 C296 532 323 505 363 517 C431 537 476 521 538 531 C601 541 656 512 724 526 C792 540 847 518 920 531 C990 543 1045 527 1100 536 L1100 600 L0 600 Z" styleClass="front-hill" />
+                        <SVGPath content="M331 504 C336 487 343 470 350 452 C354 470 353 489 351 508 Z" styleClass="tree-trunk" />
+                        <SVGPath content="M325 444 C348 420 382 416 409 427 C388 432 373 442 356 450 C343 456 334 455 325 444 Z" styleClass="tree-canopy" />
+                        <SVGPath content="M0 578 C33 560 78 570 117 560 C152 550 179 570 213 559 C247 548 286 561 322 552 C354 544 377 552 400 546 C470 532 529 557 594 545 C659 533 717 552 783 541 C846 531 906 548 966 538 C1017 530 1064 539 1100 532 L1100 600 L0 600 Z" styleClass="grass" />
+                    </children>
+                </Group>
+            </children>
+        </Pane>
+
+        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="48.0" styleClass="app-header" text="Lion" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+
+        <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="36.0" prefWidth="282.0" promptText="Type a command..." AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="98.0" />
+
+        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="36.0" prefWidth="68.0" text="Send" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="20.0" />
+
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" prefHeight="509.0" prefWidth="400.0" vvalue="1.0" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="48.0">
+
+            <content>
+                <VBox fx:id="dialogContainer" prefHeight="505.0" prefWidth="388.0" spacing="18.0">
+                    <padding>
+                        <Insets bottom="12.0" left="0.0" right="0.0" top="28.0" />
+                    </padding>
+                </VBox>
+            </content>
+
+        </ScrollPane>
+
+    </children>
+</AnchorPane>

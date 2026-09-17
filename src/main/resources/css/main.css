@@ -1,0 +1,108 @@
+/*
+ * Font-size scale used across the app: header 24px (bold), chat bubble text
+ * 16px, task-list text 16px monospace (see dialog-box.css), input/button
+ * text 15px.
+ */
+
+.root {
+    -fx-background-color: linear-gradient(to bottom, #ffd08a 0%, #ffe3ad 22%, #fff1cf 58%, #ffc77c 100%);
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+.chat-background {
+    -fx-background-color: linear-gradient(to bottom, #ffd28f 0%, #ffe5b7 36%, #fff0d2 68%, #ffc980 100%);
+}
+
+.cloud,
+.cloud-light {
+    -fx-fill: rgba(255, 246, 224, 0.72);
+}
+
+.cloud-light {
+    -fx-opacity: 0.58;
+}
+
+.sun {
+    -fx-fill: rgba(255, 174, 89, 0.55);
+}
+
+.back-hill {
+    -fx-fill: rgba(244, 161, 92, 0.24);
+}
+
+.front-hill {
+    -fx-fill: rgba(231, 132, 73, 0.26);
+}
+
+.grass {
+    -fx-fill: rgba(192, 112, 57, 0.22);
+}
+
+.tree-trunk {
+    -fx-fill: rgba(132, 88, 54, 0.55);
+}
+
+.tree-canopy {
+    -fx-fill: rgba(151, 99, 58, 0.46);
+}
+
+.app-header {
+    -fx-background-color: linear-gradient(to right, #ffc16f, #ffb264);
+    -fx-text-fill: #6e2f18;
+    -fx-font-family: "Verdana", "Helvetica Neue", "Segoe UI", sans-serif;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(90, 50, 10, 0.18), 6, 0.1, 0, 2);
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16;
+    -fx-border-color: #c7c8ce;
+    -fx-border-radius: 16;
+    -fx-border-width: 1.2;
+    -fx-font-size: 15px;
+    -fx-padding: 8 14 8 14;
+    -fx-prompt-text-fill: #9a9aa2;
+}
+
+.text-field:focused {
+    -fx-border-color: #ff7b32;
+}
+
+.button {
+    -fx-background-color: #ff7b32;
+    -fx-background-radius: 16;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #ed6824;
+}
+
+.button:pressed {
+    -fx-background-color: #c94f17;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgba(120, 90, 50, 0.35);
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
