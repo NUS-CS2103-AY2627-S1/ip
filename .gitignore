@@ -13,6 +13,11 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Compiled executables
+*.jar
+*.class
+*.exe
+
 # Temp files
 _temp/
 

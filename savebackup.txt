@@ -1,0 +1,5 @@
+[T][ ] buy groceries
+[D][ ] submit project report by: 20-09-2026 23:59
+[E][ ] team meeting from: 21-09-2026 14:00 to: 21-09-2026 15:30
+[A][ ] call client after: 22-09-2026 09:00
+[T][X] review test results
