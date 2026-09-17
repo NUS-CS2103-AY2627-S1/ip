@@ -17,9 +17,12 @@ import org.junit.jupiter.api.io.TempDir;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import rei.Rei;
 
 /** Tests JavaFX user interaction without requiring manual mouse or keyboard input. */
@@ -34,6 +37,7 @@ public class MainWindowTest {
         CountDownLatch startupLatch = new CountDownLatch(1);
         Platform.startup(startupLatch::countDown);
         assertTrue(startupLatch.await(JAVA_FX_TIMEOUT_SECONDS, TimeUnit.SECONDS));
+        Platform.setImplicitExit(false);
     }
 
     @AfterAll
@@ -95,6 +99,40 @@ public class MainWindowTest {
             assertTrue(message.getMaxWidth() > narrowWidth);
             assertTrue(message.isWrapText());
         });
+    }
+
+    @Test
+    public void userInput_bye_disablesInputAndClosesActualWindow() throws InterruptedException {
+        CountDownLatch hiddenLatch = new CountDownLatch(1);
+        AtomicReference<Stage> window = new AtomicReference<>();
+        try {
+            runOnJavaFxThread(() -> {
+                FXMLLoader loader = new FXMLLoader(MainWindow.class.getResource("/view/MainWindow.fxml"));
+                Scene scene = new Scene(loader.load());
+                MainWindow controller = loader.getController();
+                controller.setRei(new Rei(testDirectory.resolve("tasks.txt")));
+                Stage stage = new Stage();
+                window.set(stage);
+                stage.setScene(scene);
+                stage.setOnHidden(event -> hiddenLatch.countDown());
+                stage.show();
+                TextField input = (TextField) loader.getNamespace().get("userInput");
+                Button send = (Button) loader.getNamespace().get("sendButton");
+
+                input.setText("bye");
+                input.fireEvent(new ActionEvent());
+
+                assertTrue(input.isDisabled());
+                assertTrue(send.isDisabled());
+            });
+            assertTrue(hiddenLatch.await(JAVA_FX_TIMEOUT_SECONDS, TimeUnit.SECONDS));
+        } finally {
+            runOnJavaFxThread(() -> {
+                if (window.get() != null) {
+                    window.get().hide();
+                }
+            });
+        }
     }
 
     /** Executes assertions on the JavaFX application thread and reports any failure to JUnit. */

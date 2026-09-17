@@ -75,7 +75,8 @@ public class MainWindow extends AnchorPane {
         sendButton.setDisable(true);
 
         PauseTransition pause = new PauseTransition(EXIT_DELAY);
-        pause.setOnFinished(event -> getScene().getWindow().hide());
+        // The FXML root owns the scene; this controller is a separate object.
+        pause.setOnFinished(event -> userInput.getScene().getWindow().hide());
         pause.play();
     }
 }
