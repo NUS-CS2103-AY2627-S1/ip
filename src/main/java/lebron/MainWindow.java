@@ -53,7 +53,7 @@ public class MainWindow {
     public void showGreeting() {
         dialogContainer.getChildren().add(
                 DialogBox.getLebronDialog(
-                        "Hello! I'm Lebron. What can I do for you?", lebronImage, false));
+                        "Hey, I'm Lebron -- your coach for today. What's the game plan?", lebronImage, false));
     }
 
     /**

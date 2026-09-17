@@ -28,7 +28,7 @@ command to make it repeat. `/every` must come after the command's date(s)
 
 Example: `deadline pay rent /by 2025-01-01 /every month`
 ```
-added: [D][ ] pay rent (by: Jan 01 2025) (every: month)
+on the board: [D][ ] pay rent (by: Jan 01 2025) (every: month)
 ```
 
 Marking a recurring task done doesn't check it off -- it rolls the date(s)
@@ -36,7 +36,7 @@ forward to the next occurrence instead, and stays unchecked:
 
 Example: `mark 1`
 ```
-Nice! I've marked this task as done. Since it recurs, I've scheduled the next occurrence:
+Nice bucket! Since this one's a repeat play, I've already queued up the next rep:
   [D][ ] pay rent (by: Feb 01 2025) (every: month)
 ```
 
