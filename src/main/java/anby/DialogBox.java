@@ -1,6 +1,7 @@
 package anby;
 
 import java.io.InputStream;
+import java.util.regex.Pattern;
 
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -11,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
 /**
@@ -20,8 +22,12 @@ public class DialogBox extends HBox {
     private static final String USER_AVATAR_PATH = "/images/user.jpg";
     private static final String ANBY_AVATAR_PATH = "/images/anby.jpg";
     private static final double AVATAR_SIZE = 88.0;
+    private static final double MESSAGE_MAX_WIDTH = 260.0;
+    private static final double SUGGESTION_COMMAND_MAX_WIDTH = 205.0;
+    private static final String TRY_PREFIX = "try: ";
+    private static final Pattern TASK_LINE_PATTERN = Pattern.compile("^(\\d+\\. )?\\[[TDE]]\\[[ X]] .+$");
 
-    private final Label dialog;
+    private final Region dialog;
     private final StackPane avatar;
 
     /**
@@ -32,14 +38,15 @@ public class DialogBox extends HBox {
      * @param fallbackText text to show if the image does not exist
      */
     public DialogBox(String text, String avatarPath, String fallbackText) {
-        dialog = new Label(text);
+        dialog = createMessageContent(text);
         avatar = createAvatar(avatarPath, fallbackText);
 
-        dialog.setWrapText(true);
+        dialog.setMaxWidth(MESSAGE_MAX_WIDTH);
         dialog.setMinHeight(Region.USE_PREF_SIZE);
         avatar.setAlignment(Pos.CENTER);
 
         getStyleClass().add("dialog-box");
+        setFillHeight(false);
         dialog.getStyleClass().add("dialog-label");
         avatar.getStyleClass().add("avatar-label");
         getChildren().addAll(dialog, avatar);
@@ -71,6 +78,73 @@ public class DialogBox extends HBox {
         dialogBox.dialog.getStyleClass().add("anby-label");
         dialogBox.avatar.getStyleClass().add("anby-avatar");
         return dialogBox;
+    }
+
+    private static Region createMessageContent(String text) {
+        if (!hasFormattedLine(text)) {
+            Label label = new Label(text);
+            label.setWrapText(true);
+            return label;
+        }
+
+        VBox message = new VBox(4);
+        message.getStyleClass().add("formatted-message");
+        String[] lines = text.split("\\R", -1);
+
+        for (String line : lines) {
+            message.getChildren().add(createLineContent(line));
+        }
+
+        return message;
+    }
+
+    private static boolean hasFormattedLine(String text) {
+        for (String line : text.split("\\R")) {
+            if (line.startsWith(TRY_PREFIX) || TASK_LINE_PATTERN.matcher(line).matches()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static Region createLineContent(String line) {
+        if (line.startsWith(TRY_PREFIX)) {
+            return createSuggestionLine(line);
+        } else if (TASK_LINE_PATTERN.matcher(line).matches()) {
+            return createCodeBlockLine(line);
+        }
+
+        Label label = new Label(line);
+        label.setWrapText(true);
+        return label;
+    }
+
+    private static HBox createSuggestionLine(String line) {
+        HBox suggestionLine = new HBox(3);
+        suggestionLine.setAlignment(Pos.CENTER_LEFT);
+        suggestionLine.getStyleClass().add("suggestion-line");
+
+        Label prefix = new Label("try");
+        prefix.getStyleClass().add("suggestion-prefix");
+
+        Label separator = new Label(": ");
+
+        Label command = new Label(line.substring(TRY_PREFIX.length()));
+        command.setMaxWidth(SUGGESTION_COMMAND_MAX_WIDTH);
+        command.setWrapText(true);
+        command.getStyleClass().add("suggestion-code");
+
+        suggestionLine.getChildren().addAll(prefix, separator, command);
+        return suggestionLine;
+    }
+
+    private static Label createCodeBlockLine(String line) {
+        Label label = new Label(line);
+        label.setMaxWidth(MESSAGE_MAX_WIDTH);
+        label.setWrapText(true);
+        label.getStyleClass().add("task-code-line");
+        return label;
     }
 
     private static StackPane createAvatar(String imagePath, String fallbackText) {
