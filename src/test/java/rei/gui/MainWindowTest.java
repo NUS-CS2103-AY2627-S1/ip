@@ -60,7 +60,7 @@ public class MainWindowTest {
             assertEquals("", userInput.getText());
             DialogBox responseDialog = (DialogBox) dialogContainer.getChildren().get(initialDialogCount + 1);
             Label response = (Label) responseDialog.lookup(".message-bubble");
-            assertTrue(response.getText().contains("Okay, I've added: [T][ ] read book"));
+            assertTrue(response.getText().contains("One less thing to remember. I've added: [T][ ] read book"));
         });
     }
 

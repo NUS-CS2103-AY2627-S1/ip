@@ -20,7 +20,7 @@ public class ReiTest {
         Rei.CommandResult addResult = rei.getResponse("todo read book");
         Rei.CommandResult listResult = rei.getResponse("list");
 
-        assertTrue(addResult.response().contains("Okay, I've added: [T][ ] read book"));
+        assertTrue(addResult.response().contains("One less thing to remember. I've added: [T][ ] read book"));
         assertTrue(listResult.response().contains("1.[T][ ] read book"));
         assertFalse(addResult.shouldExit());
     }
@@ -31,7 +31,7 @@ public class ReiTest {
 
         Rei.CommandResult result = rei.getResponse("bye");
 
-        assertTrue(result.response().contains("Bye! Hope to see you again soon!"));
+        assertTrue(result.response().contains("See you soon. Make room for a little rest, too."));
         assertTrue(result.shouldExit());
     }
 

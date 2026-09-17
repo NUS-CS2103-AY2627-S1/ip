@@ -27,10 +27,10 @@ bye
 ```text
 {{ANY_PREFIX}}
 ------------------------------------------------------------
-Okay, I've added: [T][ ] read book
+One less thing to remember. I've added: [T][ ] read book
 You have a total of 1 tasks in the list.
 ------------------------------------------------------------
-Okay, I've added: [T][ ] return book
+One less thing to remember. I've added: [T][ ] return book
 You have a total of 2 tasks in the list.
 ------------------------------------------------------------
 Here are the tasks in your list:
@@ -38,7 +38,7 @@ No. of tasks: 2
 1.[T][ ] read book
 2.[T][ ] return book
 ------------------------------------------------------------
-Bye! Hope to see you again soon!
+See you soon. Make room for a little rest, too.
 ------------------------------------------------------------
 ```
 
@@ -64,10 +64,10 @@ bye
 
 ```text
 {{ANY_PREFIX}}
-Okay, I've added: [T][ ] prepare slides
+One less thing to remember. I've added: [T][ ] prepare slides
 You have a total of 1 tasks in the list.
 ------------------------------------------------------------
-Okay, I've added: [T][ ] buy snacks
+One less thing to remember. I've added: [T][ ] buy snacks
 You have a total of 2 tasks in the list.
 ------------------------------------------------------------
 Added #school to task 1:
@@ -88,7 +88,7 @@ No. of tasks: 2
 Here are the matching tasks in your list:
 1.[T][ ] prepare slides #school
 ------------------------------------------------------------
-Bye! Hope to see you again soon!
+See you soon. Make room for a little rest, too.
 ------------------------------------------------------------
 ```
 
@@ -130,16 +130,16 @@ Let's try that again!
 Task 1 does not exist.
 Let's try that again!
 ------------------------------------------------------------
-Yay! You have completed all your tasks
+Your list is clear. Add a task whenever you are ready.
 ------------------------------------------------------------
-Okay, I've added: [T][ ] alpha
+One less thing to remember. I've added: [T][ ] alpha
 You have a total of 1 tasks in the list.
 ------------------------------------------------------------
-Alright! I have set it to done! Good Work!
+A little progress counts. Marked as done!
 
 [T][X] alpha
 ------------------------------------------------------------
-Alright! I have set it to done! Good Work!
+A little progress counts. Marked as done!
 
 [T][X] alpha
 ------------------------------------------------------------
@@ -147,20 +147,20 @@ Here are the tasks in your list:
 No. of tasks: 1
 1.[T][X] alpha
 ------------------------------------------------------------
-Gotcha, I will remove this task from your list:
+Making room. Removed this task from your list:
   [T][X] alpha
 Now you have 0 tasks in the list.
 ------------------------------------------------------------
-Yay! You have completed all your tasks
+Your list is clear. Add a task whenever you are ready.
 ------------------------------------------------------------
-Okay, I've added: [T][ ] beta
+One less thing to remember. I've added: [T][ ] beta
 You have a total of 1 tasks in the list.
 ------------------------------------------------------------
-Got it! I have set it to not done!
+No rush. Put it back on your list.
 
 [T][ ] beta
 ------------------------------------------------------------
-Got it! I have set it to not done!
+No rush. Put it back on your list.
 
 [T][ ] beta
 ------------------------------------------------------------
@@ -170,7 +170,7 @@ Here are the tasks in your list:
 No. of tasks: 1
 1.[T][ ] beta
 ------------------------------------------------------------
-Bye! Hope to see you again soon!
+See you soon. Make room for a little rest, too.
 ------------------------------------------------------------
 ```
 
@@ -191,7 +191,7 @@ bye
 
 ```text
 {{ANY_PREFIX}}
-Okay, I've added: [T][ ] spaced task
+One less thing to remember. I've added: [T][ ] spaced task
 You have a total of 1 tasks in the list.
 ------------------------------------------------------------
 I'm sorry, I don't know what is 'TODO'. Try todo, deadline, event, list, find, delete, mark, unmark, tag, or bye.
@@ -200,7 +200,7 @@ Here are the tasks in your list:
 No. of tasks: 1
 1.[T][ ] spaced task
 ------------------------------------------------------------
-Bye! Hope to see you again soon!
+See you soon. Make room for a little rest, too.
 ------------------------------------------------------------
 ```
 
@@ -227,9 +227,9 @@ Try: deadline {your task} /by {deadline}
 An event needs a description, start, and end time. 
 Try: event {task} /from {start} /to {end}
 ------------------------------------------------------------
-Yay! You have completed all your tasks
+Your list is clear. Add a task whenever you are ready.
 ------------------------------------------------------------
-Bye! Hope to see you again soon!
+See you soon. Make room for a little rest, too.
 ------------------------------------------------------------
 ```
 
@@ -257,19 +257,19 @@ bye
 
 ```text
 {{ANY_PREFIX}}
-Okay, I've added: [T][ ] read book
+One less thing to remember. I've added: [T][ ] read book
 You have a total of 1 tasks in the list.
 ------------------------------------------------------------
-Okay, I've added: [D][ ] return book (by: Dec 02 2019, 6:00 PM)
+One less thing to remember. I've added: [D][ ] return book (by: Dec 02 2019, 6:00 PM)
 You have a total of 2 tasks in the list.
 ------------------------------------------------------------
-Okay, I've added: [E][ ] project meeting (from: Dec 03 2019, 10:00 AM to: Dec 03 2019, 12:00 PM)
+One less thing to remember. I've added: [E][ ] project meeting (from: Dec 03 2019, 10:00 AM to: Dec 03 2019, 12:00 PM)
 You have a total of 3 tasks in the list.
 ------------------------------------------------------------
-Okay, I've added: [T][ ] borrow book
+One less thing to remember. I've added: [T][ ] borrow book
 You have a total of 4 tasks in the list.
 ------------------------------------------------------------
-Gotcha, I will remove this task from your list:
+Making room. Removed this task from your list:
   [E][ ] project meeting (from: Dec 03 2019, 10:00 AM to: Dec 03 2019, 12:00 PM)
 Now you have 3 tasks in the list.
 ------------------------------------------------------------
@@ -279,7 +279,7 @@ No. of tasks: 3
 2.[D][ ] return book (by: Dec 02 2019, 6:00 PM)
 3.[T][ ] borrow book
 ------------------------------------------------------------
-Gotcha, I will remove this task from your list:
+Making room. Removed this task from your list:
   [T][ ] borrow book
 Now you have 2 tasks in the list.
 ------------------------------------------------------------
@@ -293,7 +293,7 @@ Let's try that again!
 ------------------------------------------------------------
 The task number must be a whole number. Try: delete 1
 ------------------------------------------------------------
-Bye! Hope to see you again soon!
+See you soon. Make room for a little rest, too.
 ------------------------------------------------------------
 ```
 
@@ -320,7 +320,7 @@ bye
 
 ```text
 {{ANY_PREFIX}}
-Okay, I've added: [T][ ] alpha
+One less thing to remember. I've added: [T][ ] alpha
 You have a total of 1 tasks in the list.
 ------------------------------------------------------------
 A todo needs a description. 
@@ -330,7 +330,7 @@ Here are the tasks in your list:
 No. of tasks: 1
 1.[T][ ] alpha
 ------------------------------------------------------------
-Alright! I have set it to done! Good Work!
+A little progress counts. Marked as done!
 
 [T][X] alpha
 ------------------------------------------------------------
@@ -341,7 +341,7 @@ Here are the tasks in your list:
 No. of tasks: 1
 1.[T][X] alpha
 ------------------------------------------------------------
-Got it! I have set it to not done!
+No rush. Put it back on your list.
 
 [T][ ] alpha
 ------------------------------------------------------------
@@ -352,7 +352,7 @@ Here are the tasks in your list:
 No. of tasks: 1
 1.[T][ ] alpha
 ------------------------------------------------------------
-Bye! Hope to see you again soon!
+See you soon. Make room for a little rest, too.
 ------------------------------------------------------------
 ```
 
@@ -379,13 +379,13 @@ bye
 A deadline needs a description and a by date. 
 Try: deadline {your task} /by {deadline}
 ------------------------------------------------------------
-Okay, I've added: [D][ ] return book (by: Dec 02 2019, 6:00 PM)
+One less thing to remember. I've added: [D][ ] return book (by: Dec 02 2019, 6:00 PM)
 You have a total of 1 tasks in the list.
 ------------------------------------------------------------
 An event needs a description, start, and end time. 
 Try: event {task} /from {start} /to {end}
 ------------------------------------------------------------
-Okay, I've added: [E][ ] meeting (from: Dec 03 2019, 10:00 AM to: Dec 03 2019, 12:00 PM)
+One less thing to remember. I've added: [E][ ] meeting (from: Dec 03 2019, 10:00 AM to: Dec 03 2019, 12:00 PM)
 You have a total of 2 tasks in the list.
 ------------------------------------------------------------
 A deadline needs a description and a by date. 
@@ -396,7 +396,7 @@ No. of tasks: 2
 1.[D][ ] return book (by: Dec 02 2019, 6:00 PM)
 2.[E][ ] meeting (from: Dec 03 2019, 10:00 AM to: Dec 03 2019, 12:00 PM)
 ------------------------------------------------------------
-Bye! Hope to see you again soon!
+See you soon. Make room for a little rest, too.
 ------------------------------------------------------------
 ```
 
@@ -415,9 +415,9 @@ bye
 
 ```text
 {{ANY_PREFIX}}
-Yay! You have completed all your tasks
+Your list is clear. Add a task whenever you are ready.
 ------------------------------------------------------------
-Bye! Hope to see you again soon!
+See you soon. Make room for a little rest, too.
 ------------------------------------------------------------
 ```
 
@@ -442,16 +442,16 @@ bye
 
 ```text
 {{ANY_PREFIX}}
-Okay, I've added: [D][ ] hyphen year first (by: Dec 01 2019, 6:00 PM)
+One less thing to remember. I've added: [D][ ] hyphen year first (by: Dec 01 2019, 6:00 PM)
 You have a total of 1 tasks in the list.
 ------------------------------------------------------------
-Okay, I've added: [D][ ] slash year first (by: Dec 02 2019, 6:00 PM)
+One less thing to remember. I've added: [D][ ] slash year first (by: Dec 02 2019, 6:00 PM)
 You have a total of 2 tasks in the list.
 ------------------------------------------------------------
-Okay, I've added: [D][ ] slash day first (by: Dec 03 2019, 6:00 PM)
+One less thing to remember. I've added: [D][ ] slash day first (by: Dec 03 2019, 6:00 PM)
 You have a total of 3 tasks in the list.
 ------------------------------------------------------------
-Okay, I've added: [E][ ] hyphen day first (from: Dec 04 2019, 9:00 AM to: Dec 04 2019, 11:00 AM)
+One less thing to remember. I've added: [E][ ] hyphen day first (from: Dec 04 2019, 9:00 AM to: Dec 04 2019, 11:00 AM)
 You have a total of 4 tasks in the list.
 ------------------------------------------------------------
 Please use a valid date and time in yyyy-MM-dd, yyyy/MM/dd, dd/MM/yyyy, or dd-MM-yyyy format, followed by a 24-hour time such as 1800.
@@ -465,7 +465,7 @@ No. of tasks: 4
 3.[D][ ] slash day first (by: Dec 03 2019, 6:00 PM)
 4.[E][ ] hyphen day first (from: Dec 04 2019, 9:00 AM to: Dec 04 2019, 11:00 AM)
 ------------------------------------------------------------
-Bye! Hope to see you again soon!
+See you soon. Make room for a little rest, too.
 ------------------------------------------------------------
 ```
 
@@ -494,16 +494,16 @@ bye
 
 ```text
 {{ANY_PREFIX}}
-Okay, I've added: [T][ ] buy snacks
+One less thing to remember. I've added: [T][ ] buy snacks
 You have a total of 1 tasks in the list.
 ------------------------------------------------------------
-Okay, I've added: [D][ ] return book (by: Dec 02 2019, 6:00 PM)
+One less thing to remember. I've added: [D][ ] return book (by: Dec 02 2019, 6:00 PM)
 You have a total of 2 tasks in the list.
 ------------------------------------------------------------
-Okay, I've added: [D][ ] submit report (by: Dec 05 2019, 12:00 PM)
+One less thing to remember. I've added: [D][ ] submit report (by: Dec 05 2019, 12:00 PM)
 You have a total of 3 tasks in the list.
 ------------------------------------------------------------
-Okay, I've added: [E][ ] conference (from: Dec 02 2019, 11:00 PM to: Dec 04 2019, 1:00 AM)
+One less thing to remember. I've added: [E][ ] conference (from: Dec 02 2019, 11:00 PM to: Dec 04 2019, 1:00 AM)
 You have a total of 4 tasks in the list.
 ------------------------------------------------------------
 Tasks occurring on Dec 02 2019:
@@ -530,7 +530,7 @@ No deadlines or events occur on this date.
 ------------------------------------------------------------
 Please provide a valid date in yyyy-MM-dd, yyyy/MM/dd, dd/MM/yyyy, or dd-MM-yyyy format. Try: find 2019-12-02
 ------------------------------------------------------------
-Bye! Hope to see you again soon!
+See you soon. Make room for a little rest, too.
 ------------------------------------------------------------
 ```
 
@@ -557,16 +557,16 @@ bye
 
 ```text
 {{ANY_PREFIX}}
-Okay, I've added: [T][ ] read book
+One less thing to remember. I've added: [T][ ] read book
 You have a total of 1 tasks in the list.
 ------------------------------------------------------------
-Okay, I've added: [D][ ] return Library Book (by: Dec 02 2019, 6:00 PM)
+One less thing to remember. I've added: [D][ ] return Library Book (by: Dec 02 2019, 6:00 PM)
 You have a total of 2 tasks in the list.
 ------------------------------------------------------------
-Okay, I've added: [E][ ] book club (from: Dec 03 2019, 10:00 AM to: Dec 03 2019, 12:00 PM)
+One less thing to remember. I've added: [E][ ] book club (from: Dec 03 2019, 10:00 AM to: Dec 03 2019, 12:00 PM)
 You have a total of 3 tasks in the list.
 ------------------------------------------------------------
-Okay, I've added: [T][ ] submit report
+One less thing to remember. I've added: [T][ ] submit report
 You have a total of 4 tasks in the list.
 ------------------------------------------------------------
 Here are the matching tasks in your list:
@@ -585,7 +585,7 @@ No matching tasks found.
 ------------------------------------------------------------
 Please provide a keyword or date. Try: find book
 ------------------------------------------------------------
-Bye! Hope to see you again soon!
+See you soon. Make room for a little rest, too.
 ------------------------------------------------------------
 ```
 
@@ -641,6 +641,6 @@ The bye command does not take any extra text. Try: bye
 ------------------------------------------------------------
 I'm sorry, I don't know what is 'blah'. Try todo, deadline, event, list, find, delete, mark, unmark, tag, or bye.
 ------------------------------------------------------------
-Bye! Hope to see you again soon!
+See you soon. Make room for a little rest, too.
 ------------------------------------------------------------
 ```
