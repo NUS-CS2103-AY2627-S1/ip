@@ -41,7 +41,7 @@ public class MainWindow extends AnchorPane {
         this.rei = rei;
         dialogContainer.getChildren().add(DialogBox.getReiDialog(GREETING));
         if (!rei.getStartupMessage().isEmpty()) {
-            dialogContainer.getChildren().add(DialogBox.getReiDialog(rei.getStartupMessage()));
+            dialogContainer.getChildren().add(DialogBox.getErrorDialog(rei.getStartupMessage()));
         }
         Platform.runLater(userInput::requestFocus);
     }
@@ -59,7 +59,8 @@ public class MainWindow extends AnchorPane {
         Rei.CommandResult result = rei.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input),
-                DialogBox.getReiDialog(result.response()));
+                result.isError() ? DialogBox.getErrorDialog(result.response())
+                        : DialogBox.getReiDialog(result.response()));
         userInput.clear();
 
         if (result.shouldExit()) {

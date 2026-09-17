@@ -99,7 +99,7 @@ public class Rei {
             Ui responseUi = Ui.forOutput(output);
             CommandResult result = executeCommand(input.trim(), responseUi);
             return new CommandResult(outputBuffer.toString(StandardCharsets.UTF_8).stripTrailing(),
-                    result.shouldExit());
+                    result.shouldExit(), result.isError());
         }
     }
 
@@ -124,7 +124,7 @@ public class Rei {
         assert userInput != null && userInput.equals(userInput.trim()) : "Command input must be trimmed";
         if (userInput.isEmpty()) {
             ui.showError("Please enter a command. Try: todo read book");
-            return new CommandResult("", false);
+            return new CommandResult("", false, true);
         }
 
         int firstSpace = userInput.indexOf(" ");
@@ -143,8 +143,8 @@ public class Rei {
             return dispatchCommand(command, details, ui);
         } catch (ReiException exception) {
             ui.showError(exception.getMessage());
+            return new CommandResult("", false, true);
         }
-        return new CommandResult("", false);
     }
 
     /** Routes a recognized command and reports whether it requests application exit. */
@@ -153,7 +153,7 @@ public class Rei {
             case BYE -> {
                 ensureNoDetails(command, details);
                 ui.showExit();
-                return new CommandResult("", true);
+                return new CommandResult("", true, false);
             }
             case LIST -> {
                 ensureNoDetails(command, details);
@@ -172,7 +172,7 @@ public class Rei {
             case TODO, DEADLINE, EVENT, MARK, UNMARK -> executeTaskCommand(command, details, ui);
             default -> throw new IllegalStateException("Unhandled command: " + command);
         }
-        return new CommandResult("", false);
+        return new CommandResult("", false, false);
     }
 
     /** Applies a task creation or status change and persists it before confirming additions. */
@@ -437,7 +437,7 @@ public class Rei {
     }
 
     /** Contains a command's response text and whether the application should close. */
-    public record CommandResult(String response, boolean shouldExit) {
+    public record CommandResult(String response, boolean shouldExit, boolean isError) {
     }
 
     /** Contains loaded tasks and an optional startup warning. */
