@@ -1,0 +1,48 @@
+/*
+ * The conversation bubbles.
+ *
+ * The plain .label rule styles the user's message. Harvey's replies also carry
+ * .reply-label, and on top of that one of the per-command classes below, so that an
+ * addition, a deletion and a refusal are told apart by color rather than by reading.
+ */
+
+.label {
+    -fx-background-color: #f4f1ea;                  /* The user speaks on cream stationery. */
+    -fx-text-fill: #1b2029;
+    -fx-border-color: #c9a227;
+    -fx-border-width: 0 3px 0 0;                    /* A single gold edge, on the user's side. */
+    -fx-background-radius: 12px 12px 0 12px;
+    -fx-border-radius: 12px 12px 0 12px;
+    -fx-font: 14px "System";                        /* Compact and legible at small sizes. */
+}
+
+.reply-label {
+    -fx-background-color: #16233f;                  /* Harvey answers in navy. */
+    -fx-text-fill: #ffffff;
+    -fx-border-width: 0 0 0 3px;                    /* Mirrored, since Harvey sits on the left. */
+    -fx-background-radius: 0 12px 12px 12px;
+    -fx-border-radius: 0 12px 12px 12px;
+}
+
+.add-label {
+    -fx-background-color: #10352a;
+    -fx-border-color: #4fd8a3;
+}
+
+.marked-label {
+    -fx-background-color: #16351f;
+    -fx-border-color: #8ee88e;
+}
+
+.delete-label {
+    -fx-background-color: #3d1220;
+    -fx-border-color: #ffa3b8;
+}
+
+/* Style for error messages. */
+.error-label {
+    -fx-background-color: #400f12;
+    -fx-border-color: #ff4d5b;
+    -fx-text-fill: #ffe3e3;
+    -fx-font-weight: bold;
+}

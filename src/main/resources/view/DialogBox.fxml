@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<!-- No prefWidth on the root: the scroll pane fits each box to its own width, so the
+     bubbles follow the window as it is resized. -->
+<fx:root alignment="TOP_RIGHT"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         spacing="8.0"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <Label fx:id="dialog" text="Label" wrapText="true" minHeight="-Infinity">
+      <padding>
+        <Insets bottom="8.0" left="12.0" right="12.0" top="8.0" />
+      </padding>
+    </Label>
+    <!-- A small avatar: the speakers never change, so it only needs to be recognizable. -->
+    <ImageView fx:id="displayPicture" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" />
+  </children>
+  <padding>
+    <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
+  </padding>
+  <stylesheets>
+    <URL value="@../css/dialog-box.css" />
+  </stylesheets>
+</fx:root>

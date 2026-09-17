@@ -16,5 +16,11 @@ bin/
 # Temp files
 _temp/
 
+# Local AI tooling: kept on this machine, not pushed to the remote
+/.claude/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Task data written at runtime: belongs to whoever runs the app, not to the repo
+/data/
