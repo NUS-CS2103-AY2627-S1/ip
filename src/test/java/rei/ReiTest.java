@@ -1,9 +1,13 @@
 package rei;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -12,6 +16,45 @@ import org.junit.jupiter.api.io.TempDir;
 public class ReiTest {
     @TempDir
     private Path testDirectory;
+
+    @Test
+    public void getResponse_failedSave_rollsBackEveryMutation() throws IOException {
+        Path dataFile = testDirectory.resolve("tasks.txt");
+        Rei rei = new Rei(dataFile);
+        rei.getResponse("todo keep me");
+        String original = rei.getResponse("list").response();
+        Files.delete(dataFile);
+        Files.createDirectory(dataFile);
+        Files.writeString(dataFile.resolve("blocker"), "Prevent replacement");
+
+        for (String command : List.of("todo new", "mark 1", "unmark 1", "tag 1 #school", "delete 1")) {
+            Rei.CommandResult result = rei.getResponse(command);
+            assertTrue(result.isError(), command);
+            assertTrue(result.response().startsWith("I couldn't save your tasks."), command);
+            assertEquals(original, rei.getResponse("list").response(), command);
+        }
+    }
+
+    @Test
+    public void getResponse_corruptedFile_preventsOverwritingOriginal() throws IOException {
+        Path dataFile = testDirectory.resolve("tasks.txt");
+        Files.writeString(dataFile, "damaged record");
+        Rei rei = new Rei(dataFile);
+
+        assertTrue(rei.getResponse("todo new").isError());
+        assertEquals("damaged record", Files.readString(dataFile));
+        assertFalse(rei.getResponse("list").isError());
+    }
+
+    @Test
+    public void getResponse_whitespaceAndEqualTimes_validatesInput() {
+        Rei rei = new Rei(testDirectory.resolve("tasks.txt"));
+
+        assertFalse(rei.getResponse("  todo\tread book  ").isError());
+        assertFalse(rei.getResponse("deadline\treport /by 2026-09-18   1800").isError());
+        assertTrue(rei.getResponse("event study /from 2026-09-18 1800 /to 2026-09-18 1800").isError());
+        assertTrue(rei.getResponse("deadline report /by 2026-02-30 1800").isError());
+    }
 
     @Test
     public void getResponse_addAndListTask_returnsExpectedMessages() {

@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,20 @@ import rei.task.Task;
 public class StorageTest {
     @TempDir
     Path testDirectory;
+
+    @Test
+    public void load_invalidDateAndEventRange_skipsRecordsWithoutCrashing() throws IOException {
+        Path dataFile = testDirectory.resolve("invalid-dates.txt");
+        String invalidDate = Base64.getEncoder().encodeToString("2026-02-30T18:00".getBytes(StandardCharsets.UTF_8));
+        String start = Base64.getEncoder().encodeToString("2026-09-18T18:00".getBytes(StandardCharsets.UTF_8));
+        Files.write(dataFile, List.of("D | 0 | dGFzaw== | " + invalidDate,
+                "E | 0 | dGFzaw== | " + start + " | " + start));
+
+        Storage.LoadResult result = new Storage(dataFile).load();
+
+        assertEquals(2, result.skippedLines());
+        assertEquals(0, result.tasks().size());
+    }
 
     @Test
     public void load_missingFile_returnsEmptyResult() throws IOException {
