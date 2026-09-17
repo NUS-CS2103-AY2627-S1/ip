@@ -1,20 +1,40 @@
-# IDEA files
-/.idea/
-/out/
-/*.iml
-
-# Gradle build files
-/.gradle/
+# Compiled Java and build output
+*.class
 /build/
-src/main/resources/docs/
+/out/
+/bin/
 
-# MacOS custom attributes files created by Finder
-.DS_Store
+# IntelliJ IDEA
+/.idea/
 *.iml
-bin/
 
-# Temp files
-_temp/
+# Eclipse
+/.classpath
+/.project
+/.settings/
+/.factorypath
 
+# Visual Studio Code
+/.vscode/
+
+# Gradle
+/.gradle/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+*.swo
+*~
+/_temp/
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
+
+# Generated documentation resources
+/src/main/resources/docs/
+
+# Text UI test output
 /text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+/text-ui-test/EXPECTED-UNIX.TXT

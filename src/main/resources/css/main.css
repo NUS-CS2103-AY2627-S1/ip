@@ -1,0 +1,76 @@
+.root {
+    -fx-background-color: #2d353b;
+    -fx-background-image: url("../guiBackground.jpg");
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: rgba(35, 42, 46, 0.48);
+}
+
+#dialogContainer {
+    -fx-padding: 14px 10px;
+}
+
+.text-field {
+    -fx-background-color: rgba(45, 53, 59, 0.96);
+    -fx-background-insets: 0;
+    -fx-border-color: #4f585e;
+    -fx-border-width: 1px 0 0 0;
+    -fx-font-size: 16px;
+    -fx-pref-height: 41px;
+    -fx-prompt-text-fill: #859289;
+    -fx-text-fill: #d3c6aa;
+}
+
+.text-field:focused {
+    -fx-border-color: #83c092;
+    -fx-border-width: 2px 0 0 0;
+}
+
+.button {
+    -fx-background-color: #a7c080;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: #4f585e;
+    -fx-border-width: 1px 0 0 1px;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-pref-height: 41px;
+    -fx-text-fill: #2d353b;
+}
+
+.button:hover {
+    -fx-background-color: #83c092;
+}
+
+.button:pressed {
+    -fx-background-color: #dbbc7f;
+}
+
+.button:disabled,
+.text-field:disabled {
+    -fx-opacity: 0.7;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: rgba(45, 53, 59, 0.6);
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #859289;
+    -fx-background-radius: 8px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}

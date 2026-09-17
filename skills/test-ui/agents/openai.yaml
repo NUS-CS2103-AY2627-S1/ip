@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run PotatoBot command-output UI checks"
+  default_prompt: "Use $test-ui to run the project saved UI command-output tests."
