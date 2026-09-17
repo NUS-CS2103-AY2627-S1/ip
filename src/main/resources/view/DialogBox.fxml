@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.Double?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Polygon?>
+
+<HBox alignment="TOP_LEFT" spacing="8" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+    <Region id="leftSpacer" fx:id="leftSpacer" HBox.hgrow="ALWAYS" />
+    <StackPane id="avatar" fx:id="avatar">
+        <Circle radius="18" styleClass="avatar-circle" StackPane.alignment="TOP_LEFT" />
+        <Label id="avatarLabel" fx:id="avatarLabel" styleClass="avatar-label" StackPane.alignment="TOP_CENTER">
+         <StackPane.margin>
+            <Insets />
+         </StackPane.margin>
+         <padding>
+            <Insets top="11.0" />
+         </padding>
+      </Label>
+    </StackPane>
+    <StackPane id="bubbleGroup" fx:id="bubbleGroup">
+        <Label id="bubble" fx:id="bubble" wrapText="true" />
+        <Polygon id="leftTail" fx:id="leftTail" styleClass="nubish-tail">
+            <points>
+                <Double fx:value="0.0" />
+                <Double fx:value="0.0" />
+                <Double fx:value="12.0" />
+                <Double fx:value="0.0" />
+                <Double fx:value="12.0" />
+                <Double fx:value="12.0" />
+                <Double fx:value="0.0" />
+            </points>
+        </Polygon>
+        <Polygon id="rightTail" fx:id="rightTail" styleClass="user-tail">
+            <points>
+                <Double fx:value="0.0" />
+                <Double fx:value="0.0" />
+                <Double fx:value="0.0" />
+                <Double fx:value="12.0" />
+                <Double fx:value="12.0" />
+                <Double fx:value="0.0" />
+            </points>
+        </Polygon>
+    </StackPane>
+    <Region id="rightSpacer" fx:id="rightSpacer" HBox.hgrow="ALWAYS" />
+</HBox>

@@ -1,0 +1,4 @@
+D | 1 | return book | June 6th
+E | 1 | project meeting | Aug 6th 2pm | Aug 6th 4pm
+D | 0 | goo | wadasd
+E | 1 | goo | now | tmr

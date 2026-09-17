@@ -1,0 +1,282 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Nubish Better GUI Diff</title>
+<style>
+body { margin: 0; background: #f6f8fa; color: #24292f; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+header { padding: 20px 28px; background: #0f172a; color: white; }
+h1 { margin: 0 0 6px; font-size: 22px; }
+p { margin: 0; color: #cbd5e1; }
+main { padding: 24px 28px; }
+pre { margin: 0; padding: 18px; overflow-x: auto; background: white; border: 1px solid #d0d7de; border-radius: 10px; line-height: 1.45; font-family: Consolas, "Courier New", monospace; font-size: 13px; }
+span { display: block; min-height: 1.45em; white-space: pre; }
+.add { background: #dafbe1; color: #116329; }
+.del { background: #ffebe9; color: #82071e; }
+.hunk { background: #ddf4ff; color: #0550ae; font-weight: 600; }
+.meta { background: #f6f8fa; color: #57606a; font-weight: 600; }
+.ctx { color: #24292f; }
+</style>
+</head>
+<body>
+<header>
+<h1>Nubish Better GUI Diff</h1>
+<p>Main changes for pastel error bubbles, Nubish typing animation, reminders, and dynamic list bubble sizing.</p>
+</header>
+<main><pre><span class="meta">diff --git a/src/main/java/nubish/Main.java b/src/main/java/nubish/Main.java</span>
+<span class="meta">index 2aac2f8..cc37645 100644</span>
+<span class="meta">--- a/src/main/java/nubish/Main.java</span>
+<span class="meta">+++ b/src/main/java/nubish/Main.java</span>
+<span class="hunk">@@ -2,6 +2,8 @@ package nubish;</span>
+<span class="ctx"> </span>
+<span class="ctx"> import java.io.IOException;</span>
+<span class="ctx"> </span>
+<span class="add">+import javafx.animation.KeyFrame;</span>
+<span class="add">+import javafx.animation.Timeline;</span>
+<span class="ctx"> import javafx.application.Application;</span>
+<span class="ctx"> import javafx.application.Platform;</span>
+<span class="ctx"> import javafx.fxml.FXML;</span>
+<span class="hunk">@@ -20,6 +22,7 @@ import javafx.scene.layout.Region;</span>
+<span class="ctx"> import javafx.scene.layout.StackPane;</span>
+<span class="ctx"> import javafx.scene.layout.VBox;</span>
+<span class="ctx"> import javafx.stage.Stage;</span>
+<span class="add">+import javafx.util.Duration;</span>
+<span class="ctx"> </span>
+<span class="ctx"> /**</span>
+<span class="ctx">  * JavaFX application that shows Nubish as a WhatsApp-style chat.</span>
+<span class="hunk">@@ -28,6 +31,8 @@ public class Main extends Application {</span>
+<span class="ctx">     private static final double WINDOW_WIDTH = 520;</span>
+<span class="ctx">     private static final double WINDOW_HEIGHT = 680;</span>
+<span class="ctx">     private static final double MESSAGE_WIDTH_RATIO = 0.78;</span>
+<span class="add">+    private static final double CHARACTER_TYPING_MILLIS = 12;</span>
+<span class="add">+    private static final double MAX_TYPING_DURATION_MILLIS = 2000;</span>
+<span class="ctx"> </span>
+<span class="ctx">     private final Nubish nubish = new Nubish();</span>
+<span class="ctx"> </span>
+<span class="hunk">@@ -56,7 +61,6 @@ public class Main extends Application {</span>
+<span class="ctx">         stage.show();</span>
+<span class="ctx"> </span>
+<span class="ctx">         addNubishMessage(nubish.start());</span>
+<span class="del">-        addNubishMessage(nubish.getTaskList());</span>
+<span class="ctx">         addNubishMessage(nubish.remind());</span>
+<span class="ctx">         chatBox.heightProperty().addListener((observable) -&gt; scrollToLatestMessage());</span>
+<span class="ctx">     }</span>
+<span class="hunk">@@ -77,7 +81,7 @@ public class Main extends Application {</span>
+<span class="ctx">         input.clear();</span>
+<span class="ctx"> </span>
+<span class="ctx">         String response = nubish.getResponse(command);</span>
+<span class="del">-        addNubishMessage(response);</span>
+<span class="add">+        addNubishMessage(response, nubish.isLastResponseError());</span>
+<span class="ctx"> </span>
+<span class="ctx">         if (command.equalsIgnoreCase(&quot;printBye&quot;)) {</span>
+<span class="ctx">             input.setDisable(true);</span>
+<span class="hunk">@@ -91,24 +95,35 @@ public class Main extends Application {</span>
+<span class="ctx">     }</span>
+<span class="ctx"> </span>
+<span class="ctx">     private void addNubishMessage(String message) {</span>
+<span class="add">+        addNubishMessage(message, false);</span>
+<span class="add">+    }</span>
+<span class="add">+</span>
+<span class="add">+    private void addNubishMessage(String message, boolean isError) {</span>
+<span class="ctx">         if (!message.isEmpty()) {</span>
+<span class="del">-            chatBox.getChildren().add(createMessageRow(message, false));</span>
+<span class="add">+            chatBox.getChildren().add(createMessageRow(message, false, isError));</span>
+<span class="ctx">             scrollToLatestMessage();</span>
+<span class="ctx">         }</span>
+<span class="ctx">     }</span>
+<span class="ctx"> </span>
+<span class="ctx">     private HBox createMessageRow(String message, boolean isUser) {</span>
+<span class="add">+        return createMessageRow(message, isUser, false);</span>
+<span class="add">+    }</span>
+<span class="add">+</span>
+<span class="add">+    private HBox createMessageRow(String message, boolean isUser, boolean isError) {</span>
+<span class="ctx">         HBox row = loadDialogBox();</span>
+<span class="ctx">         row.setAlignment(isUser ? Pos.TOP_RIGHT : Pos.TOP_LEFT);</span>
+<span class="ctx"> </span>
+<span class="ctx">         Label bubble = (Label) row.lookup(&quot;#bubble&quot;);</span>
+<span class="del">-        bubble.setText(message);</span>
+<span class="add">+        bubble.setText(isUser ? message : &quot;&quot;);</span>
+<span class="ctx">         bubble.setTextOverrun(OverrunStyle.CLIP);</span>
+<span class="ctx">         bubble.setMinHeight(Region.USE_PREF_SIZE);</span>
+<span class="ctx">         bubble.setPrefHeight(Region.USE_COMPUTED_SIZE);</span>
+<span class="ctx">         bubble.setMaxHeight(Double.MAX_VALUE);</span>
+<span class="ctx">         bubble.maxWidthProperty().bind(chatScrollPane.widthProperty().multiply(MESSAGE_WIDTH_RATIO));</span>
+<span class="ctx">         bubble.getStyleClass().add(isUser ? &quot;user-bubble&quot; : &quot;nubish-bubble&quot;);</span>
+<span class="add">+        if (isError) {</span>
+<span class="add">+            bubble.getStyleClass().add(&quot;error-bubble&quot;);</span>
+<span class="add">+        }</span>
+<span class="ctx">         if (!isUser &amp;&amp; message.contains(&quot;\n&quot;)) {</span>
+<span class="ctx">             bubble.getStyleClass().add(&quot;ascii-bubble&quot;);</span>
+<span class="ctx">         }</span>
+<span class="hunk">@@ -124,22 +139,58 @@ public class Main extends Application {</span>
+<span class="ctx">         Node leftTail = row.lookup(&quot;#leftTail&quot;);</span>
+<span class="ctx">         Node rightTail = row.lookup(&quot;#rightTail&quot;);</span>
+<span class="ctx">         StackPane bubbleGroup = (StackPane) row.lookup(&quot;#bubbleGroup&quot;);</span>
+<span class="add">+        bubbleGroup.setMinHeight(Region.USE_PREF_SIZE);</span>
+<span class="add">+        row.setMinHeight(Region.USE_PREF_SIZE);</span>
+<span class="ctx">         StackPane.setAlignment(bubble, isUser ? Pos.TOP_RIGHT : Pos.TOP_LEFT);</span>
+<span class="ctx">         StackPane.setAlignment(leftTail, Pos.TOP_LEFT);</span>
+<span class="ctx">         StackPane.setAlignment(rightTail, Pos.TOP_RIGHT);</span>
+<span class="ctx"> </span>
+<span class="ctx">         setVisible(leftTail, !isUser);</span>
+<span class="ctx">         setVisible(rightTail, isUser);</span>
+<span class="add">+        if (isError) {</span>
+<span class="add">+            leftTail.getStyleClass().add(&quot;error-tail&quot;);</span>
+<span class="add">+        }</span>
+<span class="ctx"> </span>
+<span class="ctx">         if (isUser) {</span>
+<span class="ctx">             row.getChildren().setAll(leftSpacer, bubbleGroup, avatar);</span>
+<span class="ctx">         } else {</span>
+<span class="ctx">             row.getChildren().setAll(avatar, bubbleGroup, rightSpacer);</span>
+<span class="add">+            playTypingAnimation(bubble, bubbleGroup, row, message);</span>
+<span class="ctx">         }</span>
+<span class="ctx"> </span>
+<span class="ctx">         return row;</span>
+<span class="ctx">     }</span>
+<span class="ctx"> </span>
+<span class="add">+    private void playTypingAnimation(Label bubble, StackPane bubbleGroup, HBox row, String message) {</span>
+<span class="add">+        if (message.isEmpty()) {</span>
+<span class="add">+            return;</span>
+<span class="add">+        }</span>
+<span class="add">+</span>
+<span class="add">+        double typingInterval = Math.min(CHARACTER_TYPING_MILLIS, MAX_TYPING_DURATION_MILLIS / message.length());</span>
+<span class="add">+        Timeline timeline = new Timeline();</span>
+<span class="add">+        for (int i = 1; i &lt;= message.length(); i++) {</span>
+<span class="add">+            int visibleCharacters = i;</span>
+<span class="add">+            timeline.getKeyFrames().add(new KeyFrame(Duration.millis(typingInterval * i), event -&gt; {</span>
+<span class="add">+                bubble.setText(message.substring(0, visibleCharacters));</span>
+<span class="add">+                refreshBubbleLayout(bubble, bubbleGroup, row);</span>
+<span class="add">+            }));</span>
+<span class="add">+        }</span>
+<span class="add">+        timeline.setOnFinished(event -&gt; {</span>
+<span class="add">+            bubble.setText(message);</span>
+<span class="add">+            Platform.runLater(() -&gt; refreshBubbleLayout(bubble, bubbleGroup, row));</span>
+<span class="add">+        });</span>
+<span class="add">+        timeline.play();</span>
+<span class="add">+    }</span>
+<span class="add">+</span>
+<span class="add">+    private void refreshBubbleLayout(Label bubble, StackPane bubbleGroup, HBox row) {</span>
+<span class="add">+        bubble.applyCss();</span>
+<span class="add">+        bubble.autosize();</span>
+<span class="add">+        bubbleGroup.requestLayout();</span>
+<span class="add">+        row.requestLayout();</span>
+<span class="add">+        chatBox.requestLayout();</span>
+<span class="add">+        scrollToLatestMessage();</span>
+<span class="add">+    }</span>
+<span class="add">+</span>
+<span class="ctx">     private HBox loadDialogBox() {</span>
+<span class="ctx">         try {</span>
+<span class="ctx">             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(&quot;/view/DialogBox.fxml&quot;));</span>
+<span class="meta">diff --git a/src/main/java/nubish/Nubish.java b/src/main/java/nubish/Nubish.java</span>
+<span class="meta">index d907219..c7d8c8e 100644</span>
+<span class="meta">--- a/src/main/java/nubish/Nubish.java</span>
+<span class="meta">+++ b/src/main/java/nubish/Nubish.java</span>
+<span class="hunk">@@ -100,6 +100,15 @@ public class Nubish {</span>
+<span class="ctx">         return ui.getLastResponse();</span>
+<span class="ctx">     }</span>
+<span class="ctx"> </span>
+<span class="add">+    /**</span>
+<span class="add">+     * Returns whether the latest response should be shown as an error.</span>
+<span class="add">+     *</span>
+<span class="add">+     * @return true if the latest response is an error response</span>
+<span class="add">+     */</span>
+<span class="add">+    public boolean isLastResponseError() {</span>
+<span class="add">+        return ui.isLastResponseError();</span>
+<span class="add">+    }</span>
+<span class="add">+</span>
+<span class="ctx">     /**</span>
+<span class="ctx">      * Saves the current task list to disk.</span>
+<span class="ctx">      */</span>
+<span class="meta">diff --git a/src/main/java/nubish/utils/UI.java b/src/main/java/nubish/utils/UI.java</span>
+<span class="meta">index fbaa1ee..8e8f2d7 100644</span>
+<span class="meta">--- a/src/main/java/nubish/utils/UI.java</span>
+<span class="meta">+++ b/src/main/java/nubish/utils/UI.java</span>
+<span class="hunk">@@ -10,12 +10,14 @@ public class UI {</span>
+<span class="ctx">                     _________________________________________________</span>
+<span class="ctx">                     &quot;&quot;&quot;;</span>
+<span class="ctx">     private String lastResponse;</span>
+<span class="add">+    private boolean isLastResponseError;</span>
+<span class="ctx"> </span>
+<span class="ctx">     /**</span>
+<span class="ctx">      * Prints the greeting message shown when Nubish starts.</span>
+<span class="ctx">      */</span>
+<span class="ctx">     public void greet() {</span>
+<span class="ctx">         lastResponse = getGreeting();</span>
+<span class="add">+        isLastResponseError = false;</span>
+<span class="ctx">         System.out.println(lastResponse);</span>
+<span class="ctx">     }</span>
+<span class="ctx"> </span>
+<span class="hunk">@@ -44,6 +46,15 @@ public class UI {</span>
+<span class="ctx">         return lastResponse;</span>
+<span class="ctx">     }</span>
+<span class="ctx"> </span>
+<span class="add">+    /**</span>
+<span class="add">+     * Returns whether the latest response is an error message.</span>
+<span class="add">+     *</span>
+<span class="add">+     * @return true if the latest response is an error message</span>
+<span class="add">+     */</span>
+<span class="add">+    public boolean isLastResponseError() {</span>
+<span class="add">+        return isLastResponseError;</span>
+<span class="add">+    }</span>
+<span class="add">+</span>
+<span class="ctx">     /**</span>
+<span class="ctx">      * Prints the farewell message shown when Nubish exits.</span>
+<span class="ctx">      */</span>
+<span class="hunk">@@ -187,7 +198,7 @@ public class UI {</span>
+<span class="ctx">                         - delete</span>
+<span class="ctx">                         - find</span>
+<span class="ctx">                         &quot;&quot;&quot;;</span>
+<span class="del">-        printResponse(cmd);</span>
+<span class="add">+        printResponse(cmd, true);</span>
+<span class="ctx">     }</span>
+<span class="ctx"> </span>
+<span class="ctx">     /**</span>
+<span class="hunk">@@ -209,11 +220,16 @@ public class UI {</span>
+<span class="ctx">      * @param message error message to show</span>
+<span class="ctx">      */</span>
+<span class="ctx">     public void showError(String message) {</span>
+<span class="del">-        printResponse(message);</span>
+<span class="add">+        printResponse(message, true);</span>
+<span class="ctx">     }</span>
+<span class="ctx"> </span>
+<span class="ctx">     private void printResponse(String response) {</span>
+<span class="add">+        printResponse(response, false);</span>
+<span class="add">+    }</span>
+<span class="add">+</span>
+<span class="add">+    private void printResponse(String response, boolean isError) {</span>
+<span class="ctx">         lastResponse = response;</span>
+<span class="add">+        isLastResponseError = isError;</span>
+<span class="ctx">         System.out.printf(RESPONSE, response);</span>
+<span class="ctx">     }</span>
+<span class="ctx"> }</span>
+<span class="meta">diff --git a/src/main/resources/css/styles.css b/src/main/resources/css/styles.css</span>
+<span class="meta">index b6bd0f5..9323039 100644</span>
+<span class="meta">--- a/src/main/resources/css/styles.css</span>
+<span class="meta">+++ b/src/main/resources/css/styles.css</span>
+<span class="hunk">@@ -66,6 +66,13 @@</span>
+<span class="ctx">     -fx-background-color: white;</span>
+<span class="ctx"> }</span>
+<span class="ctx"> </span>
+<span class="add">+.error-bubble {</span>
+<span class="add">+    -fx-background-color: #ffd6d6;</span>
+<span class="add">+    -fx-border-color: #e57373;</span>
+<span class="add">+    -fx-border-radius: 8px;</span>
+<span class="add">+    -fx-border-width: 1.5px;</span>
+<span class="add">+}</span>
+<span class="add">+</span>
+<span class="ctx"> .user-bubble {</span>
+<span class="ctx">     -fx-background-color: #dcf8c6;</span>
+<span class="ctx"> }</span>
+<span class="hunk">@@ -91,6 +98,10 @@</span>
+<span class="ctx">     -fx-translate-y: 0;</span>
+<span class="ctx"> }</span>
+<span class="ctx"> </span>
+<span class="add">+.error-tail {</span>
+<span class="add">+    -fx-fill: #ffd6d6;</span>
+<span class="add">+}</span>
+<span class="add">+</span>
+<span class="ctx"> .user-tail {</span>
+<span class="ctx">     -fx-fill: #dcf8c6;</span>
+<span class="ctx">     -fx-translate-x: 5px;</span></pre></main>
+</body>
+</html>

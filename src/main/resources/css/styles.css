@@ -1,0 +1,109 @@
+.root {
+    -fx-background-color: #ece5dd;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.header {
+    -fx-background-color: #075e54;
+}
+
+.header-title {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.chat-scroll {
+    -fx-background: #ece5dd;
+    -fx-background-color: #ece5dd;
+    -fx-border-color: transparent;
+}
+
+.chat-box {
+    -fx-background-color: #ece5dd;
+}
+
+.input-area {
+    -fx-background-color: #ece5dd;
+}
+
+.message-input {
+    -fx-background-color: white;
+    -fx-background-radius: 18px;
+    -fx-border-radius: 18px;
+    -fx-border-color: transparent;
+    -fx-padding: 10px 14px;
+    -fx-font-size: 14px;
+}
+
+.send-button {
+    -fx-background-color: #25d366;
+    -fx-background-radius: 18px;
+    -fx-text-fill: #075e54;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 18px;
+}
+
+.send-button:disabled,
+.message-input:disabled {
+    -fx-opacity: 0.65;
+}
+
+.nubish-bubble,
+.user-bubble {
+    -fx-background-radius: 8px;
+    -fx-padding: 9px 12px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #1f2a2a;
+}
+
+.ascii-bubble {
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-size: 12px;
+}
+
+.nubish-bubble {
+    -fx-background-color: white;
+}
+
+.error-bubble {
+    -fx-background-color: #ffd6d6;
+    -fx-border-color: #e57373;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1.5px;
+}
+
+.user-bubble {
+    -fx-background-color: #dcf8c6;
+}
+
+.nubish-avatar .avatar-label,
+.user-avatar .avatar-label {
+    -fx-text-fill: white;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.nubish-avatar .avatar-circle {
+    -fx-fill: #128c7e;
+}
+
+.user-avatar .avatar-circle {
+    -fx-fill: #075e54;
+}
+
+.nubish-tail {
+    -fx-fill: white;
+    -fx-translate-x: -5px;
+    -fx-translate-y: 0;
+}
+
+.error-tail {
+    -fx-fill: #ffd6d6;
+}
+
+.user-tail {
+    -fx-fill: #dcf8c6;
+    -fx-translate-x: 5px;
+    -fx-translate-y: 0;
+}
