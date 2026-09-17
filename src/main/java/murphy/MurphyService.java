@@ -43,7 +43,7 @@ public class MurphyService {
         Parser.ParsedCommand parsed = parser.parse(input);
         try {
             return switch (parsed.command()) {
-            case BYE -> "Bye. Hope to see you again soon! Even command lines need a punchline.";
+            case BYE -> "Bye! I’ll be here guarding your task list. Tiny paws, big responsibility.";
             case LIST -> listTasks();
             case FIND -> findTasks(parsed.argument());
             case ON -> tasksOn(parsed.argument());
@@ -61,7 +61,7 @@ public class MurphyService {
     }
 
     private String listTasks() {
-        StringBuilder result = new StringBuilder("Here are the tasks in your list:");
+        StringBuilder result = new StringBuilder("Here are the tasks in your list. I sniffed them all:");
         for (int i = 0; i < tasks.size(); i++) {
             result.append("\n").append(i + 1).append(".").append(tasks.get(i));
         }
@@ -111,6 +111,6 @@ public class MurphyService {
         }
         tasks.add(task);
         storage.save(tasks);
-        return "Got it. I've added this task:\n" + task + "\nNow you have " + tasks.size() + " tasks in the list.";
+        return "Got it. I've added this task:\n" + task + "\nNow you have " + tasks.size() + " tasks in the pack.";
     }
 }
