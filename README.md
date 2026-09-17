@@ -1,6 +1,12 @@
-# Rei project template
+# Rei
 
-This is a project template for a greenfield Java project. It's named after my favourite idol _Rei_ from the K-Pop group, IVE. Given below are instructions on how to use it.
+Rei is a calm study companion for managing todos, deadlines, events, and tags.
+It is named after _Rei_ from the K-Pop group IVE.
+
+Read the [User Guide](https://nivremi.github.io/ip/) or
+[download the latest JAR](https://github.com/nivremi/ip/releases/latest).
+
+![Rei GUI](docs/Ui.png)
 
 ## Setting up in Intellij
 
