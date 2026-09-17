@@ -1,30 +1,196 @@
-# Duke User Guide
+# Ada User Guide
 
-// Update the title above to match the actual product name
+![Ada User Interface](Ui.png)
 
-// Product screenshot goes here
+Ada is a desktop task-management chatbot that helps users organize tasks, deadlines, and events in one list.
 
-// Product intro goes here
+People often have many responsibilities at the same time, making it easy to forget tasks or remember deadlines incorrectly. Ada was designed as a simple chat-based todo list to help users stay organised.
 
-## Adding deadlines
+## Adding tasks
 
-// Describe the action and its outcome.
+Ada supports three types of tasks: todo tasks, deadlines, and events.
 
-// Give examples of usage
+### Adding a todo task
 
-Example: `keyword (optional arguments)`
+Adds an ordinary task without a deadline.
 
-// A description of the expected outcome goes here
+**Format:**
 
+```text
+todo <description>
 ```
-expected output
+
+**Example:**
+
+```text
+todo finish reading
 ```
 
-## Feature ABC
+### Adding a deadline
 
-// Feature details
+Adds a task that must be completed by a particular date or time.
 
+**Format:**
 
-## Feature XYZ
+```text
+deadline <description> /by <date or date-time>
+```
 
-// Feature details
+**Example:**
+
+```text
+deadline submit project report /by 2026-09-30 1800
+```
+
+If only a date is provided, Ada uses `23:59` as the default time.
+
+### Adding an event
+
+Adds an event with a starting time and an ending time.
+
+**Format:**
+
+```text
+event <description> /from <start> /to <end>
+```
+
+**Example:**
+
+```text
+event project meeting /from 2026-09-18 1400 /to 2026-09-18 1530
+```
+
+An `HHmm` ending time can be used to represent an event ending on the same date as its starting time.
+
+After adding a task, Ada displays a confirmation such as:
+
+```text
+I've added this task:
+  [T][ ] finish reading
+Now you have <number> tasks in the list.
+```
+
+## Managing tasks
+
+Task numbers are displayed by the `list` command and start from `1`.
+
+### Deleting a task
+
+Removes a task from the task list.
+
+```text
+delete <task number>
+```
+
+Example:
+
+```text
+delete 3
+```
+
+### Marking a task as done
+
+Marks a task as completed.
+
+```text
+mark <task number>
+```
+
+Example:
+
+```text
+mark 1
+```
+
+### Marking a task as unfinished
+
+Changes a completed task back to unfinished.
+
+```text
+unmark <task number>
+```
+
+Example:
+
+```text
+unmark 1
+```
+
+## Viewing and organising tasks
+
+### Listing tasks
+
+Displays all tasks in the current task list.
+
+```text
+list
+```
+
+### Finding tasks
+
+Searches task descriptions using a case-insensitive keyword.
+
+```text
+find <keyword>
+```
+
+Examples:
+
+```text
+find report
+find project meeting
+```
+
+### Sorting tasks
+
+Sorts tasks in the following order:
+
+1. Unfinished tasks before completed tasks.
+2. Deadlines before events.
+3. Events before ordinary todo tasks.
+4. Earlier deadlines and event starting times first.
+
+```text
+sort
+```
+
+### Exiting Ada
+
+Ends the interaction with Ada.
+
+```text
+bye
+```
+
+## Date and time formats
+
+| Format            | Example           | Usage                                |
+| ----------------- | ----------------- | ------------------------------------ |
+| `yyyy-MM-dd`      | `2026-09-30`      | Deadline date or event `/from` value |
+| `yyyy-MM-dd HHmm` | `2026-09-30 1800` | Deadline or event date-time          |
+| `HHmm`            | `1800`            | Event `/to` value on the same date   |
+
+Times use the 24-hour clock and do not include a colon.
+
+## Credits
+
+The GitHub Actions workflow in `.github/workflows/gradle.yml` was adapted from an external workflow.
+
+* **Source:** `https://github.com/se-edu/duke.git`
+* **Original author or repository:** `damithc
+Damith C. Rajapakse`
+* **Reused parts:** Multi-platform build matrix, Gradle wrapper validation, Java setup, and Gradle check step
+* **Modifications:** Adapted the workflow for the Ada project
+* **Accessed:** 09 September 2026
+  
+The plugins, dependencies, Gradle build configuration, and overall project
+structure were adapted from the following resource:
+
+- **Title:** Working with jar files
+- **Author/Organization:** NA
+- **Source:** `https://se-education.org/guides/tutorials/jar.html`
+- **Accessed:** 2026-09-17
+
+The original resource was used as the foundation for this project's build
+configuration and dependency setup. The configuration has been adapted and
+modified for the purposes of this project.

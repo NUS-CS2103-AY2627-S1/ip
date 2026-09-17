@@ -1,0 +1,35 @@
+# Attribution:
+# This workflow was adapted from:
+# Source: https://github.com/se-edu/duke/blob/full-template/.github/workflows/gradle.yml
+# Reused parts: multi-platform build matrix, Gradle wrapper validation,
+# Java setup, and Gradle check step.
+# Modifications: adapted the workflow for the Ada project.
+# Accessed: 16 September 2026
+
+name: Java CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@v7
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v6
+
+      - name: Setup JDK 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: '25'
+          java-package: jdk+fx
+
+      - name: Build and check with Gradle
+        run: ./gradlew check
