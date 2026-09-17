@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="600.0" prefWidth="520.0" styleClass="app-shell"
+        stylesheets="@../css/main.css"
+        xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="wobble.gui.MainWindow">
+    <top>
+        <VBox fx:id="appHeader" spacing="3.0" styleClass="app-header">
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                <Label styleClass="app-title" text="WOBBLE" />
+                <Label fx:id="statusLabel" styleClass="app-status-online" text="● ONLINE" />
+            </HBox>
+            <Label fx:id="subtitleLabel" styleClass="app-subtitle"
+                    text="TASK COMPANION // MEMORY TRAY ONLINE" />
+        </VBox>
+    </top>
+    <center>
+        <StackPane fx:id="conversationArea" styleClass="conversation-area">
+            <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                    styleClass="conversation-scroll" vbarPolicy="AS_NEEDED">
+                <content>
+                    <VBox fx:id="dialogContainer" fillWidth="true" spacing="12.0"
+                            styleClass="dialog-container" />
+                </content>
+            </ScrollPane>
+        </StackPane>
+    </center>
+    <bottom>
+        <HBox spacing="10.0" styleClass="input-bar">
+            <TextField fx:id="userInput" onAction="#handleUserInput"
+                    style="-fx-font-style: normal;"
+                    promptText="Type a command — try help" HBox.hgrow="ALWAYS" />
+            <Button defaultButton="true" onAction="#handleUserInput" text="Send" />
+        </HBox>
+    </bottom>
+</BorderPane>

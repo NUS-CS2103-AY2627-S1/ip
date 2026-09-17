@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: [1]
+* IDE and level of expertise: [1]
 
 # Guidance for interacting with users
 
@@ -33,3 +33,18 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+All commits and branch names must follow the project-specific `seedu-git-standard` skill,
+which is based on the SE-EDU Git conventions. Commit subjects must be imperative, capitalized,
+punctuation-free, and no longer than 72 characters; non-trivial commits must include a
+72-character-wrapped body explaining what changed and why. Branch names must be meaningful
+kebab-case names.
+
+## Testing
+
+Maintain JUnit test coverage for approximately the top 50% of methods, prioritizing complex, core, and business-critical logic.
+Whenever code is changed, update or add the relevant JUnit tests in the same change and run the Gradle test suite to confirm that the coverage target and existing behavior remain supported.
+
+## Java coding standard
+
+All Java code in this project must follow the project-specific `seedu-java-coding-standard` skill, based on the SE-EDU Java basic and intermediate conventions. Apply it to production and test code, including naming, imports, layout, braces, line length, and JavaDoc comments. Review the skill after every Java change.
