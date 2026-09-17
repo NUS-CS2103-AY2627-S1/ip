@@ -35,6 +35,12 @@ class ParserTest {
         assertEquals("postpone tomorrow", result.originalText());
     }
 
+    /** Verifies that command names must be separated from their arguments. */
+    @Test
+    void parse_commandPrefixWithoutSeparator_returnsUnknown() {
+        assertEquals(Parser.Command.UNKNOWN, parser.parse("today is busy").command());
+    }
+
     private void assertParsed(String input, Parser.Command command, String argument, String originalText) {
         Parser.ParsedCommand result = parser.parse(input);
 
