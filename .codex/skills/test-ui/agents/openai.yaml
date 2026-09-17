@@ -1,0 +1,3 @@
+interface:
+  display_name: "jonathan.ui.UI Test"
+  short_description: "Run chatbot jonathan.ui.UI tests from the project test plan"

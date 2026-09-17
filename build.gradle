@@ -1,0 +1,87 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+checkstyle {
+    toolVersion= '11.0.0'
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+    String javaFxVersion = '17.0.8'
+
+    def os = org.gradle.internal.os.OperatingSystem.current()
+    String javaFxPlatform
+    if (os.isMacOsX()) {
+        javaFxPlatform = System.getProperty('os.arch') == 'aarch64' ? 'mac-aarch64' : 'mac'
+    } else if (os.isWindows()) {
+        javaFxPlatform = 'win'
+    } else if (os.isLinux()) {
+        javaFxPlatform = 'linux'
+    } else {
+        throw new GradleException("Unsupported operating system: ${System.getProperty('os.name')}")
+    }
+
+    ['base', 'controls', 'fxml', 'graphics'].each { module ->
+        implementation("org.openjfx:javafx-${module}:${javaFxVersion}:${javaFxPlatform}")
+    }
+
+    runtimeOnly "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    runtimeOnly "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+    runtimeOnly "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+    runtimeOnly "org.openjfx:javafx-graphics:${javaFxVersion}:mac-aarch64"
+}
+
+test {
+    useJUnitPlatform()
+    jvmArgs '-ea'
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass.set("jonathan.Launcher")
+    //    mainClass.set("jonathan.Jonathan")
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveBaseName.set('griddel')
+    archiveClassifier.set('')
+    archiveVersion.set('')
+}
+
+run {
+    standardInput = System.in
+    jvmArgs '-ea'
+}

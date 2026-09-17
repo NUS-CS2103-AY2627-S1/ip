@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Novice 
+* IDE and level of expertise: Novice
 
 # Guidance for interacting with users
 
@@ -27,6 +27,14 @@ Unless the user says otherwise, assume that you are assisting a student working 
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+
+## jonathan.ui.UI testing
+
+After each code update that can affect the chatbot's console behavior:
+
+1. Update `test/ui-test-plan.md` when commands or expected output change.
+2. Invoke the project-local `$test-ui` skill.
+3. If a jonathan.ui.UI test fails, stop at the first failure and report its actual and expected output before making a commit.
 
 ## Git
 
