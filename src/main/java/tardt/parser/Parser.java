@@ -5,6 +5,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import tardt.Messages;
 import tardt.command.Command;
 import tardt.exception.TardTException;
 import tardt.priority.Priority;
@@ -22,6 +23,9 @@ import tardt.ui.Ui;
 public class Parser {
     /** Matches a priority flag at the end of a task command. */
     private static final Pattern PRIORITY_FLAG = Pattern.compile("(?:^|\\s)/priority\\s+(\\S+)\\s*$",
+            Pattern.CASE_INSENSITIVE);
+    /** Matches the start of a priority flag anywhere in a task command. */
+    private static final Pattern PRIORITY_FLAG_START = Pattern.compile("(?:^|\\s)/priority(?:\\s|$)",
             Pattern.CASE_INSENSITIVE);
     private static final String OPTIONAL_PRIORITY_FORMAT = " (optional: /priority low|medium|high)";
     private static final String INVALID_PRIORITY_MESSAGE = "Invalid priority. Priority is optional; when included, use "
@@ -42,7 +46,7 @@ public class Parser {
     public static boolean parse(String userInput, TaskList tasks, Ui ui, Storage storage) {
         try {
             String response = parseForResponse(userInput, tasks, storage);
-            if (response.equals("Bye. Hope to see you again soon!")) {
+            if (response.equals(Messages.GOODBYE_MESSAGE)) {
                 ui.showBye();
                 return true;
             }
@@ -83,7 +87,7 @@ public class Parser {
         switch (command) {
             case BYE:
                 requireNoArguments("bye", arguments);
-                return "Bye. Hope to see you again soon!";
+                return Messages.GOODBYE_MESSAGE;
             case LIST:
                 requireNoArguments("list", arguments);
                 return getTaskListString(tasks);
@@ -168,7 +172,7 @@ public class Parser {
     /**
      * Parses and validates a task index from user input.
      *
-     * @param userInput The full user input string
+     * @param arguments text after the command keyword
      * @param tasks The task list
      * @param prefix The command prefix (e.g., "mark", "unmark")
      * @return The validated task index (0-based)
@@ -235,6 +239,9 @@ public class Parser {
      * @throws TardTException
      */
     private static ParsedPriority parsePriority(String input) throws TardTException {
+        if (hasMultiplePriorityFlags(input)) {
+            throw new TardTException(INVALID_PRIORITY_MESSAGE);
+        }
         Matcher matcher = PRIORITY_FLAG.matcher(input);
         if (!matcher.find()) {
             if (input.toLowerCase(Locale.ROOT).contains("/priority")) {
@@ -251,13 +258,32 @@ public class Parser {
         return new ParsedPriority(text, priority);
     }
 
+    /**
+     * Returns whether an input contains more than one priority flag.
+     * A task can have only one priority, so accepting a later flag must not turn an earlier one into its description.
+     *
+     * @param input task command arguments
+     * @return true if more than one priority flag is present
+     */
+    private static boolean hasMultiplePriorityFlags(String input) {
+        Matcher matcher = PRIORITY_FLAG_START.matcher(input);
+        int flagsFound = 0;
+        while (matcher.find()) {
+            flagsFound++;
+            if (flagsFound > 1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private record ParsedPriority(String text, Priority priority) { }
 
     /**
      * Handles the TODO command by adding a ToDo Task to taskList.
      *
      * @param tasks A list of tasks as a TaskList object.
-     * @param userInput The user input.
+     * @param arguments task command arguments
      * @param storage The Storage object.
      * @return The chatbot's string response.
      * @throws TardTException A unique exception class for TardT.
@@ -271,7 +297,6 @@ public class Parser {
                     + OPTIONAL_PRIORITY_FORMAT + ".");
         }
 
-        // If everything is ok (description present), add ToDo to taskList
         Task newTask = new ToDo(description, parsed.priority());
         int oldSize = tasks.size();
         tasks.add(newTask);
@@ -284,7 +309,7 @@ public class Parser {
      * Handles the DEADLINE command by adding a Deadline Task to taskList.
      *
      * @param tasks A list of tasks as a TaskList object.
-     * @param userInput The user input.
+     * @param arguments text after the command keyword
      * @param storage The Storage object.
      * @return The chatbot's string response.
      * @throws TardTException A unique exception class for TardT.
@@ -310,7 +335,6 @@ public class Parser {
             throw new TardTException("Please provide a deadline.");
         }
 
-        // If everything is ok, add a new Deadline to taskList
         Task newTask = new Deadline(description, by, parsed.priority());
         int oldSize = tasks.size();
         tasks.add(newTask);
@@ -323,7 +347,7 @@ public class Parser {
      * Handles the EVENT command by adding an Event Task to taskList.
      *
      * @param tasks A list of tasks as a TaskList object.
-     * @param userInput The user input.
+     * @param arguments task command arguments
      * @param storage The Storage object.
      * @return The chatbot's string response.
      * @throws TardTException A unique exception class for TardT.
@@ -361,7 +385,6 @@ public class Parser {
             throw new TardTException("Please provide an end time.");
         }
 
-        // If everything is ok, create a new Event and add to taskList
         Task newTask = new Event(description, from, to, parsed.priority());
         int oldSize = tasks.size();
         tasks.add(newTask);
@@ -374,7 +397,7 @@ public class Parser {
      * Handles the DELETE command by removing a Task from taskList.
      *
      * @param tasks A list of tasks as a TaskList object.
-     * @param userInput The user input.
+     * @param arguments text after the command keyword
      * @param storage The Storage object.
      * @return The chatbot's string response.
      * @throws TardTException A unique exception class for TardT.
@@ -394,7 +417,7 @@ public class Parser {
      * Handles the FIND command by filtering the Tasks matching the input.
      *
      * @param tasks A list of tasks as a TaskList object.
-     * @param userInput The user input.
+     * @param arguments search text after the command keyword
      * @param storage The Storage object.
      * @return The chatbot's string response.
      * @throws TardTException A unique exception class for TardT.

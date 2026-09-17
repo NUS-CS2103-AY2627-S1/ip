@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import tardt.Messages;
 import tardt.TardT;
 
 /**
@@ -69,6 +70,7 @@ public class MainWindow {
                         getNextDialogColour()
                 )
         );
+        scrollToBottom();
     }
 
     /**
@@ -86,7 +88,7 @@ public class MainWindow {
         scrollToBottom();
         userInput.clear();
 
-        if (response.equals("Bye. Hope to see you again soon!")) {
+        if (response.equals(Messages.GOODBYE_MESSAGE)) {
             closeAppWithDelay();
         }
     }
@@ -107,10 +109,10 @@ public class MainWindow {
 
     /**
      * Moves to the newest messages after JavaFX has laid out the added dialog boxes.
-     * The scroll value is deliberately not bound so users can still scroll with the mouse wheel.
+     * The scroll value is deliberately not bound, so mouse-wheel and trackpad scrolling remain available.
      */
     private void scrollToBottom() {
-        Platform.runLater(() -> scrollPane.setVvalue(1.0));
+        Platform.runLater(() -> scrollPane.setVvalue(scrollPane.getVmax()));
     }
 
     /**

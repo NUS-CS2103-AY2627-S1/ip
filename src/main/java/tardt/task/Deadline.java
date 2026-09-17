@@ -26,12 +26,7 @@ public class Deadline extends Task {
      * @throws TardTException Unique exception of the TardT class
      */
     public Deadline(String description, String by) throws TardTException {
-        super(description);
-        try {
-            this.by = LocalDateTime.parse(by);
-        } catch (DateTimeParseException e) {
-            throw new TardTException(DATE_TIME_FORMAT_ERROR);
-        }
+        this(description, by, Priority.LOW);
     }
 
     /** Creates a deadline task with the given priority. */

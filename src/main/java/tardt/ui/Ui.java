@@ -2,6 +2,8 @@ package tardt.ui;
 
 import java.util.Scanner;
 
+import tardt.Messages;
+
 /**
  * Class that handles interaction with the user.
  */
@@ -49,7 +51,7 @@ public class Ui {
      * Shows a 'bye' message.
      */
     public void showBye() {
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(Messages.GOODBYE_MESSAGE);
     }
 
     /**

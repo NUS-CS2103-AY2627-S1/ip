@@ -56,6 +56,33 @@ Bye. Hope to see you again soon!
 ____________________________________________________________
 ```
 
+## Test case: Reject repeated priority flags without adding a task
+
+**Aim:** Verify that repeated priority flags are rejected instead of one being included in the task description.
+
+### Input
+```text
+todo read book /priority low /priority high
+list
+bye
+```
+
+### Expected output
+```text
+Hello! I'm TardT.
+What can I do for you?
+____________________________________________________________
+
+____________________________________________________________
+Invalid priority. Priority is optional; when included, use /priority low, /priority medium, or /priority high.
+____________________________________________________________
+____________________________________________________________
+Your task list is empty!
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
 ## Test case: Reject an event whose end is before its start
 
 **Aim:** Verify that an impossible event time range does not create a task.

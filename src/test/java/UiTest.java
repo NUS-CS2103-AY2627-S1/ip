@@ -277,6 +277,21 @@ class UiTest {
     }
 
     @Test
+    void todo_repeatedPriority_isRejectedWithoutAddingTask() {
+        String input = "todo read book /priority low /priority high\nlist\nbye\n";
+        String expectedOutput = WELCOME + SEPARATOR
+                + "Invalid priority. Priority is optional; when included, use /priority low, /priority medium,"
+                + " or /priority high.\n"
+                + SEPARATOR + SEPARATOR
+                + "Your task list is empty!\n"
+                + SEPARATOR + GOODBYE;
+
+        String actualOutput = runApplication(input);
+
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
     void event_endBeforeStart_isRejectedWithoutAddingTask() {
         String input = "event workshop /from 2026-10-20T16:00 /to 2026-10-20T15:00\nlist\nbye\n";
         String expectedOutput = WELCOME + SEPARATOR

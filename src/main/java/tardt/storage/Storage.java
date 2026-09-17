@@ -114,7 +114,7 @@ public class Storage {
      * Creates a Task object from the String line read from the save file.
      *
      * @param savedTask A String line read from the save file.
-     * @return A Task object
+     * @return the parsed task, or null when the saved line is invalid
      */
     private Task createTaskFromSavedLine(String savedTask) {
         String[] parts = splitSavedTask(savedTask);

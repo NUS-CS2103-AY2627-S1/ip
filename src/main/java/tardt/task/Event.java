@@ -28,15 +28,7 @@ public class Event extends Task {
      * @throws TardTException Unique exception of TardT class
      */
     public Event(String description, String from, String to) throws TardTException {
-        super(description);
-
-        try {
-            this.from = LocalDateTime.parse(from);
-            this.to = LocalDateTime.parse(to);
-            validateTimeRange();
-        } catch (DateTimeParseException e) {
-            throw new TardTException(DATE_TIME_FORMAT_ERROR);
-        }
+        this(description, from, to, Priority.LOW);
     }
 
     /** Creates an event task with the given priority. */

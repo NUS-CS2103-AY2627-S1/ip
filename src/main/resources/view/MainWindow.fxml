@@ -23,7 +23,7 @@
                         <Label fx:id="fontSizeLabel" styleClass="font-size-label" text="14 px" />
                     </children>
                 </FlowPane>
-                <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" minHeight="0.0" vvalue="1.0" VBox.vgrow="ALWAYS">
+                <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" minHeight="0.0" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
                     <content>
                         <VBox fx:id="dialogContainer" fillWidth="true" prefWidth="388.0" spacing="10.0" styleClass="bg-pane" stylesheets="@styles.css" />
                     </content>

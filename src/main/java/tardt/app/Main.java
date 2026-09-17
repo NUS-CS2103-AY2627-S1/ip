@@ -14,9 +14,9 @@ import tardt.TardT;
  * A GUI for TardT using FXML.
  */
 public class Main extends Application {
-    /** Smallest usable window dimensions, which leave room for the command field and Send button. */
+    /** Smallest usable window dimensions, which leave room for the settings, chat, and input areas. */
     private static final int MINIMUM_WINDOW_WIDTH = 280;
-    private static final int MINIMUM_WINDOW_HEIGHT = 200;
+    private static final int MINIMUM_WINDOW_HEIGHT = 400;
 
     private final TardT tardT = new TardT();
 

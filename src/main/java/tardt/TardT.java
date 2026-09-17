@@ -37,7 +37,7 @@ public class TardT {
 
     /**
      * Processes a user command and returns the response.
-     * This is the method that the GUI (and CLI) will call.
+     * This is the method that the GUI calls.
      */
     public String getResponse(String input) {
         try {
