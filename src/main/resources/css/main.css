@@ -1,0 +1,92 @@
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #f4f7fb;
+}
+
+.app-shell {
+    -fx-background-color: #f4f7fb;
+}
+
+.header {
+    -fx-padding: 10px 12px;
+    -fx-background-color: #243b53;
+}
+
+.title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-padding: 10px 8px;
+}
+
+.message-bubble {
+    -fx-padding: 8px 10px;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #243b53;
+}
+
+.lobby-dialog .message-bubble {
+    -fx-background-color: white;
+    -fx-border-color: #d9e2ec;
+    -fx-border-radius: 8px;
+}
+
+.user-dialog .message-bubble {
+    -fx-background-color: #e1edf7;
+    -fx-text-fill: #243b53;
+}
+
+.error-dialog .message-bubble {
+    -fx-background-color: #fff1f0;
+    -fx-border-color: #b94a48;
+    -fx-text-fill: #842522;
+}
+
+.avatar {
+    -fx-background-color: #243b53;
+    -fx-background-radius: 14px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.user-dialog .avatar {
+    -fx-background-color: #526d82;
+    -fx-font-size: 9px;
+}
+
+.composer {
+    -fx-padding: 10px;
+    -fx-background-color: white;
+    -fx-border-color: #d9e2ec transparent transparent transparent;
+}
+
+.text-field {
+    -fx-padding: 8px 10px;
+    -fx-background-color: #f0f4f8;
+    -fx-background-radius: 8px;
+    -fx-border-color: #bcccdc;
+    -fx-border-radius: 8px;
+}
+
+.button {
+    -fx-padding: 8px 14px;
+    -fx-background-color: #3e7cb1;
+    -fx-background-radius: 8px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #2f6690;
+}
