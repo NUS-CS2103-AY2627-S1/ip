@@ -1,0 +1,4 @@
+interface:
+  display_name: "CS2103 iP Increments"
+  short_description: "Build course increments with compliant Git history"
+  default_prompt: "Use $cs2103-ip-increments to implement the next iP increment and verify its branch, merge, and tag."

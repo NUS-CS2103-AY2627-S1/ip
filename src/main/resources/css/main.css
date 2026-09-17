@@ -1,0 +1,48 @@
+.root {
+    -fx-background-color: #f3f5f7;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+}
+
+.dialog-container {
+    -fx-padding: 14;
+}
+
+.label {
+    -fx-padding: 10 14;
+}
+
+.user-message {
+    -fx-background-color: #316fea;
+    -fx-background-radius: 14 14 2 14;
+    -fx-text-fill: white;
+}
+
+.orbit-message {
+    -fx-background-color: white;
+    -fx-background-radius: 14 14 14 2;
+    -fx-text-fill: #202124;
+}
+
+.error-message {
+    -fx-background-color: #fff0ee;
+    -fx-text-fill: #8a251c;
+    -fx-border-color: #d86455;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.text-field {
+    -fx-padding: 10;
+}
+
+.button {
+    -fx-padding: 10 16;
+    -fx-background-color: #316fea;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+}
+
+.scroll-pane, .scroll-pane > .viewport {
+    -fx-background-color: #f3f5f7;
+}

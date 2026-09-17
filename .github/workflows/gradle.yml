@@ -1,0 +1,27 @@
+name: Java CI
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Java 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: '25'
+      - name: Run tests, Checkstyle, and package JavaFX
+        shell: bash
+        run: bash ./gradlew --no-daemon check shadowJar
+      - name: Check packaged CLI output
+        shell: pwsh
+        run: ./text-ui-test/runtest.ps1
