@@ -106,16 +106,30 @@ public class Lebron {
 
     /** Handles {@code TODO}: adds a todo and saves. */
     private String handleTodo(ParsedCommand command) {
-        tasks.add(new Todo(command.getDescription()));
+        Todo todo = new Todo(command.getDescription());
+        boolean isDuplicate = tasks.hasDuplicateDetails(todo);
+        tasks.add(todo);
         storage.save(tasks);
-        return "added: " + command.getDescription();
+        return "added: " + command.getDescription() + duplicateNote(isDuplicate);
     }
 
     /** Handles {@code DEADLINE}/{@code EVENT}: adds the pre-built task and saves. */
     private String handleNewTask(ParsedCommand command) {
-        tasks.add(command.getTask());
+        Task task = command.getTask();
+        boolean isDuplicate = tasks.hasDuplicateDetails(task);
+        tasks.add(task);
         storage.save(tasks);
-        return "added: " + command.getTask();
+        return "added: " + task + duplicateNote(isDuplicate);
+    }
+
+    /**
+     * Returns a short note to append to an "added" message when the new task
+     * duplicates an existing one's details, or an empty string otherwise.
+     * This only warns -- the task is added either way -- since a deliberate
+     * repeat (e.g. "call mom" on two different days) is a legitimate case.
+     */
+    private static String duplicateNote(boolean isDuplicate) {
+        return isDuplicate ? " (note: you already have a task just like this)" : "";
     }
 
     /**

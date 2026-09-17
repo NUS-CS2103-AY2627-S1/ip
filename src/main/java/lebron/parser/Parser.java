@@ -43,6 +43,7 @@ public class Parser {
                 if (arguments.isEmpty()) {
                     throw new LebronException("OOPS!!! A todo needs a description, e.g. todo read book");
                 }
+                requireNoPipe(arguments);
                 return ParsedCommand.todo(arguments);
             case "find":
                 if (arguments.isEmpty()) {
@@ -100,6 +101,8 @@ public class Parser {
         if (byIndex == -1) {
             throw new LebronException(usage);
         }
+        requireAtMostOnce(arguments, "/by");
+        requireAtMostOnce(arguments, "/every");
         int everyIndex = arguments.indexOf("/every");
         if (everyIndex != -1 && everyIndex < byIndex) {
             throw new LebronException("OOPS!!! /every must come after /by.");
@@ -111,6 +114,7 @@ public class Parser {
         if (description.isEmpty() || by.isEmpty()) {
             throw new LebronException(usage);
         }
+        requireNoPipe(description);
         RecurrencePeriod recurrence = parsePeriodIfPresent(arguments, everyIndex);
         try {
             return new Deadline(description, DateTime.parse(by), recurrence);
@@ -137,6 +141,9 @@ public class Parser {
         if (fromIndex == -1 || toIndex == -1 || toIndex < fromIndex) {
             throw new LebronException(usage);
         }
+        requireAtMostOnce(arguments, "/from");
+        requireAtMostOnce(arguments, "/to");
+        requireAtMostOnce(arguments, "/every");
         int everyIndex = arguments.indexOf("/every");
         if (everyIndex != -1 && everyIndex < toIndex) {
             throw new LebronException("OOPS!!! /every must come after /to.");
@@ -149,13 +156,21 @@ public class Parser {
         if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
             throw new LebronException(usage);
         }
+        requireNoPipe(description);
         RecurrencePeriod recurrence = parsePeriodIfPresent(arguments, everyIndex);
+        DateTime fromDateTime;
+        DateTime toDateTime;
         try {
-            return new Event(description, DateTime.parse(from), DateTime.parse(to), recurrence);
+            fromDateTime = DateTime.parse(from);
+            toDateTime = DateTime.parse(to);
         } catch (IllegalArgumentException e) {
             throw new LebronException("OOPS!!! I don't understand one of those dates. "
                     + "Try e.g. 2019-12-02 or 2019-12-02 1800.");
         }
+        if (toDateTime.compareTo(fromDateTime) <= 0) {
+            throw new LebronException("OOPS!!! An event's /to must be after its /from.");
+        }
+        return new Event(description, fromDateTime, toDateTime, recurrence);
     }
 
     /**
@@ -182,6 +197,37 @@ public class Parser {
         } catch (IllegalArgumentException e) {
             throw new LebronException("OOPS!!! '" + periodText
                     + "' isn't a recurrence I understand. Try day, week, or month.");
+        }
+    }
+
+    /**
+     * Rejects a description containing {@code |}, the character the data
+     * file uses as a field separator -- letting it through would silently
+     * corrupt that task on the next save/load round trip.
+     *
+     * @param description the description as the user typed it
+     * @throws LebronException if it contains {@code |}
+     */
+    private static void requireNoPipe(String description) throws LebronException {
+        if (description.contains("|")) {
+            throw new LebronException("OOPS!!! A task description can't contain '|' "
+                    + "(it's used internally to store tasks) -- please remove it.");
+        }
+    }
+
+    /**
+     * Rejects a command that gives the same flag more than once (e.g. two
+     * {@code /by}s), instead of letting the later occurrence silently get
+     * swallowed into whatever field is parsed next.
+     *
+     * @param arguments the full argument text
+     * @param flag the flag to check, e.g. {@code "/by"}
+     * @throws LebronException if {@code flag} appears more than once
+     */
+    private static void requireAtMostOnce(String arguments, String flag) throws LebronException {
+        int first = arguments.indexOf(flag);
+        if (first != -1 && arguments.indexOf(flag, first + 1) != -1) {
+            throw new LebronException("OOPS!!! Give " + flag + " only once.");
         }
     }
 }

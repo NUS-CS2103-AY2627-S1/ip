@@ -935,3 +935,115 @@ blocks.
   D | 0 | good deadline | 2025-01-01 | month
   D | 0 | bad recurrence | 2025-01-01 | fortnight
   ```
+
+## Test Case: Reject a non-existent calendar date
+
+- **Aim:** A date that doesn't exist (e.g. Feb 30) is rejected outright,
+  instead of silently rolling over to the nearest valid date (Feb 28).
+- **Commands:**
+  ```
+  deadline bad date /by 2025-02-30
+  list
+  bye
+  ```
+- **Expected output:**
+  ```
+  ____________________________________________________________
+  OOPS!!! I don't understand the date '2025-02-30'. Try e.g. 2019-12-02 or 2019-12-02 1800.
+  ____________________________________________________________
+  ____________________________________________________________
+  Here are the tasks in your list:
+  ____________________________________________________________
+  ____________________________________________________________
+  Bye. Hope to see you again soon!
+  ____________________________________________________________
+  ```
+
+## Test Case: Reject an event whose /to is not after its /from
+
+- **Aim:** An event ending at or before its start is rejected, rather than
+  being stored with a nonsensical negative or zero duration.
+- **Commands:**
+  ```
+  event backwards /from 2025-01-10 /to 2025-01-01
+  bye
+  ```
+- **Expected output:**
+  ```
+  ____________________________________________________________
+  OOPS!!! An event's /to must be after its /from.
+  ____________________________________________________________
+  ____________________________________________________________
+  Bye. Hope to see you again soon!
+  ____________________________________________________________
+  ```
+
+## Test Case: Reject a task description containing the storage delimiter
+
+- **Aim:** A description containing `|` is rejected up front, since it
+  would otherwise silently corrupt that task's line in the data file (the
+  task would be lost entirely on the next load).
+- **Commands:**
+  ```
+  todo buy milk | eggs
+  bye
+  ```
+- **Expected output:**
+  ```
+  ____________________________________________________________
+  OOPS!!! A task description can't contain '|' (it's used internally to store tasks) -- please remove it.
+  ____________________________________________________________
+  ____________________________________________________________
+  Bye. Hope to see you again soon!
+  ____________________________________________________________
+  ```
+
+## Test Case: Reject a flag given more than once
+
+- **Aim:** Giving `/by` twice is rejected with a clear message instead of
+  the second occurrence silently getting swallowed into the date text.
+- **Commands:**
+  ```
+  deadline pay rent /by 2025-01-01 /by 2025-02-01
+  bye
+  ```
+- **Expected output:**
+  ```
+  ____________________________________________________________
+  OOPS!!! Give /by only once.
+  ____________________________________________________________
+  ____________________________________________________________
+  Bye. Hope to see you again soon!
+  ____________________________________________________________
+  ```
+
+## Test Case: Warn (but still add) a likely-duplicate task
+
+- **Aim:** Adding a task with the same type, description and date(s) as an
+  existing one is still added (a deliberate repeat, e.g. "call mom" on two
+  different occasions, is legitimate) but flagged with a note so an
+  accidental duplicate doesn't go unnoticed.
+- **Commands:**
+  ```
+  todo buy milk
+  todo buy milk
+  list
+  bye
+  ```
+- **Expected output:**
+  ```
+  ____________________________________________________________
+  added: buy milk
+  ____________________________________________________________
+  ____________________________________________________________
+  added: buy milk (note: you already have a task just like this)
+  ____________________________________________________________
+  ____________________________________________________________
+  Here are the tasks in your list:
+  1.[ ] buy milk
+  2.[ ] buy milk
+  ____________________________________________________________
+  ____________________________________________________________
+  Bye. Hope to see you again soon!
+  ____________________________________________________________
+  ```

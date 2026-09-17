@@ -2,6 +2,7 @@ package lebron.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -58,6 +59,23 @@ public class DateTimeTest {
     }
 
     @Test
+    public void parse_nonExistentDayInValidMonth_throws() {
+        // February never has a 30th -- STRICT resolution must reject this
+        // outright rather than silently rolling it over to Feb 28/29.
+        assertThrows(IllegalArgumentException.class, () -> DateTime.parse("2025-02-30"));
+    }
+
+    @Test
+    public void parse_february29OnLeapYear_isAccepted() {
+        assertEquals("Feb 29 2024", DateTime.parse("2024-02-29").toString());
+    }
+
+    @Test
+    public void parse_february29OnNonLeapYear_throws() {
+        assertThrows(IllegalArgumentException.class, () -> DateTime.parse("2025-02-29"));
+    }
+
+    @Test
     public void parse_dateWithBadTime_throws() {
         assertThrows(IllegalArgumentException.class, () -> DateTime.parse("2019-12-02 2500"));
     }
@@ -95,5 +113,29 @@ public class DateTimeTest {
     public void parseThenToFileFormat_reparsesToSameValue() {
         String canonical = DateTime.parse("2/12/2019 1800").toFileFormat();
         assertEquals("Dec 02 2019 6:00pm", DateTime.parse(canonical).toString());
+    }
+
+    // ---- compareTo: chronological ordering -------------------------------
+
+    @Test
+    public void compareTo_earlierDate_isNegative() {
+        assertTrue(DateTime.parse("2025-01-01").compareTo(DateTime.parse("2025-01-02")) < 0);
+    }
+
+    @Test
+    public void compareTo_laterDate_isPositive() {
+        assertTrue(DateTime.parse("2025-01-02").compareTo(DateTime.parse("2025-01-01")) > 0);
+    }
+
+    @Test
+    public void compareTo_sameDateAndTime_isZero() {
+        assertEquals(0, DateTime.parse("2025-01-01 0900").compareTo(DateTime.parse("2025-01-01 0900")));
+    }
+
+    @Test
+    public void compareTo_dateOnlyTreatedAsMidnight() {
+        // A bare date sorts as that day's midnight, so it's before a
+        // same-day date/time that has an explicit (non-midnight) time.
+        assertTrue(DateTime.parse("2025-01-01").compareTo(DateTime.parse("2025-01-01 0001")) < 0);
     }
 }

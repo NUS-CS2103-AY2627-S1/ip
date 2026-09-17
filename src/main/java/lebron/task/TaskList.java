@@ -100,6 +100,34 @@ public class TaskList {
     }
 
     /**
+     * Returns whether an existing task already has the same type, description
+     * and date(s) as {@code candidate} (done-status ignored). Used to warn
+     * about a likely-accidental duplicate without blocking it outright --
+     * the caller decides what, if anything, to do with the answer.
+     *
+     * @param candidate the task about to be added
+     * @return true if a task with the same details is already in the list
+     */
+    public boolean hasDuplicateDetails(Task candidate) {
+        return tasks.stream().anyMatch(existing -> sameDetails(existing, candidate));
+    }
+
+    private static boolean sameDetails(Task first, Task second) {
+        return first.getClass() == second.getClass() && detailsKey(first).equals(detailsKey(second));
+    }
+
+    /**
+     * Returns {@code task}'s data-file line with the done-flag field
+     * replaced by a placeholder, so two tasks that differ only in
+     * done-status compare equal -- i.e. a key of everything but done-status.
+     */
+    private static String detailsKey(Task task) {
+        String[] fields = task.toFileFormat().split("\\|", -1);
+        fields[1] = " - ";
+        return String.join("|", fields);
+    }
+
+    /**
      * Returns the tasks whose description contains {@code keyword}, in list
      * order. Matching is case-sensitive.
      *
