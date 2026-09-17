@@ -34,6 +34,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane root = fxmlLoader.load();
             Scene scene = new Scene(root, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+            scene.getStylesheets().add(Main.class.getResource("/view/lebron.css").toExternalForm());
             stage.setScene(scene);
             stage.setTitle("Lebron");
             stage.setMinWidth(MIN_WIDTH);

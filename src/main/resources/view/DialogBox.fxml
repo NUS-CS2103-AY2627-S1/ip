@@ -5,7 +5,18 @@
 <?import javafx.scene.layout.HBox?>
 
 <fx:root type="HBox" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-         alignment="TOP_RIGHT" spacing="10">
-    <Label fx:id="dialog" text="Label" wrapText="true" maxWidth="280"/>
-    <ImageView fx:id="displayPicture" fitHeight="50.0" fitWidth="50.0" preserveRatio="true"/>
+         alignment="TOP_RIGHT" spacing="8">
+    <!--
+        No fixed maxWidth on the label: DialogBox.java binds it to this row's
+        own width (minus room for the avatar) so bubbles wrap responsively as
+        the window is resized, rather than being capped at a fixed pixel width.
+
+        The avatar is small on purpose: the only two participants in this
+        conversation are fixed (you and Lebron), so a big profile picture
+        adds no information; alignment (left/right) and colour already say
+        who's speaking. The user's dialog hides this ImageView entirely
+        (DialogBox.getUserDialog), giving that space back to the text.
+    -->
+    <Label fx:id="dialog" text="Label" wrapText="true"/>
+    <ImageView fx:id="displayPicture" fitHeight="28.0" fitWidth="28.0" preserveRatio="true"/>
 </fx:root>

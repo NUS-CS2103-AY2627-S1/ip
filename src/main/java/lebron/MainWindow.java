@@ -14,6 +14,12 @@ import javafx.scene.layout.VBox;
  * {@link Lebron} backend.
  */
 public class MainWindow {
+    /**
+     * Prefix Lebron uses on every user-facing error message; see
+     * {@link lebron.exception.LebronException}.
+     */
+    private static final String ERROR_PREFIX = "OOPS!!!";
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -25,7 +31,6 @@ public class MainWindow {
 
     private Lebron lebron;
 
-    private final Image userImage = new Image(getClass().getResourceAsStream("/images/user.png"));
     private final Image lebronImage = new Image(getClass().getResourceAsStream("/images/lebron.png"));
 
     /** Keeps the scroll pane pinned to the newest message. */
@@ -47,7 +52,8 @@ public class MainWindow {
     /** Shows Lebron's greeting as the first message in the conversation. */
     public void showGreeting() {
         dialogContainer.getChildren().add(
-                DialogBox.getLebronDialog("Hello! I'm Lebron. What can I do for you?", lebronImage));
+                DialogBox.getLebronDialog(
+                        "Hello! I'm Lebron. What can I do for you?", lebronImage, false));
     }
 
     /**
@@ -66,9 +72,10 @@ public class MainWindow {
             return;
         }
         String response = lebron.getResponse(input);
+        boolean isError = response.startsWith(ERROR_PREFIX);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getLebronDialog(response, lebronImage));
+                DialogBox.getUserDialog(input),
+                DialogBox.getLebronDialog(response, lebronImage, isError));
         userInput.clear();
         if (lebron.isExit()) {
             Platform.exit();

@@ -1,0 +1,55 @@
+/*
+ * Visual styling for the GUI (A-BetterGui). Kept separate from the FXML
+ * layout files so colours/fonts can be tuned without touching structure.
+ */
+
+.root {
+    -fx-font-family: "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: #FAFAFA;
+}
+
+/* User's own messages: a neutral bubble, right-aligned. */
+.user-bubble {
+    -fx-background-color: #E4E7EB;
+    -fx-text-fill: #1F2937;
+    -fx-background-radius: 14 14 4 14;
+    -fx-padding: 8 12 8 12;
+}
+
+/* Lebron's normal replies: a warm accent tying into his avatar's orange. */
+.lebron-bubble {
+    -fx-background-color: #FFE3C2;
+    -fx-text-fill: #7C2D12;
+    -fx-background-radius: 14 14 14 4;
+    -fx-padding: 8 12 8 12;
+}
+
+/* Lebron's OOPS!!! errors: same shape as a normal reply, but eye-catching. */
+.error-bubble {
+    -fx-background-color: #FDE2E2;
+    -fx-text-fill: #991B1B;
+    -fx-background-radius: 14 14 14 4;
+    -fx-border-color: #DC2626;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 14 14 14 4;
+    -fx-padding: 7 11 7 11;
+    -fx-font-weight: bold;
+}
+
+.text-field {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #D1D5DB;
+}
+
+.button {
+    -fx-background-color: #F97316;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #EA580C;
+}
