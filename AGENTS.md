@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Beginner
+* IDE and level of expertise: Beginner
 
 # Guidance for interacting with users
 
@@ -33,3 +33,9 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## Testing
+
+Maintain JUnit test coverage targeting the top ~50% highest-value methods in the codebase (prioritizing complex, core, or critical business logic over trivial getters/setters/pass-throughs). Tests live under `src/test/java`, mirroring the package structure of `src/main/java`. Run them with `gradlew.bat test`.
+
+Whenever a code change touches a class that has tests, or introduces new non-trivial logic, update or add JUnit tests in the same change so coverage continues to meet that 50% target — don't let tests go stale relative to the code they cover. Where a method under test depends on I/O or another hard-to-control collaborator (e.g. file access, console output), prefer dependency injection plus a real temporary resource (e.g. JUnit's `@TempDir`) or a hand-written stub/test-double over mocking frameworks, to keep tests readable at this course's level.
