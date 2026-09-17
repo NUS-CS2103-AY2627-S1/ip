@@ -1,0 +1,79 @@
+/*
+ * The conversation is asymmetric on purpose: it is between a person and an app, not
+ * between two people. The user's messages are a solid accent-coloured bubble with a
+ * tail towards their avatar on the right; Quu's replies are a light card with a flat
+ * left edge carrying a 4px accent bar whose colour reports what the command did.
+ *
+ * The colours named here are defined on .root in main.css.
+ */
+.dialog-label {
+    -fx-background-color: -quu-accent;
+    -fx-background-radius: 12px 12px 0 12px;
+    -fx-padding: 10px 14px;
+    -fx-font-size: 14px;
+    -fx-text-fill: -quu-surface;
+    -fx-font-smoothing-type: lcd;
+    -fx-line-spacing: 2px;
+}
+
+.reply-label {
+    -fx-background-color: -quu-surface;
+    -fx-background-radius: 0 12px 12px 0;
+    -fx-border-radius: 0 12px 12px 0;
+    -fx-border-width: 0 0 0 4px;
+    -fx-border-color: -quu-muted;
+    -fx-text-fill: -quu-text;
+}
+
+/*
+ * Each command class is added on top of .reply-label and sets only the accent bar and a
+ * faint matching tint. All of these selectors have the same specificity as .reply-label,
+ * so they must stay below it: with specificity tied, JavaFX applies whichever rule is
+ * declared last.
+ */
+.add-label {
+    -fx-border-color: #1f7a6e;
+    -fx-background-color: #f1fbf9;
+}
+
+.marked-label {
+    -fx-border-color: #3d8b40;
+    -fx-background-color: #f2faf2;
+}
+
+.unmarked-label {
+    -fx-border-color: #c98a00;
+    -fx-background-color: #fdf8ec;
+}
+
+.delete-label {
+    -fx-border-color: #c1666b;
+    -fx-background-color: #fdf3f4;
+}
+
+.update-label {
+    -fx-border-color: #e07a5f;
+    -fx-background-color: #fef5f2;
+}
+
+.list-label {
+    -fx-border-color: #4a7ebb;
+    -fx-background-color: #f2f6fc;
+}
+
+.find-label {
+    -fx-border-color: #7b5ea7;
+    -fx-background-color: #f7f4fb;
+}
+
+/* An error is the one reply the user must not miss, so it also recolours its text. */
+.error-label {
+    -fx-border-color: #d62828;
+    -fx-background-color: #fdeaea;
+    -fx-text-fill: #8f1d1d;
+    -fx-font-weight: bold;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(34, 48, 60, 0.18), 6, 0, 0, 2);
+}

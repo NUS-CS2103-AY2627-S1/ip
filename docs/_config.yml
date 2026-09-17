@@ -1,0 +1,9 @@
+# No theme is set on purpose. Themes such as Cayman put the *page* title in their
+# banner, which duplicates this guide's own "Quu User Guide" heading. The default
+# renders the site title below instead, so the two read as site then page.
+#
+# Titles the GitHub Pages site. Without this, the theme falls back to the repository
+# name, so the product website is headed "ip" rather than the product's name.
+title: Quu
+description: A desktop chatbot that keeps track of your tasks
+show_downloads: false

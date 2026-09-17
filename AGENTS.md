@@ -28,8 +28,45 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
-## Git
+## Java coding standard (MANDATORY)
 
-Use lightweight tags unless the user requests an annotated tag.
-When proposing or creating a commit message, include enough detail to explain the rationale for the change.
-Do not commit or push unless explicitly asked.
+All Java code in this repository **must** follow the SE-EDU Java coding standard
+at **Intermediate** level: <https://se-education.org/guides/conventions/java/intermediate.html>
+
+The full standard is captured as a project skill at
+`.claude/skills/seedu-java-coding-standard/SKILL.md`.
+
+* **Read that skill before writing or editing any `.java` file** in this project,
+  including tests, and follow it without exception.
+* This applies to new code, edits to existing code, and generated snippets shown
+  in chat. Never produce Java for this project that violates the standard.
+* When you touch a file that already violates the standard, bring the parts you
+  touch into compliance and point out any remaining violations you noticed.
+* Non-negotiable highlights: `camelCase` methods and variables (no `snake_case`),
+  boolean names prefixed with `is`/`has`/`was`/`can`/`should`, 4-space indent,
+  K&R braces with a space before `{`, lines <= 120 chars, braces on every
+  conditional and loop body, explicit imports with none unused, and Javadoc
+  header comments on all public classes and public methods.
+* After any rename or refactor for style, rebuild and rerun the tests
+  (`./gradlew build`) before reporting the work as done.
+
+## Git (MANDATORY)
+
+All commits and branches in this repository **must** follow the SE-EDU Git
+conventions: <https://se-education.org/guides/conventions/git.html>
+
+The full standard is captured as a project skill at
+`.claude/skills/seedu-git-standard/SKILL.md`.
+
+* **Read that skill before writing or proposing any commit message**, before
+  running `git commit` or `git commit --amend`, and before creating a branch.
+* Every future commit message must comply: imperative-mood subject line,
+  capitalised, no trailing period, <= 50 chars (hard limit 72); a body for any
+  non-trivial commit, separated by a blank line, wrapped at 72 chars, explaining
+  WHAT and WHY rather than HOW.
+* Branch names use kebab-case; branches tied to an issue use
+  `issueNumber-some-keywords-from-issue-title`.
+* Use lightweight tags unless the user requests an annotated tag.
+* When proposing or creating a commit message, include enough detail to explain
+  the rationale for the change.
+* Do not commit or push unless explicitly asked.

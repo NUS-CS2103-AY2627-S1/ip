@@ -1,0 +1,106 @@
+/*
+ * Every colour used by the window is defined once here and looked up by the rules
+ * below, so the whole app can be re-themed by editing this block alone. JavaFX
+ * resolves a looked-up colour by searching up the scene graph, so these are also
+ * visible to dialog-box.css.
+ */
+.root {
+    -quu-bg: #f4f6f8;
+    -quu-surface: #ffffff;
+    -quu-line: #e3e7ec;
+    -quu-line-strong: #c8ced6;
+    -quu-text: #22303c;
+    -quu-muted: #6b7885;
+    -quu-accent: #1f7a6e;
+    -quu-accent-dark: #19655c;
+    -quu-accent-darker: #134d46;
+
+    -fx-background-color: -quu-bg;
+    /*
+     * The JavaFX logical family, which maps to the platform UI font. Naming a real
+     * family here is a trap: "Helvetica Neue" resolves to its UltraLight face, which
+     * is what made every reply that is not bold look washed out. A -fx-font-weight of
+     * normal does not override that; only changing the family does.
+     */
+    -fx-font-family: System;
+}
+
+.text-field {
+    -fx-background-color: -quu-surface;
+    -fx-background-radius: 8px;
+    -fx-border-color: -quu-line;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-padding: 9px 12px;
+    -fx-font-size: 14px;
+    -fx-text-fill: -quu-text;
+    -fx-prompt-text-fill: -quu-muted;
+    -fx-font-smoothing-type: lcd;
+}
+
+.text-field:focused {
+    -fx-border-color: -quu-accent;
+}
+
+.button {
+    -fx-background-color: -quu-accent;
+    -fx-background-radius: 8px;
+    -fx-padding: 9px 16px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -quu-surface;
+    -fx-font-smoothing-type: lcd;
+    -fx-cursor: hand;
+}
+
+/*
+ * The hover and pressed states change colour only. Changing the font size here would
+ * resize the button and shift the text field beside it on every click.
+ */
+.button:hover {
+    -fx-background-color: -quu-accent-dark;
+}
+
+.button:pressed {
+    -fx-background-color: -quu-accent-darker;
+}
+
+.button:disabled {
+    -fx-opacity: 0.45;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Suppresses the focus ring JavaFX draws around a scroll pane that has been clicked. */
+.scroll-pane:focused {
+    -fx-background-insets: 0;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar:vertical > .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical > .thumb {
+    -fx-background-color: -quu-line;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 0 2px 0 2px;
+}
+
+.scroll-bar:vertical > .thumb:hover {
+    -fx-background-color: -quu-line-strong;
+}
+
+.scroll-bar > .increment-button,
+.scroll-bar > .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

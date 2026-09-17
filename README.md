@@ -1,25 +1,64 @@
-# Duke project template
+# Quu
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Quu is a desktop chatbot for keeping track of tasks. You type at it, it answers in a chat
+window, and it remembers your tasks between sessions.
 
-## Setting up in Intellij
+It is written in Java with a JavaFX front end, and was built as the individual project for
+[CS2103](https://nus-cs2103-ay2627-s1.github.io/website/).
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+**[Read the user guide](https://cookiemunchrr.github.io/ip/)** for what Quu can do and how
+to ask it.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Running Quu
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+Prerequisites: **JDK 25**.
+
+Download `Quu.jar` from the [releases page](https://github.com/Cookiemunchrr/ip/releases),
+then from the folder you put it in:
+
+```
+java -jar Quu.jar
+```
+
+Quu saves your tasks to `data/Quu.txt`, alongside wherever you ran it from.
+
+## Building from source
+
+```
+./gradlew build          # compile, check the coding standard, run the tests
+./gradlew run            # launch the GUI
+./gradlew runCli         # run the same chatbot as a terminal program
+./gradlew clean shadowJar  # build build/libs/Quu.jar
+```
+
+## Setting up in IntelliJ
+
+Prerequisites: JDK 25, and a recent version of IntelliJ.
+
+1. Open IntelliJ. If you are not on the welcome screen, click `File` > `Close Project`
+   first.
+2. Click `Open`, select the project directory, and click `OK`. Accept the defaults for any
+   further prompts.
+3. Configure the project to use **JDK 25**, as explained
+   [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk). In the same dialog, set
+   the **Project language level** field to the `SDK default` option.
+4. Locate `src/main/java/quu/gui/Launcher.java`, right-click it, and choose
+   `Run Launcher.main()`. If the code editor is showing compile errors, try restarting the
+   IDE. The Quu window should open.
+
+**Warning:** keep `src/main/java` as the root folder for Java files. Moving them elsewhere
+breaks the defaults that Gradle and other tools rely on.
+
+## Acknowledgements
+
+- The project skeleton, the Gradle setup, and the JavaFX starter code that
+  `quu.gui.Main`, `quu.gui.MainWindow` and `quu.gui.DialogBox` grew out of come from the
+  CS2103 [JavaFX tutorials](https://se-education.org/guides/tutorials/javaFx.html) and the
+  [`se-edu/duke`](https://github.com/nus-cs2103-AY2627S1/ip) project template.
+- The coding standard followed throughout is
+  [SE-EDU's Java coding standard](https://se-education.org/guides/conventions/java/intermediate.html)
+  at Intermediate level, and commits follow
+  [SE-EDU's Git conventions](https://se-education.org/guides/conventions/git.html).
+- The avatar images are placeholders that ship with the project template.
+- Parts of this codebase were written with the assistance of Claude (Anthropic), used as
+  described in the module's guidance on AI-assisted development.

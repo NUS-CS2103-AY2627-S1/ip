@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<!--
+  The label carries no padding of its own: dialog-box.css owns it, and a value set here
+  would count as a programmatic set and override the stylesheet.
+-->
+<fx:root alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308"
+         stylesheets="@../css/dialog-box.css" type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialog" minHeight="-Infinity" styleClass="dialog-label" text="Label"
+               wrapText="true">
+            <HBox.margin>
+                <Insets left="8.0" right="8.0" />
+            </HBox.margin>
+        </Label>
+        <ImageView fx:id="displayPicture" fitHeight="44.0" fitWidth="44.0" pickOnBounds="true"
+                   preserveRatio="true" smooth="true" />
+    </children>
+</fx:root>
