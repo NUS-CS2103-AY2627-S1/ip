@@ -1,0 +1,47 @@
+.dialog-row {
+    -fx-padding: 2 0 2 0;
+}
+
+.label {
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2px;
+    -fx-wrap-text: true;
+}
+
+.user-label {
+    -fx-background-color: #e0a100;
+    -fx-text-fill: #3d2b1f;
+    -fx-font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-radius: 12 12 4 12;
+    -fx-padding: 6 10 6 10;
+    -fx-max-width: 260;
+}
+
+.reply-label {
+    -fx-background-color: #fff8ee;
+    -fx-text-fill: #3d2b1f;
+    -fx-font-family: "Georgia", "Times New Roman", serif;
+    -fx-font-size: 13px;
+    -fx-background-radius: 4 12 12 12;
+    -fx-padding: 8 12 8 12;
+    -fx-border-color: #d8c4a0;
+    -fx-border-radius: 4 12 12 12;
+    -fx-border-width: 1;
+}
+
+.error-label {
+    -fx-background-color: #f4d6d0;
+    -fx-text-fill: #7a1f1f;
+    -fx-font-family: "Georgia", "Times New Roman", serif;
+    -fx-font-size: 13px;
+    -fx-background-radius: 4 12 12 12;
+    -fx-padding: 8 12 8 12;
+    -fx-border-color: #c45c26;
+    -fx-border-radius: 4 12 12 12;
+    -fx-border-width: 1.5;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(61, 43, 31, 0.25), 6, 0.2, 0, 1);
+}

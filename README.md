@@ -1,25 +1,43 @@
-# Duke project template
+# Mouse
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Mouse is a JavaFX chatbot that hoards to-dos, deadlines, and events.
 
-## Setting up in Intellij
+![Mouse GUI](docs/Ui.png)
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+## User guide
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+See the [Mouse User Guide](https://Sea1vester.github.io/ip/).
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+The Markdown source is [docs/README.md](docs/README.md).
+
+## Run
+
+Use **JDK 25** (Azul Zulu with JavaFX on Mac: `25.0.3.fx-zulu`).
+
+```
+./gradlew run
+```
+
+Or build and run the fat JAR:
+
+```
+./gradlew clean shadowJar
+java -jar build/libs/mouse.jar
+```
+
+The CLI entry point is `mouse.Mouse`.
+The JAR and `./gradlew run` start the GUI via `mouse.Launcher`.
+
+Tasks are saved to `data/mouse.txt`.
+
+## AI use
+
+Cursor was used as a collaborator on Week 6 work (GUI polish, personality wording,
+extra error handling, extra tests, and User Guide edits).
+I chose the product behaviour and reviewed the generated changes before keeping them.
+
+## Credits
+
+GUI scaffolding follows the [SE-EDU JavaFX tutorial](https://se-education.org/guides/tutorials/javaFx.html)
+(Jeffry Lum and Damith C. Rajapakse).
+See [CONTRIBUTORS.md](CONTRIBUTORS.md).

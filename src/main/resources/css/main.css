@@ -1,0 +1,77 @@
+.root {
+    -fx-background-color: #f3e6c8;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #f3e6c8;
+}
+
+.scroll-pane .corner {
+    -fx-background-color: transparent;
+}
+
+.dialog-list {
+    -fx-background-color: #f3e6c8;
+}
+
+.input-bar {
+    -fx-background-color: #3d2b1f;
+    -fx-padding: 8 8 8 8;
+}
+
+.text-field {
+    -fx-background-color: #fff8ee;
+    -fx-text-fill: #3d2b1f;
+    -fx-prompt-text-fill: #8a735a;
+    -fx-font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-padding: 8 10 8 10;
+}
+
+.button {
+    -fx-background-color: #e0a100;
+    -fx-text-fill: #3d2b1f;
+    -fx-font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 8 12 8 12;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #f2c14e;
+}
+
+.button:pressed {
+    -fx-background-color: #c45c26;
+    -fx-text-fill: #fff8ee;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: transparent;
+    -fx-pref-width: 10;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #c4a574;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+    -fx-opacity: 0;
+}
+
+.scroll-bar .track {
+    -fx-background-color: transparent;
+}

@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Run Mouse",
+      "request": "launch",
+      "mainClass": "mouse.Mouse",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}

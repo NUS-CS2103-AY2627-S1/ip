@@ -18,3 +18,10 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# plan files
+.lavish/
+.wfw/
+
+# Saved tasks
+/data/

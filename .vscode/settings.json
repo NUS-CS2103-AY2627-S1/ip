@@ -1,0 +1,13 @@
+{
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-25",
+      "path": "/Users/sylvesterlim/.sdkman/candidates/java/25.0.3.fx-zulu",
+      "default": true
+    }
+  ],
+  "java.jdt.ls.java.home": "/Users/sylvesterlim/.sdkman/candidates/java/25.0.3.fx-zulu",
+  "java.project.sourcePaths": ["src/main/java"],
+  "java.project.outputPath": "bin",
+  "java.configuration.updateBuildConfiguration": "automatic"
+}
