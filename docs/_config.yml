@@ -1,0 +1,6 @@
+theme: jekyll-theme-time-machine
+plugins:
+  - jekyll-remote-theme
+title: Megatron User Guide
+description: A friendly guide to managing tasks with Megatron.
+show_downloads: false
