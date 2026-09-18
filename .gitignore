@@ -2,19 +2,26 @@
 /.idea/
 /out/
 /*.iml
+*.class
 
 # Gradle build files
 /.gradle/
 /build/
 src/main/resources/docs/
+gradle.properties
 
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
 bin/
 
+#Codex files
+.codex/skills/present-changes-visually/
+
 # Temp files
 _temp/
+taskList.txt
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+

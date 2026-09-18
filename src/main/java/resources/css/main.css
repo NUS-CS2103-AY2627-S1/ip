@@ -1,0 +1,73 @@
+.root {
+    main-color: rgb(237, 255, 242);       /* Create a looked-up color called "main-color" within root. */
+    -fx-background-color: #fff0d6;
+    -fx-background-image: url("../images/background.jpg");
+    -fx-background-size: stretch;
+}
+
+.text-field {
+    -fx-background-color: #fff1c7;
+    -fx-text-fill: #263238;
+    -fx-prompt-text-fill: #7a6a4f;
+    -fx-border-color: #e8a317;
+    -fx-border-width: 2px 0 2px 2px;
+    -fx-border-radius: 0.8em 0 0 0.8em;
+    -fx-background-radius: 0.8em 0 0 0.8em;
+    -fx-font: 14px "Comic Sans MS";
+}
+
+.text-field:focused {
+    -fx-background-color: #fff7dc;
+    -fx-border-color: #f28c28;
+}
+
+.button {
+    -fx-background-color: #ff8f70;
+    -fx-border-width: 2px 2px 2px 0;
+    -fx-background-radius: 0 1.2em 1.2em 0;
+    -fx-border-radius: 0 1.2em 1.2em 0;
+    -fx-font: italic bold 16px "Comic Sans MS";
+}
+
+.button:hover {
+    -fx-background-color: #ffad91;
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color: #e87555;
+    -fx-font-size: 20px;
+}
+
+.scroll-pane {
+    -fx-background-color: rgba(0,0,0,.5);
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: main-color;
+}
+
+.scroll-bar:vertical {
+    -fx-pref-width: 14px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #ff8f00;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #ffad42;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
