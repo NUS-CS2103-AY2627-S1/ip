@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="alpha.gui.MainWindow" spacing="12.0" prefWidth="760.0" prefHeight="600.0">
+    <padding>
+        <Insets top="18.0" right="18.0" bottom="16.0" left="18.0" />
+    </padding>
+    <children>
+        <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="header-bar">
+            <Label text="✦" styleClass="brand-mark" />
+            <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                <Label text="Moss" styleClass="title-label" />
+                <Label text="A quiet little garden for your next steps" styleClass="subtitle-label" />
+            </VBox>
+            <Label fx:id="taskCountLabel" styleClass="count-label" />
+        </HBox>
+        <Label text="Plant: todo, deadline, event  •  Tend: list, find, mark, delete, sort"
+               styleClass="hint-label" wrapText="true" />
+        <ListView fx:id="taskListView" VBox.vgrow="ALWAYS">
+            <placeholder>
+                <Label text="Your garden is empty. Plant a task below."
+                       styleClass="empty-state-label" wrapText="true" />
+            </placeholder>
+        </ListView>
+        <Label fx:id="feedbackLabel" text="Moss is ready when you are." minHeight="36.0"
+               styleClass="feedback-label" wrapText="true" />
+        <HBox spacing="8.0" styleClass="command-bar">
+            <TextField fx:id="commandInput" promptText="What should we tend?" onAction="#handleCommand"
+                       HBox.hgrow="ALWAYS" />
+            <Button text="Tend" styleClass="run-button" onAction="#handleCommand" defaultButton="true" />
+        </HBox>
+    </children>
+</VBox>

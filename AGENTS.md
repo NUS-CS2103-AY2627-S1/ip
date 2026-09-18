@@ -33,3 +33,7 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## Java coding standard
+
+All Java code in this project must follow the project-specific `seedu-java-coding-standard` skill at `skills/seedu-java-coding-standard/SKILL.md`, based on the [SE-EDU intermediate Java coding standard](https://se-education.org/guides/conventions/java/intermediate.html). This includes its naming, package, import, layout, control-flow, variable-scope, and Javadoc requirements. Apply the standard to production code and tests, and check it before handing off Java changes.
