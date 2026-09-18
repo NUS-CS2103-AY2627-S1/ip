@@ -1,0 +1,4 @@
+interface:
+  display_name: "SE-EDU Git Standard"
+  short_description: "Apply SE-EDU Git rules for this repository"
+  default_prompt: "Use $seedu-git-standard to prepare Git metadata for this repository."

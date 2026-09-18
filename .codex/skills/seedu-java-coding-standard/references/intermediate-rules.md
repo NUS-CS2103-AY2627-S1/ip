@@ -1,0 +1,21 @@
+# SE-EDU intermediate Java rules used in this repo
+
+- Use lowercase package names.
+- Use PascalCase for classes and camelCase for methods and variables.
+- Use `UPPER_SNAKE_CASE` for constants.
+- Name methods with verbs.
+- Use boolean names that read like booleans, such as `isDone` and `hasData`.
+- Use plural names for collections.
+- Keep indentation at 4 spaces and wrapped lines indented by 8 additional spaces.
+- Keep lines within 120 characters, with a soft target below 110.
+- Break long lines for readability, typically after commas and before operators.
+- Keep method names attached to the opening `(` when wrapping signatures or calls.
+- Use K&R brace style.
+- Wrap all `if`, `else`, `for`, `while`, and `do-while` bodies in braces.
+- Put conditional bodies on their own lines; do not use single-line `if` statements.
+- Keep imports explicit; do not use wildcard imports.
+- Initialize variables close to where they are declared and keep scope as small as practical.
+- Keep public fields out of normal behavior-rich classes.
+- Write comments in English and use American spelling.
+- Add descriptive header comments for public classes and public methods, except for getters/setters, tests, and exact inherited-Javadoc overrides.
+- Format Javadocs with a short summary sentence first, then a blank line before tags when tags are needed.

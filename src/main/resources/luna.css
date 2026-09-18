@@ -1,0 +1,205 @@
+.root {
+    -fx-font-family: "Segoe UI";
+}
+
+.text {
+    -fx-font-smoothing-type: lcd;
+}
+
+.app-root,
+.dialog-container,
+.chat-scroll,
+.chat-scroll > .viewport {
+    -fx-background-color: #f3f0f8;
+}
+
+.chat-scroll {
+    -fx-background: #f3f0f8;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.chat-scroll .scroll-bar:vertical {
+    -fx-pref-width: 8;
+}
+
+.app-header {
+    -fx-background-color: linear-gradient(to right, #281b3f, #5b21b6);
+    -fx-background-radius: 18;
+    -fx-effect: dropshadow(gaussian, rgba(40, 27, 63, 0.22), 14, 0, 0, 3);
+    -fx-padding: 11 14;
+}
+
+.app-header-icon {
+    -fx-background-color: rgba(255, 255, 255, 0.14);
+    -fx-background-radius: 19;
+    -fx-font-size: 22px;
+    -fx-text-fill: #faf5ff;
+}
+
+.app-header-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.app-header-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #ddd6fe;
+}
+
+.app-header-status {
+    -fx-background-color: rgba(255, 255, 255, 0.12);
+    -fx-background-radius: 999;
+    -fx-border-color: rgba(255, 255, 255, 0.20);
+    -fx-border-radius: 999;
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 8;
+    -fx-text-fill: #ede9fe;
+}
+
+.composer {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16;
+    -fx-border-color: #e4e0ec;
+    -fx-border-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(49, 38, 68, 0.10), 10, 0, 0, 2);
+}
+
+.command-input {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-padding: 0 8;
+    -fx-prompt-text-fill: #8c8796;
+    -fx-text-fill: #211d29;
+}
+
+.command-input:focused {
+    -fx-background-color: #faf9fc;
+    -fx-background-radius: 10;
+    -fx-border-color: #c4b5fd;
+    -fx-border-radius: 10;
+}
+
+.send-button {
+    -fx-background-color: #7c3aed;
+    -fx-background-radius: 11;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 7 12;
+    -fx-text-fill: #ffffff;
+}
+
+.send-button:hover {
+    -fx-background-color: #6d28d9;
+}
+
+.send-button:pressed {
+    -fx-background-color: #5b21b6;
+}
+
+.dialog-row {
+    -fx-padding: 1 3;
+}
+
+.user-message {
+    -fx-background-color: #7c3aed;
+    -fx-background-radius: 19 19 5 19;
+    -fx-effect: dropshadow(gaussian, rgba(76, 29, 149, 0.16), 8, 0, 0, 2);
+    -fx-font-size: 14px;
+    -fx-padding: 9 14;
+    -fx-text-fill: #ffffff;
+}
+
+.user-avatar-frame {
+    -fx-background-color: #ede9fe;
+    -fx-background-radius: 14;
+    -fx-effect: dropshadow(gaussian, rgba(76, 29, 149, 0.12), 6, 0, 0, 1);
+}
+
+.response-icon {
+    -fx-background-radius: 14;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.moon-icon {
+    -fx-background-color: #35264f;
+    -fx-effect: dropshadow(gaussian, rgba(53, 38, 79, 0.18), 6, 0, 0, 1);
+    -fx-text-fill: #f3e8ff;
+}
+
+.luna-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 14;
+    -fx-effect: dropshadow(gaussian, rgba(49, 38, 68, 0.10), 10, 0, 0, 2);
+    -fx-padding: 10 13;
+}
+
+.normal-card {
+    -fx-border-color: transparent transparent transparent #a5b4fc;
+    -fx-border-radius: 14;
+    -fx-border-width: 0 0 0 2;
+}
+
+.luna-card-header {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #7c3aed;
+}
+
+.luna-message {
+    -fx-font-size: 14px;
+    -fx-text-fill: #252130;
+}
+
+.error-card {
+    -fx-background-color: #fff7f7;
+}
+
+.error-icon {
+    -fx-background-color: #fee2e2;
+    -fx-font-size: 12px;
+    -fx-text-fill: #dc2626;
+}
+
+.error-card-header {
+    -fx-text-fill: #b91c1c;
+}
+
+.help-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #6d28d9;
+}
+
+.help-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #625b6e;
+}
+
+.help-section-title {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 0 1 0;
+    -fx-text-fill: #312a3d;
+}
+
+.command-row {
+    -fx-background-color: #faf9fc;
+    -fx-background-radius: 8;
+    -fx-padding: 6 8;
+}
+
+.command-name {
+    -fx-fill: #6d28d9;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.command-description {
+    -fx-fill: #514a5e;
+    -fx-font-size: 12px;
+}
