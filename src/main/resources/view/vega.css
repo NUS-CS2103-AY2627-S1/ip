@@ -1,0 +1,88 @@
+.root {
+    -fx-background-color: #f5f7ff;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: #f5f7ff;
+}
+
+.dialog-container {
+    -fx-padding: 10px 4px 14px 4px;
+}
+
+.dialog-box {
+    -fx-padding: 6px 10px;
+    -fx-spacing: 8px;
+}
+
+.message {
+    -fx-background-radius: 14px;
+    -fx-padding: 9px 12px;
+}
+
+.vega-message {
+    -fx-background-color: white;
+    -fx-border-color: #dfe4f5;
+    -fx-border-radius: 14px;
+    -fx-text-fill: #26304a;
+}
+
+.user-message {
+    -fx-background-color: #4f46e5;
+    -fx-text-fill: white;
+}
+
+.error-message {
+    -fx-background-color: #fff1f2;
+    -fx-border-color: #fb7185;
+    -fx-border-width: 1px;
+    -fx-text-fill: #9f1239;
+}
+
+.avatar {
+    -fx-alignment: center;
+    -fx-background-radius: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-min-height: 32px;
+    -fx-min-width: 32px;
+}
+
+.vega-avatar {
+    -fx-background-color: #0f766e;
+}
+
+.user-avatar {
+    -fx-background-color: #4f46e5;
+}
+
+.error-dialog .avatar {
+    -fx-background-color: #e11d48;
+}
+
+.command-input {
+    -fx-background-color: white;
+    -fx-background-radius: 9px;
+    -fx-border-color: #c7d2fe;
+    -fx-border-radius: 9px;
+    -fx-padding: 8px 10px;
+}
+
+.command-input:focused {
+    -fx-border-color: #4f46e5;
+    -fx-border-width: 2px;
+}
+
+.send-button {
+    -fx-background-color: #4f46e5;
+    -fx-background-radius: 9px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.send-button:hover {
+    -fx-background-color: #4338ca;
+}
