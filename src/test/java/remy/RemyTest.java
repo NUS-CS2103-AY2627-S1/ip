@@ -208,8 +208,25 @@ class RemyTest {
         String laterResponse = remy.getResponse("list");
 
         assertTrue(remy.hasExited());
-        assertTrue(byeResponse.contains("Cya. Call me again when you need me!"));
-        assertTrue(laterResponse.contains("This chat has ended"));
+        assertEquals("Cya. Call me again when you need me!", byeResponse);
+        assertEquals("This chat has ended. Restart Remy to begin a new session.", laterResponse);
+    }
+
+    @Test
+    void getResponse_invalidByeCommands_sessionRemainsActive() {
+        Remy remy = createRemy();
+
+        String argumentResponse = remy.getResponse("bye now");
+        String capitalizationResponse = remy.getResponse("Bye");
+        String spacingResponse = remy.getResponse(" bye");
+        String laterResponse = remy.getResponse("list");
+
+        assertEquals("The bye command does not accept parameters.\nUse: bye", argumentResponse);
+        assertEquals("Wha-? My bad bruh, I have no clue what you're talking about :/", capitalizationResponse);
+        assertEquals("Invalid command spacing.\n"
+                + "Use one space between command parts and remove leading or trailing spaces.", spacingResponse);
+        assertFalse(remy.hasExited());
+        assertEquals("There are no tasks in your list yet.", laterResponse);
     }
 
     @Test
