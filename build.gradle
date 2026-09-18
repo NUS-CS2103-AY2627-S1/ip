@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'checkstyle'
+    id 'jacoco'
     id 'com.gradleup.shadow' version '9.5.1'
 }
 
@@ -16,6 +17,10 @@ repositories {
 
 checkstyle {
     toolVersion = '14.1.0'
+}
+
+jacoco {
+    toolVersion = '0.8.14'
 }
 
 dependencies {
@@ -54,6 +59,39 @@ test {
         showStandardStreams = false
     }
 }
+
+jacocoTestReport {
+    dependsOn test
+
+    classDirectories.setFrom(sourceSets.main.output.asFileTree.matching {
+        exclude 'daddy/Launcher.class', 'daddy/gui/**'
+    })
+
+    reports {
+        html.required = true
+        xml.required = true
+    }
+}
+
+jacocoTestCoverageVerification {
+    dependsOn test
+
+    classDirectories.setFrom(sourceSets.main.output.asFileTree.matching {
+        exclude 'daddy/Launcher.class', 'daddy/gui/**'
+    })
+
+    violationRules {
+        rule {
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.90
+            }
+        }
+    }
+}
+
+check.dependsOn jacocoTestCoverageVerification
 
 application {
     mainClass = 'daddy.Launcher'
