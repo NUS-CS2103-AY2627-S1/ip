@@ -1,0 +1,53 @@
+.dialog-box {
+    -fx-padding: 4 10;
+    -fx-spacing: 10;
+}
+
+.message-bubble {
+    -fx-padding: 9 12;
+}
+
+.speaker-label {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
+
+.duck-bubble {
+    -fx-background-color: #e7ebf0;
+    -fx-background-radius: 12 12 12 3;
+    -fx-border-color: transparent transparent transparent app-warm-accent;
+    -fx-border-radius: 12 12 12 3;
+    -fx-border-width: 0 0 0 2;
+    -fx-text-fill: #202124;
+}
+
+.duck-speaker {
+    -fx-text-fill: #8a5a00;
+}
+
+.error-bubble {
+    -fx-background-color: #fff1f0;
+    -fx-background-radius: 12 12 12 3;
+    -fx-border-color: #d92d20;
+    -fx-border-radius: 12 12 12 3;
+    -fx-border-width: 1;
+    -fx-text-fill: #7a271a;
+}
+
+.error-speaker {
+    -fx-text-fill: #b42318;
+}
+
+.user-bubble {
+    -fx-background-color: #287bde;
+    -fx-background-radius: 12 12 3 12;
+    -fx-text-fill: #ffffff;
+}
+
+.user-speaker {
+    -fx-text-fill: #287bde;
+}
+
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.14), 4, 0.20, 0, 1);
+}

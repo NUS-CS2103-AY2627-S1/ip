@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         prefWidth="400.0"
+         styleClass="dialog-box"
+         stylesheets="@../css/dialog-box.css"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox fx:id="messageContainer" spacing="4.0">
+            <children>
+                <Label fx:id="speaker" styleClass="speaker-label" />
+                <Label fx:id="text"
+                       minHeight="-Infinity"
+                       minWidth="0.0"
+                       styleClass="message-bubble"
+                       wrapText="true" />
+            </children>
+        </VBox>
+        <ImageView fx:id="displayPicture"
+                   fitHeight="42.0"
+                   fitWidth="42.0"
+                   preserveRatio="true"
+                   styleClass="avatar" />
+    </children>
+</fx:root>

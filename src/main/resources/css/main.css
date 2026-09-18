@@ -1,0 +1,72 @@
+.root {
+    app-background: #f4f6f8;
+    app-accent: #287bde;
+    app-accent-dark: #1f68bf;
+    app-warm-accent: #f4b942;
+    -fx-font-family: "System";
+    -fx-font-size: 13px;
+}
+
+.main-layout {
+    -fx-background-color: app-background;
+}
+
+.chat-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.chat-scroll-pane > .viewport {
+    -fx-background-color: app-background;
+}
+
+.dialog-container {
+    -fx-background-color: app-background;
+    -fx-padding: 12;
+}
+
+.scroll-bar {
+    -fx-background-color: app-background;
+    -fx-font-size: 9px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #b7c4d2;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}
+
+.user-input {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8;
+    -fx-border-color: #c8d0d9;
+    -fx-border-radius: 8;
+    -fx-padding: 10 12;
+}
+
+.user-input:focused {
+    -fx-border-color: app-accent;
+}
+
+.send-button {
+    -fx-background-color: app-accent;
+    -fx-background-radius: 8;
+    -fx-text-fill: #ffffff;
+}
+
+.send-button:hover {
+    -fx-background-color: app-accent-dark;
+}
+
+.send-button:pressed {
+    -fx-background-color: #18569e;
+}
+
+.send-button:disabled {
+    -fx-opacity: 0.55;
+}
