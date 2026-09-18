@@ -5,7 +5,9 @@ import java.util.Objects;
 
 import daddy.Daddy;
 import daddy.task.Task;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Provides the JavaFX chat window used to interact with Daddy.
@@ -29,6 +32,8 @@ public class DaddyGui extends Application {
     private static final double MIN_WINDOW_WIDTH = 420.0;
     /** Preserves room for the conversation and command field at compact window sizes. */
     private static final double MIN_WINDOW_HEIGHT = 480.0;
+    /** Keeps the farewell visible briefly before Daddy closes the window. */
+    private static final Duration EXIT_DELAY = Duration.seconds(2.0);
     /** Provides Daddy's decorative banner in a shape that fits within the graphical header. */
     private static final String ASCII_ART = " ____              _       _               \n"
             + "|  _ \\   __ _   __| |   __| |  _   _ \n"
@@ -150,9 +155,20 @@ public class DaddyGui extends Application {
         userInput.clear();
 
         if (daddy.isExitRequested()) {
-            userInput.setDisable(true);
-            sendButton.setDisable(true);
+            scheduleExit();
         }
+    }
+
+    /**
+     * Prevents further commands and closes Daddy after the farewell has been visible briefly.
+     */
+    private void scheduleExit() {
+        userInput.setDisable(true);
+        sendButton.setDisable(true);
+
+        PauseTransition exitDelay = new PauseTransition(EXIT_DELAY);
+        exitDelay.setOnFinished(event -> Platform.exit());
+        exitDelay.play();
     }
 
     /**

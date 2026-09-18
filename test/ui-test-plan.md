@@ -25,7 +25,8 @@ rather than console-style task text.
 
 Resize the window down to its minimum size and then make it wider. Text and task cards should reflow without a
 horizontal scrollbar, the command field should remain usable, and conversation space should grow with the window.
-After `bye`, the command field and Send button should be disabled.
+After `bye`, the farewell should remain visible for about two seconds. The command field and Send button should be
+disabled during that delay, and the window should then close automatically.
 
 ## Manual test: date and time parsing
 Aim: Verify that deadlines and events parse ISO dates/times and display friendly values.
