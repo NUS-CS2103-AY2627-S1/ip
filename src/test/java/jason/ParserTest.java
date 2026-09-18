@@ -122,9 +122,14 @@ class ParserTest {
     @Test
     void parseTask_malformedTaskCommand_throwsSpecificException() {
         assertThrows(InvalidToDoException.class, () -> parser.parseTask("todo"));
+        assertThrows(InvalidToDoException.class, () -> parser.parseTask("todo   "));
         assertThrows(InvalidDeadlineException.class, () ->
                 parser.parseTask("deadline submit report /by not-a-date"));
+        assertThrows(InvalidDeadlineException.class, () ->
+                parser.parseTask("deadline submit report /by"));
         assertThrows(InvalidEventException.class, () ->
                 parser.parseTask("event planning /from 2020-01-02 14:00"));
+        assertThrows(InvalidEventException.class, () ->
+                parser.parseTask("event do hw /from 1 /to"));
     }
 }

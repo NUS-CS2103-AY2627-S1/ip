@@ -135,7 +135,11 @@ public class Parser {
         }
         int durationMarkerIndex = Arrays.asList(parsedInput).indexOf("/for");
         if (durationMarkerIndex < 0) {
-            return new ToDo(description.split("\\s+", 2)[1].trim());
+            String[] parts = description.split("\\s+", 2);
+            if (parts.length != 2 || parts[1].isBlank()) {
+                throw new InvalidToDoException();
+            }
+            return new ToDo(parts[1].trim());
         }
         if (durationMarkerIndex < 2 || durationMarkerIndex == parsedInput.length - 1) {
             throw new InvalidToDoException();
@@ -196,6 +200,9 @@ public class Parser {
             throw new InvalidDeadlineException();
         }
         String[] parts = description.split("deadline\\s+|\\s+/by\\s+", 3);
+        if (parts.length != 3 || parts[1].isBlank() || parts[2].isBlank()) {
+            throw new InvalidDeadlineException();
+        }
         try {
             return new Deadline(parts[1], parts[2]);
         } catch (DateTimeParseException e) {
@@ -217,6 +224,9 @@ public class Parser {
             throw new InvalidEventException();
         }
         String[] parts = description.split("event\\s+|\\s+/from\\s+|\\s+/to\\s+", 4);
+        if (parts.length != 4 || parts[1].isBlank() || parts[2].isBlank() || parts[3].isBlank()) {
+            throw new InvalidEventException();
+        }
         try {
             return new Event(parts[1], parts[2], parts[3]);
         } catch (DateTimeParseException e) {

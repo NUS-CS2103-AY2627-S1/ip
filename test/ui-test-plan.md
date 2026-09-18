@@ -37,6 +37,39 @@ _______
 Goodbye! Your task data is ready for the next session.
 ```
 
+## Test case: Incomplete event command
+
+### Aim
+
+Verify that an event with missing date-time values shows the correct event
+command format instead of an internal Java exception.
+
+### Command
+
+```shell
+java -cp build/classes/java/main jason.Main
+```
+
+### Input
+
+```text
+event do hw /from 1 /to
+bye
+```
+
+### Expected output
+
+```text
+Hello! My name is Jason, inspired by JSON files used by software engineers.
+Send me a command, and I will keep your tasks neatly structured.
+_______
+Event commands are in the form "event {description} /from {YYYY-MM-DD HH:MM} /to {YYYY-MM-DD HH:MM}"
+_______
+_______
+_______
+Goodbye! Your task data is ready for the next session.
+```
+
 Add further `## Test case:` sections below as UI behavior is implemented. Each
 case must include an aim, command, input, and exact expected output.
 
@@ -233,4 +266,70 @@ _______
 _______
 _______
 Goodbye! Your task data is ready for the next session.
+
+## Test case: Incomplete deadline command
+
+### Aim
+
+Verify that a deadline with a missing date-time value shows the deadline
+command format instead of an internal Java exception.
+
+### Command
+
+```shell
+java -cp build/classes/java/main jason.Main
+```
+
+### Input
+
+```text
+deadline submit report /by
+bye
+```
+
+### Expected output
+
+```text
+Hello! My name is Jason, inspired by JSON files used by software engineers.
+Send me a command, and I will keep your tasks neatly structured.
+_______
+Deadline commands are in the form "deadline {description} /by {YYYY-MM-DD HH:MM}"
+_______
+_______
+_______
+Goodbye! Your task data is ready for the next session.
+```
+
+## Test case: Incomplete todo command
+
+### Aim
+
+Verify that a todo with no description shows the todo command format instead of
+an internal Java exception.
+
+### Command
+
+```shell
+java -cp build/classes/java/main jason.Main
+```
+
+### Input
+
+```text
+todo
+bye
+```
+
+### Expected output
+
+```text
+Hello! My name is Jason, inspired by JSON files used by software engineers.
+Send me a command, and I will keep your tasks neatly structured.
+_______
+Todo commands are in the form "todo {description} [/for {duration}]". Duration must be between 1 minute and 24 hours, using formats such as "2h", "90m", or "1h 30m".
+_______
+_______
+_______
+Goodbye! Your task data is ready for the next session.
+```
 ```
