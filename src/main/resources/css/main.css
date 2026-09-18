@@ -1,0 +1,79 @@
+.main-window {
+    -fx-background-color: #f3f6fb;
+    -fx-font-family: "Avenir Next", "Segoe UI", sans-serif;
+}
+
+.chat-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.chat-scroll-pane > .viewport {
+    -fx-background-color: #f3f6fb;
+}
+
+.dialog-container {
+    -fx-padding: 12 4 12 4;
+    -fx-spacing: 6;
+}
+
+.command-input {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 10;
+    -fx-font-size: 13px;
+    -fx-padding: 9 12;
+}
+
+.command-input:focused {
+    -fx-border-color: #2563eb;
+    -fx-effect: dropshadow(gaussian, rgba(37, 99, 235, 0.18), 8, 0, 0, 1);
+}
+
+.send-button {
+    -fx-background-color: #2563eb;
+    -fx-background-radius: 10;
+    -fx-font-weight: bold;
+    -fx-padding: 9 14;
+    -fx-text-fill: white;
+}
+
+.send-button:hover {
+    -fx-background-color: #1d4ed8;
+}
+
+.dialog-label {
+    -fx-background-radius: 14;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2px;
+    -fx-max-width: 285px;
+    -fx-padding: 10 14;
+}
+
+.user-dialog .dialog-label {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: white;
+}
+
+.chris-dialog .dialog-label {
+    -fx-background-color: white;
+    -fx-border-color: #dbe3ef;
+    -fx-border-radius: 14;
+    -fx-text-fill: #1e293b;
+}
+
+.error-dialog .dialog-label {
+    -fx-background-color: #fff1f2;
+    -fx-border-color: #e11d48;
+    -fx-text-fill: #9f1239;
+}
+
+.welcome-dialog .dialog-label {
+    -fx-background-color: #e8eef9;
+    -fx-border-color: #94a3b8;
+}
+
+.profile-image {
+    -fx-opacity: 0.92;
+}

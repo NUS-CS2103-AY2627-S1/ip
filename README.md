@@ -1,25 +1,54 @@
-# Duke project template
+# Chris
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Chris is a desktop task manager for users who prefer fast, text-based commands. It supports todos, deadlines, and events through a JavaFX graphical interface and saves task changes automatically.
 
-## Setting up in Intellij
+![Chris application](docs/Ui.png)
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+## Useful links
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+- [Download the latest Chris JAR](https://github.com/hyunmin1211/ip/releases/latest/download/chris.jar)
+- [Read the published User Guide](https://hyunmin1211.github.io/ip/)
+- [View the User Guide on GitHub](docs/README.md)
+
+## Features
+
+- Add todos, deadlines, and events.
+- List and search for tasks.
+- Mark and unmark tasks.
+- Delete tasks.
+- Detect duplicate tasks.
+- Save and restore tasks automatically.
+- Handle invalid commands with helpful error messages.
+
+## Running Chris
+
+### Requirements
+
+- Java 25
+
+### Running the JAR
+
+1. Download `chris.jar` from the latest GitHub release.
+2. Place the JAR file in an empty folder.
+3. Open a terminal in that folder.
+4. Run:
+
+   ```shell
+   java -jar "chris.jar"
    ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+Chris stores its task data in `data/chris.txt`, relative to the folder from which the application is run.
+
+## Building from source
+
+Run the following command from the project root to test the project and create the executable JAR:
+
+```shell
+./gradlew clean test shadowJar
+```
+
+The generated JAR is located at `build/libs/chris.jar`.
+
+## AI Use Declaration
+
+I followed the course's AI-use guidance and restrictions throughout this project. I used AI tools across the project increments, primarily through the suggested prompts. Before accepting AI-generated suggestions, I wrote pseudocode for the intended logic, compared it with the generated code, and reviewed each change in detail. I tested the resulting behavior and made edits where necessary.
