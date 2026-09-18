@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: intermediate 
+* IDE and level of expertise: intermediate
 
 # Guidance for interacting with users
 
@@ -33,3 +33,25 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## UI regression workflow
+
+After each code update, review `test/ui-test-plan.md` and update it if the change affects the console interaction being tested.
+After updating the code (and test plan, if needed), invoke the `test-ui` skill to run the UI test cases and surface any transcript mismatches immediately.
+
+## JUnit coverage workflow
+
+Maintain JUnit coverage for approximately the top 50% of methods, prioritizing complex, core, or critical business logic over trivial accessors.
+After each code change, update or add the relevant JUnit tests so the suite continues to meet this coverage target, and run `./gradlew test` to verify the tests.
+
+## Project-specific standards
+
+For every Java source or test change, follow the `seedu-java-coding-standard`
+skill in `.codex/skills/seedu-java-coding-standard/SKILL.md`. Review naming,
+layout, imports, braces, line length, encapsulation, and required Javadocs before
+finishing the change.
+
+For every future commit or branch, follow the `seedu-git-standard` skill in
+`.codex/skills/seedu-git-standard/SKILL.md`. Use meaningful kebab-case branch
+names and imperative commit subjects; include a concise, wrapped body explaining
+what changed and why for non-trivial commits.

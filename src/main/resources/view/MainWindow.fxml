@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="friday.MainWindow" styleClass="root" prefWidth="420.0" prefHeight="650.0"
+      minWidth="360.0" minHeight="420.0">
+    <HBox id="header">
+        <VBox id="logoCircle">
+            <SVGPath id="logoSpark" content="M12 1.6 L14.3 9.7 L22.4 12 L14.3 14.3 L12 22.4 L9.7 14.3 L1.6 12 L9.7 9.7 Z" />
+        </VBox>
+        <VBox spacing="1.0" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+            <Label id="titleLabel" text="FRIDAY" />
+            <Label id="subtitleLabel" text="Your task assistant" />
+        </VBox>
+    </HBox>
+    <ScrollPane fx:id="chatScroll" id="chatScroll" fitToWidth="true" hbarPolicy="NEVER"
+                vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
+        <VBox fx:id="dialogContainer" id="dialogContainer" />
+    </ScrollPane>
+    <HBox id="inputBar">
+        <HBox id="inputPill" HBox.hgrow="ALWAYS">
+            <TextField fx:id="commandField" id="commandField" promptText="Enter a command..."
+                       onAction="#handleSend" HBox.hgrow="ALWAYS" />
+            <Button fx:id="sendButton" id="sendButton" onAction="#handleSend" text="">
+                <graphic><SVGPath id="sendArrow" content="M3.6 20.4 L21 12 L3.6 3.6 L6.2 12 Z" /></graphic>
+            </Button>
+        </HBox>
+    </HBox>
+</VBox>

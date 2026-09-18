@@ -1,0 +1,46 @@
+.root { -fx-background-color: #0B0B0F; -fx-font-family: "Poppins", "Inter", "Segoe UI", sans-serif; -fx-font-size: 14px; }
+#header { -fx-min-height: 64px; -fx-pref-height: 64px; -fx-max-height: 64px; -fx-padding: 0 16 0 16; -fx-spacing: 12; -fx-alignment: CENTER_LEFT; -fx-background-color: linear-gradient(to bottom, #24143A, #0B0B0F); }
+#logoCircle, .avatar { -fx-background-color: #15151C; -fx-background-radius: 20px; -fx-alignment: CENTER; }
+#logoCircle { -fx-min-width: 40px; -fx-min-height: 40px; -fx-pref-width: 40px; -fx-pref-height: 40px; -fx-max-width: 40px; -fx-max-height: 40px; -fx-effect: dropshadow(gaussian, rgba(155, 63, 214, 0.55), 22, 0.35, 0, 0); }
+#logoSpark { -fx-fill: linear-gradient(to bottom right, #FFB25C, #9B3FD6); -fx-scale-x: 0.92; -fx-scale-y: 0.92; }
+#titleLabel { -fx-text-fill: #FFFFFF; -fx-font-size: 18px; -fx-font-weight: 600; }
+#subtitleLabel { -fx-text-fill: #8C8C99; -fx-font-size: 12px; }
+#chatScroll, #chatScroll .viewport { -fx-background-color: #0B0B0F; -fx-border-width: 0; }
+#chatScroll .scroll-bar:vertical { -fx-background-color: transparent; -fx-pref-width: 8px; }
+#chatScroll .scroll-bar:vertical .track { -fx-background-color: transparent; }
+#chatScroll .scroll-bar:vertical .thumb { -fx-background-color: #2E2E36; -fx-background-radius: 4px; }
+#dialogContainer { -fx-padding: 8 16 16 16; -fx-spacing: 16; -fx-background-color: #0B0B0F; }
+.dialog-row, .dialog-row-user { -fx-spacing: 8; }
+.dialog-row-user { -fx-alignment: BOTTOM_RIGHT; }
+.avatar { -fx-min-width: 28px; -fx-min-height: 28px; -fx-pref-width: 28px; -fx-pref-height: 28px; -fx-max-width: 28px; -fx-max-height: 28px; -fx-background-radius: 14px; -fx-border-color: #2A2A33; -fx-border-width: 1px; -fx-border-radius: 14px; }
+.card-friday, .bubble-user, .card-error { -fx-max-width: 480px; }
+.card-friday { -fx-background-color: #1E1E24; -fx-background-radius: 22 22 22 6; -fx-padding: 13 15 9 15; }
+.body-label { -fx-text-fill: #EDEDF2; -fx-font-size: 14px; -fx-line-spacing: 5px; }
+.bubble-user { -fx-background-color: linear-gradient(to right, #C8678A, #9B3FD6); -fx-background-radius: 22 22 6 22; -fx-padding: 12 16 12 16; }
+.bubble-user .body-label { -fx-text-fill: #FFFFFF; }
+.card-divider { -fx-min-height: 1px; -fx-pref-height: 1px; -fx-max-height: 1px; -fx-background-color: #2E2E36; }
+.icon-button { -fx-background-color: transparent; -fx-padding: 4 5 4 5; -fx-cursor: hand; }
+.copy-icon { -fx-fill: #9A9AA6; -fx-scale-x: 0.75; -fx-scale-y: 0.75; }
+.icon-button:hover { -fx-background-color: #2A2A33; -fx-background-radius: 6px; }
+.card-error { -fx-background-color: #2A1416; -fx-background-radius: 22 22 22 6; -fx-border-color: #E5484D; -fx-border-width: 1px; -fx-border-radius: 22 22 22 6; -fx-padding: 12 15 12 15; }
+.card-error .body-label { -fx-text-fill: #FFD1D2; }
+.card-error .warning-icon { -fx-content: "M12 3 L22 20.5 H2 Z M11 9 h2 v6 h-2 Z M11 16.5 h2 v2 h-2 Z"; -fx-fill: #FF8D90; -fx-scale-x: 0.7; -fx-scale-y: 0.7; }
+.error-body-row .warning-icon { -fx-managed: true; -fx-visible: true; }
+.task-row { -fx-background-color: #26262E; -fx-background-radius: 12px; -fx-padding: 9 10 9 10; }
+.task-check-empty, .task-check-done { -fx-min-width: 17px; -fx-min-height: 17px; -fx-max-width: 17px; -fx-max-height: 17px; -fx-background-radius: 5px; }
+.task-check-empty { -fx-border-color: #4A4A56; -fx-border-width: 1.5px; -fx-border-radius: 5px; }
+.task-check-done { -fx-background-color: linear-gradient(to right, #C8678A, #9B3FD6); -fx-alignment: CENTER; }
+.task-check-icon { -fx-stroke: #FFFFFF; -fx-stroke-width: 3px; -fx-fill: transparent; -fx-scale-x: 0.46; -fx-scale-y: 0.46; }
+.task-title { -fx-text-fill: #EDEDF2; -fx-font-size: 12.5px; }
+.task-meta { -fx-text-fill: #9A9AA6; -fx-font-size: 11px; }
+.task-footer { -fx-text-fill: #9A9AA6; -fx-font-size: 11.5px; }
+.task-pill { -fx-font-size: 10px; -fx-font-weight: 600; -fx-padding: 3 7 3 7; -fx-background-radius: 6px; }
+.task-pill-todo { -fx-text-fill: #D9B8FF; -fx-background-color: rgba(155,63,214,0.22); }
+.task-pill-deadline { -fx-text-fill: #FFCE9E; -fx-background-color: rgba(255,178,92,0.20); }
+.task-pill-event { -fx-text-fill: #9EE6E0; -fx-background-color: rgba(60,200,190,0.20); }
+#inputBar { -fx-padding: 10 16 18 16; -fx-background-color: #0B0B0F; }
+#inputPill { -fx-background-color: #0F0F14; -fx-background-radius: 26px; -fx-border-color: #3A3A45; -fx-border-width: 1px; -fx-border-radius: 26px; -fx-padding: 5 5 5 18; -fx-spacing: 8; -fx-alignment: CENTER_LEFT; }
+#commandField { -fx-background-color: transparent; -fx-text-fill: #EDEDF2; -fx-prompt-text-fill: #6E6E7A; -fx-padding: 8 0 8 0; }
+#sendButton { -fx-min-width: 38px; -fx-min-height: 38px; -fx-pref-width: 38px; -fx-pref-height: 38px; -fx-max-width: 38px; -fx-max-height: 38px; -fx-background-color: linear-gradient(to right, #C8678A, #9B3FD6); -fx-background-radius: 19px; -fx-padding: 0; -fx-cursor: hand; }
+#sendButton:hover { -fx-effect: dropshadow(gaussian, rgba(155, 63, 214, 0.55), 16, 0.3, 0, 0); }
+#sendArrow { -fx-fill: #FFFFFF; -fx-scale-x: 0.72; -fx-scale-y: 0.72; }
