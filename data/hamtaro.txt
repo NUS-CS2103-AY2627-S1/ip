@@ -1,0 +1,5 @@
+D | 0 | read book  | 2002-03-22 | 
+D | 0 | read book  | 2006-04-30 | 
+E | 0 | meet jj | 2026-01-01T18:00 | 2026-02-01T19:00 | 
+T | 0 | watch a movie | 
+T | 0 | cook a meal | 
