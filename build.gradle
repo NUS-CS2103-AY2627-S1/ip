@@ -1,0 +1,116 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+// Enforces the coding standard mechanically, using the rules already committed
+// in config/checkstyle/checkstyle.xml.
+checkstyle {
+    toolVersion = '10.21.4'
+
+    // Most rules in the SE-EDU config carry severity "warning", and a Gradle
+    // Checkstyle task fails on errors only. Left at the default, every one of
+    // those rules would be reported and then ignored, which is the same as not
+    // having them at all. Zero tolerated warnings is what makes them binding.
+    maxWarnings = 0
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javaFxVersion = '25.0.3'
+
+    // JavaFX ships a separate native library per platform, so each module is
+    // declared once per platform rather than once in total. Listing them all
+    // means the fat JAR built on one operating system still runs on the others;
+    // naming only the platform it was built on is the usual reason a JAR works
+    // for its author and for nobody else.
+    //
+    // One architecture per operating system, though: the two macOS builds use
+    // identical library names (libglass.dylib and the rest), so only the first
+    // of them survives packaging. Apple Silicon is the architecture the course
+    // advisory's JDK targets on macOS, so it is the one bundled; an Intel Mac
+    // runs the text interface, which needs no native libraries. The same holds
+    // for Linux, where the x86-64 build is the one named.
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac-aarch64'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac-aarch64'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac-aarch64'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac-aarch64'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    // Launcher, not Main: see that class for why JavaFX will not start from a
+    // class that extends Application when its runtime is on the classpath.
+    mainClass = 'bibi.Launcher'
+}
+
+// The console interface outlived the arrival of the GUI because the scripted UI
+// tests drive it, and a console is far easier to feed a script than a window is.
+// This is how those tests, and anyone who prefers typing, start it.
+tasks.register('runCli', JavaExec) {
+    group = 'application'
+    description = 'Runs the text-based interface instead of the GUI.'
+
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'bibi.Bibi'
+    standardInput = System.in
+    enableAssertions = true
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'bibi.jar'
+}
+
+run {
+    standardInput = System.in
+
+    // Assertions are off by default in the JVM, and Gradle leaves them off for
+    // JavaExec tasks, so without this the assert statements would be dead text
+    // whenever the app is run rather than tested. The test task enables them
+    // on its own.
+    enableAssertions = true
+}

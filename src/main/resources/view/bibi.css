@@ -1,0 +1,196 @@
+/*
+ * Bibi's visual identity: the palette, the type, and the shape of things.
+ *
+ * The look is a neon terminal at night. A near-black blue ground carries two
+ * lit accents: cyan for the machine's own surfaces, magenta for the user and
+ * for whatever currently has focus. Everything is square-cornered and outlined
+ * rather than filled, so the window reads as a screen rather than as a chat app.
+ *
+ * Glow is done with -fx-effect on the few elements that are meant to look lit.
+ * It is deliberately kept off the transcript text: a glow behind a paragraph
+ * costs legibility, which is the one thing the transcript cannot spend.
+ *
+ * The colours are declared once so each state keeps a consistent contrast.
+ */
+
+.root {
+    -bibi-cyan: #22e0f0;
+    -bibi-cyan-dim: #12a4b4;
+    -bibi-magenta: #ff3cc7;
+    -bibi-magenta-dim: #c22a97;
+    -bibi-ink: #d7e6ef;
+    -bibi-surface: #07090f;
+    -bibi-panel: #0c111b;
+    -bibi-line: #1e3a4a;
+
+    -fx-background-color: -bibi-surface;
+    -fx-font-family: "Consolas", "Menlo", "DejaVu Sans Mono", monospace;
+    -fx-font-size: 13px;
+}
+
+/* The scroll pane paints its own grey panel by default, which would box the
+   conversation in against the window's background. */
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: -bibi-panel;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: -bibi-cyan-dim;
+    -fx-background-radius: 0;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: -bibi-cyan;
+    -fx-effect: dropshadow(gaussian, -bibi-cyan, 8, 0.3, 0, 0);
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-background-color: -bibi-cyan-dim;
+}
+
+/* The lit rule along the top separates the controls from the transcript without
+   spending a whole panel of contrast on a one-pixel job. */
+.input-row {
+    -fx-background-color: -bibi-panel;
+    -fx-border-color: -bibi-cyan-dim;
+    -fx-border-width: 1px 0 0 0;
+    -fx-effect: dropshadow(gaussian, rgba(34, 224, 240, 0.35), 12, 0.2, 0, -2);
+}
+
+.text-field {
+    -fx-background-color: #050810;
+    -fx-background-radius: 0;
+    -fx-border-color: -bibi-line;
+    -fx-border-width: 1px;
+    -fx-padding: 10px 12px;
+    -fx-text-fill: -bibi-cyan;
+    -fx-prompt-text-fill: #5d7d8c;
+    -fx-highlight-fill: -bibi-magenta;
+    -fx-highlight-text-fill: #07090f;
+}
+
+/* Focus is shown by lighting the border rather than by moving anything, so the
+   input does not shift under the cursor as the user tabs into it. */
+.text-field:focused {
+    -fx-border-color: -bibi-magenta;
+    -fx-effect: dropshadow(gaussian, rgba(255, 60, 199, 0.55), 10, 0.3, 0, 0);
+}
+
+.button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-text-fill: -bibi-cyan;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 8px 16px;
+    -fx-border-color: -bibi-cyan;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(34, 224, 240, 0.4), 8, 0.2, 0, 0);
+}
+
+.button:hover {
+    -fx-background-color: rgba(34, 224, 240, 0.12);
+    -fx-effect: dropshadow(gaussian, rgba(34, 224, 240, 0.7), 12, 0.4, 0, 0);
+}
+
+.button:pressed {
+    -fx-background-color: rgba(34, 224, 240, 0.25);
+    -fx-effect: none;
+}
+
+.button:focused {
+    -fx-border-color: -bibi-magenta;
+    -fx-text-fill: -bibi-magenta;
+    -fx-effect: dropshadow(gaussian, rgba(255, 60, 199, 0.55), 10, 0.3, 0, 0);
+}
+
+/*
+ * The conversation. The two sides are laid out differently on purpose: see
+ * DialogBox for why a person talking to a tool should not look like two people
+ * talking to each other.
+ */
+
+.bibi-row {
+    -fx-alignment: top-left;
+    -fx-padding: 8px 12px;
+}
+
+.user-row {
+    -fx-alignment: top-right;
+}
+
+/* Read-only text areas retain native selection and copying. Their height follows
+   the text, so only the surrounding transcript needs a scrollbar. */
+.transcript-text {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 1px;
+    -fx-padding: 2px;
+    -fx-highlight-fill: -bibi-magenta;
+    -fx-highlight-text-fill: #07090f;
+    -fx-display-caret: false;
+}
+
+.transcript-text .content {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+}
+
+.transcript-text .scroll-bar {
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+    -fx-max-width: 0;
+    -fx-max-height: 0;
+}
+
+.transcript-text:focused {
+    -fx-border-color: -bibi-cyan-dim;
+}
+
+/* Bibi's replies are plain text across the width of the window. They are the
+   content, so they get the room rather than a decorated container, and they stay
+   unlit so that long replies remain comfortable to read. */
+.bibi-text {
+    -fx-text-fill: -bibi-ink;
+}
+
+/* The user's own lines are short and already known to them, so they are marked
+   rather than presented: a small outlined chip, tucked to the right. Magenta
+   separates the user's side of the conversation from the machine's. */
+.user-chip {
+    -fx-background-color: rgba(255, 60, 199, 0.10);
+    -fx-background-radius: 0;
+    -fx-border-color: -bibi-magenta-dim;
+    -fx-text-fill: -bibi-magenta;
+    -fx-padding: 6px 10px;
+}
+
+/* An error has to be actionable at a glance, so it does not merely differ in
+   colour: the rule down the left edge makes it findable when scrolling back.
+   Amber is the one colour here that is neither of the two accents, so an error
+   cannot be mistaken for either side of an ordinary exchange. */
+.error-text {
+    -fx-text-fill: #ffc98a;
+    -fx-background-color: #24160a;
+    -fx-background-radius: 0;
+    -fx-border-color: #ff9d2e;
+    -fx-border-width: 1px 1px 1px 3px;
+    -fx-padding: 7px 10px 7px 10px;
+}

@@ -1,0 +1,191 @@
+package bibi;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import bibi.command.Command;
+import bibi.task.TaskList;
+
+/**
+ * A chatbot that stores ToDos, deadlines, and events.
+ *
+ * <p>This class only wires the parts together and carries out one request at a
+ * time. {@link Ui} does the talking, {@link Parser} makes sense of what the user
+ * typed, a {@link Command} carries the request out, {@link TaskList} holds the
+ * tasks, and {@link Storage} keeps them on disk.
+ *
+ * <p>Two front ends drive it. {@link #run()} is the console conversation loop.
+ * {@link #getGreeting()} and {@link #getResponse(String)} serve the GUI, which
+ * cannot loop on standard input because JavaFX owns the thread. Both routes run
+ * one command through {@link #executeCommand(String)}; only what happens to
+ * the words differs.
+ */
+public class Bibi {
+    /**
+     * Where the task list is kept, relative to the working directory. Building
+     * the path from separate names keeps it correct on any operating system.
+     */
+    public static final Path DEFAULT_SAVE_FILE_PATH = Paths.get("data", "bibi.txt");
+
+    private final Ui ui;
+    private final Storage storage;
+    private TaskList tasks;
+    private boolean isExitRequested;
+    private boolean isLastCommandRejected;
+
+    /**
+     * Prepares Bibi to work with the given save file.
+     *
+     * @param saveFilePath where the task list is read from and written to
+     */
+    public Bibi(Path saveFilePath) {
+        ui = new Ui();
+        storage = new Storage(saveFilePath);
+        tasks = new TaskList();
+    }
+
+    /**
+     * Greets the user, restores any saved tasks, then handles commands until
+     * one of them ends the session.
+     */
+    public void run() {
+        ui.showBanner();
+        greetAndLoad();
+
+        while (!isExitRequested) {
+            String fullCommand = ui.readCommand();
+            ui.showLine();
+            executeCommand(fullCommand);
+            ui.showLine();
+        }
+        ui.close();
+    }
+
+    /**
+     * Returns the greeting the GUI shows before the user has typed anything.
+     *
+     * @return the welcome text, flagged as a problem when the save file was damaged
+     */
+    public Reply getGreeting() {
+        ui.startCapture();
+        greetAndLoad();
+        return ui.takeCapturedReply();
+    }
+
+    /**
+     * Carries out one typed command and returns what Bibi would have said.
+     *
+     * <p>A command that fails is reported in the returned text rather than
+     * thrown, because the GUI has nowhere useful to send an exception and the
+     * user should see the explanation in the conversation like any other reply.
+     *
+     * @param fullCommand one line of input, exactly as the user typed it
+     * @return Bibi's reply, and whether it reports a problem
+     */
+    public Reply getResponse(String fullCommand) {
+        assert fullCommand != null : "the GUI should pass the text field's contents, never null";
+
+        ui.startCapture();
+        executeCommand(fullCommand);
+
+        Reply reply = ui.takeCapturedReply();
+
+        // Every command either reports its result or is reported as failing, so
+        // an empty reply means one returned in silence and the GUI would show an
+        // empty bubble with no hint of what went wrong.
+        assert !reply.text().isEmpty() : "no reply was produced for: " + fullCommand;
+        return reply;
+    }
+
+    /**
+     * Reports whether the last command asked to end the session.
+     *
+     * @return {@code true} once the user has said goodbye
+     */
+    public boolean isExitRequested() {
+        return isExitRequested;
+    }
+
+    /**
+     * Reports whether validation rejected the last command before it changed the list.
+     *
+     * <p>The GUI keeps rejected input available for correction. A failed save is different:
+     * the command already took effect in memory, so keeping it ready to repeat would be misleading.
+     *
+     * @return whether the last command needs correction
+     */
+    public boolean isLastCommandRejected() {
+        return isLastCommandRejected;
+    }
+
+    /**
+     * Parses and carries out one typed command.
+     *
+     * <p>A command that fails is reported through {@link Ui} rather than thrown,
+     * because both front ends want the explanation shown to the user as ordinary
+     * output: the console prints it between its divider lines, and the GUI has
+     * nowhere useful to send an exception.
+     *
+     * @param fullCommand one line of input, exactly as the user typed it
+     */
+    private void executeCommand(String fullCommand) {
+        isLastCommandRejected = false;
+        try {
+            Command command = Parser.parse(fullCommand);
+            command.execute(tasks, ui, storage);
+            isExitRequested = command.isExit();
+        } catch (BibiException exception) {
+            isLastCommandRejected = true;
+            ui.showError(exception.getMessage());
+        }
+    }
+
+    /**
+     * Says hello and restores the previous session's tasks.
+     *
+     * <p>Loading is done here rather than in the constructor because it speaks to
+     * the user, and the greeting should come first.
+     */
+    private void greetAndLoad() {
+        ui.showWelcome();
+        tasks = loadTasks();
+    }
+
+    /**
+     * Reads the tasks saved by an earlier session and reports what was restored.
+     *
+     * @return the restored task list, or an empty list when nothing was saved yet
+     */
+    private TaskList loadTasks() {
+        assert storage != null : "storage is set in the constructor and never cleared";
+
+        try {
+            Storage.LoadReport report = storage.load();
+
+            if (!report.tasks().isEmpty()) {
+                ui.showLoaded(report.tasks().size());
+            }
+            if (!report.warnings().isEmpty()) {
+                ui.showLoadWarnings(report.warnings());
+            }
+            return new TaskList(report.tasks());
+        } catch (IOException exception) {
+            // Reading failed outright, so continue with an empty list rather than
+            // refusing to start. Saving later replaces the unreadable file.
+            ui.showLoadError(storage.getFilePath(), exception);
+            return new TaskList();
+        }
+    }
+
+    /**
+     * Starts the console interface using the standard save file.
+     *
+     * <p>The GUI has its own entry point in {@link Launcher}.
+     *
+     * @param args command-line arguments, which are not used
+     */
+    public static void main(String[] args) {
+        new Bibi(DEFAULT_SAVE_FILE_PATH).run();
+    }
+}

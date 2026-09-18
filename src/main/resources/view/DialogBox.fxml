@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+
+<!--
+  One turn of the conversation. The two speakers are deliberately not laid out
+  the same way: this is a person talking to a tool, not two people talking, so
+  DialogBox hides the icon and re-styles the selectable text for the user's own lines.
+-->
+<fx:root type="javafx.scene.layout.HBox" spacing="8.0" maxWidth="Infinity"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <ImageView fx:id="displayPicture" fitHeight="36.0" fitWidth="36.0"
+               pickOnBounds="true" preserveRatio="true" />
+    <TextArea fx:id="dialog" wrapText="true" editable="false" prefRowCount="1"
+              minWidth="0.0" styleClass="transcript-text" />
+  </children>
+  <padding>
+    <Insets top="5.0" right="12.0" bottom="5.0" left="12.0" />
+  </padding>
+</fx:root>

@@ -1,0 +1,220 @@
+package bibi;
+
+import java.io.IOException;
+import java.nio.charset.MalformedInputException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.regex.Pattern;
+
+import bibi.task.Deadline;
+import bibi.task.Event;
+import bibi.task.Task;
+import bibi.task.Todo;
+
+/**
+ * Saves tasks to, and later loads them from, a plain-text file on the hard disk.
+ *
+ * <p>Each task occupies one line in the form {@code T | 1 | read book}, where the
+ * first field is the task type code and the second field is {@code 1} when the
+ * task is complete.
+ *
+ * <p>This class works with plain lists of tasks rather than with {@link bibi.task.TaskList TaskList},
+ * so that reading and writing files stays independent of how the running program
+ * chooses to hold its tasks. The caller decides where the file lives.
+ */
+public class Storage {
+    /**
+     * Splits a saved line into fields, dropping the spaces that pad each
+     * separator so the fields come back exactly as the user typed them.
+     *
+     * <p>The separator is quoted because {@code |} means "or" in a regular
+     * expression; quoting keeps the split correct whatever the separator is.
+     */
+    private static final Pattern FIELD_SEPARATOR_PATTERN =
+            Pattern.compile("\\s*" + Pattern.quote(Task.FIELD_SEPARATOR) + "\\s*");
+
+    private final Path filePath;
+
+    /**
+     * Holds the outcome of reading the save file.
+     *
+     * @param tasks the tasks that were understood
+     * @param warnings one message for each line that had to be skipped
+     */
+    public record LoadReport(List<Task> tasks, List<String> warnings) {
+    }
+
+    /**
+     * Creates storage that reads and writes the supplied save file.
+     *
+     * @param filePath location of the save file, ideally a relative path built
+     *     in an operating-system independent way
+     */
+    public Storage(Path filePath) {
+        this.filePath = filePath;
+    }
+
+    /**
+     * Returns the save file this storage reads from and writes to.
+     *
+     * @return the save file path
+     */
+    public Path getFilePath() {
+        return filePath;
+    }
+
+    /**
+     * Writes every task to the save file, replacing any previous contents.
+     *
+     * <p>The containing folder is created first when it does not exist yet, so a
+     * fresh copy of the project can save tasks without any manual setup.
+     *
+     * @param tasks the tasks to store, in the order they should be written
+     * @throws IOException if the folder or file cannot be written
+     */
+    public void save(List<Task> tasks) throws IOException {
+        // A folder sitting where the save file belongs would otherwise surface
+        // as a bare FileSystemException naming neither the file nor the cause.
+        if (Files.isDirectory(filePath)) {
+            throw new IOException(filePath + " is a folder, so tasks cannot be saved to it. "
+                    + "Move or rename it, then try again.");
+        }
+
+        Path parentFolder = filePath.getParent();
+        if (parentFolder != null) {
+            Files.createDirectories(parentFolder);
+        }
+
+        // Encoding the tasks is a straight one-to-one mapping, which a stream
+        // states directly instead of spreading over an empty list, a loop and
+        // an add.
+        List<String> lines = tasks.stream()
+                .map(Task::toFileFormat)
+                .toList();
+        Files.write(filePath, lines);
+    }
+
+    /**
+     * Reads the saved tasks back.
+     *
+     * <p>A missing save file is normal rather than an error: someone running a
+     * fresh copy of the project simply starts with an empty list. A damaged line
+     * is skipped and reported instead of ending the program, so one bad line
+     * cannot cost the user every other task.
+     *
+     * @return the restored tasks together with a warning for each skipped line
+     * @throws IOException if the file exists but cannot be read
+     */
+    public LoadReport load() throws IOException {
+        List<Task> tasks = new ArrayList<>();
+        List<String> warnings = new ArrayList<>();
+
+        if (!Files.exists(filePath)) {
+            return new LoadReport(tasks, warnings);
+        }
+        if (!Files.isRegularFile(filePath)) {
+            warnings.add(filePath + " is not a file, so no tasks could be read.");
+            return new LoadReport(tasks, warnings);
+        }
+
+        List<String> lines;
+        try {
+            lines = Files.readAllLines(filePath);
+        } catch (MalformedInputException exception) {
+            // The file exists but is not readable text, so treat the whole file as
+            // damaged rather than letting the decoding error end the program.
+            warnings.add("The file is not readable text, so none of it could be used.");
+            return new LoadReport(tasks, warnings);
+        }
+
+        for (int lineNumber = 1; lineNumber <= lines.size(); lineNumber++) {
+            String line = lines.get(lineNumber - 1);
+            if (line.isBlank()) {
+                continue;
+            }
+            try {
+                tasks.add(parseTask(line));
+            } catch (BibiException exception) {
+                warnings.add("Line " + lineNumber + ": " + exception.getMessage());
+            }
+        }
+        return new LoadReport(tasks, warnings);
+    }
+
+    /**
+     * Rebuilds one task from its save-file line.
+     *
+     * @param line a line written by {@link Task#toFileFormat()}
+     * @return the task described by the line
+     * @throws BibiException if the line does not describe a valid task
+     */
+    private static Task parseTask(String line) throws BibiException {
+        String[] fields = FIELD_SEPARATOR_PATTERN.split(line.trim());
+        if (fields.length < 3) {
+            throw new BibiException("expected at least type, status, and description "
+                    + "separated by '" + Task.FIELD_SEPARATOR + "'.");
+        }
+
+        String typeCode = fields[0].toUpperCase(Locale.ROOT);
+        boolean isComplete = parseStatus(fields[1]);
+        String description = fields[2];
+
+        Task task = switch (typeCode) {
+            case "T" -> {
+                requireFieldCount(fields, 3, "T | 1 | read book");
+                yield new Todo(description);
+            }
+            case "D" -> {
+                requireFieldCount(fields, 4, "D | 0 | return book | 2019-06-06");
+                yield new Deadline(description, fields[3]);
+            }
+            case "E" -> {
+                requireFieldCount(fields, 5,
+                        "E | 0 | project meeting | 2019-08-06 1400 | 2019-08-06 1600");
+                yield new Event(description, fields[3], fields[4]);
+            }
+            default -> throw new BibiException("unknown task type '" + fields[0] + "'.");
+        };
+
+        if (isComplete) {
+            task.markComplete();
+        }
+        return task;
+    }
+
+    /**
+     * Reads the completion flag, which must be exactly {@code 1} or {@code 0}.
+     *
+     * @param statusField the second field of a saved line
+     * @return {@code true} when the saved task was complete
+     * @throws BibiException if the flag is anything else
+     */
+    private static boolean parseStatus(String statusField) throws BibiException {
+        if (statusField.equals("1")) {
+            return true;
+        }
+        if (statusField.equals("0")) {
+            return false;
+        }
+        throw new BibiException("status '" + statusField + "' should be 1 (done) or 0 (not done).");
+    }
+
+    /**
+     * Checks that a saved line has exactly the number of fields its type needs.
+     *
+     * @param fields the fields read from the line
+     * @param expectedCount the number of fields the task type stores
+     * @param example a correctly formed line to show the user
+     * @throws BibiException if the line has too few or too many fields
+     */
+    private static void requireFieldCount(String[] fields, int expectedCount, String example)
+            throws BibiException {
+        if (fields.length != expectedCount) {
+            throw new BibiException("expected " + expectedCount + " fields but found "
+                    + fields.length + ", for example: " + example);
+        }
+    }
+}

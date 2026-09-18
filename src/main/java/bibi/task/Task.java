@@ -1,0 +1,203 @@
+package bibi.task;
+
+import java.time.LocalDate;
+import java.util.Locale;
+import java.util.Optional;
+
+import bibi.BibiException;
+
+/**
+ * Represents information shared by every kind of task.
+ *
+ * <p>Subclasses provide their own type code and any date or time details.
+ */
+public abstract class Task {
+    /** Separator between fields of a saved task, so it may not appear in task text. */
+    public static final String FIELD_SEPARATOR = "|";
+
+    private final String description;
+    private boolean isComplete;
+
+    /**
+     * Creates an incomplete task with the supplied description.
+     *
+     * @param description text describing the task
+     * @throws BibiException if the description is blank
+     */
+    protected Task(String description) throws BibiException {
+        this.description = requireTaskText(description, "A task needs a description.");
+        isComplete = false;
+    }
+
+    /**
+     * Checks a piece of task text before it is stored.
+     *
+     * <p>The separator is rejected as well as blank text, because text containing
+     * it would be split into the wrong fields when the save file is read back.
+     *
+     * @param text text supplied for the description or a date or time
+     * @param errorMessage explanation to show when the text is missing
+     * @return the supplied text when it is valid
+     * @throws BibiException if the text is blank or contains the field separator
+     */
+    protected static String requireTaskText(String text, String errorMessage)
+            throws BibiException {
+        if (text == null || text.isBlank()) {
+            throw new BibiException(errorMessage);
+        }
+        if (text.contains(FIELD_SEPARATOR)) {
+            throw new BibiException("Task text cannot contain '" + FIELD_SEPARATOR
+                    + "' because that character separates the fields in the save file.");
+        }
+        return text;
+    }
+
+    /**
+     * Marks this task as complete.
+     */
+    public void markComplete() {
+        isComplete = true;
+    }
+
+    /**
+     * Marks this task as incomplete.
+     */
+    public void markIncomplete() {
+        isComplete = false;
+    }
+
+    /**
+     * Reports whether this task has been completed.
+     *
+     * @return {@code true} when the task is complete
+     */
+    public boolean isComplete() {
+        return isComplete;
+    }
+
+    /**
+     * Reports whether this task's description contains the supplied keyword.
+     *
+     * <p>The comparison ignores case, so searching for "book" finds a task
+     * described as "Read Book". Only the description is searched, because that
+     * is the part of a task the user names it by.
+     *
+     * @param keyword the text being searched for
+     * @return {@code true} when the description contains the keyword
+     */
+    public boolean hasKeyword(String keyword) {
+        return description.toLowerCase(Locale.ROOT).contains(keyword.toLowerCase(Locale.ROOT));
+    }
+
+    /**
+     * Reports whether this task falls on the supplied date.
+     *
+     * <p>Task types that carry no date, such as a ToDo, are never on a
+     * particular date, so the default answer is {@code false}.
+     *
+     * @param queryDate the date being asked about
+     * @return {@code true} when this task belongs to that date
+     */
+    public boolean occursOn(LocalDate queryDate) {
+        return false;
+    }
+
+    /**
+     * Reports whether another task describes the same commitment as this one.
+     *
+     * <p>Completion state is deliberately excluded: a task already ticked off is
+     * still the same task, and someone re-adding it has almost certainly lost
+     * track rather than genuinely wanting two copies. Type, description and any
+     * dates are what make a task what it is.
+     *
+     * @param other the task to compare against
+     * @return {@code true} when the two describe the same thing
+     */
+    public boolean isSameTask(Task other) {
+        return getTypeCode().equals(other.getTypeCode())
+                && description.equalsIgnoreCase(other.description)
+                && getSaveFields().equals(other.getSaveFields());
+    }
+
+    /**
+     * Returns the moment this task is scheduled for, if it has one.
+     *
+     * <p>Sorting needs one moment per task, and the types disagree on what that
+     * is: a deadline is its due time, an event is when it starts, and a ToDo has
+     * none at all. An empty result is the honest answer for the last case, and
+     * is what lets undated tasks be placed deliberately rather than guessed at.
+     *
+     * @return the moment used to order this task, or empty when it has no date
+     */
+    public Optional<TaskDateTime> getScheduledTime() {
+        return Optional.empty();
+    }
+
+    /**
+     * Returns the single-letter code used to display this task type.
+     *
+     * @return the type code
+     */
+    protected abstract String getTypeCode();
+
+    /**
+     * Returns any type-specific information that follows the description.
+     *
+     * @return displayable details, including any leading spacing
+     */
+    protected abstract String getDetails();
+
+    /**
+     * Returns the type-specific fields appended to this task's save-file line.
+     *
+     * @return extra fields, each preceded by the field separator, or an empty
+     *     string when the task type stores no date or time
+     */
+    protected abstract String getSaveFields();
+
+    /**
+     * Returns the line that introduces this task when it is added.
+     *
+     * <p>Each type gets its own wording because the three ask different things
+     * of the user: a ToDo waits on them alone, a deadline runs out, and an event
+     * happens whether or not they are ready. The line ends with a colon because
+     * the task itself is shown on the line below it.
+     *
+     * @return the confirmation line, ending with a colon
+     */
+    public abstract String describeAddition();
+
+    /**
+     * Returns this task encoded as a single save-file line.
+     *
+     * <p>The completion flag is written as {@code 1} or {@code 0} rather than the
+     * display form so that the file stays easy to read and to parse back.
+     *
+     * @return the encoded task, for example {@code D | 0 | return book | 2019-06-06}
+     */
+    public String toFileFormat() {
+        // requireTaskText rejects the separator when a task is built, so this
+        // holds unless a subclass bypasses it. If one ever did, the file would
+        // still be written and would only fail confusingly on the next load.
+        assert !description.contains(FIELD_SEPARATOR)
+                : "description contains the field separator: " + description;
+
+        return getTypeCode()
+                + " " + FIELD_SEPARATOR + " " + (isComplete ? "1" : "0")
+                + " " + FIELD_SEPARATOR + " " + description
+                + getSaveFields();
+    }
+
+    /**
+     * Returns a display form containing the task type, status, and details.
+     *
+     * @return the formatted task
+     */
+    @Override
+    public String toString() {
+        return "[" + getTypeCode() + "]"
+                + (isComplete ? "[X] " : "[ ] ")
+                + description
+                + getDetails();
+    }
+}
