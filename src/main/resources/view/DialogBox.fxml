@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_LEFT"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         spacing="9.0"
+         styleClass="dialog-row"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ImageView fx:id="displayPicture"
+                   fitHeight="34.0"
+                   fitWidth="34.0"
+                   pickOnBounds="true"
+                   preserveRatio="true"
+                   styleClass="bobby-avatar" />
+        <VBox fx:id="messageContainer"
+              alignment="TOP_LEFT"
+              spacing="4.0"
+              HBox.hgrow="ALWAYS">
+            <children>
+                <Label fx:id="speakerLabel"
+                       styleClass="speaker-label"
+                       text="LORD BOBBY" />
+                <Label fx:id="dialog"
+                       maxWidth="1.7976931348623157E308"
+                       minHeight="-Infinity"
+                       text="Label"
+                       wrapText="true" />
+            </children>
+        </VBox>
+    </children>
+</fx:root>
