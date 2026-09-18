@@ -73,4 +73,18 @@ class DaddyTest {
         assertEquals("read book", tasks.get(0).getDescription());
         assertThrows(UnsupportedOperationException.class, () -> tasks.add(tasks.get(0)));
     }
+
+    /** Verifies that command errors are exposed for GUI styling and cleared by the next successful command. */
+    @Test
+    void hasLastResponseError_invalidThenValidCommand_tracksLatestResult() {
+        Storage storage = new Storage(temporaryDirectory.resolve("daddy.txt"),
+                temporaryDirectory.resolve("duke.txt"));
+        Daddy daddy = new Daddy(storage);
+
+        daddy.getResponse("not a command");
+        assertTrue(daddy.hasLastResponseError());
+
+        daddy.getResponse("todo read book");
+        assertFalse(daddy.hasLastResponseError());
+    }
 }
