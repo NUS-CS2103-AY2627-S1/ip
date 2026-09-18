@@ -1,0 +1,56 @@
+/*
+ * One line of the conversation.
+ *
+ * The two sides are deliberately NOT styled alike. This is a person talking to
+ * a program, not two people talking to each other, so showing both in the same
+ * format would imply a symmetry that is not there. What the user typed is a
+ * command: it is small, tinted, right-aligned and carries no picture, because
+ * the user knows perfectly well who they are. What Kenbot says is the content
+ * the window exists to show, so it gets the picture, the wider bubble and the
+ * higher-contrast text.
+ */
+
+.dialog-box {
+    -fx-padding: 5 0 5 0;
+}
+
+/* Shared shape for all three kinds of bubble. */
+.bubble {
+    -fx-background-radius: 14;
+    -fx-padding: 9 13 9 13;
+    -fx-wrap-text: true;
+    -fx-line-spacing: 2;
+}
+
+/* What the user typed: an echo of a command, so it is kept understated. */
+.user-bubble {
+    -fx-background-color: #3478f6;
+    -fx-text-fill: white;
+}
+
+/* What Kenbot replied: the thing being read, so it gets the most contrast. */
+.reply-bubble {
+    -fx-background-color: white;
+    -fx-text-fill: #1c1c1e;
+}
+
+/*
+ * A refused command. Colour alone would not be enough for anyone who cannot
+ * easily tell red from grey, so the border carries the same information a
+ * second time: an error is the only bubble with an outline.
+ */
+.error-bubble {
+    -fx-background-color: #fdecea;
+    -fx-text-fill: #8c1d18;
+    -fx-border-color: #f1b4ae;
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+}
+
+/*
+ * The picture is clipped to a circle in DialogBox rather than here, because
+ * JavaFX CSS has no way to clip a node to a shape.
+ */
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0, 0, 1);
+}

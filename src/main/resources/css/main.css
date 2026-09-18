@@ -1,0 +1,85 @@
+/*
+ * The window itself: background, the scrolling conversation, and the row the
+ * user types into.
+ *
+ * The conversation is the only thing on screen that matters, so everything here
+ * is deliberately quiet. Backgrounds are flat, borders are used only where two
+ * areas genuinely need separating, and no space is given to decoration that
+ * does not help the reader.
+ */
+
+.root {
+    -fx-background-color: #eef0f4;
+    -fx-font-family: "Helvetica Neue", "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 13px;
+}
+
+/*
+ * A ScrollPane paints its own background and a border by default, which would
+ * draw a box around the conversation. Both are cleared so the messages sit
+ * directly on the window.
+ *
+ * -fx-background and -fx-background-color are different properties here:
+ * the first is the region behind the content, the second the control's own
+ * chrome. Clearing only one leaves a visible panel behind the messages.
+ */
+#scrollPane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+#scrollPane .viewport {
+    -fx-background-color: transparent;
+}
+
+#scrollPane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+#scrollPane .scroll-bar:vertical .thumb {
+    -fx-background-color: #c6cad2;
+    -fx-background-radius: 4;
+}
+
+#dialogContainer {
+    -fx-background-color: transparent;
+    -fx-padding: 12 14 12 14;
+    -fx-spacing: 2;
+}
+
+/*
+ * The input row. A top border separates it from the conversation without the
+ * heavier look of a filled panel, and the field keeps its own rounded shape so
+ * it reads as somewhere to type rather than as part of the frame.
+ */
+#userInput {
+    -fx-background-color: white;
+    -fx-background-radius: 0;
+    -fx-border-color: #d8dbe2 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 0 14 0 14;
+    -fx-prompt-text-fill: #9aa0ab;
+}
+
+#userInput:focused {
+    -fx-background-color: white;
+    -fx-border-color: #3478f6 transparent transparent transparent;
+}
+
+#sendButton {
+    -fx-background-color: #3478f6;
+    -fx-background-radius: 0;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+#sendButton:hover {
+    -fx-background-color: #2563d6;
+}
+
+#sendButton:pressed {
+    -fx-background-color: #1c4fae;
+}

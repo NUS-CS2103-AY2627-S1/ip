@@ -18,3 +18,12 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+#Storage Document
+/data/Kenbot.txt
+
+# Track project-specific agent skills. A global gitignore excludes .claude/,
+# so re-include the folder and then keep only the skills inside it.
+!.claude/
+.claude/*
+!.claude/skills/

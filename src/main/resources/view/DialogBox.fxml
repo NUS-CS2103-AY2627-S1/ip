@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<!--
+  No prefWidth: the box takes whatever width the ScrollPane gives it, so the
+  message hugs the right edge (or the left, once flipped) at any window size.
+  The label's own maximum is bound in DialogBox, so long messages wrap instead
+  of stretching across the whole screen.
+-->
+<fx:root alignment="TOP_RIGHT"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         spacing="9.0"
+         styleClass="dialog-box"
+         stylesheets="@../css/dialog-box.css"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <!-- The kind of bubble (user / reply / error) is added as a second style
+         class in DialogBox, since only the code knows which this is. -->
+    <Label fx:id="dialog" text="Label" wrapText="true" minHeight="-Infinity"
+           styleClass="bubble" />
+    <!-- preserveRatio is off so the picture is exactly square and the circular
+         clip in DialogBox lands on its edges; the source images are 256x254,
+         so nothing visibly stretches. -->
+    <ImageView fx:id="displayPicture" fitHeight="40.0" fitWidth="40.0"
+               pickOnBounds="true" preserveRatio="false" styleClass="avatar" />
+  </children>
+  <padding>
+    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+  </padding>
+</fx:root>

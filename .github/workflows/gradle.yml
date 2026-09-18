@@ -1,0 +1,37 @@
+name: Java CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@v7
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v6
+
+      - name: Setup JDK 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: '25'
+          java-package: jdk+fx
+
+      # check runs the JUnit tests plus checkstyleMain and checkstyleTest.
+      - name: Build and check with Gradle
+        run: ./gradlew check
+
+      # The console output is not covered by JUnit, so the text-UI plan is run
+      # too. Linux only: it is the same program on every platform, and running
+      # it three times would only slow the build down. The script compiles the
+      # sources itself with a plain javac, which finds javafx because the JDK
+      # above is set up with jdk+fx.
+      - name: Run the text-UI test plan
+        if: runner.os == 'Linux'
+        run: python3 .codex/skills/test-ui/scripts/run_ui_tests.py
