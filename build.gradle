@@ -1,0 +1,106 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.gradleup.shadow' version '9.5.1'
+    id 'com.diffplug.spotless' version '8.10.0'
+}
+
+group = 'student.project'
+version = '1.0.0'
+
+checkstyle {
+    toolVersion = '14.1.0'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+dependencies {
+
+    String javaFxVersion = '17.0.7'
+
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:linux")
+
+    String jUnitVersion = '5.14.4'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+application {
+    mainClass = 'student.project.bob.util.Launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+jar {
+    // A lean JAR file is not needed because the Shadow JAR includes dependencies.
+    enabled = false
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'bob.jar'
+
+    // Keep the fat JAR directly executable with `java -jar bob.jar`.
+    manifest {
+        attributes 'Main-Class': application.mainClass.get()
+    }
+}
+
+run {
+    standardInput = System.in
+}
+
+spotless {
+    java {
+        target 'src/**/*.java'
+        removeUnusedImports()
+        forbidWildcardImports()
+        palantirJavaFormat()
+        formatAnnotations()
+        // Keep import ordering last so its blank group separators are preserved.
+        importOrder('\\#', 'java.|javax.', 'org.', '')
+    }
+
+    format('markdown') {
+        target '**/*.md'
+        targetExclude 'build/**', '.gradle/**', 'test/ui-test-plan.md'
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+
+    format('gradle') {
+        target '*.gradle'
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}

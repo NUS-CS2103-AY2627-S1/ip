@@ -1,25 +1,62 @@
-# Duke project template
+# Bob project template
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is a project template for a greenfield Java project. Given below are instructions on how to use it.
 
-## Setting up in Intellij
+## Setting up in IntelliJ
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+Prerequisites: JDK 25 and the most recent IntelliJ version.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+1. Open IntelliJ. If needed, select File > Close Project first.
+1. Select Open, choose this project directory, and accept the defaults for any further prompts.
+1. Configure the project to use **JDK 25** and the SDK default project language level.
+1. Locate src/main/java/student/project/bob/Bob.java, then right-click it and choose Run Bob.main(). If the editor shows compile errors, try restarting the IDE. The program displays the Bob banner.
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+**Warning:** Keep the src/main/java folder as the root folder for Java files. Tools such as Gradle expect Java files there.
+
+## Building and validating with Gradle
+
+The project uses the Gradle Wrapper and requires Java 25.
+
+```text
+gradlew.bat check
+```
+
+This compiles the application, runs automated tests, and checks Java,
+Markdown, and Gradle formatting with Spotless. Use the following commands when
+needed:
+
+```text
+gradlew.bat spotlessApply
+gradlew.bat test
+gradlew.bat run
+```
+
+`spotlessApply` formats files; `test` runs the automated test suite; and `run`
+starts Bob. Formatting and validation rules are configured in `build.gradle`.
+The project uses Palantir Java Format through Spotless because it supports the
+project's four-space indentation and 120-character line-width requirements.
+
+## Creating and running the executable JAR
+
+The project uses the Shadow Gradle plugin to create a fat JAR containing the
+application classes and its runtime dependencies. Run this command from the
+project root:
+
+```text
+gradlew.bat shadowJar
+```
+
+The generated file is `build/libs/bob.jar`. It is ignored by Git because it
+is a generated binary file and should not be committed to the repository.
+
+To run the JAR, copy `bob.jar` into an empty folder, open a command window in
+that folder, and run:
+
+```text
+java -jar "bob.jar"
+```
+
+The quotes are useful when the JAR filename contains spaces or other special
+characters. Running the command from the folder containing the JAR also makes
+Bob's relative `data/Bob.txt` storage file stay alongside that distributed
+copy of the application.

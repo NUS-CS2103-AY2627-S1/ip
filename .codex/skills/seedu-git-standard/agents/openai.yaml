@@ -1,0 +1,4 @@
+interface:
+  display_name: "SE-EDU Git Standard"
+  short_description: "Write SE-EDU-compliant Git commit messages"
+  default_prompt: "Use $seedu-git-standard to review or draft a commit message for this project."
