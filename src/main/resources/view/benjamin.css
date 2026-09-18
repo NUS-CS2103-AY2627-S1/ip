@@ -1,0 +1,93 @@
+/* Muted, low-contrast palette to match Benjamin's unimpressed tone. The
+   conversation area carries no decoration of its own, so the full width is
+   available to the text. */
+
+.app-root {
+    -fx-background-color: #f4f3f0;
+}
+
+.chat-scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-padding: 0;
+}
+
+.chat-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.chat-container {
+    -fx-padding: 12 12 12 12;
+    -fx-spacing: 9;
+}
+
+/* What the user typed: short, on the right, in the accent colour. */
+.user-bubble {
+    -fx-background-color: #3f4a57;
+    -fx-text-fill: #f7f7f5;
+    -fx-background-radius: 12 12 3 12;
+    -fx-padding: 6 11 6 11;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+    -fx-font-size: 12.5px;
+}
+
+/* Benjamin's replies: full width, fixed pitch so task lists line up, and
+   marked with a rule rather than a bubble to avoid wasting horizontal space. */
+.bot-panel {
+    -fx-text-fill: #23262a;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent transparent #c3bfb6;
+    -fx-border-width: 0 0 0 3;
+    -fx-padding: 2 0 2 11;
+    -fx-font-family: "Consolas", "Menlo", "DejaVu Sans Mono", monospace;
+    -fx-font-size: 12.5px;
+}
+
+/* A complaint, which should catch the eye without shouting. */
+.problem-panel {
+    -fx-text-fill: #7c241d;
+    -fx-background-color: #fbeae7;
+    -fx-border-color: transparent transparent transparent #b8402f;
+    -fx-border-width: 0 0 0 3;
+    -fx-background-radius: 0 5 5 0;
+    -fx-padding: 6 11 6 11;
+    -fx-font-family: "Consolas", "Menlo", "DejaVu Sans Mono", monospace;
+    -fx-font-size: 12.5px;
+}
+
+.input-bar {
+    -fx-padding: 9 12 11 12;
+    -fx-background-color: #ebe8e3;
+    -fx-border-color: #dbd7d0 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+.input-bar .text-field {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 6;
+    -fx-border-color: #d4d0c9;
+    -fx-border-radius: 6;
+    -fx-padding: 6 9 6 9;
+    -fx-font-size: 12.5px;
+}
+
+.input-bar .text-field:focused {
+    -fx-border-color: #3f4a57;
+}
+
+.input-bar .button {
+    -fx-background-color: #3f4a57;
+    -fx-background-radius: 6;
+    -fx-text-fill: #f7f7f5;
+    -fx-padding: 6 15 6 15;
+    -fx-font-size: 12.5px;
+    -fx-cursor: hand;
+}
+
+.input-bar .button:hover {
+    -fx-background-color: #4d5a69;
+}
+
+.input-bar .button:disabled {
+    -fx-opacity: 0.45;
+}
