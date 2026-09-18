@@ -1,0 +1,79 @@
+.root {
+    -fx-background-color: #151416;
+    -fx-font-family: "System";
+}
+
+.background-image {
+    -fx-background-image: url("../images/fein-background.png");
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-opacity: 0.35;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.dialog-container {
+    -fx-padding: 14px 16px 14px 16px;
+}
+
+.composer {
+    -fx-background-color: rgba(32, 31, 34, 0.94);
+    -fx-border-color: #343237 transparent transparent transparent;
+    -fx-padding: 12px 14px 14px 14px;
+}
+
+.text-field {
+    -fx-background-color: #2b292e;
+    -fx-background-radius: 10px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 10px;
+    -fx-padding: 10px 12px;
+    -fx-text-fill: #f5f1ed;
+    -fx-prompt-text-fill: #aaa3a4;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused {
+    -fx-border-color: #c34b56;
+}
+
+.button {
+    -fx-background-color: #c34b56;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px 16px;
+    -fx-text-fill: #fffafa;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #d65a64;
+}
+
+.button:pressed {
+    -fx-background-color: #a43b47;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: #151416;
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #625d61;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
