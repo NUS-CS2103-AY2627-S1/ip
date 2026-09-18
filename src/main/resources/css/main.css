@@ -1,0 +1,105 @@
+.root {
+    -fx-background-color: #eef3f6;
+    -fx-font-family: "Avenir Next", "Segoe UI", "System";
+    -fx-font-size: 14px;
+}
+
+.app-header {
+    -fx-background-color: linear-gradient(to right, #17324d, #245b68);
+}
+
+.app-title {
+    -fx-font-size: 23px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.app-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #cfe5e8;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport,
+.dialog-container {
+    -fx-background-color: #eef3f6;
+}
+
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+}
+
+.dialog-container {
+    -fx-padding: 7px 0;
+}
+
+.dialog-label {
+    -fx-background-radius: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(23, 50, 77, 0.10), 8, 0.15, 0, 2);
+    -fx-padding: 10px 13px;
+}
+
+.user-dialog-box .dialog-label {
+    -fx-background-color: #d5e8ee;
+    -fx-text-fill: #17324d;
+}
+
+.eden-dialog-box .dialog-label {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #263a43;
+}
+
+.avatar-label {
+    -fx-background-radius: 19px;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.user-dialog-box .avatar-label {
+    -fx-background-color: #315e78;
+}
+
+.eden-dialog-box .avatar-label {
+    -fx-background-color: #2d7a70;
+}
+
+.error-dialog-box .dialog-label {
+    -fx-background-color: #fff1f0;
+    -fx-border-color: #d35d54;
+    -fx-border-radius: 14px;
+    -fx-text-fill: #8a2923;
+}
+
+.error-dialog-box .avatar-label {
+    -fx-background-color: #b8443c;
+}
+
+.command-input {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10px;
+    -fx-border-color: #b7c7ce;
+    -fx-border-radius: 10px;
+    -fx-padding: 8px 12px;
+}
+
+.command-input:focused {
+    -fx-border-color: #2d7a70;
+    -fx-effect: dropshadow(gaussian, rgba(45, 122, 112, 0.18), 6, 0.15, 0, 0);
+}
+
+.send-button {
+    -fx-background-color: #2d7a70;
+    -fx-background-radius: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.send-button:hover {
+    -fx-background-color: #24645c;
+}
+
+.send-button:pressed {
+    -fx-background-color: #1d504a;
+}
