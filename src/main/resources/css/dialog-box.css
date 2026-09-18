@@ -1,0 +1,85 @@
+.root {
+    -fx-background-color: transparent;
+}
+
+#dialog {
+    -fx-background-color: #d9eef7;
+
+    -fx-text-fill: #304b59;
+
+    -fx-font-family: "Arial";
+    -fx-font-size: 15px;
+
+    -fx-padding: 10px 14px;
+
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+
+    -fx-border-color: #9bc9dc;
+    -fx-border-width: 2px;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(50, 80, 95, 0.35),
+            10,
+            0.20,
+            1,
+            4
+    );
+
+
+}
+
+#dialog.reply-label {
+    -fx-background-color: #d9f2d0;
+    -fx-text-fill: #31543a;
+
+    -fx-font-family: "Arial";
+    -fx-font-size: 15px;
+
+    -fx-padding: 10px 14px;
+
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+
+    -fx-border-color: #9bcf91;
+    -fx-border-width: 2px;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(50, 95, 55, 0.35),
+            10,
+            0.20,
+            1,
+            4
+    );
+}
+
+#dialog:hover {
+    -fx-background-color: #cde7f2;
+    -fx-border-color: #82bcd3;
+}
+
+
+#dialog.reply-label:hover {
+    -fx-background-color: #ccebc4;
+    -fx-border-color: #82bb78;
+}
+
+#displayPicture {
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    -fx-rotate: 0;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(50, 80, 95, 0.40),
+            14,
+            0.25,
+            2,
+            4
+    );
+
+
+}

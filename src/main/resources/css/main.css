@@ -1,0 +1,369 @@
+.root {
+    /* Main wallpaper */
+    main-color: #f1ebc5;
+
+    /* Surfaces */
+    surface-color: #fffdf8;
+    surface-green: #e5f3e9;
+
+    /* Green */
+    green-color: #55ad82;
+    green-hover: #6fc394;
+    green-dark: #3c8963;
+
+    /* Text */
+    text-color: #304238;
+    muted-color: #718279;
+
+    /* Other */
+    yellow-color: #fff0a8;
+    pink-color: #ffdce2;
+
+    -fx-background-color: main-color;
+    -fx-font-family: "Arial";
+
+
+}
+
+.root {
+    -fx-background-color:
+            linear-gradient(
+                    to bottom right,
+                    #f7f1cf,
+                    #e9e0ad
+            );
+}
+
+.text-field {
+    -fx-background-color: #fffefa;
+
+    -fx-text-fill: text-color;
+    -fx-prompt-text-fill: #91a097;
+
+    -fx-font-family: "Arial";
+    -fx-font-size: 18px;
+
+    -fx-padding: 10px 14px;
+
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+
+    -fx-border-color: #c9c394;
+    -fx-border-width: 1px;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(70, 65, 35, 0.30),
+            9,
+            0.18,
+            0,
+            3
+    );
+
+
+}
+
+.text-field:hover {
+    -fx-border-color: #55ad82;
+}
+
+.text-field:focus {
+    -fx-border-color: green-color;
+    -fx-border-width: 2px;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(54, 125, 82, 0.35),
+            12,
+            0.25,
+            0,
+            3
+    );
+
+
+}
+
+.button {
+    -fx-background-color:
+            linear-gradient(
+                    to bottom,
+                    #67bd91,
+                    #4da979
+            );
+
+    -fx-text-fill: white;
+
+    -fx-font-family: "Arial";
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+
+    -fx-padding: 9px 17px;
+
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+
+    -fx-border-color: #3f9467;
+    -fx-border-width: 1px;
+
+    -fx-cursor: hand;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(44, 92, 62, 0.35),
+            10,
+            0.22,
+            0,
+            4
+    );
+
+
+}
+
+.button:hover {
+    -fx-background-color:
+            linear-gradient(
+                    to bottom,
+                    #7bcca1,
+                    #5dbb87
+            );
+
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(44, 92, 62, 0.45),
+            14,
+            0.28,
+            0,
+            5
+    );
+
+
+}
+
+.button:pressed {
+    -fx-background-color: #3c8963;
+
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(70, 65, 35, 0.25),
+            4,
+            0.1,
+            0,
+            1
+    );
+
+
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar .track {
+    -fx-background-color: rgba(255, 255, 255, 0.22);
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #b9ae72;
+
+    -fx-background-radius: 1em;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(70, 65, 35, 0.25),
+            4,
+            0.15,
+            0,
+            1
+    );
+
+
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #9e955d;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+    -fx-opacity: 0;
+}
+
+.label {
+    -fx-background-color: #fffdf8;
+
+    -fx-text-fill: #304238;
+
+    -fx-font-family: "Arial";
+    -fx-font-size: 15px;
+
+    -fx-padding: 10px 14px;
+
+    -fx-border-color:
+            #d97932
+            #55ad82
+            #c47d9f
+            #5d91ad;
+
+    -fx-border-width: 2px;
+
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(70, 65, 35, 0.38),
+            10,
+            0.20,
+            1,
+            4
+    );
+
+
+}
+
+.reply-label {
+    -fx-background-color: #e5f3e9;
+
+    -fx-text-fill: #355344;
+
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+
+    -fx-border-color: #8fc5a4;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(70, 65, 35, 0.35),
+            10,
+            0.20,
+            -1,
+            4
+    );
+
+
+}
+
+.add-label {
+    -fx-background-color: #fff0a8;
+
+    -fx-text-fill: #685b17;
+
+    -fx-border-color: #d9c653;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(110, 95, 20, 0.28),
+            8,
+            0.18,
+            1,
+            3
+    );
+
+
+}
+
+.marked-label {
+    -fx-background-color: #d6f1df;
+
+    -fx-text-fill: #286341;
+
+    -fx-border-color: #70b88b;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(42, 110, 66, 0.30),
+            9,
+            0.2,
+            1,
+            3
+    );
+
+
+}
+
+.delete-label {
+    -fx-background-color: #ffdfe4;
+
+    -fx-text-fill: #843a46;
+
+    -fx-border-color: #df9da8;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(130, 55, 65, 0.28),
+            9,
+            0.18,
+            1,
+            3
+    );
+
+
+}
+
+#displayPicture {
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    -fx-rotate: 0;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(70, 65, 35, 0.40),
+            14,
+            0.25,
+            2,
+            4
+    );
+
+
+}
+
+.title-label {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+
+    -fx-text-fill: #304238;
+
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+
+    -fx-effect: none;
+
+
+}
+
+.subtitle-label {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+
+    -fx-text-fill: #718279;
+
+    -fx-font-size: 13px;
+
+    -fx-effect: none;
+
+
+}
+
+.separator .line {
+    -fx-border-color: #c9c394;
+    -fx-border-width: 1px 0 0 0;
+}
