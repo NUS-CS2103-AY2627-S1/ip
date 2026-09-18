@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: 1 year
+* IDE and level of expertise: IntelliJ IDEA, Novice level of expertise
 
 # Guidance for interacting with users
 
@@ -24,11 +24,33 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Java coding standard
+
+For every Java creation, edit, refactor, or review, invoke and follow the project-specific
+`seedu-java-coding-standard` skill. All Java production and test code in this repository must
+follow the SE-EDU basic and intermediate Java coding-standard rules encoded by that skill.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## Testing after code changes
+
+After every update to source code:
+
+1. Review and update the JUnit tests to maintain coverage of approximately the top 50% highest-value methods. Prioritize complex methods, core business logic, and behavior whose failure would be critical; do not add low-value tests solely to increase the method count.
+2. Run the JUnit test suite with Gradle using Java 25 and resolve any failures caused by the change.
+3. Review `test/ui-test-plan.md` and update it when the changed behavior adds, removes, or alters a console UI test case, its inputs, its expected output, or its setup.
+4. Invoke the project-specific `test-ui` skill and follow it to run the UI test plan. Testing is part of completing the code update, even when the user does not separately request tests.
+5. Stop on the first failing UI test and report the console session plus the actual and expected outputs, as required by the skill.
+
+Changes limited to documentation, agent instructions, skill definitions, or other non-code files do not require a UI test run unless they alter the test plan or testing behavior.
+
 ## Git
+
+For every future commit-message proposal, commit creation, branch creation, branch rename, or review of
+Git naming, invoke and follow the project-specific `seedu-git-standard` skill. All future commits must
+follow the SE-EDU Git conventions encoded by that skill.
 
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.

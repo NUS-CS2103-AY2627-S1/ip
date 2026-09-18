@@ -1,0 +1,76 @@
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 13px;
+}
+
+.dialog-container,
+.dialog-scroll-pane,
+.dialog-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.main-window {
+    -fx-background-color: #f4f6fa;
+}
+
+.dialog-scroll-pane {
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.input-bar {
+    -fx-alignment: center;
+    -fx-background-color: white;
+    -fx-border-color: #dce2eb transparent transparent transparent;
+}
+
+.text-field {
+    -fx-background-color: #eef2f7;
+    -fx-background-radius: 16px;
+    -fx-padding: 8px 13px;
+}
+
+.button {
+    -fx-background-color: #4054b2;
+    -fx-background-radius: 16px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+}
+
+.button:hover {
+    -fx-background-color: #30439d;
+}
+
+.message-bubble {
+    -fx-background-radius: 12px;
+    -fx-line-spacing: 1px;
+    -fx-padding: 8px 10px;
+}
+
+.avatar {
+    -fx-opacity: 0.9;
+}
+
+.user-dialog .message-bubble {
+    -fx-background-color: #4054b2;
+    -fx-background-radius: 12px 12px 3px 12px;
+    -fx-text-fill: white;
+}
+
+.meka-dialog .message-bubble {
+    -fx-background-color: white;
+    -fx-background-radius: 3px 12px 12px 12px;
+    -fx-border-color: #d8dee9;
+    -fx-border-radius: 3px 12px 12px 12px;
+    -fx-text-fill: #263238;
+}
+
+.error-dialog .message-bubble {
+    -fx-background-color: #fff1f1;
+    -fx-border-color: #d64545;
+    -fx-border-width: 0 0 0 4px;
+    -fx-text-fill: #8b1e1e;
+    -fx-font-weight: bold;
+}
