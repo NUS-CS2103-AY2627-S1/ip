@@ -1,0 +1,37 @@
+.dialog-box {
+    -fx-padding: 2px 0;
+}
+
+.dialog-label {
+    -fx-background-radius: 15px;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 11px 14px;
+    -fx-text-fill: #ecf1ff;
+}
+
+.geek-dialog .dialog-label {
+    -fx-background-color: #192440;
+    -fx-border-color: rgba(110, 231, 255, 0.16);
+    -fx-border-radius: 15px;
+    -fx-border-width: 1px;
+}
+
+.user-dialog .dialog-label {
+    -fx-background-color: linear-gradient(to bottom right, #334a88, #5943a7);
+    -fx-text-fill: white;
+}
+
+.alert-dialog .dialog-label {
+    -fx-background-color: linear-gradient(to bottom right, #491c2b, #321a2a);
+    -fx-border-color: rgba(255, 107, 138, 0.78);
+    -fx-text-fill: #ffe8ee;
+}
+
+.dialog-box .image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.38), 14, 0.2, 0, 3);
+}
+
+.alert-dialog .image-view {
+    -fx-effect: dropshadow(gaussian, rgba(255, 107, 138, 0.48), 14, 0.2, 0, 2);
+}

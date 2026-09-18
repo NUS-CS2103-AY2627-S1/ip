@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308"
+         spacing="10.0" styleClass="dialog-box" type="HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialog" maxWidth="420.0" minHeight="-Infinity"
+               styleClass="dialog-label" wrapText="true" />
+        <ImageView fx:id="displayPicture" fitHeight="56.0"
+                   fitWidth="56.0" pickOnBounds="true"
+                   preserveRatio="true" />
+    </children>
+</fx:root>

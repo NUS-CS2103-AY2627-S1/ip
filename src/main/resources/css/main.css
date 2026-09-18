@@ -1,0 +1,87 @@
+.app-root {
+    -fx-background-color: #0b1020;
+    -fx-font-family: "Avenir Next", "Inter", "Segoe UI", sans-serif;
+}
+
+.header {
+    -fx-background-color: linear-gradient(to right, #151d3a, #1f2452);
+    -fx-border-color: transparent transparent rgba(110, 231, 255, 0.20) transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.app-title {
+    -fx-text-fill: #f8fbff;
+    -fx-font-size: 22px;
+    -fx-font-weight: 800;
+}
+
+.app-subtitle {
+    -fx-text-fill: #9da9c9;
+    -fx-font-size: 12px;
+}
+
+.conversation-scroll,
+.conversation-scroll > .viewport {
+    -fx-background-color: #0b1020;
+}
+
+.conversation-scroll {
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.dialog-container {
+    -fx-background-color: #0b1020;
+}
+
+.composer {
+    -fx-background-color: #11182d;
+    -fx-border-color: rgba(157, 169, 201, 0.16) transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+.command-input {
+    -fx-background-color: #1a233d;
+    -fx-background-radius: 12px;
+    -fx-border-color: rgba(110, 231, 255, 0.22);
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+    -fx-font-size: 14px;
+    -fx-padding: 12px 14px;
+    -fx-prompt-text-fill: #7180a5;
+    -fx-text-fill: #f7f9ff;
+}
+
+.command-input:focused {
+    -fx-border-color: #6ee7ff;
+    -fx-effect: dropshadow(gaussian, rgba(110, 231, 255, 0.18), 12, 0.2, 0, 0);
+}
+
+.send-button {
+    -fx-background-color: linear-gradient(to bottom right, #55d8f2, #7b61ff);
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+    -fx-font-weight: 700;
+    -fx-padding: 12px 18px;
+    -fx-text-fill: white;
+}
+
+.send-button:hover {
+    -fx-background-color: linear-gradient(to bottom right, #72e4f8, #927cff);
+}
+
+.send-button:disabled {
+    -fx-opacity: 0.42;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 9px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #354260;
+    -fx-background-radius: 5px;
+}
