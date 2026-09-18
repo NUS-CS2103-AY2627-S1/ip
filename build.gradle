@@ -1,0 +1,93 @@
+plugins {
+    id 'checkstyle'
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javaFxVersion = '17.0.7'
+
+    // Every platform is listed on purpose. The classifiers pull in the native
+    // libraries for each operating system, so the one shadow JAR that is
+    // handed in runs on a marker's machine whatever it happens to be.
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+
+    // Added for A-BetterGui. The window layout is now read from FXML at
+    // start-up, and this module is the reader.
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    // Assertions are off unless the JVM is started with -ea. Without this the
+    // assert statements in the source would never run, under test or anywhere
+    // else, and would be worth nothing.
+    enableAssertions = true
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    // The window is the product, so it is what the JAR starts.
+    // The console version is still here and still works. Run it with:
+    //   java -cp build/libs/gudgoi.jar gudgoi.GudGoi
+    mainClass = 'gudgoi.gui.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'gudgoi.jar'
+}
+
+run {
+    standardInput = System.in
+
+    // The same reason as in `test`: `gradlew run` is how the program is tried
+    // by hand, so it is where a broken assumption should show itself.
+    enableAssertions = true
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}

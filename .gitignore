@@ -13,6 +13,29 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Windows shell files
+Thumbs.db
+Desktop.ini
+
+# VS Code Code Runner scratch file
+tempCodeRunnerFile.java
+
+# Compiled Java output and JVM crash logs
+*.class
+hs_err_pid*.log
+replay_pid*.log
+
+# Saved session files. Not anchored to the root, so a copy created by
+# running from the wrong folder is ignored too.
+data/
+
+# Packaged builds. The Gradle wrapper jar must stay tracked, so it is excepted.
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+
+# Editor files
+/.vscode/
+
 # Temp files
 _temp/
 

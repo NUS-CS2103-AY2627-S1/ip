@@ -1,0 +1,37 @@
+# Runs the build on every push and every pull request.
+#
+# This follows the workflow the course supplies at
+# https://github.com/se-edu/duke/blob/full-template/.github/workflows/gradle.yml
+#
+# It runs `gradlew check`, which is both the tests and Checkstyle. A pull
+# request that breaks either one says so on the pull request page, before
+# anybody reads the code.
+name: Java CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      # Three operating systems, because a marker may run this on any of them.
+      # A path or a line ending that only works on one is caught here.
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@v7
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v6
+
+      - name: Setup JDK 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: '25'
+          java-package: jdk+fx
+
+      - name: Build and check with Gradle
+        run: ./gradlew check

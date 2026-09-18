@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  One turn of the conversation: the words beside the face that said them.
+
+  The root is fx:root rather than a named element, so that DialogBox can set
+  itself as both the root and the controller. Without that, every dialog box
+  would need a separate controller object.
+
+  Reused from https://se-education.org/guides/tutorials/javaFxPart4.html
+  and https://se-education.org/guides/tutorials/javaFxPart5.html with minor
+  modifications: the face is small, because the window is narrow and the words
+  need the width more than the picture does.
+
+  The label is given no padding here on purpose. A value set in FXML acts like
+  a setter call and would beat the stylesheet, so all of the bubble's own
+  spacing lives in dialog-box.css.
+-->
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root alignment="TOP_RIGHT"
+         maxWidth="1.7976931348623157E308"
+         spacing="8.0"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+  <stylesheets>
+    <URL value="@dialog-box.css" />
+  </stylesheets>
+  <children>
+    <Label fx:id="dialog" minHeight="-Infinity" text="Label" wrapText="true" />
+    <ImageView fx:id="displayPicture"
+               fitHeight="38.0" fitWidth="38.0"
+               pickOnBounds="true" preserveRatio="true" />
+  </children>
+  <padding>
+    <Insets bottom="5.0" left="8.0" right="8.0" top="5.0" />
+  </padding>
+</fx:root>

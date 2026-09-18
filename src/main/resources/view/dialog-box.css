@@ -1,0 +1,53 @@
+/*
+ * The look of one turn of the conversation.
+ *
+ * Inspired by part 5 of the JavaFX tutorial at
+ * https://se-education.org/guides/tutorials/javaFxPart5.html, which is course
+ * material. The three style classes and the drop shadow follow that tutorial;
+ * the colors, the corner shapes and the error style are this project's own.
+ *
+ * This file is attached to the dialog box itself, not to the window, so
+ * ".label" reaches the one label inside a bubble and no other label.
+ */
+
+/* What the user said. The square corner points down and right, towards them. */
+.label {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px 12px 0 12px;
+    -fx-border-color: #dcdcd6;
+    -fx-border-radius: 12px 12px 0 12px;
+    -fx-border-width: 1px;
+    -fx-font-size: 13px;
+    -fx-padding: 8px 11px 8px 11px;
+    -fx-text-fill: #1f2933;
+}
+
+/*
+ * What the bot said. The corner points the other way, and the fill differs,
+ * so the two sides of the conversation are told apart at a glance rather than
+ * by reading them. The conversation is between a person and an app, not
+ * between two people, so the two sides do not have to look alike.
+ */
+.reply-label {
+    -fx-background-color: #e9f1ee;
+    -fx-background-radius: 12px 12px 12px 0;
+    -fx-border-color: #c9ded6;
+    -fx-border-radius: 12px 12px 12px 0;
+}
+
+/*
+ * A refused command. Red fill, a heavier border and darker text, so that a
+ * mistake is seen before it is read. This is the one thing in the window the
+ * user has to act on.
+ */
+.error-label {
+    -fx-background-color: #fdeceb;
+    -fx-border-color: #d9534f;
+    -fx-border-width: 2px;
+    -fx-text-fill: #8a2018;
+}
+
+/* The faces are small and round, so that the words keep the width. */
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.18), 6, 0.3, 1, 2);
+}

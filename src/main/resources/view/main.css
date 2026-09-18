@@ -1,0 +1,94 @@
+/*
+ * The look of the window as a whole.
+ *
+ * Inspired by part 5 of the JavaFX tutorial at
+ * https://se-education.org/guides/tutorials/javaFxPart5.html, which is course
+ * material. The structure of the file follows that tutorial; the colors and
+ * the sizes are this project's own.
+ *
+ * Every color the window uses is named once in the block below. A change of
+ * personality is an edit to that block and to nothing else.
+ */
+
+.root {
+    page-color: #f7f7f5;
+    ink-color: #1f2933;
+    accent-color: #3d7a68;
+    accent-bright-color: #4f9a83;
+    accent-deep-color: #2c5a4d;
+    field-color: #ffffff;
+    edge-color: #dcdcd6;
+
+    -fx-background-color: page-color;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* The box the user types into. It sits flush with the bottom edge. */
+.text-field {
+    -fx-background-color: field-color;
+    -fx-border-color: edge-color;
+    -fx-border-width: 1px 0 0 0;
+    -fx-font-size: 14px;
+    -fx-text-fill: ink-color;
+    -fx-padding: 0 10px 0 10px;
+}
+
+.text-field:focused {
+    -fx-border-color: accent-color;
+    -fx-border-width: 2px 0 0 0;
+}
+
+.button {
+    -fx-background-color: accent-color;
+    -fx-background-radius: 0;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: accent-bright-color;
+}
+
+.button:pressed {
+    -fx-background-color: accent-deep-color;
+}
+
+/*
+ * A ScrollPane paints its own grey panel behind the content. Left alone it
+ * shows through as a border around the conversation, which wastes space and
+ * makes the window look like two panes rather than one.
+ */
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* A thin bar, because the conversation needs the width more than the bar does. */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: edge-color;
+    -fx-background-radius: 4px;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: accent-color;
+}
+
+/* The arrow buttons at each end earn no space at this width. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+    -fx-padding: 0;
+}
