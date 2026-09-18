@@ -1,0 +1,95 @@
+plugins {
+    id 'java'
+    id 'checkstyle'
+    id 'application'
+    id 'jacoco'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
+jacoco {
+    toolVersion = '0.8.14'
+}
+
+dependencies {
+    String javaFxVersion = '17.0.7'
+    String junitVersion = '5.14.4'
+
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:linux")
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'aether.gui.Launcher'
+}
+
+jacocoTestReport {
+    dependsOn test
+
+    reports {
+        html.required = true
+        xml.required = true
+    }
+}
+
+jar {
+    // The runnable shadow JAR is the project distribution, so a second lean JAR is unnecessary.
+    enabled = false
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'aether.jar'
+
+    manifest {
+        attributes 'Main-Class': 'aether.gui.Launcher'
+    }
+}
+
+tasks.register('runCli', JavaExec) {
+    group = 'application'
+    description = 'Runs the text-based Aether interface.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'aether.Aether'
+    standardInput = System.in
+}

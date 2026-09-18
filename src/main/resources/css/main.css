@@ -1,0 +1,115 @@
+.root-pane {
+    -fx-background-color: #f4f7fb;
+    -fx-font-family: "Segoe UI";
+}
+
+.header {
+    -fx-background-color: linear-gradient(to right, #1e1b4b, #4338ca);
+}
+
+.title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #dbeafe;
+}
+
+.chat-scroll-pane,
+.chat-scroll-pane > .viewport,
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.dialog-box {
+    -fx-spacing: 9px;
+}
+
+.user-message,
+.aether-message,
+.error-message {
+    -fx-padding: 11px 14px;
+    -fx-background-radius: 15px;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+}
+
+.user-message {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: white;
+}
+
+.aether-message {
+    -fx-background-color: white;
+    -fx-border-color: #dbe3ef;
+    -fx-border-radius: 15px;
+    -fx-text-fill: #172033;
+}
+
+.error-message {
+    -fx-background-color: #fff1f2;
+    -fx-border-color: #e11d48;
+    -fx-border-radius: 4px 15px 15px 4px;
+    -fx-border-width: 0 0 0 4px;
+    -fx-text-fill: #881337;
+}
+
+.user-avatar,
+.aether-avatar,
+.error-avatar {
+    -fx-alignment: center;
+    -fx-background-radius: 18px;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-min-height: 36px;
+    -fx-min-width: 36px;
+    -fx-pref-height: 36px;
+    -fx-pref-width: 36px;
+    -fx-text-fill: white;
+}
+
+.user-avatar {
+    -fx-background-color: #172554;
+}
+
+.aether-avatar {
+    -fx-background-color: #4338ca;
+    -fx-font-size: 18px;
+}
+
+.error-avatar {
+    -fx-background-color: #be123c;
+}
+
+.composer {
+    -fx-background-color: white;
+    -fx-border-color: #dbe3ef transparent transparent transparent;
+}
+
+.text-field {
+    -fx-background-color: #f8fafc;
+    -fx-background-radius: 9px;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 9px;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 12px;
+}
+
+.text-field:focused {
+    -fx-border-color: #2563eb;
+}
+
+.button {
+    -fx-background-color: #2563eb;
+    -fx-background-radius: 9px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 18px;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #1d4ed8;
+}

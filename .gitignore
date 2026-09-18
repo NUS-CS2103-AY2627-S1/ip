@@ -1,10 +1,13 @@
 # IDEA files
 /.idea/
 /out/
+/data/
 /*.iml
 
 # Gradle build files
 /.gradle/
+/.gradle-codex/
+/.gradle-user-home/
 /build/
 src/main/resources/docs/
 
