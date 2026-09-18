@@ -1,0 +1,40 @@
+.dialog-row {
+    -fx-spacing: 8px;
+}
+
+.dialog-label {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 9px 12px;
+    -fx-text-fill: #332b26;
+}
+
+.user-message .dialog-label {
+    -fx-background-color: #6d4935;
+    -fx-background-radius: 14px 14px 4px 14px;
+    -fx-text-fill: #ffffff;
+}
+
+.cookie-message .dialog-label {
+    -fx-background-color: #fffdf9;
+    -fx-background-radius: 14px 14px 14px 4px;
+    -fx-border-color: #e6dacb;
+    -fx-border-radius: 14px 14px 14px 4px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(73, 49, 34, 0.08), 8, 0, 0, 2);
+}
+
+.error-message .dialog-label {
+    -fx-background-color: #fff0ed;
+    -fx-background-radius: 6px 12px 12px 6px;
+    -fx-border-color: #c4473d #e8c4bf #e8c4bf #c4473d;
+    -fx-border-radius: 6px 12px 12px 6px;
+    -fx-border-width: 1px 1px 1px 4px;
+    -fx-effect: dropshadow(gaussian, rgba(116, 33, 27, 0.08), 8, 0, 0, 2);
+    -fx-text-fill: #7a241f;
+}
+
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(73, 49, 34, 0.18), 5, 0, 0, 1);
+}

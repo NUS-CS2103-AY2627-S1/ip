@@ -1,0 +1,5 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run and verify console UI test plans"
+  default_prompt: "Use $test-ui to run the console UI tests in test/ui-test-plan.md."
+
