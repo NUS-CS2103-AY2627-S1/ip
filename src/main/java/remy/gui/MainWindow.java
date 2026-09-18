@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -22,8 +21,6 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Remy remy;
 
@@ -56,28 +53,24 @@ public class MainWindow extends AnchorPane {
         Platform.runLater(userInput::requestFocus);
     }
 
-    /**
-     * Displays the user's command and Remy's response, then prepares the input field for the next command.
-     */
+    /** Processes user input, closing the application when the chat session ends. */
     @FXML
     private void handleUserInput() {
         assert remy != null : "Chatbot must be set before user input is handled";
 
         String input = userInput.getText();
         String response = remy.getResponse(input);
+        if (remy.hasExited()) {
+            Platform.exit();
+            return;
+        }
+
         if (!input.isBlank()) {
             dialogContainer.getChildren().add(DialogBox.getUserDialog(input.strip(), userImage));
         }
         dialogContainer.getChildren().add(DialogBox.getRemyDialog(response, remyImage));
         userInput.clear();
-
-        if (remy.hasExited()) {
-            userInput.setPromptText("Chat ended");
-            userInput.setDisable(true);
-            sendButton.setDisable(true);
-        } else {
-            userInput.requestFocus();
-        }
+        userInput.requestFocus();
     }
 
     /** Returns an image resource, failing early when the packaged resource is missing. */
