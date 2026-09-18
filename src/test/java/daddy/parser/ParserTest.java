@@ -34,9 +34,12 @@ class ParserTest {
         assertInstanceOf(ListCommand.class, parser.parseCommand("list"));
         assertInstanceOf(ListOnDateCommand.class, parser.parseCommand("list on 02-12-2026"));
         assertInstanceOf(AddCommand.class, parser.parseCommand("todo read book"));
+        assertInstanceOf(AddCommand.class, parser.parseCommand("deadline return book /by 02-12-2026"));
         assertInstanceOf(AddCommand.class, parser.parseCommand("deadline return book /by 02-12-2026 1800"));
         assertInstanceOf(AddCommand.class,
                 parser.parseCommand("event meeting /from 02-12-2026 1400 /to 02-12-2026 1600"));
+        assertInstanceOf(AddCommand.class,
+                parser.parseCommand("event conference /from 02-12-2026 /to 03-12-2026"));
         assertInstanceOf(MarkCommand.class, parser.parseCommand("mark 1"));
         assertInstanceOf(UnmarkCommand.class, parser.parseCommand("unmark 1"));
         assertInstanceOf(DeleteCommand.class, parser.parseCommand("delete 1"));
@@ -60,6 +63,8 @@ class ParserTest {
         assertInstanceOf(AddCommand.class,
                 parser.parseCommand(" event demo /from 02-12-2026 1400   /to 02-12-2026 1600 "));
         assertInstanceOf(MarkCommand.class, parser.parseCommand("  mark   1 "));
+        assertInstanceOf(ExitCommand.class, parser.parseCommand(" BYE "));
+        assertInstanceOf(ListCommand.class, parser.parseCommand(" LIST "));
     }
 
     /**
@@ -90,6 +95,8 @@ class ParserTest {
 
         assertEquals("'abc' is not a task number, my friend. Try: mark 1.",
                 parseError(parser, "mark abc").getMessage());
+        assertEquals("'999999999999999999999' is not a task number, my friend. Try: delete 1.",
+                parseError(parser, "delete 999999999999999999999").getMessage());
         assertEquals("Keep the deadline date clean, my friend: use dd-MM-yyyy or dd-MM-yyyy HHmm. "
                         + "Try: deadline return book /by 02-12-2019 1800.",
                 parseError(parser, "deadline return book /by tomorrow").getMessage());
@@ -101,6 +108,8 @@ class ParserTest {
         assertEquals("Daddy's workday runs from 09:00 to 18:00, my friend. "
                         + "Keep the free slot at 9 hours or less.",
                 parseError(parser, "free 10h").getMessage());
+        assertEquals("That duration is too large, my friend. Try something smaller, such as: free 4h.",
+                parseError(parser, "free 999999999999999999999h").getMessage());
         assertEquals("Time only moves forward, my friend. The event must end after it starts. "
                         + "Try: event meeting /from 02-12-2019 1400 /to 02-12-2019 1600.",
                 parseError(parser, "event meeting /from 02-12-2026 1600 /to 02-12-2026 1400").getMessage());
@@ -120,6 +129,15 @@ class ParserTest {
                 parseError(parser, null).getMessage());
         assertEquals("LIST ON needs a date, my friend. Try: list on 02-12-2019.",
                 parseError(parser, "list on").getMessage());
+        assertEquals("No plan, no progress, my friend. Tell Daddy what needs doing. "
+                        + "Try: todo borrow book.",
+                parseError(parser, "todo").getMessage());
+        assertEquals("A deadline needs a /by date or time, my friend. "
+                        + "Try: deadline return book /by 02-12-2019.",
+                parseError(parser, "deadline return book").getMessage());
+        assertEquals("An event needs both /from and /to times, my friend. "
+                        + "Try: event meeting /from 02-12-2019 1400 /to 02-12-2019 1600.",
+                parseError(parser, "event meeting").getMessage());
         assertEquals("A deadline accepts one /by value, my friend. "
                         + "Try: deadline return book /by 02-12-2019.",
                 parseError(parser, "deadline report /by 02-12-2026 /by 03-12-2026").getMessage());
@@ -132,6 +150,11 @@ class ParserTest {
                 parseError(parser, "event demo /to 02-12-2026 1200 /from 02-12-2026 1000").getMessage());
         assertEquals("Task descriptions cannot contain '|', my friend. Replace it with a dash or a word.",
                 parseError(parser, "todo read|book").getMessage());
+        assertEquals("Task descriptions cannot contain '|', my friend. Replace it with a dash or a word.",
+                parseError(parser, "deadline return|book /by 02-12-2026").getMessage());
+        assertEquals("Task descriptions cannot contain '|', my friend. Replace it with a dash or a word.",
+                parseError(parser,
+                        "event project|meeting /from 02-12-2026 1400 /to 02-12-2026 1600").getMessage());
     }
 
     /** Verifies that impossible calendar values are rejected rather than adjusted to another date. */

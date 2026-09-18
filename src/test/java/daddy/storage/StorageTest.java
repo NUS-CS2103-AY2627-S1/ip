@@ -104,6 +104,68 @@ class StorageTest {
     }
 
     /**
+     * Verifies that an existing current file takes priority over an obsolete legacy file.
+     *
+     * @throws IOException if the temporary data files cannot be created
+     */
+    @Test
+    void loadInto_currentAndLegacyFilesExist_loadsCurrentFileWithoutMigration() throws IOException {
+        Path dataFile = temporaryDirectory.resolve("daddy.txt");
+        Path legacyDataFile = temporaryDirectory.resolve("duke.txt");
+        Files.write(dataFile, List.of("T|0|current task"));
+        Files.write(legacyDataFile, List.of("T|0|legacy task"));
+        Storage storage = new Storage(dataFile, legacyDataFile);
+        TaskList tasks = new TaskList();
+
+        List<String> messages = storage.loadInto(tasks);
+
+        assertTrue(messages.isEmpty());
+        assertEquals(1, tasks.size());
+        assertEquals("current task", tasks.getTaskAt(0).getDescription());
+        assertTrue(Files.exists(legacyDataFile));
+    }
+
+    /**
+     * Verifies that migration creates missing destination directories before moving legacy data.
+     *
+     * @throws IOException if the legacy data file cannot be created
+     */
+    @Test
+    void loadInto_nestedCurrentPath_migratesLegacyFileAndCreatesDirectories() throws IOException {
+        Path dataFile = temporaryDirectory.resolve("nested").resolve("data").resolve("daddy.txt");
+        Path legacyDataFile = temporaryDirectory.resolve("duke.txt");
+        Files.write(legacyDataFile, List.of("T|0|legacy task"));
+        Storage storage = new Storage(dataFile, legacyDataFile);
+        TaskList tasks = new TaskList();
+
+        List<String> messages = storage.loadInto(tasks);
+
+        assertTrue(messages.stream().anyMatch(message -> message.contains("moved your saved tasks")));
+        assertTrue(Files.exists(dataFile));
+        assertEquals("legacy task", tasks.getTaskAt(0).getDescription());
+    }
+
+    /**
+     * Verifies that a migration failure is reported while preserving the legacy data.
+     *
+     * @throws IOException if the blocking path or legacy file cannot be created
+     */
+    @Test
+    void loadInto_migrationDestinationBlocked_reportsFailureAndKeepsLegacyFile() throws IOException {
+        Path blockingParent = temporaryDirectory.resolve("blocked");
+        Files.writeString(blockingParent, "not a directory");
+        Path dataFile = blockingParent.resolve("daddy.txt");
+        Path legacyDataFile = temporaryDirectory.resolve("duke.txt");
+        Files.write(legacyDataFile, List.of("T|0|legacy task"));
+        Storage storage = new Storage(dataFile, legacyDataFile);
+
+        List<String> messages = storage.loadInto(new TaskList());
+
+        assertTrue(messages.stream().anyMatch(message -> message.contains("couldn't migrate")));
+        assertTrue(Files.exists(legacyDataFile));
+    }
+
+    /**
      * Verifies that malformed records are skipped while valid records and recovery files are preserved.
      *
      * @throws IOException if temporary test data cannot be written or read
@@ -142,6 +204,55 @@ class StorageTest {
     }
 
     /**
+     * Verifies blank lines are ignored and unsupported record shapes are quarantined.
+     *
+     * @throws IOException if temporary test data cannot be written or read
+     */
+    @Test
+    void loadInto_blankAndUnsupportedRecords_ignoresBlankAndQuarantinesInvalidRecords() throws IOException {
+        Path dataFile = temporaryDirectory.resolve("daddy.txt");
+        Files.write(dataFile, List.of(
+                "",
+                "X|0|unknown",
+                "T|0|too|many",
+                "D|0|too few",
+                "E|0|too|few",
+                "T|2|bad status",
+                "T|0|valid task"));
+        Storage storage = new Storage(dataFile, temporaryDirectory.resolve("duke.txt"));
+        TaskList tasks = new TaskList();
+
+        List<String> messages = storage.loadInto(tasks);
+
+        assertEquals(1, tasks.size());
+        assertEquals("valid task", tasks.getTaskAt(0).getDescription());
+        assertEquals(5, messages.stream().filter(message -> message.contains("corrupted data")).count());
+        assertEquals(5, Files.readAllLines(temporaryDirectory.resolve("daddy.txt.corrupt")).size());
+    }
+
+    /**
+     * Verifies that valid records still load when recovery files cannot be written.
+     *
+     * @throws IOException if the data and blocking recovery paths cannot be created
+     */
+    @Test
+    void loadInto_recoveryPathBlocked_keepsValidTasksAndReportsRecoveryFailure() throws IOException {
+        Path dataFile = temporaryDirectory.resolve("daddy.txt");
+        Files.write(dataFile, List.of("T|0|valid task", "BROKEN"));
+        Path backupDirectory = temporaryDirectory.resolve("daddy.txt.backup");
+        Files.createDirectory(backupDirectory);
+        Files.writeString(backupDirectory.resolve("keep.txt"), "prevent replacement");
+        Storage storage = new Storage(dataFile, temporaryDirectory.resolve("duke.txt"));
+        TaskList tasks = new TaskList();
+
+        List<String> messages = storage.loadInto(tasks);
+
+        assertEquals(1, tasks.size());
+        assertEquals("valid task", tasks.getTaskAt(0).getDescription());
+        assertTrue(messages.stream().anyMatch(message -> message.contains("could not create the recovery files")));
+    }
+
+    /**
      * Verifies that a directory at the data-file path is reported without crashing startup.
      *
      * @throws IOException if the temporary directory cannot be created
@@ -175,6 +286,47 @@ class StorageTest {
         DaddyException exception = assertThrows(DaddyException.class, () -> storage.save(tasks));
 
         assertTrue(exception.getMessage().contains("writable file location"));
+    }
+
+    /**
+     * Verifies that an empty list and a general task serialize to the supported file format.
+     *
+     * @throws Exception if temporary task data cannot be saved or read
+     */
+    @Test
+    void save_emptyThenGeneralTask_writesExpectedRecords() throws Exception {
+        Path dataFile = temporaryDirectory.resolve("daddy.txt");
+        Storage storage = new Storage(dataFile, temporaryDirectory.resolve("duke.txt"));
+        TaskList tasks = new TaskList();
+
+        storage.save(tasks);
+        assertTrue(Files.readAllLines(dataFile).isEmpty());
+
+        tasks.add(new Task("general task"));
+        storage.save(tasks);
+        assertEquals(List.of("T|0|general task"), Files.readAllLines(dataFile));
+    }
+
+    /**
+     * Verifies failed replacement removes the temporary file and reports a save error.
+     *
+     * @throws IOException if the blocking destination cannot be created
+     */
+    @Test
+    void save_destinationIsDirectory_reportsFailureAndCleansTemporaryFile() throws IOException {
+        Path dataFile = temporaryDirectory.resolve("daddy.txt");
+        Files.createDirectory(dataFile);
+        Files.writeString(dataFile.resolve("keep.txt"), "prevent replacement");
+        Storage storage = new Storage(dataFile, temporaryDirectory.resolve("duke.txt"));
+        TaskList tasks = new TaskList();
+        tasks.add(new Todo("read book"));
+
+        DaddyException exception = assertThrows(DaddyException.class, () -> storage.save(tasks));
+
+        assertTrue(exception.getMessage().contains("writable file location"));
+        try (var children = Files.list(temporaryDirectory)) {
+            assertFalse(children.anyMatch(path -> path.getFileName().toString().startsWith("daddy-save-")));
+        }
     }
 
     /**

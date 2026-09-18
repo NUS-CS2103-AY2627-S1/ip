@@ -78,6 +78,34 @@ class TaskListTest {
         assertFalse(tasks.hasTaskAt(1));
     }
 
+    /** Verifies that insertion and direct access preserve the requested list position. */
+    @Test
+    void insertAndGetTaskAt_validPosition_insertsAndReturnsTask() {
+        TaskList tasks = new TaskList();
+        Task firstTask = new Todo("read book");
+        Task insertedTask = new Todo("buy bread");
+        tasks.add(firstTask);
+
+        tasks.insert(0, insertedTask);
+
+        assertSame(insertedTask, tasks.getTaskAt(0));
+        assertSame(firstTask, tasks.getTaskAt(1));
+    }
+
+    /** Verifies that insertion and direct access enforce their index and value contracts. */
+    @Test
+    void insertAndGetTaskAt_invalidArguments_assertionThrown() {
+        TaskList tasks = new TaskList();
+        tasks.add(new Todo("read book"));
+
+        assertThrows(AssertionError.class, () -> tasks.insert(-1, new Todo("buy bread")));
+        assertThrows(AssertionError.class, () -> tasks.insert(2, new Todo("buy bread")));
+        assertThrows(AssertionError.class, () -> tasks.insert(0, null));
+        assertThrows(AssertionError.class, () -> tasks.getTaskAt(-1));
+        assertThrows(AssertionError.class, () -> tasks.getTaskAt(1));
+        assertThrows(AssertionError.class, () -> tasks.containsEquivalentTask(null));
+    }
+
     /**
      * Verifies that marking and unmarking change the selected task's status.
      */
@@ -253,6 +281,30 @@ class TaskListTest {
         assertEquals(LocalDateTime.of(2026, 9, 15, 9, 0), slotStart);
     }
 
+    /** Verifies that events ending before the search point are ignored. */
+    @Test
+    void findEarliestFreeTime_eventBeforeSearchStart_ignoresPastEvent() {
+        TaskList tasks = new TaskList();
+        LocalDate date = LocalDate.of(2026, 9, 14);
+        tasks.add(new Event("breakfast", date.atTime(9, 0), date.atTime(10, 0)));
+
+        LocalDateTime slotStart = tasks.findEarliestFreeTime(Duration.ofHours(2), date.atTime(11, 0));
+
+        assertEquals(date.atTime(11, 0), slotStart);
+    }
+
+    /** Verifies that a late blocking event advances a search to the next working day. */
+    @Test
+    void findEarliestFreeTime_eventLeavesInsufficientTime_returnsNextWeekday() {
+        TaskList tasks = new TaskList();
+        LocalDate monday = LocalDate.of(2026, 9, 14);
+        tasks.add(new Event("afternoon workshop", monday.atTime(12, 0), monday.atTime(17, 0)));
+
+        LocalDateTime slotStart = tasks.findEarliestFreeTime(Duration.ofHours(4), monday.atTime(10, 0));
+
+        assertEquals(monday.plusDays(1).atTime(9, 0), slotStart);
+    }
+
     /** Verifies that durations must be positive and fit within one working day. */
     @Test
     void findEarliestFreeTime_invalidDuration_assertionThrown() {
@@ -261,7 +313,10 @@ class TaskListTest {
         Duration excessiveDuration = Duration.ofHours(10);
 
         assertThrows(AssertionError.class, () -> tasks.findEarliestFreeTime(Duration.ZERO, searchStart));
+        assertThrows(AssertionError.class, () -> tasks.findEarliestFreeTime(Duration.ofMinutes(-1), searchStart));
         assertThrows(AssertionError.class, () -> tasks.findEarliestFreeTime(excessiveDuration, searchStart));
+        assertThrows(AssertionError.class, () -> tasks.findEarliestFreeTime(null, searchStart));
+        assertThrows(AssertionError.class, () -> tasks.findEarliestFreeTime(Duration.ofHours(1), null));
     }
 
     /**

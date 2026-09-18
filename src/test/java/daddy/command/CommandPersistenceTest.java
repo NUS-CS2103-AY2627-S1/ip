@@ -100,6 +100,27 @@ class CommandPersistenceTest {
     }
 
     /**
+     * Verifies failed repeated status commands preserve the state that already matched the request.
+     *
+     * @throws IOException if the intentionally blocking file cannot be created
+     */
+    @Test
+    void statusCommands_saveFailsForRepeatedState_preservesExistingStatus() throws IOException {
+        Task task = new Todo("read book");
+        TaskList tasks = new TaskList();
+        tasks.add(task);
+
+        assertThrows(DaddyException.class, () ->
+                new UnmarkCommand(0).execute(tasks, new Ui(ignored -> { }), createUnwritableStorage()));
+        assertFalse(task.isDone());
+
+        task.markAsDone();
+        assertThrows(DaddyException.class, () ->
+                new MarkCommand(0).execute(tasks, new Ui(ignored -> { }), createUnwritableStorage()));
+        assertTrue(task.isDone());
+    }
+
+    /**
      * Creates storage whose parent path is a regular file and therefore cannot hold task data.
      *
      * @return storage that fails every save attempt

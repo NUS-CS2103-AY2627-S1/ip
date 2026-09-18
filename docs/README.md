@@ -4,6 +4,16 @@ Daddy is a task manager that accepts commands through its command-line or JavaFX
 straight-talking coach personality keeps you accountable with a friendly "my friend," celebrates progress, and
 turns mistakes into specific advice for the next attempt.
 
+## Testing
+
+Run `./gradlew check jacocoTestReport` with Java 25 to compile the project, run JUnit, enforce Checkstyle, and
+verify at least 90% line coverage across the automatically testable non-GUI core. The detailed HTML coverage
+report is generated at `build/reports/jacoco/test/html/index.html`.
+
+JavaFX launcher and view classes are excluded from the automated coverage threshold because they require a
+graphical desktop. Use [`test/manual-test-plan.md`](../test/manual-test-plan.md) to check GUI startup, resizing,
+display scaling, operating systems, locales, and file permissions.
+
 ## Input and data safety
 
 Daddy accepts harmless leading, trailing, repeated, or tab whitespace in commands. It rejects malformed input
