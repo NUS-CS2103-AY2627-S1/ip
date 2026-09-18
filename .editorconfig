@@ -1,0 +1,7 @@
+# Keep IntelliJ's Optimize Imports aligned with config/checkstyle/checkstyle.xml.
+root = true
+
+[*.java]
+# Static imports, Java/Javax, org, com, then remaining packages (including epi).
+ij_java_layout_static_imports_separately = true
+ij_java_imports_layout = $*,|,java.**,javax.**,|,org.**,|,com.**,|,*
