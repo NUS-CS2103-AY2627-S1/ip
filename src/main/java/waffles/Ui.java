@@ -11,6 +11,12 @@ public class Ui {
     /** The divider used to separate chatbot messages. */
     static final String SEPARATOR = "____________________________________________________________";
 
+    /** The first line of Waffles' welcome message. */
+    static final String WELCOME_GREETING = "Hello! I'm Waffles, your upbeat planning co-pilot.";
+
+    /** The second line of Waffles' welcome message. */
+    static final String WELCOME_PROMPT = "Let's turn your plans into progress. What can I do for you?";
+
     /** Reads commands entered through standard input. */
     private final Scanner scanner;
 
@@ -42,8 +48,8 @@ public class Ui {
 
         showDivider();
         output.println(banner);
-        output.println("Hello! I'm Waffles, your cheerful kitchen-sidekick.");
-        output.println("Let's get your day cooking. What can I do for you?");
+        output.println(WELCOME_GREETING);
+        output.println(WELCOME_PROMPT);
         showDivider();
     }
 
@@ -72,7 +78,7 @@ public class Ui {
 
     /** Displays the goodbye message. */
     public void showGoodbye() {
-        output.println("Keep your plans cooking. Waffles out!");
+        output.println("Clear plan, next step. Waffles is ready when you are.");
     }
 
     /**

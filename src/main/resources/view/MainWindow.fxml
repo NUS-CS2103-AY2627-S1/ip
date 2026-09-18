@@ -23,7 +23,7 @@
             <children>
                 <Label text="Waffles"
                        style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" />
-                <Label text="Your cheerful kitchen-sidekick for getting things done"
+                <Label text="Your upbeat planning co-pilot for getting things done"
                        style="-fx-text-fill: #d9e2ec; -fx-font-size: 12px;" />
             </children>
         </VBox>

@@ -291,7 +291,8 @@ Oops, find needs a keyword. Try `find book`.
 ## GUI smoke test (manual)
 
 Run `gradlew.bat run --console=plain`, enter `todo try the GUI`, and verify
-that the user message and Waffles response appear in the scrollable window.
+that Waffles' welcome message appears when the window opens, and that the user
+message and Waffles response appear in the scrollable window.
 Also verify that pressing Enter and clicking Send both submit commands, that
 the Send button is disabled for blank input, that an invalid command appears
 in a red error card, and that resizing the window keeps the conversation and
@@ -368,7 +369,7 @@ bye
 ### Expected output
 
 ```text
-Oops, Please enter a command, such as `list` or `todo read book`.
+Oops, please enter a command, such as `list` or `todo read book`.
 Got it. I've added this task:
   [T][ ] spaced task
 1.[T][ ] spaced task

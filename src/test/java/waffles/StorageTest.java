@@ -47,6 +47,14 @@ class StorageTest {
         assertEquals("valid task", loadedTasks.get(0).getDescription());
     }
 
+    /** Verifies the first run works when the expected data file does not exist yet. */
+    @Test
+    void loadTasks_missingFile_startsWithEmptyList() {
+        Storage storage = storage();
+
+        assertTrue(storage.loadTasks().isEmpty());
+    }
+
     /** Creates isolated storage for one persistence test. */
     private Storage storage() {
         return new Storage(temporaryFolder.resolve("waffles.txt").toString());

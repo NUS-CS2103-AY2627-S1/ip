@@ -50,6 +50,8 @@ public class MainWindow {
         userInput.textProperty().addListener((observable, oldValue, newValue) ->
                 sendButton.setDisable(newValue == null || newValue.isBlank()));
         sendButton.setDisable(true);
+        dialogContainer.getChildren().add(DialogBox.getWafflesDialog(
+                Ui.WELCOME_GREETING + "\n" + Ui.WELCOME_PROMPT, wafflesImage));
     }
 
     /**

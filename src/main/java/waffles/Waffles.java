@@ -69,7 +69,7 @@ public class Waffles {
     private boolean handleCommand(String command, Ui output) {
         try {
             if (command.isBlank()) {
-                throw new IllegalArgumentException("Please enter a command, such as `list` or `todo read book`.");
+                throw new IllegalArgumentException("please enter a command, such as `list` or `todo read book`.");
             } else if (command.equals("bye")) {
                 output.showGoodbye();
                 return false;

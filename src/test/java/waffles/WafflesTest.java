@@ -32,7 +32,7 @@ class WafflesTest {
 
         String response = waffles.getResponse("   ");
 
-        assertTrue(response.contains("Please enter a command"));
+        assertTrue(response.contains("please enter a command"));
     }
 
     /** Verifies invalid scheduling data is rejected before it is persisted. */
