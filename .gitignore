@@ -3,6 +3,13 @@
 /out/
 /*.iml
 
+# VS Code files. settings.json names this machine's JDK by absolute path, which
+# would be wrong on anyone else's.
+/.vscode/
+
+# Compiled Java bytecode (e.g. when compiling with javac outside the IDE)
+*.class
+
 # Gradle build files
 /.gradle/
 /build/
@@ -18,3 +25,10 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Saved tally (user data, not revision-controlled)
+/data/
+
+# Python leaves these beside the test runner when it is imported.
+__pycache__/
+*.pyc

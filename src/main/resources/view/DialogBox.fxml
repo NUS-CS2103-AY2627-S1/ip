@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root styleClass="dialog-box" alignment="TOP_RIGHT" maxHeight="-Infinity" spacing="9.0"
+         type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/25"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialogText" styleClass="dialog-text" wrapText="true" minHeight="-Infinity" />
+        <ImageView fx:id="speakerPicture" styleClass="speaker-picture" fitHeight="30.0"
+                   fitWidth="30.0" preserveRatio="true" smooth="true" />
+    </children>
+</fx:root>

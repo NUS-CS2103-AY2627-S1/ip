@@ -1,0 +1,63 @@
+name: Java CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@v7
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v6
+
+      - name: Setup JDK 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: '25'
+          java-package: jdk+fx
+
+      - name: Build and check with Gradle
+        run: ./gradlew check
+
+      - name: Run the console transcript suite
+        run: python3 test/run-ui-tests.py
+
+      - name: Check the packaged jar runs on its own
+        shell: bash
+        run: |
+          ./gradlew shadowJar
+          python3 -c "import zipfile, sys; \
+            manifest = zipfile.ZipFile('build/libs/tally.jar').read('META-INF/MANIFEST.MF').decode(); \
+            sys.exit(0 if 'Main-Class: tally.Launcher' in manifest else 'the manifest does not name tally.Launcher')"
+          cd "$(mktemp -d)"
+          cp "$GITHUB_WORKSPACE/build/libs/tally.jar" .
+          printf 'todo packaged\nlist\nbye\n' | java -cp tally.jar tally.Tally | grep -q 'packaged'
+          test -f data/tally.txt
+
+      # Linux only. Windows has no virtual display to open a window on, and the JavaFX
+      # libraries the jar carries are built for Intel macs while the runner is ARM.
+      - name: Check the packaged app opens as a window
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          command -v xvfb-run >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq xvfb)
+          cd "$(mktemp -d)"
+          cp "$GITHUB_WORKSPACE/build/libs/tally.jar" .
+          set +e
+          xvfb-run -a timeout 20 java -jar tally.jar
+          status=$?
+          set -e
+          # 124 is timeout saying the window was still open when the time ran out, which
+          # is the only outcome that means it started. Anything else is JavaFX, the FXML
+          # or the images failing to load, which running the console entry point misses.
+          if [ "$status" -ne 124 ]; then
+            echo "the window exited with status $status instead of staying open"
+            exit 1
+          fi

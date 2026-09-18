@@ -1,0 +1,135 @@
+/*
+ * Tally's look: an instrument, not a companion.
+ *
+ * Cold greys and a single steel accent, a monospaced face, and restraint in place of
+ * decoration. What separates one speaker from the other is which side they sit on and
+ * which of two panels their words sit in -- not colour for its own sake.
+ *
+ * The palette, once:
+ *   #101419  ground, behind everything
+ *   #1a212a  the panel the input sits in
+ *   #1e262f  Tally's words
+ *   #26323d  the user's words
+ *   #2b3540  rules and edges
+ *   #6f8899  the one accent
+ *   #c9d1d9  text
+ *   #8b9aa7  quieter text
+ */
+
+.root {
+    -fx-font-family: "DejaVu Sans Mono", "Menlo", "Consolas", "Courier New", monospace;
+    -fx-font-size: 12.5px;
+    /* Light falling from the top edge, so the window has a source rather than being a
+       flat fill. Pitched to read as depth rather than as pattern: anything louder
+       behind text makes the text harder to read, which would cost more than a
+       background is worth. */
+    -fx-background-color: radial-gradient(center 50% 0%, radius 120%, #1b242e 0%, #0d1116 100%);
+}
+
+/* The conversation sits directly on the ground, with no panel of its own. */
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #2b3540;
+    -fx-background-radius: 4;
+    -fx-background-insets: 0 2 0 2;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #3a4552;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button,
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-shape: null;
+}
+
+/* One turn of the conversation. The row carries nothing; the words carry the panel. */
+.dialog-box {
+    -fx-background-color: transparent;
+}
+
+/* The user's words: the warmer of the two panels, since they sit on the right. */
+.dialog-text {
+    -fx-background-color: #26323d;
+    -fx-background-radius: 10 10 2 10;
+    -fx-padding: 9 12 9 12;
+    -fx-text-fill: #c9d1d9;
+    -fx-line-spacing: 2;
+}
+
+/* Tally's words: a flatter panel, with the corner notched on the other side so the
+   two sides of the conversation point at each other. */
+.from-tally .dialog-text {
+    -fx-background-color: #1e262f;
+    -fx-background-radius: 10 10 10 2;
+    -fx-text-fill: #b9c3cc;
+}
+
+/* The portraits, ringed so they sit on the ground rather than float above it. */
+.speaker-picture {
+    -fx-effect: dropshadow(gaussian, #0a0d11, 6, 0.0, 0, 1);
+}
+
+/* The input row, ruled off from the conversation above it. */
+.input-row {
+    -fx-background-color: #1a212a;
+    -fx-border-color: #2b3540;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 8 8 8 8;
+    -fx-spacing: 8;
+}
+
+.text-field {
+    -fx-background-color: #101419;
+    -fx-background-radius: 8;
+    -fx-border-color: #2b3540;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-padding: 8 12 8 12;
+    -fx-text-fill: #c9d1d9;
+    -fx-prompt-text-fill: #5d6874;
+    -fx-highlight-fill: #2b3540;
+}
+
+.text-field:focused {
+    -fx-border-color: #6f8899;
+}
+
+.button {
+    -fx-background-color: #26323d;
+    -fx-background-radius: 8;
+    -fx-padding: 8 16 8 16;
+    -fx-text-fill: #b9c3cc;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #2f3d4a;
+    -fx-text-fill: #e6edf3;
+}
+
+.button:pressed {
+    -fx-background-color: #1a212a;
+}
+
+.button:focused {
+    -fx-background-color: #26323d;
+}

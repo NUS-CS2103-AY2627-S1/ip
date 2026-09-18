@@ -1,0 +1,103 @@
+plugins {
+    id 'checkstyle'
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+
+    // Several modules in the SE-EDU configuration carry severity="warning", which
+    // Gradle would otherwise let through: a violation of them would not fail the
+    // build, so passing would not mean what it is taken to mean.
+    maxWarnings = 0
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javaFxVersion = '25.0.4'
+
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:linux")
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'tally.Launcher'
+
+    // Assertions are off unless asked for, which would leave every assert in the code
+    // inert. The JUnit tests already run with them on, and this does the same for the app.
+    //
+    // Only for the app run from here. The released JAR is started without -ea, on
+    // purpose: an assertion states something this code believes about itself, and the
+    // answer to one turning out false is a stack trace for whoever is working on it,
+    // not a crash in front of whoever is using it. What a user types is checked by the
+    // parser and what a file holds is checked by the reader, and neither of those
+    // leans on assertions being on.
+    applicationDefaultJvmArgs = ['-ea']
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'tally.jar'
+}
+
+run {
+    standardInput = System.in
+}
+
+// Lets test/run-ui-tests.py launch the app the same way Gradle would, without
+// having to know where the classes and any dependencies live. The classpath is
+// captured while the build is configured, so the task works under the
+// configuration cache.
+tasks.register('printRuntimeClasspath') {
+    FileCollection classpath = sourceSets.main.runtimeClasspath
+    inputs.files(classpath)
+    doLast {
+        println classpath.asPath
+    }
+}
