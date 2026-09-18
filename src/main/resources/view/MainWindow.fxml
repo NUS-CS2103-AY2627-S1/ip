@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+    The window is an HBox of two columns: the conversation (which takes all
+    the leftover width via hgrow) and a task panel pinned to the right. The
+    input bar lives inside the conversation column so the panel runs the
+    full height of the window.
+
+    Nothing uses hard-coded pixel anchors, so the layout stays correct at
+    any window size; the panel itself is hidden below a threshold width by
+    MainWindow, where there is no longer room for two columns.
+-->
+<HBox fx:id="rootPane" prefHeight="600.0" prefWidth="760.0" stylesheets="@styles.css"
+      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="alice.MainWindow">
+
+    <VBox HBox.hgrow="ALWAYS">
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" vvalue="1.0" VBox.vgrow="ALWAYS">
+            <VBox fx:id="dialogContainer" spacing="10">
+                <padding>
+                    <Insets bottom="14" left="14" right="14" top="14"/>
+                </padding>
+            </VBox>
+        </ScrollPane>
+
+        <HBox alignment="CENTER" styleClass="input-bar">
+            <TextField fx:id="userInput" onAction="#handleUserInput" HBox.hgrow="ALWAYS"
+                       promptText="Type a command, e.g. list"/>
+            <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput"
+                    styleClass="send-button" text="Send"/>
+        </HBox>
+    </VBox>
+
+    <VBox fx:id="taskPanel" prefWidth="250.0" minWidth="250.0" maxWidth="250.0" styleClass="task-panel">
+        <HBox alignment="CENTER_LEFT" styleClass="task-panel-header">
+            <Label styleClass="task-panel-title" text="Tasks"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="taskCountLabel" styleClass="task-count" text="0"/>
+        </HBox>
+
+        <ScrollPane fx:id="taskScrollPane" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+            <VBox fx:id="taskContainer" spacing="6">
+                <padding>
+                    <Insets bottom="12" left="12" right="12" top="12"/>
+                </padding>
+            </VBox>
+        </ScrollPane>
+    </VBox>
+</HBox>

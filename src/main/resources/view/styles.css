@@ -1,0 +1,199 @@
+/*
+ * Styling for the Alice GUI.
+ *
+ * Keeping the look here rather than in setStyle() calls inside DialogBox
+ * means the colours and spacing can be adjusted without touching (or
+ * recompiling) any Java, and every bubble is guaranteed to stay
+ * consistent because they all share the same class definitions.
+ */
+
+/* ---------- palette ----------
+   background   #1e1f22   window
+   surface      #2b2d31   Alice's bubbles, text field
+   accent       #4a90e2   the user's bubbles and the send button
+   danger       #ff9b9b   error text, on a dark red ground
+   ------------------------------ */
+
+.root {
+    -fx-background-color: #1e1f22;
+    -fx-font-family: "Segoe UI", "SF Pro Text", "Helvetica Neue", sans-serif;
+    -fx-font-size: 13px;
+}
+
+/* The scroll pane and its viewport default to a light grey, which would
+   sit as a pale rectangle on top of the dark window. */
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* ---------- conversation bubbles ---------- */
+
+.bubble {
+    -fx-background-radius: 14;
+    -fx-padding: 8 12 8 12;
+    -fx-line-spacing: 2;
+}
+
+.bubble-user {
+    -fx-background-color: #4a90e2;
+    -fx-text-fill: #ffffff;
+}
+
+.bubble-alice {
+    -fx-background-color: #2b2d31;
+    -fx-text-fill: #e6e6e8;
+}
+
+/* Errors get their own ground and a border, so a mistake is obvious at a
+   glance rather than reading as just another reply. */
+.bubble-error {
+    -fx-background-color: #3a1e21;
+    -fx-text-fill: #ff9b9b;
+    -fx-border-color: #8c2f2f;
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+}
+
+/* ---------- input bar ---------- */
+
+.input-bar {
+    -fx-background-color: #191a1d;
+    -fx-padding: 10;
+    -fx-spacing: 8;
+    -fx-border-color: #2b2d31;
+    -fx-border-width: 1 0 0 0;
+}
+
+.text-field {
+    -fx-background-color: #2b2d31;
+    -fx-text-fill: #e6e6e8;
+    -fx-prompt-text-fill: #7a7d85;
+    -fx-background-radius: 10;
+    -fx-border-color: #3a3d44;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-padding: 9 12 9 12;
+}
+
+.text-field:focused {
+    -fx-border-color: #4a90e2;
+}
+
+.send-button {
+    -fx-background-color: #4a90e2;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 9 18 9 18;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: #5b9ce6;
+}
+
+.send-button:pressed {
+    -fx-background-color: #3d7fcc;
+}
+
+.text-field:disabled,
+.send-button:disabled {
+    -fx-opacity: 0.45;
+}
+
+/* ---------- scrollbar ---------- */
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-padding: 0 2 0 2;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #3a3d44;
+    -fx-background-radius: 6;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #4a4e57;
+}
+
+/* The default arrow buttons add clutter and eat vertical space. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 0;
+    -fx-pref-height: 0;
+}
+
+/* ---------- task side panel ---------- */
+
+.task-panel {
+    -fx-background-color: #191a1d;
+    -fx-border-color: #2b2d31;
+    -fx-border-width: 0 0 0 1;
+}
+
+.task-panel-header {
+    -fx-padding: 14 12 12 14;
+    -fx-border-color: #2b2d31;
+    -fx-border-width: 0 0 1 0;
+}
+
+.task-panel-title {
+    -fx-text-fill: #e6e6e8;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.task-count {
+    -fx-background-color: #2b2d31;
+    -fx-text-fill: #a8abb3;
+    -fx-background-radius: 10;
+    -fx-padding: 2 9 2 9;
+    -fx-font-size: 11px;
+}
+
+.task-row {
+    -fx-background-color: #202226;
+    -fx-background-radius: 10;
+    -fx-padding: 8 10 8 10;
+    -fx-spacing: 8;
+}
+
+.task-index {
+    -fx-text-fill: #7a7d85;
+    -fx-font-size: 11px;
+    -fx-min-width: 16;
+}
+
+.task-desc {
+    -fx-text-fill: #e6e6e8;
+}
+
+/* A completed task stays visible but clearly recedes. */
+.task-desc-done {
+    -fx-text-fill: #6f737b;
+    -fx-strikethrough: true;
+}
+
+.task-meta {
+    -fx-text-fill: #8a8d95;
+    -fx-font-size: 11px;
+}
+
+.task-empty {
+    -fx-text-fill: #6f737b;
+    -fx-font-size: 12px;
+    -fx-padding: 6 0 0 2;
+}

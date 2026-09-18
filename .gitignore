@@ -18,3 +18,9 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Files saved by the Claude desktop app
+/Claude outputs/
+
+# Runtime task data
+/data/
