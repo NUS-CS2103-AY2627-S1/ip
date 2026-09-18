@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="700.0" prefWidth="560.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="habi.MainWindow">
+    <top>
+        <VBox styleClass="app-header">
+            <padding>
+                <Insets bottom="15.0" left="22.0" right="22.0" top="18.0" />
+            </padding>
+            <children>
+                <Label styleClass="app-title" text="HABI" />
+                <Label styleClass="app-tagline" text="BUILD BETTER DAYS" />
+            </children>
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true"
+                    hbarPolicy="NEVER" styleClass="conversation-scroll"
+                    vbarPolicy="AS_NEEDED">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true" spacing="12.0"
+                      styleClass="dialog-container">
+                    <padding>
+                        <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <VBox spacing="8.0" styleClass="input-panel">
+            <padding>
+                <Insets bottom="13.0" left="18.0" right="18.0" top="13.0" />
+            </padding>
+            <children>
+                <HBox spacing="10.0">
+                    <children>
+                        <TextField fx:id="userInput" HBox.hgrow="ALWAYS"
+                                   onAction="#handleUserInput"
+                                   promptText="What do you want to do?"
+                                   styleClass="command-input" />
+                        <Button defaultButton="true" mnemonicParsing="false"
+                                onAction="#handleUserInput" styleClass="send-button"
+                                text="Send" />
+                    </children>
+                </HBox>
+                <Label styleClass="command-hint"
+                       text="todo · deadline · event · note · list · notes · find · mark · unmark · delete · delete-note · bye"
+                       wrapText="true" />
+            </children>
+        </VBox>
+    </bottom>
+</BorderPane>

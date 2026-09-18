@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI Test"
+  short_description: "Run and verify HABI console interactions."
+  default_prompt: "Use $test-ui to run the UI test plan for this project."
