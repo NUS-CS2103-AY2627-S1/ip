@@ -1,0 +1,7 @@
+interface:
+  display_name: "SEEDU Git Standard"
+  short_description: "Apply SEEDU Git commit conventions"
+  default_prompt: "Use $seedu-git-standard to review this commit message and branch name."
+
+policy:
+  allow_implicit_invocation: true
