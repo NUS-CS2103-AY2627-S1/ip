@@ -1,0 +1,95 @@
+plugins {
+    // Compiles src/main/java (Gradle's default Java layout, which this
+    // project already follows) and adds standard build/check tasks.
+    id 'java'
+    // Adds the 'run' task, so `./gradlew run` launches the app directly.
+    id 'application'
+    // Adds the 'shadowJar' task, which bundles the compiled classes and
+    // every dependency into one runnable "fat" jar (see A-Jar). This
+    // project currently has no runtime dependencies of its own, but the
+    // same task is what a user would run to produce a distributable jar
+    // regardless, and needs no extra configuration to do so correctly.
+    id 'com.gradleup.shadow' version '9.5.1'
+    // Adds the 'checkstyleMain'/'checkstyleTest' tasks, which check the
+    // code against config/checkstyle/checkstyle.xml (see A-Checkstyle).
+    id 'checkstyle'
+}
+
+checkstyle {
+    toolVersion = '14.1.0'
+}
+
+java {
+    toolchain {
+        // Matches this project's required Java version (see AGENTS.md).
+        // Gradle will use an installed JDK 25 if one is on this machine,
+        // or auto-provision one, rather than whatever JDK happens to be
+        // first on PATH.
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+application {
+    // Launches the JavaFX GUI (see Level-10). The original console UI
+    // remains fully usable by running bot.Bot directly (e.g. via the
+    // shadow jar, or `java -cp out bot.Bot` as test-ui does).
+    mainClass = 'bot.gui.Launcher'
+}
+
+tasks.named('run') {
+    // Bot is an interactive console program (it reads commands via
+    // Scanner(System.in)); without this, Gradle's 'run' task doesn't
+    // forward the terminal's/pipe's standard input to the child JVM at
+    // all, so the program would fail immediately on its first read.
+    standardInput = System.in
+}
+
+shadowJar {
+    // Without this, the Shadow plugin names the jar
+    // "ip-all.jar" (from settings.gradle's rootProject.name), which
+    // doesn't say what it actually is.
+    archiveFileName = 'bot.jar'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    // JavaFX (see Level-10). All three OS classifiers are needed so the
+    // build works regardless of which platform it's run on.
+    String javaFxVersion = '17.0.7'
+
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:linux")
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}

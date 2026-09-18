@@ -24,6 +24,13 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Java coding standard
+
+All Java code in this repository (new or edited) must follow the
+project's `seedu-java-coding-standard` skill. Load that skill before
+writing or reviewing any `.java` file, and check the code against it
+before considering a Java change complete.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
@@ -31,5 +38,20 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 ## Git
 
 Use lightweight tags unless the user requests an annotated tag.
-When proposing or creating a commit message, include enough detail to explain the rationale for the change.
+All commit messages (subject and body) must follow the project's
+`seedu-git-standard` skill - load it before proposing or creating any
+commit message.
 Do not commit or push unless explicitly asked.
+
+## Testing after code changes
+
+After any change to `src/main/java`:
+
+1. Update `test/ui-test-plan.md` if the change adds, removes, or alters
+   observable console behavior (new commands, changed output text or
+   formatting, etc.). Existing test cases should keep reflecting real,
+   currently-supported behavior.
+2. Invoke the `test-ui` skill to build the program and run the test cases
+   in `test/ui-test-plan.md` against it. If it reports a failure, fix the
+   issue (or the test case, if the expected behavior intentionally
+   changed) before considering the change complete.

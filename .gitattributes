@@ -1,0 +1,6 @@
+* text eol=lf
+
+# Preserve image bytes exactly; images must not receive line-ending conversion.
+*.png binary
+
+*.bat text eol=crlf

@@ -1,0 +1,104 @@
+.app-shell {
+    -fx-background-color: linear-gradient(to bottom right, #e0f2fe, #f8fafc 48%, #ede9fe);
+    -fx-font-family: "Segoe UI";
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-padding: 10px 0;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.identity-card {
+    -fx-padding: 10px 14px;
+    -fx-background-color: linear-gradient(to bottom right, #ffffff, #e0e7ff);
+    -fx-background-radius: 16px;
+    -fx-border-color: #c7d2fe;
+    -fx-border-radius: 16px;
+    -fx-effect: dropshadow(gaussian, #94a3b8, 10, 0.22, 0, 4);
+}
+
+.header-avatar {
+    -fx-effect: dropshadow(gaussian, #64748b, 5, 0.3, 0, 2);
+}
+
+.identity-name {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #312e81;
+}
+
+.identity-subtitle {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #475569;
+}
+
+.identity-status {
+    -fx-font-size: 11px;
+    -fx-text-fill: #64748b;
+}
+
+.message-row {
+    -fx-background-radius: 12;
+}
+
+.user-message { -fx-alignment: center-right; }
+.bot-message { -fx-alignment: center-left; }
+
+.message-row .label {
+    -fx-font-size: 14px;
+    -fx-padding: 9px 12px;
+    -fx-background-radius: 12px;
+}
+
+.message-row .image-view {
+    -fx-effect: dropshadow(gaussian, #94a3b8, 3, 0.2, 0, 1);
+}
+
+.user-message .label {
+    -fx-background-color: #dbeafe;
+    -fx-text-fill: #16324f;
+}
+
+.user-message .image-view {
+    -fx-border-color: #60a5fa;
+    -fx-border-width: 2px;
+    -fx-border-radius: 16px;
+}
+
+.bot-message .label {
+    -fx-background-color: white;
+    -fx-text-fill: #243447;
+}
+
+.bot-message .image-view {
+    -fx-border-color: #8b5cf6;
+    -fx-border-width: 2px;
+    -fx-border-radius: 16px;
+}
+
+.error-message .label {
+    -fx-background-color: #fee2e2;
+    -fx-text-fill: #991b1b;
+    -fx-border-color: #fca5a5;
+    -fx-border-radius: 12px;
+}
+
+.text-field {
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #cbd5e1;
+    -fx-padding: 9px;
+}
+
+.button {
+    -fx-background-color: #2563eb;
+    -fx-background-radius: 10px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
