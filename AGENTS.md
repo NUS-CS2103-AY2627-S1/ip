@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Amateur
+* IDE and level of expertise: Amateur
 
 # Guidance for interacting with users
 
@@ -24,9 +24,25 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Java coding standard:
+
+All Java code in this project must follow the project-specific [seedu-java-coding-standard](/Users/tat/NUS/ip/.codex/skills/seedu-java-coding-standard/SKILL.md), based on the SE-EDU basic + intermediate Java coding standard. Apply it to new code and when modifying existing code.
+
+## Git standard:
+
+All future commits and branch names must follow the project-specific [seedu-git-standard](/Users/tat/NUS/ip/.codex/skills/seedu-git-standard/SKILL.md), based on the SE-EDU Git conventions. Do not commit or push unless explicitly asked.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+
+## UI regression testing
+
+After every code update, review `test/ui-test-plan.md` and update it when the UI behaviour or its test coverage has changed. Then invoke the project-local `$test-ui` skill to run the plan. Record the resulting console session in `test/ui-test-session.md`; if a test fails, stop at that failure and report the expected and actual output before making further changes.
+
+## JUnit test coverage
+
+Maintain JUnit tests for at least the top 50% of the highest-value methods, prioritising complex, core, and critical business logic. After every code change, review the relevant JUnit tests and add or update them as needed to keep this coverage target satisfied. Run the Java 25 test suite after test changes and code changes.
 
 ## Git
 

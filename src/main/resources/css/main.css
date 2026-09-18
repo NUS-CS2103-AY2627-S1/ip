@@ -1,0 +1,47 @@
+.root {
+    -fx-background-color: #0d47a1;
+    -fx-background-image: url("../images/background.png");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-font-family: "System";
+}
+
+
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #d7dce5;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-font-size: 13px;
+    -fx-padding: 9px;
+}
+
+.button {
+    -fx-background-color: #3f51b5;
+    -fx-background-radius: 8px;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #303f9f;
+}
+
+.button:pressed {
+    -fx-background-color: #283593;
+}
+
+.scroll-pane { -fx-background-color: transparent; -fx-padding: 4px; }
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb { -fx-background-color: #b9c0cf; -fx-background-radius: 1em; }
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0; -fx-opacity: 0;
+}

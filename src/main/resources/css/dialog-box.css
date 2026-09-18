@@ -1,0 +1,54 @@
+.user-message, .bot-message { -fx-alignment: TOP_LEFT; }
+.user-message { -fx-alignment: TOP_RIGHT; }
+
+.label { -fx-font-size: 13px; -fx-text-fill: #111827; -fx-wrap-text: true; }
+.bot-name, .user-name {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.bot-name { -fx-text-fill: #0d47a1; }
+.user-name { -fx-text-fill: #0d47a1; -fx-alignment: center-right; }
+
+.user-message .message-content {
+    -fx-alignment: TOP_RIGHT;
+    -fx-padding: 0 6px 0 0;
+}
+
+.bot-message .message-content {
+    -fx-alignment: TOP_LEFT;
+    -fx-padding: 0 0 0 6px;
+}
+
+.user-label {
+    -fx-background-color: #1976d2;
+    -fx-background-radius: 12px 12px 2px 12px;
+    -fx-padding: 7px 10px;
+}
+
+
+.reply-label { -fx-background-color: white; -fx-background-radius: 12px 12px 12px 2px;
+    -fx-border-color: #0d47a1; -fx-border-radius: 12px 12px 12px 2px; -fx-border-width: 1px;
+    -fx-padding: 8px 10px; }
+
+.error-label { -fx-background-color: #ffebee; -fx-border-color: #c62828; -fx-text-fill: #8b1e1e; }
+
+.add-label {
+    -fx-background-color: yellow;
+}
+
+.marked-label {
+    -fx-background-color: palegreen;
+}
+
+.delete-label {
+    -fx-background-color: lightpink;
+}
+
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 3, 0.2, 0, 1);
+
+    /* Change size of image. */
+}
