@@ -1,0 +1,73 @@
+.root {
+    main-color: #070709;
+    line-color: #eceae6;
+    -fx-background-color: main-color;
+}
+
+.text-field {
+    -fx-background-color: #141418;
+    -fx-text-fill: #eceae6;
+    -fx-prompt-text-fill: #6e6a64;
+    -fx-font: 14px "Georgia";
+    -fx-background-radius: 4px;
+    -fx-border-width: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-highlight-fill: #2e2e38;
+    -fx-highlight-text-fill: #eceae6;
+    -fx-padding: 8px 10px;
+}
+
+.text-field:focused {
+    -fx-background-color: #1a1a20;
+}
+
+.button {
+    -fx-background-color: #141418;
+    -fx-text-fill: line-color;
+    -fx-font: bold 14px "Georgia";
+    -fx-background-radius: 4px;
+    -fx-border-width: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: line-color;
+    -fx-text-fill: #070709;
+}
+
+.button:pressed {
+    -fx-background-color: #2a2a32;
+    -fx-text-fill: line-color;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #2a2a32;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #eceae6;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #0c0c10;
+}

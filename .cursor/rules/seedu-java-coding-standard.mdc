@@ -1,0 +1,10 @@
+---
+description: Mandate SE-EDU Java coding standard for all Java in this project
+alwaysApply: true
+---
+
+# Java coding standard
+
+Follow the **seedu-java-coding-standard** skill for every Java change.
+
+Read `.github/skills/seedu-java-coding-standard/SKILL.md` (or `.cursor/skills/seedu-java-coding-standard/SKILL.md`) before writing or editing Java. Apply it to production and test code. Do not skip it for small or generated changes.

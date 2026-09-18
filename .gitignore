@@ -7,11 +7,16 @@
 /.gradle/
 /build/
 src/main/resources/docs/
+# Compiled java files
+*.class
 
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
 bin/
+
+# Runtime task save file
+/data/
 
 # Temp files
 _temp/

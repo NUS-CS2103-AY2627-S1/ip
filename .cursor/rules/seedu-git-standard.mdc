@@ -1,0 +1,10 @@
+---
+description: Mandate SE-EDU Git conventions for commits and branch names
+alwaysApply: true
+---
+
+# Git conventions
+
+Follow the **seedu-git-standard** skill for every commit message and branch name.
+
+Read `.github/skills/seedu-git-standard/SKILL.md` (or `.cursor/skills/seedu-git-standard/SKILL.md`) before writing a commit message or creating a branch. Do not commit or push unless the user explicitly asks.

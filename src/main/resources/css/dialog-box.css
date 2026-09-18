@@ -1,0 +1,31 @@
+.label {
+    -fx-background-color: #22222a;
+    -fx-text-fill: #eceae6;
+    -fx-border-width: 0;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-padding: 8px 10px;
+    -fx-font: 14px "Georgia";
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.55), 12, 0.25, 0, 3);
+}
+
+.reply-label {
+    -fx-background-color: #12121a;
+    -fx-text-fill: #f3efe4;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 14, 0.3, 0, 4);
+}
+
+.list-label {
+    -fx-font: 13px "Menlo";
+    -fx-font-family: "Menlo", "Consolas", "Courier New", monospace;
+    -fx-font-size: 13px;
+}
+
+.error-label {
+    -fx-background-color: #3a181c;
+    -fx-text-fill: #f3efe4;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 16, 0.4, 0, 4);
+}

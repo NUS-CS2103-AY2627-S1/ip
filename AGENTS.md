@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Some SWE Experience developing software for NUS, CVWO
+* IDE and level of expertise: VS Code, Cursor
 
 # Guidance for interacting with users
 
@@ -24,12 +24,21 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
-## Java version:
+## Java version: 25.0.3.fx-zulu
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
-## Git
+## Java coding standard (mandatory)
+
+Follow the **seedu-java-coding-standard** skill for **all Java code** in this project (production and tests).
+
+Read and apply `.github/skills/seedu-java-coding-standard/SKILL.md` (same content at `.cursor/skills/seedu-java-coding-standard/SKILL.md`) before writing, editing, reviewing, or generating Java. Do not skip it for small, generated, or "obvious" changes. Source: [SE Education Java coding standard](https://se-education.org/guides/conventions/java/intermediate.html).
+
+## Git (mandatory)
+
+Follow the **seedu-git-standard** skill for **all future commits** and branch names.
+
+Read and apply `.github/skills/seedu-git-standard/SKILL.md` (same content at `.cursor/skills/seedu-git-standard/SKILL.md`) whenever creating a commit message or branch. Source: [SE Education Git conventions](https://se-education.org/guides/conventions/git.html).
 
 Use lightweight tags unless the user requests an annotated tag.
-When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
