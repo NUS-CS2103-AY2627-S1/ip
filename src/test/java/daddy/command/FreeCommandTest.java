@@ -31,8 +31,8 @@ class FreeCommandTest {
         command.execute(new TaskList(), new Ui(output::add), null);
 
         assertEquals(List.of(
-                " Daddy found you some breathing room:",
+                " Daddy found you a recovery window:",
                 "   Mon, 14 Sep 2026, 10:16\u201314:16",
-                " That's a 4-hour slot. Guard it with your life, little one."), output);
+                " That's a 4-hour slot. Protect it, then get back to the mission."), output);
     }
 }

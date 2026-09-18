@@ -61,14 +61,14 @@ public class Parser {
             case FIND -> parseFindCommand(arguments);
             case FREE -> parseFreeCommand(arguments);
             case MARK_MISSING_ARGUMENT -> throw new DaddyException(
-                    "MARK?! Mark what... Try: mark 1 (after adding a task first).");
+                    "MARK what, my friend? Give Daddy a task number. Try: mark 1.");
             case UNMARK_MISSING_ARGUMENT -> throw new DaddyException(
-                    "UNMARK?! Unmark what... Try: unmark 1 (after adding a task first).");
+                    "UNMARK what, my friend? Give Daddy a task number. Try: unmark 1.");
             case DELETE_MISSING_ARGUMENT -> throw new DaddyException(
-                    "DELETE?! Delete what... Try: delete 1 (choose a task number first).");
+                    "DELETE what, my friend? Choose a task number. Try: delete 1.");
             case FIND_MISSING_ARGUMENT -> throw new DaddyException(
-                    "FIND?! Find what... Try: find book.");
-            case UNKNOWN -> throw new DaddyException("Daddy has no clue what '" + input
+                    "FIND what, my friend? Give Daddy a keyword. Try: find book.");
+            case UNKNOWN -> throw new DaddyException("Easy, my friend—Daddy doesn't know what '" + input
                     + "' means. Try todo, deadline, event, list, find, free, mark, unmark, delete, or bye.");
         };
     }
@@ -147,7 +147,8 @@ public class Parser {
         try {
             return LocalDate.parse(dateText, DATE_FORMAT);
         } catch (DateTimeParseException exception) {
-            throw new DaddyException("That date needs dd-MM-yyyy format. Try: list on 02-12-2019");
+            throw new DaddyException("Keep the date clean, my friend: use dd-MM-yyyy. "
+                    + "Try: list on 02-12-2019");
         }
     }
 
@@ -163,7 +164,8 @@ public class Parser {
         try {
             return Integer.parseInt(taskNumber) - 1;
         } catch (NumberFormatException exception) {
-            throw new DaddyException("'" + taskNumber + "' is not a task number. Try " + command + " 1, for example.");
+            throw new DaddyException("'" + taskNumber + "' is not a task number, my friend. "
+                    + "Try: " + command + " 1.");
         }
     }
 
@@ -231,7 +233,7 @@ public class Parser {
      */
     private Command parseFindCommand(String keyword) throws DaddyException {
         if (keyword.isEmpty()) {
-            throw new DaddyException("FIND?! Find what... Try: find book.");
+            throw new DaddyException("FIND what, my friend? Give Daddy a keyword. Try: find book.");
         }
         return new FindCommand(keyword);
     }
@@ -245,28 +247,31 @@ public class Parser {
      */
     private Command parseFreeCommand(String durationText) throws DaddyException {
         if (durationText.isEmpty()) {
-            throw new DaddyException("FREE?! Free for how long? Try: free 4h.");
+            throw new DaddyException("FREE for how long, my friend? Give Daddy a duration. Try: free 4h.");
         }
 
         Matcher matcher = FREE_DURATION_FORMAT.matcher(durationText);
         if (!matcher.matches()) {
-            throw new DaddyException("Use a whole-number duration ending in h or m. Try: free 4h or free 90m.");
+            throw new DaddyException("Keep it simple, my friend: use a whole number ending in h or m. "
+                    + "Try: free 4h or free 90m.");
         }
 
         try {
             long amount = Long.parseLong(matcher.group(1));
             if (amount == 0) {
-                throw new DaddyException("Free time must be longer than zero. Try: free 4h.");
+                throw new DaddyException("A zero-minute break will not help you recover, my friend. "
+                        + "Try: free 4h.");
             }
             Duration duration = matcher.group(2).equalsIgnoreCase("h")
                     ? Duration.ofHours(amount) : Duration.ofMinutes(amount);
             if (duration.compareTo(MAX_FREE_DURATION) > 0) {
-                throw new DaddyException("Daddy's workday runs from 09:00 to 18:00, "
-                        + "so one free slot cannot exceed 9 hours.");
+                throw new DaddyException("Daddy's workday runs from 09:00 to 18:00, my friend. "
+                        + "Keep the free slot at 9 hours or less.");
             }
             return new FreeCommand(duration);
         } catch (NumberFormatException | ArithmeticException exception) {
-            throw new DaddyException("That duration is too large. Try something smaller, such as: free 4h.");
+            throw new DaddyException("That duration is too large, my friend. "
+                    + "Try something smaller, such as: free 4h.");
         }
     }
 
@@ -296,8 +301,8 @@ public class Parser {
      */
     private Task parseTodo(String description) throws DaddyException {
         if (description.isEmpty()) {
-            throw new DaddyException("Hmm, what are you thinking of doing today? You need a description "
-                    + "for that. Try: todo borrow book.");
+            throw new DaddyException("No plan, no progress, my friend. Tell Daddy what needs doing. "
+                    + "Try: todo borrow book.");
         }
         return new Todo(description);
     }
@@ -314,17 +319,18 @@ public class Parser {
         String description = byIndex >= 0 ? taskDetails.substring(0, byIndex).trim() : taskDetails;
         String deadline = byIndex >= 0 ? taskDetails.substring(byIndex + 5).trim() : "";
         if (description.isEmpty()) {
-            throw new DaddyException("What deadlines are coming up? Better hurry, add them and get them "
-                    + "done ASAP. Try: deadline return book /by Sunday.");
+            throw new DaddyException("Deadlines do not lift themselves, my friend. Name the task. "
+                    + "Try: deadline return book /by 02-12-2019.");
         }
         if (deadline.isEmpty()) {
-            throw new DaddyException("A deadline needs a /by date or time. Try: deadline return book /by Sunday");
+            throw new DaddyException("A deadline needs a /by date or time, my friend. "
+                    + "Try: deadline return book /by 02-12-2019.");
         }
         try {
             return new Deadline(description, parseDateTime(deadline));
         } catch (DateTimeParseException exception) {
-            throw new DaddyException("That deadline date needs dd-MM-yyyy or dd-MM-yyyy HHmm format. "
-                    + "Try: deadline return book /by 02-12-2019 1800");
+            throw new DaddyException("Keep the deadline date clean, my friend: use dd-MM-yyyy or "
+                    + "dd-MM-yyyy HHmm. Try: deadline return book /by 02-12-2019 1800.");
         }
     }
 
@@ -343,24 +349,25 @@ public class Parser {
                 ? taskDetails.substring(fromIndex + 7, toIndex).trim() : "";
         String to = toIndex >= 0 ? taskDetails.substring(toIndex + 5).trim() : "";
         if (description.isEmpty()) {
-            throw new DaddyException("What exciting event are you planning? Give it a name so Daddy can "
-                    + "keep track. Try: event meeting /from Mon 2pm /to 4pm.");
+            throw new DaddyException("Give the event a name, my friend, so Daddy can track it. "
+                    + "Try: event meeting /from 02-12-2019 1400 /to 02-12-2019 1600.");
         }
         if (from.isEmpty() || to.isEmpty()) {
-            throw new DaddyException("An event needs both /from and /to times. "
-                    + "Try: event meeting /from Mon 2pm /to 4pm");
+            throw new DaddyException("An event needs both /from and /to times, my friend. "
+                    + "Try: event meeting /from 02-12-2019 1400 /to 02-12-2019 1600.");
         }
         try {
             LocalDateTime startDateTime = parseDateTime(from);
             LocalDateTime endDateTime = parseDateTime(to);
             if (!endDateTime.isAfter(startDateTime)) {
-                throw new DaddyException("An event must end after it starts. "
-                        + "Try: event meeting /from 02-12-2019 1400 /to 02-12-2019 1600");
+                throw new DaddyException("Time only moves forward, my friend. The event must end after "
+                        + "it starts. Try: event meeting /from 02-12-2019 1400 /to 02-12-2019 1600.");
             }
             return new Event(description, startDateTime, endDateTime);
         } catch (DateTimeParseException exception) {
-            throw new DaddyException("Event times need dd-MM-yyyy or dd-MM-yyyy HHmm format. "
-                    + "Try: event meeting /from 02-12-2019 1400 /to 02-12-2019 1600");
+            throw new DaddyException("Keep event times clean, my friend: use dd-MM-yyyy or "
+                    + "dd-MM-yyyy HHmm. Try: event meeting /from 02-12-2019 1400 "
+                    + "/to 02-12-2019 1600.");
         }
     }
 

@@ -1,6 +1,8 @@
 # Daddy User Guide
 
-Daddy is a task manager that accepts commands through its command-line or JavaFX chat interface.
+Daddy is a task manager that accepts commands through its command-line or JavaFX chat interface. Its supportive,
+straight-talking coach personality keeps you accountable with a friendly "my friend," celebrates progress, and
+turns mistakes into specific advice for the next attempt.
 
 ## Finding the earliest free time
 
@@ -28,9 +30,9 @@ Daddy searches using these rules:
 For example, Daddy can respond with:
 
 ```text
-Daddy found you some breathing room:
+Daddy found you a recovery window:
   Mon, 14 Sep 2026, 09:00–13:00
-That's a 4-hour slot. Guard it with your life, little one.
+That's a 4-hour slot. Protect it, then get back to the mission.
 ```
 
 Finding a free time does not add, remove, mark, or otherwise modify any task.

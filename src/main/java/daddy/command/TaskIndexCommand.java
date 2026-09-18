@@ -37,7 +37,8 @@ public abstract class TaskIndexCommand extends Command {
     protected void ensureTaskExists(TaskList tasks) throws DaddyException {
         if (!tasks.hasTaskAt(taskIndex)) {
             throw new DaddyException(
-                    "That task number is out of range. Pick a number from 1 to " + tasks.size() + ".");
+                    "That task number is out of range, my friend. Pick a number from 1 to "
+                            + tasks.size() + ".");
         }
     }
 }

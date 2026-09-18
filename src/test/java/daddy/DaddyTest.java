@@ -34,13 +34,13 @@ class DaddyTest {
         String addResponse = daddy.getResponse("todo read book");
         String listResponse = daddy.getResponse("list");
 
-        assertTrue(addResponse.contains("Got it. I've added this task:"));
+        assertTrue(addResponse.contains("Good. The plan just got stronger:"));
         assertTrue(listResponse.contains("1.[T][ ] read book"));
         assertFalse(daddy.isExitRequested());
 
         String exitResponse = daddy.getResponse("bye");
 
-        assertTrue(exitResponse.contains("Bye. See you soon :)"));
+        assertTrue(exitResponse.contains("Go make Daddy proud, my friend. See you soon."));
         assertTrue(daddy.isExitRequested());
     }
 
@@ -53,8 +53,8 @@ class DaddyTest {
 
         String welcomeMessage = daddy.getWelcomeMessage();
 
-        assertTrue(welcomeMessage.contains("Hello, little one."));
-        assertTrue(welcomeMessage.contains("What can I assist you with today ;)?"));
+        assertTrue(welcomeMessage.contains("Hello, my friend."));
+        assertTrue(welcomeMessage.contains("Big dreams require big actions."));
         assertFalse(welcomeMessage.contains("____"));
         assertFalse(welcomeMessage.contains("|  _"));
     }
