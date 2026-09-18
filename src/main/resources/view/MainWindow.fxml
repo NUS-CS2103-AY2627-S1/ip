@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Ellipse?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.Group?>
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:id="window" fx:controller="rem.ui.MainWindow" prefWidth="560" prefHeight="720"
+            stylesheets="@../css/main.css">
+    <top>
+        <HBox styleClass="header" spacing="12" alignment="CENTER_LEFT">
+            <StackPane minWidth="40" maxWidth="40">
+            <ImageView fx:id="portrait" fitWidth="40" fitHeight="40" accessibleText="RemBot portrait">
+                <image><Image url="@../images/rem.jpeg"/></image>
+                <clip><Circle centerX="20" centerY="20" radius="20"/></clip>
+            </ImageView>
+                <Label fx:id="sleepIndicator" text="zZ" visible="false" mouseTransparent="true"
+                       styleClass="sleep-indicator" accessibleText="Napping"/>
+            </StackPane>
+            <VBox spacing="2">
+                <Label text="RemBot" styleClass="title"/>
+                <Label text="A little help, then back to sleep..." styleClass="subtitle" wrapText="true"/>
+            </VBox>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER">
+            <content><VBox fx:id="dialogContainer" spacing="12" styleClass="conversation"/></content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <VBox spacing="8" styleClass="composer">
+            <HBox fx:id="emptyState" spacing="10" alignment="CENTER_LEFT" styleClass="empty-state">
+                <Group accessibleText="A little helper in a blue sleeping cap">
+                    <Ellipse centerX="24" centerY="31" radiusX="19" radiusY="15" fill="#151d2c"/>
+                    <Polygon points="6,26,3,8,18,20" fill="#151d2c"/>
+                    <Polygon points="31,20,46,8,42,28" fill="#151d2c"/>
+                    <Polygon points="14,20,25,1,35,20" fill="#9fc9ed"/>
+                    <Circle centerX="17" centerY="30" radius="5" fill="#d8fff8"/>
+                    <Circle centerX="31" centerY="30" radius="5" fill="#d8fff8"/>
+                    <Ellipse centerX="14" centerY="46" radiusX="7" radiusY="3" fill="#151d2c"/>
+                    <Ellipse centerX="34" centerY="46" radiusX="7" radiusY="3" fill="#151d2c"/>
+                </Group>
+                <Label text="No tasks yet. Got something for us to do?" wrapText="true" styleClass="helper-caption"/>
+            </HBox>
+            <Label text="Try: todo read book · list · find book · bye · &#8593;/&#8595; history"
+                   styleClass="subtitle" wrapText="true"/>
+            <HBox spacing="10">
+                <TextField fx:id="userInput" promptText="Got a task for us?"
+                           HBox.hgrow="ALWAYS" onAction="#handleUserInput"/>
+                <Button fx:id="sendButton" text="Send" onAction="#handleUserInput"/>
+            </HBox>
+        </VBox>
+    </bottom>
+</BorderPane>

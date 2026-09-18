@@ -1,0 +1,55 @@
+.root {
+    -fx-background-color: black;
+    -fx-background-image: url("../images/rem_background.png");
+    -fx-background-size: cover;
+    -fx-background-position: right bottom;
+    -fx-background-repeat: no-repeat;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+}
+.header { -fx-padding: 16 20; -fx-background-color: rgba(12, 13, 22, 0.85); }
+.title { -fx-text-fill: white; -fx-font-size: 21px; -fx-font-weight: bold; }
+.subtitle { -fx-text-fill: #a7abb8; -fx-font-size: 12px; }
+.conversation { -fx-padding: 18 18 26 18; -fx-background-color: transparent; }
+.scroll-pane { -fx-background-color: transparent; }
+.scroll-pane > .viewport { -fx-background-color: rgba(12, 13, 22, 0.48); }
+.scroll-pane { -fx-padding: 0; -fx-background-insets: 0; }
+.message {
+    -fx-background-color: #202331;
+    -fx-background-radius: 12;
+    -fx-padding: 12 15;
+    -fx-text-fill: #f2f3fa;
+}
+.message .label { -fx-text-fill: #f2f3fa; }
+.user-message { -fx-background-color: #294255; -fx-padding: 8 13; }
+.error-message {
+    -fx-background-color: #38212a;
+    -fx-border-color: #98515f #98515f #98515f #ec8c9a;
+    -fx-border-width: 1 1 1 4;
+    -fx-border-radius: 12;
+}
+.error-message .error-heading { -fx-text-fill: #ffc1cb; -fx-font-weight: bold; }
+.composer { -fx-padding: 12 18 17 18; -fx-background-color: rgba(12, 13, 22, 0.85); }
+.text-field {
+    -fx-background-color: #17181e;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #9699a8;
+    -fx-background-radius: 12;
+    -fx-padding: 12;
+}
+.text-field:focused { -fx-border-color: #8de0d4; -fx-border-radius: 12; }
+.button {
+    -fx-background-color: #a8ceed;
+    -fx-text-fill: #151420;
+    -fx-background-radius: 12;
+    -fx-padding: 12 18;
+    -fx-cursor: hand;
+}
+.button:hover { -fx-background-color: #c7e7fa; }
+.button:pressed { -fx-background-color: #80b2d8; }
+.sleep-indicator { -fx-text-fill: #d8fff8; -fx-font-size: 20px; -fx-font-weight: bold; }
+.empty-state { -fx-padding: 0 0 4 0; }
+.helper-caption { -fx-text-fill: #bed7e9; -fx-font-size: 13px; }
+.scroll-bar:vertical { -fx-background-color: black; }
+.scroll-bar .thumb { -fx-background-color: #444451; -fx-background-radius: 8; }
+.scroll-bar .increment-button, .scroll-bar .decrement-button { -fx-background-color: black; }

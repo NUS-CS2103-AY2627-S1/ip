@@ -1,25 +1,110 @@
-# Duke project template
+# RemBot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+RemBot is a desktop task manager with a chat-style interface. Its assistant, Rem, can track todos,
+deadlines, events, and notes using short text commands.
 
-## Setting up in Intellij
+![RemBot graphical interface](docs/Ui.png)
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+## Features
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+- Create todos, deadlines, and events.
+- Mark, unmark, and delete tasks.
+- Attach notes to tasks.
+- Search by keyword or view scheduled tasks by date.
+- Recall commands with the Up and Down arrow keys.
+- Save tasks automatically between sessions.
+- Recover from malformed saved data without overwriting the original file.
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+See the [User Guide](docs/README.md) for the full command reference and examples.
+
+## Running RemBot
+
+RemBot requires Java 25.
+
+Download `rembot.jar` from the [latest release](https://github.com/dygrik/ip/releases/latest), open a
+terminal in the download folder, and run:
+
+```text
+java -jar rembot.jar
+```
+
+The bundled JavaFX libraries support Windows, macOS, and Linux on x64 systems. Other architectures
+need matching JavaFX native libraries.
+
+## Quick start
+
+Enter commands in the text box and press Enter or select **Send**. For example:
+
+```text
+todo read book
+deadline submit report /by 2026-10-01 1800
+event project meeting /from 2026-10-02 1400 /to 2026-10-02 1500
+list
+mark 1
+find report
+on 2026-10-02
+bye
+```
+
+The main commands are:
+
+| Command | Purpose |
+| --- | --- |
+| `todo DESCRIPTION` | Add a todo |
+| `deadline DESCRIPTION /by DATE [TIME]` | Add a deadline |
+| `event DESCRIPTION /from DATE [TIME] /to DATE [TIME]` | Add an event |
+| `list` | Show all tasks |
+| `mark NUMBER` / `unmark NUMBER` | Change a task's completion status |
+| `delete NUMBER` | Delete a task |
+| `note NUMBER NOTE` / `deletenote NUMBER` | Add, replace, or remove a note |
+| `find KEYWORD` | Search task descriptions and notes |
+| `on DATE` | Show deadlines and events scheduled on a date |
+| `bye` | Close RemBot |
+
+Add `/note NOTE` to a `todo`, `deadline`, or `event` command to create the task with a note.
+
+## Saved data
+
+RemBot stores tasks in `data/rem.txt`, relative to the folder from which it is launched. If that file
+contains malformed data, RemBot offers to start with an empty list or exit. Choosing **Start Fresh**
+first copies the damaged data to a timestamped backup in the same folder.
+
+## Running from source
+
+Clone the repository and open its root directory in a terminal. On Windows, use:
+
+```powershell
+.\gradlew.bat run
+```
+
+On macOS or Linux, use:
+
+```bash
+./gradlew run
+```
+
+To run RemBot from IntelliJ IDEA, import the project as a Gradle project, select JDK 25, refresh
+Gradle, and run `rem.Launcher`.
+
+## Building and testing
+
+Run all automated tests and code-style checks:
+
+```powershell
+.\gradlew.bat check
+```
+
+Build the runnable JAR:
+
+```powershell
+.\gradlew.bat shadowJar
+```
+
+The JAR is written to `build/libs/rembot.jar`. Use `./gradlew` instead of `./gradlew.bat` on macOS
+or Linux.
+
+The console interface is also available for development and scripted testing:
+
+```powershell
+.\gradlew.bat runConsole
+```

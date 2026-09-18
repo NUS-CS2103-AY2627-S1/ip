@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<fx:root type="HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+         alignment="TOP_LEFT" minWidth="0">
+    <VBox fx:id="message" minWidth="0" styleClass="message" spacing="5">
+        <Label fx:id="errorHeading" text="&#9888; Error" styleClass="error-heading" wrapText="true"/>
+        <Label fx:id="dialog" wrapText="true" minWidth="0" maxWidth="Infinity"/>
+    </VBox>
+</fx:root>
