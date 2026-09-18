@@ -36,6 +36,9 @@ public abstract class TaskIndexCommand extends Command {
      */
     protected void ensureTaskExists(TaskList tasks) throws DaddyException {
         if (!tasks.hasTaskAt(taskIndex)) {
+            if (tasks.size() == 0) {
+                throw new DaddyException("Your task list is empty, my friend. Add a task first.");
+            }
             throw new DaddyException(
                     "That task number is out of range, my friend. Pick a number from 1 to "
                             + tasks.size() + ".");

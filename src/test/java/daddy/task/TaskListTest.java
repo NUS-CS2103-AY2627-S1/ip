@@ -33,6 +33,26 @@ class TaskListTest {
         assertEquals(List.of(firstTask, secondTask), asList(tasks));
     }
 
+    /** Verifies that duplicate detection uses task type, description, and type-specific date details. */
+    @Test
+    void containsEquivalentTask_sameAndDifferentDetails_returnsExpectedResult() {
+        TaskList tasks = new TaskList();
+        LocalDateTime deadline = LocalDateTime.of(2026, 12, 2, 18, 0);
+        LocalDateTime eventStart = LocalDateTime.of(2026, 12, 3, 14, 0);
+        Task todo = new Todo("Read Book");
+        Task deadlineTask = new Deadline("return book", deadline);
+        Task event = new Event("meeting", eventStart, eventStart.plusHours(2));
+        todo.markAsDone();
+        tasks.add(todo, deadlineTask, event);
+
+        assertTrue(tasks.containsEquivalentTask(new Todo("read book")));
+        assertTrue(tasks.containsEquivalentTask(new Deadline("RETURN BOOK", deadline)));
+        assertTrue(tasks.containsEquivalentTask(new Event("Meeting", eventStart, eventStart.plusHours(2))));
+        assertFalse(tasks.containsEquivalentTask(new Deadline("return book", deadline.plusDays(1))));
+        assertFalse(tasks.containsEquivalentTask(new Event("meeting", eventStart, eventStart.plusHours(3))));
+        assertFalse(tasks.containsEquivalentTask(new Todo("write book")));
+    }
+
     /**
      * Verifies that null values cannot break the task-list invariant.
      */

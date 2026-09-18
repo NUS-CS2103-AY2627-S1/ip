@@ -4,6 +4,23 @@ Daddy is a task manager that accepts commands through its command-line or JavaFX
 straight-talking coach personality keeps you accountable with a friendly "my friend," celebrates progress, and
 turns mistakes into specific advice for the next attempt.
 
+## Input and data safety
+
+Daddy accepts harmless leading, trailing, repeated, or tab whitespace in commands. It rejects malformed input
+without changing the task list and explains how to correct the command. In particular:
+
+- Dates and times must be real calendar values in the documented format; values such as `30-02-2026` are rejected.
+- A deadline accepts exactly one `/by` value.
+- An event accepts exactly one `/from` and one `/to` value, in that order, and must end after it starts.
+- Task descriptions cannot contain `|`, because that character separates fields in Daddy's data file.
+- A task with the same type, description, and date or time details cannot be added twice. Description matching is
+  case-insensitive for this duplicate check.
+
+It is normal for `data/daddy.txt` to be missing on the first run; Daddy creates it when the first task is saved.
+Malformed saved records are skipped while valid records still load. Daddy preserves the original file in a
+`.backup` file and places rejected records in a `.corrupt` file for repair. Permission and invalid-path problems
+are reported without crashing the application, and a failed save leaves the in-memory task list unchanged.
+
 ## Finding the earliest free time
 
 Use `free DURATION` to find the earliest working-hours slot that is long enough for you.

@@ -24,7 +24,12 @@ public class DeleteCommand extends TaskIndexCommand {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DaddyException {
         ensureTaskExists(tasks);
         Task removedTask = tasks.removeTaskAt(getTaskIndex());
-        storage.save(tasks);
+        try {
+            storage.save(tasks);
+        } catch (DaddyException exception) {
+            tasks.insert(getTaskIndex(), removedTask);
+            throw exception;
+        }
         ui.showTaskDeleted(removedTask, tasks.size());
     }
 }

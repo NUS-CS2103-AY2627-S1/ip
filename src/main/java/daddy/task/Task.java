@@ -29,6 +29,15 @@ public class Task {
      * @param type the kind of task being created
      */
     protected Task(String description, TaskType type) {
+        if (description == null || description.isBlank()) {
+            throw new IllegalArgumentException("task description must not be blank");
+        }
+        if (description.contains("|")) {
+            throw new IllegalArgumentException("task description must not contain the storage separator");
+        }
+        if (type == null) {
+            throw new IllegalArgumentException("task type must not be null");
+        }
         this.description = description;
         this.type = type;
         this.isDone = false;
@@ -76,6 +85,15 @@ public class Task {
     }
 
     /**
+     * Returns whether this task has been completed.
+     *
+     * @return whether the task is done
+     */
+    public boolean isDone() {
+        return isDone;
+    }
+
+    /**
      * Returns the marker used to identify this task type.
      *
      * @return an empty marker for a general task
@@ -91,6 +109,20 @@ public class Task {
      */
     public TaskType getType() {
         return type;
+    }
+
+    /**
+     * Returns whether another task has the same type and user-entered details.
+     *
+     * <p>Completion state is excluded because marking a task does not make it a different task.</p>
+     *
+     * @param other the task to compare
+     * @return whether both tasks represent the same work
+     */
+    public boolean hasSameDetailsAs(Task other) {
+        return other != null
+                && type == other.type
+                && description.equalsIgnoreCase(other.description);
     }
 
     /**

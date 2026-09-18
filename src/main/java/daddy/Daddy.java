@@ -120,6 +120,11 @@ public class Daddy {
      */
     private void runChatLoop(Ui ui) {
         while (!isExitRequested) {
+            if (!ui.hasNextCommand()) {
+                isExitRequested = true;
+                ui.showExit();
+                break;
+            }
             processCommand(ui.readCommand(), ui);
         }
         ui.close();

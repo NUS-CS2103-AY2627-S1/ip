@@ -22,6 +22,9 @@ public class Event extends Task {
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description, TaskType.EVENT);
+        if (from == null || to == null) {
+            throw new IllegalArgumentException("event times must not be null");
+        }
         if (!to.isAfter(from)) {
             throw new IllegalArgumentException("event end must be after event start");
         }
@@ -56,6 +59,20 @@ public class Event extends Task {
      */
     public LocalDateTime getTo() {
         return to;
+    }
+
+    /**
+     * Returns whether another task is an event with the same description and time range.
+     *
+     * @param other the task to compare
+     * @return whether both events represent the same scheduled work
+     */
+    @Override
+    public boolean hasSameDetailsAs(Task other) {
+        return super.hasSameDetailsAs(other)
+                && other instanceof Event otherEvent
+                && from.equals(otherEvent.from)
+                && to.equals(otherEvent.to);
     }
 
     /**

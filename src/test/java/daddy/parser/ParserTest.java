@@ -46,6 +46,23 @@ class ParserTest {
     }
 
     /**
+     * Verifies that harmless leading, trailing, repeated, and tab whitespace is normalized.
+     *
+     * @throws DaddyException if a normalized command is rejected
+     */
+    @Test
+    void parseCommand_irregularWhitespace_parsesNormalizedCommands() throws DaddyException {
+        Parser parser = new Parser();
+
+        assertInstanceOf(AddCommand.class, parser.parseCommand("  todo    read\tbook  "));
+        assertInstanceOf(AddCommand.class,
+                parser.parseCommand(" deadline  return book  /by  02-12-2026  1800 "));
+        assertInstanceOf(AddCommand.class,
+                parser.parseCommand(" event demo /from 02-12-2026 1400   /to 02-12-2026 1600 "));
+        assertInstanceOf(MarkCommand.class, parser.parseCommand("  mark   1 "));
+    }
+
+    /**
      * Verifies that incomplete status commands explain which task number is required.
      */
     @Test
@@ -90,6 +107,46 @@ class ParserTest {
         assertEquals("Easy, my friend—Daddy doesn't know what 'dance' means. "
                         + "Try todo, deadline, event, list, find, free, mark, unmark, delete, or bye.",
                 parseError(parser, "dance").getMessage());
+    }
+
+    /** Verifies that blank input, repeated parameters, and reserved characters receive specific corrections. */
+    @Test
+    void parseCommand_invalidStructure_reportsSpecificCorrection() {
+        Parser parser = new Parser();
+
+        assertEquals("Daddy needs a command, my friend. Try: todo read book.",
+                parseError(parser, "   ").getMessage());
+        assertEquals("Daddy needs a command, my friend. Try: todo read book.",
+                parseError(parser, null).getMessage());
+        assertEquals("LIST ON needs a date, my friend. Try: list on 02-12-2019.",
+                parseError(parser, "list on").getMessage());
+        assertEquals("A deadline accepts one /by value, my friend. "
+                        + "Try: deadline return book /by 02-12-2019.",
+                parseError(parser, "deadline report /by 02-12-2026 /by 03-12-2026").getMessage());
+        assertEquals("An event accepts one /from and one /to value, my friend. "
+                        + "Try: event meeting /from 02-12-2019 1400 /to 02-12-2019 1600.",
+                parseError(parser, "event demo /from 02-12-2026 1000 /from 02-12-2026 1100 "
+                        + "/to 02-12-2026 1200").getMessage());
+        assertEquals("Put /from before /to, my friend. "
+                        + "Try: event meeting /from 02-12-2019 1400 /to 02-12-2019 1600.",
+                parseError(parser, "event demo /to 02-12-2026 1200 /from 02-12-2026 1000").getMessage());
+        assertEquals("Task descriptions cannot contain '|', my friend. Replace it with a dash or a word.",
+                parseError(parser, "todo read|book").getMessage());
+    }
+
+    /** Verifies that impossible calendar values are rejected rather than adjusted to another date. */
+    @Test
+    void parseCommand_nonexistentDates_reportsFormatCorrection() {
+        Parser parser = new Parser();
+
+        assertEquals("Keep the date clean, my friend: use dd-MM-yyyy. Try: list on 02-12-2019",
+                parseError(parser, "list on 30-02-2026").getMessage());
+        assertEquals("Keep the deadline date clean, my friend: use dd-MM-yyyy or dd-MM-yyyy HHmm. "
+                        + "Try: deadline return book /by 02-12-2019 1800.",
+                parseError(parser, "deadline report /by 29-02-2025").getMessage());
+        assertEquals("Keep event times clean, my friend: use dd-MM-yyyy or dd-MM-yyyy HHmm. "
+                        + "Try: event meeting /from 02-12-2019 1400 /to 02-12-2019 1600.",
+                parseError(parser, "event demo /from 31-04-2026 1000 /to 31-04-2026 1200").getMessage());
     }
 
     /**
