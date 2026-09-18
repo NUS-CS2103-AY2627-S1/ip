@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- AI-assisted: most of this file was written with Claude Code (Claude Opus),
+     used by Ryan Chua, who reviewed and adapted the output. -->
+
+<!--
+    The chat window: a header naming Myriad, the task painter, over a stripe
+    in its four paints, then a scrolling transcript above an input row. The
+    layout is built from boxes rather than fixed pixel offsets, so it follows
+    the window as it is resized: the transcript takes every bit of height the
+    header and input row do not need (VBox.vgrow), and the text field takes
+    every bit of width the Paint button does not need (HBox.hgrow). The scroll pane is given a minimum
+    size of zero so that a long transcript is scrolled rather than allowed to
+    push the window larger.
+-->
+<VBox minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="400.0"
+      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="myriad.ui.MainWindow">
+    <children>
+        <HBox styleClass="header" alignment="BASELINE_LEFT" spacing="8.0">
+            <children>
+                <Label styleClass="header-title" text="Myriad" />
+                <Label styleClass="header-tagline" text="your task painter" />
+            </children>
+            <padding>
+                <Insets bottom="6.0" left="12.0" right="12.0" top="6.0" />
+            </padding>
+        </HBox>
+        <Region styleClass="paint-stripe" minHeight="4.0" prefHeight="4.0" maxHeight="4.0" />
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    focusTraversable="false"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED"
+                    minHeight="0.0"
+                    minWidth="0.0"
+                    VBox.vgrow="ALWAYS">
+            <content>
+                <VBox fx:id="dialogContainer" minWidth="0.0" spacing="4.0">
+                    <padding>
+                        <Insets bottom="6.0" top="6.0" />
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+        <HBox styleClass="input-row" spacing="6.0">
+            <children>
+                <TextField fx:id="userInput"
+                           onAction="#handleUserInput"
+                           promptText="Tell me what to paint, e.g. todo read book"
+                           prefHeight="36.0"
+                           HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton"
+                        mnemonicParsing="false"
+                        onAction="#handleUserInput"
+                        prefHeight="36.0"
+                        prefWidth="70.0"
+                        minWidth="70.0"
+                        text="Paint" />
+            </children>
+            <padding>
+                <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+            </padding>
+        </HBox>
+    </children>
+    <stylesheets>
+        <URL value="@../css/main.css" />
+    </stylesheets>
+</VBox>

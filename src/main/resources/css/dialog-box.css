@@ -1,0 +1,63 @@
+/* AI-assisted: most of this file was written with Claude Code (Claude Opus),
+   used by Ryan Chua, who reviewed and adapted the output. */
+
+/*
+ * One message bubble. This stylesheet is attached to the dialog box itself
+ * rather than to the whole scene, so the bare .label selector below reaches
+ * only the text inside a dialog box and not every Label in the application.
+ *
+ * .label is one of Myriad's replies. DialogBox adds one more class to mark a
+ * different kind of message, and that rule overrides only what differs:
+ * .user-label for what the user typed, .error-label for a rejected command,
+ * and .warning-label for a reply that needs noticing. Every selector is one
+ * class deep, so it is the order here that decides which wins — .label has to
+ * stay first.
+ */
+/* A reply is a sheet of white paper on the cream canvas, written in ink. */
+.label {
+    -fx-background-color: white;
+    -fx-text-fill: #2b2622;
+    -fx-font-size: 14px;
+    /* A little extra room between lines keeps long task lists easy to scan. */
+    -fx-line-spacing: 2px;
+    -fx-padding: 6px 10px 6px 10px;
+    -fx-border-color: #e6dccb;
+    -fx-border-width: 1px;
+    /* The blunt corner points at Myriad's picture, to the top left. */
+    -fx-background-radius: 2px 12px 12px 12px;
+    -fx-border-radius: 2px 12px 12px 12px;
+}
+
+/* The user's lines are in the avatar's blue paint, a shade deeper for contrast. */
+.user-label {
+    -fx-background-color: #1a7fbf;
+    -fx-text-fill: white;
+    -fx-border-color: #1a7fbf;
+    /* Mirrored: the user's side of the window is the right. */
+    -fx-background-radius: 12px 2px 12px 12px;
+    -fx-border-radius: 12px 2px 12px 12px;
+}
+
+/*
+ * An error reply, edged in the avatar's red paint. Colour alone would be
+ * missed by some colour-blind users, so the thick left edge marks an error too.
+ */
+.error-label {
+    -fx-background-color: #fdeced;
+    -fx-text-fill: #8a1c1c;
+    -fx-border-color: #f0bcbe #f0bcbe #f0bcbe #e0474e;
+    -fx-border-width: 1px 1px 1px 4px;
+}
+
+/* A warning, such as saved data that failed to load: the yellow paint, not red. */
+.warning-label {
+    -fx-background-color: #fffbd6;
+    -fx-text-fill: #5c4a00;
+    -fx-border-color: #eee08a #eee08a #eee08a #e0c400;
+    -fx-border-width: 1px 1px 1px 4px;
+}
+
+#displayPicture {
+    /* A faint shadow only, since a heavy one would crowd a 32px picture. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 3, 0, 0, 1);
+}

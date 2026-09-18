@@ -1,0 +1,132 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'jacoco'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+checkstyle {
+    // Rules live in config/checkstyle/checkstyle.xml, the location the plugin looks in by default.
+    toolVersion = '14.1.0'
+}
+
+jacoco {
+    // 0.8.14 is the first release that can instrument Java 25 class files.
+    toolVersion = '0.8.14'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+tasks.withType(JavaCompile).configureEach {
+    // Stated explicitly because Ui's banner uses box-drawing characters, which
+    // would be garbled by any build that fell back to a platform encoding.
+    options.encoding = 'UTF-8'
+    // Reports every warning javac knows about, not just the handful it shows by
+    // default, and fails the build on any of them so they cannot pile up unseen.
+    options.compilerArgs.addAll(['-Xlint:all', '-Werror'])
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javaFxVersion = '17.0.7'
+
+    // The platform-specific JavaFX jars are all declared so the project builds
+    // and runs on any of the three, without needing a --module-path.
+    // For macOS, only Apple Silicon (mac-aarch64) is bundled: its native
+    // libraries share file names with the Intel (mac) ones, so a single fat
+    // JAR can hold just one of the two, and Intel Macs are now rare.
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:mac-aarch64"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:mac-aarch64"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:mac-aarch64"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:mac-aarch64"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+
+    // The BOM fixes one version for every JUnit artifact below, including the
+    // platform launcher, whose 1.x numbering differs from Jupiter's 5.x.
+    testImplementation platform("org.junit:junit-bom:${jUnitVersion}")
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+
+    // Runs the tests as if on a Chinese-language computer, whatever language
+    // this machine uses. Any output that wrongly follows the machine's
+    // language, such as a month name, then fails the tests on every machine,
+    // including CI, instead of only on non-English ones.
+    systemProperty 'user.language', 'zh'
+    systemProperty 'user.country', 'CN'
+
+    // Runs the tests from a scratch folder inside build/, so a relative path
+    // used by a test (e.g. a data file with no folder in its name) is created
+    // there and removed by "gradlew clean", never beside the real data/ folder.
+    File testWorkingDir = layout.buildDirectory.dir('test-working-dir').get().asFile
+    workingDir = testWorkingDir
+    doFirst {
+        testWorkingDir.mkdirs()
+    }
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+
+    // Every test run also produces a coverage report, at
+    // build/reports/jacoco/test/html/index.html.
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+
+    reports {
+        html.required = true
+        // The XML form is what CI services and IDE plugins read.
+        xml.required = true
+    }
+}
+
+application {
+    // The GUI is the app; myriad.Myriad still has a main() for a console session.
+    mainClass = 'myriad.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'myriad.jar'
+}
+
+run {
+    standardInput = System.in
+    // The JVM ignores assert statements unless started with -ea; the test task already enables them.
+    enableAssertions = true
+}
