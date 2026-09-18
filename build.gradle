@@ -75,6 +75,9 @@ jar {
 
 shadowJar {
     archiveFileName = 'jason.jar'
+    manifest {
+        attributes 'Main-Class': 'jason.gui.GuiLauncher'
+    }
 }
 
 run {
