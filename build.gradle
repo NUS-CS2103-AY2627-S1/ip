@@ -1,0 +1,83 @@
+plugins {
+    id 'java'
+    id 'checkstyle'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+checkstyle {
+    // Matches the SE-EDU Java coding standard configuration in config/checkstyle.
+    toolVersion = '11.0.0'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javaFxVersion = '17.0.7'
+
+    // JavaFX includes native graphics libraries, so use only the one that
+    // matches the computer that is building and running the application.
+    String operatingSystem = System.getProperty('os.name').toLowerCase()
+    String architecture = System.getProperty('os.arch').toLowerCase()
+    String javaFxPlatform
+    if (operatingSystem.contains('mac')) {
+        javaFxPlatform = architecture.contains('aarch64') || architecture.contains('arm64') ? 'mac-aarch64' : 'mac'
+    } else if (operatingSystem.contains('windows')) {
+        javaFxPlatform = 'win'
+    } else if (operatingSystem.contains('linux')) {
+        javaFxPlatform = 'linux'
+    } else {
+        throw new GradleException("Unsupported operating system for JavaFX: ${operatingSystem}")
+    }
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:${javaFxPlatform}")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:${javaFxPlatform}")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:${javaFxPlatform}")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:${javaFxPlatform}")
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'sandrone.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'sandrone.jar'
+}
+
+run {
+    standardInput = System.in
+    enableAssertions = true
+}

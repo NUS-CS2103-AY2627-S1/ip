@@ -1,0 +1,31 @@
+.root {
+    main-color: rgb(238, 244, 255);
+    -fx-background-color: main-color;
+}
+
+.text-field {
+    -fx-background-color: #fffaf0;
+    -fx-border-color: #c9a661;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-font: 16px "Arial";
+}
+
+.button {
+    -fx-background-color: #a67c3a;
+    -fx-text-fill: white;
+    -fx-background-radius: 6px;
+    -fx-font: italic bold 14px "Arial";
+}
+
+.button:hover {
+    -fx-background-color: #c49752;
+}
+
+.scroll-pane {
+    -fx-background-color: rgba(0, 0, 0, .08);
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}

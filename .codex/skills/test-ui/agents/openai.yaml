@@ -1,0 +1,3 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run console UI test plans"

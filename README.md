@@ -1,25 +1,111 @@
-# Duke project template
+# Sandrone
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+> “Your mind is for having ideas, not holding them.” – David Allen
 
-## Setting up in Intellij
+Sandrone frees your mind from having to remember things you need to do. It is:
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+- text-based
+- easy to learn
+- fun to interact with
+- super spectacular
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+And it is ***FREE***! 🕰️
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+### Getting Started
+
+1. Open the project in your code editor.
+2. Configure the project to use JDK 25.
+3. Run Sandrone using `./gradlew run`.
+4. Add your first task, deadline, or event. For example: `todo Task One`.
+
+If you know Java, here's the main constructor:
+
+```java
+public Sandrone(String filePath) {
+    ui = new Ui();
+    storage = new Storage(Path.of(filePath), ui);
+    parser = new Parser();
+    tasks = loadTasks(storage.load());
+}
+```
+
+Example commands:
+
+```text
+todo Task One
+deadline Send Email /by 2026-08-29 1430
+event Meeting /from 2026-08-29 1500 /to 2026-08-29 1700
+remove 3
+unmark 1
+mark 2
+list
+list 29/8/2026
+bye
+```
+
+### Features
+
+- [x] Managing tasks
+- [ ] Managing deadlines (coming soon)
+- [ ] Reminders (coming soon)
+
+### Command Reference
+
+For the full User Guide, including date formats and error handling, see the
+[Sandrone User Guide](docs/README.md).
+
+#### Add a todo
+
+```text
+todo Complete daily commissions in Nod-Krai
+```
+
+#### Add a deadline
+
+```text
+deadline Spend Original Resin before it caps /by 18/9/2026 2359
+```
+
+#### Add an event
+
+```text
+event Farm talent books with the party /from 17/9/2026 1900 /to 17/9/2026 2030
+```
+
+#### List tasks
+
+```text
+list
+list 18/9/2026
+```
+
+#### Find tasks
+
+```text
+find resin
+```
+
+#### Mark or unmark a task
+
+```text
+mark 1
+unmark 1
+```
+
+#### Remove a task
+
+```text
+remove 3
+```
+
+#### View statistics
+
+```text
+stats
+```
+
+#### End the session
+
+```text
+bye
+```
