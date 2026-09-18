@@ -1,0 +1,47 @@
+.dialog-label {
+    -fx-background-color: linear-gradient(to bottom right, #dfffbc, #9ee6a1);
+    -fx-border-color: #6ca84f;
+    -fx-border-width: 1.5px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-font: 14px "Arial";
+    -fx-padding: 8px 10px;
+    -fx-text-fill: #1f331f;
+}
+
+.reply-label {
+    -fx-background-color: linear-gradient(to bottom right, #fffbd0, #d7f4a4);
+    -fx-border-color: #9cad4a;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.add-label {
+    -fx-background-color: yellow;
+}
+
+.marked-label {
+    -fx-background-color: palegreen;
+}
+
+.delete-label {
+    -fx-background-color: lightpink;
+}
+
+.error-label {
+    -fx-background-color: linear-gradient(to bottom right, #ffe0e0, #ffb0b0);
+    -fx-border-color: #c43f3f;
+    -fx-text-fill: #611111;
+}
+
+.user-label {
+    -fx-background-color: linear-gradient(to bottom right, #d7f8ff, #91ddeb);
+    -fx-border-color: #4f9fb0;
+}
+
+#avatar {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-rotate: 0;
+}

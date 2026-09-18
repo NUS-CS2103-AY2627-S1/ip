@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root spacing="8" stylesheets="@../css/dialog-box.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <ImageView fx:id="avatar">
+        <HBox.margin>
+            <Insets top="2" />
+        </HBox.margin>
+    </ImageView>
+    <Label fx:id="message" styleClass="dialog-label" wrapText="true">
+        <HBox.margin>
+            <Insets bottom="2" top="2" />
+        </HBox.margin>
+    </Label>
+</fx:root>

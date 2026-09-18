@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Low
+* IDE and level of expertise: Low
 
 # Guidance for interacting with users
 
@@ -27,6 +27,20 @@ Unless the user says otherwise, assume that you are assisting a student working 
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+
+## Java coding standard
+
+Use the project-specific `seedu-java-coding-standard` skill for all Java code created, edited, or reviewed in this repository. All production and test Java code should follow the SE-EDU Java coding standard at https://se-education.org/guides/conventions/java/intermediate.html.
+
+## Testing
+
+Maintain JUnit tests for the top ~50% highest-value methods in the codebase. Prioritize complex, core, or critical business logic over simple getters, setters, and trivial formatting methods.
+
+After each code update, check whether JUnit tests need to be added or updated so the test suite continues to meet the ~50% highest-value method coverage target.
+
+After each code update, check whether `test/ui-test-plan.md` needs to be updated to cover the changed behavior. If it does, update the test plan before running tests.
+
+After each code update, invoke the project-specific `test-ui` skill to run the UI test plan and report the console input/output record. If a UI test fails, stop the test session immediately and report the expected and actual outputs.
 
 ## Git
 

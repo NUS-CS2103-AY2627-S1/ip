@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="habpyduck.ui.MainWindow">
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" minHeight="0.0" VBox.vgrow="ALWAYS">
+        <content>
+            <VBox fx:id="dialogContainer" spacing="10">
+                <padding>
+                    <Insets bottom="12" left="12" right="12" top="12" />
+                </padding>
+            </VBox>
+        </content>
+    </ScrollPane>
+    <HBox fx:id="inputArea" spacing="10">
+        <padding>
+            <Insets bottom="12" left="12" right="12" top="12" />
+        </padding>
+        <TextField fx:id="userInput" onAction="#handleUserInput" promptText="Talk to me!" HBox.hgrow="ALWAYS" />
+        <Button fx:id="sendButton" defaultButton="true" onAction="#handleUserInput" text="Send" />
+    </HBox>
+</VBox>
