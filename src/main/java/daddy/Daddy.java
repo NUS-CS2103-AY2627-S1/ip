@@ -27,6 +27,8 @@ public class Daddy {
     private final List<String> loadingMessages;
     /** Records whether the user has entered the command that ends this session. */
     private boolean isExitRequested;
+    /** Records whether the most recently processed command produced a user-facing error. */
+    private boolean hasLastResponseError;
 
     /**
      * Creates Daddy using the standard project-relative task data files.
@@ -46,6 +48,7 @@ public class Daddy {
         this.parser = new Parser();
         this.loadingMessages = List.copyOf(storage.loadInto(tasks));
         this.isExitRequested = false;
+        this.hasLastResponseError = false;
     }
 
     /**
@@ -86,6 +89,15 @@ public class Daddy {
      */
     public boolean isExitRequested() {
         return isExitRequested;
+    }
+
+    /**
+     * Returns whether the most recently processed command produced an error response.
+     *
+     * @return whether the latest command failed validation or execution
+     */
+    public boolean hasLastResponseError() {
+        return hasLastResponseError;
     }
 
     /**
@@ -132,11 +144,13 @@ public class Daddy {
      * @param ui the interface used to display the command response
      */
     private void processCommand(String input, Ui ui) {
+        hasLastResponseError = false;
         try {
             Command command = parser.parseCommand(input);
             command.execute(tasks, ui, storage);
             isExitRequested = command.isExit();
         } catch (DaddyException exception) {
+            hasLastResponseError = true;
             ui.showError(exception.getMessage());
         }
     }

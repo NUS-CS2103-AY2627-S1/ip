@@ -11,15 +11,19 @@ javac -d /tmp/daddy-classes $(find src/main/java -name '*.java' ! -path '*/gui/*
 Aim: Verify that the graphical interface sends the same commands to Daddy's existing command engine and presents
 its responses cleanly.
 
-Run `./gradlew run`, then enter `todo read book`, `mark 1`, `find book`, and `bye` in the command field.
+Run `./gradlew run`, then enter `todo read book`, `mark 1`, `find book`, `not a command`, and `bye` in the
+command field.
 
-The window should show each entered command on the right and Daddy's command responses on the left. The graphical
-header should show compact white ASCII art without wrapping it and use the baby-pink theme. The greeting and
-command responses should omit command-line-only divider lines. A plain `list` command should display a graphical
-task panel with status, task type, description, and date details rather than console-style task text.
-After `bye`, the command field and Send button should be disabled. Daddy Noel should appear as Daddy's large,
-circularly cropped left-side profile avatar, while My Little Pony should appear as the user's large, circularly
-cropped right-side profile avatar.
+The window should distinguish the participants asymmetrically: entered commands appear as compact right-aligned
+pink chips without an avatar, while Daddy's longer responses use readable white cards with a small, circularly
+cropped Daddy Noel avatar. The invalid command should appear in a red-tinted card headed `COMMAND NEEDS ATTENTION`.
+The compact gradient header should show white ASCII art without wrapping. The greeting and command responses
+should omit command-line-only divider lines. A plain `list` command should display a responsive graphical task
+panel with status, task type, description, and date details rather than console-style task text.
+
+Resize the window down to its minimum size and then make it wider. Text and task cards should reflow without a
+horizontal scrollbar, the command field should remain usable, and conversation space should grow with the window.
+After `bye`, the command field and Send button should be disabled.
 
 ## Manual test: date and time parsing
 Aim: Verify that deadlines and events parse ISO dates/times and display friendly values.
@@ -51,8 +55,8 @@ The Todo should be excluded, while the matching Deadline and Event should be lis
 Aim: Verify that a valid free-time request shows the earliest weekday slot without changing the task list.
 
 Enter `free 4h`. Daddy should show one four-hour slot between 09:00 and 18:00 on Monday to Friday. The slot
-should begin no earlier than the current minute, and it should not overlap any event in the task list. Todos,
-and deadlines should not affect the result, while completed events should still occupy their scheduled time.
+should begin no earlier than the current minute, and it should not overlap any event in the task list. Todos and
+deadlines should not affect the result, while completed events should still occupy their scheduled time.
 Enter `list` afterward and verify that no tasks were added, removed, or modified.
 
 ## Manual test: corrupted data recovery

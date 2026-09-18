@@ -14,9 +14,6 @@ import javafx.scene.layout.VBox;
  * Presents Daddy's tasks as graphical cards in the chat conversation.
  */
 public class TaskListView extends VBox {
-    /** Limits the panel width so it fits beside Daddy's chat avatar area. */
-    private static final double MAX_LIST_WIDTH = 460.0;
-
     /**
      * Creates a card-based view of the supplied tasks.
      *
@@ -24,8 +21,7 @@ public class TaskListView extends VBox {
      */
     public TaskListView(List<Task> tasks) {
         setSpacing(10.0);
-        setPrefWidth(MAX_LIST_WIDTH);
-        setMaxWidth(MAX_LIST_WIDTH);
+        setMaxWidth(Double.MAX_VALUE);
         getStyleClass().add("task-list-view");
         getChildren().add(createListHeading(tasks.size()));
 

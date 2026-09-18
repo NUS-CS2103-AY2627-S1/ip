@@ -7,44 +7,57 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
 /**
- * Displays one chat message with its speaker's profile avatar.
+ * Displays one chat message using a presentation tailored to its speaker and purpose.
  */
 public class DialogBox extends HBox {
-    /** Limits the width of a message bubble so long text remains readable. */
-    private static final double MAX_BUBBLE_WIDTH = 440.0;
-    /** Sets the width and height of each circular profile avatar. */
-    private static final double AVATAR_SIZE = 52.0;
+    /** Limits user command chips to a compact portion of the conversation width. */
+    private static final double USER_MESSAGE_WIDTH_RATIO = 0.62;
+    /** Leaves room for Daddy's avatar beside longer application responses. */
+    private static final double DADDY_MESSAGE_WIDTH_RATIO = 0.82;
+    /** Sets the width and height of Daddy's compact circular profile avatar. */
+    private static final double AVATAR_SIZE = 34.0;
     /** Identifies Daddy Noel's packaged profile image. */
     private static final String DADDY_AVATAR_RESOURCE = "/images/daddy-noel.jpeg";
-    /** Identifies My Little Pony's packaged profile image. */
-    private static final String USER_AVATAR_RESOURCE = "/images/my-lil-pony.png";
 
     /**
      * Creates a chat message aligned for either the user or Daddy.
      *
      * @param text the message displayed in the bubble
      * @param isUser whether the message belongs to the user
+     * @param isError whether the message reports a command error
      */
-    private DialogBox(String text, boolean isUser) {
+    private DialogBox(String text, boolean isUser, boolean isError) {
         Label message = new Label(text);
         message.setWrapText(true);
-        message.setMaxWidth(MAX_BUBBLE_WIDTH);
         message.getStyleClass().add("message-bubble");
 
-        StackPane avatar = createAvatar(isUser);
-
-        setSpacing(10.0);
-        getStyleClass().add(isUser ? "user-dialog" : "daddy-dialog");
+        setMaxWidth(Double.MAX_VALUE);
         if (isUser) {
+            message.maxWidthProperty().bind(widthProperty().multiply(USER_MESSAGE_WIDTH_RATIO));
+            getStyleClass().add("user-dialog");
             setAlignment(Pos.TOP_RIGHT);
-            getChildren().addAll(message, avatar);
+            getChildren().add(message);
         } else {
+            setSpacing(8.0);
+            getStyleClass().addAll("daddy-dialog", isError ? "error-dialog" : "response-dialog");
             setAlignment(Pos.TOP_LEFT);
-            getChildren().addAll(avatar, message);
+            StackPane avatar = createAvatar();
+            if (isError) {
+                message.setMaxWidth(Double.MAX_VALUE);
+                VBox errorContent = createErrorContent(message);
+                errorContent.maxWidthProperty().bind(widthProperty().multiply(DADDY_MESSAGE_WIDTH_RATIO));
+                HBox.setHgrow(errorContent, Priority.ALWAYS);
+                getChildren().addAll(avatar, errorContent);
+            } else {
+                message.maxWidthProperty().bind(widthProperty().multiply(DADDY_MESSAGE_WIDTH_RATIO));
+                getChildren().addAll(avatar, message);
+            }
         }
     }
 
@@ -55,7 +68,7 @@ public class DialogBox extends HBox {
      * @return a right-aligned user dialog box
      */
     public static DialogBox forUser(String text) {
-        return new DialogBox(text, true);
+        return new DialogBox(text, true, false);
     }
 
     /**
@@ -65,17 +78,26 @@ public class DialogBox extends HBox {
      * @return a left-aligned Daddy dialog box
      */
     public static DialogBox forDaddy(String text) {
-        return new DialogBox(text, false);
+        return new DialogBox(text, false, false);
+    }
+
+    /**
+     * Creates an emphasized dialog box for a command error produced by Daddy.
+     *
+     * @param text the user-facing explanation of the error
+     * @return a left-aligned error dialog box
+     */
+    public static DialogBox forError(String text) {
+        return new DialogBox(text, false, true);
     }
 
     /**
      * Creates a cover-scaled profile image clipped to a circle with a colored outline.
      *
-     * @param isUser whether the avatar belongs to the user
      * @return the circular avatar container
      */
-    private StackPane createAvatar(boolean isUser) {
-        Image image = loadAvatarImage(isUser ? USER_AVATAR_RESOURCE : DADDY_AVATAR_RESOURCE);
+    private StackPane createAvatar() {
+        Image image = loadAvatarImage(DADDY_AVATAR_RESOURCE);
         ImageView avatarImage = new ImageView(image);
         fitImageToAvatar(avatarImage, image);
 
@@ -87,12 +109,26 @@ public class DialogBox extends HBox {
         clippedImage.setClip(new Circle(avatarRadius, avatarRadius, avatarRadius));
 
         Circle outline = new Circle(avatarRadius - 1.0);
-        outline.getStyleClass().addAll("avatar-outline", isUser ? "user-avatar-outline" : "daddy-avatar-outline");
+        outline.getStyleClass().addAll("avatar-outline", "daddy-avatar-outline");
         StackPane avatar = new StackPane(clippedImage, outline);
         avatar.setMinSize(AVATAR_SIZE, AVATAR_SIZE);
         avatar.setPrefSize(AVATAR_SIZE, AVATAR_SIZE);
         avatar.setMaxSize(AVATAR_SIZE, AVATAR_SIZE);
         return avatar;
+    }
+
+    /**
+     * Creates a compact error card with a clear status heading above the explanation.
+     *
+     * @param message the error explanation to display
+     * @return the styled error content
+     */
+    private VBox createErrorContent(Label message) {
+        Label errorTitle = new Label("COMMAND NEEDS ATTENTION");
+        errorTitle.getStyleClass().add("error-title");
+        VBox errorContent = new VBox(4.0, errorTitle, message);
+        errorContent.getStyleClass().add("error-content");
+        return errorContent;
     }
 
     /**
