@@ -1,0 +1,25 @@
+name: Java CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: zulu
+          java-version: '25'
+      - name: Test, check style, and package
+        run: bash gradlew --no-daemon check shadowJar
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mochi-jar
+          path: build/libs/mochi.jar
+          if-no-files-found: error
