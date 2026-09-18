@@ -1,0 +1,59 @@
+.root {
+    -fx-background-color: #3b6ea5;
+    -fx-padding: 10;
+}
+
+.scroll-pane {
+    -fx-background-color: #eaf2fa;
+    -fx-background-insets: 0;
+    -fx-background-radius: 10;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.label {
+    -fx-text-fill: #2b2724;
+    -fx-font-size: 13px;
+}
+
+.text-field {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #c9d6e4;
+    -fx-background-color: white;
+    -fx-padding: 8 12 8 12;
+    -fx-font-size: 13px;
+}
+
+.text-field:focused {
+    -fx-border-color: #3b6ea5;
+}
+
+.button {
+    -fx-background-radius: 8;
+    -fx-background-color: #2f5680;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #24425f;
+}
+
+.bubble {
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-padding: 8 12 8 12;
+}
+
+.user-bubble {
+    -fx-background-color: #c9ddf2;
+}
+
+.bot-bubble {
+    -fx-background-color: white;
+    -fx-border-color: #d5e3f0;
+}

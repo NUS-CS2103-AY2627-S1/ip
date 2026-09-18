@@ -1,25 +1,66 @@
-# Duke project template
+# MeowMeow
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+A desktop task manager you operate by typing, built for CS2103T.
 
-## Setting up in Intellij
+MeowMeow keeps todos, deadlines and events in one list, saves every change to
+disk immediately, and refuses input that doesn't make sense rather than quietly
+guessing at it.
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+![MeowMeow](docs/Ui.png)
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+**[User Guide](https://ethanlaiii.github.io/ip/)** — commands, date formats,
+and what MeowMeow deliberately rejects.
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## Running it
+
+Requires **Java 25**.
+
+```
+java -jar meowmeow.jar
+```
+
+Download the JAR from the [releases page](https://github.com/ethanlaiii/ip/releases).
+Run it from a folder of its own — MeowMeow creates a `data` folder in the
+working directory for its save file.
+
+## Building from source
+
+```
+git clone https://github.com/ethanlaiii/ip.git
+cd ip
+./gradlew run
+```
+
+Other useful tasks:
+
+| Command | What it does |
+|---|---|
+| `./gradlew run` | Launch the app |
+| `./gradlew test` | Run the test suite |
+| `./gradlew build` | Compile, test, and assemble |
+| `./gradlew clean shadowJar` | Build the distributable JAR into `build/libs/` |
+
+The JAR bundles JavaFX, so it runs on any machine with a plain JDK 25 and no
+separate JavaFX install.
+
+## Project layout
+
+```
+src/main/java/meowmeow/
+├── Launcher.java          entry point; works around a JavaFX classpath issue
+├── MeowMeow.java          routes a command to the right operation
+├── MeowMeowException.java errors that are shown to the user, not thrown at them
+├── parser/                turns typed text into commands and tasks
+├── storage/               reads and writes the save file
+├── task/                  the task types, the list, and date handling
+└── ui/                    JavaFX window, dialog boxes, and message formatting
+```
+
+Tests live under `src/test/java/meowmeow/`, mirroring the same packages.
+
+## Acknowledgements
+
+The JavaFX classes and FXML are adapted from the SE-EDU JavaFX tutorial, and
+the project is built on the Duke template from the CS2103T teaching team. See
+[CONTRIBUTORS.md](CONTRIBUTORS.md) for details of what was reused and how far it
+was modified.
