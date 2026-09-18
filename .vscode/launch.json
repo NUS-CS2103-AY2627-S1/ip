@@ -1,0 +1,26 @@
+{
+    // Debug configurations for VS Code's "Run and Debug" panel (Java Debugger extension).
+    "version": "0.2.0",
+    "configurations": [
+        {
+            // Starts the JavaFX chatbot. Launcher (not Main) is the entry point so that
+            // JavaFX can be loaded from the classpath instead of the module path.
+            "type": "java",
+            "name": "Debug GUI (Launcher)",
+            "request": "launch",
+            "mainClass": "davidgoggins.Launcher",
+            // Assertions are off unless the JVM is started with -ea; the code relies on them.
+            "vmArgs": "-ea"
+        },
+        {
+            // Starts the original text UI. Uses the integrated terminal so that commands
+            // can be typed in while the debugger is attached.
+            "type": "java",
+            "name": "Debug text UI (DavidGoggins)",
+            "request": "launch",
+            "mainClass": "davidgoggins.DavidGoggins",
+            "vmArgs": "-ea",
+            "console": "integratedTerminal"
+        }
+    ]
+}

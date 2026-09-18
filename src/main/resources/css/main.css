@@ -1,0 +1,256 @@
+/*
+ * Look and feel of the chatbot windows.
+ *
+ * A playful brutalist style: a dotted yellow backdrop, cream cards with thick black
+ * outlines, hard offset shadows instead of soft blurs, and flat blocks of colour.
+ * Everything is kept in this one file so the FXML stays about layout and the Java
+ * stays about behaviour. The help window uses the same file, so both windows match.
+ */
+
+/* ===== Palette ==========================================================
+ * JavaFX "looked-up colours": named once here, referenced everywhere below,
+ * so the whole window can be recoloured by editing these lines.
+ */
+.root {
+    -fx-ink: #111111;          /* outlines, shadows and all text */
+    -fx-cream: #fff4e8;        /* cards */
+    -fx-mustard: #fdb714;      /* backdrop, matching the dot tile */
+    -fx-lemon: #ffe500;        /* the call to action */
+    -fx-sky: #7fd3e3;          /* the user's own messages */
+    -fx-alarm: #d62828;        /* outlines and tag of an error */
+    -fx-blush: #ffd6d1;        /* background of an error */
+
+    -fx-background-color: -fx-mustard;
+    -fx-background-image: url("../images/dots.png");
+    -fx-background-repeat: repeat;
+    -fx-font-family: "Avenir Next", "Futura", "Century Gothic", "Segoe UI", sans-serif;
+    -fx-font-size: 13px;
+    -fx-text-fill: -fx-ink;
+}
+
+/* ===== Conversation area ============================================== */
+
+/* The ScrollPane paints its own background by default, which would hide the
+ * dotted backdrop, so both it and its viewport are cleared. */
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* A solid black bar, like the scroll indicator in the reference design. */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 12;
+    -fx-padding: 2;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: -fx-ink;
+    -fx-background-radius: 6;
+}
+
+/* The increment/decrement arrows add clutter at this size, so they are hidden. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
+}
+
+/* ===== Message bubbles ================================================= */
+
+/* Tight margins around the conversation, so bubbles use most of a narrow window
+ * rather than leaving strips of backdrop that only show the dots. */
+.dialog-container {
+    -fx-padding: 8 8 12 8;
+    -fx-spacing: 4;
+}
+
+/* Shared by every bubble: a thick outline and a hard shadow offset down and to the
+ * right. A blur radius of 0 with full spread is what makes the shadow a solid block. */
+.bubble {
+    -fx-padding: 7 11 7 11;
+    -fx-border-color: -fx-ink;
+    -fx-border-width: 2.5;
+    -fx-effect: dropshadow(one-pass-box, -fx-ink, 0, 1, 3, 3);
+}
+
+/* The user's command: a compact sky-blue chip in monospace, since it is something
+ * typed at a machine. Its square bottom-right corner points at the right edge. */
+.user-bubble {
+    -fx-background-color: -fx-sky;
+    -fx-border-radius: 12 12 2 12;
+    -fx-background-radius: 12 12 2 12;
+}
+
+.user-bubble .message-text {
+    -fx-font-family: "Menlo", "Consolas", "DejaVu Sans Mono", monospace;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* Goggins' reply: a wide cream card, its square top-left corner pointing at his
+ * avatar. The asymmetry with the chip tells the two speakers apart at a glance. */
+.reply-bubble {
+    -fx-background-color: -fx-cream;
+    -fx-border-radius: 2 12 12 12;
+    -fx-background-radius: 2 12 12 12;
+}
+
+/* An error swaps the ink for red, so it cannot be mistaken for a normal reply. */
+.error-bubble {
+    -fx-background-color: -fx-blush;
+    -fx-border-color: -fx-alarm;
+    -fx-effect: dropshadow(one-pass-box, -fx-alarm, 0, 1, 3, 3);
+}
+
+/* A warning about the save file: marked out, but calmer than an error. */
+.warning-bubble {
+    -fx-background-color: -fx-lemon;
+}
+
+.warning-tag {
+    -fx-background-color: -fx-ink;
+    -fx-background-radius: 4;
+    -fx-text-fill: -fx-lemon;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 1 6 1 6;
+}
+
+/* The "NO EXCUSES!" tag above an error, like a stamp. */
+.error-tag {
+    -fx-background-color: -fx-alarm;
+    -fx-background-radius: 4;
+    -fx-text-fill: white;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 1 6 1 6;
+}
+
+.message-text {
+    -fx-text-fill: -fx-ink;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2;
+}
+
+/* Task lines use a fixed-width font so the [T][X] boxes line up in a column. */
+.task-lines {
+    -fx-text-fill: -fx-ink;
+    -fx-font-family: "Menlo", "Consolas", "DejaVu Sans Mono", monospace;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2;
+}
+
+/* A small circular ring around the avatar; the image itself is clipped to a
+ * circle in DialogBox, since CSS cannot clip an ImageView. */
+.avatar {
+    -fx-background-color: -fx-cream;
+    -fx-background-radius: 999;
+    -fx-border-color: -fx-ink;
+    -fx-border-width: 2;
+    -fx-border-radius: 999;
+    -fx-padding: 1;
+    -fx-effect: dropshadow(one-pass-box, -fx-ink, 0, 1, 2, 2);
+}
+
+/* ===== Input row ======================================================= */
+
+/* A cream strip with a heavy top rule, like the tab bar in the reference. */
+.input-bar {
+    -fx-background-color: -fx-cream;
+    -fx-border-color: -fx-ink transparent transparent transparent;
+    -fx-border-width: 3;
+    -fx-padding: 8 12 8 12;
+    -fx-spacing: 10;
+}
+
+/* A pill-shaped field, like the search box in the reference. */
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 999;
+    -fx-border-color: -fx-ink;
+    -fx-border-width: 2.5;
+    -fx-border-radius: 999;
+    -fx-text-fill: -fx-ink;
+    -fx-prompt-text-fill: #6b6256;
+    -fx-highlight-fill: -fx-lemon;
+    -fx-highlight-text-fill: -fx-ink;
+    -fx-font-size: 13px;
+    -fx-padding: 0 14 0 14;
+}
+
+/* The call to action: a bright block with the same hard shadow as the cards. */
+.send-button {
+    -fx-background-color: -fx-lemon;
+    -fx-background-radius: 10;
+    -fx-border-color: -fx-ink;
+    -fx-border-width: 2.5;
+    -fx-border-radius: 10;
+    -fx-text-fill: -fx-ink;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(one-pass-box, -fx-ink, 0, 1, 3, 3);
+}
+
+.send-button:hover {
+    -fx-background-color: derive(-fx-lemon, 30%);
+}
+
+/* Pressing removes the shadow and nudges the button into its place, so it feels
+ * physically pushed down. */
+.send-button:pressed {
+    -fx-effect: null;
+    -fx-translate-x: 3;
+    -fx-translate-y: 3;
+}
+
+/* Disabled after "bye", while the farewell is still on screen. */
+.send-button:disabled,
+.text-field:disabled {
+    -fx-opacity: 0.5;
+}
+
+/* ===== Help window ===================================================== */
+
+.help-window {
+    -fx-padding: 16;
+}
+
+/* The help page is a cream card on the dotted backdrop, like the chat bubbles. */
+.help-text,
+.help-text:focused {
+    -fx-background-color: -fx-ink, -fx-cream;
+    -fx-background-insets: 0, 2.5;
+    -fx-background-radius: 14, 12;
+    -fx-font-family: "Menlo", "Consolas", monospace;
+    -fx-font-size: 13px;
+    -fx-effect: dropshadow(one-pass-box, -fx-ink, 0, 1, 4, 4);
+}
+
+/* A TextArea draws its text on an inner content region with its own white
+ * background, which is replaced so the card colour and black text show through. */
+.help-text .content {
+    -fx-background-color: transparent;
+    -fx-padding: 10 12 10 12;
+}
+
+.help-text .text {
+    -fx-fill: -fx-ink;
+}
+
+.help-text .scroll-pane,
+.help-text .scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}

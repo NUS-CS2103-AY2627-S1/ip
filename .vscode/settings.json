@@ -1,0 +1,19 @@
+{
+    // The VS Code Java extension does not read the shell's PATH, so it cannot see the
+    // SDKMAN-managed JDK 25 that this project needs; the settings below point it there.
+    // Without them the extension falls back to the only system-registered JDK (11) and
+    // the build fails, because build.gradle targets Java 25.
+    "java.configuration.updateBuildConfiguration": "automatic",
+    // The JDK the language server itself runs on.
+    "java.jdt.ls.java.home": "/Users/jadonkohyujun/.sdkman/candidates/java/25.0.3.fx-zulu",
+    // The JDK used to import the Gradle build.
+    "java.import.gradle.java.home": "/Users/jadonkohyujun/.sdkman/candidates/java/25.0.3.fx-zulu",
+    // The JDK used to compile and run the code.
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-25",
+            "path": "/Users/jadonkohyujun/.sdkman/candidates/java/25.0.3.fx-zulu",
+            "default": true
+        }
+    ]
+}

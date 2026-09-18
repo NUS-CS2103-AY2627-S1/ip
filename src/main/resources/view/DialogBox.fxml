@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- No fixed width: the row stretches with the window, and DialogBox decides how wide
+     the bubble inside it may grow for each kind of message. -->
+<fx:root alignment="TOP_LEFT" spacing="8.0" type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="3.0" left="0.0" right="4.0" top="3.0" />
+    </padding>
+    <children>
+        <!-- An ImageView cannot draw a border of its own, so the avatar is framed by
+             the StackPane around it. Small, since the two speakers never change. -->
+        <StackPane fx:id="avatar" styleClass="avatar" maxHeight="-Infinity" maxWidth="-Infinity">
+            <children>
+                <ImageView fx:id="displayPicture" fitHeight="32.0" fitWidth="32.0"
+                           pickOnBounds="true" preserveRatio="true" />
+            </children>
+        </StackPane>
+        <!-- Filled with labels by DialogBox: one per run of text or of task lines. -->
+        <VBox fx:id="bubble" styleClass="bubble" spacing="4.0" />
+    </children>
+</fx:root>
