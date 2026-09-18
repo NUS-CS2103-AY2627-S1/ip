@@ -16,5 +16,13 @@ bin/
 # Temp files
 _temp/
 
+# Task list saved by the program at run time, not source
+/data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+src/main/*.class
+src/main/java/*.class
+
+# Claude Code local settings
+.claude/settings.local.json

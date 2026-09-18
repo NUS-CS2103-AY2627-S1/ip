@@ -1,0 +1,61 @@
+/*
+ * The two sides of the conversation are styled differently on purpose: it is a
+ * person talking to a program, not two people talking. Alfred's replies are
+ * ivory cards, like a note left on a silver tray, that can hold a long task
+ * list; the user's lines are compact bubbles in the household gold.
+ */
+
+/* Alfred's replies, which every other class below refines. */
+.label {
+    -fx-background-color: #f6f0e1;
+    -fx-border-color: #d9cfb4;
+    -fx-border-width: 1px;
+    -fx-background-radius: 12px 12px 12px 2px;
+    -fx-border-radius: 12px 12px 12px 2px;
+    -fx-text-fill: #2a241a;
+    -fx-line-spacing: 2px;
+}
+
+/* The user's lines, with the square corner on the side nearest the user. */
+.user-label {
+    -fx-background-color: #c9a84c;
+    -fx-border-color: #c9a84c;
+    -fx-background-radius: 12px 12px 2px 12px;
+    -fx-border-radius: 12px 12px 2px 12px;
+    -fx-text-fill: #1e2230;
+}
+
+/*
+ * An error. Stronger than any of the tints below, so that a refused command
+ * cannot be mistaken for one that ran.
+ */
+.error-label {
+    -fx-background-color: #f3d9d4;
+    -fx-border-color: #a63a2f;
+    -fx-border-width: 1.5px;
+    -fx-text-fill: #6b1e16;
+}
+
+/*
+ * Soft tints by the kind of command answered, each a shade of the ivory rather
+ * than a new color, so that an error still stands out.
+ */
+.add-label {
+    -fx-background-color: #e7efe0;
+    -fx-border-color: #bfd2ad;
+}
+
+.marked-label {
+    -fx-background-color: #f8ecc4;
+    -fx-border-color: #e2cf8c;
+}
+
+.delete-label {
+    -fx-background-color: #efe0dc;
+    -fx-border-color: #d7bdb5;
+}
+
+.priority-label {
+    -fx-background-color: #e3e8f0;
+    -fx-border-color: #b9c4d8;
+}

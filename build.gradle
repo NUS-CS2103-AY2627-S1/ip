@@ -1,0 +1,151 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javaFxVersion = '17.0.7'
+
+    // Every platform's JavaFX jars are listed, not just this machine's, so that
+    // the project builds and runs on Windows, macOS and Linux alike.
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
+test {
+    useJUnitPlatform()
+
+    // Stated rather than left to Gradle's default, so that the assertions in
+    // src/main/java are known to be live while the tests run.
+    enableAssertions = true
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'alfred.gui.Launcher'
+}
+
+/**
+ * Says whether a line continues the description of the block tag above it.
+ *
+ * <p>A description carries on over any Javadoc line that holds text and opens
+ * no new tag, so the closing delimiter and a blank Javadoc line both end one.
+ */
+static boolean continuesDescription(String line) {
+    return line ==~ /^\s*\*\s+\S.*/ && !(line ==~ /^\s*\*\s*@.*/)
+}
+
+// Fails the build on a Javadoc block tag whose description does not end in
+// punctuation, which the se-edu conventions require.
+//
+// Checkstyle has no module for this, and a single-line regular expression
+// cannot do it either: a description may wrap onto the lines below it, and the
+// period belongs at the end of the last one. So the rule is applied here, with
+// the whole tag in view. A peer review caught this on 156 tags that the style
+// check had passed, because the rule was written down but never mechanized.
+tasks.register('checkJavadocTagPunctuation') {
+    group = 'verification'
+    description = 'Checks that every @param, @return and @throws description ends in punctuation.'
+
+    FileTree javaSources = fileTree('src').matching { include '**/*.java' }
+    inputs.files(javaSources)
+    outputs.upToDateWhen { true }
+
+    doLast {
+        List<String> violations = []
+        javaSources.each { File file ->
+            List<String> lines = file.readLines()
+            int i = 0
+            while (i < lines.size()) {
+                if (!(lines[i] ==~ /^\s*\*\s*@(param|return|throws)\b.*/)) {
+                    i++
+                    continue
+                }
+                int last = i
+                while (last + 1 < lines.size() && continuesDescription(lines[last + 1])) {
+                    last++
+                }
+                String description = lines[last].trim()
+                if (!description.isEmpty() && !(description ==~ /.*[.!?:;]$/)) {
+                    violations << "${file.path}:${last + 1}: ${description}"
+                }
+                i = last + 1
+            }
+        }
+        if (!violations.isEmpty()) {
+            throw new GradleException('A Javadoc tag description must end in punctuation'
+                    + ' (se-edu Java conventions). Offending lines:\n  '
+                    + violations.join('\n  '))
+        }
+    }
+}
+
+check.dependsOn 'checkJavadocTagPunctuation'
+
+// Prints the compile classpath, so that a tool run outside Gradle can find the
+// JavaFX jars. The text UI tests compile with plain javac and need it.
+tasks.register('printClasspath') {
+    FileCollection compileClasspath = sourceSets.main.compileClasspath
+    doLast {
+        println compileClasspath.asPath
+    }
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'alfred.jar'
+}
+
+run {
+    standardInput = System.in
+
+    // A JavaExec task leaves assertions off unless asked, which would make
+    // every assertion in the program inert when it is started this way.
+    enableAssertions = true
+}
