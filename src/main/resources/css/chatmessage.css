@@ -1,0 +1,23 @@
+.label {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 8, 0.5, 2, 2);
+    -fx-background-color: #fdf8ff;
+    -fx-border-color: linear-gradient(from 25% 25% to 100% 100%, #efdcec, #ef8ae1);
+    -fx-border-width: 2px;
+    -fx-padding: 6px 10px 6px 10px;
+}
+
+.user-label {
+    -fx-border-color: linear-gradient(from 25% 25% to 100% 100%, #efdcec, #ef8ae1);
+    -fx-background-radius: 0.5em 0.5em 0 0.5em;
+    -fx-border-radius: 0.5em 0.5em 0 0.5em;
+}
+
+.korvus-label {
+    -fx-border-color: linear-gradient(from 25% 25% to 100% 100%, #c7dff1, #71ceec);
+    -fx-background-radius: 0.5em 0.5em 0.5em 0;
+    -fx-border-radius: 0.5em 0.5em 0.5em 0;
+}
+
+.display-picture {
+    -fx-effect: dropshadow(gaussian, rgba(62, 24, 113, 0.2), 10, 0.5, 0, 0);
+}
