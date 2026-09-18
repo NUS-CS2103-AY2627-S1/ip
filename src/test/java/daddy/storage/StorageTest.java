@@ -323,7 +323,8 @@ class StorageTest {
 
         DaddyException exception = assertThrows(DaddyException.class, () -> storage.save(tasks));
 
-        assertTrue(exception.getMessage().contains("writable file location"));
+        assertTrue(exception.getMessage().contains("save"));
+        assertTrue(exception.getMessage().contains(dataFile.toString()));
         try (var children = Files.list(temporaryDirectory)) {
             assertFalse(children.anyMatch(path -> path.getFileName().toString().startsWith("daddy-save-")));
         }
