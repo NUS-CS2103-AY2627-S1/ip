@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="720.0" prefWidth="560.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="toothless.ui.MainWindow">
+            <top>
+                <VBox styleClass="top-region">
+                    <children>
+                        <AnchorPane prefHeight="112.0" styleClass="app-header">
+                            <children>
+                                <Label styleClass="app-title" text="TOOTHLESS"
+                                       AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="22.0" />
+                                <Button fx:id="helpButton" onAction="#toggleHelp"
+                                        styleClass="help-button" text="Help"
+                                        AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="18.0" />
+                            </children>
+                        </AnchorPane>
+                        <ScrollPane fx:id="commandHelp" fitToWidth="true" hbarPolicy="NEVER"
+                                    managed="false" maxHeight="220.0" styleClass="command-help-scroll"
+                                    visible="false" vbarPolicy="AS_NEEDED">
+                            <content>
+                                <VBox spacing="9.0" styleClass="command-help">
+                                    <padding>
+                                        <Insets bottom="12.0" left="14.0" right="14.0" top="10.0" />
+                                    </padding>
+                                    <children>
+                                <Label maxWidth="1.7976931348623157E308"
+                                       styleClass="command-help-copy"
+                                       text="Tap an example to place it in the command box, then edit or send it."
+                                       wrapText="true" />
+                                <FlowPane fx:id="commandButtons" hgap="7.0" vgap="7.0">
+                                    <children>
+                                        <Button onAction="#useCommandSuggestion"
+                                                styleClass="command-chip" text="☰  List quests"
+                                                userData="list" />
+                                        <Button onAction="#useCommandSuggestion"
+                                                styleClass="command-chip" text="＋  Add todo"
+                                                userData="todo read a book" />
+                                        <Button onAction="#useCommandSuggestion"
+                                                styleClass="command-chip" text="◷  Deadline"
+                                                userData="deadline return book /by 2026-12-31" />
+                                        <Button onAction="#useCommandSuggestion"
+                                                styleClass="command-chip" text="✦  Event"
+                                                userData="event project meeting /from 2pm /to 4pm" />
+                                        <Button onAction="#useCommandSuggestion"
+                                                styleClass="command-chip" text="⌕  Find"
+                                                userData="find book" />
+                                        <Button onAction="#useCommandSuggestion"
+                                                styleClass="command-chip" text="★  Mark done"
+                                                userData="mark 1" />
+                                        <Button onAction="#useCommandSuggestion"
+                                                styleClass="command-chip" text="☆  Unmark"
+                                                userData="unmark 1" />
+                                        <Button onAction="#toggleEditHelp"
+                                                styleClass="command-chip" text="✎  Edit task" />
+                                        <Button onAction="#useCommandSuggestion"
+                                                styleClass="command-chip" text="−  Delete"
+                                                userData="delete 1" />
+                                        <Button onAction="#useCommandSuggestion"
+                                                styleClass="command-chip" text="☾  Say bye"
+                                                userData="bye" />
+                                    </children>
+                                </FlowPane>
+                                <FlowPane fx:id="editCommandButtons" hgap="7.0" managed="false"
+                                          vgap="7.0" visible="false">
+                                    <children>
+                                        <Button onAction="#useCommandSuggestion"
+                                                styleClass="command-chip" text="✎  Edit description"
+                                                userData="edit 1 /description read the new textbook" />
+                                        <Button onAction="#useCommandSuggestion"
+                                                styleClass="command-chip" text="◷  Edit deadline"
+                                                userData="edit 2 /by 2026-09-20" />
+                                        <Button onAction="#useCommandSuggestion"
+                                                styleClass="command-chip" text="✦  Edit event"
+                                                userData="edit 3 /from 21 September 2026 2pm /to 21 September 2026 5pm" />
+                                    </children>
+                                </FlowPane>
+                                    </children>
+                                </VBox>
+                            </content>
+                        </ScrollPane>
+                    </children>
+                </VBox>
+            </top>
+            <center>
+                <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                            pannable="true" styleClass="conversation-scroll">
+                    <content>
+                        <VBox fx:id="dialogContainer" fillWidth="true" spacing="13.0"
+                              styleClass="conversation">
+                            <padding>
+                                <Insets bottom="18.0" left="16.0" right="16.0" top="18.0" />
+                            </padding>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+            </center>
+            <bottom>
+                <HBox alignment="CENTER" spacing="10.0" styleClass="composer">
+                    <padding>
+                        <Insets bottom="14.0" left="16.0" right="16.0" top="14.0" />
+                    </padding>
+                    <children>
+                        <TextField fx:id="userInput" HBox.hgrow="ALWAYS"
+                                   onAction="#handleUserInput"
+                                   promptText="Tell Toothless what you need..." />
+                        <Button fx:id="sendButton" defaultButton="true"
+                                onAction="#handleUserInput" text="Send" />
+                    </children>
+                </HBox>
+            </bottom>
+</BorderPane>

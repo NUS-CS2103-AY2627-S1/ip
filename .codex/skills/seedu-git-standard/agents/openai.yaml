@@ -1,0 +1,3 @@
+interface:
+  display_name: "Seedu Git Standard"
+  short_description: "Write focused SE-EDU-compliant commits"

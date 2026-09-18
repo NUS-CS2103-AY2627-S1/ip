@@ -16,5 +16,11 @@ bin/
 # Temp files
 _temp/
 
+# Toothless runtime data
+/data/
+
+# Project-specific Codex skills
+/.codex/skills/present-changes-visually/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
