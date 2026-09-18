@@ -18,3 +18,11 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+*.class
+
+.codex
+
+/data/
+# Python cache from the UI test runner
+__pycache__/

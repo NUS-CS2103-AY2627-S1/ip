@@ -1,0 +1,87 @@
+.root {
+    main-color: #dfe6ec;       /* Create a looked-up color called "main-color" within root. */
+    accent-color: #3390ec;     /* Looked-up color for the send button. */
+    -fx-background-color: main-color;
+}
+
+/* The bar naming who the user is talking to, above the conversation. */
+.chat-header {
+    -fx-background-color: #ffffff;
+    -fx-padding: 0 12px 0 12px;
+    -fx-border-color: transparent transparent rgba(0, 0, 0, 0.10) transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+/* The same grey ring the pictures in the conversation wear, so the one in
+   the bar does not look like a different kind of thing. */
+.header-picture {
+    -fx-stroke: #c4c9cf;
+    -fx-stroke-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0.0, 0, 1);
+}
+
+.chat-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+
+.chat-status {
+    -fx-font-size: 12px;
+    -fx-text-fill: accent-color;
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 18px;
+    -fx-border-radius: 18px;
+    -fx-font-size: 15px;
+    -fx-text-fill: #000000;
+    -fx-padding: 8px 14px 8px 14px;
+}
+
+.button {
+    -fx-background-color: accent-color;
+    -fx-background-radius: 18px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-graphic-text-gap: 5px;
+}
+
+.send-icon {
+    -fx-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #4fa9f0;
+}
+
+.button:pressed {
+    -fx-background-color: #2b7cd3;
+}
+
+.scroll-pane {
+    -fx-background-color: rgba(255, 255, 255, 0.35);
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 9px;        /* Change width of scroll bar. */
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgba(0, 0, 0, 0.20);
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

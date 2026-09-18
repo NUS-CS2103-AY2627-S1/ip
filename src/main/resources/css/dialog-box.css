@@ -1,0 +1,43 @@
+.label {
+    -fx-background-color: #eeffde;
+    -fx-text-fill: #000000;
+
+    /* Size only, no family: with "Helvetica Neue" JavaFX sizes a wrapped
+       bubble one line too short and cuts the last line off with "...". */
+    -fx-font-size: 15px;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 12px 12px 3px 12px;
+    -fx-border-radius: 12px 12px 3px 12px;
+
+    /* Soft shadow under the bubble. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.10), 3, 0.0, 0, 1);
+}
+
+.reply-label {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px 12px 12px 3px;
+    -fx-border-radius: 12px 12px 12px 3px;
+}
+
+/* Must follow .reply-label: an error bubble carries both classes, and the
+   later rule decides the colour when two selectors are equally specific. */
+.error-label {
+    -fx-background-color: #FF6961;
+}
+
+#displayPicture {
+    /* Grey ring around the circular picture. */
+    -fx-stroke: #c4c9cf;
+    -fx-stroke-width: 2px;
+
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0.0, 0, 1);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
