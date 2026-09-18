@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Has completed core NUS CS coursework covering discrete structures, introductory programming, object-oriented programming, data structures and algorithms, and computer organization (`CS1231S`, `CS1010`, `CS2030S`, `CS2040S`, `CS2100`). Project experience is limited to one external project, Orbital. Overall, assume foundational CS knowledge but limited experience with larger software engineering projects.
+* IDE and level of expertise: Beginner IDE user; familiar with basic editing/running/debugging workflows, but may need guidance for project configuration, build tools, refactoring tools, and advanced IDE features.
 
 # Guidance for interacting with users
 
@@ -24,9 +24,25 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## iP course requirements:
+
+Before helping with implementation, project management, documentation, or grading-related work, read `.codex/ip-requirements.md` and follow it as the living course checklist. Update that file when the official iP weekly or grading pages change.
+
+## Documentation:
+
+Do not update the project-root `README.md` for chatbot feature or user-guide changes. That file is the assignment/setup README. Put product usage documentation in `docs/README.md` instead.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+
+## Java coding standard:
+
+Before creating, editing, reviewing, or explaining Java code in this project, load and follow the project-specific `.codex/skills/seedu-java-coding-standard/SKILL.md` skill. All Java code should comply with the SE-EDU basic plus intermediate Java coding standard, using the Google Java style guide only for topics the SE-EDU standard does not cover.
+
+## UI testing:
+
+After each code update, check whether `test/ui-test-plan.md` needs to be updated to cover the changed console behavior. Then invoke the project-specific `test-ui` skill and include the resulting test-session record in the response, especially any actual-vs-expected output if a test fails.
 
 ## Git
 

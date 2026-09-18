@@ -1,0 +1,157 @@
+.cosmos {
+    -fx-background-color:
+        radial-gradient(center 14% 18%, radius 2%, rgba(196, 232, 255, 0.75), transparent),
+        radial-gradient(center 78% 28%, radius 1.2%, rgba(255, 255, 255, 0.65), transparent),
+        radial-gradient(center 62% 72%, radius 1.5%, rgba(131, 196, 255, 0.55), transparent),
+        radial-gradient(center 24% 84%, radius 1%, rgba(255, 255, 255, 0.48), transparent),
+        radial-gradient(center 84% 82%, radius 54%, rgba(30, 35, 91, 0.72), transparent),
+        linear-gradient(to bottom right, #030713 0%, #080d25 48%, #121138 100%);
+    -fx-font-family: "Segoe UI", "Microsoft YaHei UI", sans-serif;
+}
+
+.title-panel {
+    -fx-alignment: center-left;
+    -fx-padding: 17 24 15 24;
+    -fx-background-color: linear-gradient(to right, rgba(4, 9, 25, 0.96), rgba(11, 18, 49, 0.78));
+    -fx-border-color: transparent transparent rgba(91, 192, 255, 0.34) transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.app-title {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #d9f6ff;
+    -fx-effect: dropshadow(gaussian, rgba(68, 203, 255, 0.85), 10, 0.35, 0, 0);
+}
+
+.app-subtitle, .sender {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 9px;
+    -fx-text-fill: #6e9fbe;
+}
+
+.conversation-scroll, .conversation-scroll > .viewport,
+.conversation-scroll > .corner, .dialog-container {
+    -fx-background-color: transparent;
+}
+
+.conversation-scroll {
+    -fx-padding: 8 5 8 5;
+}
+
+.dialog-container {
+    -fx-padding: 12 12 18 12;
+}
+
+.dialog-box {
+    -fx-padding: 10 8 10 8;
+    -fx-spacing: 10;
+}
+
+.message {
+    -fx-font-size: 13px;
+    -fx-line-spacing: 3px;
+    -fx-padding: 11 15 11 15;
+}
+
+.user-dialog .message-column {
+    -fx-alignment: top-right;
+}
+
+.user-dialog .sender {
+    -fx-alignment: center-right;
+    -fx-text-fill: #b89cff;
+}
+
+.user-dialog .message {
+    -fx-background-color: linear-gradient(to bottom right, #5940a2, #382771);
+    -fx-background-radius: 16 4 16 16;
+    -fx-text-fill: #f5f0ff;
+    -fx-effect: dropshadow(gaussian, rgba(107, 75, 214, 0.38), 10, 0.25, 0, 3);
+}
+
+.user-dialog .image-view {
+    -fx-effect: dropshadow(gaussian, rgba(155, 112, 255, 0.72), 10, 0.4, 0, 0);
+}
+
+.sophon-dialog .message-column {
+    -fx-alignment: top-left;
+}
+
+.sophon-dialog .sender {
+    -fx-text-fill: #69d8ff;
+    -fx-effect: dropshadow(gaussian, rgba(44, 198, 255, 0.65), 5, 0.3, 0, 0);
+}
+
+.sophon-dialog .message {
+    -fx-font-family: "Consolas";
+    -fx-background-color: rgba(8, 25, 48, 0.88);
+    -fx-background-radius: 3 15 15 15;
+    -fx-border-color: rgba(85, 210, 255, 0.48);
+    -fx-border-radius: 3 15 15 15;
+    -fx-border-width: 1;
+    -fx-text-fill: #cceeff;
+    -fx-effect: dropshadow(gaussian, rgba(36, 172, 224, 0.24), 13, 0.25, 0, 2);
+}
+
+.sophon-dialog .image-view {
+    -fx-effect: dropshadow(gaussian, rgba(76, 215, 255, 0.75), 10, 0.4, 0, 0);
+}
+
+.composer {
+    -fx-padding: 14 16 16 16;
+    -fx-background-color: rgba(3, 7, 20, 0.94);
+    -fx-border-color: rgba(91, 192, 255, 0.28) transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+.message-input {
+    -fx-pref-height: 43px;
+    -fx-background-color: rgba(18, 27, 55, 0.9);
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(108, 159, 194, 0.5);
+    -fx-border-radius: 8;
+    -fx-prompt-text-fill: #5d7590;
+    -fx-text-fill: #e5f7ff;
+    -fx-padding: 0 14 0 14;
+}
+
+.message-input:focused {
+    -fx-border-color: #52c9f5;
+    -fx-effect: dropshadow(gaussian, rgba(48, 181, 236, 0.32), 8, 0.2, 0, 0);
+}
+
+.send-button {
+    -fx-pref-height: 43px;
+    -fx-background-color: linear-gradient(to bottom, #258db7, #155776);
+    -fx-background-radius: 8;
+    -fx-text-fill: #eaffff;
+    -fx-font-family: "Consolas";
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #35b2df, #1b6d91);
+}
+
+.send-button:disabled, .message-input:disabled {
+    -fx-opacity: 0.45;
+}
+
+.scroll-bar:vertical {
+    -fx-pref-width: 8px;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(78, 148, 185, 0.45);
+    -fx-background-radius: 4;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

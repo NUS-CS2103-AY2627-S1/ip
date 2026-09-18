@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_RIGHT"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox fx:id="messageColumn" spacing="5.0">
+            <Label fx:id="sender" styleClass="sender" />
+            <Label fx:id="text" styleClass="message" wrapText="true" />
+        </VBox>
+        <ImageView fx:id="profilePicture" fitHeight="42.0" fitWidth="42.0"
+                   pickOnBounds="true"
+                   preserveRatio="true" />
+    </children>
+</fx:root>
