@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane minHeight="520.0" minWidth="360.0" prefHeight="680.0" prefWidth="460.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="chausistant.ui.MainWindow">
+    <children>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="ALWAYS"
+                    AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <VBox styleClass="content-container">
+                    <children>
+                        <VBox styleClass="dashboard-panel">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" styleClass="app-header">
+                                    <children>
+                                        <Label styleClass="app-mark" text="✓" />
+                                        <VBox spacing="1.0">
+                                            <children>
+                                                <Label styleClass="app-title" text="Chausistant" />
+                                                <Label styleClass="app-subtitle" text="Your task companion" />
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" styleClass="today-row">
+                                    <children>
+                                        <VBox>
+                                            <children>
+                                                <Label fx:id="todayLabel" styleClass="today-label" text="Today" />
+                                                <Label styleClass="today-caption" text="A little plan for your day" />
+                                            </children>
+                                        </VBox>
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Label fx:id="taskCountLabel" styleClass="task-count-label" text="0 tasks" />
+                                    </children>
+                                </HBox>
+                                <VBox spacing="8.0" styleClass="summary-card">
+                                    <children>
+                                        <Label styleClass="summary-title" text="Current tasks" />
+                                        <VBox fx:id="taskSummaryContainer" spacing="7.0" />
+                                        <Label fx:id="summaryHintLabel" styleClass="summary-hint" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </VBox>
+                        <HBox alignment="CENTER" styleClass="session-divider">
+                            <children>
+                                <Region HBox.hgrow="ALWAYS" styleClass="divider-line" />
+                                <Label styleClass="divider-label" text="Session activity" />
+                                <Region HBox.hgrow="ALWAYS" styleClass="divider-line" />
+                            </children>
+                        </HBox>
+                        <VBox fx:id="dialogContainer" spacing="12.0" styleClass="dialog-container" />
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+        <HBox alignment="CENTER" spacing="10.0" styleClass="command-composer"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0">
+            <children>
+                <TextField fx:id="userInput" HBox.hgrow="ALWAYS" onAction="#handleUserInput"
+                           promptText="Type a command…" />
+                <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput"
+                        text="Send" />
+            </children>
+        </HBox>
+    </children>
+    <stylesheets>
+        <URL value="@../css/main.css" />
+    </stylesheets>
+</AnchorPane>

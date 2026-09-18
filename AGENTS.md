@@ -28,6 +28,31 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## SE-EDU Java coding standard
+
+For every Java source or test change, load and follow the project skill at
+`.codex/skills/seedu-java-coding-standard/SKILL.md`. This is mandatory for all
+code in this project and implements the required basic and intermediate
+[SE-EDU Java coding standard](https://se-education.org/guides/conventions/java/intermediate.html).
+
+## SE-EDU Git standard
+
+For every proposed or created commit, load and follow the project skill at
+`.codex/skills/seedu-git-standard/SKILL.md`. This is mandatory for all future
+commits in this project and implements the [SE-EDU Git conventions](https://se-education.org/guides/conventions/git.html).
+
+## Course standards and conventions
+
+Follow the required CS2103/T standards for all Java and Git work in this project: [NUS CS2103/T Standards/Conventions](https://nus-cs2103-ay2627-s1.github.io/website/admin/standardsAndConventions.html).
+
+In particular, Java code must comply with the basic and intermediate rules of the [SE-EDU Java coding standard](https://se-education.org/guides/conventions/java/basic.html), and commit-message subjects must follow the [SE-EDU Git conventions](https://se-education.org/guides/conventions/git.html). Apply the optional advanced Java, Markdown, and documentation guidance when it improves clarity and does not conflict with existing project requirements.
+
+## JUnit test coverage
+
+Maintain JUnit coverage for roughly the top 50% of the project's highest-value methods, prioritizing complex, core, or critical business logic over simple accessors and boilerplate.
+
+After every code change, review the affected behavior and update or add the relevant JUnit tests so this coverage target continues to be met. Run the applicable Gradle test task before handing off the change.
+
 ## Git
 
 Use lightweight tags unless the user requests an annotated tag.

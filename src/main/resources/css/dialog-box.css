@@ -1,0 +1,43 @@
+.message-content {
+    -fx-spacing: 3;
+}
+
+.message-sender {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #81699a;
+}
+
+.message-text {
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 10 12;
+}
+
+.user-message .message-content {
+    -fx-alignment: top-right;
+}
+
+.user-message .message-text {
+    -fx-background-color: #e9ddfb;
+    -fx-background-radius: 14 14 4 14;
+    -fx-text-fill: #442b65;
+}
+
+.assistant-message .message-text {
+    -fx-background-color: #f3effa;
+    -fx-background-radius: 14 14 14 4;
+    -fx-border-color: #e6dcf1;
+    -fx-border-radius: 14 14 14 4;
+    -fx-text-fill: #3f3154;
+}
+
+.error-message .message-sender {
+    -fx-text-fill: #bd4f78;
+}
+
+.error-message .message-text {
+    -fx-background-color: #ffe8f0;
+    -fx-border-color: #f4bfd0;
+    -fx-text-fill: #8c234d;
+}

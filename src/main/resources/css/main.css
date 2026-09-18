@@ -1,0 +1,187 @@
+.root {
+    -fx-background-color: #fbf9ff;
+    -fx-font-family: "System";
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.content-container {
+    -fx-background-color: #fbf9ff;
+    -fx-padding: 18 16 24 16;
+    -fx-spacing: 16;
+}
+
+.dashboard-panel {
+    -fx-background-color: #f8f4ff;
+    -fx-background-radius: 18;
+    -fx-border-color: #e7ddf6;
+    -fx-border-radius: 18;
+    -fx-padding: 16;
+    -fx-spacing: 15;
+}
+
+.app-header {
+    -fx-spacing: 10;
+}
+
+.app-mark {
+    -fx-alignment: center;
+    -fx-background-color: #9fcfab;
+    -fx-background-radius: 10;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-min-height: 38;
+    -fx-min-width: 38;
+    -fx-text-fill: white;
+}
+
+.app-title {
+    -fx-font-size: 21px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #432b65;
+}
+
+.app-subtitle,
+.today-caption,
+.summary-hint {
+    -fx-font-size: 12px;
+    -fx-text-fill: #846f9f;
+}
+
+.today-row {
+    -fx-padding: 3 0 0 0;
+}
+
+.today-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #543773;
+}
+
+.task-count-label {
+    -fx-background-color: #e8dcfb;
+    -fx-background-radius: 14;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 6 10;
+    -fx-text-fill: #5c3d82;
+}
+
+.summary-card {
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-border-color: #ebe3f5;
+    -fx-border-radius: 14;
+    -fx-padding: 12;
+}
+
+.summary-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #432b65;
+}
+
+.summary-task {
+    -fx-alignment: center-left;
+    -fx-background-color: #fcfbfe;
+    -fx-background-radius: 10;
+    -fx-border-color: #eee8f5;
+    -fx-border-radius: 10;
+    -fx-padding: 8 10;
+}
+
+.summary-completion-mark {
+    -fx-alignment: center;
+    -fx-border-color: #a891c5;
+    -fx-border-radius: 5;
+    -fx-min-height: 17;
+    -fx-min-width: 17;
+    -fx-text-fill: white;
+}
+
+.summary-completion-mark-done {
+    -fx-background-color: #9fcfab;
+    -fx-background-radius: 5;
+    -fx-border-color: #9fcfab;
+}
+
+.summary-task-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #4b3763;
+}
+
+.session-divider {
+    -fx-spacing: 10;
+}
+
+.divider-line {
+    -fx-background-color: #e6dcf2;
+    -fx-max-height: 1;
+    -fx-pref-height: 1;
+}
+
+.divider-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #806695;
+}
+
+.dialog-container {
+    -fx-padding: 0 2 0 2;
+}
+
+.command-composer {
+    -fx-background-color: #fffefe;
+    -fx-border-color: #e8e0f1 transparent transparent transparent;
+    -fx-padding: 12 16;
+}
+
+.command-composer .text-field {
+    -fx-background-color: #fcfbff;
+    -fx-background-radius: 10;
+    -fx-border-color: #d7c9e8;
+    -fx-border-radius: 10;
+    -fx-font-size: 14px;
+    -fx-padding: 10 12;
+}
+
+.command-composer .text-field:focused {
+    -fx-border-color: #8d6caf;
+    -fx-effect: dropshadow(gaussian, rgba(141, 108, 175, 0.20), 7, 0.15, 0, 0);
+}
+
+.command-composer .button {
+    -fx-background-color: #84bc92;
+    -fx-background-radius: 10;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-min-height: 39;
+    -fx-min-width: 74;
+    -fx-text-fill: white;
+}
+
+.command-composer .button:hover {
+    -fx-background-color: #70a87f;
+}
+
+.command-composer .button:pressed {
+    -fx-background-color: #5c916a;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #cbbddd;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}
