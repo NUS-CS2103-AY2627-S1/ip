@@ -79,8 +79,8 @@ public class Ui {
             printDivider();
             printIndentedBanner(banner);
         }
-        printLine(INDENT + "Hello, little one.");
-        printLine(INDENT + "What can I assist you with today ;)?");
+        printLine(INDENT + "Hello, my friend.");
+        printLine(INDENT + "Big dreams require big actions. What are we getting done today?");
         printDivider();
     }
 
@@ -91,7 +91,7 @@ public class Ui {
      */
     public void showTaskList(TaskList tasks) {
         printDivider();
-        printLine(INDENT + " Here are the tasks in your list:");
+        printLine(INDENT + " Here's the game plan, my friend:");
         showNumberedTasks(tasks);
         printDivider();
     }
@@ -104,9 +104,9 @@ public class Ui {
      */
     public void showTasksOnDate(LocalDate date, List<Task> tasks) {
         printDivider();
-        printLine(INDENT + " Tasks occurring on " + date + ":");
+        printLine(INDENT + " Here's the programme for " + date + ":");
         if (showNumberedTasks(tasks) == 0) {
-            printLine(INDENT + " No deadlines or events found for that date.");
+            printLine(INDENT + " That day is clear. Use it wisely.");
         }
         printDivider();
     }
@@ -118,9 +118,9 @@ public class Ui {
      */
     public void showMatchingTasks(List<Task> tasks) {
         printDivider();
-        printLine(INDENT + " Here are the matching tasks in your list:");
+        printLine(INDENT + " Here are your matching tasks, my friend:");
         if (showNumberedTasks(tasks) == 0) {
-            printLine(INDENT + " No matching tasks found.");
+            printLine(INDENT + " No match, my friend. Try another keyword.");
         }
         printDivider();
     }
@@ -134,10 +134,10 @@ public class Ui {
     public void showFreeTime(LocalDateTime start, Duration duration) {
         LocalDateTime end = start.plus(duration);
         printDivider();
-        printLine(INDENT + " Daddy found you some breathing room:");
+        printLine(INDENT + " Daddy found you a recovery window:");
         printLine(INDENT + "   " + start.format(FREE_TIME_FORMAT) + "\u2013" + end.toLocalTime());
         printLine(INDENT + " That's a " + formatDuration(duration)
-                + " slot. Guard it with your life, little one.");
+                + " slot. Protect it, then get back to the mission.");
         printDivider();
     }
 
@@ -163,10 +163,11 @@ public class Ui {
      */
     public void showTaskAdded(Task task, int taskCount) {
         printDivider();
-        printLine(INDENT + " Got it. I've added this task:");
+        printLine(INDENT + " Good. The plan just got stronger:");
         printLine(INDENT + "   " + task.getTypeIcon() + "["
                 + task.getStatusIcon() + "] " + task.getDisplayDescription());
-        printLine(INDENT + " Now you have " + taskCount + " tasks in the list.");
+        printLine(INDENT + " That's " + taskCount + " " + formatTaskCount(taskCount)
+                + " in the list. Small steps, real progress.");
         printDivider();
     }
 
@@ -177,7 +178,7 @@ public class Ui {
      */
     public void showTaskMarked(Task task) {
         printDivider();
-        printLine(INDENT + " Nice! I've marked this task as done:");
+        printLine(INDENT + " That's what I like to see, my friend. Task crushed:");
         printLine(INDENT + "   [X] " + task.getDisplayDescription());
         printDivider();
     }
@@ -189,7 +190,7 @@ public class Ui {
      */
     public void showTaskUnmarked(Task task) {
         printDivider();
-        printLine(INDENT + " OK, I've marked this task as not done yet:");
+        printLine(INDENT + " Honesty first. This task is back in the programme:");
         printLine(INDENT + "   [ ] " + task.getDisplayDescription());
         printDivider();
     }
@@ -202,10 +203,12 @@ public class Ui {
      */
     public void showTaskDeleted(Task task, int taskCount) {
         printDivider();
-        printLine(INDENT + " Noted. I've removed this task:");
+        printLine(INDENT + " Clean plan, clear mind. I've removed this task:");
         printLine(INDENT + "   " + task.getTypeIcon() + "[" + task.getStatusIcon()
                 + "] " + task.getDisplayDescription());
-        printLine(INDENT + " Now you have " + taskCount + " tasks in the list.");
+        String remainingVerb = taskCount == 1 ? "remains" : "remain";
+        printLine(INDENT + " " + taskCount + " " + formatTaskCount(taskCount)
+                + " " + remainingVerb + ". Focus on what matters.");
         printDivider();
     }
 
@@ -222,8 +225,18 @@ public class Ui {
 
     /** Displays Daddy's farewell message. */
     public void showExit() {
-        printLine(INDENT + "Bye. See you soon :)");
+        printLine(INDENT + "Go make Daddy proud, my friend. See you soon.");
         printDivider();
+    }
+
+    /**
+     * Returns the correctly pluralized word used to describe a task count.
+     *
+     * @param taskCount the number of tasks being described
+     * @return {@code task} for one task, or {@code tasks} otherwise
+     */
+    private String formatTaskCount(int taskCount) {
+        return taskCount == 1 ? "task" : "tasks";
     }
 
     /**

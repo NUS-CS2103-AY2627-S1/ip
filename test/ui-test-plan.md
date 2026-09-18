@@ -18,8 +18,10 @@ The window should distinguish the participants asymmetrically: entered commands 
 pink chips without an avatar, while Daddy's longer responses use readable white cards with a small, circularly
 cropped Daddy Noel avatar. The invalid command should appear in a red-tinted card headed `COMMAND NEEDS ATTENTION`.
 The compact gradient header should show white ASCII art without wrapping. The greeting and command responses
-should omit command-line-only divider lines. A plain `list` command should display a responsive graphical task
-panel with status, task type, description, and date details rather than console-style task text.
+should omit command-line-only divider lines. Daddy should address the user as "my friend" and respond with the
+same supportive, direct coaching voice in both valid-command confirmations and error corrections. A plain `list`
+command should display a responsive graphical task panel with status, task type, description, and date details
+rather than console-style task text.
 
 Resize the window down to its minimum size and then make it wider. Text and task cards should reflow without a
 horizontal scrollbar, the command field should remain usable, and conversation space should grow with the window.
@@ -125,29 +127,29 @@ bye
     | | | || (_| || (_| | | (_| | | |_| |
     | |_| | \__,_| \__,_|  \__,_|  \__, |
     |____/                          |___/ 
-    Hello, little one.
-    What can I assist you with today ;)?
+    Hello, my friend.
+    Big dreams require big actions. What are we getting done today?
     ____________________________________________________________
     ____________________________________________________________
-     Got it. I've added this task:
+     Good. The plan just got stronger:
        [T][ ] keep me
-     Now you have 1 tasks in the list.
+     That's 1 task in the list. Small steps, real progress.
     ____________________________________________________________
     ____________________________________________________________
-     Got it. I've added this task:
+     Good. The plan just got stronger:
        [T][ ] remove me
-     Now you have 2 tasks in the list.
+     That's 2 tasks in the list. Small steps, real progress.
     ____________________________________________________________
     ____________________________________________________________
-     Noted. I've removed this task:
+     Clean plan, clear mind. I've removed this task:
        [T][ ] remove me
-     Now you have 1 tasks in the list.
+     1 task remains. Focus on what matters.
     ____________________________________________________________
     ____________________________________________________________
-     Here are the tasks in your list:
+     Here's the game plan, my friend:
      1.[T][ ] keep me
     ____________________________________________________________
-    Bye. See you soon :)
+    Go make Daddy proud, my friend. See you soon.
     ____________________________________________________________
 ```
 
@@ -185,62 +187,62 @@ bye
     | | | || (_| || (_| | | (_| | | |_| |
     | |_| | \__,_| \__,_|  \__,_|  \__, |
     |____/                          |___/ 
-    Hello, little one.
-    What can I assist you with today ;)?
+    Hello, my friend.
+    Big dreams require big actions. What are we getting done today?
     ____________________________________________________________
     ____________________________________________________________
-     Got it. I've added this task:
+     Good. The plan just got stronger:
        [T][ ] buy milk
-     Now you have 1 tasks in the list.
+     That's 1 task in the list. Small steps, real progress.
     ____________________________________________________________
     ____________________________________________________________
-     Hmm, what are you thinking of doing today? You need a description for that. Try: todo borrow book.
+     No plan, no progress, my friend. Tell Daddy what needs doing. Try: todo borrow book.
     ____________________________________________________________
     ____________________________________________________________
-     MARK?! Mark what... Try: mark 1 (after adding a task first).
+     MARK what, my friend? Give Daddy a task number. Try: mark 1.
     ____________________________________________________________
     ____________________________________________________________
-     UNMARK?! Unmark what... Try: unmark 1 (after adding a task first).
+     UNMARK what, my friend? Give Daddy a task number. Try: unmark 1.
     ____________________________________________________________
     ____________________________________________________________
-     What deadlines are coming up? Better hurry, add them and get them done ASAP. Try: deadline return book /by Sunday.
+     Deadlines do not lift themselves, my friend. Name the task. Try: deadline return book /by 02-12-2019.
     ____________________________________________________________
     ____________________________________________________________
-     What exciting event are you planning? Give it a name so Daddy can keep track. Try: event meeting /from Mon 2pm /to 4pm.
+     Give the event a name, my friend, so Daddy can track it. Try: event meeting /from 02-12-2019 1400 /to 02-12-2019 1600.
     ____________________________________________________________
     ____________________________________________________________
-     FIND?! Find what... Try: find book.
+     FIND what, my friend? Give Daddy a keyword. Try: find book.
     ____________________________________________________________
     ____________________________________________________________
-     FREE?! Free for how long? Try: free 4h.
+     FREE for how long, my friend? Give Daddy a duration. Try: free 4h.
     ____________________________________________________________
     ____________________________________________________________
-     Use a whole-number duration ending in h or m. Try: free 4h or free 90m.
+     Keep it simple, my friend: use a whole number ending in h or m. Try: free 4h or free 90m.
     ____________________________________________________________
     ____________________________________________________________
-     Free time must be longer than zero. Try: free 4h.
+     A zero-minute break will not help you recover, my friend. Try: free 4h.
     ____________________________________________________________
     ____________________________________________________________
-     Daddy's workday runs from 09:00 to 18:00, so one free slot cannot exceed 9 hours.
+     Daddy's workday runs from 09:00 to 18:00, my friend. Keep the free slot at 9 hours or less.
     ____________________________________________________________
     ____________________________________________________________
-     Here are the tasks in your list:
+     Here's the game plan, my friend:
      1.[T][ ] buy milk
     ____________________________________________________________
     ____________________________________________________________
-     'abc' is not a task number. Try mark 1, for example.
+     'abc' is not a task number, my friend. Try: mark 1.
     ____________________________________________________________
     ____________________________________________________________
-     A deadline needs a /by date or time. Try: deadline return book /by Sunday
+     A deadline needs a /by date or time, my friend. Try: deadline return book /by 02-12-2019.
     ____________________________________________________________
     ____________________________________________________________
-     An event needs both /from and /to times. Try: event meeting /from Mon 2pm /to 4pm
+     An event needs both /from and /to times, my friend. Try: event meeting /from 02-12-2019 1400 /to 02-12-2019 1600.
     ____________________________________________________________
     ____________________________________________________________
-     Here are the tasks in your list:
+     Here's the game plan, my friend:
      1.[T][ ] buy milk
     ____________________________________________________________
-    Bye. See you soon :)
+    Go make Daddy proud, my friend. See you soon.
     ____________________________________________________________
 ```
 
@@ -269,42 +271,42 @@ bye
     | | | || (_| || (_| | | (_| | | |_| |
     | |_| | \__,_| \__,_|  \__,_|  \__, |
     |____/                          |___/ 
-    Hello, little one.
-    What can I assist you with today ;)?
+    Hello, my friend.
+    Big dreams require big actions. What are we getting done today?
     ____________________________________________________________
     ____________________________________________________________
-     Got it. I've added this task:
+     Good. The plan just got stronger:
        [T][ ] read book
-     Now you have 1 tasks in the list.
+     That's 1 task in the list. Small steps, real progress.
     ____________________________________________________________
     ____________________________________________________________
-     Nice! I've marked this task as done:
+     That's what I like to see, my friend. Task crushed:
        [X] read book
     ____________________________________________________________
     ____________________________________________________________
-     Got it. I've added this task:
+     Good. The plan just got stronger:
        [D][ ] return book (by: Jun 6 2026 00:00)
-     Now you have 2 tasks in the list.
+     That's 2 tasks in the list. Small steps, real progress.
     ____________________________________________________________
     ____________________________________________________________
-     Nice! I've marked this task as done:
+     That's what I like to see, my friend. Task crushed:
        [X] return book (by: Jun 6 2026 00:00)
     ____________________________________________________________
     ____________________________________________________________
-     Here are the matching tasks in your list:
+     Here are your matching tasks, my friend:
      1.[T][X] read book
      2.[D][X] return book (by: Jun 6 2026 00:00)
     ____________________________________________________________
     ____________________________________________________________
-     Here are the matching tasks in your list:
-     No matching tasks found.
+     Here are your matching tasks, my friend:
+     No match, my friend. Try another keyword.
     ____________________________________________________________
     ____________________________________________________________
-     Here are the tasks in your list:
+     Here's the game plan, my friend:
      1.[T][X] read book
      2.[D][X] return book (by: Jun 6 2026 00:00)
     ____________________________________________________________
-    Bye. See you soon :)
+    Go make Daddy proud, my friend. See you soon.
     ____________________________________________________________
 ```
 
@@ -330,26 +332,26 @@ bye
     | | | || (_| || (_| | | (_| | | |_| |
     | |_| | \__,_| \__,_|  \__,_|  \__, |
     |____/                          |___/ 
-    Hello, little one.
-    What can I assist you with today ;)?
+    Hello, my friend.
+    Big dreams require big actions. What are we getting done today?
     ____________________________________________________________
     ____________________________________________________________
-     Got it. I've added this task:
+     Good. The plan just got stronger:
        [T][ ] read book
-     Now you have 1 tasks in the list.
+     That's 1 task in the list. Small steps, real progress.
     ____________________________________________________________
     ____________________________________________________________
-     Nice! I've marked this task as done:
+     That's what I like to see, my friend. Task crushed:
        [X] read book
     ____________________________________________________________
     ____________________________________________________________
-     OK, I've marked this task as not done yet:
+     Honesty first. This task is back in the programme:
        [ ] read book
     ____________________________________________________________
     ____________________________________________________________
-     Here are the tasks in your list:
+     Here's the game plan, my friend:
      1.[T][ ] read book
     ____________________________________________________________
-    Bye. See you soon :)
+    Go make Daddy proud, my friend. See you soon.
     ____________________________________________________________
 ```

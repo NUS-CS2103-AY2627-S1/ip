@@ -52,15 +52,15 @@ class ParserTest {
     void parseCommand_missingTaskNumber_reportsSpecificCorrection() {
         Parser parser = new Parser();
 
-        assertEquals("MARK?! Mark what... Try: mark 1 (after adding a task first).",
+        assertEquals("MARK what, my friend? Give Daddy a task number. Try: mark 1.",
                 parseError(parser, "mark").getMessage());
-        assertEquals("UNMARK?! Unmark what... Try: unmark 1 (after adding a task first).",
+        assertEquals("UNMARK what, my friend? Give Daddy a task number. Try: unmark 1.",
                 parseError(parser, "unmark").getMessage());
-        assertEquals("DELETE?! Delete what... Try: delete 1 (choose a task number first).",
+        assertEquals("DELETE what, my friend? Choose a task number. Try: delete 1.",
                 parseError(parser, "delete").getMessage());
-        assertEquals("FIND?! Find what... Try: find book.",
+        assertEquals("FIND what, my friend? Give Daddy a keyword. Try: find book.",
                 parseError(parser, "find").getMessage());
-        assertEquals("FREE?! Free for how long? Try: free 4h.",
+        assertEquals("FREE for how long, my friend? Give Daddy a duration. Try: free 4h.",
                 parseError(parser, "free").getMessage());
     }
 
@@ -71,21 +71,23 @@ class ParserTest {
     void parseCommand_invalidArguments_reportsHelpfulErrors() {
         Parser parser = new Parser();
 
-        assertEquals("'abc' is not a task number. Try mark 1, for example.",
+        assertEquals("'abc' is not a task number, my friend. Try: mark 1.",
                 parseError(parser, "mark abc").getMessage());
-        assertEquals("That deadline date needs dd-MM-yyyy or dd-MM-yyyy HHmm format. "
-                        + "Try: deadline return book /by 02-12-2019 1800",
+        assertEquals("Keep the deadline date clean, my friend: use dd-MM-yyyy or dd-MM-yyyy HHmm. "
+                        + "Try: deadline return book /by 02-12-2019 1800.",
                 parseError(parser, "deadline return book /by tomorrow").getMessage());
-        assertEquals("Use a whole-number duration ending in h or m. Try: free 4h or free 90m.",
+        assertEquals("Keep it simple, my friend: use a whole number ending in h or m. "
+                        + "Try: free 4h or free 90m.",
                 parseError(parser, "free four hours").getMessage());
-        assertEquals("Free time must be longer than zero. Try: free 4h.",
+        assertEquals("A zero-minute break will not help you recover, my friend. Try: free 4h.",
                 parseError(parser, "free 0h").getMessage());
-        assertEquals("Daddy's workday runs from 09:00 to 18:00, so one free slot cannot exceed 9 hours.",
+        assertEquals("Daddy's workday runs from 09:00 to 18:00, my friend. "
+                        + "Keep the free slot at 9 hours or less.",
                 parseError(parser, "free 10h").getMessage());
-        assertEquals("An event must end after it starts. "
-                        + "Try: event meeting /from 02-12-2019 1400 /to 02-12-2019 1600",
+        assertEquals("Time only moves forward, my friend. The event must end after it starts. "
+                        + "Try: event meeting /from 02-12-2019 1400 /to 02-12-2019 1600.",
                 parseError(parser, "event meeting /from 02-12-2026 1600 /to 02-12-2026 1400").getMessage());
-        assertEquals("Daddy has no clue what 'dance' means. "
+        assertEquals("Easy, my friend—Daddy doesn't know what 'dance' means. "
                         + "Try todo, deadline, event, list, find, free, mark, unmark, delete, or bye.",
                 parseError(parser, "dance").getMessage());
     }
