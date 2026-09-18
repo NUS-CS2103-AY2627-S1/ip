@@ -33,7 +33,7 @@ class NimbusTest {
 
         String response = nimbus.getResponse("deadline /by 2026-01-01");
 
-        assertEquals("I couldn't do that: Use: deadline DESCRIPTION /by YYYY-MM-DD.", response);
+        assertEquals("Your decree is rejected: Use: deadline DESCRIPTION /by YYYY-MM-DD.", response);
     }
 
     @Test
@@ -42,7 +42,7 @@ class NimbusTest {
 
         String response = nimbus.getResponse("event /from Monday /to Tuesday");
 
-        assertEquals("I couldn't do that: Use: event DESCRIPTION /from START /to END.", response);
+        assertEquals("Your decree is rejected: Use: event DESCRIPTION /from START /to END.", response);
     }
 
     @Test
@@ -52,7 +52,7 @@ class NimbusTest {
         Nimbus.Response response = nimbus.getResponseWithStatus("bye now");
 
         assertTrue(response.isExit());
-        assertEquals("All set for now. See you next time!", response.message());
+        assertEquals("You are dismissed, land dweller. Return when you require my greatness!", response.message());
     }
 
     @Test
@@ -71,7 +71,7 @@ class NimbusTest {
 
         Nimbus nimbus = new Nimbus(blockingFile.resolve("tasks.txt"));
 
-        assertTrue(nimbus.getWelcomeMessage().contains("fog rolled in"));
+        assertTrue(nimbus.getWelcomeMessage().contains("couldn't load your saved tasks"));
     }
 
     @Test
@@ -91,7 +91,7 @@ class NimbusTest {
     void getResponse_blankInput_returnsHelpfulError() {
         Nimbus nimbus = new Nimbus(temporaryDirectory.resolve("tasks.txt"));
 
-        assertEquals("Please type a command.", nimbus.getResponse("   "));
+        assertEquals("Speak, land dweller. Please type a command.", nimbus.getResponse("   "));
     }
 
     @Test
@@ -129,7 +129,7 @@ class NimbusTest {
 
         String response = nimbus.getResponse("deadline submit report /by next Friday");
 
-        assertEquals("I couldn't do that: Use a deadline date in YYYY-MM-DD format.", response);
+        assertEquals("Your decree is rejected: Use a deadline date in YYYY-MM-DD format.", response);
     }
 
     @Test
@@ -139,7 +139,7 @@ class NimbusTest {
 
         String response = nimbus.getResponse("mark 2");
 
-        assertEquals("I couldn't do that: Choose a task number from the list.", response);
+        assertEquals("Your decree is rejected: Choose a task number from the list.", response);
     }
 
     @Test
@@ -148,6 +148,6 @@ class NimbusTest {
 
         String response = nimbus.getResponse("dance now");
 
-        assertTrue(response.contains("command drifted past me"));
+        assertTrue(response.contains("Even I cannot command that"));
     }
 }

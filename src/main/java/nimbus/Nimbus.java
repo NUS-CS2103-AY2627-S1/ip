@@ -20,10 +20,11 @@ import nimbus.ui.Ui;
 
 /** Runs Nimbus, a personal task assistant. */
 public class Nimbus {
-    private static final String WELCOME_MESSAGE = "Hello! I'm Nimbus.\nLet's get a clear view of what's next.";
-    private static final String LOAD_WARNING = "A little fog rolled in while I loaded your saved tasks. "
-            + "We'll start with a clear list.";
-    private static final String DAMAGED_RECORD_WARNING = "I recovered your tasks but skipped %d damaged "
+    private static final String WELCOME_MESSAGE = "I am Mr. Nimbus!\nThe ocean answers to me. Your task list is next."
+            + "\nIssue a command, land dweller.";
+    private static final String LOAD_WARNING = "Even my kingdom has limits: I couldn't load your saved tasks. "
+            + "This session starts with an empty list.";
+    private static final String DAMAGED_RECORD_WARNING = "My court recovered your tasks but skipped %d damaged "
             + "saved record%s.";
 
     private final Parser parser;
@@ -81,20 +82,20 @@ public class Nimbus {
     public Response getResponseWithStatus(String input) {
         assert input != null : "Command input must not be null";
         if (input.isBlank()) {
-            return new Response("Please type a command.", false);
+            return new Response("Speak, land dweller. Please type a command.", false);
         }
         ParsedCommand command = parser.parse(input);
         if (command.type() == CommandType.BYE) {
-            return new Response("All set for now. See you next time!", true);
+            return new Response("You are dismissed, land dweller. Return when you require my greatness!", true);
         }
         try {
             String message = execute(command);
             storage.save(tasks.asList());
             return new Response(message, false);
         } catch (NimbusException e) {
-            return new Response("I couldn't do that: " + e.getMessage(), false);
+            return new Response("Your decree is rejected: " + e.getMessage(), false);
         } catch (IOException e) {
-            return new Response("I couldn't save your tasks: " + e.getMessage(), false);
+            return new Response("The ledger defies me! I couldn't save your tasks: " + e.getMessage(), false);
         }
     }
 
@@ -107,7 +108,7 @@ public class Nimbus {
 
     private String execute(ParsedCommand command) throws NimbusException {
         return switch (command.type()) {
-            case LIST -> formatTasks("Here's your current forecast:", tasks.asList());
+            case LIST -> formatTasks("Behold the tasks under my command:", tasks.asList());
             case MARK -> markTaskAsDone(command.argument());
             case UNMARK -> markTaskAsNotDone(command.argument());
             case DELETE -> deleteTask(command.argument());
@@ -116,7 +117,8 @@ public class Nimbus {
             case DEADLINE -> addDeadline(command.argument());
             case EVENT -> addEvent(command.argument());
             case FIND -> findTasks(command.argument());
-            case UNKNOWN -> throw new NimbusException("That command drifted past me. Try one from the hint below.");
+            case UNKNOWN -> throw new NimbusException("Even I cannot command that. Use: list, todo, deadline, "
+                    + "event, mark, unmark, delete, update, find, bye.");
             case BYE -> throw new IllegalStateException("Bye must be handled before command execution");
         };
     }
@@ -124,19 +126,19 @@ public class Nimbus {
     private String markTaskAsDone(String argument) throws NimbusException {
         Task task = tasks.get(parseTaskNumber(argument));
         task.markAsDone();
-        return "Done. I've marked this task as completed:\n  " + task;
+        return "A worthy triumph! I've marked this task as completed:\n  " + task;
     }
 
     private String markTaskAsNotDone(String argument) throws NimbusException {
         Task task = tasks.get(parseTaskNumber(argument));
         task.markAsNotDone();
-        return "I've marked this task as not completed:\n  " + task;
+        return "Our treaty is revised. I've marked this task as not completed:\n  " + task;
     }
 
     private String deleteTask(String argument) throws NimbusException {
         Task task = tasks.delete(parseTaskNumber(argument));
-        return "I've removed this task:\n  " + task
-                + "\nYou now have " + tasks.size() + " tasks.";
+        return "Dismissed from my kingdom! I've removed this task:\n  " + task
+                + "\nTasks under my command: " + tasks.size() + ".";
     }
 
     private String updateTask(String argument) throws NimbusException {
@@ -149,7 +151,7 @@ public class Nimbus {
         requireNonEmpty(description, "Give the task a new description.");
         Task task = tasks.get(taskNumber);
         task.setDescription(description);
-        return "I've updated this task:\n  " + task;
+        return "A change of treaty! I've updated this task:\n  " + task;
     }
 
     private String addTodo(String description) throws NimbusException {
@@ -193,14 +195,14 @@ public class Nimbus {
 
     private String findTasks(String keyword) throws NimbusException {
         requireNonEmpty(keyword, "Give me a keyword to find.");
-        return formatTasks("These tasks match your search:", tasks.find(keyword));
+        return formatTasks("The ocean yields these tasks matching your search:", tasks.find(keyword));
     }
 
     private String addTask(Task task) {
         assert task != null : "Task to add must not be null";
         tasks.add(task);
-        return "I've added this task:\n  " + task
-                + "\nYou now have " + tasks.size() + " tasks.";
+        return "By royal decree, I've added this task:\n  " + task
+                + "\nTasks under my command: " + tasks.size() + ".";
     }
 
     private static String formatTasks(String heading, List<Task> tasks) {

@@ -24,9 +24,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        Label title = new Label("Nimbus");
+        Label title = new Label("Mr. Nimbus");
         title.getStyleClass().add("app-title");
-        Label subtitle = new Label("A clear forecast for what's next");
+        Label subtitle = new Label("King of the ocean. Ruler of your task list.");
         subtitle.getStyleClass().add("app-subtitle");
         VBox header = new VBox(2, title, subtitle);
         header.getStyleClass().add("header");
@@ -40,18 +40,18 @@ public class Main extends Application {
         dialogContainer.heightProperty().addListener((observable, oldValue, newValue) ->
                 dialogScrollPane.setVvalue(1.0));
 
-        Button sendButton = new Button("Send");
+        Button sendButton = new Button("Command");
         sendButton.setDefaultButton(true);
         sendButton.getStyleClass().add("send-button");
         sendButton.setOnAction(event -> handleUserInput());
-        userInput.setPromptText("Type a command, e.g. todo read a book");
+        userInput.setPromptText("Your decree, e.g. todo conquer chapter 6");
         userInput.getStyleClass().add("command-input");
         userInput.setOnAction(event -> handleUserInput());
         HBox inputBar = new HBox(8, userInput, sendButton);
         inputBar.getStyleClass().add("input-bar");
         HBox.setHgrow(userInput, Priority.ALWAYS);
 
-        Label hint = new Label("Commands: list, todo, deadline, event, find, update, bye");
+        Label hint = new Label("Decrees: list, todo, deadline, event, find, update, bye");
         hint.getStyleClass().add("command-hint");
         VBox composer = new VBox(7, inputBar, hint);
 
@@ -66,7 +66,7 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setMinWidth(480);
         stage.setMinHeight(360);
-        stage.setTitle("Nimbus");
+        stage.setTitle("Mr. Nimbus");
         stage.show();
 
         addMessage(nimbus.getWelcomeMessage(), MessageSender.NIMBUS);
@@ -90,7 +90,7 @@ public class Main extends Application {
 
     private void addMessage(String message, MessageSender sender) {
         boolean isFromUser = sender == MessageSender.USER;
-        Label speaker = new Label(isFromUser ? "You" : "Nimbus");
+        Label speaker = new Label(isFromUser ? "You" : "Mr. Nimbus");
         speaker.getStyleClass().add("speaker-label");
         Label bubble = new Label(message);
         bubble.setWrapText(true);
