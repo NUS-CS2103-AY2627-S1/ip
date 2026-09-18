@@ -1,0 +1,143 @@
+/*
+ * "Hacker sigma" dark theme for Chud's chat window: near-black background with a neon-green
+ * accent, matching Chud's brainrot personality. Colors are grouped as named variables (JavaFX
+ * CSS's "-fx-*" custom properties) at the top so the palette can be tweaked in one place.
+ */
+.root {
+    -chud-bg: #0b0c0a;
+    -chud-bg-alt: #14160f;
+    -chud-bubble-chud: #161c14;
+    -chud-bubble-user: #14160f;
+    -chud-text: #eafff0;
+    -chud-text-dim: #7ea884;
+    -chud-accent: #39ff14;
+    -chud-error-bg: #2a1416;
+    -chud-error-text: #ff9d95;
+    -chud-error-border: #ff4d4d;
+
+    -fx-background-color: -chud-bg;
+    -fx-font-family: "Segoe UI Semibold", "Segoe UI", "Helvetica Neue", "Inter", sans-serif;
+}
+
+.scroll-pane, .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .content {
+    -fx-background-color: -chud-bg;
+}
+
+/* Slim, unobtrusive scrollbar that matches the dark background instead of the OS default. */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: -chud-bg-alt;
+    -fx-background-radius: 5;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: -chud-accent;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-pref-height: 0;
+}
+
+.dialog-container {
+    -fx-background-color: -chud-bg;
+}
+
+/*
+ * Chud's replies are the actual content people come here to read (a task list, a search result),
+ * so they get the most visual weight: the widest bubble (see DialogBox's CHUD_WIDTH_FRACTION),
+ * the largest font, the most padding, and a soft neon-green glow (instead of a plain black
+ * shadow) that lifts it off the background and ties it to the accent color.
+ */
+.chud-bubble {
+    -fx-background-color: -chud-bubble-chud;
+    -fx-text-fill: -chud-text;
+    -fx-background-radius: 4 14 14 14;
+    -fx-padding: 12 16 12 16;
+    -fx-font-size: 13.5px;
+    -fx-effect: dropshadow(gaussian, rgba(57, 255, 20, 0.18), 10, 0, 0, 2);
+}
+
+/*
+ * The user's own input is just a typed command being echoed back, not a chat message -- so it's
+ * deliberately the quieter of the two: smaller, monospaced (it reads as "what you typed", not
+ * prose), no avatar, and a background barely distinct from the page instead of a bold accent
+ * color or a glow.
+ */
+.user-bubble {
+    -fx-background-color: -chud-bubble-user;
+    -fx-text-fill: -chud-text-dim;
+    -fx-background-radius: 12 4 12 12;
+    -fx-padding: 6 12 6 12;
+    -fx-font-size: 12px;
+    -fx-font-family: "Cascadia Mono", "Consolas", "Courier New", monospace;
+}
+
+/*
+ * An error reply keeps chud-bubble's shape/size but swaps in a warning-red palette (a
+ * deliberate contrast against the theme's green) and a left accent border, so a bad command is
+ * visually distinct at a glance rather than blending into normal output.
+ */
+.error-bubble {
+    -fx-background-color: -chud-error-bg;
+    -fx-text-fill: -chud-error-text;
+    -fx-background-radius: 4 14 14 14;
+    -fx-padding: 12 16 12 16;
+    -fx-font-size: 13.5px;
+    -fx-border-color: -chud-error-border;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-radius: 4 0 0 0;
+    -fx-effect: dropshadow(gaussian, rgba(255, 77, 77, 0.25), 10, 0, 0, 2);
+}
+
+/* A soft neon-green glow gives Chud's avatar a touch of depth that matches the accent color. */
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(57, 255, 20, 0.35), 6, 0, 0, 1);
+}
+
+.input-bar {
+    -fx-background-color: -chud-bg-alt;
+}
+
+.text-input {
+    -fx-background-color: derive(-chud-bg-alt, 12%);
+    -fx-text-fill: -chud-text;
+    -fx-prompt-text-fill: -chud-text-dim;
+    -fx-background-radius: 18;
+    -fx-padding: 8 14 8 14;
+    -fx-font-size: 13px;
+}
+
+.text-input:focused {
+    -fx-background-color: derive(-chud-bg-alt, 22%);
+    -fx-effect: dropshadow(gaussian, rgba(57, 255, 20, 0.3), 6, 0, 0, 0);
+}
+
+.send-button {
+    -fx-background-color: -chud-accent;
+    -fx-text-fill: #08110a;
+    -fx-font-weight: bold;
+    -fx-background-radius: 18;
+    -fx-padding: 8 18 8 18;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: derive(-chud-accent, 20%);
+}
+
+.send-button:pressed {
+    -fx-background-color: derive(-chud-accent, -20%);
+}
