@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run exact console UI acceptance tests"
+  default_prompt: "Use $test-ui to record and run these console test cases."
