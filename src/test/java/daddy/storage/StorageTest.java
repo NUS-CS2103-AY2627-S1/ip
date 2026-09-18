@@ -2,6 +2,7 @@ package daddy.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import daddy.exception.DaddyException;
 import daddy.task.Deadline;
 import daddy.task.Event;
 import daddy.task.Task;
@@ -114,7 +116,9 @@ class StorageTest {
                 "BROKEN",
                 "D|0|return book|2026-12-02T18:00",
                 "E|x|bad",
-                "E|0|backwards|2026-12-03T16:00|2026-12-03T14:00");
+                "E|0|backwards|2026-12-03T16:00|2026-12-03T14:00",
+                "D|0|impossible|2026-02-30T18:00",
+                "T|0|keep me");
         Files.write(dataFile, originalRecords);
         Storage storage = new Storage(dataFile, temporaryDirectory.resolve("duke.txt"));
         TaskList tasks = new TaskList();
@@ -126,11 +130,51 @@ class StorageTest {
         assertEquals("return book", taskAt(tasks, 1).getDescription());
         assertEquals(originalRecords, Files.readAllLines(temporaryDirectory.resolve("daddy.txt.backup")));
         assertEquals(List.of("line 2: BROKEN", "line 4: E|x|bad",
-                        "line 5: E|0|backwards|2026-12-03T16:00|2026-12-03T14:00"),
+                        "line 5: E|0|backwards|2026-12-03T16:00|2026-12-03T14:00",
+                        "line 6: D|0|impossible|2026-02-30T18:00",
+                        "line 7: T|0|keep me"),
                 Files.readAllLines(temporaryDirectory.resolve("daddy.txt.corrupt")));
         assertTrue(messages.stream().anyMatch(message -> message.contains("line 2")));
         assertTrue(messages.stream().anyMatch(message -> message.contains("line 4")));
         assertTrue(messages.stream().anyMatch(message -> message.contains("line 5")));
+        assertTrue(messages.stream().anyMatch(message -> message.contains("line 6")));
+        assertTrue(messages.stream().anyMatch(message -> message.contains("duplicate task on line 7")));
+    }
+
+    /**
+     * Verifies that a directory at the data-file path is reported without crashing startup.
+     *
+     * @throws IOException if the temporary directory cannot be created
+     */
+    @Test
+    void loadInto_dataPathIsDirectory_reportsSpecificProblem() throws IOException {
+        Path dataFile = temporaryDirectory.resolve("daddy.txt");
+        Files.createDirectory(dataFile);
+        Storage storage = new Storage(dataFile, temporaryDirectory.resolve("duke.txt"));
+
+        List<String> messages = storage.loadInto(new TaskList());
+
+        assertEquals(1, messages.size());
+        assertTrue(messages.getFirst().contains("expected a data file"));
+    }
+
+    /**
+     * Verifies that an unusable parent path produces a user-facing save error.
+     *
+     * @throws IOException if the blocking file cannot be created
+     */
+    @Test
+    void save_parentPathIsFile_throwsDaddyException() throws IOException {
+        Path blockingParent = temporaryDirectory.resolve("not-a-folder");
+        Files.writeString(blockingParent, "blocking file");
+        Storage storage = new Storage(blockingParent.resolve("daddy.txt"),
+                temporaryDirectory.resolve("duke.txt"));
+        TaskList tasks = new TaskList();
+        tasks.add(new Todo("read book"));
+
+        DaddyException exception = assertThrows(DaddyException.class, () -> storage.save(tasks));
+
+        assertTrue(exception.getMessage().contains("writable file location"));
     }
 
     /**

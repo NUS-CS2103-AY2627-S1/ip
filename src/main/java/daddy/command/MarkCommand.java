@@ -23,8 +23,16 @@ public class MarkCommand extends TaskIndexCommand {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DaddyException {
         ensureTaskExists(tasks);
+        boolean wasDone = tasks.getTaskAt(getTaskIndex()).isDone();
         Task task = tasks.markTaskAsDone(getTaskIndex());
-        storage.save(tasks);
+        try {
+            storage.save(tasks);
+        } catch (DaddyException exception) {
+            if (!wasDone) {
+                task.markAsNotDone();
+            }
+            throw exception;
+        }
         ui.showTaskMarked(task);
     }
 }

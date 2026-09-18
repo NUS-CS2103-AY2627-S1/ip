@@ -60,6 +60,15 @@ public class Ui {
         return scanner.nextLine();
     }
 
+    /**
+     * Returns whether another console command is available to read.
+     *
+     * @return whether standard input contains another command line
+     */
+    public boolean hasNextCommand() {
+        return scanner != null && scanner.hasNextLine();
+    }
+
     /** Releases the input stream used by this interface. */
     public void close() {
         if (scanner != null) {
@@ -69,12 +78,12 @@ public class Ui {
 
     /** Displays Daddy's greeting banner. */
     public void showGreeting() {
-        String banner = " ____                      _       _       \n"
-                + "|  _ \\   __ _   __| |   __| |  _   _ \n"
+        String banner = " ____                      _       _\n"
+                + "|  _ \\   __ _   __| |   __| |  _   _\n"
                 + "| | | | / _\u0060 | / _\u0060 |  / _\u0060 | | | | |\n"
                 + "| | | || (_| || (_| | | (_| | | |_| |\n"
                 + "| |_| | \\__,_| \\__,_|  \\__,_|  \\__, |\n"
-                + "|____/                          |___/ \n";
+                + "|____/                          |___/\n";
         if (usesConsoleFormatting) {
             printDivider();
             printIndentedBanner(banner);

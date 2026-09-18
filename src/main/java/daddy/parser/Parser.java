@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,9 +32,13 @@ import daddy.task.Todo;
  */
 public class Parser {
     /** Parses date-only task values in day-month-year order. */
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd-MM-uuuu")
+            .withResolverStyle(ResolverStyle.STRICT);
     /** Parses date-and-time task values in day-month-year order. */
-    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("dd-MM-uuuu HHmm")
+            .withResolverStyle(ResolverStyle.STRICT);
+    /** Recognizes one or more whitespace characters between command components. */
+    private static final Pattern WHITESPACE = Pattern.compile("\\s+");
     /** Recognizes a whole-number duration followed by an hour or minute unit. */
     private static final Pattern FREE_DURATION_FORMAT = Pattern.compile("^(\\d+)([hHmM])$");
     /** Limits free-time requests to the length of Daddy's working day. */
@@ -50,8 +56,12 @@ public class Parser {
      * @throws DaddyException if the command is unknown or its arguments are invalid
      */
     public Command parseCommand(String input) throws DaddyException {
-        CommandType commandType = getCommandType(input);
-        String arguments = getArguments(input, commandType);
+        if (input == null || input.isBlank()) {
+            throw new DaddyException("Daddy needs a command, my friend. Try: todo read book.");
+        }
+        String normalizedInput = normalizeWhitespace(input);
+        CommandType commandType = getCommandType(normalizedInput);
+        String arguments = getArguments(normalizedInput, commandType);
         return switch (commandType) {
             case BYE -> new ExitCommand();
             case LIST, LIST_ON -> parseListCommand(commandType, arguments);
@@ -68,9 +78,19 @@ public class Parser {
                     "DELETE what, my friend? Choose a task number. Try: delete 1.");
             case FIND_MISSING_ARGUMENT -> throw new DaddyException(
                     "FIND what, my friend? Give Daddy a keyword. Try: find book.");
-            case UNKNOWN -> throw new DaddyException("Easy, my friend—Daddy doesn't know what '" + input
+            case UNKNOWN -> throw new DaddyException("Easy, my friend—Daddy doesn't know what '" + normalizedInput
                     + "' means. Try todo, deadline, event, list, find, free, mark, unmark, delete, or bye.");
         };
+    }
+
+    /**
+     * Trims command boundaries and replaces repeated whitespace with one space.
+     *
+     * @param input the raw command text
+     * @return command text with stable spacing
+     */
+    private String normalizeWhitespace(String input) {
+        return WHITESPACE.matcher(input.trim()).replaceAll(" ");
     }
 
     /**
@@ -80,12 +100,12 @@ public class Parser {
      * @return the recognized command type, or {@link CommandType#UNKNOWN}
      */
     private CommandType getCommandType(String input) {
-        String lowerCaseInput = input.toLowerCase();
+        String lowerCaseInput = input.toLowerCase(Locale.ROOT);
         if (input.equalsIgnoreCase("bye")) {
             return CommandType.BYE;
         } else if (input.equalsIgnoreCase("list")) {
             return CommandType.LIST;
-        } else if (lowerCaseInput.startsWith("list on ")) {
+        } else if (input.equalsIgnoreCase("list on") || lowerCaseInput.startsWith("list on ")) {
             return CommandType.LIST_ON;
         } else if (input.equalsIgnoreCase("todo") || lowerCaseInput.startsWith("todo ")) {
             return CommandType.TODO;
@@ -125,7 +145,7 @@ public class Parser {
      */
     private String getArguments(String input, CommandType commandType) {
         return switch (commandType) {
-            case LIST_ON -> input.substring(8).trim();
+            case LIST_ON -> input.length() == 7 ? "" : input.substring(8).trim();
             case TODO -> input.length() == 4 ? "" : input.substring(5).trim();
             case DEADLINE -> input.length() == 8 ? "" : input.substring(9).trim();
             case EVENT -> input.length() == 5 ? "" : input.substring(6).trim();
@@ -180,7 +200,12 @@ public class Parser {
     private Command parseListCommand(CommandType commandType, String arguments) throws DaddyException {
         return switch (commandType) {
             case LIST -> new ListCommand();
-            case LIST_ON -> new ListOnDateCommand(parseListDate(arguments));
+            case LIST_ON -> {
+                if (arguments.isEmpty()) {
+                    throw new DaddyException("LIST ON needs a date, my friend. Try: list on 02-12-2019.");
+                }
+                yield new ListOnDateCommand(parseListDate(arguments));
+            }
             default -> throw new IllegalArgumentException("command does not list tasks");
         };
     }
@@ -304,6 +329,7 @@ public class Parser {
             throw new DaddyException("No plan, no progress, my friend. Tell Daddy what needs doing. "
                     + "Try: todo borrow book.");
         }
+        ensureDescriptionCanBeStored(description);
         return new Todo(description);
     }
 
@@ -315,6 +341,11 @@ public class Parser {
      * @throws DaddyException if a description or deadline is missing or incorrectly formatted
      */
     private Task parseDeadline(String taskDetails) throws DaddyException {
+        int byCount = countOccurrences(taskDetails, " /by ");
+        if (byCount > 1) {
+            throw new DaddyException("A deadline accepts one /by value, my friend. "
+                    + "Try: deadline return book /by 02-12-2019.");
+        }
         int byIndex = taskDetails.indexOf(" /by ");
         String description = byIndex >= 0 ? taskDetails.substring(0, byIndex).trim() : taskDetails;
         String deadline = byIndex >= 0 ? taskDetails.substring(byIndex + 5).trim() : "";
@@ -326,6 +357,7 @@ public class Parser {
             throw new DaddyException("A deadline needs a /by date or time, my friend. "
                     + "Try: deadline return book /by 02-12-2019.");
         }
+        ensureDescriptionCanBeStored(description);
         try {
             return new Deadline(description, parseDateTime(deadline));
         } catch (DateTimeParseException exception) {
@@ -342,8 +374,18 @@ public class Parser {
      * @throws DaddyException if event details are missing or incorrectly formatted
      */
     private Task parseEvent(String taskDetails) throws DaddyException {
+        int fromCount = countOccurrences(taskDetails, " /from ");
+        int toCount = countOccurrences(taskDetails, " /to ");
+        if (fromCount > 1 || toCount > 1) {
+            throw new DaddyException("An event accepts one /from and one /to value, my friend. "
+                    + "Try: event meeting /from 02-12-2019 1400 /to 02-12-2019 1600.");
+        }
         int fromIndex = taskDetails.indexOf(" /from ");
         int toIndex = taskDetails.indexOf(" /to ");
+        if (fromIndex >= 0 && toIndex >= 0 && toIndex < fromIndex) {
+            throw new DaddyException("Put /from before /to, my friend. "
+                    + "Try: event meeting /from 02-12-2019 1400 /to 02-12-2019 1600.");
+        }
         String description = fromIndex >= 0 ? taskDetails.substring(0, fromIndex).trim() : taskDetails;
         String from = fromIndex >= 0 && toIndex > fromIndex
                 ? taskDetails.substring(fromIndex + 7, toIndex).trim() : "";
@@ -356,6 +398,7 @@ public class Parser {
             throw new DaddyException("An event needs both /from and /to times, my friend. "
                     + "Try: event meeting /from 02-12-2019 1400 /to 02-12-2019 1600.");
         }
+        ensureDescriptionCanBeStored(description);
         try {
             LocalDateTime startDateTime = parseDateTime(from);
             LocalDateTime endDateTime = parseDateTime(to);
@@ -384,5 +427,35 @@ public class Parser {
         } catch (DateTimeParseException exception) {
             return LocalDate.parse(value, DATE_FORMAT).atTime(LocalTime.MIDNIGHT);
         }
+    }
+
+    /**
+     * Rejects description characters that would corrupt Daddy's pipe-separated storage format.
+     *
+     * @param description the task description to validate
+     * @throws DaddyException if the description contains the reserved separator
+     */
+    private void ensureDescriptionCanBeStored(String description) throws DaddyException {
+        if (description.contains("|")) {
+            throw new DaddyException("Task descriptions cannot contain '|', my friend. "
+                    + "Replace it with a dash or a word.");
+        }
+    }
+
+    /**
+     * Counts non-overlapping appearances of a command parameter marker.
+     *
+     * @param text the command details to inspect
+     * @param marker the parameter marker to count
+     * @return the number of marker appearances
+     */
+    private int countOccurrences(String text, String marker) {
+        int count = 0;
+        int searchIndex = 0;
+        while ((searchIndex = text.indexOf(marker, searchIndex)) >= 0) {
+            count++;
+            searchIndex += marker.length();
+        }
+        return count;
     }
 }

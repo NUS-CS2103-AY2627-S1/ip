@@ -19,6 +19,9 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime deadline) {
         super(description, TaskType.DEADLINE);
+        if (deadline == null) {
+            throw new IllegalArgumentException("deadline must not be null");
+        }
         this.deadline = deadline;
     }
 
@@ -39,6 +42,19 @@ public class Deadline extends Task {
      */
     public LocalDateTime getDeadline() {
         return deadline;
+    }
+
+    /**
+     * Returns whether another task is a deadline with the same description and due date.
+     *
+     * @param other the task to compare
+     * @return whether both deadlines represent the same work
+     */
+    @Override
+    public boolean hasSameDetailsAs(Task other) {
+        return super.hasSameDetailsAs(other)
+                && other instanceof Deadline otherDeadline
+                && deadline.equals(otherDeadline.deadline);
     }
 
     /**

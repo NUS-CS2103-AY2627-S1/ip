@@ -121,12 +121,12 @@ bye
 ### Expected output
 ```text
     ____________________________________________________________
-     ____                      _       _       
-    |  _ \   __ _   __| |   __| |  _   _ 
+     ____                      _       _
+    |  _ \   __ _   __| |   __| |  _   _
     | | | | / _` | / _` |  / _` | | | | |
     | | | || (_| || (_| | | (_| | | |_| |
     | |_| | \__,_| \__,_|  \__,_|  \__, |
-    |____/                          |___/ 
+    |____/                          |___/
     Hello, my friend.
     Big dreams require big actions. What are we getting done today?
     ____________________________________________________________
@@ -181,12 +181,12 @@ bye
 ### Expected output
 ```text
     ____________________________________________________________
-     ____                      _       _       
-    |  _ \   __ _   __| |   __| |  _   _ 
+     ____                      _       _
+    |  _ \   __ _   __| |   __| |  _   _
     | | | | / _` | / _` |  / _` | | | | |
     | | | || (_| || (_| | | (_| | | |_| |
     | |_| | \__,_| \__,_|  \__,_|  \__, |
-    |____/                          |___/ 
+    |____/                          |___/
     Hello, my friend.
     Big dreams require big actions. What are we getting done today?
     ____________________________________________________________
@@ -265,12 +265,12 @@ bye
 ### Expected output
 ```text
     ____________________________________________________________
-     ____                      _       _       
-    |  _ \   __ _   __| |   __| |  _   _ 
+     ____                      _       _
+    |  _ \   __ _   __| |   __| |  _   _
     | | | | / _` | / _` |  / _` | | | | |
     | | | || (_| || (_| | | (_| | | |_| |
     | |_| | \__,_| \__,_|  \__,_|  \__, |
-    |____/                          |___/ 
+    |____/                          |___/
     Hello, my friend.
     Big dreams require big actions. What are we getting done today?
     ____________________________________________________________
@@ -326,12 +326,12 @@ bye
 ### Expected output
 ```text
     ____________________________________________________________
-     ____                      _       _       
-    |  _ \   __ _   __| |   __| |  _   _ 
+     ____                      _       _
+    |  _ \   __ _   __| |   __| |  _   _
     | | | | / _` | / _` |  / _` | | | | |
     | | | || (_| || (_| | | (_| | | |_| |
     | |_| | \__,_| \__,_|  \__,_|  \__, |
-    |____/                          |___/ 
+    |____/                          |___/
     Hello, my friend.
     Big dreams require big actions. What are we getting done today?
     ____________________________________________________________
@@ -351,6 +351,82 @@ bye
     ____________________________________________________________
      Here's the game plan, my friend:
      1.[T][ ] read book
+    ____________________________________________________________
+    Go make Daddy proud, my friend. See you soon.
+    ____________________________________________________________
+```
+
+## Test case: malformed commands preserve valid state
+Aim: Verify malformed commands are rejected without changing valid state, while harmless whitespace is accepted.
+
+### Command
+java -cp /tmp/daddy-classes daddy.Daddy
+
+### Input
+   todo    buy   milk
+todo buy milk
+todo use | separator
+deadline report /by 30-02-2026
+deadline report /by 02-12-2026 /by 03-12-2026
+event demo /from 02-12-2026 1000 /from 02-12-2026 1100 /to 02-12-2026 1200
+event demo /to 02-12-2026 1200 /from 02-12-2026 1000
+event demo /from 02-12-2026 1000 /to 02-12-2026 1000
+list on
+list on 30-02-2026
+mark 0
+list
+bye
+
+### Expected output
+```text
+    ____________________________________________________________
+     ____                      _       _
+    |  _ \   __ _   __| |   __| |  _   _
+    | | | | / _` | / _` |  / _` | | | | |
+    | | | || (_| || (_| | | (_| | | |_| |
+    | |_| | \__,_| \__,_|  \__,_|  \__, |
+    |____/                          |___/
+    Hello, my friend.
+    Big dreams require big actions. What are we getting done today?
+    ____________________________________________________________
+    ____________________________________________________________
+     Good. The plan just got stronger:
+       [T][ ] buy milk
+     That's 1 task in the list. Small steps, real progress.
+    ____________________________________________________________
+    ____________________________________________________________
+     That task is already in the list, my friend. Complete it or delete it before adding it again.
+    ____________________________________________________________
+    ____________________________________________________________
+     Task descriptions cannot contain '|', my friend. Replace it with a dash or a word.
+    ____________________________________________________________
+    ____________________________________________________________
+     Keep the deadline date clean, my friend: use dd-MM-yyyy or dd-MM-yyyy HHmm. Try: deadline return book /by 02-12-2019 1800.
+    ____________________________________________________________
+    ____________________________________________________________
+     A deadline accepts one /by value, my friend. Try: deadline return book /by 02-12-2019.
+    ____________________________________________________________
+    ____________________________________________________________
+     An event accepts one /from and one /to value, my friend. Try: event meeting /from 02-12-2019 1400 /to 02-12-2019 1600.
+    ____________________________________________________________
+    ____________________________________________________________
+     Put /from before /to, my friend. Try: event meeting /from 02-12-2019 1400 /to 02-12-2019 1600.
+    ____________________________________________________________
+    ____________________________________________________________
+     Time only moves forward, my friend. The event must end after it starts. Try: event meeting /from 02-12-2019 1400 /to 02-12-2019 1600.
+    ____________________________________________________________
+    ____________________________________________________________
+     LIST ON needs a date, my friend. Try: list on 02-12-2019.
+    ____________________________________________________________
+    ____________________________________________________________
+     Keep the date clean, my friend: use dd-MM-yyyy. Try: list on 02-12-2019
+    ____________________________________________________________
+    ____________________________________________________________
+     That task number is out of range, my friend. Pick a number from 1 to 1.
+    ____________________________________________________________
+    ____________________________________________________________
+     Here's the game plan, my friend:
+     1.[T][ ] buy milk
     ____________________________________________________________
     Go make Daddy proud, my friend. See you soon.
     ____________________________________________________________

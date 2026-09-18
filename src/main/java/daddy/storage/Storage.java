@@ -1,6 +1,8 @@
 package daddy.storage;
 
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
+import java.nio.file.AtomicMoveNotSupportedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -50,11 +52,15 @@ public class Storage {
     public List<String> loadInto(TaskList tasks) {
         List<String> messages = new ArrayList<>();
         migrateLegacyDataFileIfNeeded(messages);
-        if (!Files.exists(dataFile)) {
-            return messages;
-        }
-
         try {
+            if (!Files.exists(dataFile)) {
+                return messages;
+            }
+            if (!Files.isRegularFile(dataFile)) {
+                messages.add("Daddy expected a data file at " + dataFile
+                        + " but found something else. Move it aside and restart.");
+                return messages;
+            }
             List<String> lines = Files.readAllLines(dataFile);
             List<String> corruptedLines = new ArrayList<>();
             for (int lineNumber = 0; lineNumber < lines.size(); lineNumber++) {
@@ -68,8 +74,13 @@ public class Storage {
                     if ("1".equals(fields[1])) {
                         task.markAsDone();
                     }
+                    if (tasks.containsEquivalentTask(task)) {
+                        corruptedLines.add("line " + (lineNumber + 1) + ": " + line);
+                        messages.add("Daddy skipped a duplicate task on line " + (lineNumber + 1) + ".");
+                        continue;
+                    }
                     tasks.add(task);
-                } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException exception) {
+                } catch (RuntimeException exception) {
                     corruptedLines.add("line " + (lineNumber + 1) + ": " + line);
                     messages.add("Daddy skipped corrupted data on line " + (lineNumber + 1)
                             + ". Expected T|0|description, D|0|description|date, or "
@@ -77,15 +88,37 @@ public class Storage {
                 }
             }
             if (!corruptedLines.isEmpty()) {
-                Files.copy(dataFile, backupFile, StandardCopyOption.REPLACE_EXISTING);
-                Files.write(corruptedFile, corruptedLines);
-                messages.add("Daddy saved the original file as " + backupFile + " and "
-                        + "the bad records as " + corruptedFile + " so you can fix them.");
+                saveRecoveryFiles(corruptedLines, messages);
             }
-        } catch (IOException | RuntimeException exception) {
+        } catch (AccessDeniedException exception) {
+            messages.add("Daddy cannot read " + dataFile + ". Check the file permissions and restart.");
+        } catch (IOException exception) {
             messages.add("Daddy couldn't load the task list. Check " + dataFile + " and try again.");
+        } catch (SecurityException exception) {
+            messages.add("Daddy is not allowed to access " + dataFile + ". Check the file permissions.");
         }
         return messages;
+    }
+
+    /**
+     * Preserves the original data and records malformed lines for manual recovery.
+     *
+     * @param corruptedLines malformed records together with their line numbers
+     * @param messages messages to show the user about recovery success or failure
+     */
+    private void saveRecoveryFiles(List<String> corruptedLines, List<String> messages) {
+        try {
+            Files.copy(dataFile, backupFile, StandardCopyOption.REPLACE_EXISTING);
+            Files.write(corruptedFile, corruptedLines);
+            messages.add("Daddy saved the original file as " + backupFile + " and "
+                    + "the bad records as " + corruptedFile + " so you can fix them.");
+        } catch (AccessDeniedException exception) {
+            messages.add("Daddy found corrupted data but cannot write recovery files beside "
+                    + dataFile + ". Check the folder permissions.");
+        } catch (IOException | SecurityException exception) {
+            messages.add("Daddy found corrupted data but could not create the recovery files. "
+                    + "Copy " + dataFile + " somewhere safe before fixing it.");
+        }
     }
 
     /**
@@ -94,15 +127,24 @@ public class Storage {
      * @param messages messages to show the user about migration problems or completion
      */
     private void migrateLegacyDataFileIfNeeded(List<String> messages) {
-        if (Files.exists(dataFile) || !Files.exists(legacyDataFile)) {
-            return;
-        }
         try {
+            if (Files.exists(dataFile) || !Files.exists(legacyDataFile)) {
+                return;
+            }
+            Path parent = dataFile.getParent();
+            if (parent != null) {
+                Files.createDirectories(parent);
+            }
             Files.move(legacyDataFile, dataFile);
             messages.add("Daddy moved your saved tasks from " + legacyDataFile + " to " + dataFile + ".");
+        } catch (AccessDeniedException exception) {
+            messages.add("Daddy cannot migrate " + legacyDataFile + " because access was denied. "
+                    + "Your old tasks are still safe there.");
         } catch (IOException exception) {
             messages.add("Daddy couldn't migrate saved tasks from " + legacyDataFile + " to " + dataFile
                     + ". Your old tasks are still in " + legacyDataFile + ".");
+        } catch (SecurityException exception) {
+            messages.add("Daddy is not allowed to inspect the saved task files. Check their permissions.");
         }
     }
 
@@ -113,18 +155,62 @@ public class Storage {
      * @throws DaddyException if the data file cannot be written
      */
     public void save(TaskList tasks) throws DaddyException {
+        Path temporaryFile = null;
         try {
-            Path parent = dataFile.getParent();
-            if (parent != null) {
-                Files.createDirectories(parent);
-            }
+            Path absoluteDataFile = dataFile.toAbsolutePath();
+            Path parent = absoluteDataFile.getParent();
+            Files.createDirectories(parent);
             List<String> lines = new ArrayList<>();
             for (Task task : tasks) {
                 lines.add(serialize(task));
             }
-            Files.write(dataFile, lines);
+            temporaryFile = Files.createTempFile(parent, "daddy-save-", ".tmp");
+            Files.write(temporaryFile, lines);
+            moveIntoPlace(temporaryFile, absoluteDataFile);
+            temporaryFile = null;
+        } catch (AccessDeniedException exception) {
+            throw new DaddyException("Daddy cannot save to " + dataFile
+                    + ". Check the file and folder permissions.");
         } catch (IOException exception) {
-            throw new DaddyException("Daddy couldn't save your tasks. Check that the data folder is writable.");
+            throw new DaddyException("Daddy couldn't save your tasks to " + dataFile
+                    + ". Check that the path is a writable file location.");
+        } catch (SecurityException exception) {
+            throw new DaddyException("Daddy is not allowed to save to " + dataFile
+                    + ". Check the file permissions.");
+        } finally {
+            deleteTemporaryFile(temporaryFile);
+        }
+    }
+
+    /**
+     * Replaces the data file atomically when supported by the file system.
+     *
+     * @param temporaryFile the complete temporary save file
+     * @param absoluteDataFile the destination data file
+     * @throws IOException if neither atomic nor regular replacement succeeds
+     */
+    private void moveIntoPlace(Path temporaryFile, Path absoluteDataFile) throws IOException {
+        try {
+            Files.move(temporaryFile, absoluteDataFile,
+                    StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+        } catch (AtomicMoveNotSupportedException exception) {
+            Files.move(temporaryFile, absoluteDataFile, StandardCopyOption.REPLACE_EXISTING);
+        }
+    }
+
+    /**
+     * Removes an abandoned temporary save file without masking the original save failure.
+     *
+     * @param temporaryFile the temporary file to remove, or {@code null} if none remains
+     */
+    private void deleteTemporaryFile(Path temporaryFile) {
+        if (temporaryFile == null) {
+            return;
+        }
+        try {
+            Files.deleteIfExists(temporaryFile);
+        } catch (IOException | SecurityException exception) {
+            // The user-facing save error remains more useful than a cleanup failure.
         }
     }
 
@@ -169,7 +255,7 @@ public class Storage {
      * @return the pipe-separated record representing the task
      */
     private String serialize(Task task) {
-        String description = task.getDescription().replace("|", " ");
+        String description = task.getDescription();
         String status = task.getStatusIcon().equals("X") ? "1" : "0";
         return switch (task.getType()) {
             case TODO, GENERAL -> "T|" + status + "|" + description;

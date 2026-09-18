@@ -25,8 +25,17 @@ public class AddCommand extends Command {
     /** Adds, saves, and displays the new task. */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DaddyException {
+        if (tasks.containsEquivalentTask(task)) {
+            throw new DaddyException("That task is already in the list, my friend. "
+                    + "Complete it or delete it before adding it again.");
+        }
         tasks.add(task);
-        storage.save(tasks);
+        try {
+            storage.save(tasks);
+        } catch (DaddyException exception) {
+            tasks.removeTaskAt(tasks.size() - 1);
+            throw exception;
+        }
         ui.showTaskAdded(task, tasks.size());
     }
 }

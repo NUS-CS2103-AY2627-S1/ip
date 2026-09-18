@@ -43,6 +43,21 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
+     * Inserts one task at a specific zero-based position.
+     *
+     * <p>This operation supports restoring a removed task when persistence fails.</p>
+     *
+     * @param index the position at which to restore the task
+     * @param task the task to insert
+     * @throws AssertionError if the index or task is invalid
+     */
+    public void insert(int index, Task task) {
+        assert index >= 0 && index <= tasks.size() : "task insertion index must be in range";
+        assert task != null : "task to insert must not be null";
+        tasks.add(index, task);
+    }
+
+    /**
      * Returns whether a zero-based index identifies a task in this list.
      *
      * @param index the zero-based task index
@@ -50,6 +65,30 @@ public class TaskList implements Iterable<Task> {
      */
     public boolean hasTaskAt(int index) {
         return index >= 0 && index < tasks.size();
+    }
+
+    /**
+     * Returns the task at a valid zero-based index.
+     *
+     * @param index the zero-based task index
+     * @return the selected task
+     * @throws AssertionError if the task index is out of range
+     */
+    public Task getTaskAt(int index) {
+        assert hasTaskAt(index) : "task index must be in range";
+        return tasks.get(index);
+    }
+
+    /**
+     * Returns whether the list already contains a task with the same user-entered details.
+     *
+     * @param candidate the task details to find
+     * @return whether an equivalent task already exists
+     * @throws AssertionError if the candidate is null
+     */
+    public boolean containsEquivalentTask(Task candidate) {
+        assert candidate != null : "candidate task must not be null";
+        return tasks.stream().anyMatch(task -> task.hasSameDetailsAs(candidate));
     }
 
     /**
