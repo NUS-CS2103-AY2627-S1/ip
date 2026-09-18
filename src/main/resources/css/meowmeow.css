@@ -1,0 +1,84 @@
+/*
+ * Meowmeow's GUI theme - "night window": a deep indigo ground with a warm
+ * lamp-amber accent, lilac for the user's own bubbles, and a soft mist for
+ * body text. The four tokens below are JavaFX "looked-up colors" (a plain
+ * custom property is declared on .root and referenced elsewhere as a color
+ * value), so every rule below points at one of these instead of repeating
+ * a literal hex value.
+ */
+.root {
+    -color-ink: #1A1B3A;
+    -color-lamp: #FFC46B;
+    -color-lilac: #B8A8E8;
+    -color-mist: #E8E6F5;
+    -color-error: #FF6B6B;
+
+    -fx-background-color: -color-ink;
+    -fx-font-size: 13px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport,
+.scroll-pane .content,
+.scroll-pane .corner {
+    -fx-background-color: -color-ink;
+    -fx-background: -color-ink;
+}
+
+#dialogContainer {
+    -fx-background-color: -color-ink;
+    -fx-spacing: 10;
+    -fx-padding: 12;
+}
+
+.dialog-bubble {
+    -fx-background-color: derive(-color-ink, 25%);
+    -fx-background-radius: 14;
+    -fx-text-fill: -color-mist;
+    -fx-padding: 10 14 10 14;
+}
+
+.dialog-bubble.user {
+    -fx-background-color: -color-lilac;
+    -fx-text-fill: -color-ink;
+}
+
+.dialog-bubble.error {
+    -fx-background-color: derive(-color-error, -15%);
+    -fx-text-fill: white;
+}
+
+.dialog-bubble.warning {
+    -fx-background-color: derive(-color-lamp, -10%);
+    -fx-text-fill: -color-ink;
+}
+
+#userInput {
+    -fx-background-color: derive(-color-ink, 15%);
+    -fx-text-fill: -color-mist;
+    -fx-prompt-text-fill: derive(-color-mist, -40%);
+    -fx-background-radius: 10;
+    -fx-padding: 8;
+}
+
+#userInput:focused {
+    -fx-border-color: -color-lamp;
+    -fx-border-radius: 10;
+    -fx-border-width: 1.5;
+}
+
+#sendButton {
+    -fx-background-color: -color-lamp;
+    -fx-text-fill: -color-ink;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+}
+
+#sendButton:hover {
+    -fx-background-color: derive(-color-lamp, 15%);
+}
+
+#sendButton:disabled,
+#userInput:disabled {
+    -fx-opacity: 0.5;
+}

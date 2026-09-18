@@ -16,5 +16,11 @@ bin/
 # Temp files
 _temp/
 
+# Local Claude Code worktrees (not part of the project)
+/.claude/worktrees/
+
+# Runtime task data (created by the app on first save)
+/data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
