@@ -1,0 +1,30 @@
+name: Java CI
+
+on:
+  push:
+    branches:
+      - master
+      - branch-A-CI
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 25
+
+      - name: Make Gradle wrapper executable
+        run: chmod +x gradlew
+
+      - name: Run tests and Checkstyle
+        run: ./gradlew test checkstyleMain
