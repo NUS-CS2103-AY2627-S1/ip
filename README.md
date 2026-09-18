@@ -1,25 +1,31 @@
-# Duke project template
+# Daddy
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Daddy is a Java 25 task manager with a polished JavaFX chat interface, task
+persistence, scheduling commands, and a supportive coaching personality.
 
-## Setting up in Intellij
+![Daddy showing a realistic task list](docs/Ui.png)
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+## Run Daddy
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Download `Daddy.jar` from the
+[GitHub releases page](https://github.com/YUJ1N06/ip/releases), place it in an
+empty folder, and run:
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+```shell
+java -jar Daddy.jar
+```
+
+See the [Daddy product website and user guide](docs/README.md) for features,
+commands, input formats, and data-recovery behavior.
+
+## Develop Daddy
+
+The project requires Java 25. Run the complete automated verification suite
+with:
+
+```shell
+./gradlew check jacocoTestReport
+```
+
+Keep `src/main/java` as the Java source root and `src/test/java` as the JUnit
+test source root.
