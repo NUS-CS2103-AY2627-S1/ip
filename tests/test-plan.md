@@ -249,9 +249,12 @@ covered by `DialogBoxTest`.
 
 1. Launch the application, verify the input field receives focus, and send commands with both Enter and the button.
 2. Enter a blank message and verify no empty user bubble is added while Remy displays an error response.
-3. Enter `bye` and verify the input is disabled, its prompt changes to `Chat ended`, and existing messages remain
-   scrollable.
-4. Close and reopen the window repeatedly and verify no native-toolkit or shutdown error is shown.
+3. Enter `bye now`, `Bye`, and a `bye` command with leading or trailing whitespace; verify each error is displayed and
+   the window remains usable.
+4. In a new session, enter `bye` and press Enter; verify every Remy window closes immediately, without a confirmation
+   or visible `Chat ended` state, and the process terminates without a native-toolkit or shutdown error.
+5. Relaunch Remy, enter `bye`, and click Send; verify the same immediate, clean shutdown.
+6. Reopen the application repeatedly and verify no native-toolkit or shutdown error is shown.
 
 ## Profile picture display
 
