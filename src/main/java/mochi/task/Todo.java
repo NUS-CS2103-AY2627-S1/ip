@@ -13,6 +13,16 @@ public class Todo extends Task {
         super(description);
     }
 
+    private Todo(Todo source) {
+        super(source);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Todo copy() {
+        return new Todo(this);
+    }
+
     /** {@inheritDoc} */
     @Override
     public String toString() {

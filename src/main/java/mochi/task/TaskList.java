@@ -25,7 +25,8 @@ public class TaskList implements Iterable<Task> {
      */
     public TaskList(List<Task> tasks) {
         assert tasks != null : "The initial task collection must exist";
-        assert !tasks.contains(null) : "The initial task collection must not contain null tasks";
+        assert tasks.stream().allMatch(task -> task != null)
+                : "The initial task collection must not contain null tasks";
         this.tasks = new ArrayList<>(tasks);
     }
 
@@ -66,6 +67,15 @@ public class TaskList implements Iterable<Task> {
      */
     public int size() {
         return tasks.size();
+    }
+
+    /**
+     * Copies the list and its tasks, isolating changes until storage succeeds.
+     *
+     * @return independent task list
+     */
+    public TaskList copy() {
+        return new TaskList(tasks.stream().map(Task::copy).toList());
     }
 
     /**

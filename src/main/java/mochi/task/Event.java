@@ -20,6 +20,18 @@ public class Event extends Task {
         this.to = to;
     }
 
+    private Event(Event source) {
+        super(source);
+        this.from = source.from;
+        this.to = source.to;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Event copy() {
+        return new Event(this);
+    }
+
     /** {@inheritDoc} */
     @Override
     public String toString() {

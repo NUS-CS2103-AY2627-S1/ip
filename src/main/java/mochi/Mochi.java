@@ -19,9 +19,11 @@ import mochi.ui.Ui;
  */
 public class Mochi {
     private final Storage storage;
-    private final TaskList tasks;
+    private TaskList tasks;
     private final Ui ui;
     private final ByteArrayOutputStream responseBuffer;
+    private final String startupError;
+    private boolean hasResponseError;
 
     /**
      * Creates Mochi and loads tasks from the specified data file.
@@ -32,18 +34,27 @@ public class Mochi {
         this(filePath, new Ui(), null);
     }
 
+    /** Creates a console session with supplied streams for repeatable interaction tests. */
+    Mochi(Path filePath, Ui ui) {
+        this(filePath, ui, null);
+    }
+
     private Mochi(Path filePath, Ui ui, ByteArrayOutputStream responseBuffer) {
         this.ui = ui;
         this.responseBuffer = responseBuffer;
         this.storage = new Storage(filePath);
         TaskList loadedTasks;
+        String loadError = "";
         try {
             loadedTasks = new TaskList(storage.load());
         } catch (MochiException e) {
-            ui.showError(e.getMessage());
+            loadError = e.getMessage() + " Your saved file has been left untouched. "
+                    + "Back it up, repair it or move it aside, then restart Mochi.";
+            ui.showError(loadError);
             loadedTasks = new TaskList();
         }
         this.tasks = loadedTasks;
+        this.startupError = loadError;
     }
 
     /**
@@ -58,6 +69,24 @@ public class Mochi {
         Mochi mochi = new Mochi(filePath, new Ui(new Scanner(""), output), buffer);
         buffer.reset();
         return mochi;
+    }
+
+    /**
+     * Returns any startup storage problem for display in the graphical interface.
+     *
+     * @return error text, or an empty string when loading succeeded
+     */
+    public String getStartupError() {
+        return startupError;
+    }
+
+    /**
+     * Indicates whether the last GUI command failed, independently of its wording.
+     *
+     * @return true when the last response reports an error
+     */
+    public boolean hasResponseError() {
+        return hasResponseError;
     }
 
     /**
@@ -102,6 +131,7 @@ public class Mochi {
     public String getResponse(String input) {
         assert responseBuffer != null : "GUI responses require an instance created with forGui";
         responseBuffer.reset();
+        hasResponseError = false;
         input = input == null ? "" : input.trim();
         Command command = Parser.parseCommand(input);
         if (command == Command.BYE && input.equals(command.getKeyword())) {
@@ -110,6 +140,7 @@ public class Mochi {
             try {
                 executeCommand(input, command);
             } catch (MochiException e) {
+                hasResponseError = true;
                 ui.showError(e.getMessage());
             }
         }
@@ -124,6 +155,11 @@ public class Mochi {
      * @throws MochiException if the command is invalid or storage fails
      */
     private void executeCommand(String input, Command command) throws MochiException {
+        if (!startupError.isEmpty() && changesTasks(command)) {
+            throw new MochiException(startupError);
+        }
+        // Apply changes to a copy. The visible list changes only after a successful save.
+        TaskList updatedTasks = tasks.copy();
         switch (command) {
             case LIST:
                 if (!input.equals(command.getKeyword())) {
@@ -135,28 +171,28 @@ public class Mochi {
                 if (!input.equals(command.getKeyword())) {
                     throw new MochiException("The sort command does not take extra details.");
                 }
-                tasks.sortByDescription();
-                storage.save(tasks);
+                updatedTasks.sortByDescription();
+                saveChanges(updatedTasks);
                 ui.showTaskList(tasks);
                 break;
             case MARK:
                 int markIndex = Parser.parseTaskIndex(input, command, tasks.size());
-                Task markedTask = tasks.get(markIndex);
+                Task markedTask = updatedTasks.get(markIndex);
                 markedTask.markAsDone();
-                storage.save(tasks);
+                saveChanges(updatedTasks);
                 ui.showMarked(markedTask);
                 break;
             case UNMARK:
                 int unmarkIndex = Parser.parseTaskIndex(input, command, tasks.size());
-                Task unmarkedTask = tasks.get(unmarkIndex);
+                Task unmarkedTask = updatedTasks.get(unmarkIndex);
                 unmarkedTask.markAsNotDone();
-                storage.save(tasks);
+                saveChanges(updatedTasks);
                 ui.showUnmarked(unmarkedTask);
                 break;
             case DELETE:
                 int deleteIndex = Parser.parseTaskIndex(input, command, tasks.size());
-                Task removedTask = tasks.remove(deleteIndex);
-                storage.save(tasks);
+                Task removedTask = updatedTasks.remove(deleteIndex);
+                saveChanges(updatedTasks);
                 ui.showDeleted(removedTask, tasks.size());
                 break;
             case FIND:
@@ -167,8 +203,8 @@ public class Mochi {
             case DEADLINE:
             case EVENT:
                 Task task = Parser.parseTask(input, command);
-                tasks.add(task);
-                storage.save(tasks);
+                updatedTasks.add(task);
+                saveChanges(updatedTasks);
                 ui.showAdded(task, tasks.size());
                 break;
             case UNKNOWN:
@@ -179,5 +215,19 @@ public class Mochi {
             default:
                 throw new MochiException("I couldn't process that command.");
         }
+    }
+
+    /** Saves a candidate list before making it the active list. */
+    private void saveChanges(TaskList updatedTasks) throws MochiException {
+        storage.save(updatedTasks);
+        tasks = updatedTasks;
+    }
+
+    /** Identifies commands that must not overwrite a file that failed to load. */
+    private boolean changesTasks(Command command) {
+        return switch (command) {
+            case TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, SORT -> true;
+            default -> false;
+        };
     }
 }

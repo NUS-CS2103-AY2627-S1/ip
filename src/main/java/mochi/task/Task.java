@@ -22,6 +22,25 @@ public class Task {
     }
 
     /**
+     * Copies the common task details so pending changes can be saved safely.
+     *
+     * @param source task to copy
+     */
+    protected Task(Task source) {
+        this.description = source.description;
+        this.isDone = source.isDone;
+    }
+
+    /**
+     * Returns an independent task with the same details and completion status.
+     *
+     * @return editable copy of this task
+     */
+    public Task copy() {
+        return new Task(this);
+    }
+
+    /**
      * Returns the description without status or type decorations.
      *
      * @return task description

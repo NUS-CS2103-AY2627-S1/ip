@@ -1,0 +1,102 @@
+.chat-window {
+    -fx-font-family: "System";
+    -fx-font-size: 14px;
+    -fx-background-color: #faf9f5;
+    -fx-text-fill: #293c32;
+}
+
+.label {
+    -fx-text-fill: #293c32;
+}
+
+.chat-header {
+    -fx-background-color: #e9efdf;
+    -fx-border-color: transparent transparent #d5dec9 transparent;
+}
+
+.app-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+.subtitle, .command-hint {
+    -fx-text-fill: #52634d;
+    -fx-font-size: 12px;
+}
+
+.chat-scroll, .chat-scroll > .viewport {
+    -fx-background-color: #faf9f5;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.mochi-message, .user-message, .error-message {
+    -fx-padding: 12px 14px;
+}
+
+.mochi-message {
+    -fx-background-color: white;
+    -fx-border-color: #d5dec9;
+    -fx-border-width: 0 0 0 3px;
+}
+
+.user-message {
+    -fx-background-color: #f6e4e7;
+    -fx-background-radius: 14px 14px 3px 14px;
+}
+
+.error-message {
+    -fx-background-color: #fff0e8;
+    -fx-border-color: #ba4b25;
+    -fx-border-width: 0 0 0 3px;
+}
+
+.error-message .label {
+    -fx-text-fill: #803318;
+}
+
+.speaker {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #52634d;
+}
+
+.composer {
+    -fx-background-color: #eef2e8;
+    -fx-border-color: #d5dec9 transparent transparent transparent;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #a7b69c;
+    -fx-padding: 9px;
+    -fx-prompt-text-fill: #687565;
+}
+
+.text-field:focused {
+    -fx-border-color: #476642;
+}
+
+.button {
+    -fx-background-radius: 8px;
+    -fx-background-color: #dde5d5;
+    -fx-text-fill: #293c32;
+    -fx-padding: 9px 12px;
+    -fx-cursor: hand;
+}
+
+.send-button {
+    -fx-background-color: #476642;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-opacity: 0.85;
+}
+
+.button:focused {
+    -fx-border-color: #293c32;
+    -fx-border-radius: 8px;
+}

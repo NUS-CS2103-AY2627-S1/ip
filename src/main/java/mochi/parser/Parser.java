@@ -2,6 +2,8 @@ package mochi.parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import mochi.command.Command;
 import mochi.exception.MochiException;
@@ -37,6 +39,7 @@ public class Parser {
      * @throws MochiException if the command or any required field is invalid
      */
     public static Task parseTask(String input, Command command) throws MochiException {
+        input = input.trim();
         switch (command) {
             case TODO:
                 return parseTodo(input);
@@ -73,7 +76,7 @@ public class Parser {
      * @throws MochiException if required details are invalid
      */
     private static Task parseDeadline(String input) throws MochiException {
-        int byIndex = input.indexOf(DEADLINE_SEPARATOR);
+        int byIndex = findMarker(input, DEADLINE_SEPARATOR, 0);
         if (byIndex < 0) {
             throw new MochiException("A deadline needs '/by' followed by a date or time.");
         }
@@ -85,7 +88,7 @@ public class Parser {
         if (by.isEmpty()) {
             throw new MochiException("A deadline needs a date or time after '/by'.");
         }
-        if (input.indexOf(DEADLINE_SEPARATOR, byIndex + DEADLINE_SEPARATOR.length()) >= 0) {
+        if (findMarker(input, DEADLINE_SEPARATOR, byIndex + DEADLINE_SEPARATOR.length()) >= 0) {
             throw new MochiException("A deadline must contain '/by' only once.");
         }
         validateDescription(description);
@@ -104,8 +107,8 @@ public class Parser {
      * @throws MochiException if required details are invalid
      */
     private static Task parseEvent(String input) throws MochiException {
-        int fromIndex = input.indexOf(EVENT_FROM_SEPARATOR);
-        int toIndex = input.indexOf(EVENT_TO_SEPARATOR);
+        int fromIndex = findMarker(input, EVENT_FROM_SEPARATOR, 0);
+        int toIndex = findMarker(input, EVENT_TO_SEPARATOR, 0);
         if (fromIndex < 0 || toIndex < fromIndex) {
             throw new MochiException("An event needs both '/from' and '/to' date or time values.");
         }
@@ -118,12 +121,45 @@ public class Parser {
         if (from.isEmpty() || to.isEmpty()) {
             throw new MochiException("An event needs values after both '/from' and '/to'.");
         }
-        if (input.indexOf(EVENT_FROM_SEPARATOR, fromIndex + EVENT_FROM_SEPARATOR.length()) >= 0
-                || input.indexOf(EVENT_TO_SEPARATOR, toIndex + EVENT_TO_SEPARATOR.length()) >= 0) {
+        if (findMarker(input, EVENT_FROM_SEPARATOR, fromIndex + EVENT_FROM_SEPARATOR.length()) >= 0
+                || findMarker(input, EVENT_TO_SEPARATOR, toIndex + EVENT_TO_SEPARATOR.length()) >= 0) {
             throw new MochiException("An event must contain '/from' and '/to' only once each.");
         }
         validateDescription(description);
+        validateField(from, "Event times");
+        validateField(to, "Event times");
+        validateEventOrder(from, to);
         return new Event(description, from, to);
+    }
+
+    /** Finds a complete marker token, allowing spaces or tabs on either side. */
+    private static int findMarker(String input, String marker, int startIndex) {
+        Matcher matcher = Pattern.compile("(?<!\\S)" + Pattern.quote(marker) + "(?=\\s|$)").matcher(input);
+        return matcher.find(startIndex) ? matcher.start() : -1;
+    }
+
+    /** Checks calendar dates when supplied, while preserving free-form event times. */
+    private static void validateEventOrder(String from, String to) throws MochiException {
+        if (from.equalsIgnoreCase(to)) {
+            throw new MochiException("An event must end after it starts.");
+        }
+        LocalDate start = parseEventDate(from);
+        LocalDate end = parseEventDate(to);
+        if (start != null && end != null && !end.isAfter(start)) {
+            throw new MochiException("An event must end after it starts.");
+        }
+    }
+
+    /** Validates ISO-shaped event dates; other event values remain free-form text. */
+    private static LocalDate parseEventDate(String value) throws MochiException {
+        if (!value.matches("\\d{4}-\\d{1,2}-\\d{1,2}")) {
+            return null;
+        }
+        try {
+            return LocalDate.parse(value);
+        } catch (DateTimeParseException e) {
+            throw new MochiException("Use a real yyyy-MM-dd date for events, for example: 2026-09-18.");
+        }
     }
 
     /**
@@ -133,11 +169,16 @@ public class Parser {
      * @throws MochiException if the description contains unsupported content
      */
     private static void validateDescription(String description) throws MochiException {
-        if (description.indexOf('|') >= 0) {
-            throw new MochiException("Task descriptions cannot contain the '|' character.");
+        validateField(description, "Task descriptions");
+    }
+
+    /** Rejects characters that would split a stored record into extra fields or lines. */
+    private static void validateField(String value, String fieldName) throws MochiException {
+        if (value.indexOf('|') >= 0) {
+            throw new MochiException(fieldName + " cannot contain the '|' character.");
         }
-        if (description.chars().anyMatch(Character::isISOControl)) {
-            throw new MochiException("Task descriptions cannot contain control characters.");
+        if (value.chars().anyMatch(Character::isISOControl)) {
+            throw new MochiException(fieldName + " cannot contain control characters.");
         }
     }
 
@@ -155,6 +196,7 @@ public class Parser {
      * @throws MochiException if the task number is missing, nonnumeric, or outside the list
      */
     public static int parseTaskIndex(String input, Command command, int taskCount) throws MochiException {
+        input = input.trim();
         assert taskCount >= 0 : "The task count must never be negative";
         assert command == Command.MARK || command == Command.UNMARK || command == Command.DELETE
                 : "Task-index parsing requires a mark, unmark, or delete command";
@@ -181,6 +223,7 @@ public class Parser {
      * @throws MochiException if no keyword was supplied
      */
     public static String parseFindKeyword(String input) throws MochiException {
+        input = input.trim();
         String keyword = input.substring(Command.FIND.getKeyword().length()).trim();
         if (keyword.isEmpty()) {
             throw new MochiException("Tell me what to find, for example: find book");

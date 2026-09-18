@@ -1,6 +1,7 @@
 package mochi.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
@@ -11,6 +12,8 @@ import java.nio.file.Files;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import mochi.exception.MochiException;
 import mochi.task.Deadline;
@@ -64,15 +67,17 @@ class StorageTest {
 
     @Test
     void saveFileWithoutParentDirectory_succeeds() throws Exception {
-        Path file = tempDir.resolve("tasks.txt").getFileName();
+        Path file = Files.createTempFile(Path.of("."), "mochi-test-", ".txt").getFileName();
         Storage storage = new Storage(file);
         TaskList tasks = new TaskList();
         tasks.add(new Todo("portable save"));
 
-        storage.save(tasks);
-
-        assertEquals(1, storage.load().size());
-        Files.deleteIfExists(file);
+        try {
+            storage.save(tasks);
+            assertEquals(1, storage.load().size());
+        } finally {
+            Files.deleteIfExists(file);
+        }
     }
 
     @Test
@@ -84,5 +89,49 @@ class StorageTest {
                 MochiException.class, () -> new Storage(file).load());
 
         assertEquals("Saved task data is invalid at line 1.", exception.getMessage());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", "X | 0 | unknown", "T | 2 | bad status", "T | 0", "T | 0 |   ",
+        "T | 0 | text | extra", "T | 0 | unsafe|text", "T | 0 | unsafe\ttext",
+        "D | 0 | report | 2026-02-30", "D | 0 | report", "E | 0 | meeting | noon",
+        "E | 0 | meeting |  | evening", "E | 0 | meeting | noon | "})
+    void load_invalidRecord_reportsCorrectLineAndPreservesData(String invalidRecord) throws Exception {
+        Path file = tempDir.resolve("invalid.txt");
+        String contents = "T | 0 | valid\n" + invalidRecord + "\n";
+        Files.writeString(file, contents);
+        MochiException error = assertThrows(MochiException.class, () -> new Storage(file).load());
+        assertEquals("Saved task data is invalid at line 2.", error.getMessage());
+        assertEquals(contents, Files.readString(file));
+    }
+
+    @Test
+    void load_directoryInsteadOfFile_reportsReadError() {
+        MochiException error = assertThrows(MochiException.class, () -> new Storage(tempDir).load());
+        assertTrue(error.getMessage().startsWith("I couldn't read your saved tasks:"));
+    }
+
+    @Test
+    void save_parentIsFile_reportsErrorWithoutReplacingParent() throws Exception {
+        Path parent = tempDir.resolve("data");
+        Files.writeString(parent, "keep this file");
+        Storage storage = new Storage(parent.resolve("tasks.txt"));
+        assertThrows(MochiException.class, () -> storage.save(new TaskList()));
+        assertEquals("keep this file", Files.readString(parent));
+    }
+
+    @Test
+    void save_unicodeAndEmptyList_roundTripsAndLeavesNoTemporaryFiles() throws Exception {
+        Path file = tempDir.resolve("unicode.txt");
+        Storage storage = new Storage(file);
+        TaskList tasks = new TaskList();
+        tasks.add(new Todo("买书 🍡 café"));
+        storage.save(tasks);
+        assertEquals("买书 🍡 café", storage.load().get(0).getDescription());
+        storage.save(new TaskList());
+        assertTrue(storage.load().isEmpty());
+        try (var files = Files.list(tempDir)) {
+            assertEquals(1, files.count());
+        }
     }
 }

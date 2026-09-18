@@ -14,8 +14,8 @@ public class Main extends Application {
     public void start(Stage stage) {
         stage.setTitle("Mochi");
         stage.setMinWidth(420);
-        stage.setMinHeight(600);
-        stage.setScene(new Scene(new MainWindow(), 420, 600));
+        stage.setMinHeight(480);
+        stage.setScene(new Scene(new MainWindow(), 540, 700));
         stage.show();
     }
 }

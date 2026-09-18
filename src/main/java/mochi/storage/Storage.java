@@ -2,8 +2,11 @@ package mochi.storage;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.AtomicMoveNotSupportedException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -41,16 +44,15 @@ public class Storage {
      */
     public ArrayList<Task> load() throws MochiException {
         ArrayList<Task> tasks = new ArrayList<>();
-        if (!Files.exists(filePath)) {
-            return tasks;
-        }
         try {
             List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
             for (int i = 0; i < lines.size(); i++) {
                 tasks.add(parseStoredTask(lines.get(i), i + 1));
             }
             return tasks;
-        } catch (IOException e) {
+        } catch (NoSuchFileException e) {
+            return tasks;
+        } catch (IOException | SecurityException e) {
             throw new MochiException("I couldn't read your saved tasks: " + e.getMessage());
         }
     }
@@ -66,14 +68,33 @@ public class Storage {
         for (Task task : tasks) {
             lines.add(task.toFileString());
         }
+        Path temporaryFile = null;
         try {
-            Path parent = filePath.getParent();
-            if (parent != null) {
-                Files.createDirectories(parent);
+            Path destination = filePath.toAbsolutePath();
+            Path parent = destination.getParent();
+            Files.createDirectories(parent);
+            if (Files.isDirectory(destination)) {
+                throw new IOException("The task file path points to a folder.");
             }
-            Files.write(filePath, lines, StandardCharsets.UTF_8);
+            // Finish writing before replacing the previous save, avoiding a half-written task file.
+            temporaryFile = Files.createTempFile(parent, "mochi-", ".tmp");
+            Files.write(temporaryFile, lines, StandardCharsets.UTF_8);
+            try {
+                Files.move(temporaryFile, destination,
+                        StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+            } catch (AtomicMoveNotSupportedException e) {
+                Files.move(temporaryFile, destination, StandardCopyOption.REPLACE_EXISTING);
+            }
         } catch (IOException | SecurityException e) {
             throw new MochiException("I couldn't save your tasks: " + e.getMessage());
+        } finally {
+            if (temporaryFile != null) {
+                try {
+                    Files.deleteIfExists(temporaryFile);
+                } catch (IOException | SecurityException e) {
+                    // A leftover temporary file must not hide the original save failure.
+                }
+            }
         }
     }
 
@@ -125,6 +146,11 @@ public class Storage {
     private void requireFieldCount(String[] fields, int expectedCount) {
         if (fields.length != expectedCount || containsBlankField(fields)) {
             throw new IllegalArgumentException("invalid field count");
+        }
+        for (String field : fields) {
+            if (field.contains("|") || field.chars().anyMatch(Character::isISOControl)) {
+                throw new IllegalArgumentException("unsafe field content");
+            }
         }
     }
 

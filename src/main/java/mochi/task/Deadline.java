@@ -24,6 +24,17 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    private Deadline(Deadline source) {
+        super(source);
+        this.by = source.by;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Deadline copy() {
+        return new Deadline(this);
+    }
+
     /** {@inheritDoc} */
     @Override
     public String toString() {

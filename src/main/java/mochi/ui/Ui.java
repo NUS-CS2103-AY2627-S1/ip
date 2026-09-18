@@ -10,6 +10,9 @@ import mochi.task.TaskList;
  * Handles console input and output for Mochi.
  */
 public class Ui {
+    /** Shared greeting keeps the desktop and console personalities consistent. */
+    public static final String WELCOME_MESSAGE = "Hello! I'm Mochi, your little pocket of calm.\n"
+            + "Let's take your tasks one bite at a time.";
     private static final String SEPARATOR = "____________________________________________________________";
 
     private final Scanner scanner;
@@ -55,7 +58,7 @@ public class Ui {
      * Displays Mochi's greeting.
      */
     public void showWelcome() {
-        showLines(SEPARATOR, "Hello! I'm Mochi.", "What can I do for you?", SEPARATOR);
+        showLines(SEPARATOR, WELCOME_MESSAGE, SEPARATOR);
     }
 
     /**
@@ -69,7 +72,7 @@ public class Ui {
      * Displays Mochi's farewell.
      */
     public void showGoodbye() {
-        output.println("Bye. Hope to see you again soon!");
+        output.println("Rest well! Mochi will be here for your next little step.");
     }
 
     /**
@@ -93,6 +96,9 @@ public class Ui {
     }
 
     private void showTasks(TaskList tasks) {
+        if (tasks.size() == 0) {
+            output.println("Nothing here yet. A little breathing room!");
+        }
         int index = 1;
         for (Task task : tasks) {
             output.println(index + "." + task);
@@ -106,7 +112,7 @@ public class Ui {
      * @param task task whose status changed
      */
     public void showMarked(Task task) {
-        showLines("Nice! I've marked this task as done:", "  " + task);
+        showLines("Sweet! One bite done. I've marked this task as done:", "  " + task);
     }
 
     /**
@@ -115,7 +121,7 @@ public class Ui {
      * @param task task whose status changed
      */
     public void showUnmarked(Task task) {
-        showLines("OK, I've marked this task as not done yet:", "  " + task);
+        showLines("No rush. Back on the plate, marked as not done yet:", "  " + task);
     }
 
     /**
@@ -125,7 +131,7 @@ public class Ui {
      * @param taskCount number of tasks remaining
      */
     public void showDeleted(Task task, int taskCount) {
-        showLines("Noted. I've removed this task:", "  " + task);
+        showLines("A little less on your plate. I've removed this task:", "  " + task);
         showTaskCount(taskCount);
     }
 
@@ -136,7 +142,7 @@ public class Ui {
      * @param taskCount number of tasks after addition
      */
     public void showAdded(Task task, int taskCount) {
-        showLines("Got it. I've added this task:", "  " + task);
+        showLines("Tucked away! I've added this task:", "  " + task);
         showTaskCount(taskCount);
     }
 
