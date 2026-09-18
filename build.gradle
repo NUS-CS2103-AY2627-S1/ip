@@ -1,0 +1,75 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+checkstyle {
+    toolVersion = '14.1.0'
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javafxVersion = '25'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    // The JavaFX plugin supplies macOS ARM natives on the development machine.
+    // Include the distinct Windows and Linux natives so the release JAR is not tied to macOS.
+    ['base', 'graphics', 'controls'].each { module ->
+        runtimeOnly "org.openjfx:javafx-${module}:${javafxVersion}:linux"
+        runtimeOnly "org.openjfx:javafx-${module}:${javafxVersion}:win"
+    }
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'nimbus.Launcher'
+}
+
+javafx {
+    version = '25'
+    modules = ['javafx.controls']
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'nimbus.jar'
+}
+
+run {
+    standardInput = System.in
+}

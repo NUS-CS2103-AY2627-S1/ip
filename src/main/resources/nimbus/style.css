@@ -1,0 +1,100 @@
+.app-root {
+    -fx-background-color: linear-gradient(to bottom right, #f6f9ff, #eef2ff);
+    -fx-font-family: "System";
+}
+
+.header {
+    -fx-alignment: center-left;
+    -fx-padding: 2 4 10 4;
+}
+
+.app-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #25355a;
+}
+
+.app-subtitle, .command-hint {
+    -fx-font-size: 11px;
+    -fx-text-fill: #71809f;
+}
+
+.dialog-scroll-pane, .dialog-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-scroll-pane {
+    -fx-border-color: #dce4f5;
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+}
+
+.dialog-container {
+    -fx-background-color: rgba(255, 255, 255, 0.78);
+}
+
+.speaker-label {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #687695;
+}
+
+.message-bubble {
+    -fx-padding: 10 13;
+    -fx-background-radius: 14;
+    -fx-font-size: 14px;
+    -fx-text-fill: #26334d;
+}
+
+.nimbus-bubble {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2e8f5;
+    -fx-border-radius: 14;
+}
+
+.user-bubble {
+    -fx-background-color: #dfe9ff;
+    -fx-text-fill: #18366e;
+}
+
+.nimbus-row {
+    -fx-alignment: center-left;
+}
+
+.user-row {
+    -fx-alignment: center-right;
+}
+
+.input-bar {
+    -fx-alignment: center;
+}
+
+.command-input {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+    -fx-border-color: #cbd6ed;
+    -fx-border-radius: 10;
+    -fx-padding: 10 12;
+    -fx-font-size: 14px;
+}
+
+.command-input:focused {
+    -fx-border-color: #6b83d6;
+}
+
+.send-button {
+    -fx-background-color: #516cc7;
+    -fx-background-radius: 10;
+    -fx-padding: 10 20;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: #425cb1;
+}
+
+.command-hint {
+    -fx-padding: 0 2;
+}

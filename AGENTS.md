@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Intermediate beginner
+* IDE and level of expertise: IntelliJ IDEA, beginner
 
 # Guidance for interacting with users
 
@@ -33,3 +33,8 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## Coding standards
+
+Follow the CS2103T-required basic and intermediate SE-EDU Java conventions for all Java code.
+Follow the SE-EDU Git commit-message subject conventions for all commits.
