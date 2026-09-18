@@ -142,7 +142,7 @@ Example: `delete 2`
 
 ### Exiting Remy: `bye`
 
-Ends the current chat. Restart Remy to begin another session.
+Immediately closes Remy. Restart the application to begin another session.
 
 Format: `bye`
 
