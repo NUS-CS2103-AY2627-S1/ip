@@ -1,0 +1,72 @@
+.root {
+    main-color: #eee9e2;
+    asphalt-color: #30343a;
+    racing-red: #c62828;
+    racing-yellow: #f4b400;
+    -fx-background-color: main-color;
+}
+
+.text-field {
+    -fx-background-color: #fffaf2;
+    -fx-background-radius: 12px 0 0 12px;
+    -fx-border-color: asphalt-color;
+    -fx-border-radius: 12px 0 0 12px;
+    -fx-border-width: 2px 0 2px 2px;
+    -fx-text-fill: asphalt-color;
+    -fx-prompt-text-fill: #777b80;
+    -fx-font-family: "Courier New";
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+.text-field:focused {
+    -fx-border-color: racing-red;
+}
+
+.button {
+    -fx-background-color: linear-gradient(to bottom, #df3a35, racing-red);
+    -fx-background-radius: 0 12px 12px 0;
+    -fx-border-color: asphalt-color;
+    -fx-border-radius: 0 12px 12px 0;
+    -fx-border-width: 2px;
+    -fx-text-fill: white;
+    -fx-font: italic bold 16px "Arial";
+}
+
+.button:hover {
+    -fx-background-color: racing-yellow;
+    -fx-text-fill: asphalt-color;
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color: #a33a22;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: asphalt-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: racing-red;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: racing-yellow;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
