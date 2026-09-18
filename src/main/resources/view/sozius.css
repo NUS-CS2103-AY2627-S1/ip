@@ -1,0 +1,57 @@
+.root {
+    -fx-font-family: "System";
+    -fx-font-size: 14px;
+    -fx-background-color: #f5f7fa;
+    -fx-text-fill: #202d40;
+    -fx-accent: #315dcc;
+}
+.header {
+    -fx-padding: 14 16 12 16;
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #dbe2ec transparent;
+}
+.app-title { -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #202d40; }
+.subtitle, .input-hint { -fx-font-size: 12px; -fx-text-fill: #58677b; }
+.conversation { -fx-background-color: transparent; -fx-padding: 0; }
+.conversation > .viewport { -fx-background-color: #f5f7fa; }
+.dialog-container { -fx-padding: 14 12 14 12; }
+.message-card { -fx-padding: 10 12 10 12; -fx-background-radius: 10; }
+.message-speaker { -fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #58677b; }
+.message-text { -fx-text-fill: #202d40; }
+.user-message { -fx-background-color: #315dcc; }
+.user-message .message-speaker { -fx-text-fill: #e0e9ff; }
+.user-message .message-text { -fx-text-fill: white; }
+.assistant-message { -fx-background-color: white; }
+.error-message {
+    -fx-background-color: #fff1f0;
+    -fx-border-color: #b42318;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-radius: 3;
+}
+.error-message .message-speaker, .error-message .message-text { -fx-text-fill: #912018; }
+.composer {
+    -fx-padding: 12;
+    -fx-background-color: white;
+    -fx-border-color: #dbe2ec transparent transparent transparent;
+}
+.text-field {
+    -fx-padding: 9 10;
+    -fx-background-color: white;
+    -fx-background-radius: 7;
+    -fx-border-color: #9eacbf;
+    -fx-border-radius: 7;
+    -fx-prompt-text-fill: #65748a;
+}
+.text-field:focused { -fx-border-color: #315dcc; -fx-background-color: #f8faff; }
+.button {
+    -fx-padding: 10 14;
+    -fx-background-color: #315dcc;
+    -fx-background-radius: 7;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.button:hover { -fx-background-color: #264cae; }
+.button:pressed { -fx-background-color: #1c3a89; }
+.button:focused { -fx-border-color: #172f70; -fx-border-radius: 7; }
+.button:disabled { -fx-opacity: 0.5; }
