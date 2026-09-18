@@ -24,9 +24,31 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Java and Git standards
+
+* Before writing or reviewing Java source or tests, read and follow
+  `.codex/skills/seedu-java-coding-standard/SKILL.md`. Apply its SE-EDU
+  basic and intermediate rules to new code and code being changed.
+* Before proposing or creating commits, read and follow
+  `.codex/skills/seedu-git-standard/SKILL.md`. Keep Java changes and
+  standalone agent-instruction changes in separate, cohesive commits.
+* Preserve branch names explicitly requested for course increments.
+* These skills do not authorize commits or pushes; the Git authorization
+  rule below still applies.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+
+## UI testing
+
+After each code update:
+
+* Update `test/ui-test-plan.md` when the change affects commands or console output.
+* Preserve coverage for existing commands when refactoring the command parser.
+* Interleave valid and invalid commands in error-handling cases, then list the tasks to verify that rejected input did not change application state.
+* Invoke the project-specific `test-ui` skill to run the UI test plan.
+* Stop and report the actual and expected output if a UI test fails.
 
 ## Git
 
