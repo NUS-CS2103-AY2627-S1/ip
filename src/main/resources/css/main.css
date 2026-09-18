@@ -1,0 +1,66 @@
+.root {
+    -fx-background-color: #fff9ec;
+    -fx-font-family: "Avenir Next", "Segoe UI", sans-serif;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.input-bar {
+    -fx-background-color: #f4dfb7;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 14px;
+    -fx-border-color: #d2b48c;
+    -fx-border-radius: 14px;
+    -fx-padding: 9px 12px;
+}
+
+.button {
+    -fx-background-color: #d98f70;
+    -fx-background-radius: 14px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 9px 18px;
+}
+
+.button:hover {
+    -fx-background-color: #c9795a;
+}
+
+.dialog-label {
+    -fx-background-color: #f3c9a9;
+    -fx-background-radius: 14px;
+    -fx-padding: 10px 13px;
+}
+
+.daisy-dialog {
+    -fx-background-color: #d9e8c8;
+}
+
+.avatar-label {
+    -fx-background-color: #d98f70;
+    -fx-background-radius: 24px;
+    -fx-text-fill: white;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
+
+.daisy-avatar {
+    -fx-background-color: #779d69;
+}
+
+.error-dialog {
+    -fx-background-color: #f7c8c8;
+    -fx-border-color: #b94a48;
+    -fx-border-radius: 14px;
+    -fx-text-fill: #742a28;
+}
+
+.error-avatar {
+    -fx-background-color: #b94a48;
+}
