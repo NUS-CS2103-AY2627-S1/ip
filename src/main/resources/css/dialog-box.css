@@ -1,0 +1,110 @@
+.label {
+    -fx-background-color: #e6effc;
+    -fx-border-color: #6f8fc1;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: #29243a;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 16px;
+    -fx-padding: 6px 10px;
+}
+
+.reply-label {
+    -fx-background-color: #f1eafa;
+    -fx-border-color: #8f7bbd;
+    -fx-text-fill: #29243a;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+/* Shared response properties intentionally preserve the bubble shape from .reply-label. */
+.add-label,
+.marked-label,
+.unmarked-label,
+.delete-label,
+.archive-label,
+.restore-label,
+.query-label,
+.error-label,
+.exit-label,
+.usage-guidance-label {
+    -fx-border-width: 2px;
+    -fx-font-weight: normal;
+}
+
+.add-label {
+    -fx-background-color: #edf7f0;
+    -fx-border-color: #3d744f;
+    -fx-text-fill: #2d5d3c;
+}
+
+.marked-label {
+    -fx-background-color: #e3f2e8;
+    -fx-border-color: #3a704d;
+    -fx-text-fill: #255532;
+}
+
+.unmarked-label {
+    -fx-background-color: #f3f0fb;
+    -fx-border-color: #765b9e;
+    -fx-text-fill: #4b3c70;
+}
+
+.delete-label {
+    -fx-background-color: #fdebea;
+    -fx-border-color: #a84a40;
+    -fx-text-fill: #7a2e27;
+}
+
+.archive-label {
+    -fx-background-color: #edeffc;
+    -fx-border-color: #5866a2;
+    -fx-text-fill: #3f487c;
+}
+
+.restore-label {
+    -fx-background-color: #e8f5f2;
+    -fx-border-color: #3c7f71;
+    -fx-text-fill: #235a51;
+}
+
+.query-label {
+    -fx-background-color: #eef3fb;
+    -fx-border-color: #5574a6;
+    -fx-text-fill: #3f5374;
+}
+
+.error-label {
+    -fx-background-color: #fff0ea;
+    -fx-border-color: #b24e2a;
+    -fx-text-fill: #873a1c;
+    -fx-border-width: 3px;
+    -fx-font-weight: bold;
+}
+
+.usage-guidance-label {
+    -fx-background-color: #fff7e5;
+    -fx-border-color: #c29a52;
+    -fx-text-fill: #765b2f;
+    -fx-border-width: 2px;
+    -fx-font-weight: bold;
+}
+
+.exit-label {
+    -fx-background-color: #f2edfb;
+    -fx-border-color: #765895;
+    -fx-text-fill: #523d70;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}

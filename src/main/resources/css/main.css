@@ -1,0 +1,82 @@
+.root {
+    main-color: #f7f5fc;       /* Create a looked-up color called "main-color" within root. */
+    -fx-background-color: main-color;
+}
+
+.text-field {
+    -fx-background-color: #fcfbff;
+    -fx-border-color: #b9b0d1;
+    -fx-border-width: 2px;
+    -fx-text-fill: #29243a;
+    -fx-font: 18px "Segoe UI";
+    -fx-padding: 6px 10px;
+}
+
+.text-field:focused {
+    -fx-background-color: #f0edfa;
+    -fx-border-color: #7657c5;
+    -fx-border-width: 3px;
+}
+
+.text-field:disabled {
+    -fx-background-color: #e8e4f2;
+    -fx-border-color: #9389a8;
+    -fx-text-fill: #605972;
+    -fx-opacity: 1.0;
+}
+
+.input-prompt {
+    -fx-text-fill: #6d6780;
+    -fx-font: 18px "Segoe UI";
+    -fx-padding: 6px 10px;
+}
+
+.button {
+    -fx-background-color: #7657c5;
+    -fx-text-fill: #ffffff;
+    -fx-font: bold 16px "Segoe UI";
+    -fx-padding: 6px 10px;
+}
+
+.button:hover {
+    -fx-background-color: #6b4fc0;
+}
+
+.button:pressed {
+    -fx-background-color: #4e3a8a;
+}
+
+.button:focused {
+    -fx-border-color: #afa2e5;
+    -fx-border-width: 3px;
+}
+
+.button:disabled {
+    -fx-background-color: #d9d4e4;
+    -fx-border-color: #9389a8;
+    -fx-text-fill: #605972;
+    -fx-opacity: 1.0;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: #fcfbff;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: #f7f5fc;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #7657c5;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+

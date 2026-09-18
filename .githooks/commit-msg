@@ -1,0 +1,83 @@
+#!/bin/sh
+
+set -eu
+
+commit_message_file=${1:?Commit message file is required}
+merge_head_path=$(git rev-parse --git-path MERGE_HEAD)
+subject=
+second_line=
+body_present=no
+line_number=0
+
+while IFS= read -r line || [ -n "$line" ]; do
+    line_number=$((line_number + 1))
+    if [ "$line_number" -eq 1 ]; then
+        subject=$line
+    elif [ "$line_number" -eq 2 ]; then
+        second_line=$line
+    else
+        case "$line" in
+            \#*|[[:space:]]\#*) ;;
+            *[![:space:]]*) body_present=yes ;;
+        esac
+    fi
+
+    case "$line" in
+        \#*|[[:space:]]\#*) ;;
+        *)
+            if [ "${#line}" -gt 72 ]; then
+                echo "Commit message line $line_number is over 72 characters; wrap it." >&2
+                exit 1
+            fi
+            ;;
+    esac
+done < "$commit_message_file"
+
+if [ -z "$subject" ]; then
+    echo "Commit message subject must not be empty." >&2
+    exit 1
+fi
+
+case "$subject" in
+    *.)
+        echo "Commit message subject must not end with a period." >&2
+        exit 1
+        ;;
+esac
+
+if [ "$body_present" = "yes" ] && [ -n "$second_line" ]; then
+    echo "Separate the commit subject and body with one blank line." >&2
+    exit 1
+fi
+
+# A merge subject already records the integration being performed, so a body
+# is optional unless the merge needs to document conflict-resolution details.
+if [ "$body_present" != "yes" ] && [ ! -f "$merge_head_path" ]; then
+    staged_files=$(git diff --cached --name-only)
+    staged_stats=$(git diff --cached --numstat)
+    staged_file_count=0
+    staged_line_count=0
+    old_ifs=$IFS
+    IFS='
+'
+    for staged_file in $staged_files; do
+        if [ -n "$staged_file" ]; then
+            staged_file_count=$((staged_file_count + 1))
+        fi
+    done
+    for staged_stat in $staged_stats; do
+        IFS=' 	'
+        set -- $staged_stat
+        IFS='
+'
+        case "$1:$2" in
+            ''|*[!0-9:]*|*:*[!0-9]*) staged_line_count=$((staged_line_count + 6)) ;;
+            *) staged_line_count=$((staged_line_count + $1 + $2)) ;;
+        esac
+    done
+    IFS=$old_ifs
+    if [ "$staged_file_count" -gt 1 ] || [ "$staged_line_count" -gt 5 ]; then
+        echo "Non-trivial commits must include a commit message body." >&2
+        exit 1
+    fi
+fi

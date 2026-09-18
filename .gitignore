@@ -5,6 +5,7 @@
 
 # Gradle build files
 /.gradle/
+/.gradle-user-home/
 /build/
 src/main/resources/docs/
 
@@ -15,6 +16,16 @@ bin/
 
 # Temp files
 _temp/
+/tmp/
+
+# Runtime task data
+data/herta.txt
+data/archive.txt
+data/.herta-lock
+data/.herta-transaction
+data/.herta-*.bak
+data/.herta-*.tmp
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+/test/**/*.log
