@@ -1,0 +1,4 @@
+T | 0 | read book
+D | 0 | submit report | 2026-09-15T18:00
+E | 0 | meeting | 2026-09-16T14:00 | 2026-09-16T16:00
+T | 0 | read book
