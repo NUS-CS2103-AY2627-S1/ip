@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<!--
+  One conversation entry. fx:root lets DialogBox.java load this file into
+  itself, so the class IS the HBox. By default the avatar sits on the right
+  (a user message); DialogBox.flip() swaps it for Altair's replies.
+-->
+<fx:root type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml"
+         alignment="TOP_RIGHT" spacing="8.0">
+    <padding>
+        <Insets top="6.0" right="10.0" bottom="6.0" left="10.0" />
+    </padding>
+    <children>
+        <Label fx:id="dialog" wrapText="true" />
+        <ImageView fx:id="displayPicture" fitHeight="36.0" fitWidth="36.0"
+                   preserveRatio="true" />
+    </children>
+</fx:root>

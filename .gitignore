@@ -16,5 +16,8 @@ bin/
 # Temp files
 _temp/
 
+# Runtime task-list data (created by the app on first save)
+/data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

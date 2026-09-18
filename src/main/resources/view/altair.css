@@ -1,0 +1,85 @@
+/*
+ * 1920s NY noir theme for the Altair chat window.
+ *
+ * Near-black backgrounds throughout, aged-parchment text, and a single
+ * muted-gold accent used sparingly (focus rings, hover/pressed states, and
+ * Altair's case-file-stamp border) so it still reads as one accent rather
+ * than decoration. Error replies keep a desaturated blood-red tint instead
+ * of the accent gold, so they stand out on their own.
+ */
+
+#root-pane {
+    -fx-background-color: #0c0c0c;
+}
+
+.scroll-pane, .scroll-pane .viewport {
+    -fx-background-color: #0c0c0c;
+}
+
+.scroll-pane .content {
+    -fx-background-color: #0c0c0c;
+}
+
+.label {
+    -fx-font-family: "Courier New", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-text-fill: #e4d9bd;
+}
+
+.bubble-user, .bubble-altair {
+    -fx-background-radius: 12;
+    -fx-padding: 8 12 8 12;
+}
+
+.bubble-user {
+    -fx-background-color: #2b2b2b;
+    -fx-border-color: #3a3a3a;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+}
+
+.bubble-altair {
+    -fx-background-color: #1a1712;
+    -fx-border-color: #a1812c;
+    -fx-border-width: 0 0 0 3;
+    -fx-background-insets: 0;
+}
+
+.bubble-error {
+    -fx-background-color: #4a1414;
+    -fx-border-color: #8a2a2a;
+    -fx-border-width: 0 0 0 3;
+    -fx-background-insets: 0;
+}
+
+.text-field {
+    -fx-background-color: #161412;
+    -fx-text-fill: #e4d9bd;
+    -fx-prompt-text-fill: #8a8070;
+    -fx-font-family: "Courier New", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-background-radius: 6;
+    -fx-padding: 8;
+    -fx-font-size: 13px;
+}
+
+.text-field:focused {
+    -fx-background-color: #1f1b16;
+    -fx-border-color: #a1812c;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+}
+
+.button {
+    -fx-background-color: #2b2b2b;
+    -fx-text-fill: #e4d9bd;
+    -fx-background-radius: 6;
+    -fx-font-size: 13px;
+}
+
+.button:hover {
+    -fx-background-color: #3a3630;
+}
+
+.button:pressed, .button:default:hover {
+    -fx-background-color: #a1812c;
+}
