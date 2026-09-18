@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -41,7 +42,11 @@ public class Storage {
      * @param filePath the path of the task data file
      */
     public Storage(String filePath) {
-        dataFile = Path.of(filePath);
+        try {
+            dataFile = Path.of(Objects.requireNonNull(filePath));
+        } catch (InvalidPathException exception) {
+            throw new IllegalArgumentException("The task data file path is invalid.", exception);
+        }
     }
 
     /**
@@ -54,7 +59,12 @@ public class Storage {
      */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
-        if (!Files.exists(dataFile)) {
+        try {
+            if (!Files.exists(dataFile)) {
+                return tasks;
+            }
+        } catch (SecurityException exception) {
+            System.err.println("Warning: I couldn't access the saved tasks. Starting with an empty list.");
             return tasks;
         }
 
@@ -63,7 +73,7 @@ public class Storage {
                     .map(this::parseTask)
                     .filter(Objects::nonNull)
                     .forEach(tasks::add);
-        } catch (IOException | UncheckedIOException exception) {
+        } catch (IOException | UncheckedIOException | SecurityException exception) {
             System.err.println("Warning: I couldn't load the saved tasks. Starting with an empty list.");
         }
         return tasks;
@@ -87,7 +97,7 @@ public class Storage {
                     writer.newLine();
                 }
             }
-        } catch (IOException exception) {
+        } catch (IOException | SecurityException exception) {
             System.err.println("Warning: I couldn't save the task list to disk.");
         }
     }
@@ -138,7 +148,7 @@ public class Storage {
             } else {
                 return null;
             }
-        } catch (DateTimeParseException exception) {
+        } catch (DateTimeParseException | IllegalArgumentException exception) {
             return null;
         }
 

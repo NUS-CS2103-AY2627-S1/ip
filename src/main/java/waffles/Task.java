@@ -1,5 +1,7 @@
 package waffles;
 
+import java.util.Objects;
+
 /**
  * Represents a task in the Waffles task list.
  */
@@ -16,7 +18,7 @@ public class Task {
      * @param description the text describing the task
      */
     public Task(String description) {
-        this.description = description;
+        this.description = validateDescription(description);
         this.status = TaskStatus.NOT_DONE;
     }
 
@@ -44,7 +46,7 @@ public class Task {
      * @param description the new task description
      */
     public void setDescription(String description) {
-        this.description = description;
+        this.description = validateDescription(description);
     }
 
     /**
@@ -83,5 +85,14 @@ public class Task {
     @Override
     public String toString() {
         return isDoneSymbol() + " " + description;
+    }
+
+    /** Rejects missing task descriptions before they enter the task model. */
+    private String validateDescription(String value) {
+        String checkedValue = Objects.requireNonNull(value);
+        if (checkedValue.isBlank()) {
+            throw new IllegalArgumentException("A task description cannot be blank.");
+        }
+        return checkedValue;
     }
 }

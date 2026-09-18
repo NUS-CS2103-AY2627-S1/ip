@@ -14,8 +14,8 @@ public class Parser {
      * @return whether the command is a mark or unmark command
      */
     public boolean isMarkCommand(String command) {
-        String[] parts = command.split("\\s+");
-        return parts.length > 0 && (parts[0].equals("mark") || parts[0].equals("unmark"));
+        String firstWord = firstWord(command);
+        return firstWord.equals("mark") || firstWord.equals("unmark");
     }
 
     /**
@@ -25,8 +25,7 @@ public class Parser {
      * @return whether the command starts with {@code delete}
      */
     public boolean isDeleteCommand(String command) {
-        String[] parts = command.split("\\s+");
-        return parts.length > 0 && parts[0].equals("delete");
+        return firstWord(command).equals("delete");
     }
 
     /**
@@ -36,7 +35,7 @@ public class Parser {
      * @return whether the command starts with {@code find}
      */
     public boolean isFindCommand(String command) {
-        return command.equals("find") || command.startsWith("find ");
+        return firstWord(command).equals("find");
     }
 
     /**
@@ -60,9 +59,8 @@ public class Parser {
      * @return whether the command starts with a task type
      */
     public boolean isTaskCommand(String command) {
-        return command.equals("todo") || command.startsWith("todo ")
-                || command.equals("deadline") || command.startsWith("deadline ")
-                || command.equals("event") || command.startsWith("event ");
+        String firstWord = firstWord(command);
+        return firstWord.equals("todo") || firstWord.equals("deadline") || firstWord.equals("event");
     }
 
     /**
@@ -100,7 +98,7 @@ public class Parser {
      * @return the one-based task number
      */
     public int parseTaskNumber(String command) {
-        String[] parts = command.split("\\s+");
+        String[] parts = command.trim().split("\\s+");
         String action = parts[0];
         if (parts.length != 2) {
             throw new IllegalArgumentException(
@@ -123,6 +121,9 @@ public class Parser {
             throw new IllegalArgumentException(
                     "a deadline needs a due time after `/by`, like `deadline report /by Friday`.");
         }
+        if (content.indexOf("/by", byMarker + "/by".length()) >= 0) {
+            throw new IllegalArgumentException("a deadline may use `/by` only once.");
+        }
 
         String description = content.substring(0, byMarker).trim();
         String byText = content.substring(byMarker + "/by".length()).trim();
@@ -144,6 +145,10 @@ public class Parser {
             throw new IllegalArgumentException(
                     "an event needs both `/from` and `/to`, like `event meeting /from 2pm /to 4pm`.");
         }
+        if (content.indexOf("/from", fromMarker + "/from".length()) >= 0
+                || content.indexOf("/to", toMarker + "/to".length()) >= 0) {
+            throw new IllegalArgumentException("an event may use `/from` and `/to` only once.");
+        }
 
         String description = content.substring(0, fromMarker).trim();
         String fromText = content.substring(fromMarker + "/from".length(), toMarker).trim();
@@ -157,7 +162,12 @@ public class Parser {
         if (toText.isEmpty()) {
             throw new IllegalArgumentException("an event needs something after `/to`.");
         }
-        return new Event(description, parseDate(fromText, "event"), parseDate(toText, "event"));
+        LocalDate from = parseDate(fromText, "event");
+        LocalDate to = parseDate(toText, "event");
+        if (to.isBefore(from)) {
+            throw new IllegalArgumentException("an event must end on or after it starts.");
+        }
+        return new Event(description, from, to);
     }
 
     /** Parses one ISO-8601 date and converts parser failures into user errors. */
@@ -169,5 +179,13 @@ public class Parser {
             throw new IllegalArgumentException(
                     article + taskType + " date must use yyyy-MM-dd, like 2019-10-15.");
         }
+    }
+
+    /** Returns the first whitespace-delimited word, or an empty string for blank input. */
+    private String firstWord(String command) {
+        if (command == null || command.isBlank()) {
+            return "";
+        }
+        return command.trim().split("\\s+", 2)[0];
     }
 }

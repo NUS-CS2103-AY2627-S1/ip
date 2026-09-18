@@ -42,8 +42,8 @@ public class Ui {
 
         showDivider();
         output.println(banner);
-        output.println("Hello! I'm Waffles.");
-        output.println("What can I do for you?");
+        output.println("Hello! I'm Waffles, your cheerful kitchen-sidekick.");
+        output.println("Let's get your day cooking. What can I do for you?");
         showDivider();
     }
 
@@ -72,7 +72,7 @@ public class Ui {
 
     /** Displays the goodbye message. */
     public void showGoodbye() {
-        output.println("Until next time, Waffleeeeeeeees out");
+        output.println("Keep your plans cooking. Waffles out!");
     }
 
     /**

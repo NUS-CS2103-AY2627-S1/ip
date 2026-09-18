@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Owns the ordered collection of tasks and its basic list operations.
@@ -33,7 +34,7 @@ public class TaskList {
      * @param task the task to add
      */
     public void addTask(Task task) {
-        tasks.add(task);
+        tasks.add(Objects.requireNonNull(task));
     }
 
     /**

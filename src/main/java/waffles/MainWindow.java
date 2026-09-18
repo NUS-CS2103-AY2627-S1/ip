@@ -47,6 +47,9 @@ public class MainWindow {
     private void initialize() {
         dialogContainer.heightProperty().addListener(
                 (observable, oldHeight, newHeight) -> scrollPane.setVvalue(1.0));
+        userInput.textProperty().addListener((observable, oldValue, newValue) ->
+                sendButton.setDisable(newValue == null || newValue.isBlank()));
+        sendButton.setDisable(true);
     }
 
     /**
@@ -67,9 +70,10 @@ public class MainWindow {
         }
 
         String response = waffles.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getWafflesDialog(response, wafflesImage));
+        DialogBox responseDialog = response.startsWith("Oops")
+                ? DialogBox.getErrorDialog(response, wafflesImage)
+                : DialogBox.getWafflesDialog(response, wafflesImage);
+        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage), responseDialog);
         userInput.clear();
         userInput.requestFocus();
     }

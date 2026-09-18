@@ -43,6 +43,24 @@ class ParserTest {
                 exception.getMessage());
     }
 
+    /** Verifies an event cannot end before it starts. */
+    @Test
+    void parseTask_reversedEvent_throwsHelpfulError() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> parser.parseTask("event trip /from 2026-09-20 /to 2026-09-19"));
+
+        assertEquals("an event must end on or after it starts.", exception.getMessage());
+    }
+
+    /** Verifies duplicate date markers are rejected instead of being parsed ambiguously. */
+    @Test
+    void parseTask_duplicateMarker_throwsHelpfulError() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> parser.parseTask("deadline report /by 2026-09-20 /by 2026-09-21"));
+
+        assertEquals("a deadline may use `/by` only once.", exception.getMessage());
+    }
+
     /** Verifies that task numbers are parsed and malformed numbers are rejected. */
     @Test
     void parseTaskNumber_validAndInvalidInputs_behaveAsExpected() {

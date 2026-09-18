@@ -3,6 +3,7 @@ package waffles;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Represents a task that occurs between a start and end date or time.
@@ -23,8 +24,11 @@ public class Event extends Task {
      */
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = Objects.requireNonNull(from);
+        this.to = Objects.requireNonNull(to);
+        if (to.isBefore(from)) {
+            throw new IllegalArgumentException("An event must end on or after it starts.");
+        }
     }
 
     /**

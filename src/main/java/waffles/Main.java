@@ -37,7 +37,10 @@ public class Main extends Application {
         stage.setTitle("Waffles");
         stage.setScene(scene);
         stage.setMinWidth(440);
-        stage.setMinHeight(650);
+        stage.setMinHeight(560);
+        stage.setWidth(520);
+        stage.setHeight(720);
+        stage.setResizable(true);
         stage.show();
     }
 }

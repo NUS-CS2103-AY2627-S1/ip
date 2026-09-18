@@ -292,7 +292,10 @@ Oops, find needs a keyword. Try `find book`.
 
 Run `gradlew.bat run --console=plain`, enter `todo try the GUI`, and verify
 that the user message and Waffles response appear in the scrollable window.
-Also verify that pressing Enter and clicking Send both submit commands.
+Also verify that pressing Enter and clicking Send both submit commands, that
+the Send button is disabled for blank input, that an invalid command appears
+in a red error card, and that resizing the window keeps the conversation and
+composer usable.
 
 ## Test case: warn about scheduling clashes
 
@@ -321,4 +324,52 @@ Got it. I've added this event:
 Now you have 2 tasks in the list.
 1.[E][ ] project meeting (from: Aug 06 2019 | to: Aug 07 2019)
 2.[E][ ] overlapping meeting (from: Aug 07 2019 | to: Aug 08 2019)
+```
+
+## Test case: reject reversed event dates
+
+### Aim
+
+Verify an event whose end date precedes its start date is rejected and does not
+alter the task list.
+
+### Inputs
+
+```text
+delete 1
+delete 1
+event backwards /from 2026-09-20 /to 2026-09-19
+list
+bye
+```
+
+### Expected output
+
+```text
+Oops, an event must end on or after it starts.
+Here are the tasks in your list:
+```
+
+## Test case: normalize spacing and reject blank input
+
+### Aim
+
+Verify repeated spaces are normalized and blank input receives a helpful error.
+
+### Inputs
+
+```text
+
+todo    spaced   task
+list
+bye
+```
+
+### Expected output
+
+```text
+Oops, Please enter a command, such as `list` or `todo read book`.
+Got it. I've added this task:
+  [T][ ] spaced task
+1.[T][ ] spaced task
 ```
