@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="640.0" prefWidth="520.0" styleClass="app-root" stylesheets="@../css/main.css"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="rene.gui.MainWindow">
+    <children>
+        <VBox styleClass="app-shell" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="app-header">
+                    <children>
+                        <StackPane minHeight="38.0" minWidth="38.0" prefHeight="38.0" prefWidth="38.0"
+                                   styleClass="brand-mark">
+                            <children>
+                                <Label styleClass="brand-letter" text="R" />
+                            </children>
+                        </StackPane>
+                        <VBox spacing="1.0">
+                            <children>
+                                <Label styleClass="header-title" text="Rene" />
+                                <Label styleClass="header-subtitle" text="Your personal productivity liaison" />
+                            </children>
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <HBox alignment="CENTER" spacing="6.0" styleClass="status-pill">
+                            <children>
+                                <Region maxHeight="7.0" maxWidth="7.0" minHeight="7.0" minWidth="7.0"
+                                        prefHeight="7.0" prefWidth="7.0" styleClass="status-dot" />
+                                <Label styleClass="status-text" text="Ready" />
+                            </children>
+                        </HBox>
+                    </children>
+                </HBox>
+                <StackPane styleClass="conversation-panel" VBox.vgrow="ALWAYS">
+                    <children>
+                        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                                    maxHeight="Infinity" maxWidth="Infinity">
+                            <content>
+                                <VBox fx:id="dialogContainer" spacing="12.0" styleClass="dialog-container" />
+                            </content>
+                        </ScrollPane>
+                    </children>
+                </StackPane>
+                <VBox spacing="8.0" styleClass="composer-section">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="command-strip">
+                            <children>
+                                <Label styleClass="command-label" text="STANDARD PROCEDURES" />
+                                <Label styleClass="command-list" text="todo  •  deadline  •  event  •  list  •  find" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="8.0" styleClass="composer-card">
+                            <children>
+                                <TextField fx:id="userInput" onAction="#handleUserInput"
+                                           promptText="State your directive, e.g. 'todo review proposal'" HBox.hgrow="ALWAYS" />
+                                <Button fx:id="sendButton" defaultButton="true" mnemonicParsing="false"
+                                        onAction="#handleUserInput" text="Submit  →" />
+                            </children>
+                        </HBox>
+                        <Label styleClass="composer-hint" text="Press Enter to submit   •   Type bye to end the session" />
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

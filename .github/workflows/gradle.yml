@@ -1,0 +1,117 @@
+name: Java CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@v7
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v6
+      - name: Set up JDK 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: zulu
+          java-version: '25'
+          java-package: jdk+fx
+      - name: Build and check with Gradle
+        run: ./gradlew check shadowJar
+
+      - name: Smoke-test the fat JAR on macOS and Linux
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          mkdir -p build/smoke-test
+          cp build/libs/rene.jar build/smoke-test/rene.jar
+          cd build/smoke-test
+          printf 'todo cross-platform smoke task\nbye\n' \
+            | java -cp rene.jar rene.Rene smoke-data.txt > add-task.log
+          printf 'list\nbye\n' \
+            | java -cp rene.jar rene.Rene smoke-data.txt > load-task.log
+          grep -Fq '[T][ ] cross-platform smoke task' load-task.log
+          if [ "${{ runner.os }}" = "Linux" ]; then
+            launch_command=(xvfb-run -a java -jar rene.jar)
+          else
+            launch_command=(java -jar rene.jar)
+          fi
+          "${launch_command[@]}" > launch.log 2>&1 &
+          app_pid=$!
+          started=false
+          for attempt in {1..10}; do
+            if ! kill -0 "$app_pid" 2>/dev/null; then
+              cat launch.log
+              exit 1
+            fi
+            if [ -f data/rene.txt ]; then
+              started=true
+              break
+            fi
+            sleep 1
+          done
+          if [ "$started" != true ]; then
+            cat launch.log
+            exit 1
+          fi
+          sleep 3
+          if ! kill -0 "$app_pid" 2>/dev/null; then
+            cat launch.log
+            exit 1
+          fi
+          if [ "${{ runner.os }}" = "Linux" ]; then
+            pkill -TERM -P "$app_pid" 2>/dev/null || true
+          fi
+          kill "$app_pid" 2>/dev/null || true
+          wait "$app_pid" 2>/dev/null || true
+
+      - name: Smoke-test the fat JAR on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force build/smoke-test | Out-Null
+          Copy-Item build/libs/rene.jar build/smoke-test/rene.jar
+          Push-Location build/smoke-test
+          "todo cross-platform smoke task`nbye" `
+              | & java -cp rene.jar rene.Rene smoke-data.txt `
+              | Set-Content add-task.log
+          "list`nbye" `
+              | & java -cp rene.jar rene.Rene smoke-data.txt `
+              | Set-Content load-task.log
+          if (-not (Select-String -Path load-task.log -SimpleMatch '[T][ ] cross-platform smoke task')) {
+              Get-Content load-task.log
+              throw "The fat JAR did not reload its saved smoke-test task."
+          }
+          $app = Start-Process java -ArgumentList '-jar', 'rene.jar' -PassThru `
+              -RedirectStandardOutput launch.out -RedirectStandardError launch.err
+          try {
+              $started = $false
+              foreach ($attempt in 1..10) {
+                  Start-Sleep -Seconds 1
+                  if ($app.HasExited) {
+                      Get-Content launch.out, launch.err
+                      throw "Rene exited before its GUI remained open."
+                  }
+                  if (Test-Path data/rene.txt) {
+                      $started = $true
+                      break
+                  }
+              }
+              if (-not $started) {
+                  Get-Content launch.out, launch.err
+                  throw "Rene did not create data/rene.txt during startup."
+              }
+              Start-Sleep -Seconds 3
+              if ($app.HasExited) {
+                  Get-Content launch.out, launch.err
+                  throw "Rene exited instead of keeping its GUI open."
+              }
+          } finally {
+              if (-not $app.HasExited) {
+                  Stop-Process -Id $app.Id -Force
+              }
+              Pop-Location
+          }

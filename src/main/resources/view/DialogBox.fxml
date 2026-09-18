@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_RIGHT" maxWidth="Infinity" spacing="11.0" styleClass="dialog-box" type="HBox"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox maxWidth="350.0" spacing="5.0" styleClass="bubble-card">
+            <children>
+                <Label fx:id="senderLabel" styleClass="sender-name" />
+                <Label fx:id="messageLabel" styleClass="message-text" wrapText="true" />
+            </children>
+        </VBox>
+        <StackPane maxHeight="34.0" maxWidth="34.0" minHeight="34.0" minWidth="34.0"
+                   prefHeight="34.0" prefWidth="34.0" styleClass="avatar">
+            <children>
+                <Label fx:id="avatarLabel" styleClass="avatar-letter" />
+            </children>
+        </StackPane>
+    </children>
+</fx:root>
