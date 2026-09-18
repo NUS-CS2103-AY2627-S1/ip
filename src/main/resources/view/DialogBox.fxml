@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<!--
+  One message. The speaker is shown by where the message sits and how it is
+  drawn, which DialogBox sets, so there is no avatar here to take up room on
+  every single line.
+-->
+<fx:root type="javafx.scene.layout.HBox" spacing="0.0"
+         styleClass="dialog-box" maxWidth="Infinity"
+         xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+  <children>
+    <Label fx:id="dialog" wrapText="true" styleClass="dialog-text"/>
+  </children>
+</fx:root>

@@ -1,0 +1,20 @@
+{
+    // Debug configurations for the Java debugger. "Launch MattChatBot (GUI)"
+    // starts the app itself; the JUnit tests do not need an entry here,
+    // because the Test Runner extension debugs them with its own Debug button.
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch MattChatBot (GUI)",
+            "request": "launch",
+            // Launcher, not gui.Main: see the comment in Launcher.java for why
+            // an Application subclass cannot be the entry point here.
+            "mainClass": "seedu.mattchatbot.Launcher",
+            "projectName": "ip",
+            // Matches applicationDefaultJvmArgs in build.gradle, so debugging
+            // the app behaves the same as `./gradlew run`.
+            "vmArgs": "--enable-native-access=javafx.graphics -ea"
+        }
+    ]
+}

@@ -1,0 +1,110 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'jacoco'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+
+    // JavaFX ships a separate native binary per platform, so every platform the
+    // JAR might run on has to be listed here, not just this machine's. The
+    // tutorial's list predates Apple Silicon: mac-aarch64 is the classifier an
+    // M-series Mac needs, and 'mac' alone silently fails to start there.
+    String javaFxVersion = '25.0.4'
+    List<String> javaFxPlatforms = ['win', 'mac', 'mac-aarch64', 'linux']
+    List<String> javaFxModules = ['base', 'controls', 'fxml', 'graphics']
+    for (String module : javaFxModules) {
+        for (String platform : javaFxPlatforms) {
+            implementation "org.openjfx:javafx-${module}:${javaFxVersion}:${platform}"
+        }
+    }
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+checkstyle {
+    // The config in config/checkstyle is the SE-EDU one used by AddressBook Level 3,
+    // so Checkstyle enforces the same standard AGENTS.md already asks for by hand.
+    toolVersion = '14.1.0'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+jacoco {
+    // Needs a build new enough to read Java 25 class files.
+    toolVersion = '0.8.14'
+}
+
+jacocoTestReport {
+    dependsOn test
+    // The increment allows leaving GUI code to manual testing. Counting it
+    // here would make the figure describe how much of the program has a
+    // window rather than how much of the testable code is tested.
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['seedu/mattchatbot/gui/**',
+                                        'seedu/mattchatbot/Launcher*'])
+        }))
+    }
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+
+application {
+    // Launcher, not Main: a class that extends Application cannot be the main
+    // class of a fat JAR, because JavaFX refuses to start when its own module
+    // is on the classpath rather than the module path.
+    mainClass = 'seedu.mattchatbot.Launcher'
+    // JavaFX loads its own native libraries, which Java 25 warns about unless
+    // the module is granted native access up front.
+    applicationDefaultJvmArgs = ['--enable-native-access=javafx.graphics']
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'mattchatbot.jar'
+}
+
+run {
+    standardInput = System.in
+    // Assertions are stripped by the JVM unless it is started with -ea, so an
+    // assertion that fails would otherwise go unnoticed when running the app.
+    // (The `test` task turns them on by default, so it needs no such line.)
+    enableAssertions = true
+}
+

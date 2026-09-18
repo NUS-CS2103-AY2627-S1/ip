@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Intermediate — a few years of coding, including some personal projects.
+* IDE and level of expertise: VS Code (not IntelliJ). Prefer command-line/Gradle instructions over IntelliJ-specific UI steps.
 
 # Guidance for interacting with users
 
@@ -27,6 +27,14 @@ Unless the user says otherwise, assume that you are assisting a student working 
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+
+## Java coding standard
+
+Follow the SE-EDU Java coding standard (basic and intermediate rules) for all
+code in this project: 4-space indents, no tabs, no wildcard imports, lines
+within 110 characters, braces on every conditional and loop body, boolean
+methods prefixed with `is`/`has`/`can`, and header Javadoc on all non-private
+classes and methods. `./gradlew javadoc` should report no warnings.
 
 ## Git
 

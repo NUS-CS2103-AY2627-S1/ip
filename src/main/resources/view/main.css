@@ -1,0 +1,125 @@
+/*
+ * Look and feel of Winston's window. Kept out of the FXML so that the layout
+ * files stay about structure and this file stays about appearance.
+ *
+ * The palette and the lettering are chosen to suit the chatbot's manner: a
+ * parchment ground, deep navy for the user, and a brass rule marking where
+ * Winston speaks. The two speakers are still styled unlike each other, for
+ * the reason set out in DialogBox: this is a person instructing a program,
+ * not two people talking.
+ */
+
+.root-pane {
+    -fx-background-color: #f5f1e8;
+}
+
+/* The scroll pane and its viewport both paint a background, so both are
+   cleared, otherwise a grey band shows through behind the conversation. */
+.conversation-scroll,
+.conversation-scroll .viewport {
+    -fx-background-color: transparent;
+}
+
+.conversation-scroll {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.conversation {
+    -fx-background-color: transparent;
+}
+
+.dialog-text {
+    -fx-line-spacing: 2px;
+}
+
+/*
+ * The user's side: a compact bubble on the right, in navy. The corner nearest
+ * the text field is squared off, which points the bubble at where it was
+ * typed. Set in a plain face, because an instruction is not part of Winston's
+ * speech and should not look like it.
+ */
+.user-dialog .dialog-text {
+    -fx-background-color: #23384f;
+    -fx-background-radius: 14px 14px 4px 14px;
+    -fx-text-fill: #f5f1e8;
+    -fx-padding: 9px 13px;
+    -fx-font-family: "Helvetica Neue", "Segoe UI", sans-serif;
+    -fx-font-size: 13px;
+}
+
+/*
+ * Winston's side: no bubble, no avatar, full width, with a brass rule down
+ * the left edge.
+ *
+ * Georgia is a serif drawn for reading on screen, which suits the formal
+ * manner better than the monospace this replaces. The cost is that the
+ * [T][ ] status boxes no longer line up exactly down the page, since the
+ * letters inside them are not all the same width. Note that naming a font
+ * here is only safe because Georgia is present on macOS and Windows: JavaFX
+ * answers a family it cannot find with the proportional System font rather
+ * than trying the next name, so a missing face fails quietly. The logical
+ * family "Serif" is the guaranteed alternative if that ever bites.
+ */
+.bot-dialog .dialog-text,
+.error-dialog .dialog-text {
+    -fx-font-family: "Georgia";
+    -fx-font-size: 13.5px;
+    -fx-border-width: 0 0 0 3px;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+.bot-dialog .dialog-text {
+    -fx-text-fill: #2a241c;
+    -fx-border-color: transparent transparent transparent #b08d57;
+    -fx-padding: 1px 0 1px 11px;
+}
+
+/*
+ * A complaint. Marked three ways at once -- tinted panel, oxblood rule, red
+ * text -- so that it is still obvious to a reader who cannot pick out the
+ * colour.
+ */
+.error-dialog .dialog-text {
+    -fx-text-fill: #7b2320;
+    -fx-background-color: #f6e9e6;
+    -fx-border-color: transparent transparent transparent #a13a2f;
+    -fx-padding: 8px 10px 8px 11px;
+}
+
+.composer {
+    -fx-background-color: #fffdf8;
+    -fx-border-color: #e0d7c6 transparent transparent transparent;
+}
+
+.composer .text-field {
+    -fx-background-radius: 18px;
+    -fx-background-color: #efe9dc;
+    -fx-padding: 8px 14px;
+    -fx-font-size: 13px;
+}
+
+.composer .text-field:focused {
+    -fx-background-color: #fffdf8;
+    -fx-border-color: #b08d57;
+    -fx-border-radius: 18px;
+    -fx-border-width: 1px;
+}
+
+.composer .button {
+    -fx-background-radius: 18px;
+    -fx-background-color: #23384f;
+    -fx-text-fill: #f5f1e8;
+    -fx-font-size: 13px;
+    -fx-padding: 8px 18px;
+    -fx-cursor: hand;
+}
+
+.composer .button:hover {
+    -fx-background-color: #b08d57;
+}
+
+.composer .button:disabled {
+    -fx-opacity: 0.5;
+}
