@@ -1,0 +1,162 @@
+/* Styles for Aster's chat window. Written for Aster; no third-party stylesheet is used. */
+
+/* ---------- window ---------- */
+
+.main-window,
+.app-shell {
+    -fx-background-color: #F6F4EF;
+}
+
+/* ---------- header ---------- */
+
+.app-header {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: transparent transparent #E7E3DA transparent;
+    -fx-border-width: 0 0 1px 0;
+    -fx-min-height: 52px;
+    -fx-pref-height: 52px;
+}
+
+.header-content {
+    -fx-padding: 0 18px 0 18px;
+    -fx-spacing: 10px;
+}
+
+.header-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2933;
+}
+
+.header-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #5F6673;
+}
+
+/* ---------- conversation ---------- */
+
+.conversation-scroll {
+    -fx-background-color: #F6F4EF;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.conversation-scroll > .viewport,
+.conversation {
+    -fx-background-color: #F6F4EF;
+}
+
+.dialog-container {
+    -fx-background-color: #F6F4EF;
+    -fx-padding: 12px 8px 12px 8px;
+    -fx-spacing: 6px;
+}
+
+.dialog-box {
+    -fx-padding: 4px 10px 4px 10px;
+    -fx-spacing: 8px;
+}
+
+.dialog-box .bubble {
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 8px 12px 8px 12px;
+}
+
+.aster-dialog .bubble {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 4px 16px 16px 16px;
+    -fx-border-color: #E7E3DA;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px 16px 16px 16px;
+    -fx-text-fill: #1F2933;
+    -fx-effect: dropshadow(gaussian, rgba(31, 41, 51, 0.08), 10, 0, 0, 2);
+}
+
+.user-dialog .bubble {
+    -fx-background-color: #0F766E;
+    -fx-background-radius: 16px 4px 16px 16px;
+    -fx-text-fill: #FFFFFF;
+}
+
+.error-dialog .bubble {
+    -fx-background-color: #FDECEC;
+    -fx-background-radius: 4px 16px 16px 16px;
+    -fx-border-color: #F3B7B2 #F3B7B2 #F3B7B2 #D93025;
+    -fx-border-width: 1px 1px 1px 4px;
+    -fx-border-radius: 4px 16px 16px 16px;
+    -fx-text-fill: #8A1C14;
+}
+
+/* ---------- composer ---------- */
+
+.composer {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E7E3DA transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 10px 0 10px 0;
+}
+
+.composer-content {
+    -fx-padding: 0 18px 0 18px;
+    -fx-spacing: 8px;
+}
+
+.composer-field {
+    -fx-background-color: #F1EFEA;
+    -fx-background-insets: 0;
+    -fx-background-radius: 20px;
+    -fx-padding: 0 16px 0 16px;
+    -fx-pref-height: 40px;
+    -fx-font-size: 13px;
+    -fx-text-fill: #1F2933;
+    -fx-prompt-text-fill: #5F6673;
+    -fx-highlight-fill: #99D5CE;
+    -fx-highlight-text-fill: #0B3B36;
+}
+
+.composer-field:focused {
+    -fx-background-color: #0F766E, #FFFFFF;
+    -fx-background-insets: 0, 2px;
+    -fx-background-radius: 20px, 18px;
+    -fx-prompt-text-fill: #5F6673;
+}
+
+.composer-field:disabled {
+    -fx-opacity: 1;
+    -fx-background-color: #ECEAE4;
+    -fx-text-fill: #9CA3AF;
+}
+
+.send-button {
+    -fx-background-color: #0F766E;
+    -fx-background-insets: 0;
+    -fx-background-radius: 20px;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 20px 0 20px;
+    -fx-pref-height: 40px;
+    -fx-min-width: 72px;
+    -fx-cursor: hand;
+}
+
+.send-button:focused {
+    -fx-background-color: #134E4A, #0F766E;
+    -fx-background-insets: 0, 2px;
+    -fx-background-radius: 20px, 18px;
+}
+
+.send-button:hover {
+    -fx-background-color: #115E59;
+}
+
+.send-button:pressed {
+    -fx-background-color: #134E4A;
+}
+
+.send-button:disabled {
+    -fx-opacity: 1;
+    -fx-background-color: #9CA3AF;
+    -fx-cursor: default;
+}

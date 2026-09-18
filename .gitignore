@@ -13,6 +13,9 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Generated task data
+/data/
+
 # Temp files
 _temp/
 

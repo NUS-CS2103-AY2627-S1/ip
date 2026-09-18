@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+    "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+    "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<!--
+    Copied from se-edu/addressbook-level3 (config/checkstyle/suppressions.xml) at commit
+    0bf2b1b9c86349a1c4d31e8afa34b5bccb84f963, unchanged apart from this comment.
+    Copyright (c) 2016 Software Engineering Education - FOSS Resources. MIT License.
+-->
+
+<suppressions>
+  <suppress checks="JavadocType" files=".*Test\.java"/>
+  <suppress checks="MissingJavadocMethodCheck" files=".*Test\.java"/>
+</suppressions>
