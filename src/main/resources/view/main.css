@@ -1,0 +1,72 @@
+/* Colours and spacing for the chat window: bamboo greens to suit Wei the Panda. */
+
+.root-pane {
+    -fx-background-color: linear-gradient(to bottom, #eef6e8, #dcebd2);
+    -fx-font-family: "Trebuchet MS", "Verdana", sans-serif;
+}
+
+.chat-scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-padding: 0;
+}
+
+.chat-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.chat-area {
+    -fx-background-color: transparent;
+}
+
+/* What the user typed: a filled bubble on the right. */
+.dialog-label {
+    -fx-background-color: #4f8a3c;
+    -fx-text-fill: white;
+    -fx-background-radius: 14 14 2 14;
+    -fx-padding: 9 13 9 13;
+    -fx-font-size: 13px;
+}
+
+/* What the chatbot replied: a pale bubble on the left. */
+.reply-label {
+    -fx-background-color: white;
+    -fx-text-fill: #26331f;
+    -fx-background-radius: 14 14 14 2;
+    -fx-padding: 9 13 9 13;
+    -fx-font-size: 13px;
+    -fx-border-color: #c3dbb5;
+    -fx-border-radius: 14 14 14 2;
+}
+
+/* A command the chatbot could not carry out: warm colours and a thicker
+   left edge, so a mistake is spotted without reading the text first. */
+.error-label {
+    -fx-background-color: #fdecec;
+    -fx-text-fill: #8f1d1d;
+    -fx-border-color: #e3a1a1;
+    -fx-border-width: 1 1 1 4;
+    -fx-font-weight: bold;
+}
+
+.user-input {
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-border-color: #a9c99a;
+    -fx-background-color: white;
+    -fx-padding: 8 14 8 14;
+    -fx-font-size: 13px;
+}
+
+.send-button {
+    -fx-background-radius: 18;
+    -fx-background-color: #4f8a3c;
+    -fx-text-fill: white;
+    -fx-padding: 8 16 8 16;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: #3b6b2c;
+}

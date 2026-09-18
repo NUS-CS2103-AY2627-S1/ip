@@ -1,25 +1,52 @@
-# Duke project template
+# Wei the Panda
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Wei the Panda is a chatbot that keeps track of your todos, deadlines and events.
+Type a command, and Wei plants it in your task grove and saves it for next time.
 
-## Setting up in Intellij
+```text
+ (@)___(@)
+ ( o   o )    Wei the Panda
+  \  v  /     keeper of your bamboo grove
+   `---'
+```
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+See the [User Guide](docs/README.md) for every command.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Setting up in IntelliJ
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+Prerequisites: JDK 25, and the most recent version of IntelliJ.
+
+1. Open IntelliJ (if you are not on the welcome screen, click `File` > `Close Project` first).
+1. Click `Open`, select the project directory, and click `OK`. Accept the defaults for any further prompts.
+1. Configure the project to use **JDK 25** as explained in [IntelliJ's JDK setup guide](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk),
+   and set the **Project language level** to `SDK default`.
+1. To start the graphical version, run `./gradlew run`.
+   To start the console version, right-click `src/main/java/zhangwei/ZhangWei.java` and choose `Run ZhangWei.main()`.
+   You should see the panda banner shown above.
+
+**Warning:** Keep `src/main/java` as the root folder for Java files, as this is where Gradle expects to find them.
+
+## Building and running the JAR
+
+Prerequisites: JDK 25 (`sdk use java 25.0.3.fx-zulu` if you use SDKMAN).
+Run `java -version` first to confirm the terminal is using Java 25.
+
+Build the fat JAR, which contains the compiled classes and every runtime dependency:
+
+```text
+./gradlew shadowJar
+```
+
+The result is written to `build/libs/zhangwei.jar`. Run it with:
+
+```text
+java -jar build/libs/zhangwei.jar
+```
+
+Tasks are saved to `./data/zhangwei.txt`, relative to the folder you run the command from.
+
+## Running the tests
+
+```text
+./gradlew test
+```

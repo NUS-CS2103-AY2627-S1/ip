@@ -1,0 +1,82 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    // A toolchain pins the exact JDK used to compile, test and package this
+    // project, so `./gradlew shadowJar` produces the same fat JAR regardless of
+    // which JDK happens to be on PATH. Gradle auto-detects SDKMAN-installed JDKs.
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javaFxVersion = '21.0.5'
+
+    // JavaFX ships a different native library for each operating system, so
+    // every platform's artefact is listed here. Packing them all in keeps the
+    // fat JAR runnable on Windows, macOS (Intel and Apple silicon) and Linux,
+    // rather than only on the machine that built it.
+    for (String platform : ['win', 'mac', 'mac-aarch64', 'linux']) {
+        implementation "org.openjfx:javafx-base:${javaFxVersion}:${platform}"
+        implementation "org.openjfx:javafx-graphics:${javaFxVersion}:${platform}"
+        implementation "org.openjfx:javafx-controls:${javaFxVersion}:${platform}"
+        implementation "org.openjfx:javafx-fxml:${javaFxVersion}:${platform}"
+    }
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    // The GUI is the way in, and it starts from a plain class rather than from
+    // the Application subclass, so that `java -jar` does not demand JavaFX on
+    // the module path. The console version is still there in zhangwei.ZhangWei.
+    mainClass = 'zhangwei.gui.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    // The fat ("uber") JAR: our compiled classes plus every runtime dependency,
+    // unpacked and repackaged into one self-contained, double-clickable archive.
+    // Fixing the file name keeps it stable across version bumps, so scripts and
+    // instructions can always refer to build/libs/zhangwei.jar.
+    archiveFileName = 'zhangwei.jar'
+
+    // The Main-Class manifest entry is taken from application.mainClass above,
+    // which is what lets `java -jar` know where to start.
+}
+
+run {
+    standardInput = System.in
+}

@@ -1,0 +1,4 @@
+// Without this file Gradle infers the project name from the folder name (here
+// "ip"), which is both accidental and machine-dependent. Naming it explicitly
+// makes the build reproducible on any checkout.
+rootProject.name = 'zhangwei'
