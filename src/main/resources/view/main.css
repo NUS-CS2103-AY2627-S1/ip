@@ -1,0 +1,118 @@
+/*
+ * Two ideas drive this sheet:
+ *  - the two sides of the conversation are styled differently, because the
+ *    conversation is between a person and an app, not between two people;
+ *  - vertical space is scarce in a narrow window, so padding is kept tight
+ *    and nothing is spent on decorative background.
+ */
+
+.root {
+    -fx-font-family: "Helvetica Neue", Arial, sans-serif;
+    -fx-background-color: #f4f6fb;
+}
+
+.scroll-pane, .scroll-pane .viewport, .scroll-pane .content {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.scroll-pane {
+    -fx-padding: 0;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #c7cede;
+    -fx-background-radius: 8;
+}
+
+/* The scrollbar's track and arrows are pure decoration here. */
+.scroll-pane .scroll-bar:vertical .track,
+.scroll-pane .scroll-bar:vertical .increment-button,
+.scroll-pane .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+#dialogContainer {
+    -fx-background-color: transparent;
+}
+
+.dialog-label {
+    -fx-padding: 7 11 7 11;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 1.5;
+}
+
+/*
+ * The user's own messages: compact, solid, and squared off on the corner
+ * nearest their side, which is what makes the two sides read as different
+ * speakers without needing a second avatar.
+ */
+.user-bubble {
+    -fx-background-color: #6c63ff;
+    -fx-text-fill: white;
+    -fx-background-radius: 14 14 3 14;
+}
+
+/* Milo's replies: lighter, roomier, and the ones allowed to run long. */
+.milo-bubble {
+    -fx-background-color: white;
+    -fx-text-fill: #1f2333;
+    -fx-background-radius: 14 14 14 3;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.10), 3, 0, 0, 1);
+}
+
+/*
+ * A failed command. Colour alone would not be enough for a user who cannot
+ * distinguish it, so the left edge carries a heavy border as well.
+ */
+.error-bubble {
+    -fx-background-color: #fdeced;
+    -fx-text-fill: #8f1d24;
+    -fx-background-radius: 14 14 14 3;
+    -fx-border-color: #d64550;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-radius: 0;
+    -fx-effect: dropshadow(gaussian, rgba(214, 69, 80, 0.16), 3, 0, 0, 1);
+}
+
+.input-row {
+    -fx-background-color: white;
+    -fx-border-color: #e2e6f0;
+    -fx-border-width: 1 0 0 0;
+}
+
+.text-field {
+    -fx-background-radius: 18;
+    -fx-background-color: #f0eeff;
+    -fx-border-radius: 18;
+    -fx-border-color: #d9d3ff;
+    -fx-border-width: 1.5;
+    -fx-padding: 7 13 7 13;
+    -fx-font-size: 13px;
+    -fx-text-fill: #34306b;
+    -fx-prompt-text-fill: #9089c9;
+}
+
+.text-field:focused {
+    -fx-background-color: white;
+    -fx-border-color: #6c63ff;
+}
+
+.button {
+    -fx-background-radius: 18;
+    -fx-background-color: #6c63ff;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-padding: 7 14 7 14;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #574fdb;
+}
+
+.button:pressed {
+    -fx-background-color: #453cc4;
+}
