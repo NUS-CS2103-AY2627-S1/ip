@@ -1,12 +1,14 @@
 # IDEA files
 /.idea/
 /out/
+/data/
 /*.iml
 
 # Gradle build files
 /.gradle/
 /build/
 src/main/resources/docs/
+/build/libs/blud.jar
 
 # MacOS custom attributes files created by Finder
 .DS_Store
@@ -18,3 +20,4 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+.gradle-user/

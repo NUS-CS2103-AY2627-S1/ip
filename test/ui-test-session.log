@@ -1,0 +1,327 @@
+$ gradlew.bat -q printMainClasspath
+[classpath output]
+C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\dac7ac058b9c66a8a759dbf2d0ae4557749f3063\javafx-fxml-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\a686a637faa5c7fd95be464f75124414643b6ccd\javafx-fxml-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\88571e5fa666c2d5bb560cc44d5b6158a7b9c8e5\javafx-fxml-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\e5bc7891b9e2a389aeac4a5dcabf1130e852bf0c\javafx-controls-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\bf1cb6a3c81e190d56fd84aeeb0fc36d44f9be70\javafx-controls-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\9526295ad4cbee60dd2121802eb17a57d493e4d5\javafx-controls-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\caeb9696d8901c66c9990ff337df884e1867d5b8\javafx-controls-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\55eca64e65d90976f9d054dceb3921f4d08f4e8b\javafx-graphics-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\43ca0f3861f1e3a2cda4a6a7b8746bbf5bcbe754\javafx-graphics-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\d5463ebc0f524d0225a6613877c381abfcd81918\javafx-graphics-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\c2029cf4a359ddb5fe0dec9d11407ea97940e06a\javafx-graphics-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\5ba6d336d0e9a4134d96bb402890f5570c4562ae\javafx-base-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2b79238d65ff33212eafb04acc6acbb7cd0a3300\javafx-base-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2c983af31f7a8525a7730336295e084c42e51598\javafx-base-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\9f27959208043d012b99019a0a9d53d63bf40c56\javafx-base-17.0.7-linux.jar
+
+[PASS]
+=== Compilation ===
+$ javac -cp <Gradle main classpath> -d out src/main/java/**/*.java
+[output]
+An exception has occurred in the compiler (25.0.4.1). Please file a bug against the Java compiler via the Java bug reporting page (https://bugreport.java.com) after checking the Bug Database (https://bugs.java.com) for duplicates. Include your program, the following diagnostic, and the parameters passed to the Java compiler in your report. Thank you.
+java.nio.file.AccessDeniedException: C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\bf1cb6a3c81e190d56fd84aeeb0fc36d44f9be70\javafx-controls-17.0.7-win.jar
+	at java.base/sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:89)
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:96)
+	at java.base/sun.nio.fs.WindowsLinkSupport.getRealPath(WindowsLinkSupport.java:280)
+	at java.base/sun.nio.fs.WindowsPath.toRealPath(WindowsPath.java:907)
+	at java.base/sun.nio.fs.WindowsPath.toRealPath(WindowsPath.java:42)
+	at jdk.zipfs/jdk.nio.zipfs.ZipFileSystemProvider.removeFileSystem(ZipFileSystemProvider.java:319)
+	at jdk.zipfs/jdk.nio.zipfs.ZipFileSystem.close(ZipFileSystem.java:550)
+	at jdk.compiler/com.sun.tools.javac.file.JavacFileManager$ArchiveContainer.close(JavacFileManager.java:667)
+	at jdk.compiler/com.sun.tools.javac.file.JavacFileManager.close(JavacFileManager.java:745)
+	at jdk.compiler/com.sun.tools.javac.main.Main.compile(Main.java:182)
+	at jdk.compiler/com.sun.tools.javac.Main.compile(Main.java:66)
+	at jdk.compiler/com.sun.tools.javac.Main.main(Main.java:52)
+
+[PASS]
+=== Test 1: Starts and exits cleanly ===
+Aim: Verify that Blud displays its startup banner and greeting, then displays its departure message when the user exits immediately.
+$ java -cp out;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\dac7ac058b9c66a8a759dbf2d0ae4557749f3063\javafx-fxml-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\a686a637faa5c7fd95be464f75124414643b6ccd\javafx-fxml-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\88571e5fa666c2d5bb560cc44d5b6158a7b9c8e5\javafx-fxml-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\e5bc7891b9e2a389aeac4a5dcabf1130e852bf0c\javafx-controls-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\bf1cb6a3c81e190d56fd84aeeb0fc36d44f9be70\javafx-controls-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\9526295ad4cbee60dd2121802eb17a57d493e4d5\javafx-controls-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\caeb9696d8901c66c9990ff337df884e1867d5b8\javafx-controls-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\55eca64e65d90976f9d054dceb3921f4d08f4e8b\javafx-graphics-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\43ca0f3861f1e3a2cda4a6a7b8746bbf5bcbe754\javafx-graphics-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\d5463ebc0f524d0225a6613877c381abfcd81918\javafx-graphics-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\c2029cf4a359ddb5fe0dec9d11407ea97940e06a\javafx-graphics-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\5ba6d336d0e9a4134d96bb402890f5570c4562ae\javafx-base-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2b79238d65ff33212eafb04acc6acbb7cd0a3300\javafx-base-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2c983af31f7a8525a7730336295e084c42e51598\javafx-base-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\9f27959208043d012b99019a0a9d53d63bf40c56\javafx-base-17.0.7-linux.jar blud.Blud "%TEMP%\blud-ui-test-%RANDOM%.txt"
+[input]
+bye
+[output]
+	-------------------------------
+	 ____  _            _
+	| __ )| |_   _  ___| |
+	|  _ \| | | | |/ __| |
+	| |_) | | |_| | (__|_|
+	|____/|_|\__,_|\___(_)
+	Hey! This is Blud, what can I do for you today?
+	
+	-------------------------------
+	Thanks for the conversation, see you soon!
+	-------------------------------
+
+[PASS]
+=== Test 2: Rejects an empty todo description ===
+Aim: Verify that Blud reports an error when a todo command has no description and continues accepting commands.
+$ java -cp out;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\dac7ac058b9c66a8a759dbf2d0ae4557749f3063\javafx-fxml-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\a686a637faa5c7fd95be464f75124414643b6ccd\javafx-fxml-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\88571e5fa666c2d5bb560cc44d5b6158a7b9c8e5\javafx-fxml-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\e5bc7891b9e2a389aeac4a5dcabf1130e852bf0c\javafx-controls-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\bf1cb6a3c81e190d56fd84aeeb0fc36d44f9be70\javafx-controls-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\9526295ad4cbee60dd2121802eb17a57d493e4d5\javafx-controls-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\caeb9696d8901c66c9990ff337df884e1867d5b8\javafx-controls-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\55eca64e65d90976f9d054dceb3921f4d08f4e8b\javafx-graphics-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\43ca0f3861f1e3a2cda4a6a7b8746bbf5bcbe754\javafx-graphics-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\d5463ebc0f524d0225a6613877c381abfcd81918\javafx-graphics-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\c2029cf4a359ddb5fe0dec9d11407ea97940e06a\javafx-graphics-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\5ba6d336d0e9a4134d96bb402890f5570c4562ae\javafx-base-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2b79238d65ff33212eafb04acc6acbb7cd0a3300\javafx-base-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2c983af31f7a8525a7730336295e084c42e51598\javafx-base-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\9f27959208043d012b99019a0a9d53d63bf40c56\javafx-base-17.0.7-linux.jar blud.Blud "%TEMP%\blud-ui-test-%RANDOM%.txt"
+[input]
+todo
+bye
+[output]
+	-------------------------------
+	 ____  _            _
+	| __ )| |_   _  ___| |
+	|  _ \| | | | |/ __| |
+	| |_) | | |_| | (__|_|
+	|____/|_|\__,_|\___(_)
+	Hey! This is Blud, what can I do for you today?
+	
+	-------------------------------
+	Missing description of todo task
+	-------------------------------
+	Thanks for the conversation, see you soon!
+	-------------------------------
+
+[PASS]
+=== Test 3: Accepts a case-insensitive exit command ===
+Aim: Verify that an uppercase `BYE` is treated as the supported exit command and
+$ java -cp out;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\dac7ac058b9c66a8a759dbf2d0ae4557749f3063\javafx-fxml-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\a686a637faa5c7fd95be464f75124414643b6ccd\javafx-fxml-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\88571e5fa666c2d5bb560cc44d5b6158a7b9c8e5\javafx-fxml-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\e5bc7891b9e2a389aeac4a5dcabf1130e852bf0c\javafx-controls-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\bf1cb6a3c81e190d56fd84aeeb0fc36d44f9be70\javafx-controls-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\9526295ad4cbee60dd2121802eb17a57d493e4d5\javafx-controls-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\caeb9696d8901c66c9990ff337df884e1867d5b8\javafx-controls-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\55eca64e65d90976f9d054dceb3921f4d08f4e8b\javafx-graphics-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\43ca0f3861f1e3a2cda4a6a7b8746bbf5bcbe754\javafx-graphics-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\d5463ebc0f524d0225a6613877c381abfcd81918\javafx-graphics-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\c2029cf4a359ddb5fe0dec9d11407ea97940e06a\javafx-graphics-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\5ba6d336d0e9a4134d96bb402890f5570c4562ae\javafx-base-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2b79238d65ff33212eafb04acc6acbb7cd0a3300\javafx-base-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2c983af31f7a8525a7730336295e084c42e51598\javafx-base-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\9f27959208043d012b99019a0a9d53d63bf40c56\javafx-base-17.0.7-linux.jar blud.Blud "%TEMP%\blud-ui-test-%RANDOM%.txt"
+[input]
+BYE
+[output]
+	-------------------------------
+	 ____  _            _
+	| __ )| |_   _  ___| |
+	|  _ \| | | | |/ __| |
+	| |_) | | |_| | (__|_|
+	|____/|_|\__,_|\___(_)
+	Hey! This is Blud, what can I do for you today?
+	
+	-------------------------------
+	Thanks for the conversation, see you soon!
+	-------------------------------
+
+[PASS]
+=== Test 4: Finds tasks by a description keyword ===
+Aim: Verify that Blud finds tasks whose descriptions partially match a keyword, regardless of letter case.
+$ java -cp out;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\dac7ac058b9c66a8a759dbf2d0ae4557749f3063\javafx-fxml-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\a686a637faa5c7fd95be464f75124414643b6ccd\javafx-fxml-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\88571e5fa666c2d5bb560cc44d5b6158a7b9c8e5\javafx-fxml-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\e5bc7891b9e2a389aeac4a5dcabf1130e852bf0c\javafx-controls-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\bf1cb6a3c81e190d56fd84aeeb0fc36d44f9be70\javafx-controls-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\9526295ad4cbee60dd2121802eb17a57d493e4d5\javafx-controls-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\caeb9696d8901c66c9990ff337df884e1867d5b8\javafx-controls-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\55eca64e65d90976f9d054dceb3921f4d08f4e8b\javafx-graphics-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\43ca0f3861f1e3a2cda4a6a7b8746bbf5bcbe754\javafx-graphics-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\d5463ebc0f524d0225a6613877c381abfcd81918\javafx-graphics-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\c2029cf4a359ddb5fe0dec9d11407ea97940e06a\javafx-graphics-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\5ba6d336d0e9a4134d96bb402890f5570c4562ae\javafx-base-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2b79238d65ff33212eafb04acc6acbb7cd0a3300\javafx-base-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2c983af31f7a8525a7730336295e084c42e51598\javafx-base-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\9f27959208043d012b99019a0a9d53d63bf40c56\javafx-base-17.0.7-linux.jar blud.Blud "%TEMP%\blud-ui-test-%RANDOM%.txt"
+[input]
+todo read book
+deadline return book /by 6/6/2026 1800
+find BOOK
+bye
+[output]
+	-------------------------------
+	 ____  _            _
+	| __ )| |_   _  ___| |
+	|  _ \| | | | |/ __| |
+	| |_) | | |_| | (__|_|
+	|____/|_|\__,_|\___(_)
+	Hey! This is Blud, what can I do for you today?
+	
+	-------------------------------
+	added: [T][ ] read book
+	Now you have 1 tasks in the list
+	-------------------------------
+	added: [D][ ] return book (by: Jun 06 2026, 6:00 pm)
+	Now you have 2 tasks in the list
+	-------------------------------
+	Here are the matching tasks in your list:
+	1. [T][ ] read book
+	2. [D][ ] return book (by: Jun 06 2026, 6:00 pm)
+	-------------------------------
+	Thanks for the conversation, see you soon!
+	-------------------------------
+
+[PASS]
+=== Test 5: Rejects an unknown command ===
+Aim: Verify that Blud reports an error for an input that is not a supported command or task type.
+$ java -cp out;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\dac7ac058b9c66a8a759dbf2d0ae4557749f3063\javafx-fxml-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\a686a637faa5c7fd95be464f75124414643b6ccd\javafx-fxml-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\88571e5fa666c2d5bb560cc44d5b6158a7b9c8e5\javafx-fxml-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\e5bc7891b9e2a389aeac4a5dcabf1130e852bf0c\javafx-controls-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\bf1cb6a3c81e190d56fd84aeeb0fc36d44f9be70\javafx-controls-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\9526295ad4cbee60dd2121802eb17a57d493e4d5\javafx-controls-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\caeb9696d8901c66c9990ff337df884e1867d5b8\javafx-controls-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\55eca64e65d90976f9d054dceb3921f4d08f4e8b\javafx-graphics-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\43ca0f3861f1e3a2cda4a6a7b8746bbf5bcbe754\javafx-graphics-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\d5463ebc0f524d0225a6613877c381abfcd81918\javafx-graphics-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\c2029cf4a359ddb5fe0dec9d11407ea97940e06a\javafx-graphics-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\5ba6d336d0e9a4134d96bb402890f5570c4562ae\javafx-base-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2b79238d65ff33212eafb04acc6acbb7cd0a3300\javafx-base-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2c983af31f7a8525a7730336295e084c42e51598\javafx-base-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\9f27959208043d012b99019a0a9d53d63bf40c56\javafx-base-17.0.7-linux.jar blud.Blud "%TEMP%\blud-ui-test-%RANDOM%.txt"
+[input]
+blah
+bye
+[output]
+	-------------------------------
+	 ____  _            _
+	| __ )| |_   _  ___| |
+	|  _ \| | | | |/ __| |
+	| |_) | | |_| | (__|_|
+	|____/|_|\__,_|\___(_)
+	Hey! This is Blud, what can I do for you today?
+	
+	-------------------------------
+	invalid task type blah, please use one of todo, event or deadline task types
+	-------------------------------
+	Thanks for the conversation, see you soon!
+	-------------------------------
+
+[PASS]
+=== Test 6: Rejects a deadline without a deadline field ===
+Aim: Verify that Blud reports an error when a deadline task omits its `/by` field.
+$ java -cp out;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\dac7ac058b9c66a8a759dbf2d0ae4557749f3063\javafx-fxml-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\a686a637faa5c7fd95be464f75124414643b6ccd\javafx-fxml-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\88571e5fa666c2d5bb560cc44d5b6158a7b9c8e5\javafx-fxml-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\e5bc7891b9e2a389aeac4a5dcabf1130e852bf0c\javafx-controls-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\bf1cb6a3c81e190d56fd84aeeb0fc36d44f9be70\javafx-controls-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\9526295ad4cbee60dd2121802eb17a57d493e4d5\javafx-controls-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\caeb9696d8901c66c9990ff337df884e1867d5b8\javafx-controls-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\55eca64e65d90976f9d054dceb3921f4d08f4e8b\javafx-graphics-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\43ca0f3861f1e3a2cda4a6a7b8746bbf5bcbe754\javafx-graphics-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\d5463ebc0f524d0225a6613877c381abfcd81918\javafx-graphics-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\c2029cf4a359ddb5fe0dec9d11407ea97940e06a\javafx-graphics-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\5ba6d336d0e9a4134d96bb402890f5570c4562ae\javafx-base-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2b79238d65ff33212eafb04acc6acbb7cd0a3300\javafx-base-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2c983af31f7a8525a7730336295e084c42e51598\javafx-base-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\9f27959208043d012b99019a0a9d53d63bf40c56\javafx-base-17.0.7-linux.jar blud.Blud "%TEMP%\blud-ui-test-%RANDOM%.txt"
+[input]
+deadline submit report
+bye
+[output]
+	-------------------------------
+	 ____  _            _
+	| __ )| |_   _  ___| |
+	|  _ \| | | | |/ __| |
+	| |_) | | |_| | (__|_|
+	|____/|_|\__,_|\___(_)
+	Hey! This is Blud, what can I do for you today?
+	
+	-------------------------------
+	Missing deadline (/by) for deadline task
+	-------------------------------
+	Thanks for the conversation, see you soon!
+	-------------------------------
+
+[PASS]
+=== Test 7: Rejects an event without event dates ===
+Aim: Verify that Blud reports an error when an event task omits its `/from` and `/to` fields.
+$ java -cp out;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\dac7ac058b9c66a8a759dbf2d0ae4557749f3063\javafx-fxml-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\a686a637faa5c7fd95be464f75124414643b6ccd\javafx-fxml-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\88571e5fa666c2d5bb560cc44d5b6158a7b9c8e5\javafx-fxml-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\e5bc7891b9e2a389aeac4a5dcabf1130e852bf0c\javafx-controls-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\bf1cb6a3c81e190d56fd84aeeb0fc36d44f9be70\javafx-controls-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\9526295ad4cbee60dd2121802eb17a57d493e4d5\javafx-controls-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\caeb9696d8901c66c9990ff337df884e1867d5b8\javafx-controls-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\55eca64e65d90976f9d054dceb3921f4d08f4e8b\javafx-graphics-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\43ca0f3861f1e3a2cda4a6a7b8746bbf5bcbe754\javafx-graphics-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\d5463ebc0f524d0225a6613877c381abfcd81918\javafx-graphics-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\c2029cf4a359ddb5fe0dec9d11407ea97940e06a\javafx-graphics-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\5ba6d336d0e9a4134d96bb402890f5570c4562ae\javafx-base-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2b79238d65ff33212eafb04acc6acbb7cd0a3300\javafx-base-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2c983af31f7a8525a7730336295e084c42e51598\javafx-base-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\9f27959208043d012b99019a0a9d53d63bf40c56\javafx-base-17.0.7-linux.jar blud.Blud "%TEMP%\blud-ui-test-%RANDOM%.txt"
+[input]
+event team meeting
+bye
+[output]
+	-------------------------------
+	 ____  _            _
+	| __ )| |_   _  ___| |
+	|  _ \| | | | |/ __| |
+	| |_) | | |_| | (__|_|
+	|____/|_|\__,_|\___(_)
+	Hey! This is Blud, what can I do for you today?
+	
+	-------------------------------
+	Missing start (/from) and end (/to) dates for event task
+	-------------------------------
+	Thanks for the conversation, see you soon!
+	-------------------------------
+
+[PASS]
+=== Test 8: Sorts the existing tasks by deadline ===
+Aim: Verify that Blud accepts a case-insensitive deadline sort command and
+$ java -cp out;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\dac7ac058b9c66a8a759dbf2d0ae4557749f3063\javafx-fxml-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\a686a637faa5c7fd95be464f75124414643b6ccd\javafx-fxml-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\88571e5fa666c2d5bb560cc44d5b6158a7b9c8e5\javafx-fxml-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\e5bc7891b9e2a389aeac4a5dcabf1130e852bf0c\javafx-controls-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\bf1cb6a3c81e190d56fd84aeeb0fc36d44f9be70\javafx-controls-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\9526295ad4cbee60dd2121802eb17a57d493e4d5\javafx-controls-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\caeb9696d8901c66c9990ff337df884e1867d5b8\javafx-controls-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\55eca64e65d90976f9d054dceb3921f4d08f4e8b\javafx-graphics-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\43ca0f3861f1e3a2cda4a6a7b8746bbf5bcbe754\javafx-graphics-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\d5463ebc0f524d0225a6613877c381abfcd81918\javafx-graphics-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\c2029cf4a359ddb5fe0dec9d11407ea97940e06a\javafx-graphics-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\5ba6d336d0e9a4134d96bb402890f5570c4562ae\javafx-base-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2b79238d65ff33212eafb04acc6acbb7cd0a3300\javafx-base-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2c983af31f7a8525a7730336295e084c42e51598\javafx-base-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\9f27959208043d012b99019a0a9d53d63bf40c56\javafx-base-17.0.7-linux.jar blud.Blud "%TEMP%\blud-ui-test-%RANDOM%.txt"
+[input]
+todo read book
+deadline return book /by 6/6/2026 1800
+SORT DEADLINE
+list
+bye
+[output]
+	-------------------------------
+	 ____  _            _
+	| __ )| |_   _  ___| |
+	|  _ \| | | | |/ __| |
+	| |_) | | |_| | (__|_|
+	|____/|_|\__,_|\___(_)
+	Hey! This is Blud, what can I do for you today?
+	
+	-------------------------------
+	added: [T][ ] read book
+	Now you have 1 tasks in the list
+	-------------------------------
+	added: [D][ ] return book (by: Jun 06 2026, 6:00 pm)
+	Now you have 2 tasks in the list
+	-------------------------------
+	Tasks sorted by deadline in ascending order.
+	-------------------------------
+	Here are the tasks in your list:
+	1. [T][ ] read book
+	2. [D][ ] return book (by: Jun 06 2026, 6:00 pm)
+	-------------------------------
+	Thanks for the conversation, see you soon!
+	-------------------------------
+
+[PASS]
+=== Test 9: Rejects an invalid sort direction ===
+Aim: Verify that Blud reports an error for an unsupported sort direction.
+$ java -cp out;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\dac7ac058b9c66a8a759dbf2d0ae4557749f3063\javafx-fxml-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\a686a637faa5c7fd95be464f75124414643b6ccd\javafx-fxml-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\88571e5fa666c2d5bb560cc44d5b6158a7b9c8e5\javafx-fxml-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\e5bc7891b9e2a389aeac4a5dcabf1130e852bf0c\javafx-controls-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\bf1cb6a3c81e190d56fd84aeeb0fc36d44f9be70\javafx-controls-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\9526295ad4cbee60dd2121802eb17a57d493e4d5\javafx-controls-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\caeb9696d8901c66c9990ff337df884e1867d5b8\javafx-controls-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\55eca64e65d90976f9d054dceb3921f4d08f4e8b\javafx-graphics-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\43ca0f3861f1e3a2cda4a6a7b8746bbf5bcbe754\javafx-graphics-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\d5463ebc0f524d0225a6613877c381abfcd81918\javafx-graphics-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\c2029cf4a359ddb5fe0dec9d11407ea97940e06a\javafx-graphics-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\5ba6d336d0e9a4134d96bb402890f5570c4562ae\javafx-base-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2b79238d65ff33212eafb04acc6acbb7cd0a3300\javafx-base-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2c983af31f7a8525a7730336295e084c42e51598\javafx-base-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\9f27959208043d012b99019a0a9d53d63bf40c56\javafx-base-17.0.7-linux.jar blud.Blud "%TEMP%\blud-ui-test-%RANDOM%.txt"
+[input]
+sort deadline backwards
+bye
+[output]
+	-------------------------------
+	 ____  _            _
+	| __ )| |_   _  ___| |
+	|  _ \| | | | |/ __| |
+	| |_) | | |_| | (__|_|
+	|____/|_|\__,_|\___(_)
+	Hey! This is Blud, what can I do for you today?
+	
+	-------------------------------
+	Invalid sort direction. Please use asc or desc.
+	-------------------------------
+	Thanks for the conversation, see you soon!
+	-------------------------------
+
+[PASS]
+=== Test 10: Rejects a non-existent calendar date ===
+Aim: Verify that a deadline reports an actionable validation message for a date such as February 30 instead of exposing an indexing error.
+$ java -cp out;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\dac7ac058b9c66a8a759dbf2d0ae4557749f3063\javafx-fxml-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\a686a637faa5c7fd95be464f75124414643b6ccd\javafx-fxml-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\88571e5fa666c2d5bb560cc44d5b6158a7b9c8e5\javafx-fxml-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\e5bc7891b9e2a389aeac4a5dcabf1130e852bf0c\javafx-controls-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\bf1cb6a3c81e190d56fd84aeeb0fc36d44f9be70\javafx-controls-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\9526295ad4cbee60dd2121802eb17a57d493e4d5\javafx-controls-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\caeb9696d8901c66c9990ff337df884e1867d5b8\javafx-controls-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\55eca64e65d90976f9d054dceb3921f4d08f4e8b\javafx-graphics-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\43ca0f3861f1e3a2cda4a6a7b8746bbf5bcbe754\javafx-graphics-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\d5463ebc0f524d0225a6613877c381abfcd81918\javafx-graphics-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\c2029cf4a359ddb5fe0dec9d11407ea97940e06a\javafx-graphics-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\5ba6d336d0e9a4134d96bb402890f5570c4562ae\javafx-base-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2b79238d65ff33212eafb04acc6acbb7cd0a3300\javafx-base-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2c983af31f7a8525a7730336295e084c42e51598\javafx-base-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\9f27959208043d012b99019a0a9d53d63bf40c56\javafx-base-17.0.7-linux.jar blud.Blud "%TEMP%\blud-ui-test-%RANDOM%.txt"
+[input]
+deadline invalid date /by 30/2/2026 1800
+bye
+[output]
+	-------------------------------
+	 ____  _            _
+	| __ )| |_   _  ___| |
+	|  _ \| | | | |/ __| |
+	| |_) | | |_| | (__|_|
+	|____/|_|\__,_|\___(_)
+	Hey! This is Blud, what can I do for you today?
+	
+	-------------------------------
+	Invalid date or time. Please use a real date in d/M/yyyy HHmm format (e.g., 2/12/2019 1800)
+	-------------------------------
+	Thanks for the conversation, see you soon!
+	-------------------------------
+
+[PASS]
+=== Test 11: Rejects an event whose dates are not chronological ===
+Aim: Verify that an event rejects an end date/time that is not after its start date/time.
+$ java -cp out;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\dac7ac058b9c66a8a759dbf2d0ae4557749f3063\javafx-fxml-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\a686a637faa5c7fd95be464f75124414643b6ccd\javafx-fxml-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\88571e5fa666c2d5bb560cc44d5b6158a7b9c8e5\javafx-fxml-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\e5bc7891b9e2a389aeac4a5dcabf1130e852bf0c\javafx-controls-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\bf1cb6a3c81e190d56fd84aeeb0fc36d44f9be70\javafx-controls-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\9526295ad4cbee60dd2121802eb17a57d493e4d5\javafx-controls-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\caeb9696d8901c66c9990ff337df884e1867d5b8\javafx-controls-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\55eca64e65d90976f9d054dceb3921f4d08f4e8b\javafx-graphics-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\43ca0f3861f1e3a2cda4a6a7b8746bbf5bcbe754\javafx-graphics-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\d5463ebc0f524d0225a6613877c381abfcd81918\javafx-graphics-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\c2029cf4a359ddb5fe0dec9d11407ea97940e06a\javafx-graphics-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\5ba6d336d0e9a4134d96bb402890f5570c4562ae\javafx-base-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2b79238d65ff33212eafb04acc6acbb7cd0a3300\javafx-base-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2c983af31f7a8525a7730336295e084c42e51598\javafx-base-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\9f27959208043d012b99019a0a9d53d63bf40c56\javafx-base-17.0.7-linux.jar blud.Blud "%TEMP%\blud-ui-test-%RANDOM%.txt"
+[input]
+event invalid order /from 2/12/2026 1800 /to 2/12/2026 1800
+bye
+[output]
+	-------------------------------
+	 ____  _            _
+	| __ )| |_   _  ___| |
+	|  _ \| | | | |/ __| |
+	| |_) | | |_| | (__|_|
+	|____/|_|\__,_|\___(_)
+	Hey! This is Blud, what can I do for you today?
+	
+	-------------------------------
+	Event start date/time must be earlier than its end date/time
+	-------------------------------
+	Thanks for the conversation, see you soon!
+	-------------------------------
+
+[PASS]
+=== Test 12: Rejects malformed command whitespace ===
+Aim: Verify that leading, trailing, and repeated spaces are reported as command-format errors.
+$ java -cp out;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\dac7ac058b9c66a8a759dbf2d0ae4557749f3063\javafx-fxml-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\a686a637faa5c7fd95be464f75124414643b6ccd\javafx-fxml-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\88571e5fa666c2d5bb560cc44d5b6158a7b9c8e5\javafx-fxml-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\e5bc7891b9e2a389aeac4a5dcabf1130e852bf0c\javafx-controls-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\bf1cb6a3c81e190d56fd84aeeb0fc36d44f9be70\javafx-controls-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\9526295ad4cbee60dd2121802eb17a57d493e4d5\javafx-controls-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\caeb9696d8901c66c9990ff337df884e1867d5b8\javafx-controls-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\55eca64e65d90976f9d054dceb3921f4d08f4e8b\javafx-graphics-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\43ca0f3861f1e3a2cda4a6a7b8746bbf5bcbe754\javafx-graphics-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\d5463ebc0f524d0225a6613877c381abfcd81918\javafx-graphics-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\c2029cf4a359ddb5fe0dec9d11407ea97940e06a\javafx-graphics-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\5ba6d336d0e9a4134d96bb402890f5570c4562ae\javafx-base-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2b79238d65ff33212eafb04acc6acbb7cd0a3300\javafx-base-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2c983af31f7a8525a7730336295e084c42e51598\javafx-base-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\9f27959208043d012b99019a0a9d53d63bf40c56\javafx-base-17.0.7-linux.jar blud.Blud "%TEMP%\blud-ui-test-%RANDOM%.txt"
+[input]
+todo  extra
+bye
+[output]
+	-------------------------------
+	 ____  _            _
+	| __ )| |_   _  ___| |
+	|  _ \| | | | |/ __| |
+	| |_) | | |_| | (__|_|
+	|____/|_|\__,_|\___(_)
+	Hey! This is Blud, what can I do for you today?
+	
+	-------------------------------
+	Use exactly one space between command parameters.
+	-------------------------------
+	Thanks for the conversation, see you soon!
+	-------------------------------
+
+[PASS]
+=== Test 13: Rejects the storage delimiter in task descriptions ===
+Aim: Verify that task descriptions containing the storage delimiter are rejected
+$ java -cp out;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\dac7ac058b9c66a8a759dbf2d0ae4557749f3063\javafx-fxml-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\a686a637faa5c7fd95be464f75124414643b6ccd\javafx-fxml-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-fxml\17.0.7\88571e5fa666c2d5bb560cc44d5b6158a7b9c8e5\javafx-fxml-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\e5bc7891b9e2a389aeac4a5dcabf1130e852bf0c\javafx-controls-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\bf1cb6a3c81e190d56fd84aeeb0fc36d44f9be70\javafx-controls-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\9526295ad4cbee60dd2121802eb17a57d493e4d5\javafx-controls-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-controls\17.0.7\caeb9696d8901c66c9990ff337df884e1867d5b8\javafx-controls-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\55eca64e65d90976f9d054dceb3921f4d08f4e8b\javafx-graphics-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\43ca0f3861f1e3a2cda4a6a7b8746bbf5bcbe754\javafx-graphics-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\d5463ebc0f524d0225a6613877c381abfcd81918\javafx-graphics-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-graphics\17.0.7\c2029cf4a359ddb5fe0dec9d11407ea97940e06a\javafx-graphics-17.0.7-linux.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\5ba6d336d0e9a4134d96bb402890f5570c4562ae\javafx-base-17.0.7.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2b79238d65ff33212eafb04acc6acbb7cd0a3300\javafx-base-17.0.7-win.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\2c983af31f7a8525a7730336295e084c42e51598\javafx-base-17.0.7-mac.jar;C:\Users\aagya\Documents\NUS\Y2S1\CS2103T\projects\ip\.gradle-user\caches\modules-2\files-2.1\org.openjfx\javafx-base\17.0.7\9f27959208043d012b99019a0a9d53d63bf40c56\javafx-base-17.0.7-linux.jar blud.Blud "%TEMP%\blud-ui-test-%RANDOM%.txt"
+[input]
+todo milk | eggs
+bye
+[output]
+	-------------------------------
+	 ____  _            _
+	| __ )| |_   _  ___| |
+	|  _ \| | | | |/ __| |
+	| |_) | | |_| | (__|_|
+	|____/|_|\__,_|\___(_)
+	Hey! This is Blud, what can I do for you today?
+	
+	-------------------------------
+	Task descriptions must not contain '|'.
+	-------------------------------
+	Thanks for the conversation, see you soon!
+	-------------------------------
+
+[PASS]

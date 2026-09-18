@@ -1,0 +1,4 @@
+interface:
+  display_name: "Present Changes Visually"
+  short_description: "Create a split-view HTML diff for this Java project"
+  default_prompt: "Use $present-changes-visually to create a visual diff for the current project changes."

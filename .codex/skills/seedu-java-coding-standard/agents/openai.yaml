@@ -1,0 +1,4 @@
+interface:
+  display_name: SE-EDU Java Coding Standard
+  short_description: Apply the project Java naming, layout, statement, and comment rules.
+  default_prompt: Apply the SE-EDU Java coding standard to the requested Java code in this project.

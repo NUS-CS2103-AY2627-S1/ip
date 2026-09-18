@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Competent
+* IDE and level of expertise: IntelliJ IDEA 2025
 
 # Guidance for interacting with users
 
@@ -24,6 +24,17 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## SE-EDU Java coding standard
+
+All Java code in this repository MUST follow every rule in `.codex/skills/seedu-java-coding-standard/SKILL.md`, based on the complete SE-EDU basic + intermediate Java coding standard. This includes naming, package/import ordering, explicit imports, indentation, line length and wrapping, K&R braces, whitespace, blank-line separation, variable scope and initialization, encapsulation, braces around all loops and conditionals, intentional switch fall-through comments, and English/American-spelling comments. Header Javadocs are required for every class and every non-private method, plus every non-trivial private method; project-specific requirements take precedence over the source guide's exemptions.
+
+## Code-update verification
+
+After every code update:
+
+1. Review `test/ui-test-plan.md` and update it when the change adds, removes, or changes observable command-line UI behavior, inputs, commands, prerequisites, or expected output.
+2. Invoke the project-local `$test-ui` skill to run the UI test plan. Include the resulting console input/output session record and report any failure with its actual and expected output.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
@@ -31,5 +42,6 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 ## Git
 
 Use lightweight tags unless the user requests an annotated tag.
-When proposing or creating a commit message, include enough detail to explain the rationale for the change.
+For every proposed or requested commit, apply the project-specific `$seedu-git-standard` skill. Use a meaningful kebab-case branch name, and for issue-related branches use `<issue-number>-<keywords-from-issue-title>`.
+Commit subjects must be imperative, capitalized, concise (aim for 50 characters and never exceed 72 characters), and must not end with a period. Non-trivial commits must have a blank-line-separated body wrapped at 72 characters that explains what changed and why, not how. Keep commits focused and split overly broad changes when practical.
 Do not commit or push unless explicitly asked.
