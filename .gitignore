@@ -13,8 +13,18 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Compiled classes (this project has no Gradle build yet, so IDEs/javac
+# sometimes compile straight into src/main/java rather than a build dir)
+*.class
+
 # Temp files
 _temp/
+
+# Task save file (runtime-generated, not source)
+/data/
+
+# Claude Code project-specific skills/tooling (dev-only, not submission code)
+/.claude/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
