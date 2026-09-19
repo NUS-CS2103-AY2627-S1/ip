@@ -1,0 +1,53 @@
+.root {
+    -fx-background-color: #f4ebdd;
+    -fx-font-family: "System";
+}
+
+.text-field {
+    -fx-background-color: #fffaf1;
+    -fx-background-radius: 0;
+    -fx-border-color: #a8b89a;
+    -fx-border-width: 1px 0 0 0;
+    -fx-font-family: "System";
+    -fx-font-size: 15px;
+    -fx-prompt-text-fill: #796d62;
+    -fx-text-fill: #3e332b;
+}
+
+.button {
+    -fx-background-color: #607052;
+    -fx-background-radius: 0;
+    -fx-font-family: "System";
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fffaf1;
+}
+
+.button:hover {
+    -fx-background-color: #748665;
+}
+
+.button:pressed {
+    -fx-background-color: #4c5c41;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: #f4ebdd;
+    -fx-font-size: 9px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #a8b89a;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}

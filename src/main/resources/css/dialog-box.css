@@ -1,0 +1,28 @@
+.label {
+    -fx-background-color: #a8b89a;
+    -fx-background-insets: 0 8px 0 8px;
+    -fx-background-radius: 16px 16px 4px 16px;
+    -fx-border-color: #607052;
+    -fx-border-insets: 0 8px 0 8px;
+    -fx-border-radius: 16px 16px 4px 16px;
+    -fx-border-width: 1px;
+    -fx-font-family: "System";
+    -fx-font-size: 15px;
+    -fx-padding: 10px;
+    -fx-text-fill: #3e332b;
+}
+
+.eli-label {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-border-insets: 0;
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-padding: 10px 8px;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(62, 51, 43, 0.28), 8, 0.25, 2, 2);
+}
