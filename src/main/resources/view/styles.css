@@ -1,0 +1,167 @@
+.app-root {
+    -fx-background-color: #0e1621;
+    -fx-font-family: "System";
+}
+
+.app-header,
+.input-bar {
+    -fx-background-color: #17212b;
+    -fx-border-color: #263341;
+}
+
+.app-header {
+    -fx-border-width: 0 0 1 0;
+    -fx-spacing: 8px;
+}
+
+.status-indicator {
+    -fx-fill: #58c785;
+    -fx-stroke: rgba(88, 199, 133, 0.25);
+    -fx-stroke-width: 3px;
+}
+
+.header-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f4f7fa;
+}
+
+.chat-scroll,
+.chat-scroll > .viewport,
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.chat-scroll {
+    -fx-background: #0e1621;
+    -fx-border-color: transparent;
+}
+
+.chat-scroll > .viewport {
+    -fx-background-color: #0e1621;
+    -fx-background-image: url("../images/telegram-bg.jpeg");
+    -fx-background-repeat: repeat;
+    -fx-background-size: 600px auto;
+}
+
+.chat-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+}
+
+.chat-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(126, 146, 166, 0.45);
+    -fx-background-radius: 4px;
+}
+
+.chat-scroll .scroll-bar:vertical .track,
+.chat-scroll .scroll-bar:vertical .increment-button,
+.chat-scroll .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+}
+
+.dialog-bubble {
+    -fx-padding: 7px 11px 8px 11px;
+    -fx-background-radius: 13px;
+}
+
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 3, 0.2, 0, 1);
+}
+
+.avatar-background {
+    -fx-fill: #5288c1;
+}
+
+.user-avatar .avatar-background {
+    -fx-fill: #277c59;
+}
+
+.avatar-initial {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.dialog-text-run {
+    -fx-fill: #f4f7fa;
+    -fx-font-family: "System";
+    -fx-font-size: 13px;
+}
+
+.command-text {
+    -fx-font-family: "Monospaced";
+    -fx-font-weight: bold;
+}
+
+.date-accent {
+    -fx-fill: #e6ad55;
+    -fx-font-weight: bold;
+}
+
+.dialog-speaker {
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+}
+
+.bot-dialog .dialog-bubble {
+    -fx-background-color: #1d2b3a;
+    -fx-background-radius: 5px 13px 13px 13px;
+}
+
+.bot-dialog .dialog-speaker {
+    -fx-text-fill: #6ab3e8;
+}
+
+.user-dialog .dialog-bubble {
+    -fx-background-color: #277c59;
+    -fx-background-radius: 13px 5px 13px 13px;
+}
+
+.error-dialog .dialog-bubble {
+    -fx-background-color: #552a31;
+    -fx-border-color: #e0616e;
+    -fx-border-radius: 5px 13px 13px 13px;
+    -fx-border-width: 0 0 0 3px;
+    -fx-background-radius: 5px 13px 13px 13px;
+}
+
+.error-dialog .dialog-speaker {
+    -fx-text-fill: #ff8b95;
+}
+
+.input-bar {
+    -fx-border-width: 1 0 0 0;
+}
+
+.message-input {
+    -fx-background-color: #242f3d;
+    -fx-background-radius: 18px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 18px;
+    -fx-font-size: 13px;
+    -fx-padding: 8px 13px;
+    -fx-prompt-text-fill: #7f8b99;
+    -fx-text-fill: #ffffff;
+}
+
+.message-input:focused {
+    -fx-border-color: #5288c1;
+}
+
+.send-button {
+    -fx-background-color: #5288c1;
+    -fx-background-radius: 18px;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.send-button:hover {
+    -fx-background-color: #65a0dc;
+}
+
+.send-button:pressed {
+    -fx-background-color: #3e71a6;
+}

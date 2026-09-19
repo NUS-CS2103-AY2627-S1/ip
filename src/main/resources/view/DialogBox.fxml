@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.TextFlow?>
+
+<fx:root alignment="TOP_RIGHT"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         styleClass="dialog-row"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <StackPane fx:id="avatar"
+                   minHeight="32.0" minWidth="32.0"
+                   prefHeight="32.0" prefWidth="32.0"
+                   maxHeight="32.0" maxWidth="32.0"
+                   styleClass="avatar">
+            <children>
+                <Circle radius="16.0" styleClass="avatar-background" />
+                <ImageView fx:id="displayPicture"
+                           fitHeight="32.0" fitWidth="32.0"
+                           preserveRatio="false"
+                           styleClass="avatar-image" />
+                <Label fx:id="avatarInitial" text="C" styleClass="avatar-initial" />
+            </children>
+        </StackPane>
+        <VBox fx:id="bubble" spacing="3.0" styleClass="dialog-bubble">
+            <children>
+                <Label fx:id="speaker" styleClass="dialog-speaker" />
+                <TextFlow fx:id="dialog"
+                          lineSpacing="2.0"
+                          styleClass="dialog-text" />
+            </children>
+        </VBox>
+    </children>
+    <padding>
+        <Insets bottom="2.0" left="4.0" right="4.0" top="2.0" />
+    </padding>
+</fx:root>
