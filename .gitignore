@@ -8,6 +8,9 @@
 /build/
 src/main/resources/docs/
 
+# Runtime task data
+/data/
+
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
@@ -15,6 +18,9 @@ bin/
 
 # Temp files
 _temp/
+
+# Project-specific Codex skills are kept locally and are not tracked.
+/.codex/skills/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
