@@ -29,6 +29,9 @@ public class Parser {
     /** Matches the start of a supported task flag anywhere in a task command. */
     private static final Pattern TASK_FLAG_START = Pattern.compile("(?:^|\\s)/(priority|by|from|to)(?=\\s|$)",
             Pattern.CASE_INSENSITIVE);
+    private static final Pattern BY_FLAG = Pattern.compile("\\s/by\\s+", Pattern.CASE_INSENSITIVE);
+    private static final Pattern FROM_FLAG = Pattern.compile("\\s/from\\s+", Pattern.CASE_INSENSITIVE);
+    private static final Pattern TO_FLAG = Pattern.compile("\\s/to\\s+", Pattern.CASE_INSENSITIVE);
     private static final String OPTIONAL_PRIORITY_FORMAT = " (optional: /priority low|medium|high)";
     private static final String INVALID_PRIORITY_MESSAGE = "Invalid priority. Priority is optional; when included, use "
             + "/priority low, /priority medium, or /priority high.";
@@ -82,7 +85,7 @@ public class Parser {
             throw new TardTException("Please enter a command.");
         }
 
-        // Keep only the first word as the command so that the remaining text can retain its original structure.
+        // Keep only the first word as the command so that date/time values and task descriptions retain their spacing.
         String trimmedInput = userInput.trim();
         int firstWhitespace = findFirstWhitespace(trimmedInput);
         String taskType = firstWhitespace == -1 ? trimmedInput : trimmedInput.substring(0, firstWhitespace);
@@ -327,17 +330,18 @@ public class Parser {
     private static String handleDeadlineForResponse(TaskList tasks, String arguments, Storage storage)
             throws TardTException {
         validateNoRepeatedTaskFlags(arguments);
+        // Remove priority first because it is the only optional final flag; /by then consumes the remaining suffix.
         ParsedPriority parsed = parsePriority(arguments);
         String rest = parsed.text();
 
-        int byIndex = rest.indexOf(" /by ");
-        if (byIndex == -1) {
+        Matcher byMatcher = BY_FLAG.matcher(rest);
+        if (!byMatcher.find()) {
             throw new TardTException("Invalid format. Use: deadline [task name] /by [deadline]"
                     + OPTIONAL_PRIORITY_FORMAT + ".");
         }
 
-        String description = rest.substring(0, byIndex).trim();
-        String by = rest.substring(byIndex + 5).trim();
+        String description = rest.substring(0, byMatcher.start()).trim();
+        String by = rest.substring(byMatcher.end()).trim();
 
         if (description.isEmpty()) {
             throw new TardTException("Please provide a task description.");
@@ -368,26 +372,27 @@ public class Parser {
     private static String handleEventForResponse(TaskList tasks, String arguments, Storage storage)
             throws TardTException {
         validateNoRepeatedTaskFlags(arguments);
+        // Remove priority first so the end-time field cannot accidentally include optional task metadata.
         ParsedPriority parsed = parsePriority(arguments);
         String rest = parsed.text();
 
-        int fromIndex = rest.indexOf(" /from ");
-        if (fromIndex == -1) {
+        Matcher fromMatcher = FROM_FLAG.matcher(rest);
+        if (!fromMatcher.find()) {
             throw new TardTException("Invalid format. Use: event [task name] /from [start] /to [end]"
                     + OPTIONAL_PRIORITY_FORMAT + ".");
         }
 
-        String description = rest.substring(0, fromIndex).trim();
-        String afterDesc = rest.substring(fromIndex + 7).trim();
+        String description = rest.substring(0, fromMatcher.start()).trim();
+        String afterDesc = rest.substring(fromMatcher.end()).trim();
 
-        int toIndex = afterDesc.indexOf(" /to ");
-        if (toIndex == -1) {
+        Matcher toMatcher = TO_FLAG.matcher(afterDesc);
+        if (!toMatcher.find()) {
             throw new TardTException("Invalid format. Use: event [task name] /from [start] /to [end]"
                     + OPTIONAL_PRIORITY_FORMAT + ".");
         }
 
-        String from = afterDesc.substring(0, toIndex).trim();
-        String to = afterDesc.substring(toIndex + 5).trim();
+        String from = afterDesc.substring(0, toMatcher.start()).trim();
+        String to = afterDesc.substring(toMatcher.end()).trim();
 
         if (description.isEmpty()) {
             throw new TardTException("Please provide a task description.");

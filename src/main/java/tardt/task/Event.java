@@ -14,9 +14,6 @@ import tardt.priority.Priority;
 public class Event extends Task {
     private static final DateTimeFormatter DISPLAY_FORMAT = DateTimeFormatter.ofPattern("MMM dd uuuu HH:mm",
             Locale.ENGLISH);
-    private static final String DATE_TIME_FORMAT_ERROR = "Invalid date/time format. Use a date such as "
-            + "2026-09-29, 29/09/2026, or 29 Sep 2026, optionally followed by a time.";
-
     private final LocalDateTime from;
     private final LocalDateTime to;
 
@@ -39,7 +36,7 @@ public class Event extends Task {
             this.to = DateTimeParser.parse(to);
             validateTimeRange();
         } catch (DateTimeParseException e) {
-            throw new TardTException(DATE_TIME_FORMAT_ERROR);
+            throw new TardTException(DateTimeParser.FORMAT_ERROR);
         }
     }
 

@@ -17,6 +17,8 @@ public class TardT {
     private final Ui ui;
     private final Storage storage;
     private final TaskList tasks;
+    /** Startup storage error to show through the active interface, or an empty string when loading succeeded. */
+    private final String startupError;
 
     /**
      * Constructor for TardT object
@@ -25,15 +27,19 @@ public class TardT {
         ui = new Ui();
         storage = new Storage(SAVE_FILE);
 
+        // Loading can fail before either interface is ready to show a message.
+        // Retain that message so the CLI and GUI can present it through their own output paths.
         TaskList loadedTasks;
+        String loadError = "";
         try {
             loadedTasks = new TaskList(storage.load());
         } catch (TardTException e) {
-            ui.showError(e.getMessage());
+            loadError = e.getMessage();
             loadedTasks = new TaskList();
         }
 
         tasks = loadedTasks;
+        startupError = loadError;
     }
 
     /**
@@ -64,9 +70,23 @@ public class TardT {
     }
 
     /**
+     * Returns the error encountered while loading saved tasks, if any.
+     * The caller displays this through its own interface so GUI errors do not go only to the terminal.
+     *
+     * @return the startup error, or an empty string when saved tasks loaded successfully
+     */
+    public String getStartupError() {
+        return startupError;
+    }
+
+    /**
      * Run method for CLI
      */
     public void run() {
+        // Preserve the CLI's startup-error-before-welcome ordering while keeping the GUI free to show it in a dialog.
+        if (!startupError.isEmpty()) {
+            ui.showError(startupError);
+        }
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {

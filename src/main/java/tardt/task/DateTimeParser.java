@@ -10,6 +10,9 @@ import java.util.Locale;
 
 /** Converts the date and time formats accepted by TardT into {@link LocalDateTime} values. */
 final class DateTimeParser {
+    /** User-facing explanation of the accepted date and time formats. */
+    static final String FORMAT_ERROR = "Invalid date/time format. Use a date such as "
+            + "2026-09-29, 29/09/2026, or 29 Sep 2026, optionally followed by a time.";
     private static final List<DateTimeFormatter> DATE_TIME_FORMATS = List.of(
             DateTimeFormatter.ISO_LOCAL_DATE_TIME,
             formatter("uuuu-MM-dd HH:mm"),
@@ -38,6 +41,7 @@ final class DateTimeParser {
      * @throws DateTimeParseException if the input does not match a supported format
      */
     static LocalDateTime parse(String input) throws DateTimeParseException {
+        // Try date-and-time formats first; otherwise a date-only input would be accepted before its time is examined.
         for (DateTimeFormatter formatter : DATE_TIME_FORMATS) {
             try {
                 return LocalDateTime.parse(input, formatter);
@@ -46,6 +50,7 @@ final class DateTimeParser {
             }
         }
 
+        // Date-only input represents the beginning of that date, making deadlines and events deterministic.
         for (DateTimeFormatter formatter : DATE_FORMATS) {
             try {
                 return LocalDate.parse(input, formatter).atStartOfDay();
@@ -53,6 +58,7 @@ final class DateTimeParser {
                 // Try the next documented format.
             }
         }
+        // Deadline and Event translate this technical parse signal into FORMAT_ERROR for the user interface.
         throw new DateTimeParseException("Unsupported date/time format", input, 0);
     }
 

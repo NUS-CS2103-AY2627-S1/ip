@@ -62,6 +62,7 @@ public class MainWindow {
     /** Injects the TardT instance */
     public void setTardT(TardT t) {
         tardT = t;
+        // The welcome dialog is part of the interface lifecycle, rather than a response to a user command.
         dialogContainer.getChildren().add(
                 DialogBox.getTardTDialog(
                         "Hello! I'm TardT. \n"
@@ -70,6 +71,12 @@ public class MainWindow {
                         getNextDialogColour()
                 )
         );
+        // Storage is initialized before JavaFX controls exist, so display any retained startup error here.
+        if (!tardT.getStartupError().isEmpty()) {
+            dialogContainer.getChildren().add(
+                    DialogBox.getTardTDialog(tardT.getStartupError(), tardTImage, getNextDialogColour())
+            );
+        }
         scrollToBottom();
     }
 
@@ -80,6 +87,7 @@ public class MainWindow {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        // Process before creating the reply dialog so a command's state change and displayed response stay paired.
         String response = tardT.getResponse(input);
 
         dialogContainer.getChildren().addAll(

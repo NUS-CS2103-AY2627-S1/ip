@@ -28,6 +28,7 @@ public class DialogBox extends HBox {
 
     private DialogBox(String text, Image img, int colourIndex) {
         try {
+            // FXML creates the label and image controls declared by this JavaFX component before they are configured.
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);

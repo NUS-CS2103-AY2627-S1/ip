@@ -28,6 +28,7 @@ public class Storage {
      * Saves the current task list to the data file.
      */
     public void save(List<Task> taskList) throws TardTException {
+        // Convert every task before opening the file, so formatting errors cannot leave a partially written save file.
         List<String> savedTasks = new ArrayList<>();
         for (Task task : taskList) {
             savedTasks.add(formatTaskForSaving(task));
@@ -99,6 +100,7 @@ public class Storage {
             return taskList;
         }
         try {
+            // A corrupt line should not prevent later valid tasks from being recovered.
             for (String savedTask : Files.readAllLines(saveFile)) {
                 Task task = createTaskFromSavedLine(savedTask);
                 if (task != null) {
@@ -146,6 +148,7 @@ public class Storage {
                 return null;
             }
 
+            // Rejoin legacy unescaped description fragments, but keep the final date fields separate for dated tasks.
             switch (parts[0]) {
                 case "T":
                     task = new ToDo(joinFields(parts, 2, dataEnd), priority);

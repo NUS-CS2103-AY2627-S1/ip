@@ -153,6 +153,38 @@ class UiTest {
     }
 
     @Test
+    void deadline_spacedDateWithAmPmTime_isAccepted() {
+        String input = "deadline submit assignment /by 29 Sep 2026 2pm\nlist\nbye\n";
+        String expectedOutput = WELCOME + SEPARATOR
+                + "Got it. I've added this task:\n"
+                + "  [D][ ] submit assignment | Priority: LOW (by: Sep 29 2026 14:00)\n"
+                + "Now you have 1 tasks in the list.\n"
+                + SEPARATOR + SEPARATOR
+                + "1. [D][ ] submit assignment | Priority: LOW (by: Sep 29 2026 14:00)\n"
+                + SEPARATOR + GOODBYE;
+
+        String actualOutput = runApplication(input);
+
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    void deadline_uppercaseByFlag_isAccepted() {
+        String input = "deadline submit assignment /BY 2026-10-20T17:00\nlist\nbye\n";
+        String expectedOutput = WELCOME + SEPARATOR
+                + "Got it. I've added this task:\n"
+                + "  [D][ ] submit assignment | Priority: LOW (by: Oct 20 2026 17:00)\n"
+                + "Now you have 1 tasks in the list.\n"
+                + SEPARATOR + SEPARATOR
+                + "1. [D][ ] submit assignment | Priority: LOW (by: Oct 20 2026 17:00)\n"
+                + SEPARATOR + GOODBYE;
+
+        String actualOutput = runApplication(input);
+
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
     void deadline_malformedDeadline_isRejectedWithoutAddingSecondTask() {
         String input = "todo read book\ndeadline submit assignment\nlist\nbye\n";
         String expectedOutput = WELCOME + SEPARATOR
