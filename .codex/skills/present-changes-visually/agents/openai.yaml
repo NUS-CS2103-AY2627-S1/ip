@@ -1,0 +1,4 @@
+interface:
+  display_name: "Present Changes Visually"
+  short_description: "Create an interactive split-view HTML diff"
+  default_prompt: "Use $present-changes-visually to create an HTML split-view diff for the current changes."

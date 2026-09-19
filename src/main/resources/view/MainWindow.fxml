@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="860.0" prefWidth="600.0"
+            stylesheets="@lizzy.css"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="lizzy.gui.MainWindow">
+    <top>
+        <VBox maxWidth="Infinity" spacing="2.0" styleClass="header">
+            <padding>
+                <Insets bottom="12.0" left="18.0" right="18.0" top="12.0" />
+            </padding>
+            <Label maxWidth="Infinity" text="Lizzy" styleClass="title" />
+            <Label maxWidth="Infinity" text="A little wit for keeping life in order"
+                   styleClass="subtitle" />
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" pannable="true">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true" spacing="10.0" styleClass="dialog-container">
+                    <padding>
+                        <Insets bottom="16.0" left="14.0" right="14.0" top="16.0" />
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER" spacing="8.0" styleClass="composer">
+            <padding>
+                <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+            </padding>
+            <TextField fx:id="userInput" accessibleText="Command input"
+                       minWidth="0.0"
+                       onAction="#handleUserInput" promptText="What shall we attend to?"
+                       HBox.hgrow="ALWAYS" />
+            <Button fx:id="sendButton" defaultButton="true"
+                    onAction="#handleUserInput" text="Send" />
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -1,0 +1,113 @@
+.root {
+    -fx-background-color: #f5f1e8;
+    -fx-font-family: "Source Serif 4";
+    -fx-font-size: 14px;
+    -fx-font-style: normal;
+    -fx-font-weight: normal;
+}
+
+.header {
+    -fx-background-color: linear-gradient(to right, #263d35, #365548);
+    -fx-border-color: transparent transparent #bda56c transparent;
+    -fx-border-width: 0 0 2px 0;
+}
+
+.title {
+    -fx-font-family: "Source Serif 4";
+    -fx-font-size: 22px;
+    -fx-font-style: normal;
+    -fx-font-weight: 600;
+    -fx-text-fill: #fffdf7;
+}
+
+.subtitle {
+    -fx-font-size: 11px;
+    -fx-font-style: italic;
+    -fx-font-weight: normal;
+    -fx-text-fill: #dce7df;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport,
+.dialog-container {
+    -fx-background-color: #f5f1e8;
+}
+
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(50, 46, 38, 0.08), 3, 0.08, 0, 1);
+}
+
+.message {
+    -fx-background-color: #fffdf8;
+    -fx-background-radius: 4px 12px 12px 12px;
+    -fx-border-color: #d9d1c1;
+    -fx-border-radius: 4px 12px 12px 12px;
+    -fx-effect: dropshadow(gaussian, rgba(50, 46, 38, 0.08), 5, 0.1, 0, 1);
+    -fx-font-style: normal;
+    -fx-font-weight: normal;
+    -fx-padding: 9px 12px;
+    -fx-text-fill: #292d2b;
+}
+
+.lizzy-dialog .message {
+    -fx-background-color: #e2ece6;
+    -fx-background-radius: 4px 14px 14px 14px;
+    -fx-border-color: #abc0b4;
+    -fx-border-radius: 4px 14px 14px 14px;
+    -fx-effect: null;
+    -fx-padding: 9px 12px;
+    -fx-text-fill: #234238;
+}
+
+.user-dialog .message {
+    -fx-background-color: #fffdf8;
+    -fx-background-radius: 14px 14px 4px 14px;
+    -fx-border-color: #cdd6ca;
+    -fx-border-radius: 14px 14px 4px 14px;
+    -fx-effect: null;
+    -fx-padding: 7px 11px;
+    -fx-text-fill: #3f463f;
+}
+
+.error-dialog .message {
+    -fx-background-color: #fff5d9;
+    -fx-border-color: #d8c58a;
+    -fx-text-fill: #5c4a23;
+}
+
+.composer {
+    -fx-background-color: #fffdf8;
+    -fx-border-color: #d9d1c1 transparent transparent transparent;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-border-color: #a9b5ae;
+    -fx-border-radius: 10px;
+    -fx-font-style: normal;
+    -fx-font-weight: normal;
+    -fx-padding: 8px 10px;
+}
+
+.text-field:focused {
+    -fx-border-color: #527563;
+    -fx-border-width: 1.5px;
+}
+
+.button {
+    -fx-background-color: #365e4d;
+    -fx-background-radius: 10px;
+    -fx-font-style: normal;
+    -fx-font-weight: 600;
+    -fx-padding: 8px 16px;
+    -fx-text-fill: #fffdf8;
+}
+
+.button:hover {
+    -fx-background-color: #29493c;
+}
+
+.button:pressed {
+    -fx-background-color: #1f392e;
+}

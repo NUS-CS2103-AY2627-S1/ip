@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Intermediate, some experience with Java; more experience in Python.
+* IDE and level of expertise: IntelliJ IDEA — beginner to internediate, familiar with basic usage.
 
 # Guidance for interacting with users
 
@@ -27,6 +27,18 @@ Unless the user says otherwise, assume that you are assisting a student working 
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+
+## Coding standards
+
+For every Java production or test-code change, invoke and follow the project skill `$seedu-java-coding-standard`. For every branch, commit, merge, tag, push, or commit-message review, invoke and follow `$seedu-git-standard`. These skills implement the SE-EDU intermediate Java and Git conventions; user-specified Git workflow requirements still take precedence.
+
+## UI regression testing
+
+After every code update, review `test/ui-test-plan.md` and update it before testing when the changed behavior requires a new or revised console UI test case. Then invoke `$test-ui` and follow its workflow to run the plan. Include the resulting console test-session record in the handoff; if a test fails, stop at that failure and report its actual and expected output.
+
+## JUnit coverage target
+
+Maintain JUnit tests for approximately the highest-value 50% of the codebase's non-trivial methods. Prioritize core validation, task-state management, persistence, and scheduling behavior; do not inflate coverage with tests of simple getters alone. After each code change, update the relevant tests in `src/test/java` whenever it changes covered behavior, and run `./gradlew test`.
 
 ## Git
 

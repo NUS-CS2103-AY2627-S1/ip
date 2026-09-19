@@ -1,0 +1,28 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.page-header {
+  background-color: #263d35;
+  background-image: linear-gradient(120deg, #263d35, #527563);
+}
+
+.main-content {
+  color: #292d2b;
+}
+
+.main-content h1,
+.main-content h2,
+.main-content h3 {
+  color: #365e4d;
+}
+
+.main-content blockquote {
+  border-left-color: #bda56c;
+  color: #50625a;
+}
+
+.main-content table th {
+  background-color: #e2ece6;
+}
