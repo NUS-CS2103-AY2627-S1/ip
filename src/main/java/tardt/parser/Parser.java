@@ -1,7 +1,9 @@
 package tardt.parser;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,12 +26,13 @@ public class Parser {
     /** Matches a priority flag at the end of a task command. */
     private static final Pattern PRIORITY_FLAG = Pattern.compile("(?:^|\\s)/priority\\s+(\\S+)\\s*$",
             Pattern.CASE_INSENSITIVE);
-    /** Matches the start of a priority flag anywhere in a task command. */
-    private static final Pattern PRIORITY_FLAG_START = Pattern.compile("(?:^|\\s)/priority(?:\\s|$)",
+    /** Matches the start of a supported task flag anywhere in a task command. */
+    private static final Pattern TASK_FLAG_START = Pattern.compile("(?:^|\\s)/(priority|by|from|to)(?=\\s|$)",
             Pattern.CASE_INSENSITIVE);
     private static final String OPTIONAL_PRIORITY_FORMAT = " (optional: /priority low|medium|high)";
     private static final String INVALID_PRIORITY_MESSAGE = "Invalid priority. Priority is optional; when included, use "
             + "/priority low, /priority medium, or /priority high.";
+    private static final String REPEATED_FLAG_WARNING = "Repeated flags are not allowed.";
 
     // ==================== CLI METHOD ====================
 
@@ -237,16 +240,14 @@ public class Parser {
     }
 
     /**
-     * Parses the input string while checking for a /priority flag
+     * Parses an optional final /priority flag from task command arguments.
+     * Duplicate flags are validated before this method is called.
+     *
      * @param input The input string
      * @return A ParsedPriority object encapsulating Task description and Priority value
-     * @throws TardTException
+     * @throws TardTException if the priority is malformed
      */
     private static ParsedPriority parsePriority(String input) throws TardTException {
-        if (hasMultiplePriorityFlags(input)) {
-            throw new TardTException(INVALID_PRIORITY_MESSAGE);
-        }
-
         // A priority is metadata only when it is the final flag; otherwise the task text stays unambiguous.
         Matcher matcher = PRIORITY_FLAG.matcher(input);
         if (!matcher.find()) {
@@ -266,22 +267,21 @@ public class Parser {
     }
 
     /**
-     * Returns whether an input contains more than one priority flag.
-     * A task can have only one priority, so accepting a later flag must not turn an earlier one into its description.
+     * Rejects input that repeats any supported task flag.
+     * Each flag represents one field, so a repeated flag must not become part of a preceding field's text.
      *
      * @param input task command arguments
-     * @return true if more than one priority flag is present
+     * @throws TardTException if a supported task flag appears more than once
      */
-    private static boolean hasMultiplePriorityFlags(String input) {
-        Matcher matcher = PRIORITY_FLAG_START.matcher(input);
-        int flagsFound = 0;
+    private static void validateNoRepeatedTaskFlags(String input) throws TardTException {
+        Matcher matcher = TASK_FLAG_START.matcher(input);
+        Set<String> foundFlags = new HashSet<>();
         while (matcher.find()) {
-            flagsFound++;
-            if (flagsFound > 1) {
-                return true;
+            String flag = matcher.group(1).toLowerCase(Locale.ROOT);
+            if (!foundFlags.add(flag)) {
+                throw new TardTException(REPEATED_FLAG_WARNING);
             }
         }
-        return false;
     }
 
     private record ParsedPriority(String text, Priority priority) { }
@@ -297,6 +297,7 @@ public class Parser {
      */
     private static String handleTodoForResponse(TaskList tasks, String arguments, Storage storage)
             throws TardTException {
+        validateNoRepeatedTaskFlags(arguments);
         ParsedPriority parsed = parsePriority(arguments);
         String description = parsed.text();
 
@@ -325,6 +326,7 @@ public class Parser {
      */
     private static String handleDeadlineForResponse(TaskList tasks, String arguments, Storage storage)
             throws TardTException {
+        validateNoRepeatedTaskFlags(arguments);
         ParsedPriority parsed = parsePriority(arguments);
         String rest = parsed.text();
 
@@ -365,6 +367,7 @@ public class Parser {
      */
     private static String handleEventForResponse(TaskList tasks, String arguments, Storage storage)
             throws TardTException {
+        validateNoRepeatedTaskFlags(arguments);
         ParsedPriority parsed = parsePriority(arguments);
         String rest = parsed.text();
 

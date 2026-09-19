@@ -280,8 +280,35 @@ class UiTest {
     void todo_repeatedPriority_isRejectedWithoutAddingTask() {
         String input = "todo read book /priority low /priority high\nlist\nbye\n";
         String expectedOutput = WELCOME + SEPARATOR
-                + "Invalid priority. Priority is optional; when included, use /priority low, /priority medium,"
-                + " or /priority high.\n"
+                + "Repeated flags are not allowed.\n"
+                + SEPARATOR + SEPARATOR
+                + "Your task list is empty!\n"
+                + SEPARATOR + GOODBYE;
+
+        String actualOutput = runApplication(input);
+
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    void deadline_repeatedByFlag_isRejectedWithoutAddingTask() {
+        String input = "deadline submit assignment /by Friday /by Saturday\nlist\nbye\n";
+        String expectedOutput = WELCOME + SEPARATOR
+                + "Repeated flags are not allowed.\n"
+                + SEPARATOR + SEPARATOR
+                + "Your task list is empty!\n"
+                + SEPARATOR + GOODBYE;
+
+        String actualOutput = runApplication(input);
+
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    void event_repeatedToFlag_isRejectedWithoutAddingTask() {
+        String input = "event workshop /from 2pm /to 4pm /to 6pm\nlist\nbye\n";
+        String expectedOutput = WELCOME + SEPARATOR
+                + "Repeated flags are not allowed.\n"
                 + SEPARATOR + SEPARATOR
                 + "Your task list is empty!\n"
                 + SEPARATOR + GOODBYE;

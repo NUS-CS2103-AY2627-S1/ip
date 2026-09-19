@@ -74,7 +74,7 @@ What can I do for you?
 ____________________________________________________________
 
 ____________________________________________________________
-Invalid priority. Priority is optional; when included, use /priority low, /priority medium, or /priority high.
+Repeated flags are not allowed.
 ____________________________________________________________
 ____________________________________________________________
 Your task list is empty!
