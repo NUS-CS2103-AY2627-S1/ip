@@ -33,3 +33,11 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## Coding standards
+
+Before editing or reviewing Java code, read and follow
+`skills/seedu-java-coding-standard/SKILL.md`.
+
+Before proposing or creating Git commits, read and follow
+`skills/seedu-git-standard/SKILL.md`.

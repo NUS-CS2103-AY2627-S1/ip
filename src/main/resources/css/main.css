@@ -1,0 +1,127 @@
+.root {
+    -chai-cream: #fff9ed;
+    -chai-brown: #51352c;
+    -chai-caramel: #c8753f;
+    -chai-green: #527565;
+    -fx-background-color: -chai-cream;
+    -fx-font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.app-header {
+    -fx-alignment: center-left;
+    -fx-background-color: linear-gradient(to right, -chai-brown, #6f4a3d);
+    -fx-padding: 13 20 11 20;
+}
+
+.app-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.app-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #f1ddc8;
+}
+
+.dialog-container {
+    -fx-padding: 18 14 18 14;
+}
+
+.dialog-box {
+    -fx-padding: 5 8 5 8;
+}
+
+.dialog-bubble {
+    -fx-background-color: white;
+    -fx-background-radius: 16 16 4 16;
+    -fx-effect: dropshadow(gaussian, rgba(53, 34, 27, 0.12), 10, 0.15, 0, 3);
+    -fx-font-size: 14px;
+    -fx-padding: 11 14 11 14;
+    -fx-text-fill: -chai-brown;
+}
+
+.user-dialog .dialog-bubble {
+    -fx-background-color: -chai-brown;
+    -fx-background-radius: 16 16 4 16;
+    -fx-text-fill: white;
+}
+
+.chai-dialog .dialog-bubble {
+    -fx-background-color: #e3efe8;
+    -fx-background-radius: 16 16 16 4;
+}
+
+.error-dialog .dialog-bubble {
+    -fx-background-color: #fce8e3;
+    -fx-border-color: #d47b68;
+    -fx-border-radius: 16 16 16 4;
+    -fx-text-fill: #7c3026;
+}
+
+.avatar {
+    -fx-background-color: -chai-caramel;
+    -fx-background-radius: 22;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.chai-dialog .avatar {
+    -fx-background-color: -chai-green;
+    -fx-font-size: 20px;
+}
+
+.error-dialog .avatar {
+    -fx-background-color: #b94f3d;
+    -fx-font-size: 17px;
+}
+
+.input-bar {
+    -fx-background-color: rgba(255, 255, 255, 0.94);
+    -fx-border-color: rgba(95, 59, 45, 0.12) transparent transparent transparent;
+    -fx-padding: 14;
+}
+
+.text-field {
+    -fx-background-color: #f5eee3;
+    -fx-background-radius: 18;
+    -fx-font-size: 14px;
+    -fx-padding: 10 14 10 14;
+}
+
+.text-field:focused {
+    -fx-border-color: -chai-caramel;
+    -fx-border-radius: 18;
+}
+
+.button {
+    -fx-background-color: -chai-brown;
+    -fx-background-radius: 18;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-padding: 10 18 10 18;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: -chai-caramel;
+}
+
+.button:pressed {
+    -fx-translate-y: 1;
+}
+
+.scroll-bar:vertical {
+    -fx-pref-width: 8;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(95, 59, 45, 0.24);
+    -fx-background-radius: 4;
+}

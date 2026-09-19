@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root alignment="TOP_RIGHT" spacing="10.0" styleClass="dialog-box" type="HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialog" styleClass="dialog-bubble" wrapText="true" />
+        <Label fx:id="avatar" alignment="CENTER" minHeight="44.0" minWidth="44.0"
+               prefHeight="44.0" prefWidth="44.0" styleClass="avatar" />
+    </children>
+</fx:root>
