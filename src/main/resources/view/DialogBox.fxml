@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+
+<fx:root alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308"
+         spacing="8.0" styleClass="dialog-box"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialog" minHeight="-Infinity"
+               styleClass="message-label" wrapText="true" />
+        <StackPane fx:id="avatarFrame" maxHeight="38.0" maxWidth="38.0"
+                   minHeight="38.0" minWidth="38.0" styleClass="avatar-frame">
+            <children>
+                <ImageView fitHeight="34.0" fitWidth="34.0"
+                           preserveRatio="true" smooth="true">
+                    <image>
+                        <Image url="@../images/gary-profile.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </StackPane>
+    </children>
+    <padding>
+        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+    </padding>
+</fx:root>

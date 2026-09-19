@@ -1,0 +1,160 @@
+.app-root {
+    -fx-background-color: #ddf6f4;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.header {
+    -fx-background-color: linear-gradient(to right, #075985, #0284c7);
+    -fx-border-color: transparent transparent #f9d949 transparent;
+    -fx-border-width: 0 0 3px 0;
+}
+
+.brand-icon {
+    -fx-alignment: center;
+    -fx-background-color: rgba(255, 255, 255, 0.18);
+    -fx-background-radius: 19px;
+    -fx-border-color: rgba(255, 255, 255, 0.35);
+    -fx-border-radius: 19px;
+}
+
+.title {
+    -fx-font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+    -fx-font-size: 21px;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 1.5px;
+    -fx-text-fill: white;
+}
+
+.subtitle {
+    -fx-font-size: 11px;
+    -fx-text-fill: #e0f7ff;
+}
+
+.conversation-pane,
+.conversation-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.conversation-background {
+    -fx-background-image: url("../images/jellyfish-background.png");
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+.background-tint {
+    -fx-background-color: rgba(221, 246, 244, 0.72);
+}
+
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.message-label {
+    -fx-font-size: 13px;
+    -fx-line-spacing: 1px;
+    -fx-padding: 9px 12px;
+}
+
+.user-dialog .message-label {
+    -fx-background-color: #f9d949;
+    -fx-background-radius: 14px 14px 4px 14px;
+    -fx-border-color: #e8b923;
+    -fx-border-radius: 14px 14px 4px 14px;
+    -fx-font-family: "Consolas", "Segoe UI", monospace;
+    -fx-text-fill: #183153;
+}
+
+.gary-dialog .message-label {
+    -fx-background-color: #f9f6ff;
+    -fx-background-radius: 4px 14px 14px 14px;
+    -fx-border-color: #d8c8f0;
+    -fx-border-radius: 4px 14px 14px 14px;
+    -fx-text-fill: #183153;
+}
+
+.error-dialog .message-label {
+    -fx-background-color: #ffe4e1;
+    -fx-border-color: transparent transparent transparent #c2413b;
+    -fx-border-radius: 4px 12px 12px 4px;
+    -fx-border-width: 0 0 0 4px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #7f1d1d;
+}
+
+.farewell-dialog .message-label {
+    -fx-background-color: #fff8cc;
+    -fx-border-color: #e8b923;
+}
+
+.help-dialog .message-label {
+    -fx-background-color: rgba(249, 254, 255, 0.96);
+    -fx-border-color: #61a9c7;
+    -fx-font-family: "Consolas", "Segoe UI", monospace;
+    -fx-font-size: 12px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 12px 14px;
+}
+
+.avatar-frame {
+    -fx-background-color: #e8dcf8;
+    -fx-background-radius: 19px;
+    -fx-border-color: #b99bdc;
+    -fx-border-radius: 19px;
+}
+
+.error-dialog .avatar-frame {
+    -fx-background-color: #ffd0ca;
+    -fx-border-color: #e58b80;
+}
+
+.input-bar {
+    -fx-alignment: center;
+    -fx-background-color: #f9ffff;
+    -fx-border-color: #b8deda transparent transparent transparent;
+}
+
+.command-field {
+    -fx-background-color: white;
+    -fx-background-radius: 16px;
+    -fx-border-color: #9ecbc7;
+    -fx-border-radius: 16px;
+    -fx-font-size: 13px;
+    -fx-padding: 9px 12px;
+    -fx-prompt-text-fill: #557b88;
+}
+
+.command-field:focused {
+    -fx-border-color: #0284c7;
+    -fx-border-width: 2px;
+}
+
+.send-button {
+    -fx-background-color: #0284c7;
+    -fx-background-radius: 16px;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 9px 18px;
+    -fx-text-fill: white;
+}
+
+.send-button:hover {
+    -fx-background-color: #0369a1;
+}
+
+.send-button:pressed {
+    -fx-background-color: #075985;
+}
+
+.conversation-pane .scroll-bar:vertical {
+    -fx-pref-width: 9px;
+}
+
+.conversation-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #82bfba;
+    -fx-background-radius: 5px;
+}
+
+.conversation-pane .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}

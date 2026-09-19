@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run and verify chatbot UI test cases"
+  default_prompt: "Use $test-ui to run the chatbot UI test plan and report the session."
