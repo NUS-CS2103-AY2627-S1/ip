@@ -1,0 +1,25 @@
+.dialog-box {
+    -fx-spacing: 10px;
+}
+
+.dialog-box #dialog,
+.dialog-box .label {
+    -fx-padding: 10px 14px 10px 14px;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2px;
+}
+
+.user-dialog #dialog,
+.user-dialog .label {
+    -fx-background-color: #2563EB;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 16px 16px 2px 16px;
+}
+
+.bro-dialog #dialog,
+.bro-dialog .label {
+    -fx-background-color: #E2E8F0;
+    -fx-text-fill: #0F172A;
+    -fx-background-radius: 16px 16px 16px 2px;
+}
+

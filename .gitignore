@@ -18,3 +18,16 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# .class files
+*.class
+
+# Task storage
+data/
+bro.txt
+
+# IDE files
+/.idea/
+/.vscode/
+/out/
+/*.iml
