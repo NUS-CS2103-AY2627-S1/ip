@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_RIGHT"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         spacing="2.0"
+         type="javafx.scene.layout.VBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <HBox fx:id="row" alignment="BOTTOM_RIGHT" spacing="-1.0"
+              maxHeight="1.7976931348623157E308"
+              maxWidth="1.7976931348623157E308">
+            <children>
+                <Label fx:id="dialog" text="Label" wrapText="true"/>
+                <Region fx:id="tail" styleClass="tail"
+                        maxHeight="12.0" maxWidth="10.0"
+                        minHeight="12.0" minWidth="10.0"
+                        prefHeight="12.0" prefWidth="10.0"/>
+                <ImageView fx:id="displayPicture" fitHeight="34.0" fitWidth="34.0"
+                           pickOnBounds="true" preserveRatio="true"/>
+            </children>
+        </HBox>
+        <Label fx:id="timestamp" styleClass="timestamp" text="00:00"/>
+    </children>
+    <padding>
+        <Insets bottom="3.0" left="12.0" right="12.0" top="3.0"/>
+    </padding>
+</fx:root>

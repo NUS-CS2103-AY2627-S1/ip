@@ -1,0 +1,234 @@
+/* Nova's chat styling. The colours live here as looked-up values on .root, and
+   .root.dark swaps them, so one stylesheet carries both themes. */
+
+.root {
+    -fx-font-family: "Segoe UI", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-bg: #f4f6f9;
+    -fx-surface: #ffffff;
+    -fx-line: #e3e7ee;
+    -fx-text: #1b2430;
+    -fx-muted: #6b7686;
+    -fx-accent: #4338ca;
+    -fx-bubble: #ffffff;
+    -fx-bubble-border: #e3e7ee;
+    -fx-bubble-text: #1b2430;
+    -fx-user-bubble: #4338ca;
+    -fx-user-text: #ffffff;
+    -fx-error-bubble: #fdf1f1;
+    -fx-error-border: #f0c2c2;
+    -fx-error-text: #8e2424;
+    -fx-success-bubble: #f4f6ff;
+    -fx-success-border: #dfe3ff;
+    -fx-success-text: #1b2430;
+    -fx-background-color: -fx-bg;
+}
+
+.root.dark {
+    -fx-bg: #14161c;
+    -fx-surface: #1a1e26;
+    -fx-line: #2b3240;
+    -fx-text: #e8ecf3;
+    -fx-muted: #97a2b4;
+    -fx-accent: #8b7dff;
+    -fx-bubble: #1e222b;
+    -fx-bubble-border: #2b3240;
+    -fx-bubble-text: #e8ecf3;
+    -fx-user-bubble: #5b4bdb;
+    -fx-user-text: #ffffff;
+    -fx-error-bubble: #3a1f22;
+    -fx-error-border: #6d3236;
+    -fx-error-text: #ffb4b4;
+    -fx-success-bubble: #1b2030;
+    -fx-success-border: #2c3550;
+    -fx-success-text: #e8ecf3;
+}
+
+/* ---- header ---- */
+.header {
+    -fx-background-color: -fx-surface;
+    -fx-border-color: transparent transparent -fx-line transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 8 12 8 12;
+}
+
+.app-name {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text;
+}
+
+.chip {
+    -fx-background-color: -fx-accent;
+    -fx-background-radius: 10;
+    -fx-text-fill: white;
+    -fx-font-size: 11px;
+    -fx-padding: 2 9 2 9;
+}
+
+.root.dark .chip {
+    -fx-background-color: #4b3fc4;
+}
+
+.ghost-button {
+    -fx-background-color: transparent;
+    -fx-border-color: -fx-line;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-text-fill: -fx-muted;
+    -fx-font-size: 12px;
+    -fx-padding: 3 9 3 9;
+}
+
+.ghost-button:hover {
+    -fx-border-color: -fx-accent;
+    -fx-text-fill: -fx-accent;
+}
+
+/* ---- chat ---- */
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar .increment-button,
+.scroll-pane .scroll-bar .decrement-button,
+.scroll-pane .scroll-bar .increment-arrow,
+.scroll-pane .scroll-bar .decrement-arrow {
+    -fx-opacity: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: -fx-line;
+    -fx-background-radius: 4;
+}
+
+.dialog-box {
+    -fx-padding: 3 12 3 12;
+}
+
+.bubble {
+    -fx-padding: 8 12 8 12;
+    -fx-background-color: -fx-bubble;
+    -fx-background-radius: 14;
+    -fx-border-color: -fx-bubble-border;
+    -fx-border-radius: 14;
+    -fx-text-fill: -fx-bubble-text;
+}
+
+.nova .bubble {
+    -fx-background-radius: 14 14 14 4;
+    -fx-border-radius: 14 14 14 4;
+}
+
+.user .bubble {
+    -fx-background-color: -fx-user-bubble;
+    -fx-border-color: -fx-user-bubble;
+    -fx-text-fill: -fx-user-text;
+    -fx-background-radius: 14 14 4 14;
+    -fx-border-radius: 14 14 4 14;
+}
+
+.error .bubble {
+    -fx-graphic-text-gap: 8;
+    -fx-background-color: -fx-error-bubble;
+    -fx-border-color: -fx-error-border;
+    -fx-text-fill: -fx-error-text;
+}
+
+.success .bubble {
+    -fx-graphic-text-gap: 8;
+    -fx-background-color: -fx-success-bubble;
+    -fx-border-color: -fx-success-border;
+    -fx-text-fill: -fx-success-text;
+}
+
+.tail {
+    -fx-shape: "M10,0 L10,12 L0,12 Z";
+    -fx-background-color: -fx-bubble;
+    -fx-border-color: -fx-bubble-border;
+    -fx-translate-y: -1;
+}
+
+.user .tail {
+    -fx-background-color: -fx-user-bubble;
+    -fx-border-color: -fx-user-bubble;
+    -fx-scale-x: -1;
+}
+
+.error .tail {
+    -fx-background-color: -fx-error-bubble;
+    -fx-border-color: -fx-error-border;
+}
+
+.success .tail {
+    -fx-background-color: -fx-success-bubble;
+    -fx-border-color: -fx-success-border;
+}
+
+.timestamp {
+    -fx-font-size: 10px;
+    -fx-text-fill: -fx-muted;
+}
+
+.nova .timestamp {
+    -fx-padding: 0 0 0 46;
+}
+
+.user .timestamp {
+    -fx-padding: 0 46 0 0;
+}
+
+.badge {
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-min-width: 15px;
+    -fx-min-height: 15px;
+    -fx-alignment: center;
+    -fx-padding: 0;
+}
+
+.error .badge {
+    -fx-background-color: #d34040;
+}
+
+.success .badge {
+    -fx-background-color: #2f9e6f;
+}
+
+.root.dark .success .badge {
+    -fx-background-color: #3fbf8f;
+}
+
+/* ---- input ---- */
+.text-field {
+    -fx-background-color: -fx-surface;
+    -fx-background-radius: 8;
+    -fx-border-color: -fx-line;
+    -fx-border-radius: 8;
+    -fx-text-fill: -fx-text;
+    -fx-prompt-text-fill: -fx-muted;
+    -fx-padding: 6 9 6 9;
+}
+
+.text-field:focused {
+    -fx-border-color: -fx-accent;
+}
+
+.button {
+    -fx-background-color: -fx-accent;
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.tooltip {
+    -fx-font-size: 11px;
+}

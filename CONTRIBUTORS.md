@@ -7,3 +7,13 @@ Display | Name | Github Profile | Homepage
 # I would like to join this list. How can I help the project
 
 For more information, please refer to our [contributor's guide](https://oss-generic.github.io/process/).
+
+## Reused work
+
+Nova reuses the following work by others, as the course policy on reuse requires:
+
+| What | Source | How it is used |
+|---|---|---|
+| Project template, `src` layout, Gradle wrapper | [AddressBook-Level3](https://github.com/se-edu/addressbook-level3) | the starting point of this repository |
+| JavaFX GUI structure (`Main`, `MainWindow`, `DialogBox`, FXML layout) | [SE-EDU JavaFX tutorial](https://se-education.org/guides/tutorials/javaFx.html) | adapted for the Nova chat window, then restyled with `view/nova.css` |
+| Checkstyle configuration (`config/checkstyle/`) | [AddressBook-Level3](https://github.com/se-edu/addressbook-level3) | coding-standard checks in the Gradle build |

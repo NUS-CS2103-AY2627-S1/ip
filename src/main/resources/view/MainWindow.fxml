@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="460.0" minWidth="380.0"
+            prefHeight="720.0" prefWidth="460.0"
+            styleClass="root-pane"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="nova.MainWindow">
+    <children>
+        <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="header"
+              AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <children>
+                <Label styleClass="app-name" text="Nova"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="taskChip" styleClass="chip" text="No tasks"/>
+                <Button fx:id="themeButton"
+                        mnemonicParsing="false"
+                        onAction="#toggleTheme"
+                        styleClass="ghost-button"
+                        text="Dark"/>
+            </children>
+        </HBox>
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    AnchorPane.bottomAnchor="52.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="44.0">
+            <content>
+                <VBox fx:id="dialogContainer" spacing="0.0"/>
+            </content>
+        </ScrollPane>
+        <TextField fx:id="userInput"
+                   promptText="Type a command, press Tab to complete, or type help"
+                   onAction="#handleUserInput"
+                   prefHeight="34.0"
+                   AnchorPane.bottomAnchor="8.0"
+                   AnchorPane.leftAnchor="8.0"
+                   AnchorPane.rightAnchor="88.0"/>
+        <Button fx:id="sendButton"
+                mnemonicParsing="false"
+                onAction="#handleUserInput"
+                prefHeight="34.0"
+                prefWidth="72.0"
+                text="Send"
+                AnchorPane.bottomAnchor="8.0"
+                AnchorPane.rightAnchor="8.0"/>
+    </children>
+</AnchorPane>
