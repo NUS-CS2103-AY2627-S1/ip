@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_LEFT" fillWidth="true" maxWidth="1.7976931348623157E308"
+         spacing="3.0" styleClass="dialog-row" type="javafx.scene.layout.VBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="speakerLabel" alignment="CENTER_LEFT"
+               styleClass="speaker-label" />
+        <Label fx:id="messageLabel" minHeight="-Infinity"
+               styleClass="dialog-message" wrapText="true" />
+    </children>
+</fx:root>
