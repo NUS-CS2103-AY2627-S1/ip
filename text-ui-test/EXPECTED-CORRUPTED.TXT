@@ -1,0 +1,22 @@
+____________________________________________________________
+ __  __            _     _ 
+|  \/  | ___   ___| |__ (_)
+| |\/| |/ _ \ / __| '_ \| |
+| |  | | (_) | (__| | | | |
+|_|  |_|\___/ \___|_| |_|_|
+Hello! I'm Mochi.
+What can I do for you?
+____________________________________________________________
+WARNING: Skipped invalid data on line 2: unknown task type 'X'
+WARNING: Skipped invalid data on line 3: completion status must be 0 or 1
+WARNING: Skipped invalid data on line 5: wrong number of fields for a E task
+WARNING: Skipped invalid data on line 6: invalid date/time; expected yyyy-MM-dd HHmm
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][X] valid todo
+2.[D][ ] valid deadline (by: Aug 07 2026, 6:00 PM)
+3.[E][ ] valid event (from: Aug 10 2026, 2:00 PM to: Aug 10 2026, 3:00 PM)
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________

@@ -1,0 +1,78 @@
+.main-window {
+    -fx-background-color: #f7f4f6;
+    -fx-font-family: "System";
+}
+
+.conversation-pane,
+.conversation-pane > .viewport {
+    -fx-background-color: #f7f4f6;
+}
+
+.conversation-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.dialog-container {
+    -fx-padding: 6 0 8 0;
+}
+
+.dialog-box {
+    -fx-padding: 6 8 6 8;
+    -fx-spacing: 8;
+}
+
+.dialog-label {
+    -fx-background-radius: 14;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 9 12 9 12;
+}
+
+.user-dialog .dialog-label {
+    -fx-background-color: #315b7d;
+    -fx-text-fill: #ffffff;
+}
+
+.mochi-dialog .dialog-label {
+    -fx-background-color: #f8dfe7;
+    -fx-text-fill: #3d3035;
+}
+
+.error-dialog .dialog-label {
+    -fx-background-color: #fde8e8;
+    -fx-border-color: #c94b5f;
+    -fx-border-radius: 14;
+    -fx-border-width: 1.25;
+    -fx-text-fill: #8b1e2d;
+}
+
+.command-input {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 0;
+    -fx-border-color: #d7cbd0;
+    -fx-border-width: 1 0 0 1;
+    -fx-font-size: 13px;
+    -fx-padding: 0 12 0 12;
+    -fx-prompt-text-fill: #8d8186;
+}
+
+.command-input:focused {
+    -fx-border-color: #b36b83;
+}
+
+.send-button {
+    -fx-background-color: #8f4f68;
+    -fx-background-radius: 0;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.send-button:hover {
+    -fx-background-color: #7b4158;
+}
+
+.send-button:pressed {
+    -fx-background-color: #673448;
+}

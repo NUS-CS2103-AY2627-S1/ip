@@ -1,0 +1,4 @@
+interface:
+  display_name: "SE-EDU Git Standard"
+  short_description: "Apply the SE-EDU Git conventions to commits and branches"
+  default_prompt: "Review Git commit messages and branch names using the project SE-EDU standard."

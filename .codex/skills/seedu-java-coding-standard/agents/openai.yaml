@@ -1,0 +1,4 @@
+interface:
+  display_name: "SE-EDU Java Coding Standard"
+  short_description: "Apply the SE-EDU basic and intermediate Java coding rules"
+  default_prompt: "Review and update Java code using the project SE-EDU coding standard."

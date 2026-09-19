@@ -13,8 +13,11 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Runtime task data
+/data/
+
 # Temp files
 _temp/
 
-/text-ui-test/ACTUAL.TXT
+/text-ui-test/ACTUAL*.TXT
 text-ui-test/EXPECTED-UNIX.TXT
