@@ -1,0 +1,62 @@
+.root {
+    -fx-background-color: #171A2B;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+}
+
+.app-title {
+    -fx-text-fill: #EEF0F6;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+}
+
+.text-field {
+    -fx-background-color: #24283B;
+    -fx-background-radius: 10 0 0 10;
+    -fx-border-color: #3A4058;
+    -fx-border-radius: 10 0 0 10;
+    -fx-border-width: 1px;
+    -fx-font-size: 14px;
+    -fx-padding: 0 12 0 12;
+    -fx-text-fill: #EEF0F6;
+    -fx-prompt-text-fill: #B8BBCB;
+}
+
+.button {
+    -fx-background-color: #8276A8;
+    -fx-background-radius: 0 10 10 0;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
+}
+
+.button:hover {
+    -fx-background-color: #988ABF;
+}
+
+.button:pressed {
+    -fx-background-color: #6B618D;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-padding: 0 0 2 0;
+}
+
+.scroll-bar {
+    -fx-background-color: #171A2B;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #3A4058;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

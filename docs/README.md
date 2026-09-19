@@ -1,30 +1,78 @@
-# Duke User Guide
+# Yawned User Guide
 
-// Update the title above to match the actual product name
+![Screenshot of Yawned](./Ui.png)
 
-// Product screenshot goes here
+**Yawned** is a sleepy but dependable task-management chatbot. Type commands in the app's input box and press Enter (or select **Send**); it saves changes automatically.
 
-// Product intro goes here
+## Start here
 
-## Adding deadlines
+1. Start Yawned with Java 25.
+2. Add a task, for example: `todo borrow a book`.
+3. Use `list` to see its number, then `mark 1` when you finish it.
 
-// Describe the action and its outcome.
+Use the graphical app throughout, close its window when you are done.
 
-// Give examples of usage
+## Command format
 
-Example: `keyword (optional arguments)`
+- Use the commands exactly as written; task descriptions may contain spaces.
+- `INDEX` means the task number shown by `list`, starting at 1.
+- Dates and times use `yyyy-MM-dd HHmm`, for example `2026-04-10 1430`.
+- Your tasks and custom aliases are saved automatically in the `data` folder.
 
-// A description of the expected outcome goes here
+## Task types
 
-```
-expected output
-```
+| Type | Use it for |
+| --- | --- |
+| To-do | Something to do with no associated date or time. |
+| Deadline | Something that must be finished by a particular date and time. |
+| Event | Something that takes place between a start and end date and time. |
 
-## Feature ABC
+## Manage tasks
 
-// Feature details
+| What you want to do | Command | Example |
+| --- | --- | --- |
+| Add a to-do | `todo DESCRIPTION` | `todo borrow a book` |
+| Add a deadline | `deadline DESCRIPTION /by DATE TIME` | `deadline submit report /by 2026-04-10 1430` |
+| Add an event | `event DESCRIPTION /from DATE TIME /to DATE TIME` | `event team meeting /from 2026-04-10 1400 /to 2026-04-10 1500` |
+| View every task | `list` | `list` |
+| Find matching tasks | `find KEYWORD` | `find report` |
+| Mark a task complete | `mark INDEX` | `mark 1` |
+| Mark a task incomplete | `unmark INDEX` | `unmark 1` |
+| Delete a task | `delete INDEX` | `delete 1` |
 
+`find` matches task descriptions without changing your saved task list.
 
-## Feature XYZ
+## Shortcuts and aliases
 
-// Feature details
+Yawned includes these built-in shortcuts:
+
+| Alias | Command |
+| --- | --- |
+| `t` | `todo` |
+| `d` | `deadline` |
+| `e` | `event` |
+| `l` | `list` |
+| `m` | `mark` |
+| `u` | `unmark` |
+| `del` | `delete` |
+| `f` | `find` |
+
+| What you want to do | Command | Example |
+| --- | --- | --- |
+| See all shortcuts and custom aliases | `alias list` | `alias list` |
+| Create or replace a custom alias | `alias NAME COMMAND` | `alias hw todo` |
+| Remove a custom alias | `alias remove NAME` | `alias remove hw` |
+
+Custom alias names use letters only and are case-insensitive. Alias targets must be one of the standard task commands, such as `todo`, `deadline`, or `list`.
+
+## A quick example
+
+~~~
+todo buy milk
+deadline submit report /by 2026-04-10 1430
+list
+mark 1
+find report
+~~~
+
+If a command is incomplete or misspelled, Yawned explains what it needs and gives a usable example.

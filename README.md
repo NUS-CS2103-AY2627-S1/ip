@@ -1,25 +1,78 @@
-# Duke project template
+# Yawned User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![Screenshot of Yawned](./docs/Ui.png)
 
-## Setting up in Intellij
+**Yawned** is a sleepy but dependable task-management chatbot. Type commands in the app's input box and press Enter (or select **Send**); it saves changes automatically.
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+## Start here
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+1. Start Yawned with Java 25.
+2. Add a task, for example: `todo borrow a book`.
+3. Use `list` to see its number, then `mark 1` when you finish it.
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+Use the graphical app throughout, close its window when you are done.
+
+## Command format
+
+- Use the commands exactly as written; task descriptions may contain spaces.
+- `INDEX` means the task number shown by `list`, starting at 1.
+- Dates and times use `yyyy-MM-dd HHmm`, for example `2026-04-10 1430`.
+- Your tasks and custom aliases are saved automatically in the `data` folder.
+
+## Task types
+
+| Type | Use it for |
+| --- | --- |
+| To-do | Something to do with no associated date or time. |
+| Deadline | Something that must be finished by a particular date and time. |
+| Event | Something that takes place between a start and end date and time. |
+
+## Manage tasks
+
+| What you want to do | Command | Example |
+| --- | --- | --- |
+| Add a to-do | `todo DESCRIPTION` | `todo borrow a book` |
+| Add a deadline | `deadline DESCRIPTION /by DATE TIME` | `deadline submit report /by 2026-04-10 1430` |
+| Add an event | `event DESCRIPTION /from DATE TIME /to DATE TIME` | `event team meeting /from 2026-04-10 1400 /to 2026-04-10 1500` |
+| View every task | `list` | `list` |
+| Find matching tasks | `find KEYWORD` | `find report` |
+| Mark a task complete | `mark INDEX` | `mark 1` |
+| Mark a task incomplete | `unmark INDEX` | `unmark 1` |
+| Delete a task | `delete INDEX` | `delete 1` |
+
+`find` matches task descriptions without changing your saved task list.
+
+## Shortcuts and aliases
+
+Yawned includes these built-in shortcuts:
+
+| Alias | Command |
+| --- | --- |
+| `t` | `todo` |
+| `d` | `deadline` |
+| `e` | `event` |
+| `l` | `list` |
+| `m` | `mark` |
+| `u` | `unmark` |
+| `del` | `delete` |
+| `f` | `find` |
+
+| What you want to do | Command | Example |
+| --- | --- | --- |
+| See all shortcuts and custom aliases | `alias list` | `alias list` |
+| Create or replace a custom alias | `alias NAME COMMAND` | `alias hw todo` |
+| Remove a custom alias | `alias remove NAME` | `alias remove hw` |
+
+Custom alias names use letters only and are case-insensitive. Alias targets must be one of the standard task commands, such as `todo`, `deadline`, or `list`.
+
+## A quick example
+
+~~~
+todo buy milk
+deadline submit report /by 2026-04-10 1430
+list
+mark 1
+find report
+~~~
+
+If a command is incomplete or misspelled, Yawned explains what it needs and gives a usable example.

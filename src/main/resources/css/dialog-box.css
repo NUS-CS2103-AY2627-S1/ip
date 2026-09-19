@@ -1,0 +1,56 @@
+.label {
+    -fx-background-color: #38334D;
+    -fx-background-radius: 14 14 14 2;
+    -fx-border-color: #58506F;
+    -fx-border-radius: 14 14 14 2;
+    -fx-border-width: 1px;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #EEF0F6;
+}
+
+.reply-label {
+    -fx-line-spacing: 1px;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.2, 1, 2);
+    -fx-opacity: 0.95;
+}
+
+.user-dialog {
+    -fx-padding: 0 12 0 72;
+}
+
+.user-label {
+    -fx-background-color: #496A8A;
+    -fx-background-radius: 14 14 2 14;
+    -fx-border-color: #6686A7;
+    -fx-border-radius: 14 14 2 14;
+    -fx-font-size: 14px;
+    -fx-pref-width: 250px;
+}
+
+.add-label {
+    -fx-background-color: #38584B;
+    -fx-border-color: #6E9B80;
+}
+
+.marked-label {
+    -fx-background-color: #405C52;
+    -fx-border-color: #7BA68E;
+}
+
+.delete-label {
+    -fx-background-color: #62444D;
+    -fx-border-color: #C97878;
+}
+
+.error-label {
+    -fx-background-color: #593642;
+    -fx-border-color: #E3919E;
+    -fx-border-width: 1px 1px 1px 4px;
+    -fx-effect: dropshadow(gaussian, rgba(227, 145, 158, 0.18), 10, 0.2, 0, 1);
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFF7F8;
+}
