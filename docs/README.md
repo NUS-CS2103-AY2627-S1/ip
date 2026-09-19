@@ -174,3 +174,6 @@ reply. Nothing you typed is lost; just try the command again.
 | Find | `find KEYWORD` | `find report` |
 | On | `on DATE` | `on 2019-10-15` |
 | Bye | `bye` | `bye` |
+
+## Acknowledgements
+Claude was used to complete the code during after prototyping a draft first for most increments and for the AI increments it was used completely.
