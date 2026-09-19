@@ -1,0 +1,134 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+
+    // A-Jar (Week 5 update): Shadow, a third-party plugin for building a
+    // "fat"/"uber" JAR - one that bundles this project's dependency
+    // classes (JavaFX, see below) alongside its own, so the JAR still
+    // runs on a computer that doesn't have JavaFX installed separately.
+    // Recommended by the course's Gradle tutorial
+    // (se-education.org/guides/tutorials/gradle.html) over the plain
+    // `jar` task below, which only packages Leo's own classes.
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // Level-10: JavaFX, for the GUI (Main/Launcher/MainWindow/DialogBox).
+    // Declared directly (rather than via the org.openjfx Gradle plugin)
+    // with classifiers for every desktop platform/architecture combo, per
+    // the JavaFX setup guide linked from the course's project page
+    // (se-education.org/guides/tutorials/javaFxPart1.html) - this way the
+    // build works unmodified regardless of which machine it's built on.
+    //
+    // "mac" alone only covers Intel Macs; without "mac-aarch64" too, an
+    // Apple Silicon (M1/M2/M3/M4) machine downloads the wrong-architecture
+    // native graphics libraries and JavaFX fails at startup with
+    // "Error initializing QuantumRenderer: no suitable pipeline found"
+    // instead of showing a window. Having both classifiers on the
+    // classpath is harmless either way - JavaFX's own native-library
+    // loader picks the one matching the machine it's actually running on
+    // and ignores the other. Added linux-aarch64 for the same reason
+    // (e.g. a Raspberry Pi or an ARM cloud VM), even though it's not
+    // needed for this course.
+    String javaFxVersion = '17.0.7'
+
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:mac-aarch64"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:linux-aarch64"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:mac-aarch64"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:linux-aarch64"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:mac-aarch64"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:linux-aarch64"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:mac-aarch64"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:linux-aarch64"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// A-CheckStyle: run static analysis against the SE-EDU Java coding
+// standard (https://se-education.org/guides/conventions/java/) using
+// the checker config in config/checkstyle/checkstyle.xml. `gradle check`
+// (which `gradle build` already runs) will now also run
+// checkstyleMain/checkstyleTest; run `gradle checkstyleMain` on its own
+// to check only the main sources.
+checkstyle {
+    toolVersion = '10.12.4'
+}
+
+application {
+    // Level-10 switches the default entry point to the GUI (Launcher,
+    // which starts Main - see its Javadoc for why it's a separate
+    // class). The original console chat loop still works and is still
+    // reachable directly as leo.Leo (Leo.main), it's just no longer
+    // what `gradle run` or the packaged jar (see the `shadowJar` task
+    // below) launches by default.
+    mainClass = 'leo.Launcher'
+}
+
+// The console chat loop (leo.Leo) reads commands from standard input;
+// Gradle's `run` task does not forward the console's stdin by default,
+// so this was needed to make that mode work interactively. Harmless to
+// leave set now that `run` launches the GUI (leo.Launcher) by default,
+// since the GUI doesn't read stdin at all. To run the console version
+// instead, use `java -cp build/classes/java/main leo.Leo` after
+// `gradle compileJava` (temporarily changing `mainClass` above back to
+// 'leo.Leo' works too, for `gradle run`).
+run {
+    standardInput = System.in
+}
+
+// A-Jar: originally made `gradle jar` produce a directly-runnable jar.
+//
+// Week 5 (A-Jar follow-up) update: now that JavaFX is a real runtime
+// dependency (added in Level-10), a plain jar with just a Main-Class
+// manifest entry is no longer enough to run standalone - JavaFX's own
+// classes need to be on the classpath too, or the jar fails with
+// NoClassDefFoundError as soon as it tries to open a window. Rather
+// than trying to fix that here, the plain `jar` task is disabled and
+// `shadowJar` (from the Shadow plugin above) is used instead - it
+// bundles JavaFX's classes into the jar directly, so the result works
+// even on a computer without JavaFX installed. Run it with
+// `gradle clean shadowJar` (or `./gradlew clean shadowJar`); the output
+// lands in build/libs/leo.jar and can be run directly with
+// `java -jar build/libs/leo.jar`.
+//
+// The plain `jar` task is kept (but disabled) rather than removed
+// outright, since Gradle still needs *a* distinct output name for it to
+// avoid clashing with shadowJar's build/libs/leo.jar, even while
+// disabled.
+jar {
+    enabled = false
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'leo.jar'
+}
+
+// No explicit toolchain/sourceCompatibility is pinned here: Gradle uses
+// whichever JDK invokes it, matching the "use JDK 25" setup already
+// described in AGENTS.md/README for this project. Add a
+// `java { toolchain { languageVersion = JavaLanguageVersion.of(25) } }`
+// block later if you want Gradle to strictly enforce that version.

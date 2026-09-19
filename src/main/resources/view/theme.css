@@ -1,0 +1,80 @@
+/*
+ * A-BetterGui: a light, warm theme for the chat window, replacing the
+ * plain default JavaFX (Modena) look - a soft background, rounded
+ * chat bubbles colour-coded by who sent them, and a rounded input
+ * row - loaded once as a stylesheet on the Scene (see Main.java)
+ * rather than inline, so every window built from MainWindow.fxml
+ * picks it up automatically and it stays in one place to tweak.
+ *
+ * DialogBox's error-reply styling (see DialogBox.ERROR_STYLE) is set
+ * as an inline style on the affected Label instead of living here -
+ * JavaFX applies inline styles after stylesheet rules, so an error
+ * reply's red tint always wins over the .user-bubble/.leo-bubble
+ * colours below without this file needing to know about it.
+ */
+
+.root-pane {
+    -fx-background-color: linear-gradient(to bottom right, #fdf3f5, #f1eefb, #eaf6f0);
+}
+
+.chat-scroll-pane, .chat-scroll-pane .viewport {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.chat-scroll-pane {
+    -fx-border-color: transparent;
+}
+
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.dialog-label {
+    -fx-background-radius: 14;
+    -fx-padding: 10 14 10 14;
+    -fx-font-size: 13px;
+    -fx-font-family: "Helvetica Neue", "Segoe UI", sans-serif;
+}
+
+.user-bubble {
+    -fx-background-color: #d7e8ff;
+    -fx-text-fill: #17324d;
+}
+
+.leo-bubble {
+    -fx-background-color: #e3f3e6;
+    -fx-text-fill: #1f3a24;
+}
+
+.command-input {
+    -fx-background-radius: 18;
+    -fx-background-color: white;
+    -fx-padding: 8 14 8 14;
+    -fx-font-size: 13px;
+}
+
+.send-button {
+    -fx-background-radius: 18;
+    -fx-background-color: #4c8bf5;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: #3b74d8;
+}
+
+.quick-action-button {
+    -fx-background-radius: 14;
+    -fx-background-color: #eef0f4;
+    -fx-text-fill: #33383f;
+    -fx-font-size: 11px;
+    -fx-cursor: hand;
+}
+
+.quick-action-button:hover {
+    -fx-background-color: #dfe3ea;
+}

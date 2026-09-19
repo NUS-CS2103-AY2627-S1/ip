@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<!--
+  fx:root (not a plain <HBox> tag) is required here: DialogBox.java's
+  constructor calls fxmlLoader.setRoot(this), telling the loader "the
+  root object already exists (the DialogBox being constructed) -
+  configure it from this file rather than creating a new one." A plain
+  <HBox> root element tells the loader to create a brand new HBox
+  instead, which conflicts with setRoot() and throws
+  "javafx.fxml.LoadException: Root value already specified."
+  fx:root's type attribute says which class that pre-supplied root
+  actually is, so the loader can still resolve the alignment/padding
+  properties and the <children> below against it.
+-->
+<fx:root type="javafx.scene.layout.HBox" alignment="TOP_RIGHT" maxHeight="-Infinity" minHeight="-Infinity"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialog" contentDisplay="CENTER" prefWidth="270.0" wrapText="true"
+               styleClass="dialog-label"/>
+        <ImageView fx:id="displayPicture" fitHeight="60.0" fitWidth="60.0" preserveRatio="true"/>
+    </children>
+    <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+    </padding>
+</fx:root>
