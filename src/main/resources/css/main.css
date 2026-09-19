@@ -1,0 +1,121 @@
+.app-root {
+    -fx-background-color: #f7f0e5;
+    -fx-font-family: "Segoe UI";
+}
+
+.chat-header {
+    -fx-background-color: #3a2021;
+    -fx-border-color: transparent transparent #c7473a transparent;
+    -fx-border-width: 0 0 3 0;
+    -fx-effect: dropshadow(gaussian, rgba(58, 32, 33, 0.22), 10, 0, 0, 2);
+}
+
+.header-avatar {
+    -fx-effect: dropshadow(gaussian, rgba(199, 71, 58, 0.55), 7, 0, 0, 1);
+}
+
+.header-title {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fffaf3;
+}
+
+.header-status-row {
+    -fx-alignment: center-left;
+}
+
+.header-status-dot {
+    -fx-fill: #55b978;
+}
+
+.header-status {
+    -fx-font-size: 12px;
+    -fx-text-fill: #bce8c9;
+}
+
+.conversation-scroll,
+.conversation-scroll > .viewport,
+.conversation-list {
+    -fx-background-color: #f7f0e5;
+}
+
+.conversation-scroll {
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.conversation-scroll > .corner {
+    -fx-background-color: #f7f0e5;
+}
+
+.conversation-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 9px;
+}
+
+.conversation-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(120, 81, 72, 0.35);
+    -fx-background-insets: 2;
+    -fx-background-radius: 8px;
+}
+
+.conversation-scroll .scroll-bar:vertical .track,
+.conversation-scroll .scroll-bar:vertical .increment-button,
+.conversation-scroll .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+}
+
+.conversation-scroll .scroll-bar:vertical .increment-arrow,
+.conversation-scroll .scroll-bar:vertical .decrement-arrow {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.message-composer {
+    -fx-background-color: #fffdf8;
+    -fx-border-color: #ded2c2 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+.message-input {
+    -fx-background-color: #f4eadc;
+    -fx-background-insets: 0;
+    -fx-background-radius: 22px;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-padding: 11px 16px;
+    -fx-prompt-text-fill: #9a8779;
+    -fx-text-fill: #3b2525;
+}
+
+.message-input:focused {
+    -fx-background-color: #fffdf8;
+    -fx-border-color: #c7473a;
+    -fx-border-radius: 22px;
+    -fx-border-width: 1px;
+}
+
+.send-button {
+    -fx-background-color: #c7473a;
+    -fx-background-insets: 0;
+    -fx-background-radius: 22px;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 11px 17px;
+    -fx-text-fill: #ffffff;
+}
+
+.send-button:hover {
+    -fx-background-color: #b63b31;
+}
+
+.send-button:pressed {
+    -fx-background-color: #96302b;
+}
+
+.send-button:disabled,
+.message-input:disabled {
+    -fx-opacity: 0.55;
+}

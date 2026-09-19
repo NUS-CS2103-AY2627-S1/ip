@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<AnchorPane prefHeight="680.0"
+            prefWidth="430.0"
+            styleClass="app-root"
+            stylesheets="@../css/main.css"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="yuno.ui.MainWindow">
+    <HBox alignment="CENTER_LEFT"
+          prefHeight="68.0"
+          spacing="12.0"
+          styleClass="chat-header"
+          AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="0.0">
+        <padding>
+            <Insets bottom="10.0" left="16.0" right="16.0" top="10.0"/>
+        </padding>
+        <ImageView fx:id="headerImage"
+                   fitHeight="44.0"
+                   fitWidth="44.0"
+                   pickOnBounds="true"
+                   preserveRatio="false"
+                   styleClass="header-avatar"/>
+        <VBox alignment="CENTER_LEFT" spacing="2.0">
+            <Label styleClass="header-title" text="Yuno"/>
+            <HBox alignment="CENTER_LEFT" spacing="5.0" styleClass="header-status-row">
+                <Circle radius="4.0" styleClass="header-status-dot"/>
+                <Label styleClass="header-status" text="Online"/>
+            </HBox>
+        </VBox>
+    </HBox>
+
+    <ScrollPane fx:id="scrollPane"
+                fitToWidth="true"
+                hbarPolicy="NEVER"
+                pannable="true"
+                styleClass="conversation-scroll"
+                vbarPolicy="AS_NEEDED"
+                AnchorPane.bottomAnchor="72.0"
+                AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0"
+                AnchorPane.topAnchor="68.0">
+        <content>
+            <VBox fx:id="dialogContainer"
+                  fillWidth="true"
+                  prefHeight="-1.0"
+                  spacing="8.0"
+                  styleClass="conversation-list">
+                <padding>
+                    <Insets bottom="14.0" left="0.0" right="0.0" top="14.0"/>
+                </padding>
+            </VBox>
+        </content>
+    </ScrollPane>
+
+    <HBox alignment="CENTER"
+          prefHeight="72.0"
+          spacing="10.0"
+          styleClass="message-composer"
+          AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0">
+        <padding>
+            <Insets bottom="12.0" left="14.0" right="14.0" top="12.0"/>
+        </padding>
+        <TextField fx:id="userInput"
+                   maxWidth="1.7976931348623157E308"
+                   onAction="#handleUserInput"
+                   promptText="Message Yuno..."
+                   styleClass="message-input"
+                   HBox.hgrow="ALWAYS"/>
+        <Button fx:id="sendButton"
+                mnemonicParsing="false"
+                onAction="#handleUserInput"
+                styleClass="send-button"
+                text="Send"/>
+    </HBox>
+</AnchorPane>

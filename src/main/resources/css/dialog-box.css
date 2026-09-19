@@ -1,0 +1,30 @@
+.dialog-box {
+    -fx-spacing: 9px;
+}
+
+.message-bubble {
+    -fx-font-family: monospace;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 10px 14px;
+    -fx-effect: dropshadow(gaussian, rgba(76, 49, 43, 0.12), 8, 0, 0, 2);
+}
+
+.message-avatar {
+    -fx-effect: dropshadow(gaussian, rgba(76, 49, 43, 0.20), 5, 0, 0, 1);
+}
+
+.user-dialog .message-bubble {
+    -fx-background-color: #f2c75c;
+    -fx-background-radius: 18px 18px 4px 18px;
+    -fx-text-fill: #382b16;
+}
+
+.yuno-dialog .message-bubble {
+    -fx-background-color: #fff3ef;
+    -fx-background-radius: 18px 18px 18px 4px;
+    -fx-border-color: transparent transparent transparent #c7473a;
+    -fx-border-radius: 18px 18px 18px 4px;
+    -fx-border-width: 0 0 0 3px;
+    -fx-text-fill: #3b2525;
+}
