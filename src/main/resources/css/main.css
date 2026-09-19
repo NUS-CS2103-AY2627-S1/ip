@@ -1,0 +1,67 @@
+.root {
+    -nudge-background: #f5faf7;
+    -nudge-green: #147a55;
+    -nudge-green-dark: #0f6647;
+    -fx-background-color: -nudge-background;
+    -fx-font-family: "Avenir Next", "Segoe UI", sans-serif;
+}
+
+#dialogContainer {
+    -fx-padding: 4px 0 8px 0;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    -fx-border-color: #c9d8d0;
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+    -fx-font-size: 15px;
+    -fx-padding: 10px 13px;
+    -fx-prompt-text-fill: #73877d;
+}
+
+.text-field:focused {
+    -fx-border-color: -nudge-green;
+    -fx-effect: dropshadow(gaussian, rgba(22, 133, 91, 0.16), 8, 0.2, 0, 1);
+}
+
+.button {
+    -fx-background-color: -nudge-green;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: -nudge-green-dark;
+}
+
+.button:pressed {
+    -fx-background-color: #0b5038;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport,
+#dialogContainer {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #b5c9bf;
+    -fx-background-insets: 2px;
+    -fx-background-radius: 10px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}

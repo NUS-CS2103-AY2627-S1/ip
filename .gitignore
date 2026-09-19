@@ -16,5 +16,11 @@ bin/
 # Temp files
 _temp/
 
+# Nudge task data
+/data/nudge.txt
+
+# Local Codex tooling
+.codex/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

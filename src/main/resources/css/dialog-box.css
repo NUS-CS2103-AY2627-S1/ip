@@ -1,0 +1,31 @@
+.dialog-label {
+    -fx-background-color: linear-gradient(to bottom right, #dff7eb, #c9eddb);
+    -fx-background-insets: 0 5px 0 5px;
+    -fx-background-radius: 14px 14px 3px 14px;
+    -fx-border-color: #a6d8c0;
+    -fx-border-insets: 0 5px 0 5px;
+    -fx-border-radius: 14px 14px 3px 14px;
+    -fx-border-width: 1px;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 10px;
+    -fx-text-fill: #17382c;
+}
+
+.reply-label {
+    -fx-background-color: #fffefa;
+    -fx-background-radius: 14px 14px 14px 3px;
+    -fx-border-color: #d5e0da;
+    -fx-border-radius: 14px 14px 14px 3px;
+    -fx-text-fill: #263a31;
+}
+
+.error-label {
+    -fx-background-color: #fff3f3;
+    -fx-border-color: #c84a4a;
+    -fx-border-width: 1px 1px 1px 4px;
+    -fx-text-fill: #812626;
+}
+
+.avatar-image {
+    -fx-effect: dropshadow(gaussian, rgba(20, 45, 36, 0.16), 5, 0.15, 0, 1);
+}
