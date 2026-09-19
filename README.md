@@ -1,25 +1,76 @@
-# Duke project template
+# NyonBot User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![nyon](https://static.tvtropes.org/pmwiki/pub/images/kawkaw_battle_idle_1_400x280.png)
 
-## Setting up in Intellij
+![screenshot of ui](https://nje14.github.io/ip/Ui.png)
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+NyonBot is a simple chatbot based off the _Duke_ greenfield Java project template
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+NyonBot is based on the [KawKaw NPC from deltarune](https://deltarune.wiki/w/Kawkaw)
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## Quick start guide
+
+Download the latest release from [releases](https://github.com/nje14/ip/releases)
+
+If there are no releases present:
+
+1. Go to the latest [github action](https://github.com/nje14/ip/actions)
+
+2. Select the latest working workflow (should have a :white_check_mark: next to it)
+
+3. Click on artifacts
+
+4. Download `nyonbot-fat.jar`
+
+Once downloaded, go to terminal / powershell and run
+```bash
+java -jar nyonbot-fat.jar
+```
+
+## Prerequisites
+
+Requires:
+
+* Java 25 or later
+
+That's it
+
+## Important notes 
+
+**Strictly for non-commercial, internal use only**
+
+This software comes with a `help`/`man`
+
+All dates **MUST** be entered in the format dd/MM/yyyy HHmm
+
+## Features
+
+NyonBot supports the following features
+
+NyonBot also supports some common aliases. Refer to docs for specifics.
+
+|Command|Description|Usage|Docs|
+|---|---|---|---|
+|deadline|creates a new deadline to do by specified date|`deadline <name> --by <date>`|[Deadline docs](https://nje14.github.io/ip/DEADLINE)|
+|delete|deletes a task|`delete <index \| name>`|[Delete docs](https://nje14.github.io/ip/DELETE)|
+|echo|echoes input|`echo [text]`|[Echo docs](https://nje14.github.io/ip/ECHO)|
+|event|creates an event with specified start and end dates|`event <name> --from <start date> --to <end date>`|[Event docs](https://nje14.github.io/ip/EVENT)|
+|exit|exits software|`exit`|[Exit docs](https://nje14.github.io/ip/EXIT)|
+|find|filters events by search|`find <search text>`|[Find docs](https://nje14.github.io/ip/FIND)|
+|help|pulls up help documents|`help [command]`|[Help docs](https://nje14.github.io/ip/HELP)|
+|list|lists all tasks|`list`|[List docs](https://nje14.github.io/ip/LIST)|
+|mark|marks task as complete|`mark <index\|name>`|[Mark docs](https://nje14.github.io/ip/MARK)|
+|nyon|nyon|`nyon`|[Nyon docs](https://nje14.github.io/ip/NYON)|
+|on|returns all tasks occuring on specified date|`on <date>`|[On docs](https://nje14.github.io/ip/ON)|
+|todo|creates a todo|`todo <name>`|[Todo docs](https://nje14.github.io/ip/TODO)|
+|unmark|marks task as incomplete|`unmark <index\|name>`|[Unmark docs](https://nje14.github.io/ip/UNMARK)|
+
+## Attribution
+
+MainWindow and DialogBox was adapted from the [se-education JavaFX tutorial](https://se-education.org/guides/tutorials/javaFx.html)
+
+Parts of the code were created with assistance from NUS ChatGPT
+
+Images and sounds were taken from the [deltarune wiki](https://deltarune.wiki)
+
+Big Shot font taken from https://www.dafont.com/big-shot.font
