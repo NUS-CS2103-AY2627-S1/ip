@@ -16,5 +16,18 @@ bin/
 # Temp files
 _temp/
 
+#codex skills
+/.codex/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Nori runtime task data
+/data/
+.vscode
+
+# Local visual reference images
+/pingu/
+
+# Claude Code local files (skills stay on disk, not in the repo)
+/.claude/

@@ -1,0 +1,155 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'jacoco'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+// Nori's responses and its GUI contain non-ASCII characters, so the source
+// encoding must not be left to whichever platform happens to run the build.
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    google()
+    mavenCentral()
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
+dependencies {
+    String javaFxVersion = '17.0.7'
+    String jUnitVersion = '5.14.4'
+
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+jacocoTestReport {
+    dependsOn test
+
+    reports {
+        html.required = true
+        xml.required = false
+    }
+
+    // Classes that cannot run without a display and a JavaFX toolkit are left out
+    // of the report. Counting them would only ever show them uncovered, which
+    // would hide movement in the code that JUnit can actually reach. They are
+    // checked by hand instead, against test/gui-test-plan.md.
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect { directory ->
+            fileTree(dir: directory, exclude: [
+                'nori/Main.class',
+                'nori/Launcher.class',
+                'nori/ui/BotAvatar.class',
+                'nori/ui/ConversationFont.class',
+                'nori/ui/DialogBox*.class',
+                'nori/ui/MainWindow*.class'
+            ])
+        }))
+    }
+}
+
+tasks.register('coverage') {
+    group = 'verification'
+    description = 'Runs the JUnit tests and reports the code they covered.'
+    dependsOn jacocoTestReport
+}
+
+sourceSets {
+    regressionTest {
+        java.srcDir 'test'
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += output + compileClasspath
+    }
+}
+
+configurations {
+    regressionTestImplementation.extendsFrom testImplementation
+    regressionTestRuntimeOnly.extendsFrom testRuntimeOnly
+}
+
+tasks.register('noriRegressionTest', JavaExec) {
+    group = 'verification'
+    description = 'Runs Nori command and persistence regression tests.'
+    classpath = sourceSets.regressionTest.runtimeClasspath
+    mainClass = 'nori.NoriTest'
+}
+
+tasks.register('storageRegressionTest', JavaExec) {
+    group = 'verification'
+    description = 'Runs Nori storage and recovery regression tests.'
+    classpath = sourceSets.regressionTest.runtimeClasspath
+    mainClass = 'nori.StorageTest'
+}
+
+tasks.register('regressionTest') {
+    group = 'verification'
+    description = 'Runs all non-JUnit regression test suites.'
+    dependsOn noriRegressionTest, storageRegressionTest
+}
+
+check {
+    dependsOn regressionTest
+}
+
+application {
+    mainClass = 'nori.Launcher'
+    // Assertions state Nori's internal assumptions, so developer launches check them.
+    applicationDefaultJvmArgs = ['-ea']
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'Nori.jar'
+    mergeServiceFiles()
+}
+
+run {
+    standardInput = System.in
+}

@@ -1,0 +1,267 @@
+/*
+ * Nori's visual identity.
+ *
+ * The palette is an arctic one: an ice ground, white cards, deep ink text,
+ * and a single warm accent borrowed from a penguin's beak and feet, which is
+ * reserved for the primary action so that it always means "this is the thing
+ * to press". Every colour is declared once here as a looked-up colour and
+ * referenced by role below, so a change of palette is a change in one place.
+ */
+.app-root {
+    -nori-ice-top: #eaf7fb;
+    -nori-ice-mid: #f7fbfc;
+    -nori-ice-bottom: #eef6f7;
+
+    -nori-surface: #ffffff;
+    -nori-surface-muted: #f5f9fa;
+    -nori-surface-veil: rgba(255, 255, 255, 0.97);
+
+    -nori-line: #dce9eb;
+    -nori-line-strong: #d8e6e9;
+
+    -nori-ink: #172a3a;
+    -nori-ink-body: #243b48;
+    -nori-ink-muted: #5c7078;
+    -nori-ink-meta: #546a73;
+    -nori-ink-faint: #8798a0;
+
+    -nori-beak: #c2410c;
+    -nori-beak-hover: #9a3412;
+    -nori-beak-press: #7c2d12;
+
+    -nori-sea: #0e7490;
+    -nori-sea-tint: #e8f4f8;
+    -nori-sea-ink: #155e75;
+
+    -nori-alarm: #b42318;
+    -nori-alarm-tint: #fff4f2;
+    -nori-alarm-line: #f3c7c0;
+
+    -fx-background-color: linear-gradient(to bottom,
+        -nori-ice-top 0%, -nori-ice-mid 48%, -nori-ice-bottom 100%);
+    -fx-font-family: "Segoe UI", "SF Pro Text", "Helvetica Neue", "Nimbus Sans", "System";
+}
+
+.app-header {
+    -fx-background-color: -nori-surface-veil;
+    -fx-border-color: transparent transparent -nori-line transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-effect: dropshadow(gaussian, rgba(28, 52, 65, 0.08), 18, 0.2, 0, 5);
+}
+
+.brand-name {
+    -fx-font-size: 21px;
+    -fx-font-weight: 900;
+    -fx-text-fill: -nori-ink;
+}
+
+.brand-tagline {
+    -fx-font-size: 12px;
+    -fx-text-fill: -nori-ink-muted;
+}
+
+.status-pill {
+    -fx-background-color: -nori-sea-tint;
+    -fx-background-radius: 999px;
+    -fx-padding: 8px 12px;
+}
+
+.status-dot {
+    -fx-font-size: 11px;
+    -fx-text-fill: -nori-sea;
+}
+
+.status-text {
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+    -fx-text-fill: -nori-sea-ink;
+}
+
+.conversation-scroll,
+.conversation-scroll > .viewport,
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.conversation-shell {
+    -fx-background-image: url("../images/pingu-background.png");
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+/* The veil keeps the photograph as texture rather than as competition for the text. */
+.conversation-scroll > .viewport {
+    -fx-background-color: rgba(235, 247, 250, 0.58);
+}
+
+.conversation-scroll {
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.conversation-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 9px;
+}
+
+.conversation-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(76, 107, 120, 0.24);
+    -fx-background-radius: 999px;
+}
+
+.conversation-scroll .scroll-bar:vertical .increment-button,
+.conversation-scroll .scroll-bar:vertical .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}
+
+.dialog-row {
+    -fx-padding: 2px 4px;
+}
+
+.speaker-label {
+    -fx-font-size: 10px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -nori-ink-meta;
+}
+
+/* Task lists and the schedule are columns of text held together by spaces:
+   a task number, a status box, and the schedule's leading time. A
+   proportional font gives each of those a different width and the columns
+   come apart, so the conversation is set in a monospaced face, where they
+   cannot. A command echoed back is set the same way, being a command.
+
+   The family itself is chosen by ConversationFont against the fonts the
+   running machine actually has, because JavaFX reads only the first family
+   named here and falls back to a proportional face rather than trying the
+   next one. Size and spacing stay here with the rest of the type scale. */
+.message-bubble {
+    -fx-font-size: 13px;
+    -fx-line-spacing: 3.5px;
+    -fx-padding: 12px 15px;
+}
+
+/* Nori speaks from a light card; the user speaks from a solid ink chip. The two
+   sides of this conversation are not peers, so they are not drawn alike. */
+.nori-bubble {
+    -fx-background-color: -nori-surface;
+    -fx-background-radius: 5px 18px 18px 18px;
+    -fx-border-color: -nori-line;
+    -fx-border-radius: 5px 18px 18px 18px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(29, 55, 68, 0.09), 15, 0.16, 0, 4);
+    -fx-text-fill: -nori-ink-body;
+}
+
+.user-bubble {
+    -fx-background-color: linear-gradient(to bottom right, -nori-ink-body, -nori-ink);
+    -fx-background-radius: 18px 5px 18px 18px;
+    -fx-effect: dropshadow(gaussian, rgba(17, 37, 51, 0.18), 15, 0.18, 0, 4);
+    -fx-text-fill: -nori-surface;
+}
+
+/* A reply that reports something Nori could not do is the one a user most
+   needs to notice, so it is given a tinted ground, a warm border and a bar
+   down its left edge. The bar carries the difference even where colour does
+   not: a colour-blind reader, a greyscale screen, or a glance too quick to
+   read the text. */
+.nori-bubble.bubble-error {
+    -fx-background-color: -nori-alarm-tint;
+    -fx-border-color: -nori-alarm-line -nori-alarm-line -nori-alarm-line -nori-alarm;
+    -fx-border-width: 1px 1px 1px 4px;
+    -fx-text-fill: -nori-alarm;
+}
+
+.speaker-label.bubble-error {
+    -fx-text-fill: -nori-alarm;
+}
+
+.composer-shell {
+    -fx-background-color: -nori-surface-veil;
+    -fx-border-color: -nori-line transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-effect: dropshadow(gaussian, rgba(28, 52, 65, 0.08), 18, 0.18, 0, -4);
+}
+
+.composer-bar {
+    -fx-background-color: -nori-surface-muted;
+    -fx-background-radius: 16px;
+    -fx-border-color: -nori-line-strong;
+    -fx-border-radius: 16px;
+    -fx-padding: 6px;
+}
+
+/* The command field's own background is transparent so that it reads as part
+   of the composer rather than as a box inside it, which leaves it nothing to
+   show focus with. The composer is ringed on its behalf, in the accent
+   colour and at no change of size, so nothing on the row moves when focus
+   arrives. */
+.composer-bar.composer-bar-focused {
+    -fx-border-color: -nori-beak;
+    -fx-effect: dropshadow(gaussian, rgba(194, 65, 12, 0.32), 9, 0.35, 0, 0);
+}
+
+.command-input {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 12px;
+    -fx-prompt-text-fill: -nori-ink-faint;
+    -fx-text-fill: -nori-ink-body;
+}
+
+.command-input:focused {
+    -fx-background-color: transparent;
+}
+
+.send-button {
+    -fx-background-color: -nori-beak;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+    -fx-font-weight: 800;
+    -fx-padding: 11px 17px;
+    -fx-text-fill: -nori-surface;
+}
+
+.send-button:hover {
+    -fx-background-color: -nori-beak-hover;
+}
+
+.send-button:pressed {
+    -fx-background-color: -nori-beak-press;
+    -fx-translate-y: 1px;
+}
+
+.send-button:focused {
+    -fx-effect: dropshadow(gaussian, rgba(23, 42, 58, 0.5), 9, 0.4, 0, 0);
+}
+
+.send-button:disabled {
+    -fx-opacity: 0.5;
+}
+
+.composer-hint {
+    -fx-font-size: 11px;
+    -fx-text-fill: -nori-ink-muted;
+}
+
+.bot-avatar-border {
+    -fx-fill: transparent;
+    -fx-stroke: -nori-surface;
+    -fx-stroke-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(28, 52, 65, 0.24), 8, 0.15, 0, 2);
+}
+
+.user-avatar-background {
+    -fx-fill: #dceff4;
+    -fx-stroke: #bed9e0;
+    -fx-stroke-width: 1px;
+}
+
+.user-avatar-text {
+    -fx-font-size: 9px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #31596a;
+}
