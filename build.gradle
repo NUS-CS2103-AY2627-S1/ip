@@ -23,6 +23,9 @@ dependencies {
     implementation "org.openjfx:javafx-controls:${javaFxVersion}:win"
     implementation "org.openjfx:javafx-controls:${javaFxVersion}:mac"
     implementation "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
 
     testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
 
