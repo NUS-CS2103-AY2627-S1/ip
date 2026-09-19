@@ -21,7 +21,9 @@ TardT is a desktop task manager for keeping track of to-dos, deadlines, and even
 - Words in `UPPER_CASE` are values you supply. For example, replace `DESCRIPTION` in `todo DESCRIPTION` with a task description.
 - Items in square brackets are optional.
 - Task numbers refer to the numbers displayed by `list` and start at 1.
-- Dates and times must use `yyyy-MM-ddTHH:mm`, for example `2026-09-29T12:00`.
+- Date inputs can be `yyyy-MM-dd`, `dd/MM/yyyy`, or `d MMM yyyy`, for example `2026-09-29`, `29/09/2026`, or `29 Sep 2026`.
+  A time is optional and defaults to midnight. Add it using 24-hour time (`14:30`) or am/pm time (`2pm` or `2:30pm`), for example `29 Sep 2026 2:30pm`.
+  ISO date-times such as `2026-09-29T12:00` also work.
 - Priorities are `low`, `medium`, or `high`. If no priority is given, TardT uses `low`.
 
 ## Features
@@ -40,7 +42,7 @@ Adds a task that must be completed by a date and time.
 
 Format: `deadline DESCRIPTION /by DATE_TIME [/priority PRIORITY]`
 
-Example: `deadline submit assignment /by 2026-09-29T12:00 /priority high`
+Examples: `deadline submit assignment /by 29 Sep 2026 2:30pm /priority high`, `deadline submit assignment /by 2026-09-29`
 
 ### Add an event: `event`
 
@@ -48,7 +50,7 @@ Adds an event with a start and end date and time. The end time must be after the
 
 Format: `event DESCRIPTION /from DATE_TIME /to DATE_TIME [/priority PRIORITY]`
 
-Example: `event project meeting /from 2026-09-20T14:00 /to 2026-09-20T15:00 /priority medium`
+Examples: `event project meeting /from 20/09/2026 14:00 /to 20/09/2026 15:00 /priority medium`, `event retreat /from 20 Sep 2026 /to 21 Sep 2026`
 
 ### List tasks: `list`
 

@@ -14,8 +14,8 @@ import tardt.priority.Priority;
 public class Deadline extends Task {
     private static final DateTimeFormatter DISPLAY_FORMAT = DateTimeFormatter.ofPattern("MMM dd uuuu HH:mm",
             Locale.ENGLISH);
-    private static final String DATE_TIME_FORMAT_ERROR = "Invalid date/time format. Use yyyy-MM-ddTHH:mm "
-            + "(for example, 2026-09-29T12:00).";
+    private static final String DATE_TIME_FORMAT_ERROR = "Invalid date/time format. Use a date such as "
+            + "2026-09-29, 29/09/2026, or 29 Sep 2026, optionally followed by a time.";
 
     private final LocalDateTime by;
 
@@ -33,7 +33,7 @@ public class Deadline extends Task {
     public Deadline(String description, String by, Priority priority) throws TardTException {
         super(description, priority);
         try {
-            this.by = LocalDateTime.parse(by);
+            this.by = DateTimeParser.parse(by);
         } catch (DateTimeParseException e) {
             throw new TardTException(DATE_TIME_FORMAT_ERROR);
         }
