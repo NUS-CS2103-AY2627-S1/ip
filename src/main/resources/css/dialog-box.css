@@ -1,0 +1,33 @@
+.label {
+    -fx-background-color: #22396F;
+    -fx-border-color: #0D1C42 #0D1C42 #0D1C42 #0D1C42;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: #FCF1D0;
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.error-label {
+    -fx-background-color: #d32f2f;
+    -fx-border-color: #8b0000;
+    -fx-text-fill: #FCF1D0;
+    -fx-font-weight: bold;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+

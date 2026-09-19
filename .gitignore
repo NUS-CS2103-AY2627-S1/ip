@@ -13,6 +13,9 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Data files
+/data/
+
 # Temp files
 _temp/
 
