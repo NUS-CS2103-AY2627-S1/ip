@@ -81,6 +81,7 @@ public class MainWindow {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = tardT.getResponse(input);
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage, getNextDialogColour()),
                 DialogBox.getTardTDialog(response, tardTImage, getNextDialogColour())
@@ -88,6 +89,7 @@ public class MainWindow {
         scrollToBottom();
         userInput.clear();
 
+        // Delay closure so the user can read the application's final reply.
         if (response.equals(Messages.GOODBYE_MESSAGE)) {
             closeAppWithDelay();
         }

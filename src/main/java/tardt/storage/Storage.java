@@ -32,7 +32,9 @@ public class Storage {
         for (Task task : taskList) {
             savedTasks.add(formatTaskForSaving(task));
         }
+
         try {
+            // The data directory is created on demand so a first run can save without prior setup.
             Path parentDirectory = saveFile.getParent();
             if (parentDirectory != null) {
                 Files.createDirectories(parentDirectory);
@@ -118,15 +120,20 @@ public class Storage {
      */
     private Task createTaskFromSavedLine(String savedTask) {
         String[] parts = splitSavedTask(savedTask);
+
+        // Reject malformed records before accessing fields that may be absent.
         if (parts.length < 3 || !isValidStatus(parts[1]) || parts[2].isBlank()) {
             return null;
         }
+
         Task task;
         try {
             int minimumFieldCount = getMinimumFieldCount(parts[0]);
             if (minimumFieldCount == 0) {
                 return null;
             }
+
+            // A recognised final priority is metadata; older records without it retain the low-priority default.
             Priority priority = Priority.LOW;
             int dataEnd = parts.length;
             Priority parsedPriority = parts.length > minimumFieldCount
@@ -138,6 +145,7 @@ public class Storage {
             if (dataEnd < minimumFieldCount) {
                 return null;
             }
+
             switch (parts[0]) {
                 case "T":
                     task = new ToDo(joinFields(parts, 2, dataEnd), priority);
@@ -155,6 +163,8 @@ public class Storage {
         } catch (TardTException exception) {
             return null;
         }
+
+        // Restore completion only after the task's persisted fields have been validated by its constructor.
         if (parts[1].equals("1")) {
             task.markAsDone();
         }
@@ -200,6 +210,7 @@ public class Storage {
         StringBuilder currentField = new StringBuilder();
         boolean isEscaped = false;
 
+        // Unknown escape sequences are retained so a newer file format cannot silently lose user data.
         for (int index = 0; index < savedTask.length(); index++) {
             char character = savedTask.charAt(index);
             if (isEscaped) {
@@ -222,6 +233,7 @@ public class Storage {
         if (isEscaped) {
             currentField.append('\\');
         }
+
         fields.add(currentField.toString().trim());
         return fields.toArray(String[]::new);
     }

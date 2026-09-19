@@ -24,6 +24,7 @@ public class TardT {
     public TardT() {
         ui = new Ui();
         storage = new Storage(SAVE_FILE);
+
         TaskList loadedTasks;
         try {
             loadedTasks = new TaskList(storage.load());

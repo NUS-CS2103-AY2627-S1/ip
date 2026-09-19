@@ -74,16 +74,19 @@ public class Parser {
     public static String parseForResponse(String userInput, TaskList tasks, Storage storage) throws TardTException {
         assert tasks != null : "The parser must receive the application's task list";
         assert storage != null : "The parser must receive storage for mutating commands";
+
         if (userInput == null || userInput.isBlank()) {
             throw new TardTException("Please enter a command.");
         }
 
+        // Keep only the first word as the command so that the remaining text can retain its original structure.
         String trimmedInput = userInput.trim();
         int firstWhitespace = findFirstWhitespace(trimmedInput);
         String taskType = firstWhitespace == -1 ? trimmedInput : trimmedInput.substring(0, firstWhitespace);
         String arguments = firstWhitespace == -1 ? "" : trimmedInput.substring(firstWhitespace).trim();
         Command command = Command.fromKeyword(taskType.toLowerCase(Locale.ROOT));
 
+        // Dispatching after normalisation makes command keywords case-insensitive without changing task descriptions.
         switch (command) {
             case BYE:
                 requireNoArguments("bye", arguments);
@@ -184,7 +187,8 @@ public class Parser {
         }
 
         try {
-            int idx = Integer.parseInt(arguments) - 1; // Convert to 0-based
+            // User-facing task numbers start at one, while TaskList indices start at zero.
+            int idx = Integer.parseInt(arguments) - 1;
             if (idx < 0 || idx >= tasks.size()) {
                 throw new TardTException("Task number out of range. There are " + tasks.size() + " tasks.");
             }
@@ -242,6 +246,8 @@ public class Parser {
         if (hasMultiplePriorityFlags(input)) {
             throw new TardTException(INVALID_PRIORITY_MESSAGE);
         }
+
+        // A priority is metadata only when it is the final flag; otherwise the task text stays unambiguous.
         Matcher matcher = PRIORITY_FLAG.matcher(input);
         if (!matcher.find()) {
             if (input.toLowerCase(Locale.ROOT).contains("/priority")) {
@@ -249,6 +255,7 @@ public class Parser {
             }
             return new ParsedPriority(input, Priority.LOW);
         }
+
         String text = input.substring(0, matcher.start()).trim();
         String keyword = matcher.group(1);
         Priority priority = Priority.fromKeyword(keyword);
@@ -292,6 +299,7 @@ public class Parser {
             throws TardTException {
         ParsedPriority parsed = parsePriority(arguments);
         String description = parsed.text();
+
         if (description.isEmpty()) {
             throw new TardTException("Invalid format: Description of todo cannot be empty. Use: todo [task name]"
                     + OPTIONAL_PRIORITY_FORMAT + ".");
@@ -301,6 +309,7 @@ public class Parser {
         int oldSize = tasks.size();
         tasks.add(newTask);
         assert tasks.size() == oldSize + 1 : "A successful todo command must add one task";
+
         storage.save(tasks.getTasks());
         return "Got it. I've added this task:\n  " + newTask + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
@@ -331,6 +340,7 @@ public class Parser {
         if (description.isEmpty()) {
             throw new TardTException("Please provide a task description.");
         }
+
         if (by.isEmpty()) {
             throw new TardTException("Please provide a deadline.");
         }
@@ -339,6 +349,7 @@ public class Parser {
         int oldSize = tasks.size();
         tasks.add(newTask);
         assert tasks.size() == oldSize + 1 : "A successful deadline command must add one task";
+
         storage.save(tasks.getTasks());
         return "Got it. I've added this task:\n  " + newTask + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
@@ -378,9 +389,11 @@ public class Parser {
         if (description.isEmpty()) {
             throw new TardTException("Please provide a task description.");
         }
+
         if (from.isEmpty()) {
             throw new TardTException("Please provide a start time.");
         }
+
         if (to.isEmpty()) {
             throw new TardTException("Please provide an end time.");
         }
@@ -389,6 +402,7 @@ public class Parser {
         int oldSize = tasks.size();
         tasks.add(newTask);
         assert tasks.size() == oldSize + 1 : "A successful event command must add one task";
+
         storage.save(tasks.getTasks());
         return "Got it. I've added this task:\n  " + newTask + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
@@ -409,6 +423,7 @@ public class Parser {
         int oldSize = tasks.size();
         Task task = tasks.delete(idx);
         assert tasks.size() == oldSize - 1 : "A successful delete command must remove one task";
+
         storage.save(tasks.getTasks());
         return "Noted. I've removed this task:\n  " + task + "\nNow you have " + tasks.size() + " tasks in the list.";
     }
@@ -430,6 +445,7 @@ public class Parser {
 
         String keyword = arguments;
 
+        // Search descriptions only, because users enter the task text rather than its generated display fields.
         List<Task> matches = tasks.getTasks().stream()
                 .filter(task -> task.getDescription().contains(keyword))
                 .toList();
