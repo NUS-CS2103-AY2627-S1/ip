@@ -1,0 +1,112 @@
+plugins {
+    id 'java'
+    id 'checkstyle'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
+group = 'fox'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+application {
+    mainClass = 'fox.gui.Launcher'
+}
+
+// Keep Fox's original executable tests as regression checks alongside JUnit.
+def foxTestClasses = [
+        'fox.parser.TaskParserTest',
+        'fox.storage.StorageTest',
+        'fox.task.TaskListTest',
+        'fox.FoxFindTest',
+        'fox.FoxPersistenceTest'
+]
+
+def legacyTestTasks = foxTestClasses.collect { testClass ->
+    String shortName = testClass.substring(testClass.lastIndexOf('.') + 1)
+    tasks.register("runLegacy${shortName}", JavaExec) {
+        group = 'verification'
+        description = "Runs the legacy executable test ${testClass}."
+        classpath = sourceSets.test.runtimeClasspath
+        mainClass = testClass
+        enableAssertions = true
+    }
+}
+
+test {
+    useJUnitPlatform()
+
+    failOnNoDiscoveredTests = false
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+
+    dependsOn legacyTestTasks
+}
+
+jar {
+    enabled = false
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'fox.jar'
+}
+
+run {
+    enableAssertions = true
+    standardInput = System.in
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String javaFxVersion = '17.0.7'
+
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:linux")
+}
