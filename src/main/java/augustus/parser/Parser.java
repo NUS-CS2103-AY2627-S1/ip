@@ -15,8 +15,6 @@ public class Parser {
     private static final String DEADLINE_SEPARATOR = " /by ";
     private static final String EVENT_FROM_SEPARATOR = " /from ";
     private static final String EVENT_TO_SEPARATOR = " /to ";
-
-    private static final String TAG_COMMAND = "tag";
     private static final String TAG_SEPARATOR = " /t ";
 
     /**
@@ -160,14 +158,14 @@ public class Parser {
         int index = input.indexOf(TAG_SEPARATOR);
 
         if (index == -1) {
-            throw new AugustusException("Use: tag TASK_NUMBER /t TAG");
+            throw new AugustusException("Tag must have following format: tag TASK_NUMBER /t TAG");
         }
 
         String tag =
                 input.substring(index + TAG_SEPARATOR.length()).trim();
 
         if (tag.isEmpty()) {
-            throw new AugustusException("A tag is required");
+            throw new AugustusException("A tag description is required");
         }
 
         return tag;

@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -49,18 +48,6 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
-
-        double imageWidth = img.getWidth();
-        double imageHeight = img.getHeight();
-
-        double cropSize = Math.min(imageWidth, imageHeight);
-
-        double x = (imageWidth - cropSize) / 2;
-        double y = (imageHeight - cropSize) / 2;
-
-        displayPicture.setViewport(
-                new Rectangle2D(x, y, cropSize, cropSize)
-        );
 
         displayPicture.setFitWidth(AVATAR_SIZE);
         displayPicture.setFitHeight(AVATAR_SIZE);

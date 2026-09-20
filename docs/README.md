@@ -2,23 +2,27 @@
 
 Greetings, citizen.
 
-Augustus is an **imperial-themed task manager** for keeping your duties,
-deadlines, and events under control. Rome was not built in a day, and
-neither is your assignment — so you may as well organise it.
+Augustus is a chatbot that helps you organise todos, deadlines, and events in one place.
 
-Issue commands, organise your tasks, and let Augustus keep the empire —
-or at least your schedule — in order.
+Use simple commands to manage your tasks, track important deadlines, and keep your schedule organised.
 
 
 ## Quick Start
 
-1. Ensure that Java `25` or later is installed on your computer.
-2. Launch Augustus using the JAR file.
-3. The Augustus GUI should appear.
-4. Type a command into the command box and press **Enter** or click **Send**.
-5. Refer to the command summary and features below for the available commands.
+1. Make sure Java `25` is installed on your computer.
+2. Place `Augustus.jar` in a folder of your choice.
+3. Open a new terminal window in that folder.
+4. Run:
 
-Some commands you can try:
+```bash
+java -jar Augustus.jar
+```
+
+5. The Augustus GUI should open.
+6. Enter a command in the command box and press **Enter** or click **Send**.
+7. Refer to the command summary and features below for the available commands.
+
+Here are some commands you can try:
 
 - `todo Review lecture notes`
 - `deadline Submit report /by 2026-09-25`
@@ -26,17 +30,34 @@ Some commands you can try:
 - `list`
 
 ---
+---
+
+## Command Summary
+
+| Command | Format | Purpose |
+| --- | --- | --- |
+| `todo` | `todo DESCRIPTION` | Adds a task without a date or time |
+| `deadline` | `deadline DESCRIPTION /by DATE` | Adds a task that must be completed by a date |
+| `event` | `event DESCRIPTION /from START /to END` | Adds an event with a start and end time |
+| `list` | `list` | Shows all tasks currently stored |
+| `find` | `find KEYWORD` | Searches for tasks containing a keyword |
+| `mark` | `mark NUMBER` | Marks a task as completed |
+| `unmark` | `unmark NUMBER` | Marks a completed task as incomplete |
+| `delete` | `delete NUMBER` | Removes a task |
+| `tag` | `tag NUMBER /t TAG` | Assigns a tag to a task |
+| `bye` | `bye` | Closes Augustus |
+
 
 ## Features
 
-**Notes about the command format:**
+### Command format
 
-- Words in `UPPER_CASE` are values that you need to provide.
-  For example, in `todo DESCRIPTION`, replace `DESCRIPTION` with a task such
-  as `Review lecture notes`.
-- `NUMBER` refers to the task number shown when using the `list` command.
-- Dates for deadlines must use the `yyyy-MM-dd` format.
-  For example, `2026-09-25`.
+Some commands require you to provide extra information.
+
+- `DESCRIPTION` is the description of the task.
+- `NUMBER` is the task number shown when you use `list`.
+- `KEYWORD` is the word you want to search for.
+- Deadline dates should be written in `yyyy-MM-dd` format, such as `2026-09-25`.
 
 ### Adding a todo: `todo`
 
@@ -214,28 +235,7 @@ May your duties be completed with honour.
 
 ---
 
-## Command Summary
-
-| Action | Format | Example |
-| --- | --- | --- |
-| Add todo | `todo DESCRIPTION` | `todo Review lecture notes` |
-| Add deadline | `deadline DESCRIPTION /by DATE` | `deadline Submit report /by 2026-09-25` |
-| Add event | `event DESCRIPTION /from START /to END` | `event Team meeting /from 2pm /to 4pm` |
-| List tasks | `list` | `list` |
-| Find tasks | `find KEYWORD` | `find report` |
-| Mark task | `mark NUMBER` | `mark 1` |
-| Unmark task | `unmark NUMBER` | `unmark 1` |
-| Delete task | `delete NUMBER` | `delete 1` |
-| Tag task | `tag NUMBER /t TAG` | `tag 1 /t university` |
-| Exit | `bye` | `bye` |
-
----
-
 ## Saving Data
 
 Augustus automatically saves your tasks to the file
 `data/augustus.txt` whenever the task list is updated.
-
-You do not need to save your tasks manually. When Augustus starts again,
-it loads the saved tasks from this file so that your previous data is
-restored.
