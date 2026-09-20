@@ -12,6 +12,10 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
+*.class
+
+# Runtime task data
+/data/
 
 # Temp files
 _temp/
