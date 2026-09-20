@@ -1,0 +1,121 @@
+.root-pane {
+    -fx-background-color: #e8edf4;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
+}
+
+.header-bar {
+    -fx-background-color: #1b365d;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.header-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.header-subtitle {
+    -fx-text-fill: rgba(255, 255, 255, 0.72);
+    -fx-font-size: 11px;
+}
+
+.chat-scroll {
+    -fx-background-color: #e8edf4;
+    -fx-background: #e8edf4;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.chat-scroll > .viewport {
+    -fx-background-color: #e8edf4;
+}
+
+.chat-scroll > .corner {
+    -fx-background-color: #e8edf4;
+}
+
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.dialog-row {
+    -fx-padding: 0;
+    -fx-spacing: 0;
+}
+
+.user-bubble {
+    -fx-background-color: #1f6f5b;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 14 14 4 14;
+    -fx-padding: 7 12 7 12;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 1px;
+}
+
+.axiom-bubble {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #1a2433;
+    -fx-background-radius: 4 14 14 14;
+    -fx-padding: 9 12 9 12;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2px;
+    -fx-border-color: #d5dce6;
+    -fx-border-radius: 4 14 14 14;
+    -fx-border-width: 1;
+}
+
+.error-bubble {
+    -fx-background-color: #c53030, #fdecea;
+    -fx-background-insets: 0, 0 0 0 4;
+    -fx-text-fill: #8e1b13;
+    -fx-background-radius: 4 12 12 12;
+    -fx-padding: 9 12 9 14;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-line-spacing: 2px;
+}
+
+.input-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d5dce6;
+    -fx-border-width: 1 0 0 0;
+}
+
+.input-field {
+    -fx-background-color: #f4f6fa;
+    -fx-background-radius: 8;
+    -fx-border-color: #d5dce6;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-padding: 8 10 8 10;
+    -fx-font-size: 13px;
+    -fx-prompt-text-fill: #7b8794;
+}
+
+.input-field:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #1b365d;
+    -fx-border-width: 1.5;
+}
+
+.send-button {
+    -fx-background-color: #1b365d;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 8;
+    -fx-padding: 8 14 8 14;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: #27487a;
+}
+
+.send-button:pressed {
+    -fx-background-color: #152a48;
+}
+
+.send-button:disabled {
+    -fx-opacity: 0.55;
+}
