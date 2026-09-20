@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_LEFT" minWidth="0.0" spacing="5.0"
+         type="javafx.scene.layout.VBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="speaker" styleClass="speaker-label" />
+        <Label fx:id="dialog" minWidth="0.0" wrapText="true"
+               styleClass="dialog-text" />
+    </children>
+</fx:root>

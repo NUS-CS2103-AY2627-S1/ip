@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+
+<AnchorPane prefHeight="640.0" prefWidth="560.0"
+            styleClass="chat-root"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="woofer.gui.MainWindow">
+    <children>
+        <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <HBox styleClass="chat-header" spacing="12.0" alignment="CENTER_LEFT">
+                <!-- A small vector paw stays crisp without relying on emoji fonts. -->
+                <SVGPath styleClass="paw-icon" mouseTransparent="true"
+                         content="M 10 25 C 10 19 16 15 20 15 C 24 15 30 19 30 25 C 30 31 24 28 20 28 C 16 28 10 31 10 25 Z M 4 14 C 0 7 7 4 10 10 C 13 17 7 20 4 14 Z M 12 7 C 10 -1 18 -2 19 5 C 20 12 13 14 12 7 Z M 22 5 C 23 -2 31 -1 29 7 C 28 14 21 12 22 5 Z M 31 10 C 34 4 41 7 37 14 C 34 20 28 17 31 10 Z" />
+                <VBox spacing="3.0">
+                    <Label text="Woofer" styleClass="app-title" />
+                    <Label text="Your tail-wagging task buddy" styleClass="subtitle" />
+                </VBox>
+            </HBox>
+            <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                        minHeight="0.0" vvalue="1.0" VBox.vgrow="ALWAYS">
+                <content>
+                    <VBox fx:id="dialogContainer" fillWidth="true" spacing="12.0"
+                          styleClass="conversation" />
+                </content>
+            </ScrollPane>
+            <VBox styleClass="composer" spacing="8.0">
+                <Label text="Try: todo walk the dog · list · find dog · undo"
+                       wrapText="true" styleClass="command-hint" />
+                <HBox spacing="8.0" alignment="CENTER_LEFT">
+                    <TextField fx:id="userInput" onAction="#handleUserInput"
+                               minWidth="0.0" HBox.hgrow="ALWAYS"
+                               accessibleText="Command"
+                               promptText="What's next, buddy?" />
+                    <Button fx:id="sendButton" mnemonicParsing="false"
+                            onAction="#handleUserInput" minWidth="72.0" text="Send" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </children>
+</AnchorPane>

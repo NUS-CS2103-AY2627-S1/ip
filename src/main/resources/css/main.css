@@ -1,0 +1,89 @@
+.chat-root {
+    -fx-background-color: #fff8e9;
+    -fx-font-family: "System";
+    -fx-font-size: 14px;
+    -fx-text-fill: #3f3026;
+}
+
+.chat-header {
+    -fx-padding: 16px 20px 14px 20px;
+    -fx-background-color: #ffe7ad;
+    -fx-border-color: transparent transparent #e3d8cb transparent;
+}
+
+.paw-icon {
+    -fx-fill: #7a4e2d;
+}
+
+.app-title {
+    -fx-font-size: 23px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #633d24;
+}
+
+.subtitle, .command-hint {
+    -fx-font-size: 12px;
+    -fx-text-fill: #726052;
+}
+
+.conversation {
+    -fx-padding: 16px;
+}
+
+.scroll-pane, .scroll-pane .viewport {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #c1aa94;
+    -fx-background-radius: 8px;
+}
+
+.composer {
+    -fx-padding: 12px 16px 16px 16px;
+    -fx-background-color: #fffdf9;
+    -fx-border-color: #e3d8cb transparent transparent transparent;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-color: #b9a38d;
+    -fx-border-radius: 8px;
+    -fx-prompt-text-fill: #796a5e;
+    -fx-text-fill: #3f3026;
+    -fx-padding: 10px 12px;
+}
+
+.text-field:focused {
+    -fx-border-color: #7a4e2d;
+    -fx-effect: dropshadow(gaussian, #d9c5af, 4, 0.2, 0, 0);
+}
+
+.button {
+    -fx-background-color: #7a4e2d;
+    -fx-background-radius: 8px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-padding: 11px 16px;
+    -fx-cursor: hand;
+}
+
+.button:hover, .button:focused {
+    -fx-background-color: #633d24;
+}
+
+.button:focused {
+    -fx-border-color: #b9a38d;
+    -fx-border-radius: 8px;
+}
+
+.button:pressed {
+    -fx-background-color: #4e301c;
+}
