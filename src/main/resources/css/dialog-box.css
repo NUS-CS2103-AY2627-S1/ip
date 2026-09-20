@@ -1,0 +1,40 @@
+.dialog-row { -fx-padding: 10px 0; -fx-spacing: 10px; -fx-alignment: TOP_LEFT; }
+.avatar { -fx-translate-y: 17px;  }
+.avatar-shield { -fx-fill: #20364e; -fx-stroke: #dfa960; -fx-stroke-width: 1.5px; }
+.avatar-icon { -fx-fill: #f0bd75; -fx-translate-y: -3px; }
+.user-row .avatar-shield { -fx-fill: #176b60; -fx-stroke: #98c7b9; }
+.user-row .avatar-icon { -fx-fill: #f0f8f4; }
+.speaker-label {
+    -fx-padding: 0 2px 4px 2px;
+    -fx-font-size: 0.68em;
+    -fx-font-weight: bold;
+    -fx-text-fill: #627a70;
+}
+.user-row { -fx-alignment: TOP_RIGHT; -fx-padding: 6px 0 6px 40px; }
+.user-row .message-column { -fx-alignment: CENTER_RIGHT; }
+.user-row .speaker-label { -fx-alignment: CENTER_RIGHT; }
+.dialog-label {
+    -fx-background-color: white;
+    -fx-border-color: #e1e9e5;
+    -fx-background-radius: 3px 14px 14px 14px;
+    -fx-border-radius: 3px 14px 14px 14px;
+    -fx-padding: 14px 16px;
+    -fx-text-fill: #2c443b;
+    -fx-font-size: 1em;
+    -fx-line-spacing: 4px;
+}
+.user-row .dialog-label {
+    -fx-background-color: #e5f0eb;
+    -fx-border-color: #d8e7df;
+    -fx-background-radius: 14px 3px 14px 14px;
+    -fx-border-radius: 14px 3px 14px 14px;
+}
+.duchess-row .add-label { -fx-background-color: #f5f5e9; -fx-border-color: #e3e6cd; }
+.duchess-row .marked-label { -fx-background-color: #edf6ef; -fx-border-color: #d7e8da; }
+.duchess-row .delete-label { -fx-background-color: #fcf2ea; -fx-border-color: #eddfd2; }
+.error-row .speaker-label { -fx-text-fill: #a13f3f; }
+.duchess-row .error-label {
+    -fx-background-color: #fff2f0;
+    -fx-border-color: #e7bdb8;
+    -fx-text-fill: #903d35;
+}

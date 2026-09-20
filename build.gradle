@@ -1,0 +1,89 @@
+plugins {
+    id 'java'
+    id 'application'
+    // Adds checkstyleMain and checkstyleTest tasks for the SE-EDU style rules.
+    id 'checkstyle'
+    // Generates measurable coverage for the non-GUI code exercised by JUnit.
+    id 'jacoco'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    // Bundle JavaFX for each supported platform so the executable JAR is self-contained.
+    String javaFxVersion = '17.0.7'
+
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:linux")
+}
+
+application {
+    // The launcher avoids the JavaFX classpath issue described in tutorial Part 1.
+    mainClass = 'duchess.gui.Launcher'
+}
+
+// Keeps the original text UI available for fast console and UI-plan testing.
+tasks.register('runCli', JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'duchess.Duchess'
+    standardInput = System.in
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'duchess.jar'
+}
+
+run {
+    standardInput = System.in
+}
+
+// Keep quality and test-reporting conventions in a reusable Gradle script.
+apply from: 'gradle/quality.gradle'
+
+// Opt-in integration check: requires a real display and uses disposable task data.
+tasks.register('guiTest', Test) {
+    description = 'Checks JavaFX input and layout regressions on a graphical desktop.'
+    group = 'verification'
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    useJUnitPlatform()
+    filter { includeTestsMatching 'duchess.gui.GuiInteractionTest' }
+    jacoco.enabled = false
+    systemProperty 'duchess.guiTests', 'true'
+    systemProperty 'duchess.preview', layout.buildDirectory.file('reports/gui-preview.png').get().asFile.path
+    doFirst {
+        workingDir = java.nio.file.Files.createTempDirectory('duchess-gui-test').toFile()
+    }
+}

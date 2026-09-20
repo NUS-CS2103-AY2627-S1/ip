@@ -1,0 +1,63 @@
+// Shared quality settings for local builds and continuous integration.
+
+checkstyle {
+    // Keep this version aligned with the version used by IntelliJ's Checkstyle plugin.
+    toolVersion = '14.1.0'
+}
+
+jacoco {
+    // JaCoCo 0.8.15 officially supports the Java 25 bytecode used by Duchess.
+    toolVersion = '0.8.15'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+jacocoTestReport {
+    dependsOn test
+
+    // JavaFX widgets require a graphical toolkit; their behavior is covered by
+    // the manual checklist rather than the headless core-logic coverage figure.
+    classDirectories.setFrom(sourceSets.main.output.asFileTree.matching {
+        exclude 'duchess/gui/**'
+    })
+
+    reports {
+        html.required = true
+        xml.required = true
+    }
+}
+
+jacocoTestCoverageVerification {
+    dependsOn test
+
+    classDirectories.setFrom(sourceSets.main.output.asFileTree.matching {
+        exclude 'duchess/gui/**'
+    })
+
+    violationRules {
+        rule {
+            limit {
+                counter = 'LINE'
+                minimum = 0.98
+            }
+            limit {
+                counter = 'BRANCH'
+                minimum = 0.90
+            }
+        }
+    }
+}
+
+check.dependsOn jacocoTestReport, jacocoTestCoverageVerification

@@ -1,0 +1,28 @@
+Duchess sample CLI session
+==========================
+
+Input: todo read architecture notes
+Output: added: [T][ ] read architecture notes
+
+Input: deadline finish report /by 2026-09-30
+Output: added: [D][ ] finish report (by: Sep 30 2026)
+
+Input: list
+Output:
+Here are the tasks in your list:
+1.[T][ ] read architecture notes
+2.[D][ ] finish report (by: Sep 30 2026)
+
+Input: mark 1
+Output:
+Nice! I've marked this task as done:
+  [T][X] read architecture notes
+
+Input: stats
+Output:
+Task statistics:
+Total tasks: 2
+Completed tasks: 1
+Incomplete tasks: 1
+Completed in the past 7 days: 1
+Completion rate: 50%

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.SVGPath?>
+
+<fx:root alignment="TOP_RIGHT"
+         styleClass="dialog-row"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <StackPane fx:id="avatarPane" minWidth="48.0" prefWidth="48.0" maxWidth="48.0"
+                   minHeight="48.0" prefHeight="48.0" maxHeight="48.0" styleClass="avatar">
+            <SVGPath styleClass="avatar-shield"
+                     content="M22 1 L42 8 L42 23 C42 34 34 41 22 47 C10 41 2 34 2 23 L2 8 Z" />
+            <SVGPath fx:id="avatarIcon" styleClass="avatar-icon"
+                     content="M12 1 L15 8 L23 9 L17 14 L19 22 L12 18 L5 22 L7 14 L1 9 L9 8 Z" />
+        </StackPane>
+        <VBox spacing="3.0" maxWidth="1.7976931348623157E308"
+              styleClass="message-column" HBox.hgrow="ALWAYS">
+            <Label fx:id="speakerLabel" text="DUCHESS" styleClass="speaker-label" />
+            <Label fx:id="dialog" text="Label" wrapText="true" minHeight="-Infinity"
+                   maxWidth="1.7976931348623157E308" styleClass="dialog-label" />
+        </VBox>
+    </children>
+    <padding>
+        <Insets bottom="6.0" left="4.0" right="4.0" top="6.0" />
+    </padding>
+</fx:root>

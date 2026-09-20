@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root fitToWidth="true" hbarPolicy="NEVER" vvalue="1.0"
+         maxWidth="880.0" styleClass="conversation-scroll"
+         type="javafx.scene.control.ScrollPane"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <content>
+        <VBox fx:id="dialogContainer" alignment="TOP_CENTER" fillWidth="true" spacing="2.0" />
+    </content>
+</fx:root>

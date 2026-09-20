@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.FlowPane?>
+
+<fx:root alignment="CENTER_LEFT" hgap="8.0" vgap="8.0" styleClass="quick-actions"
+         maxWidth="880.0" type="javafx.scene.layout.FlowPane"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label text="SQUAD SHORTCUTS" styleClass="section-caption" />
+        <Button mnemonicParsing="false" onAction="#handleCommand" userData="todo"
+                text="＋ New case" styleClass="quick-button" accessibleText="todo: Add a todo: todo DESCRIPTION">
+            <tooltip><Tooltip text="Add a todo: todo DESCRIPTION" /></tooltip>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#handleCommand" userData="deadline"
+                text="◷ Deadline" styleClass="quick-button" accessibleText="deadline: Set a timer: deadline DESCRIPTION /by yyyy-MM-dd">
+            <tooltip><Tooltip text="Set a timer: deadline DESCRIPTION /by yyyy-MM-dd" /></tooltip>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#handleCommand" userData="event"
+                text="◇ Briefing" styleClass="quick-button" accessibleText="event: Add an event: event DESCRIPTION /at TIME, or /from DATE /to DATE">
+            <tooltip><Tooltip text="Add an event: event DESCRIPTION /at TIME, or /from DATE /to DATE" /></tooltip>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#handleCommand" userData="list"
+                text="≡ Roll call" styleClass="quick-button" accessibleText="list: List every task">
+            <tooltip><Tooltip text="List every task" /></tooltip>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#handleCommand" userData="find"
+                text="⌕ Find intel" styleClass="quick-button" accessibleText="find: Search descriptions: find KEYWORD">
+            <tooltip><Tooltip text="Search descriptions: find KEYWORD" /></tooltip>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#handleCommand" userData="mark"
+                text="✓ Close case" styleClass="quick-button" accessibleText="mark: Mark completed: mark NUMBER">
+            <tooltip><Tooltip text="Mark completed: mark NUMBER" /></tooltip>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#handleCommand" userData="unmark"
+                text="↶ Reopen" styleClass="quick-button" accessibleText="unmark: Mark incomplete: unmark NUMBER">
+            <tooltip><Tooltip text="Mark incomplete: unmark NUMBER" /></tooltip>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#handleCommand" userData="delete"
+                text="× Archive" styleClass="quick-button" accessibleText="delete: Delete permanently: delete NUMBER (no undo)">
+            <tooltip><Tooltip text="Delete permanently: delete NUMBER (no undo)" /></tooltip>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#handleCommand" userData="stats"
+                text="▥ Report" styleClass="quick-button" accessibleText="stats: Show task and completion statistics">
+            <tooltip><Tooltip text="Show task and completion statistics" /></tooltip>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#handleCommand" userData="help"
+                text="? Playbook" styleClass="quick-button" accessibleText="help: Show every command and squad alias">
+            <tooltip><Tooltip text="Show every command and squad alias" /></tooltip>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#handleCommand" userData="bye"
+                text="↗ Sign off" styleClass="quick-button" accessibleText="bye: Say goodbye and close Duchess after two seconds">
+            <tooltip><Tooltip text="Say goodbye and close Duchess after two seconds" /></tooltip>
+        </Button>
+    </children>
+</fx:root>
