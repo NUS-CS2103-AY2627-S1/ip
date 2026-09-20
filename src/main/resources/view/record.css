@@ -1,0 +1,37 @@
+.app-root { -fx-background-color: #f3ead8; -fx-font-family: "Georgia", "Palatino Linotype", serif; -fx-font-size: 13px; }
+.app-header { -fx-background-color: linear-gradient(to right, #3a2118, #6b352d); -fx-border-color: #b08b57; -fx-border-width: 0 0 2px 0; -fx-effect: dropshadow(gaussian, rgba(48,27,19,0.28), 10, 0, 0, 2); }
+.app-title { -fx-text-fill: #fff3d8; -fx-font-size: 21px; -fx-font-weight: bold; }
+.app-subtitle, .avatar-label { -fx-text-fill: #d8bd91; -fx-font-size: 10px; }
+.choice-box { -fx-background-color: #f8eedb; -fx-background-radius: 3px; -fx-border-color: #b08b57; -fx-border-radius: 3px; }
+.conversation-scroll, .conversation-scroll > .viewport, .dialog-container {
+    -fx-background-color: #f3ead8;
+    -fx-background-image: url("../images/ConversationTile.png");
+    -fx-background-repeat: repeat;
+    -fx-background-size: 240px 240px;
+}
+.conversation-scroll { -fx-background-insets: 0; -fx-padding: 0; }
+.message-bubble { -fx-padding: 10px 13px; -fx-background-radius: 10px; -fx-text-fill: #34251f; -fx-line-spacing: 2px; }
+.record-dialog .message-bubble { -fx-background-color: #fffaf0; -fx-background-radius: 3px 12px 12px 12px; -fx-border-color: #ddcaa9; -fx-border-radius: 3px 12px 12px 12px; -fx-effect: dropshadow(gaussian, rgba(71,45,31,0.12), 5, 0, 0, 1); }
+.user-dialog .message-bubble { -fx-background-color: #e8d5b5; -fx-background-radius: 12px 3px 12px 12px; }
+.error-dialog .message-bubble { -fx-background-color: #f8e8df; -fx-border-color: #9c463d; -fx-border-width: 0 0 0 3px; -fx-border-radius: 3px 12px 12px 3px; -fx-text-fill: #732f29; }
+.help-content { -fx-spacing: 4px; }
+.help-title { -fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #733a31; -fx-padding: 0 0 3px 0; }
+.help-section { -fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #8d5b43; -fx-padding: 5px 0 0 0; }
+.help-row { -fx-line-spacing: 1px; }
+.help-command { -fx-font-weight: bold; -fx-fill: #3a2118; }
+.help-description { -fx-fill: #5f5047; }
+.help-hint { -fx-font-size: 11px; -fx-font-style: italic; -fx-text-fill: #76675b; -fx-padding: 6px 0 0 0; }
+.composer { -fx-background-color: #e2d2b7; -fx-border-color: #b08b57; -fx-border-width: 1px 0 0 0; }
+.text-field { -fx-background-color: #fffaf0; -fx-background-radius: 4px; -fx-border-color: #c5a878; -fx-border-radius: 4px; -fx-padding: 10px 12px; }
+.text-field:focused { -fx-border-color: #8d463c; -fx-background-color: #fffdf7; }
+.button { -fx-cursor: hand; -fx-font-weight: bold; -fx-padding: 10px 15px; -fx-background-radius: 4px; }
+.send-button { -fx-background-color: #8d3d35; -fx-text-fill: #fff8e9; }
+.send-button:hover { -fx-background-color: #713029; }
+.secondary-button { -fx-background-color: #c7aa79; -fx-text-fill: #3c261d; }
+.secondary-button:hover { -fx-background-color: #b79561; }
+.task-list { -fx-background-color: rgba(255,250,240,0.97); -fx-background-radius: 6px; -fx-border-color: #d2b98d; -fx-border-radius: 6px; -fx-effect: dropshadow(gaussian, rgba(71,45,31,0.12), 5, 0, 0, 1); }
+.task-list-title { -fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #733a31; }
+.task-row { -fx-padding: 8px 6px; -fx-text-fill: #3f2e27; }
+.task-row:hover { -fx-background-color: #f1e2c8; -fx-background-radius: 3px; }
+.task-row:completed { -fx-text-fill: #887a6e; }
+.empty-state { -fx-text-fill: #76675b; -fx-font-style: italic; }

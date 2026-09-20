@@ -3,7 +3,7 @@
 /out/
 /*.iml
 
-# Gradle build files
+# Gradle build files (includes .class files)
 /.gradle/
 /build/
 src/main/resources/docs/
@@ -13,8 +13,14 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# VSCode files
+/.vscode/
+
 # Temp files
 _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Local Data files
+/data/

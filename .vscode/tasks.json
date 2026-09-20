@@ -1,0 +1,33 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "gradle: run in terminal",
+      "type": "shell",
+      "command": "./gradlew.bat run",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "runOptions": {
+        "console": "integratedTerminal"
+      }
+    }, 
+    {
+      "label": "gradle: perform checkstyle",
+      "type": "shell",
+      "command": "./gradlew.bat checkstyleMain checkstyleTest",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "runOptions": {
+        "console": "integratedTerminal"
+      }
+    }
+  ]
+}

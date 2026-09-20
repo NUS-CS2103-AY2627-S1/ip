@@ -1,0 +1,181 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+    id 'checkstyle'
+}
+
+group = 'recordbase'
+version = '0.0.3'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    javaFxWindows
+    javaFxMac
+    javaFxMacArm64
+    javaFxLinux
+    javaFxLinuxArm64
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.14.4'
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    String javaFxVersion = '25.0.2'
+
+    // The common fat JAR supports the three main x64 desktop platforms.
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:linux")
+
+    // Dedicated configurations avoid mixing native libraries from different CPU architectures.
+    javaFxWindows("org.openjfx:javafx-base:${javaFxVersion}:win") { transitive = false }
+    javaFxWindows("org.openjfx:javafx-controls:${javaFxVersion}:win") { transitive = false }
+    javaFxWindows("org.openjfx:javafx-fxml:${javaFxVersion}:win") { transitive = false }
+    javaFxWindows("org.openjfx:javafx-graphics:${javaFxVersion}:win") { transitive = false }
+
+    javaFxMac("org.openjfx:javafx-base:${javaFxVersion}:mac") { transitive = false }
+    javaFxMac("org.openjfx:javafx-controls:${javaFxVersion}:mac") { transitive = false }
+    javaFxMac("org.openjfx:javafx-fxml:${javaFxVersion}:mac") { transitive = false }
+    javaFxMac("org.openjfx:javafx-graphics:${javaFxVersion}:mac") { transitive = false }
+
+    javaFxMacArm64("org.openjfx:javafx-base:${javaFxVersion}:mac-aarch64") { transitive = false }
+    javaFxMacArm64("org.openjfx:javafx-controls:${javaFxVersion}:mac-aarch64") { transitive = false }
+    javaFxMacArm64("org.openjfx:javafx-fxml:${javaFxVersion}:mac-aarch64") { transitive = false }
+    javaFxMacArm64("org.openjfx:javafx-graphics:${javaFxVersion}:mac-aarch64") { transitive = false }
+
+    javaFxLinux("org.openjfx:javafx-base:${javaFxVersion}:linux") { transitive = false }
+    javaFxLinux("org.openjfx:javafx-controls:${javaFxVersion}:linux") { transitive = false }
+    javaFxLinux("org.openjfx:javafx-fxml:${javaFxVersion}:linux") { transitive = false }
+    javaFxLinux("org.openjfx:javafx-graphics:${javaFxVersion}:linux") { transitive = false }
+
+    javaFxLinuxArm64("org.openjfx:javafx-base:${javaFxVersion}:linux-aarch64") { transitive = false }
+    javaFxLinuxArm64("org.openjfx:javafx-controls:${javaFxVersion}:linux-aarch64") { transitive = false }
+    javaFxLinuxArm64("org.openjfx:javafx-fxml:${javaFxVersion}:linux-aarch64") { transitive = false }
+    javaFxLinuxArm64("org.openjfx:javafx-graphics:${javaFxVersion}:linux-aarch64") { transitive = false }
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainModule = 'my.record.app'
+    mainClass = 'recordbase.ui.Launcher'
+    // JavaFX calls native windowing code, which Java 25 requires applications to authorize explicitly.
+    applicationDefaultJvmArgs = ['--enable-native-access=javafx.graphics']
+}
+
+jar {
+    // A modular launch uses this lean JAR; the separate shadow JAR remains available for distribution.
+    enabled = true
+    // Keep it distinct from the shadow JAR that packages the runtime dependencies.
+    archiveClassifier = 'without-dependencies'
+}
+
+// shadowJar {
+//     archiveFileName = 'record.jar'
+// }
+tasks.named('shadowJar') {
+    archiveBaseName = 'record'
+    archiveVersion = project.version.toString()
+    archiveClassifier = 'common'
+
+    mergeServiceFiles()
+}
+
+// All distribution tasks use the Shadow plugin already applied above; no extra plugin is needed.
+def shadowJarType = tasks.named('shadowJar').get().class
+
+def registerPlatformJar = { String taskName, String classifier, Configuration javaFxConfiguration ->
+    tasks.register(taskName, shadowJarType) {
+        group = 'distribution'
+        description = "Creates the ${classifier} JavaFX fat JAR."
+
+        archiveBaseName = 'record'
+        archiveVersion = project.version.toString()
+        archiveClassifier = classifier
+
+        from sourceSets.main.output
+        configurations = [javaFxConfiguration]
+
+        manifest {
+            attributes 'Main-Class': application.mainClass.get()
+        }
+
+        mergeServiceFiles()
+    }
+}
+
+registerPlatformJar('windowsJar', 'windows-x64', configurations.javaFxWindows)
+registerPlatformJar('macJar', 'mac-x64', configurations.javaFxMac)
+registerPlatformJar('macArm64Jar', 'mac-arm64', configurations.javaFxMacArm64)
+registerPlatformJar('linuxJar', 'linux-x64', configurations.javaFxLinux)
+registerPlatformJar('linuxArm64Jar', 'linux-arm64', configurations.javaFxLinuxArm64)
+
+tasks.named('build') {
+    dependsOn tasks.named('shadowJar')
+    dependsOn tasks.named('windowsJar')
+    dependsOn tasks.named('macJar')
+    dependsOn tasks.named('macArm64Jar')
+    dependsOn tasks.named('linuxJar')
+    dependsOn tasks.named('linuxArm64Jar')
+}
+
+checkstyle {
+    // toolVersion = '11.0.0'
+    toolVersion = '13.11.0' // Update to support Java 25 syntax. Else, assertions will cause build failures
+    //toolVersion = '14.1.0' // Update to support Java 25 syntax. Else, assertions will cause build failures
+}
+
+// The course Checkstyle grammar does not parse Java module descriptors; javac still validates this file.
+tasks.named('checkstyleMain') {
+    exclude '**/module-info.java'
+}
+
+run {
+    standardInput = System.in
+}
+
+tasks.named('run') {
+    standardInput = System.in
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

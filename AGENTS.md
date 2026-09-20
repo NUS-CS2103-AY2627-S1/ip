@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: intermediate
+* IDE and level of expertise: intermediate
 
 # Guidance for interacting with users
 
@@ -20,7 +20,7 @@ Unless the user says otherwise, assume that you are assisting a student working 
   * When suggesting a Git command, briefly explain what it does.
   * Add explanatory Javadoc comments to all classes and to nontrivial methods and fields when their purpose or behavior is not obvious.
   * Make generated code as self-explanatory as possible, and include explanatory comments where they improve understanding.
-  * When faced with a design choice, choose the simplest option that is sufficient for the requirements, while briefly explaining relevant more advanced alternatives.
+  * When faced with a design choice, choose the simplest option that is sufficient for the requirements, while briefly explaining relevant yet more advanced alternatives.
 
 # Project-specific requirements
 
@@ -30,6 +30,6 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 
 ## Git
 
-Use lightweight tags unless the user requests an annotated tag.
+Use lightweight tags unless the user requests an annotated tag. Provide only the relevant git command, but do not execute it even if explicitly asked.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
-Do not commit or push unless explicitly asked.
+Do not commit or push unless explicitly asked. 
