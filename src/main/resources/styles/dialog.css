@@ -1,0 +1,56 @@
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #f4f7fb;
+}
+.chat-header {
+    -fx-background-color: #ffffff;
+    -fx-padding: 16;
+}
+.title { -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #183653; }
+.subtitle { -fx-text-fill: #596b7d; }
+.scroll-pane, .scroll-pane > .viewport { -fx-background-color: #f4f7fb; }
+.scroll-pane { -fx-padding: 0; -fx-background-insets: 0; }
+.conversation { -fx-padding: 16; }
+.chat-message {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12;
+    -fx-padding: 12;
+    -fx-text-fill: #24384b;
+}
+.user-message { -fx-background-color: #dceafb; }
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8;
+    -fx-border-color: #b6c5d5;
+    -fx-border-radius: 8;
+    -fx-padding: 8 12;
+}
+.text-field:focused { -fx-border-color: #315f96; }
+.button {
+    -fx-background-color: #315f96;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+.button:hover { -fx-background-color: #254c7b; }
+.button:focused { -fx-border-color: #183653; -fx-border-radius: 8; }
+
+.error-box {
+    -fx-background-color: #fff1f0;
+    -fx-background-radius: 6;
+    -fx-border-color: #b42318;
+    -fx-border-width: 1 1 1 4;
+    -fx-border-radius: 6;
+    -fx-padding: 10;
+}
+
+.error-heading {
+    -fx-text-fill: #8a1c13;
+    -fx-font-weight: bold;
+}
+
+.error-message {
+    -fx-text-fill: #8a1c13;
+}

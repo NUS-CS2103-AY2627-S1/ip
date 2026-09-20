@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run console UI tests from test/ui-test-plan.md."
+  default_prompt: "Use the test-ui skill to run the console UI test plan and report the transcript and any mismatches."
