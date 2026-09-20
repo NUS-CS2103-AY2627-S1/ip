@@ -365,4 +365,15 @@ public class ParserTest {
         assertTrue(thrown.getMessage().contains("Oct 20 2019"), thrown.getMessage());
         assertTrue(thrown.getMessage().contains("Oct 15 2019"), thrown.getMessage());
     }
+
+    @Test
+    public void parseEvent_forceFlagButNoMarkers_exceptionThrown() {
+        assertThrows(StephException.class, () -> Parser.parseEvent("camp /force"));
+    }
+
+    @Test
+    public void parseCommand_leadingSpace_exceptionThrown() {
+        // The caller (Steph) trims the line first; the parser itself sees an empty first word.
+        assertThrows(StephException.class, () -> Parser.parseCommand(" list"));
+    }
 }

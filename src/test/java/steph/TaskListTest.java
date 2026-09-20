@@ -272,6 +272,53 @@ public class TaskListTest {
         assertTrue(thrown.getMessage().contains(second.toString()), thrown.getMessage());
     }
 
+    @Test
+    public void size_afterAddAndRemove_tracksCount() {
+        TaskList list = new TaskList();
+        list.add(new ToDo("a"));
+        list.add(new ToDo("b"));
+        list.remove(0);
+
+        assertEquals(1, list.size());
+    }
+
+    @Test
+    public void get_byIndex_returnsTasksInInsertionOrder() {
+        TaskList list = new TaskList();
+        ToDo first = new ToDo("a");
+        ToDo second = new ToDo("b");
+        list.add(first);
+        list.add(second);
+
+        assertSame(first, list.get(0));
+        assertSame(second, list.get(1));
+    }
+
+    @Test
+    public void findMatch_emptyKeyword_matchesEveryTask() {
+        TaskList list = new TaskList();
+        list.add(new ToDo("a"));
+        list.add(new ToDo("b"));
+
+        assertEquals(2, list.findMatch("").size());
+    }
+
+    @Test
+    public void findClashingEvents_emptyList_returnsEmpty() {
+        assertTrue(new TaskList().findClashingEvents(event("new", 9, 0, 10, 0)).isEmpty());
+    }
+
+    @Test
+    public void addEvent_listHasOtherTaskTypes_countsAllTasksInMessage() throws StephException {
+        TaskList list = new TaskList();
+        list.add(new ToDo("a"));
+        list.add(new Deadline("b", LocalDateTime.of(2019, 10, 15, 9, 0)));
+
+        String message = list.addEvent(new ParsedEvent(event("new", 9, 0, 10, 0), false));
+
+        assertTrue(message.endsWith("Now you have 3 tasks in the list."), message);
+    }
+
     private static Event event(String name, int fromHour, int fromMinute, int toHour, int toMinute) {
         LocalDateTime from = LocalDateTime.of(2019, 10, 15, fromHour, fromMinute);
         LocalDateTime to = LocalDateTime.of(2019, 10, 15, toHour, toMinute);
