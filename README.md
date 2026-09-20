@@ -23,3 +23,22 @@ Prerequisites: JDK 25, update Intellij to the most recent version.
    ```
 
 **Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+
+## Setting up Checkstyle in IntelliJ IDEA
+
+The project includes the SE-EDU Java intermediate coding-standard configuration
+at `config/checkstyle/checkstyle.xml`. To show style violations in IntelliJ IDEA:
+
+1. Install and restart the **Checkstyle-IDEA** plugin from `Settings` >
+   `Plugins` > `Marketplace`.
+1. Open `Settings` > `Tools` > `Checkstyle`.
+1. Set **Scan Scope** to `Only Java sources (including tests)` and the
+   **Checkstyle version** to `11.0.0`.
+1. Add a local configuration file named `SE-EDU`, selecting
+   `config/checkstyle/checkstyle.xml`, then mark it as active.
+
+You can also run the same checks outside the IDE with:
+
+```sh
+./gradlew checkstyleMain checkstyleTest
+```

@@ -1,0 +1,161 @@
+.root {
+    -fx-font-family: "Helvetica Neue", "Arial", sans-serif;
+    -fx-font-size: 14px;
+}
+
+.app {
+    -fx-background-color: #101724;
+}
+
+.header {
+    -fx-background-color: linear-gradient(to right, #2d67c8, #1e488f);
+}
+
+.profile-name {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.profile-status {
+    -fx-font-size: 11px;
+    -fx-text-fill: #dbe8ff;
+}
+
+.connection-state {
+    -fx-padding: 5px 0 5px 10px;
+}
+
+.status-indicator {
+    -fx-text-fill: #55be75;
+    -fx-font-size: 12px;
+}
+
+.connection-status {
+    -fx-font-size: 12px;
+    -fx-text-fill: #ffffff;
+}
+
+.offline-indicator {
+    -fx-text-fill: #ff6b6b;
+}
+
+.offline-status {
+    -fx-text-fill: #ffc3c3;
+}
+
+.conversation,
+.conversation > .viewport {
+    -fx-background-color: #101724;
+}
+
+.messages {
+    -fx-padding: 24px 26px 20px 26px;
+    -fx-background-color: #101724;
+}
+
+.conversation .scroll-bar:vertical,
+.conversation .scroll-bar:vertical .track,
+.conversation .scroll-bar:vertical .increment-button,
+.conversation .scroll-bar:vertical .decrement-button {
+    -fx-background-color: #182235;
+}
+
+.conversation .scroll-bar:vertical .thumb {
+    -fx-background-color: #40516a;
+    -fx-background-radius: 8px;
+}
+
+.conversation .scroll-bar:vertical .increment-arrow,
+.conversation .scroll-bar:vertical .decrement-arrow {
+    -fx-background-color: #aab6ca;
+}
+
+.message-row {
+    -fx-padding: 2px 0;
+}
+
+.message-bubble {
+    -fx-padding: 10px 13px;
+    -fx-line-spacing: 1px;
+}
+
+.edith-bubble {
+    -fx-background-color: #182235;
+    -fx-background-radius: 4px 13px 13px 13px;
+    -fx-border-color: #2b3950;
+    -fx-border-radius: 4px 13px 13px 13px;
+    -fx-text-fill: #eef4ff;
+}
+
+.user-bubble {
+    -fx-background-color: #1e3156;
+    -fx-background-radius: 13px 4px 13px 13px;
+    -fx-text-fill: #eef4ff;
+}
+
+.error-label {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #b42318;
+}
+
+.error-bubble {
+    -fx-background-color: #3c1d25;
+    -fx-background-radius: 4px 13px 13px 13px;
+    -fx-border-color: #a85863;
+    -fx-border-radius: 4px 13px 13px 13px;
+    -fx-text-fill: #ffd3d3;
+}
+
+.input-area {
+    -fx-background-color: #182235;
+    -fx-border-color: #2b3950 transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+}
+
+.input-bar {
+    -fx-padding: 15px 26px 8px 26px;
+}
+
+.command-field {
+    -fx-background-color: #101724;
+    -fx-background-radius: 6px;
+    -fx-border-color: #2b3950;
+    -fx-border-radius: 6px;
+    -fx-padding: 9px 12px;
+    -fx-text-fill: #eef4ff;
+    -fx-prompt-text-fill: #aab6ca;
+}
+
+.command-field:focused {
+    -fx-border-color: #2d67c8;
+}
+
+.command-field:disabled {
+    -fx-opacity: 0.62;
+}
+
+.send-button {
+    -fx-background-color: #2d67c8;
+    -fx-background-radius: 6px;
+    -fx-padding: 9px 14px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: #2458ad;
+}
+
+.send-button:disabled {
+    -fx-opacity: 0.56;
+    -fx-cursor: default;
+}
+
+.command-guide {
+    -fx-padding: 0 26px 16px 26px;
+    -fx-font-size: 11px;
+    -fx-text-fill: #aab6ca;
+}
