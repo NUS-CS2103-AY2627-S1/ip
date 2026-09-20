@@ -63,6 +63,12 @@ Examples:
 * `deadline Submit tP milestone /by 2026-09-20`
 * `deadline Pay rent /by 2026-10-01 /every month`
 
+When a recurring deadline is marked as done, Waddles doesn't keep the completed entry around: it advances the deadline to its next occurrence instead and confirms with a message.
+If `DATE` is not in `yyyy-mm-dd` format, Waddles will show an error and the deadline will not be added, e.g.:
+```
+OOPS!!! Oink! '2026-13-99' isn't a date I recognise — dates must be given as yyyy-mm-dd (e.g. 2024-12-01), so try again, e.g. deadline return book /by 2024-12-01
+```
+
 ### Adding an event: `event`
 
 Adds a task that occurs over a specific time span.
@@ -73,6 +79,13 @@ Format: `event DESCRIPTION /from START /to END [/every FREQUENCY]`
 * `FREQUENCY` works the same way as for deadlines.
 
 Example: `event Team meeting /from 2026-09-19 1400 /to 2026-09-19 1500`
+
+Recurring events behave the same way as recurring deadlines — marking one as done advances it to its next occurrence rather than keeping a separate completed entry.
+
+If `START` or `END` is not in `yyyy-mm-dd HHmm` format, Waddles will show an error and the event will not be added, e.g.:
+```
+OOPS!!! Oink! '2026-09-19 25:00' isn't a date (and time) I recognise — dates must be given as yyyy-mm-dd, optionally followed by a 24-hour time (e.g. 2024-12-01 or 2024-12-01 1800), so try again, e.g. event meeting /from 2024-12-01 /to 2024-12-02
+```
 
 ### Marking a task as done: `mark`
 
@@ -101,6 +114,12 @@ Format: `delete INDEX`
 
 Example: `delete 3` deletes the 3rd task in the current list.
 
+If `INDEX` is not a number, or refers to a task that doesn't exist in the current list, Waddles will show an error and no change is made, e.g.:
+```
+OOPS!!! Oink! That's not a valid task number, try e.g. mark 2
+OOPS!!! Oink! That task number isn't in the trough.
+```
+
 ### Finding tasks: `find`
 
 Finds tasks whose description contains the given keyword.
@@ -120,6 +139,11 @@ Format: `schedule DATE`
 Examples:
 * `schedule 2026-09-20`
 * `schedule today`
+
+If DATE is not in `yyyy-mm-dd` format and isn't the word `today`, Waddles will show an error, e.g.:
+```
+OOPS!!! Oink! Give the date as yyyy-mm-dd (e.g. 2024-12-01), or use 'today'.
+```
 
 ### Undoing your last action: `undo`
 
