@@ -1,0 +1,3 @@
+D | 1 | CS2103T | 18/09/2026 2359
+E | 1 | Project meeting | 20/10/2026 1400 | 20/10/2026 1600 | Zoom
+T | 1 | Groceries

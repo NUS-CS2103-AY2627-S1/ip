@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-05T19:42:47.715689+00:00",
+  "entries": [
+    {
+      "id": "29b4e058-23c5-40f1-8dc0-4ecdfe1db5e6",
+      "file_name": "29b4e058-23c5-40f1-8dc0-4ecdfe1db5e6/29b4e058-23c5-40f1-8dc0-4ecdfe1db5e6.json",
+      "source": {
+        "kind": "normal"
+      },
+      "created_at": "2026-09-05T19:32:02.113918+00:00",
+      "updated_at": "2026-09-05T19:40:12.411414+00:00",
+      "title": "Can you see my ip?",
+      "model": "",
+      "mode": "agent",
+      "message_count": 4,
+      "root_chat_id": "29b4e058-23c5-40f1-8dc0-4ecdfe1db5e6",
+      "is_title_generated": true,
+      "total_lines_added": 0,
+      "total_lines_removed": 0,
+      "tasks_total": 0,
+      "tasks_done": 0,
+      "tasks_failed": 0,
+      "total_prompt_tokens": 0,
+      "total_completion_tokens": 0,
+      "total_tokens": 0,
+      "total_cache_read_tokens": 0,
+      "total_cache_creation_tokens": 0,
+      "displayable_chat": true,
+      "waiting_for_card_ids": [],
+      "file_len": 2635,
+      "file_modified_unix_ms": 1788637212411
+    },
+    {
+      "id": "b9363c4d-344a-4bdf-927e-ea01bac29b18",
+      "file_name": "b9363c4d-344a-4bdf-927e-ea01bac29b18/b9363c4d-344a-4bdf-927e-ea01bac29b18.json",
+      "source": {
+        "kind": "normal"
+      },
+      "created_at": "2026-09-05T19:33:43.671985+00:00",
+      "updated_at": "2026-09-05T19:33:43.802813+00:00",
+      "title": "Start project setup for this repository.",
+      "model": "",
+      "mode": "setup",
+      "message_count": 3,
+      "root_chat_id": "b9363c4d-344a-4bdf-927e-ea01bac29b18",
+      "is_title_generated": true,
+      "total_lines_added": 0,
+      "total_lines_removed": 0,
+      "tasks_total": 0,
+      "tasks_done": 0,
+      "tasks_failed": 0,
+      "total_prompt_tokens": 0,
+      "total_completion_tokens": 0,
+      "total_tokens": 0,
+      "total_cache_read_tokens": 0,
+      "total_cache_creation_tokens": 0,
+      "displayable_chat": true,
+      "waiting_for_card_ids": [],
+      "file_len": 3976,
+      "file_modified_unix_ms": 1788636823803
+    },
+    {
+      "id": "bf67317e-c84f-4a8d-8f0e-f385e9bc5caf",
+      "file_name": "bf67317e-c84f-4a8d-8f0e-f385e9bc5caf/bf67317e-c84f-4a8d-8f0e-f385e9bc5caf.json",
+      "source": {
+        "kind": "normal"
+      },
+      "created_at": "2026-09-05T19:40:31.028566+00:00",
+      "updated_at": "2026-09-05T19:42:47.507687+00:00",
+      "title": "Can you see the project",
+      "model": "google_gemini/antigravity-preview-05-2026",
+      "mode": "agent",
+      "message_count": 8,
+      "root_chat_id": "bf67317e-c84f-4a8d-8f0e-f385e9bc5caf",
+      "is_title_generated": true,
+      "total_lines_added": 0,
+      "total_lines_removed": 0,
+      "tasks_total": 0,
+      "tasks_done": 0,
+      "tasks_failed": 0,
+      "total_prompt_tokens": 0,
+      "total_completion_tokens": 0,
+      "total_tokens": 0,
+      "total_cache_read_tokens": 0,
+      "total_cache_creation_tokens": 0,
+      "displayable_chat": true,
+      "waiting_for_card_ids": [],
+      "file_len": 51368,
+      "file_modified_unix_ms": 1788637367508
+    }
+  ],
+  "skipped_files": [
+    {
+      "file_name": "bf67317e-c84f-4a8d-8f0e-f385e9bc5caf/subchat-0c35a17a-3340-4284-a8b5-d9ba897b2d61.json",
+      "file_len": 10293,
+      "file_modified_unix_ms": 1788637343825
+    },
+    {
+      "file_name": "bf67317e-c84f-4a8d-8f0e-f385e9bc5caf/subchat-ebe851b6-dde0-4df7-b255-5af16cbd2fd4.json",
+      "file_len": 10293,
+      "file_modified_unix_ms": 1788637339876
+    }
+  ]
+}
