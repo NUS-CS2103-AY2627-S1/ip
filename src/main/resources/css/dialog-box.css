@@ -1,0 +1,61 @@
+.dialog-box {
+    -fx-alignment: TOP_LEFT;
+    -fx-padding: 5px 14px;
+    -fx-spacing: 7px;
+}
+
+.dialog-box .message-label {
+    -fx-background-radius: 14px 14px 14px 3px;
+    -fx-background-color: #193b32;
+    -fx-border-color: #4d9278;
+    -fx-border-radius: 14px 14px 14px 3px;
+    -fx-font-size: 16px;
+    -fx-padding: 10px 13px;
+    -fx-text-fill: #f2eddf;
+}
+
+.speaker-label {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 4px 0 0 0;
+    -fx-text-fill: #64748b;
+}
+
+.user-dialog {
+    -fx-alignment: TOP_RIGHT;
+}
+
+.user-dialog .message-label {
+    -fx-background-color: #3a3020;
+    -fx-border-color: #b8944c;
+    -fx-background-radius: 14px 14px 3px 14px;
+    -fx-border-radius: 14px 14px 3px 14px;
+}
+
+.loki-dialog .speaker-label {
+    -fx-text-fill: #15803d;
+}
+
+.user-dialog .speaker-label {
+    -fx-text-fill: #2563eb;
+}
+
+.loki-dialog .message-label {
+    -fx-background-color: #193b32;
+    -fx-border-color: #4d9278;
+}
+
+.error-dialog .message-label {
+    -fx-background-color: #48252a;
+    -fx-border-color: #d77872;
+    -fx-border-width: 0 0 0 4px;
+    -fx-text-fill: #ffd7cb;
+}
+
+.error-dialog .speaker-label {
+    -fx-text-fill: #dc2626;
+}
+
+.dialog-box #displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.18), 5, 0.2, 0, 1);
+}

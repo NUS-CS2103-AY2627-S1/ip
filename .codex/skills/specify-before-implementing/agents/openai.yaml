@@ -1,0 +1,4 @@
+interface:
+  display_name: "Specify Before Implementing"
+  short_description: "Stage-gate features before code changes"
+  default_prompt: "Use $specify-before-implementing to discover decisions, write a specification, review it, implement the approved scope, and verify the result."

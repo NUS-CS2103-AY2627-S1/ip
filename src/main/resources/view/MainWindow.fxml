@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane minHeight="480.0" minWidth="360.0" prefHeight="680.0" prefWidth="520.0"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="MainWindow">
+    <children>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="ALWAYS"
+                    AnchorPane.bottomAnchor="76.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="68.0">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true" spacing="6.0" />
+            </content>
+        </ScrollPane>
+        <HBox styleClass="input-bar" alignment="CENTER" spacing="8.0"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0">
+            <TextField fx:id="userInput" onAction="#handleUserInput" promptText="Whisper a command..."
+                       HBox.hgrow="ALWAYS" />
+            <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput"
+                    text="Cast ✦" />
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="title-bar"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <ImageView fx:id="headerAvatar" fitHeight="46.0" fitWidth="46.0" preserveRatio="true" />
+                <VBox spacing="2.0">
+                    <Label styleClass="title-label" text="✦ LOKI'S TASK FORGE" />
+                    <Label styleClass="subtitle-label" text="Mischief, momentum, and mortal obligations." />
+                </VBox>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

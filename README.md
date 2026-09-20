@@ -1,25 +1,112 @@
-# Duke project template
+# Loki User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Loki is a friendly task manager for to-dos, deadlines, and events. Enter commands
+in the command box and press **Enter** or click **Cast ✦**.
 
-## Setting up in Intellij
+![Loki's Task Forge](docs/Ui.png)
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+## Getting started
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+1. Install [JDK 25](https://www.oracle.com/java/technologies/downloads/).
+2. From the project root, run `./gradlew run` (on Windows, run `gradlew.bat run`).
+3. Type `help` to see the complete command list.
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+Loki saves your tasks automatically when you exit or close the window. Tasks are
+stored in `src/data/tasks.txt` and loaded the next time you start the application.
+
+## Features
+
+### Add a task
+
+Use one of the following commands. The task is added to the end of the list.
+
+| Task type | Format | Example |
+| --- | --- | --- |
+| To-do | `todo <description>` | `todo Buy groceries` |
+| Deadline | `deadline <description> /by <date/time>` | `deadline Return book /by 20/9/2026 1800` |
+| Event | `event <title> /from <date/time> /to <date/time>` | `event Project meeting /from 20/9/2026 1400 /to 20/9/2026 1600` |
+
+### View your tasks
+
+Use `list` to display all tasks in their current order. Loki numbers tasks from
+1, and you use these numbers with `mark`, `unmark`, `delete`, and `update`.
+
+```text
+list
+```
+
+Task markers show both the type and status:
+
+- `[T]` is a to-do, `[D]` is a deadline, and `[E]` is an event.
+- `[ ]` means incomplete and `[X]` means complete.
+
+### Complete or reopen a task
+
+Mark a task as complete with `mark <task number>`:
+
+```text
+mark 1
+```
+
+If you need to reopen it, use `unmark <task number>`:
+
+```text
+unmark 1
+```
+
+### Delete a task
+
+Delete a task by its current list number:
+
+```text
+delete 2
+```
+
+The remaining tasks are automatically renumbered.
+
+### Update an existing task
+
+Use `update <task number> <field> [<field> ...]`. You can update several fields
+in one command; fields may appear in any order, and omitted fields are kept.
+The task type cannot be changed.
+
+| Existing task | Supported fields |
+| --- | --- |
+| To-do | `/title <new title>` |
+| Deadline | `/title <new title>`, `/by <date/time>` |
+| Event | `/title <new title>`, `/from <date/time>`, `/to <date/time>` |
+
+Examples:
+
+```text
+update 1 /title Buy groceries and toiletries
+update 2 /by 20/9/2026 1800
+update 3 /title Final consultation /from 20/9/2026 1400 /to 20/9/2026 1600
+```
+
+An invalid update is rejected without changing the task.
+
+### Use dates and times
+
+For deadlines and events, use one of these formats:
+
+- `yyyy-MM-dd` — for example, `2026-09-20` (midnight is assumed)
+- `yyyy-MM-dd HHmm` — for example, `2026-09-20 1800`
+- `d/M/yyyy HHmm` — for example, `20/9/2026 1800`
+
+Use 24-hour time from `0000` to `2359`. Loki rejects impossible dates and events
+whose start time is later than their end time.
+
+### Get help or exit
+
+- Type `help` to display all commands, supported fields, and examples.
+- Type `exit` to save your tasks and close Loki.
+- `faretheewell` is also accepted as an exit command.
+
+## Tips
+
+- Command keywords and update field markers are case-insensitive, so `LIST`,
+  `Mark 1`, and `/TITLE` work too.
+- Task numbers are one-based: the first task is task `1`.
+- Loki displays a helpful error when a command is incomplete or invalid. Fix the
+  command and try again; valid tasks already in your list are not changed.

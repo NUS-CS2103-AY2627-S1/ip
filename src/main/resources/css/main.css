@@ -1,0 +1,94 @@
+.root {
+    -fx-background-color: #f8fafc;
+    -fx-background-image: url("../images/comic-background.png");
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+.title-bar {
+    -fx-background-color: linear-gradient(to right, #132a2b, #16201f);
+    -fx-border-color: #b8944c;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 10px 14px;
+}
+
+.title-label {
+    -fx-font-family: "Georgia", serif;
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f1d28a;
+}
+
+.subtitle-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: #9cc8b0;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .content {
+    -fx-background-color: transparent;
+    -fx-padding: 10px 0 14px 0;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #4c7566;
+    -fx-background-radius: 8px;
+}
+
+.input-bar {
+    -fx-background-color: rgba(13, 20, 24, 0.94);
+    -fx-border-color: #b8944c transparent transparent transparent;
+    -fx-padding: 12px 14px 14px 14px;
+}
+
+.text-field {
+    -fx-background-color: #172326;
+    -fx-background-radius: 8px;
+    -fx-border-color: #44655b;
+    -fx-border-radius: 8px;
+    -fx-font-size: 16px;
+    -fx-padding: 0 12px;
+    -fx-pref-height: 44px;
+    -fx-text-fill: #f5f0e6;
+    -fx-prompt-text-fill: #89a39a;
+}
+
+.text-field:focused {
+    -fx-border-color: #d0a94f;
+    -fx-border-width: 2px;
+}
+
+.button {
+    -fx-background-color: #b4862c;
+    -fx-background-radius: 8px;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-min-width: 76px;
+    -fx-pref-height: 44px;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #d0a94f;
+}
+
+.button:pressed {
+    -fx-background-color: #8f6b22;
+}
+
+.button:disabled {
+    -fx-background-color: #4a514f;
+    -fx-opacity: 1.0;
+}

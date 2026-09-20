@@ -1,0 +1,3 @@
+[submodule ".codex/skills/present-changes-visually"]
+	path = .codex/skills/present-changes-visually
+	url = https://github.com/se-edu/skill-present-changes-visually.git

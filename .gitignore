@@ -5,6 +5,7 @@
 
 # Gradle build files
 /.gradle/
+/.gradle-user-home/
 /build/
 src/main/resources/docs/
 
@@ -18,3 +19,9 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Java class files
+*.class
+
+# Local task data
+src/data/tasks.txt
