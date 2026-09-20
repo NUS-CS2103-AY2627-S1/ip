@@ -1,0 +1,165 @@
+.root {
+    -fx-background-color: #f5f6f2;
+    -fx-font-family: "System";
+    -fx-font-size: 14px;
+    -fx-text-fill: #253b34;
+}
+
+.header {
+    -fx-padding: 22px 24px 18px 24px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #dfe6df transparent;
+}
+
+.app-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #234c40;
+}
+
+.subtitle, .input-hint {
+    -fx-text-fill: #596b63;
+}
+
+.shortcuts {
+    -fx-padding: 12px 0 0 0;
+}
+
+.button {
+    -fx-cursor: hand;
+    -fx-background-insets: 0;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-padding: 8px 13px;
+}
+
+.shortcut {
+    -fx-background-color: #edf3ed;
+    -fx-text-fill: #315344;
+}
+
+.shortcut:hover {
+    -fx-background-color: #dce9de;
+}
+
+.button:focused {
+    -fx-border-color: #36745c;
+    -fx-border-width: 2px;
+    -fx-border-insets: -3px;
+}
+
+/* Keep the scenery and its tint behind the independently scrolling messages. */
+.campsite-background {
+    -fx-background-color: #214d54;
+    -fx-background-image: url("../images/campsite.png");
+    -fx-background-size: cover;
+    -fx-background-position: center bottom;
+    -fx-background-repeat: no-repeat;
+}
+
+/* Increase the final number to soften the scenery further (0 = clear, 1 = solid). */
+.background-wash {
+    -fx-background-color: rgba(255, 248, 232, 0.60);
+}
+
+.chat-scroll, .chat-scroll > .viewport, .dialog-container {
+    -fx-background-color: transparent;
+}
+
+.chat-scroll {
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+.dialog-container {
+    -fx-padding: 22px 24px;
+}
+
+.speaker {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #354d43;
+    -fx-background-color: #fff8e8;
+    -fx-background-radius: 5px;
+    -fx-padding: 3px 7px;
+}
+
+.message {
+    -fx-background-radius: 12px;
+    -fx-padding: 13px 16px;
+    -fx-line-spacing: 3px;
+}
+
+.user-dialog .message {
+    -fx-background-color: #205360;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 12px 12px 3px 12px;
+}
+
+.todd-dialog .message {
+    -fx-background-color: #fff8e8;
+    -fx-text-fill: #253b34;
+    -fx-border-color: #e0e6dd;
+    -fx-border-radius: 3px 12px 12px 12px;
+    -fx-background-radius: 3px 12px 12px 12px;
+}
+
+.composer {
+    -fx-padding: 16px 24px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dfe6df transparent transparent transparent;
+}
+
+.text-field {
+    -fx-padding: 11px 12px;
+    -fx-background-color: #f5f6f2;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #d7dfd6;
+    -fx-text-fill: #253b34;
+    -fx-prompt-text-fill: #65736b;
+}
+
+.text-field:focused {
+    -fx-border-color: #36745c;
+}
+
+.send-button {
+    -fx-padding: 11px 17px;
+    -fx-background-color: #205360;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.send-button:hover {
+    -fx-background-color: #173e48;
+}
+
+.send-button:disabled {
+    -fx-opacity: 0.45;
+}
+
+.input-hint {
+    -fx-font-size: 11px;
+}
+
+/* Errors use a strong left border and an explicit label, not just a different color. */
+.error-dialog .message {
+    -fx-background-color: #fff2ef;
+    -fx-border-color: #bf5545;
+    -fx-border-width: 1px 1px 1px 4px;
+    -fx-text-fill: #793b32;
+}
+
+.error-dialog .speaker {
+    -fx-text-fill: #9c4032;
+}
+
+.help-emphasis {
+    -fx-font-weight: bold;
+    -fx-fill: #234c40;
+}
+
+.help-text {
+    -fx-fill: #253b34;
+}

@@ -1,25 +1,27 @@
-# Duke project template
+# Todd
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Todd is a task-management chatbot with a playful NPC personality and a JavaFX chat interface.
+Track todos, deadlines, and events; find tasks, mark your progress, and check upcoming reminders.
 
-## Setting up in Intellij
+## Run from IntelliJ
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+1. Open this repository as a Gradle project.
+2. Set the project SDK and Gradle JVM to **Java 25**.
+3. Run `./gradlew run` in IntelliJ's terminal (`gradlew.bat run` on Windows).
+4. Type `help` in Todd to see command formats and examples. Type `bye` to close the app.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+On this Mac, `sdk use java 25.0.3.fx-zulu` selects the configured Java 25 installation.
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## Development checks
+
+Run `./gradlew test checkstyleMain checkstyleTest` with Java 25.
+Build the application with `./gradlew shadowJar`; the output is `build/libs/todd.jar`.
+
+Tasks are stored in `data/todd.txt`, relative to the folder from which Todd is launched.
+A missing file starts a new list. If an existing file cannot be loaded, Todd reports the problem
+and disables task changes to protect the saved data. Fix the file or its access permissions,
+then restart Todd. Back up the data file before editing it manually.
+
+## Credits
+
+See [CREDITS.md](CREDITS.md) for the project foundation, adapted GUI structure, and artwork credits.

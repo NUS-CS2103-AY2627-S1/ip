@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: beginner to medium 
+* IDE and level of expertise: used vscode before for a 3 month self learning project.
 
 # Guidance for interacting with users
 
@@ -27,6 +27,10 @@ Unless the user says otherwise, assume that you are assisting a student working 
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+
+## Testing
+
+Focus JUnit tests on approximately the top 50% highest-value methods, prioritizing complex, core, and critical business logic over simple getters or other trivial methods. After every code change, update the relevant JUnit tests as needed so that the test suite continues to meet this coverage target, and run the tests to verify the change.
 
 ## Git
 
