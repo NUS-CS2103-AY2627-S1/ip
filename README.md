@@ -1,25 +1,58 @@
-# Duke project template
+# Nexus
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Nexus is a personal task-management chatbot with a JavaFX interface. It can
+create, update, search, and delete tasks while saving them between sessions.
 
-## Setting up in Intellij
+See the [Nexus User Guide](docs/README.md) for illustrated setup instructions,
+examples, validation rules, and recovery behavior.
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+## Requirements
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+- JDK 25
+- IntelliJ IDEA or another Java IDE with Gradle support
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## Running Nexus
+
+Open the project in IntelliJ IDEA, set the project SDK and language level to
+JDK 25, and run `nexus.Launcher`.
+
+Alternatively, launch the application from a terminal:
+
+```shell
+./gradlew run
+```
+
+To build and run the packaged application:
+
+```shell
+./gradlew clean shadowJar
+java -jar build/libs/nexus.jar
+```
+
+## Commands
+
+| Command | Description |
+| --- | --- |
+| `todo DESCRIPTION` | Adds a todo. |
+| `deadline DESCRIPTION /by YYYY-MM-DD` | Adds a deadline. |
+| `event DESCRIPTION /from YYYY-MM-DD /to YYYY-MM-DD` | Adds an event. |
+| `list` | Lists all tasks. |
+| `mark NUMBER` | Marks a task as completed. |
+| `unmark NUMBER` | Marks a task as incomplete. |
+| `delete NUMBER` | Deletes a task. |
+| `find KEYWORD` | Finds tasks containing a keyword. |
+| `sort` | Sorts tasks alphabetically by description. |
+| `bye` | Ends the conversation. |
+
+Nexus stores its data in `data/nexus.txt`. The directory and file are created
+automatically when a task is saved for the first time. Valid tasks are recovered
+from partially malformed files, and failed saves are reported without changing
+the in-memory task list.
+
+## Testing
+
+Run the automated tests and coding-standard checks with:
+
+```shell
+./gradlew test checkstyleMain checkstyleTest
+```
