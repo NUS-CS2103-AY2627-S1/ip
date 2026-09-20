@@ -1,8 +1,8 @@
 # AnswerMe User Guide
+**AnswerMe** is an interactive task management application. It frees your mind from having to remember countless things that you need to get done.
 
 ![AnswerMe application interface](Ui.png)
 
-**AnswerMe** is an interactive task management application. It frees your mind from having to remember countless things that you need to get done.
 
 ## Table of Contents
 
