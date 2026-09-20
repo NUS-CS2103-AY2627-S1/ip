@@ -1,0 +1,6 @@
+T | 0 | read book
+T | 0 | read story
+T | 1 | play games
+E | 0 | workshop | 2026-09-12 1200 to 2026-09-12 1500
+D | 1 | interview | Sep 30 2026 18:00
+D | 0 | ip | Sep 18 2026 23:59
