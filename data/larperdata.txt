@@ -1,0 +1,8 @@
+T | 1 | read book
+D | 0 | return library book | 2026-12-02 | 1800 | #lockin
+E | 0 | project meeting | 2026-08-08 | 1400 | 2026-08-08 | 1600 | #boring
+T | 0 | join sports club
+D | 1 | practise work | 2026-07-07 | no time
+D | 0 | run | 2026-02-07 | no time
+T | 0 | sweep floor
+E | 1 | shower | 2026-09-06 | no time | 2026-12-07 | no time
