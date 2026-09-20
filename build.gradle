@@ -9,9 +9,11 @@ repositories {
     mavenCentral()
 }
 
+def javafxVersion = '25.0.1'
+
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
     }
 }
 
@@ -30,7 +32,7 @@ sourceSets {
 }
 
 javafx {
-    version = '17.0.13'
+    version = javafxVersion
     modules = ['javafx.controls']
 }
 
@@ -39,18 +41,24 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    runtimeOnly 'org.openjfx:javafx-graphics:17.0.13:win'
-    runtimeOnly 'org.openjfx:javafx-graphics:17.0.13:linux'
-    runtimeOnly 'org.openjfx:javafx-graphics:17.0.13:mac'
-    runtimeOnly 'org.openjfx:javafx-graphics:17.0.13:mac-aarch64'
+    // JavaFX native libraries for supported platforms.
+    runtimeOnly "org.openjfx:javafx-graphics:${javafxVersion}:win"
+    runtimeOnly "org.openjfx:javafx-graphics:${javafxVersion}:linux"
+    runtimeOnly "org.openjfx:javafx-graphics:${javafxVersion}:mac"
+    runtimeOnly "org.openjfx:javafx-graphics:${javafxVersion}:mac-aarch64"
 }
 
 application {
-    mainClass = 'jeremy.Jeremy'
+    // Launcher must be a class that does not extend Application.
+    mainClass = 'jeremy.Launcher'
+    applicationDefaultJvmArgs = [
+        '--enable-native-access=ALL-UNNAMED'
+    ]
 }
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+    options.release = 25
 }
 
 tasks.named('test') {
@@ -60,11 +68,9 @@ tasks.named('test') {
 
 tasks.named('run') {
     enableAssertions = true
+    jvmArgs '--enable-native-access=ALL-UNNAMED'
 }
 
-// Keep the ordinary JAR separate from the executable fat JAR. This prevents
-// Gradle's application distribution tasks from seeing the same file as both
-// an input and an output of different tasks.
 tasks.named('jar') {
     archiveClassifier = 'plain'
 }
@@ -73,6 +79,10 @@ tasks.named('shadowJar') {
     archiveBaseName = 'jeremy'
     archiveClassifier = ''
     mergeServiceFiles()
+
+    manifest {
+        attributes('Main-Class': 'jeremy.Launcher')
+    }
 }
 
 tasks.named('startScripts') {
