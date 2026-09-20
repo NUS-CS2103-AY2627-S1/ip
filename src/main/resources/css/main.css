@@ -1,0 +1,85 @@
+.root {
+    /* Colors drawn from the waterfront photo: slate sky, pale clouds, and sunset peach. */
+    sky-slate: #465d7b;
+    sky-light: #a8b8ca;
+    cloud-white: #f4f1ef;
+    sunset-peach: #efb08e;
+    ink: #243247;
+    muted-ink: #56667b;
+    alert-coral: #a23242;
+    alert-amber: #80500d;
+    -fx-background-color: sky-slate;
+    -fx-font-family: "Inter", "SansSerif";
+    -fx-font-size: 15px;
+}
+
+.background-image {
+    -fx-background-image: url("../images/background.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+.frost-overlay {
+    -fx-background-color: rgba(244, 241, 239, 0.22);
+}
+
+.text-field {
+    -fx-background-color: rgba(244, 241, 239, 0.95);
+    -fx-text-fill: ink;
+    -fx-prompt-text-fill: muted-ink;
+    -fx-border-color: sky-light;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-padding: 10 12;
+}
+
+.text-field:focused {
+    -fx-border-color: sky-slate;
+    -fx-effect: dropshadow(gaussian, rgba(168, 184, 202, 0.5), 8, 0.2, 0, 0);
+}
+
+.button {
+    -fx-background-color: sunset-peach;
+    -fx-text-fill: ink;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #f6c5a9;
+}
+
+.button:pressed {
+    -fx-background-color: #dc9676;
+}
+
+.button:focused {
+    -fx-border-color: ink;
+    -fx-border-radius: 12;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-padding: 8;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-pref-width: 9;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgba(70, 93, 123, 0.6);
+    -fx-background-radius: 10;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

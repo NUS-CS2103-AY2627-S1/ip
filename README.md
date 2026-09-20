@@ -1,25 +1,50 @@
-# Duke project template
+# Grow-er
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Grow-er is a desktop task manager that lets you manage to-dos, deadlines, and events through text commands in a chat-style interface. Tasks are saved automatically between sessions.
 
-## Setting up in Intellij
+![Grow-er application window](docs/Ui.png)
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+## What you can do
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+- Track to-dos, deadlines, and events with start and end times.
+- Mark tasks as completed or incomplete.
+- Find, sort, and delete tasks as your plans change.
+
+## Quick start
+
+1. Install **Java 25** and check your version with `java -version`.
+2. Download `grower.jar` from [Releases](https://github.com/liownahum/ip/releases), if available, and place it in a folder of your choice. You can also build it from source using the instructions below.
+3. Open a terminal in that folder and launch the app:
+
+   ```sh
+   java -jar grower.jar
    ```
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+4. Enter `todo read book`, then try `list` and `mark 1`.
+
+Read the **[User Guide](docs/README.md)** for all commands, examples, date formats, and help with saved data or errors.
+
+## Build and run from source
+
+With **JDK 25** installed, run these commands from the project folder:
+
+```sh
+./gradlew shadowJar
+java -jar build/libs/grower.jar
+```
+
+On Windows, use `gradlew.bat shadowJar` for the build step. The build packages the application and its dependencies into `build/libs/grower.jar`.
+
+To work on the project in IntelliJ IDEA, open the project folder, import the Gradle project, and set both the project SDK and Gradle JVM to **JDK 25**. Run the `grower.Launcher` class to start the desktop app.
+
+## Acknowledgement
+
+- **User profile picture:** Plant illustration from [40+ Easy Cute Plant Drawing Ideas](https://sketchandfun.com/plant-drawing/) by Sketch and Fun.
+- **Grower profile picture:** [Father Charles](https://amulet.fandom.com/wiki/Father_Charles), sourced from the Amulet Wiki on Fandom.
+- **Application icon:** [Tree](https://openclipart.org/detail/170749/tree) by diamonjohn on Openclipart, released under [CC0 1.0 (public-domain dedication)](https://creativecommons.org/publicdomain/zero/1.0/).
+
+## AI usage acknowledgement
+
+The project author used OpenAI Codex to assist with various parts of the codebase. This includes using AI for debugging,
+feedback on ideas and implementation, writing the Gui, A-BetterGui, A-Personality, A-MoreErrorHandling,
+and A-MoreTesting tags of the code. Furthermore, some unit tests were written by codex. 

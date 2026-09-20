@@ -1,0 +1,37 @@
+.message-label {
+    -fx-background-color: rgba(70, 93, 123, 0.96);
+    -fx-text-fill: cloud-white;
+    -fx-border-color: rgba(168, 184, 202, 0.8);
+    -fx-border-width: 1;
+    -fx-background-radius: 16 16 4 16;
+    -fx-border-radius: 16 16 4 16;
+    /* Reserve space for the avatar overlapping the right edge. */
+    -fx-padding: 12 28 12 14;
+}
+
+.message-label.reply-label {
+    -fx-padding: 12 14 12 28;
+    -fx-background-color: rgba(244, 241, 239, 0.94);
+    -fx-text-fill: ink;
+    -fx-border-color: sky-light;
+    -fx-background-radius: 16 16 16 4;
+    -fx-border-radius: 16 16 16 4;
+}
+
+.message-label.error-label {
+    -fx-background-color: #fbe6e6;
+    -fx-border-color: alert-coral;
+    -fx-border-width: 1 1 1 4;
+    -fx-text-fill: alert-coral;
+}
+
+.message-label.warning-label {
+    -fx-background-color: #fff0d5;
+    -fx-border-color: alert-amber;
+    -fx-border-width: 1 1 1 4;
+    -fx-text-fill: alert-amber;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(36, 50, 71, 0.2), 6, 0, 0, 2);
+}

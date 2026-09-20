@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+
+<fx:root alignment="TOP_RIGHT" spacing="-14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" stylesheets="@../css/dialog-box.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialog" styleClass="message-label" minHeight="-Infinity" text="Label" wrapText="true">
+            <padding>
+                <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+            </padding></Label>
+        <!-- Lower viewOrder keeps the avatar in front even when the children are flipped for bot replies. -->
+        <ImageView fx:id="displayPicture" fitHeight="40.0" fitWidth="40.0" viewOrder="-1.0" pickOnBounds="false" preserveRatio="true">
+            <clip><Circle centerX="20.0" centerY="20.0" radius="20.0" /></clip>
+        </ImageView>
+    </children>
+    <padding>
+        <Insets bottom="8.0" left="5.0" right="5.0" top="8.0" />
+    </padding>
+</fx:root>
