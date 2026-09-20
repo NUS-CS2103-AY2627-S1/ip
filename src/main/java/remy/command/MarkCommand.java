@@ -29,6 +29,13 @@ public class MarkCommand extends Command {
         this.isDone = isDone;
     }
 
+    /**
+     * Perform mark/unmark command
+     *
+     * @param tasks task collection to operate on
+     * @param ui user interface used to display results
+     * @param storage persistence service used to save changes
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         if (taskIndex > tasks.size() || taskIndex < 1) {

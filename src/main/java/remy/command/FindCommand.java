@@ -20,6 +20,13 @@ public class FindCommand extends Command {
         this.keyword = keyword;
     }
 
+    /**
+     * Perform find command
+     *
+     * @param tasks task collection to operate on
+     * @param ui user interface used to display results
+     * @param storage persistence service used to save changes
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showMatchingTasks(tasks.find(keyword));
