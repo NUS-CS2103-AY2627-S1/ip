@@ -2,6 +2,7 @@ package steph;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -151,5 +152,89 @@ public class StorageTest {
         Files.write(file, List.of("D | 0 | return book | not-a-date"));
 
         assertTrue(new Storage(file.toString()).load().isEmpty());
+    }
+
+    @Test
+    public void load_missingFieldsForEachType_linesSkipped() throws IOException {
+        Path file = tempDir.resolve("steph.txt");
+        Files.write(file, List.of("T | 0", "D | 0 | x", "E | 0 | x | 2019-10-15T00:00", "", "T"));
+
+        assertTrue(new Storage(file.toString()).load().isEmpty());
+    }
+
+    @Test
+    public void load_noSpacesAroundSeparator_stillParsed() throws IOException {
+        Path file = tempDir.resolve("steph.txt");
+        Files.write(file, List.of("T|1|read book"));
+
+        List<Task> loaded = new Storage(file.toString()).load();
+
+        assertEquals(1, loaded.size());
+        assertEquals("[T][X] read book", loaded.get(0).toString());
+    }
+
+    @Test
+    public void load_plainDateInDateField_treatedAsMidnight() throws IOException {
+        Path file = tempDir.resolve("steph.txt");
+        Files.write(file, List.of("D | 0 | return book | 2019-10-15"));
+
+        List<Task> loaded = new Storage(file.toString()).load();
+
+        assertEquals("D | 0 | return book | 2019-10-15T00:00", loaded.get(0).toFileFormat());
+    }
+
+    @Test
+    public void load_statusFlagOtherThanOne_taskNotDone() throws IOException {
+        Path file = tempDir.resolve("steph.txt");
+        Files.write(file, List.of("T | 0 | a", "T | x | b", "T | 2 | c"));
+
+        List<Task> loaded = new Storage(file.toString()).load();
+
+        assertEquals(3, loaded.size());
+        assertFalse(loaded.get(0).isDone());
+        assertFalse(loaded.get(1).isDone());
+        assertFalse(loaded.get(2).isDone());
+    }
+
+    @Test
+    public void load_pathIsADirectory_throwsIoException() throws IOException {
+        Path directory = tempDir.resolve("steph.txt");
+        Files.createDirectory(directory);
+
+        assertThrows(IOException.class, () -> new Storage(directory.toString()).load());
+    }
+
+    @Test
+    public void save_emptyList_writesEmptyFile() throws IOException {
+        Path file = tempDir.resolve("steph.txt");
+
+        new Storage(file.toString()).save(List.of());
+
+        assertTrue(Files.exists(file));
+        assertTrue(Files.readAllLines(file).isEmpty());
+    }
+
+    @Test
+    public void save_parentIsARegularFile_throwsIoException() throws IOException {
+        Path blocker = tempDir.resolve("blocker");
+        Files.writeString(blocker, "x");
+
+        assertThrows(IOException.class, () -> new Storage(blocker.resolve("steph.txt").toString()).save(List.of()));
+    }
+
+    @Test
+    public void saveThenLoad_doneFlagsOfAllTaskTypes_preserved() throws IOException {
+        Path file = tempDir.resolve("steph.txt");
+        Storage storage = new Storage(file.toString());
+        ToDo todo = new ToDo("a");
+        Deadline deadline = new Deadline("b", LocalDateTime.of(2019, 10, 15, 18, 0));
+        Event event = new Event("c", LocalDateTime.of(2019, 10, 15, 0, 0), LocalDateTime.of(2019, 10, 16, 0, 0));
+        todo.complete();
+        event.complete();
+
+        storage.save(List.of(todo, deadline, event));
+        List<Task> loaded = storage.load();
+
+        assertEquals(List.of(true, false, true), loaded.stream().map(Task::isDone).toList());
     }
 }
