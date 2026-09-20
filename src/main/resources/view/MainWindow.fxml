@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="600.0" prefWidth="420.0"
+            stylesheets="@../css/main.css"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="goop.gui.MainWindow">
+    <children>
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED"
+                    AnchorPane.bottomAnchor="64.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="0.0">
+            <content>
+                <VBox fx:id="dialogContainer" spacing="4.0">
+                    <padding>
+                        <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+        <TextField fx:id="userInput"
+                   onAction="#handleUserInput"
+                   prefHeight="48.0"
+                   promptText="Type a command..."
+                   AnchorPane.bottomAnchor="8.0"
+                   AnchorPane.leftAnchor="8.0"
+                   AnchorPane.rightAnchor="96.0" />
+        <Button fx:id="sendButton"
+                defaultButton="true"
+                mnemonicParsing="false"
+                onAction="#handleUserInput"
+                prefHeight="48.0"
+                prefWidth="80.0"
+                text="Send"
+                AnchorPane.bottomAnchor="8.0"
+                AnchorPane.rightAnchor="8.0" />
+    </children>
+</AnchorPane>

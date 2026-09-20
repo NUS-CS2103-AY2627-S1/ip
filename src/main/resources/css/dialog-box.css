@@ -1,0 +1,31 @@
+.dialog-label {
+    -fx-background-color: #dbeafe;
+    -fx-background-radius: 16px 16px 4px 16px;
+    -fx-border-color: #bfdbfe;
+    -fx-border-radius: 16px 16px 4px 16px;
+    -fx-border-width: 1px;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 12px;
+    -fx-text-fill: #172554;
+}
+
+.reply-label {
+    -fx-background-color: white;
+    -fx-background-radius: 16px 16px 16px 4px;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 16px 16px 16px 4px;
+    -fx-text-fill: #0f172a;
+}
+
+.error-label {
+    -fx-background-color: #fee2e2;
+    -fx-border-color: #b91c1c;
+    -fx-border-width: 1px 1px 1px 5px;
+    -fx-font-weight: bold;
+    -fx-padding: 12px 14px;
+    -fx-text-fill: #991b1b;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.18), 8, 0.2, 0, 2);
+}
