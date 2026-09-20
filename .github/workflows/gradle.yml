@@ -22,3 +22,10 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
       - name: Build and test
         run: gradle clean build
+      - name: Upload Java 25 executable JAR
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: hermes-mini-java25
+          path: build/libs/hermes-mini.jar
+          if-no-files-found: error
