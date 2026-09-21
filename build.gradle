@@ -1,0 +1,98 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+// A toolchain makes Gradle locate a Java 25 JDK to compile and run with,
+// rather than assuming the JDK that launched Gradle is already Java 25.
+// This keeps IDE-launched builds working even when the IDE starts Gradle
+// on an older JDK.
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+// Enforces the se-education.org intermediate Java coding standard.
+// The rules live in config/checkstyle/checkstyle.xml, with per-file
+// exceptions in config/checkstyle/suppressions.xml.
+checkstyle {
+    toolVersion = '14.1.0'
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javaFxVersion = '17.0.7'
+
+    // All three platform classifiers are declared so the shadowJar runs on any
+    // desktop OS, not just the machine that built it.
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:linux")
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    // True by default for a Gradle test task, but stated here because some
+    // tests now expect an AssertionError from an assert statement, which the
+    // JVM would skip entirely without -ea.
+    enableAssertions = true
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    // The launcher, not the Application subclass: a main class extending
+    // Application cannot start with JavaFX on the classpath. The console UI
+    // is still reachable by running peter.Peter directly.
+    mainClass = 'peter.gui.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'peter.jar'
+}
+
+run {
+    standardInput = System.in
+
+    // The JVM ignores assert statements unless -ea is passed, and a JavaExec
+    // task does not pass it by default, so a broken assumption would go
+    // unnoticed here. Gradle's test tasks already enable assertions.
+    enableAssertions = true
+}

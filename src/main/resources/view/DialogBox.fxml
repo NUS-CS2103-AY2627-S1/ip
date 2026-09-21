@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<!-- fx:root rather than a concrete root element: DialogBox supplies itself as
+     the root, so one instance can be created for every message. There is
+     deliberately no fx:controller here, which would clash with the
+     setController call the class makes. -->
+<fx:root alignment="TOP_RIGHT" type="javafx.scene.layout.HBox"
+         maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+         spacing="8.0"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <!-- wrapText with an unbounded minHeight lets a long reply grow downwards
+         instead of being clipped to one line. -->
+    <Label fx:id="dialog" minHeight="-Infinity" minWidth="0.0"
+           text="Label" wrapText="true" />
+    <ImageView fx:id="displayPicture" fitHeight="44.0" fitWidth="44.0"
+               pickOnBounds="true" preserveRatio="true" />
+  </children>
+  <padding>
+    <Insets bottom="10.0" left="8.0" right="8.0" top="10.0" />
+  </padding>
+</fx:root>

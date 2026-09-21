@@ -1,0 +1,86 @@
+.main-window {
+    -fx-background-color: #07152b;
+    -fx-font-family: "Segoe UI Variable", "Segoe UI", sans-serif;
+}
+
+.scroll-pane {
+    -fx-background-color: #07152b;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #07152b;
+    -fx-background-image: url("../images/SpiderWebBackground.png");
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+.dialog-container {
+    -fx-background-color: transparent;
+    -fx-padding: 10px 4px;
+}
+
+.command-bar {
+    -fx-background-color: #07152b;
+    -fx-border-color: #d8e6f3 transparent transparent transparent;
+    -fx-border-width: 1px;
+}
+
+.text-field {
+    -fx-background-color: #f6f8fb;
+    -fx-background-radius: 18px;
+    -fx-border-color: #9fb8d0;
+    -fx-border-radius: 18px;
+    -fx-prompt-text-fill: #60758b;
+    -fx-text-fill: #07152b;
+    -fx-padding: 9px 14px;
+}
+
+.text-field:focused {
+    -fx-border-color: #e62429;
+    -fx-border-width: 2px;
+}
+
+.button {
+    -fx-background-color: #e62429;
+    -fx-background-radius: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-padding: 9px 16px;
+}
+
+.button:hover {
+    -fx-background-color: #ff3d43;
+}
+
+.button:pressed {
+    -fx-background-color: #b9191e;
+}
+
+.dialog-box .label {
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.38), 8, 0.2, 0, 3);
+    -fx-padding: 10px 14px;
+    -fx-text-fill: white;
+}
+
+.peter-dialog .label {
+    -fx-background-color: #174f91;
+    -fx-border-color: #86b8e8;
+}
+
+.user-dialog .label {
+    -fx-background-color: #c71f25;
+    -fx-border-color: #ff7b7f;
+}
+
+.scroll-bar:vertical,
+.scroll-bar:vertical .track {
+    -fx-background-color: #07152b;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #e62429;
+    -fx-background-radius: 8px;
+}
