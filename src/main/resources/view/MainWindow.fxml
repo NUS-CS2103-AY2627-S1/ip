@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="620.0" prefWidth="560.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="chris.gui.MainWindow">
+    <children>
+        <HBox fx:id="appHeader" alignment="CENTER_LEFT" spacing="12.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label fx:id="brandMark" alignment="CENTER" text="C" />
+                <VBox alignment="CENTER_LEFT" spacing="1.0">
+                    <children>
+                        <Label fx:id="brandTitle" text="Chris" />
+                        <Label fx:id="brandSubtitle" text="YOUR TASK COMPANION" />
+                    </children>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="headerBadge" text="LOCAL TASKS" />
+            </children>
+        </HBox>
+        <HBox fx:id="shortcutBar" alignment="CENTER_LEFT" spacing="8.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0">
+            <children>
+                <Label fx:id="shortcutLabel" text="QUICK ACTIONS" />
+                <Button fx:id="listQuickButton" onAction="#handleListQuickAction" text="List tasks" />
+                <Button fx:id="helpQuickButton" onAction="#handleHelpQuickAction" text="Help" />
+            </children>
+        </HBox>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                    AnchorPane.bottomAnchor="82.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="122.0">
+            <content>
+                <VBox fx:id="dialogContainer" spacing="10.0" />
+            </content>
+        </ScrollPane>
+        <VBox fx:id="composer" spacing="6.0"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label fx:id="promptMark" text="›" />
+                        <TextField fx:id="userInput" onAction="#handleUserInput"
+                                   promptText="Type a command, e.g. todo read book" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="sendButton" onAction="#handleUserInput" text="Send" />
+                    </children>
+                </HBox>
+                <Label fx:id="composerHint" text="PRESS ENTER TO SEND  ·  TYPE HELP FOR COMMANDS" />
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
