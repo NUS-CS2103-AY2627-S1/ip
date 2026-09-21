@@ -6,6 +6,12 @@ package wiz;
 public class Parser {
 
     /**
+     * Prevents instantiation of this utility class.
+     */
+    private Parser() {
+    }
+
+    /**
      * Extracts the command word from raw user input.
      *
      * @param input The raw input string from the user.
