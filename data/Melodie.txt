@@ -1,0 +1,7 @@
+D | 1 | play 500 games | 2026-12-08T23:59
+E | 0 | Chasca's birthday | 2026-12-10T00:00 | 2026-12-10T23:59
+T | 0 | pull C6 Nicole for Chasca melt team when she reruns
+T | 1 | finish ip
+E | 0 | try | 2012-02-01T00:00 | 2013-02-01T00:00
+T | 0 | defeat the Raiden Shogun
+T | 1 | CS2103T tP

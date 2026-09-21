@@ -1,25 +1,78 @@
-# Duke project template
+# Melodie
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+```text
+ __  __      _           _ _
+|  \/  | ___| | ___   __| (_) ___
+| |\/| |/ _ \ |/ _ \ / _` | |/ _ \
+| |  | |  __/ | (_) | (_| | |  __/
+|_|  |_|\___|_|\___/ \__,_|_|\___|
 
-## Setting up in Intellij
+          ♪  ♫  ♪
+```
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+Melodie is a desktop task manager with a musical-conductor personality. It
+helps users manage todos, deadlines, and events through a conversational
+JavaFX interface.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Features
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+- Add, list, update, find, complete, reopen, and delete tasks.
+- Store todos, deadlines, and events between sessions.
+- Accept numeric dates and natural date words such as `today`, `tomorrow`, and
+  weekdays.
+- Provide command hints, command-history navigation, and visually distinct
+  error messages.
+
+See the [Melodie User Guide](docs/README.md) for the complete command reference.
+
+## Requirements
+
+- Java 25
+
+## Running Melodie
+
+From the project root, run:
+
+```bash
+./gradlew run
+```
+
+On Windows, use `gradlew.bat run` instead.
+
+## Building and running the JAR
+
+Create the cross-platform fat JAR with:
+
+```bash
+./gradlew clean shadowJar
+```
+
+The generated file is `build/libs/Melodie.jar`. Copy it into an empty folder
+and run it with Java 25:
+
+```bash
+java -jar Melodie.jar
+```
+
+## Testing
+
+Run the automated tests and code-quality checks with:
+
+```bash
+./gradlew clean check
+```
+
+## Credits
+
+- This project was developed from the
+  [NUS CS2103/T individual project starter repository](https://github.com/NUS-CS2103-AY2627-S1/ip).
+- Cat user-avatar image: `Kitty` WhatsApp sticker pack by Zuckerschnute.
+- Dog Melodie-avatar image: `guat` WhatsApp sticker pack by Viko & Co.
+- Mount Fuji background: original photograph by Nathaniel Lim.
+- OpenAI ChatGPT and Codex were used by Nathaniel Lim throughout the project
+  to assist with brainstorming, implementation, debugging, refactoring,
+  testing, and documentation across multiple increments. All AI-generated
+  suggestions and content were reviewed, tested where applicable, and adapted
+  before inclusion.
+
+The third-party sticker artwork remains credited to its respective creators.
