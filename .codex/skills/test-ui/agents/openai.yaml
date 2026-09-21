@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run scripted UI tests and compare output"
+  default_prompt: "Use $test-ui to run the repository UI test plan and report the console session."

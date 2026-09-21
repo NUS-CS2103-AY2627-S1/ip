@@ -1,0 +1,103 @@
+.root {
+    -quackie-navy: #172033;
+    -quackie-teal: #22a6a1;
+    -quackie-yellow: #ffd166;
+    -fx-background-color: #eef3f7;
+    -fx-font-family: "Avenir Next", "Arial", sans-serif;
+}
+
+.header {
+    -fx-background-color: linear-gradient(to right, -quackie-navy, #263a59);
+}
+
+.title {
+    -fx-font-size: 25px;
+    -fx-font-weight: 800;
+    -fx-letter-spacing: 2px;
+    -fx-text-fill: -quackie-yellow;
+}
+
+.subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #c9d6e5;
+}
+
+.status {
+    -fx-background-color: rgba(34, 166, 161, 0.24);
+    -fx-background-radius: 12px;
+    -fx-font-size: 10px;
+    -fx-font-weight: 800;
+    -fx-padding: 4px 9px;
+    -fx-text-fill: #8de3df;
+}
+
+.conversation,
+.conversation > .viewport {
+    -fx-background-color: #eef3f7;
+}
+
+.conversation {
+    -fx-border-color: transparent;
+}
+
+#dialogContainer {
+    -fx-background-color: linear-gradient(to bottom, #eef3f7, #f6f8fa);
+}
+
+.composer {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d7e0e8 transparent transparent transparent;
+}
+
+.hint {
+    -fx-font-size: 11px;
+    -fx-text-fill: #67758a;
+}
+
+.text-field {
+    -fx-background-color: #f5f8fa;
+    -fx-background-radius: 10px;
+    -fx-border-color: #c8d3df;
+    -fx-border-radius: 10px;
+    -fx-font-size: 14px;
+    -fx-padding: 11px 13px;
+}
+
+.text-field:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: -quackie-teal;
+    -fx-effect: dropshadow(gaussian, rgba(34, 166, 161, 0.18), 8, 0, 0, 2);
+}
+
+.button {
+    -fx-background-color: -quackie-yellow;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+    -fx-padding: 11px 20px;
+    -fx-text-fill: -quackie-navy;
+}
+
+.button:hover {
+    -fx-background-color: #ffdc85;
+}
+
+.button:pressed {
+    -fx-background-color: #efbd4f;
+}
+
+.button:disabled {
+    -fx-cursor: default;
+    -fx-opacity: 0.5;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #aebbc9;
+    -fx-background-radius: 8px;
+}

@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Intermediate
+* IDE and level of expertise: IntelliJ, intermediate
 
 # Guidance for interacting with users
 
@@ -33,3 +33,38 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+Follow these commit-message conventions:
+
+* Write the subject in the imperative mood.
+* Capitalise the first word and omit a trailing period.
+* Keep the subject within 50 characters where practical and never exceed 72 characters.
+* For nontrivial changes, add a body after a blank line that explains what changed and why.
+* Wrap commit-message body lines at approximately 72 characters.
+
+## Coding standard
+
+Follow the project Java and Markdown coding standards:
+
+* Use lower-case package names, PascalCase type names, and camelCase method and variable names.
+* Name boolean values so they read as propositions, and use plural names for collections.
+* Indent Java code with four spaces and use K&R braces.
+* Keep Java lines within 120 characters, preferably below 110 characters.
+* Use explicit imports and group them consistently as static, Java, third-party, and project imports.
+* Put every Java class in a suitable package and keep related classes together.
+* Use GitHub-flavoured Markdown with blank lines around headings, lists, and code blocks.
+* Do not hard-wrap ordinary Markdown prose unnecessarily.
+
+## UI test workflow
+
+After every code update, review `test/ui-test-plan.md` and update it when the
+observable command-line behavior or expected output changes. Then invoke the
+project-specific `test-ui` skill to run the plan before considering the update
+complete. The skill must stop at the first failed case and report the actual and
+expected console output.
+
+## JUnit workflow
+
+Maintain JUnit 5 tests for at least the highest-value non-trivial methods (the
+top half is a useful minimum) across the core classes. Update the tests whenever
+a code change alters the corresponding behaviour.

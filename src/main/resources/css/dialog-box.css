@@ -1,0 +1,49 @@
+#dialog {
+    -fx-background-radius: 14px;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 11px 14px;
+}
+
+#avatar {
+    -fx-background-radius: 24px;
+    -fx-font-size: 11px;
+    -fx-font-weight: 800;
+}
+
+.quackie-avatar {
+    -fx-background-color: #ffd166;
+    -fx-text-fill: #172033;
+}
+
+.user-avatar {
+    -fx-background-color: #22a6a1;
+    -fx-text-fill: #ffffff;
+}
+
+.error-avatar {
+    -fx-background-color: #d9544d;
+    -fx-text-fill: #ffffff;
+}
+
+.quackie-bubble {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d7e0e8;
+    -fx-border-radius: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(23, 32, 51, 0.08), 8, 0, 0, 2);
+    -fx-text-fill: #27364b;
+}
+
+.user-bubble {
+    -fx-background-color: linear-gradient(to bottom right, #22a6a1, #178984);
+    -fx-effect: dropshadow(gaussian, rgba(23, 32, 51, 0.12), 8, 0, 0, 2);
+    -fx-text-fill: #ffffff;
+}
+
+.error-bubble {
+    -fx-background-color: #fff3f2;
+    -fx-border-color: #e6a29e;
+    -fx-border-radius: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(139, 42, 36, 0.10), 8, 0, 0, 2);
+    -fx-text-fill: #8b2a24;
+}
