@@ -1,0 +1,6 @@
+interface:
+  display_name: "UI Test Runner"
+  short_description: "Run planned command-line UI checks"
+  default_prompt: "Use $test-ui to run the project UI test plan."
+policy:
+  allow_implicit_invocation: true

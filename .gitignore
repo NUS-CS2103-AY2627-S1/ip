@@ -5,6 +5,7 @@
 
 # Gradle build files
 /.gradle/
+/.gradle-local/
 /build/
 src/main/resources/docs/
 
@@ -15,6 +16,12 @@ bin/
 
 # Temp files
 _temp/
+
+# Keep the data directory in the repository but ignore runtime task data and backups
+data/aster.txt
+data/aster.txt.*
+data/*.corrupt.*
+data/*.tmp
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

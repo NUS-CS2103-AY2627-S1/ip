@@ -1,0 +1,11 @@
+.root { -fx-background-color: #10152f; -fx-background-image: url("../images/starry-background.png"); -fx-background-size: cover; -fx-font-family: "Segoe UI"; }
+.text-field { -fx-background-color: white; -fx-background-radius: 10px; -fx-border-color: #dfe3ec; -fx-border-radius: 10px; -fx-font-size: 14px; -fx-padding: 0 14px; }
+.text-field:focused { -fx-border-color: #f2c866; }
+.button { -fx-background-color: #d5a84b; -fx-background-radius: 14px; -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #10152f; -fx-cursor: hand; }
+.button:hover { -fx-background-color: #f2c866; }
+.button:pressed { -fx-background-color: #b8882c; }
+.scroll-pane { -fx-background-color: transparent; -fx-padding: 8px 12px; }
+.scroll-pane .viewport { -fx-background-color: transparent; }
+.scroll-bar { -fx-background-color: transparent; }
+.scroll-bar .thumb { -fx-background-color: #c9ccda; -fx-background-radius: 8px; }
+.scroll-bar .increment-button, .scroll-bar .decrement-button { -fx-pref-height: 0; -fx-opacity: 0; }

@@ -1,0 +1,4 @@
+.label { -fx-background-color: white; -fx-background-radius: 14px 14px 4px 14px; -fx-text-fill: #252735; -fx-font-size: 14px; -fx-line-spacing: 2px; }
+.reply-label { -fx-background-color: #27305d; -fx-background-radius: 14px 14px 14px 4px; -fx-text-fill: #f2c866; }
+.error-label { -fx-background-color: #fff0f0; -fx-border-color: #f2a5a5; -fx-border-radius: 14px 14px 14px 4px; -fx-border-width: 1px; -fx-text-fill: #a12b35; }
+#displayPicture { -fx-effect: dropshadow(gaussian, rgba(37, 39, 53, 0.12), 5, 0, 0, 1); }

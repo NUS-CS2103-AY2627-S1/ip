@@ -1,0 +1,99 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'jacoco'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+String javaFxVersion = '17.0.7'
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    // Include the native runtimes for every smoke-tested platform in the fat JAR.
+    // The JavaFX Gradle plugin otherwise resolves only the platform used to build it.
+    ['linux', 'win', 'mac-aarch64'].each { platform ->
+        implementation "org.openjfx:javafx-base:${javaFxVersion}:${platform}"
+        implementation "org.openjfx:javafx-controls:${javaFxVersion}:${platform}"
+        implementation "org.openjfx:javafx-fxml:${javaFxVersion}:${platform}"
+        implementation "org.openjfx:javafx-graphics:${javaFxVersion}:${platform}"
+    }
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        html.required = true
+        xml.required = true
+    }
+}
+
+tasks.register('coverage') {
+    group = 'verification'
+    description = 'Runs tests and generates the JaCoCo coverage report.'
+    dependsOn jacocoTestReport
+}
+
+application {
+    mainClass = 'aster.gui.Launcher'
+}
+
+javafx {
+    version = javaFxVersion
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+checkstyle {
+    toolVersion = '10.26.1'
+    configFile = file('config/checkstyle/checkstyle.xml')
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'aster.jar'
+    manifest {
+        attributes(
+                'Main-Class': application.mainClass.get(),
+                'Enable-Native-Access': 'ALL-UNNAMED'
+        )
+    }
+}
+
+run {
+    standardInput = System.in
+}
