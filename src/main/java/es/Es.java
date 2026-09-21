@@ -251,6 +251,15 @@ public class Es {
                 case FIND:
                     findTasks(tasks, input.substring(command.name().length()).trim(), ui);
                     break;
+                case FINDTAG:
+                    findTags(tasks, input.substring(command.name().length()).trim(), ui);
+                    break;
+                case TAG:
+                    updateTags(storage, tasks, input, true, ui);
+                    break;
+                case UNTAG:
+                    updateTags(storage, tasks, input, false, ui);
+                    break;
                 case MARK:
                     updateTaskStatus(storage, tasks, input, true);
                     break;
@@ -488,6 +497,42 @@ public class Es {
         for (String token : text.split("\\s+")) {
             if (token.startsWith("#")) {
                 task.addTag(token);
+            }
+        }
+    }
+
+    private static void updateTags(Storage storage, TaskList tasks, String input, boolean adding, Ui ui)
+            throws EsException {
+        String[] parts = input.split("\\s+");
+        if (parts.length < 3) {
+            throw new EsException("Give me something to work with.");
+        }
+        int index = Integer.parseInt(parts[1]) - 1;
+        if (index < 0 || index >= tasks.size()) {
+            throw new EsException("There is no task with that number.");
+        }
+        for (int i = 2; i < parts.length; i++) {
+            String tag = parts[i].startsWith("#") ? parts[i] : "#" + parts[i];
+            if (adding) {
+                tasks.get(index).addTag(tag);
+            } else {
+                tasks.get(index).removeTag(tag);
+            }
+        }
+        storage.save(tasks.asList());
+        ui.show(adding ? "The requested tags have been recorded." : "The requested tags have been removed.");
+        ui.show("  " + tasks.get(index));
+    }
+
+    private static void findTags(TaskList tasks, String tagText, Ui ui) throws EsException {
+        if (tagText.isEmpty()) {
+            throw new EsException("Give me something to work with.");
+        }
+        String tag = tagText.startsWith("#") ? tagText : "#" + tagText;
+        ui.show("These entries bear that tag:");
+        for (int index = 0; index < tasks.size(); index++) {
+            if (tasks.get(index).getTags().contains(tag)) {
+                ui.show((index + 1) + "." + tasks.get(index));
             }
         }
     }
