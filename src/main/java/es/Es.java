@@ -162,7 +162,7 @@ public class Es {
             guiTasks.get(index).markAsDone();
         } else {
             if (guiTasks.get(index).getStatusIcon().equals(" ")) {
-                return "That task is already unfinished.";
+                return "That task is already unmarked.";
             }
             guiTasks.get(index).markAsNotDone();
         }
