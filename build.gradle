@@ -1,0 +1,115 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'jacoco'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+checkstyle {
+    // The rules live in config/checkstyle/checkstyle.xml, which is where the
+    // plugin looks by default. They are the AddressBook Level 3 rules, which
+    // encode the same SE-EDU standard the seedu-java-coding-standard skill
+    // describes in prose.
+    toolVersion = '14.1.0'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javaFxVersion = '17.0.7'
+
+    // Taken verbatim from the JavaFX tutorial the module points to, rather
+    // than assembled from what looked reasonable. Different ways of wiring
+    // JavaFX into Gradle each work on the machine they were tried on; mixing
+    // them produces a build that works here and nowhere else.
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:linux")
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+jacocoTestReport {
+    // Measured so that "nearly all testable code" is a fact rather than a
+    // feeling. The GUI classes are excluded: they cannot be driven without a
+    // JavaFX toolkit, and counting them would make the figure meaningless.
+    dependsOn test
+    reports {
+        xml.required = true
+        html.required = true
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['goat/gui/**'])
+        }))
+    }
+}
+
+test {
+    useJUnitPlatform()
+
+    // Assertions are off unless the JVM is started with -ea, so without this
+    // every assert in the code would be dead weight during a test run.
+    jvmArgs '-ea'
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    // Launcher, not Main and not Goat. Main extends javafx.application
+    // .Application, and the JVM refuses to start such a class directly unless
+    // the JavaFX modules were loaded as modules -- which they are not in a fat
+    // JAR, where they sit on the classpath. Launcher is a plain class, so it
+    // starts, and by the time it calls Application.launch the check is past.
+    //
+    // goat.Goat still has its own main() for the text UI, which text-ui-test
+    // runs directly by class name.
+    mainClass.set('goat.gui.Launcher')
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'goat.jar'
+}
+
+run {
+    standardInput = System.in
+    // Run with assertions on, so a broken assumption shows up while the app is
+    // being developed rather than only in tests.
+    jvmArgs '-ea'
+}

@@ -3,6 +3,9 @@
 /out/
 /*.iml
 
+# Compiled Java bytecode
+*.class
+
 # Gradle build files
 /.gradle/
 /build/
@@ -12,6 +15,9 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
+
+# Saved task list, personal to whoever runs the app
+data/
 
 # Temp files
 _temp/

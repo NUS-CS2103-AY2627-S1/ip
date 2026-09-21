@@ -1,0 +1,26 @@
+list
+sort date
+todo read book
+deadline return book /by 2019-12-02 1800
+event project meeting /from 2019-08-06 1400 /to 2019-08-06 1600
+todo join sports club
+deadline pay fees /by next Friday
+deadline pay fees /by 2019-10-15
+mark 1
+mark 4
+delete 2
+list
+find book
+find BOOK
+find pineapple
+find
+sort date
+sort name
+sort
+sort priority
+todo read | book
+event backwards /from 2019-12-02 1800 /to 2019-08-06 1400
+event zero /from 2019-08-06 1400 /to 2019-08-06 1400
+deadline twice /by 2019-12-02 /by 2019-12-03
+todo join sports club
+bye

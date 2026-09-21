@@ -1,0 +1,126 @@
+/*
+ * Colors are named once here and referred to below, so a change of palette is
+ * one edit rather than a search through the rules.
+ *
+ * The palette is stone and moss: a cool grey paper, slate ink, and a muted
+ * green that reads as lichen rather than as a brand color. It suits an animal
+ * that lives on a mountain, and it stays quiet behind text that is often a
+ * dense list of dates.
+ *
+ * The amber is the only warm color in the file, which is what lets an error
+ * stand out without needing to be loud about it.
+ */
+.root {
+    -fx-background-color: -goat-paper;
+
+    -goat-paper: #f2f2ef;
+    -goat-ink: #23272a;
+    -goat-muted: #6d736c;
+    -goat-accent: #3f5d47;
+    -goat-rule: #d6d8d2;
+    -goat-warn: #9a5b12;
+    -goat-warn-tint: #fdf4e6;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/*
+ * What the user typed. Filled, compact, right-aligned: it is an echo of a
+ * command they already know they sent, so it needs to be recognizable at a
+ * glance rather than readable in detail.
+ */
+.user-bubble {
+    -fx-background-color: -goat-accent;
+    -fx-text-fill: white;
+    -fx-background-radius: 12 12 3 12;
+    -fx-padding: 5 11 5 11;
+    -fx-font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+    -fx-font-size: 12.5px;
+}
+
+/*
+ * What Goat said. No bubble at all: a task listing is the longest thing shown
+ * here, and wrapping a bubble around it would spend width on decoration that
+ * the numbers and dates need. The rule down the left is enough to say who is
+ * speaking, and costs three pixels.
+ */
+.reply-text {
+    -fx-text-fill: -goat-ink;
+    -fx-border-color: -goat-rule;
+    -fx-border-width: 0 0 0 3;
+    -fx-padding: 2 0 2 10;
+    -fx-font-family: "Menlo", "Consolas", monospace;
+    -fx-font-size: 12px;
+    -fx-line-spacing: 1.5;
+}
+
+/*
+ * A complaint. Same shape as a reply, so the eye reads it as Goat speaking,
+ * but tinted and warm-ruled so it is not scrolled past. Tint rather than red
+ * text, because the message often needs reading in full and red body text is
+ * harder to read, not easier to notice.
+ */
+.error-text {
+    -fx-text-fill: -goat-warn;
+    -fx-background-color: -goat-warn-tint;
+    -fx-border-color: -goat-warn;
+    -fx-border-width: 0 0 0 3;
+    -fx-padding: 5 8 5 10;
+    -fx-font-family: "Menlo", "Consolas", monospace;
+    -fx-font-size: 12px;
+    -fx-line-spacing: 1.5;
+}
+
+/* The bar along the bottom, kept shallow so the conversation keeps the height. */
+.input-bar {
+    -fx-background-color: white;
+    -fx-border-color: -goat-rule;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 0 8 0 4;
+    -fx-spacing: 6;
+}
+
+.text-field {
+    -fx-background-color: transparent;
+    -fx-font-size: 12.5px;
+    -fx-prompt-text-fill: -goat-muted;
+}
+
+.text-field:focused {
+    -fx-background-color: transparent;
+}
+
+.status-label {
+    -fx-text-fill: -goat-muted;
+    -fx-font-size: 11px;
+}
+
+.button {
+    -fx-background-color: -goat-accent;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-padding: 6 12 6 12;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: derive(-goat-accent, 12%);
+}
+
+/* Disabled when the field is empty, so the control says what is possible. */
+.button:disabled {
+    -fx-background-color: -goat-rule;
+    -fx-text-fill: -goat-muted;
+    -fx-cursor: default;
+    -fx-opacity: 1;
+}

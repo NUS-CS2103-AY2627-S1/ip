@@ -1,0 +1,71 @@
+name: Java CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@v7
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v6
+
+      - name: Setup JDK 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: '25'
+          # jdk+fx, because this project uses JavaFX. A plain JDK would still
+          # compile, since the JavaFX jars are declared as dependencies, but
+          # matching the JDK developers use here keeps CI honest.
+          java-package: jdk+fx
+
+      - name: Build and check with Gradle
+        # check runs the JUnit tests and both Checkstyle tasks, so a style
+        # violation fails the build the same way a failing test does.
+        run: ./gradlew check
+
+      - name: Build the distributable jar
+        run: ./gradlew shadowJar
+
+      - name: Smoke test the jar from an empty folder
+        # The same flow used to grade the app: copy the jar somewhere empty,
+        # open a terminal there, and run it. Done on all three platforms,
+        # because "it works" has so far only ever meant "it works here".
+        #
+        # An empty folder is the point: it is what surfaces a hard-coded path.
+        # The GUI cannot start without a display, so this drives the terminal
+        # entry point, which shares the parser, the task list and the save file
+        # with the window. What it proves is that the fat jar assembles and
+        # starts on each OS, and that the save file lands where it should.
+        shell: bash
+        run: |
+          set -eu
+          smoke="${RUNNER_TEMP}/goat-smoke"
+          rm -rf "$smoke" && mkdir -p "$smoke"
+          cp build/libs/goat.jar "$smoke/"
+          cd "$smoke"
+          printf 'todo read Sapiens\nlist\nbye\n' | java -cp "goat.jar" goat.Goat > out.txt
+          echo '--- what the jar printed ---'
+          cat out.txt
+          grep -q 'Goat here.' out.txt
+          grep -q '1.\[T\]\[ \] read Sapiens' out.txt
+          grep -q 'Off up the hill.' out.txt
+          test -f data/goat.txt
+          grep -q 'T | 0 | read Sapiens' data/goat.txt
+          echo "jar smoke test passed on ${RUNNER_OS}"
+
+      - name: Run the text UI tests
+        # Not part of the Gradle build: runtest.sh drives the packaged app four
+        # times and compares whole output against a saved file, which catches
+        # things unit tests do not, such as a change to a reply's wording.
+        # Unix only, since the Windows equivalent is a separate .bat script.
+        if: runner.os != 'Windows'
+        working-directory: ${{ github.workspace }}/text-ui-test
+        run: ./runtest.sh

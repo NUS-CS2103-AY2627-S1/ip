@@ -1,0 +1,6 @@
+# GitHub Pages builds docs/README.md into the user guide at
+# https://8ryanl33.github.io/ip/ . Primer is chosen for being quiet: the guide
+# is a reference, so it wants to be read rather than looked at.
+title: Goat
+description: A task list you talk to
+theme: jekyll-theme-primer

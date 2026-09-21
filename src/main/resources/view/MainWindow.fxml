@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="560.0" prefWidth="420.0" stylesheets="@../css/main.css"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="goat.gui.MainWindow">
+  <children>
+    <!-- Anchored on all four sides, so the conversation grows and shrinks with
+         the window instead of leaving a band of background along an edge. -->
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                AnchorPane.bottomAnchor="44.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <content>
+        <VBox fx:id="dialogContainer" fillWidth="true" spacing="6.0">
+          <padding>
+            <Insets bottom="10.0" top="10.0" />
+          </padding>
+        </VBox>
+      </content>
+    </ScrollPane>
+    <HBox alignment="CENTER_LEFT" prefHeight="44.0" styleClass="input-bar"
+          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <children>
+        <TextField fx:id="userInput" onAction="#handleUserInput" HBox.hgrow="ALWAYS"
+                   promptText="type a command, e.g. todo read book" />
+        <Label fx:id="statusLabel" styleClass="status-label" />
+        <Button fx:id="sendButton" defaultButton="true" mnemonicParsing="false"
+                onAction="#handleUserInput" prefWidth="66.0" text="Send" />
+      </children>
+    </HBox>
+  </children>
+</AnchorPane>
