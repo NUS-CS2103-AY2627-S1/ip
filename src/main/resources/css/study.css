@@ -1,0 +1,118 @@
+.root-pane {
+    -fx-background-color: linear-gradient(to bottom right, #f1ecff, #fff8ea);
+}
+
+.card {
+    -fx-background-color: rgba(255, 255, 255, 0.95);
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: rgba(118, 94, 178, 0.18);
+    -fx-effect: dropshadow(gaussian, rgba(54, 41, 102, 0.15), 20, 0.2, 0, 6);
+}
+
+.header {
+    -fx-padding: 18 20 14 20;
+}
+
+.title-icon {
+    -fx-font-size: 38px;
+    -fx-text-fill: #5a3f99;
+}
+
+.title {
+    -fx-font-size: 30px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #2e2458;
+}
+
+.subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #66598b;
+}
+
+.status-pill {
+    -fx-background-color: linear-gradient(to bottom, #efe1ff, #dcc4ff);
+    -fx-text-fill: #4c356f;
+    -fx-background-radius: 999;
+    -fx-padding: 7 12 7 12;
+    -fx-font-weight: 800;
+}
+
+.quick-actions {
+    -fx-padding: 2 0 0 0;
+}
+
+.quick-button {
+    -fx-background-color: linear-gradient(to bottom, #e8dcff, #d9c8ff);
+    -fx-text-fill: #2f2459;
+    -fx-background-radius: 16;
+    -fx-padding: 8 12 8 12;
+    -fx-font-weight: 800;
+}
+
+.quick-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #deceff, #cab5ff);
+}
+
+.chat-scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 2 6 2 6;
+}
+
+.input-pane {
+    -fx-padding: 14 16 14 16;
+}
+
+.command-field {
+    -fx-background-color: #fcfaff;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: #ddd4ef;
+    -fx-padding: 11 14 11 14;
+}
+
+.command-field:focused {
+    -fx-border-color: #8c6fca;
+    -fx-background-color: #ffffff;
+}
+
+.send-button {
+    -fx-background-color: linear-gradient(to bottom, #7f5fd0, #6348a6);
+    -fx-text-fill: white;
+    -fx-font-weight: 900;
+    -fx-background-radius: 14;
+    -fx-padding: 10 18 10 18;
+}
+
+.send-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #8a6add, #7052b8);
+}
+
+.user-bubble {
+    -fx-background-color: linear-gradient(to bottom, #efe7ff, #e2d4ff);
+    -fx-background-radius: 16;
+    -fx-padding: 10 14 10 14;
+    -fx-text-fill: #2f2459;
+}
+
+.bot-bubble {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16;
+    -fx-padding: 10 14 10 14;
+    -fx-text-fill: #2e2458;
+    -fx-effect: dropshadow(gaussian, rgba(54, 41, 102, 0.10), 12, 0.15, 0, 3);
+}
+
+.error-bubble {
+    -fx-background-color: linear-gradient(to bottom, #ffeaea, #ffd6d6);
+    -fx-border-color: #d45a5a;
+    -fx-border-width: 1;
+    -fx-text-fill: #8b1e1e;
+}
+
+.user-avatar,
+.bot-avatar {
+    -fx-font-size: 24px;
+}
