@@ -1,0 +1,75 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Keep all classifiers so the GUI runs on Windows, macOS, and Linux.
+    String javaFxVersion = '17.0.7'
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+
+    // Keep Jupiter, parameterized tests, and the platform launcher on compatible versions.
+    testImplementation platform('org.junit:junit-bom:5.14.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test', Test) {
+    useJUnitPlatform()
+    testLogging {
+        events 'failed', 'skipped'
+        exceptionFormat = 'full'
+    }
+}
+
+tasks.register('desktopTest', Test) {
+    group = 'verification'
+    description = 'Runs the opt-in JavaFX desktop acceptance tests.'
+    useJUnitPlatform()
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    environment 'FRIDAY_GUI_TESTS', 'true'
+    jvmArgs '--enable-native-access=javafx.graphics'
+    include 'friday/ui/MainWindowTest.class'
+}
+
+application {
+    mainClass = 'friday.Launcher'
+}
+
+tasks.named('shadowJar') {
+    archiveFileName = 'friday.jar'
+}
+
+tasks.named('run', JavaExec) {
+    jvmArgs '--enable-native-access=javafx.graphics'
+    // Gradle otherwise supplies an empty input stream to the console chatbot.
+    standardInput = System.in
+    // Keep the existing data/friday.txt location independent of how Gradle is invoked.
+    workingDir = projectDir
+}
