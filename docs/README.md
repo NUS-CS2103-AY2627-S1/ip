@@ -28,6 +28,15 @@ The console launcher is `es.Es`.
 | `findtag` | `findtag errand` | Find tasks with a tag |
 | `bye` | `bye` | Close the conversation |
 
+### Informational responses
+
+Es gives specific, quiet responses for common edge cases:
+
+- An empty `list` reports that the shelves are empty.
+- A `find` or `findtag` search with no matches says that nothing matched.
+- Marking an already-complete task reports that it is already marked.
+- Unmarking an already-incomplete task reports that it is already unmarked.
+
 ## Tags
 
 Tags added during creation require `#`, for example `todo read book #study #quiet`. For `tag`, `untag`, and `findtag`, the `#` is optional. Tags are case-sensitive and duplicates are rejected.
@@ -36,6 +45,6 @@ Tags added during creation require `#`, for example `todo read book #study #quie
 
 Es accepts dates such as `2026-10-15`, `2026-10-15 18:00`, and `15/10/2026 1800`. Events must end after they begin. Es also understands `hi`, `hello`, `who are you?`, `what are you?`, and `where is this place?`, regardless of letter casing.
 
-Invalid commands, missing arguments, malformed dates, duplicate tags, invalid event periods, and non-existent task numbers are reported without terminating Es. Use single spaces and avoid leading or trailing spaces.
+Invalid commands, missing arguments, malformed dates, duplicate tags, invalid event periods, and non-existent task numbers are reported without terminating Es. Use single spaces and avoid leading or trailing spaces. The GUI and console use the same command responses.
 
 Tasks are saved automatically in `data/es.txt`.
