@@ -38,7 +38,7 @@
 2. Download the latest release `.jar` file or clone the project repository.
 3. Launch the application:
    - Using terminal: `./gradlew run`
-   - Or running the standalone JAR: `java -jar ip.jar`
+   - Or running the standalone JAR: `java -jar wiz.jar`
 4. Type a command into the input box and press **Enter** (or click **Send**).
 5. Try typing `help` to see a quick list of available commands.
 
