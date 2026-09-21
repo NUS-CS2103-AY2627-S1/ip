@@ -212,6 +212,23 @@ public class Es {
         return normalized;
     }
     public static void main(String[] args) {
+        Es chatbot = new Es();
+        Ui ui = new Ui();
+        ui.showWelcome();
+        String input;
+        while ((input = ui.readCommand()) != null) {
+            String response = chatbot.getResponse(input);
+            ui.showLine();
+            ui.show(response);
+            ui.showLine();
+            if (input.trim().equalsIgnoreCase("bye")) {
+                break;
+            }
+        }
+    }
+
+    /** Legacy console implementation retained while the shared path is exercised. */
+    private static void legacyMain(String[] args) {
         Ui ui = new Ui();
         ui.showWelcome();
 
