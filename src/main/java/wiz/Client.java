@@ -7,9 +7,13 @@ import java.util.Objects;
  */
 public class Client {
 
+    /** The full name of the client. */
     private final String name;
+    /** The phone contact number of the client. */
     private final String phone;
+    /** The email address of the client. */
     private final String email;
+    /** Additional notes or remarks associated with the client. */
     private final String note;
 
     /**
