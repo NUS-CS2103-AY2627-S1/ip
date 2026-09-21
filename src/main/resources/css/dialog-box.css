@@ -1,0 +1,38 @@
+/* Every message is a bubble; the style classes below say whose it is.
+   JavaFX uses only the first font family it is given, ignoring any fallbacks
+   listed after it, so the logical System family is used: it maps to a real
+   font on every operating system.
+   The colors are those of a well-loved teddy bear: plush brown, cream and
+   faded denim. */
+.bubble {
+    -fx-font-family: "System";
+    -fx-font-size: 13px;
+    -fx-padding: 8px 12px;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+}
+
+/* The user's words: a denim bubble on the right, with no picture, since the
+   user knows who they are. The flat corner points at the input box below. */
+.user-bubble {
+    -fx-background-color: #3e5c76;
+    -fx-text-fill: white;
+    -fx-background-radius: 16px 16px 4px 16px;
+}
+
+/* Ted's replies: a cream bubble on the left, beside Ted's picture. */
+.ted-bubble {
+    -fx-background-color: #fffdf8;
+    -fx-border-color: #e8d9c4;
+    -fx-text-fill: #3b2a1f;
+    -fx-background-radius: 16px 16px 16px 4px;
+    -fx-border-radius: 16px 16px 16px 4px;
+}
+
+/* A reply explaining a problem: red, so a mistake is noticed rather than
+   read past as another confirmation. */
+.error-bubble {
+    -fx-background-color: #fbe6df;
+    -fx-border-color: #d99a85;
+    -fx-text-fill: #8c2f1b;
+}

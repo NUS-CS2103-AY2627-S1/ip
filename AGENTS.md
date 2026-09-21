@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Y2 CS Student
+* IDE and level of expertise: IntelliJ Idea Ultimate Subscription
 
 # Guidance for interacting with users
 
@@ -28,8 +28,38 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## Coding standard
+
+All Java code in this project must follow the
+[SE-EDU Java coding standard](https://se-education.org/guides/conventions/java/intermediate.html)
+at the intermediate level. In particular:
+
+* 4 spaces per indent level, no tabs, and lines no longer than 120 characters.
+* Braces around every `if`, `for` and `while` body, opening brace on the same line.
+* `PascalCase` for classes, `camelCase` for methods and variables,
+  `UPPER_SNAKE_CASE` for constants; boolean names read as a question
+  (`isDone`, `hasNextCommand`).
+* No wildcard imports. Imports are grouped: static imports, then `java`/`javax`,
+  then this project's own packages, with a blank line between groups.
+* A Javadoc header comment on every non-private class and method, written in
+  the third person ("Returns ...", not "Return ...").
+* Implementation comments sit on their own line above the code they explain,
+  and say why rather than what.
+
 ## Git
 
 Use lightweight tags unless the user requests an annotated tag.
-When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+Commit messages must follow the
+[SE-EDU Git conventions](https://se-education.org/guides/conventions/git.html):
+
+* Subject line in the imperative mood, capitalised, no full stop, at most 50
+  characters (hard limit 72). An optional `scope:` prefix is allowed, e.g.
+  `build.gradle: Point Gradle at this project`.
+* A blank line, then a body wrapped at 72 characters for anything non-trivial.
+* Structure the body as: the current situation in the present tense, why it
+  needs to change, then `Let's ...` describing the change in the imperative
+  mood, and why it was done that way.
+* Explain what and why, not how; the diff already shows how. Bullet lists are
+  welcome where they read better than prose.

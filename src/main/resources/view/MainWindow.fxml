@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="600.0" prefWidth="400.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ted.MainWindow">
+    <stylesheets>
+        <URL value="@../css/main.css" />
+    </stylesheets>
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER">
+            <content>
+                <VBox fx:id="dialogContainer">
+                    <padding>
+                        <Insets bottom="6.0" top="6.0" />
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox fx:id="inputBar" spacing="8.0">
+            <children>
+                <TextField fx:id="userInput" onAction="#handleUserInput" promptText="Tell Ted what to do..."
+                           HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton" defaultButton="false" mnemonicParsing="false"
+                        onAction="#handleUserInput" text="Send" />
+            </children>
+            <padding>
+                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+            </padding>
+        </HBox>
+    </bottom>
+</BorderPane>

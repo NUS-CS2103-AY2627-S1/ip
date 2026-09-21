@@ -1,0 +1,68 @@
+/* Ted's window in the colors of a well-loved teddy bear: cream for the
+   background, plush brown for what the user can press, and faded denim for
+   the user's own messages (see dialog-box.css). */
+.root {
+    main-color: #fbf5ec;
+    plush-brown: #8b5e3c;
+    stitching: #e8d9c4;
+    -fx-background-color: main-color;
+}
+
+/* A thin rule separates the conversation from the input box. */
+#inputBar {
+    -fx-background-color: #fffdf8;
+    -fx-border-color: stitching transparent transparent transparent;
+}
+
+.text-field {
+    -fx-background-color: main-color;
+    -fx-background-radius: 18px;
+    -fx-border-color: #d9c6ae;
+    -fx-border-radius: 18px;
+    -fx-padding: 7px 12px;
+    -fx-font: 14px "System";
+    -fx-text-fill: #3b2a1f;
+    -fx-prompt-text-fill: #a48c74;
+}
+
+.text-field:focused {
+    -fx-border-color: plush-brown;
+}
+
+.button {
+    -fx-background-color: plush-brown;
+    -fx-background-radius: 18px;
+    -fx-text-fill: white;
+    -fx-padding: 7px 16px;
+    -fx-font: bold 14px "System";
+}
+
+.button:hover {
+    -fx-background-color: #9e6c47;
+}
+
+.button:pressed {
+    -fx-background-color: #6f4a2f;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Sets the width of the scroll bar. */
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #d9c6ae;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
