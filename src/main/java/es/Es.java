@@ -45,7 +45,9 @@ public class Es {
                 if (description.isEmpty()) {
                     throw new EsException("... give me something to work with.");
                 }
-                return addGuiTask(new Todo(description));
+                Todo todo = new Todo(description.replaceAll("(?:^|\\s)#[^\\s|]+", "").trim());
+                addInlineTags(todo, description);
+                return addGuiTask(todo);
             case DEADLINE:
                 addGuiDeadline(commandText.substring(8).trim());
                 return addGuiTaskMessage(guiTasks.get(guiTasks.size() - 1));
