@@ -1,0 +1,25 @@
+.dialog-label {
+    -fx-background-radius: 12px;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 12px;
+}
+
+.user-dialog {
+    -fx-background-color: #315f9f;
+    -fx-effect: dropshadow(gaussian, rgba(28, 48, 76, 0.16), 5, 0, 0, 1);
+    -fx-text-fill: white;
+}
+
+.nova-dialog {
+    -fx-background-color: white;
+    -fx-border-color: #cfd7e2;
+    -fx-border-radius: 4px 12px 12px 4px;
+    -fx-border-width: 0 0 0 4px;
+    -fx-text-fill: #202733;
+}
+
+.error-dialog {
+    -fx-background-color: #fff1f1;
+    -fx-border-color: #c83e4d;
+    -fx-text-fill: #8f1f2c;
+}

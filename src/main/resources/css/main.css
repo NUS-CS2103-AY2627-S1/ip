@@ -1,0 +1,62 @@
+.root {
+    -fx-background-color: #eef2f7;
+    -fx-font-family: "System";
+}
+
+.app-header {
+    -fx-background-color: linear-gradient(to right, #243b55, #315f9f);
+}
+
+.app-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.app-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #dce7f5;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-padding: 14px 12px;
+}
+
+.command-input {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-color: #b9c3d0;
+    -fx-border-radius: 8px;
+    -fx-font-size: 14px;
+    -fx-padding: 0 12px;
+}
+
+.command-input:focused {
+    -fx-border-color: #315f9f;
+    -fx-effect: dropshadow(gaussian, rgba(49, 95, 159, 0.18), 6, 0, 0, 0);
+}
+
+.send-button {
+    -fx-background-color: #315f9f;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.send-button:hover {
+    -fx-background-color: #274d82;
+}
+
+.send-button:pressed {
+    -fx-background-color: #1d3d69;
+}
