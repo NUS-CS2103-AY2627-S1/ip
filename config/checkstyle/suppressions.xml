@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+    "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+    "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<suppressions>
+  <suppress checks="JavadocType" files=".*Test\.java"/>
+  <suppress checks="MissingJavadocMethodCheck" files=".*Test\.java"/>
+
+  <!-- PDD is this project's product name (like "AB3" is AddressBook-Level-3's),
+       not an abbreviation to be split into words, so it's exempt from
+       AbbreviationAsWordInName here. -->
+  <suppress checks="AbbreviationAsWordInName" files="PDD\.java"/>
+  <suppress checks="AbbreviationAsWordInName" files="PDDException\.java"/>
+</suppressions>
