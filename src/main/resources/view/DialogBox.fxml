@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" stylesheets="@../css/dialog-box.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox fx:id="messageContainer" spacing="2.0">
+            <children>
+                <Label fx:id="statusLabel" managed="false" styleClass="error-status" text="ERROR" visible="false" />
+                <Label fx:id="dialog" text="Label" wrapText="true" />
+            </children>
+        </VBox>
+        <ImageView fx:id="displayPicture" fitHeight="52.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="false" />
+    </children>
+</fx:root>

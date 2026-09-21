@@ -18,3 +18,12 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Codex
+.codex/
+
+# Opencode
+.opencode/
+
+# Save file
+data/

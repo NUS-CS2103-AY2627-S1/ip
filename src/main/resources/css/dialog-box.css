@@ -1,0 +1,47 @@
+.label {
+    -fx-text-fill: #0b132b;
+}
+
+.user-dialog {
+    -fx-padding: 10px 8px 2px 8px;
+}
+
+.echo-dialog {
+    -fx-padding: 2px 8px 10px 8px;
+}
+
+.user-bubble,
+.echo-bubble,
+.error-bubble {
+    -fx-padding: 9px 12px;
+}
+
+.user-bubble {
+    -fx-background-color: #f4a261;
+    -fx-background-radius: 14px 14px 3px 14px;
+}
+
+.echo-bubble {
+    -fx-background-color: #2a9d8f;
+    -fx-background-radius: 14px 14px 14px 3px;
+}
+
+.error-bubble {
+    -fx-background-color: #e76f51;
+    -fx-background-radius: 14px 14px 14px 3px;
+    -fx-border-color: #ffb09c;
+    -fx-border-radius: 14px 14px 14px 3px;
+    -fx-border-width: 1px;
+}
+
+.error-status {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0b132b;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 8, 0.25, 0, 2);
+}
+

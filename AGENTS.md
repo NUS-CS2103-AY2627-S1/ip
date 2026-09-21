@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Previously developed full-stack web apps & PWAs
+* IDE and level of expertise: JetBrains IntelliJ, basic level of expertise
 
 # Guidance for interacting with users
 
@@ -24,11 +24,32 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Java coding standard:
+
+All Java code in this repository (main and test sources) MUST follow the se-edu Java coding
+standard (basic + intermediate). Invoke the `$seedu-java-coding-standard` skill whenever writing,
+reviewing, or refactoring `.java` files, and fix violations on contact. The skill distills
+https://se-education.org/guides/conventions/java/intermediate.html; anything it does not cover
+follows the Google Java Style Guide.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## Unit testing
+
+JUnit tests focus on the top ~50% highest-value methods in the codebase, prioritising complex, core, or critical business logic over trivial accessors, I/O glue, and exception holder classes. Follow Gradle and JUnit conventions: mirror the package structure under `src/test/java` and name each test class `FooTest` for the class `Foo` being tested. After every code change, review the affected classes and update or extend the JUnit test suite so it stays compliant with this coverage target, then run `./gradlew test` to verify that all tests pass. If a unit test fails, stop and report the actual and expected output before making further code changes.
+
+## UI testing
+
+After every code update, review `src/test/ui-test-plan.md` and update its test cases whenever the user-visible console behaviour has changed or requires additional coverage. Then invoke the `$test-ui` skill to run the plan. If a UI test fails, stop and report the actual and expected output before making further code changes.
+
 ## Git
+
+All commit messages and branch names in this repository MUST follow the se-edu Git
+conventions. Invoke the `$seedu-git-standard` skill whenever proposing or creating a
+commit, naming a branch, or reviewing git history. The skill distills
+https://se-education.org/guides/conventions/git.html.
 
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
