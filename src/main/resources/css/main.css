@@ -1,0 +1,183 @@
+.root {
+    -fx-accent: #765382;
+    -fx-background-color: #fbf6fb;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-focus-color: #9d78aa;
+    -fx-faint-focus-color: rgba(157, 120, 170, 0.18);
+}
+
+.app-shell {
+    -fx-background-color: #fbf6fb;
+}
+
+.header {
+    -fx-background-color: linear-gradient(to bottom right, #55385f, #896791);
+    -fx-effect: dropshadow(gaussian, rgba(74, 47, 81, 0.18), 14, 0.18, 0, 4);
+}
+
+.eyebrow {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f1d9e8;
+}
+
+.title {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fffaf6;
+}
+
+.subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #f3e4ef;
+}
+
+.status-pill {
+    -fx-background-color: rgba(255, 250, 246, 0.18);
+    -fx-background-radius: 14px;
+    -fx-border-color: rgba(255, 250, 246, 0.38);
+    -fx-border-radius: 14px;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 10px;
+    -fx-text-fill: #fffaf6;
+}
+
+.conversation,
+.conversation > .viewport {
+    -fx-background-color: linear-gradient(to bottom, #fffaf7, #f7eef8);
+}
+
+.conversation {
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.dialog-row {
+    -fx-padding: 4px 0;
+}
+
+.message-bubble {
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 12px 15px;
+}
+
+.user-bubble {
+    -fx-background-color: #765382;
+    -fx-background-radius: 18px 18px 5px 18px;
+    -fx-effect: dropshadow(gaussian, rgba(85, 56, 95, 0.14), 9, 0.14, 0, 3);
+    -fx-text-fill: #fffaf6;
+}
+
+.janet-bubble {
+    -fx-background-color: #fffaf6;
+    -fx-background-radius: 18px 18px 18px 5px;
+    -fx-border-color: #eadceb;
+    -fx-border-radius: 18px 18px 18px 5px;
+    -fx-effect: dropshadow(gaussian, rgba(85, 56, 95, 0.11), 11, 0.14, 0, 3);
+    -fx-text-fill: #3f3144;
+}
+
+.error-bubble {
+    -fx-background-color: #fff0f3;
+    -fx-background-radius: 18px 18px 18px 5px;
+    -fx-border-color: #e5a1b4;
+    -fx-border-radius: 18px 18px 18px 5px;
+    -fx-effect: dropshadow(gaussian, rgba(138, 48, 72, 0.11), 11, 0.14, 0, 3);
+    -fx-text-fill: #772c42;
+}
+
+.speaker-badge {
+    -fx-alignment: center;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-min-height: 34px;
+    -fx-min-width: 34px;
+    -fx-pref-height: 34px;
+    -fx-pref-width: 34px;
+}
+
+.user-badge {
+    -fx-background-color: #e8d8ed;
+    -fx-background-radius: 17px;
+    -fx-text-fill: #593a64;
+    -fx-translate-x: 8px;
+}
+
+.janet-badge {
+    -fx-background-color: #f0cddd;
+    -fx-background-radius: 17px;
+    -fx-text-fill: #57354f;
+    -fx-translate-x: -8px;
+}
+
+.error-badge {
+    -fx-background-color: #cf718d;
+    -fx-background-radius: 17px;
+    -fx-text-fill: #fffaf6;
+    -fx-translate-x: -8px;
+}
+
+.composer {
+    -fx-background-color: #fffaf8;
+    -fx-border-color: #ead9e7 transparent transparent transparent;
+    -fx-effect: dropshadow(gaussian, rgba(85, 56, 95, 0.08), 12, 0.1, 0, -2);
+}
+
+.text-field {
+    -fx-background-color: #f7edf6;
+    -fx-background-radius: 12px;
+    -fx-border-color: #dfc9df;
+    -fx-border-radius: 12px;
+    -fx-font-size: 14px;
+    -fx-padding: 11px 13px;
+    -fx-prompt-text-fill: #8d748e;
+    -fx-text-fill: #3f3144;
+}
+
+.text-field:focused {
+    -fx-background-color: #fffaf8;
+    -fx-border-color: #95709f;
+}
+
+.button {
+    -fx-background-color: #765382;
+    -fx-background-radius: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 11px 20px;
+    -fx-text-fill: #fffaf6;
+}
+
+.button:hover {
+    -fx-background-color: #896291;
+}
+
+.button:pressed {
+    -fx-background-color: #5b3d65;
+}
+
+.button:disabled {
+    -fx-background-color: #c9b6ca;
+    -fx-opacity: 0.8;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #d5bfd8;
+    -fx-background-radius: 5px;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}

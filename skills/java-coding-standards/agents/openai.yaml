@@ -1,0 +1,3 @@
+interface:
+  display_name: "Java Coding Standards"
+  short_description: "Apply the project Java style rules"
