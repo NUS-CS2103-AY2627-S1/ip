@@ -1,0 +1,122 @@
+.root {
+    -fx-background-color: #f3f5f9;
+    -fx-font-family: "Avenir Next", "Segoe UI", sans-serif;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.dialog-container {
+    -fx-background-color: #f3f5f9;
+}
+
+.composer {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d9dfeb transparent transparent transparent;
+}
+
+.text-field {
+    -fx-background-color: #f5f7fb;
+    -fx-background-radius: 10px;
+    -fx-border-color: #d9dfeb;
+    -fx-border-radius: 10px;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 12px;
+    -fx-prompt-text-fill: #727a8c;
+    -fx-text-fill: #1d2433;
+}
+
+.text-field:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #4f46e5;
+}
+
+.button {
+    -fx-background-color: #4f46e5;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 18px;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #4338ca;
+}
+
+.button:pressed {
+    -fx-background-color: #3730a3;
+}
+
+.button:disabled,
+.text-field:disabled {
+    -fx-opacity: 0.55;
+}
+
+.message-bubble {
+    -fx-background-color: #4f46e5;
+    -fx-background-radius: 14px 14px 4px 14px;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 13px;
+    -fx-text-fill: white;
+}
+
+.yqr-bubble {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 4px 14px 14px 14px;
+    -fx-border-color: #d9dfeb;
+    -fx-border-radius: 4px 14px 14px 14px;
+    -fx-effect: dropshadow(gaussian, rgba(28, 39, 60, 0.08), 8, 0, 0, 2);
+    -fx-text-fill: #1d2433;
+}
+
+.avatar-frame {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 19px;
+    -fx-border-color: #cbd3e1;
+    -fx-border-radius: 19px;
+    -fx-padding: 2px;
+}
+
+.error-avatar {
+    -fx-border-color: #e11d48;
+}
+
+.error-bubble {
+    -fx-background-color: #fff1f2;
+    -fx-border-color: #fb7185;
+    -fx-effect: none;
+    -fx-text-fill: #9f1239;
+}
+
+.error-badge {
+    -fx-background-color: #e11d48;
+    -fx-background-radius: 8px;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #b8c0cf;
+    -fx-background-radius: 8px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}
