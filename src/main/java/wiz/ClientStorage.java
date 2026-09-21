@@ -32,6 +32,7 @@ public class ClientStorage {
      * @throws IOException If writing to the file fails.
      */
     public void save(ArrayList<Client> clients) throws IOException {
+        assert filePath != null && !filePath.isBlank() : "File path cannot be null or blank";
         assert clients != null : "Client list to save cannot be null";
         File file = new File(filePath);
         File parent = file.getParentFile();
