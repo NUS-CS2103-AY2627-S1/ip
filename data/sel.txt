@@ -1,0 +1,4 @@
+T | 1 | read book
+D | 0 | return book | 2019-12-02T18:00
+E | 1 | project meeting | 2019-12-02T14:00 | 2019-12-02T16:00
+T | 0 | presentation slide

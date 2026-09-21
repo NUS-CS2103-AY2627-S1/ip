@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<!-- A VBox is used instead of an AnchorPane so the three rows (chat,
+     command help panel, input bar) stretch and shrink by themselves
+     when the user resizes the window. -->
+<VBox prefHeight="600.0" prefWidth="400.0"
+      styleClass="root-pane"
+      stylesheets="@style.css"
+      xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="sel.gui.MainWindow">
+    <children>
+        <!-- vgrow=ALWAYS: the chat area takes all leftover vertical space.
+             minHeight=0 lets it give space back when the window shrinks or
+             the command panel slides open; the chat scrolls, so it never
+             needs a minimum height of its own. -->
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED"
+                    minHeight="0.0"
+                    styleClass="chat-scroll-pane"
+                    VBox.vgrow="ALWAYS">
+            <content>
+                <VBox fx:id="dialogContainer"
+                      spacing="10.0"
+                      fillWidth="true"
+                      styleClass="dialog-container" />
+            </content>
+        </ScrollPane>
+
+        <!-- Sliding command list. It starts collapsed (prefHeight 0) and
+             is animated open by MainWindow.handleToggleHelp. minHeight=0
+             is required, otherwise the VBox refuses to shrink below the
+             height of its contents. -->
+        <VBox fx:id="helpPanel"
+              styleClass="help-panel"
+              minHeight="0.0"
+              prefHeight="0.0"
+              visible="false">
+            <children>
+                <VBox fx:id="helpContent" styleClass="help-content">
+                    <children>
+                        <!-- Each line is a TextFlow rather than a single Label
+                             so that part of the line can be styled differently:
+                             the words the user literally types (the lowercase
+                             command keywords, style class "help-keyword") are
+                             italic, while the UPPERCASE placeholders and the
+                             explanations are not. Lines are kept short
+                             (placeholders instead of full date patterns) so none
+                             of them is cut off at the smallest window width. -->
+                        <Label styleClass="help-title" text="Commands you can use:" />
+
+                        <TextFlow styleClass="help-line">
+                            <children>
+                                <Text styleClass="help-keyword" text="list" />
+                                <Text styleClass="help-text" text="  -  show every task" />
+                            </children>
+                        </TextFlow>
+
+                        <TextFlow styleClass="help-line">
+                            <children>
+                                <Text styleClass="help-keyword" text="todo" />
+                                <Text styleClass="help-text" text=" DESCRIPTION" />
+                            </children>
+                        </TextFlow>
+
+                        <TextFlow styleClass="help-line">
+                            <children>
+                                <Text styleClass="help-keyword" text="deadline" />
+                                <Text styleClass="help-text" text=" DESCRIPTION " />
+                                <Text styleClass="help-keyword" text="/by" />
+                                <Text styleClass="help-text" text=" DATE" />
+                            </children>
+                        </TextFlow>
+
+                        <TextFlow styleClass="help-line">
+                            <children>
+                                <Text styleClass="help-keyword" text="event" />
+                                <Text styleClass="help-text" text=" DESCRIPTION " />
+                                <Text styleClass="help-keyword" text="/from" />
+                                <Text styleClass="help-text" text=" DATE " />
+                                <Text styleClass="help-keyword" text="/to" />
+                                <Text styleClass="help-text" text=" DATE" />
+                            </children>
+                        </TextFlow>
+
+                        <TextFlow styleClass="help-line">
+                            <children>
+                                <Text styleClass="help-keyword" text="mark" />
+                                <Text styleClass="help-text" text=" INDEX  /  " />
+                                <Text styleClass="help-keyword" text="unmark" />
+                                <Text styleClass="help-text" text=" INDEX" />
+                            </children>
+                        </TextFlow>
+
+                        <TextFlow styleClass="help-line">
+                            <children>
+                                <Text styleClass="help-keyword" text="delete" />
+                                <Text styleClass="help-text" text=" INDEX" />
+                            </children>
+                        </TextFlow>
+
+                        <TextFlow styleClass="help-line">
+                            <children>
+                                <Text styleClass="help-keyword" text="find" />
+                                <Text styleClass="help-text" text=" KEYWORD" />
+                            </children>
+                        </TextFlow>
+
+                        <TextFlow styleClass="help-line">
+                            <children>
+                                <Text styleClass="help-keyword" text="bye" />
+                                <Text styleClass="help-text" text="  -  close the app" />
+                            </children>
+                        </TextFlow>
+
+                        <!-- No keyword here: this line is only a note, so
+                             nothing in it is italic. -->
+                        <TextFlow styleClass="help-line">
+                            <children>
+                                <Text styleClass="help-text" text="DATE format: yyyy-MM-dd HHmm" />
+                            </children>
+                        </TextFlow>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+
+        <HBox styleClass="input-bar" spacing="8.0" alignment="CENTER">
+            <children>
+                <!-- Caret on the left, the word "help" to its right. The
+                     caret is flipped by MainWindow.handleToggleHelp. -->
+                <Button fx:id="helpToggle"
+                        text="^  help"
+                        onAction="#handleToggleHelp"
+                        styleClass="help-toggle" />
+
+                <!-- hgrow=ALWAYS: the text field absorbs horizontal resizing. -->
+                <TextField fx:id="userInput"
+                           promptText="Type a command..."
+                           onAction="#handleUserInput"
+                           HBox.hgrow="ALWAYS" />
+
+                <Button fx:id="sendButton"
+                        text="Send"
+                        onAction="#handleUserInput"
+                        prefWidth="70.0" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

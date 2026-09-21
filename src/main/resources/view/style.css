@@ -1,0 +1,107 @@
+/*
+ * Styles for the Sel chat window.
+ * Keeping the colours here (instead of inline in the FXML) means each
+ * colour is defined once and can be changed without touching the layout.
+ */
+
+/* White background for the window and for the scrolling chat area.
+   A ScrollPane paints its own "viewport", so that has to be set too. */
+.root-pane {
+    -fx-background-color: white;
+    /* Set once here: -fx-font-family is inherited by every node inside the
+       window, so the chat bubbles, the buttons, the text field and the
+       command panel all pick up Courier New without repeating it. */
+    -fx-font-family: "Courier New";
+}
+
+.chat-scroll-pane,
+.chat-scroll-pane .viewport {
+    -fx-background-color: white;
+    -fx-background: white;
+}
+
+.dialog-container {
+    -fx-background-color: white;
+    -fx-padding: 10;
+}
+
+.input-bar {
+    -fx-background-color: white;
+    -fx-padding: 10;
+}
+
+/* ---------- Chat bubbles ---------- */
+
+/* Shared look of every speech bubble. */
+.dialog-bubble {
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 8;
+}
+
+/* Added on top of .dialog-bubble when Sel could not understand the
+   command, so mistakes stand out at a glance. */
+.dialog-bubble-error {
+    -fx-background-color: #ffc9c0; /* light red / flamingo */
+    -fx-border-color: #e0705c;
+    -fx-text-fill: #7d1f10;
+}
+
+/* ---------- Sliding command help panel ---------- */
+
+.help-panel {
+    -fx-background-color: #d6ecff; /* light blue */
+    -fx-border-color: #8ec5f2;
+    -fx-border-width: 1 0 1 0;
+}
+
+.help-content {
+    -fx-padding: 10;
+    -fx-spacing: 4;
+}
+
+.help-title {
+    -fx-font-weight: bold;
+    -fx-text-fill: #123a5c;
+}
+
+/* One line of the command list. */
+.help-line {
+    -fx-fill: #123a5c;
+}
+
+/* Plain parts of a line: placeholders such as DESCRIPTION, and notes.
+   Text nodes are coloured with -fx-fill (Labels use -fx-text-fill). */
+.help-text {
+    -fx-fill: #123a5c;
+}
+
+/* The lowercase words the user actually types, e.g. "todo" and "/by".
+   Italic so the literal keywords are distinguishable at a glance from
+   the placeholders the user replaces. This needs the window font to have
+   a real italic face: Courier New does, whereas JavaFX's default "System"
+   font does not on macOS (it silently draws upright text instead). */
+.help-keyword {
+    -fx-fill: #123a5c;
+    -fx-font-style: italic;
+}
+
+/* The button that slides the command panel in and out: a caret plus the
+   word "help". The padding keeps the two from crowding each other. */
+.help-toggle {
+    -fx-padding: 4 10 4 10;
+    -fx-background-color: #d6ecff;
+    -fx-border-color: #8ec5f2;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-text-fill: #123a5c;
+    -fx-font-weight: bold;
+}
+
+.help-toggle:hover {
+    -fx-background-color: #bcdffb;
+}
