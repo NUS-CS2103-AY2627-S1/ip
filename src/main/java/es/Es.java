@@ -55,6 +55,9 @@ public class Es {
                 addGuiEvent(commandText.substring(5).trim());
                 return addGuiTaskMessage(guiTasks.get(guiTasks.size() - 1));
             case LIST:
+                if (guiTasks.size() == 0) {
+                    return "The shelves are empty for now.";
+                }
                 StringBuilder result = new StringBuilder("Here are the tasks in your list:");
                 for (int i = 0; i < guiTasks.size(); i++) {
                     result.append("\n").append(i + 1).append(".").append(guiTasks.get(i));
@@ -70,7 +73,11 @@ public class Es {
                     throw new EsException("... give me something to work with.");
                 }
                 StringBuilder matches = new StringBuilder("These entries match your search:");
-                for (int i : guiTasks.find(keyword)) {
+                ArrayList<Integer> matchingIndexes = guiTasks.find(keyword);
+                if (matchingIndexes.isEmpty()) {
+                    return "Nothing in the collection matches that search.";
+                }
+                for (int i : matchingIndexes) {
                     matches.append("\n").append(i + 1).append(".").append(guiTasks.get(i));
                 }
                 return matches.toString();
@@ -149,8 +156,14 @@ public class Es {
         }
         assert guiTasks.get(index) != null : "A valid task index must reference a task";
         if (mark) {
+            if (guiTasks.get(index).getStatusIcon().equals("X")) {
+                return "That task is already marked as complete.";
+            }
             guiTasks.get(index).markAsDone();
         } else {
+            if (guiTasks.get(index).getStatusIcon().equals(" ")) {
+                return "That task is already unfinished.";
+            }
             guiTasks.get(index).markAsNotDone();
         }
         guiStorage.save(guiTasks.asList());
@@ -202,6 +215,9 @@ public class Es {
             if (guiTasks.get(i).getTags().contains(tag)) {
                 result.append("\n").append(i + 1).append(".").append(guiTasks.get(i));
             }
+        }
+        if (result.toString().equals("These entries bear that tag:")) {
+            return "No entries bear that tag.";
         }
         return result.toString();
     }

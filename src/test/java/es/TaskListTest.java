@@ -2,6 +2,8 @@ package es;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 class TaskListTest {
@@ -17,6 +19,13 @@ class TaskListTest {
         assertEquals(first, tasks.get(0));
         assertEquals(second, tasks.remove(1));
         assertEquals(1, tasks.size());
+    }
+
+    @Test
+    void find_emptyList_returnsNoMatches() {
+        TaskList tasks = new TaskList();
+
+        assertEquals(new ArrayList<Integer>(), tasks.find("anything"));
     }
 
     private Deadline assertDeadline(String description, String date) {

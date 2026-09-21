@@ -25,4 +25,16 @@ class TaskTest {
         assertEquals(" ", task.getStatusIcon());
         assertEquals("[T][ ] read book", task.toString());
     }
+
+    @Test
+    void repeatedStatusChanges_remainStable() {
+        Todo task = new Todo("read book");
+
+        task.markAsDone();
+        task.markAsDone();
+        assertEquals("X", task.getStatusIcon());
+        task.markAsNotDone();
+        task.markAsNotDone();
+        assertEquals(" ", task.getStatusIcon());
+    }
 }
