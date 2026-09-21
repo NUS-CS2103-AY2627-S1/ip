@@ -1,0 +1,41 @@
+.label {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #173d2a;
+    -fx-border-color: #168a54;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-padding: 6px;
+}
+
+.reply-label {
+    -fx-text-fill: #173d2a;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.normal-reply-label {
+    -fx-background-color: #dff7e6;
+}
+
+.success-reply-label {
+    -fx-background-color: #a6ddbd;
+    -fx-text-fill: #102a1d;
+    -fx-border-color: #1b4332;
+}
+
+.error-reply-label {
+    -fx-background-color: #ffe0cc;
+    -fx-text-fill: #5c1f16;
+    -fx-border-color: #d9825b;
+}
+
+#displayPicture {
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+

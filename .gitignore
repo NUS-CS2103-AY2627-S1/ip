@@ -3,6 +3,20 @@
 /out/
 /*.iml
 
+# Java build files
+*.class
+
+# logs directory
+/data/*
+
+# Misc files
+.codex/*
+!.codex/skills/
+.codex/skills/**
+!.codex/skills/**/
+!.codex/skills/**/SKILL.md
+compile.sh
+
 # Gradle build files
 /.gradle/
 /build/
