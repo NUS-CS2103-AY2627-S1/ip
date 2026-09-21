@@ -1,25 +1,79 @@
-# Duke project template
+# Auto
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Auto is a task chatbot with a JavaFX graphical interface and a Singaporean
+personality. Type commands in its chat window to manage todos, deadlines, and
+events, search tasks by name or date, and mark tasks as complete. Auto saves
+tasks automatically and shows reminders for today's scheduled tasks at startup.
 
-## Setting up in Intellij
+## Prerequisites
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+- JDK 25. Run `java -version` to check the version used by your terminal.
+- Command Prompt on Windows for the quickstart command below
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Build and run the fat JAR
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+The Shadow plugin packages Auto and all its runtime dependencies into one
+executable fat JAR. From the project root, create it with:
+
+```cmd
+gradlew.bat clean shadowJar
+```
+
+On macOS or Linux, use `./gradlew clean shadowJar` instead. `clean` removes old
+build output, and `shadowJar` compiles the project and creates the executable
+JAR.
+
+The generated file is located at:
+
+```text
+build/libs/auto.jar
+```
+
+Run it from the project root with:
+
+```cmd
+java -jar build\libs\auto.jar
+```
+
+On macOS or Linux, use `java -jar build/libs/auto.jar`. This opens Auto's chat
+window. Enter commands in the input field and press Enter to send them.
+Use `bye` to close the application. Rebuild the JAR after changing the source code.
+
+Auto stores tasks in `data/auto.txt` relative to the directory from which the
+JAR is run. Run it from the project root to use the repository's `data`
+directory consistently.
+
+## Commands
+
+See the [User Guide](https://leewenkang-nus.github.io/ip/) for all commands,
+examples, screenshots, and instructions for downloading a prebuilt JAR.
+
+## Storage
+
+Auto loads and saves tasks automatically using `data/auto.txt`, relative to the
+directory from which the application is run. Stored text fields are Base64
+encoded so task descriptions containing separators can be recovered safely.
+
+## Source structure
+
+`src/main/java` remains the Java source root. Classes are organized under the
+base `auto` package:
+
+```text
+auto
+|-- Auto.java
+|-- Launcher.java
+|-- Main.java
+|-- command
+|-- exception
+|-- parser
+|-- storage
+|-- task
+|-- ui
+`-- util
+```
+
+JavaFX layouts, styles, and images are stored in `src/main/resources`.
+
+When using IntelliJ IDEA, configure the project to use JDK 25 and mark
+`src/main/java` as the source root.

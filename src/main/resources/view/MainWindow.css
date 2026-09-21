@@ -1,0 +1,48 @@
+.root {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+}
+
+.latest-message-button {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: white;
+    -fx-background-radius: 18px;
+    -fx-padding: 8px 14px;
+    -fx-cursor: hand;
+}
+
+.latest-message-button:hover {
+    -fx-background-color: #1d4ed8;
+}
+
+.latest-message-button:focused {
+    -fx-border-color: #111827;
+    -fx-border-radius: 18px;
+}
+
+.message-bubble {
+    -fx-background-radius: 12px;
+    -fx-padding: 8px 12px 10px 12px;
+}
+
+.user-bubble {
+    -fx-background-color: #dbeafe;
+}
+
+.auto-bubble {
+    -fx-background-color: #e5e7eb;
+}
+
+.message-sender {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2563eb;
+}
+
+.auto-bubble .message-sender {
+    -fx-text-fill: #4b5563;
+}
+
+.message-content {
+    -fx-text-fill: #111827;
+}
