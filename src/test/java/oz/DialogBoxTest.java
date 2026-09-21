@@ -3,6 +3,7 @@ package oz;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -10,10 +11,14 @@ import org.junit.jupiter.api.Test;
 
 import javafx.application.Platform;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 /**
  * Tests the GUI presentation components in {@link DialogBox}.
@@ -115,5 +120,37 @@ public class DialogBoxTest {
         assertFalse(defaultMessage.getStyleClass().contains("marked-label"));
         assertFalse(defaultMessage.getStyleClass().contains("delete-label"));
         assertFalse(defaultMessage.getStyleClass().contains("error-label"));
+    }
+
+    @Test
+    public void getOzDialog_longTaskList_contentFitsViewport() {
+        String taskListMessage = """
+                Here is the master task list:
+                1. [D][ ] submit report (by: Oct 02 2026, 6pm)
+                2. [E][ ] project meeting (from: Oct 02 2026, 2pm to: Oct 02 2026, 4pm)
+                3. [R] tutorial (from: Oct 02 2026, 10am to: Oct 02 2026, 12pm; repeats: every 1 week)
+                4. [D][ ] submit report (by: Oct 02 2026, 6pm)
+                5. [E][ ] project meeting (from: Oct 02 2026, 2pm to: Oct 02 2026, 4pm)
+                6. [R] tutorial (from: Oct 02 2026, 10am to: Oct 02 2026, 12pm; repeats: every 1 week)
+                7. [R] tutorial (from: Oct 02 2026, 10am to: Oct 02 2026, 12pm; repeats: every 1 week)
+                """.stripTrailing();
+        DialogBox dialogBox = DialogBox.getOzDialog(taskListMessage, dummyImage);
+        VBox root = new VBox(dialogBox);
+        new Scene(root, 500, 800);
+
+        root.resize(500, 800);
+        root.applyCss();
+        root.layout();
+        root.layout();
+
+        TextArea messageArea = (TextArea) dialogBox.getChildren().get(1);
+        ScrollPane internalScrollPane = (ScrollPane) messageArea.lookup(".scroll-pane");
+        Region textContent = (Region) messageArea.lookup(".content");
+        assertNotNull(internalScrollPane);
+        assertNotNull(textContent);
+        double viewportHeight = internalScrollPane.getViewportBounds().getHeight();
+        assertTrue(textContent.getHeight() <= viewportHeight, () ->
+                String.format("Text content height %.1f exceeded viewport height %.1f",
+                        textContent.getHeight(), viewportHeight));
     }
 }

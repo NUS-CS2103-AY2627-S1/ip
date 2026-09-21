@@ -10,13 +10,14 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
+import javafx.scene.layout.Region;
 
 /**
  * A custom control representing a dialog box consisting of an avatar and a
@@ -27,11 +28,14 @@ public class DialogBox extends HBox {
     /** Maximum share of a dialog row occupied by its text bubble. */
     private static final double DIALOG_WIDTH_RATIO = 0.75;
 
-    /** Space reserved around the measured message text. */
-    private static final double DIALOG_CONTENT_PADDING = 20;
-
     /** Minimum height of a single-line message bubble. */
     private static final double MINIMUM_DIALOG_HEIGHT = 34;
+
+    /** CSS selector for the scroll pane inside the message area. */
+    private static final String SCROLL_PANE_SELECTOR = ".scroll-pane";
+
+    /** CSS selector for the text content inside the message area. */
+    private static final String TEXT_CONTENT_SELECTOR = ".content";
 
     /** Label for the action that copies a message to the system clipboard. */
     private static final String COPY_MESSAGE_MENU_TEXT = "Copy message";
@@ -104,21 +108,44 @@ public class DialogBox extends HBox {
     /** Wires size changes to automatic message-bubble height updates. */
     private void configureAutomaticHeight() {
         this.dialog.maxWidthProperty().bind(this.widthProperty().multiply(DIALOG_WIDTH_RATIO));
+        this.dialog.skinProperty().addListener((observable, oldSkin, newSkin) -> configureTextViewport());
         this.dialog.widthProperty().addListener((observable, oldWidth, newWidth) -> updateDialogHeight());
         this.dialog.fontProperty().addListener((observable, oldFont, newFont) -> updateDialogHeight());
     }
 
-    /** Updates the message area height to display all wrapped text without an inner scrollbar. */
-    private void updateDialogHeight() {
-        double availableTextWidth = this.dialog.getWidth() - DIALOG_CONTENT_PADDING;
-        if (availableTextWidth <= 0) {
+    /** Recalculates the bubble height after its internal viewport is laid out. */
+    private void configureTextViewport() {
+        Node scrollPaneNode = this.dialog.lookup(SCROLL_PANE_SELECTOR);
+        if (!(scrollPaneNode instanceof ScrollPane internalScrollPane)) {
             return;
         }
 
-        Text textMeasurement = new Text(this.dialog.getText());
-        textMeasurement.setFont(this.dialog.getFont());
-        textMeasurement.setWrappingWidth(availableTextWidth);
-        double requiredHeight = textMeasurement.getLayoutBounds().getHeight() + DIALOG_CONTENT_PADDING;
+        internalScrollPane.viewportBoundsProperty().addListener((observable, oldBounds, newBounds) ->
+                updateDialogHeight());
+    }
+
+    /** Updates the message area height to display all wrapped text without an inner scrollbar.
+     *  Credit to GeraldFSE's finding that text content was clipped inside message bubbles
+     *  Link to conversation: https://github.com/NUS-CS2103-AY2627-S1/forum/issues/522#issuecomment-5752656706
+     */
+    private void updateDialogHeight() {
+        this.dialog.applyCss();
+        Node scrollPaneNode = this.dialog.lookup(SCROLL_PANE_SELECTOR);
+        Node textContentNode = this.dialog.lookup(TEXT_CONTENT_SELECTOR);
+        if (!(scrollPaneNode instanceof ScrollPane internalScrollPane)
+                || !(textContentNode instanceof Region textContent)) {
+            return;
+        }
+
+        double viewportWidth = internalScrollPane.getViewportBounds().getWidth();
+        double viewportHeight = internalScrollPane.getViewportBounds().getHeight();
+        if (viewportWidth <= 0) {
+            return;
+        }
+
+        double contentHeight = textContent.prefHeight(viewportWidth);
+        double controlDecorationHeight = this.dialog.getHeight() - viewportHeight;
+        double requiredHeight = contentHeight + controlDecorationHeight;
         this.dialog.setPrefHeight(Math.max(MINIMUM_DIALOG_HEIGHT, Math.ceil(requiredHeight)));
     }
 
