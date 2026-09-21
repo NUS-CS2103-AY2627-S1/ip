@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -59,7 +60,7 @@ public class StorageTest {
         storage.save(java.util.List.of(new Todo("first")));
         storage.save(java.util.List.of(new Todo("second")));
 
-        assertEquals("T | 0 | second\n", java.nio.file.Files.readString(file));
+        assertEquals(List.of("T | 0 | second"), java.nio.file.Files.readAllLines(file));
         try (var files = java.nio.file.Files.list(file.getParent())) {
             assertEquals(1, files.count());
         }
