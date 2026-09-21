@@ -62,10 +62,13 @@ What you get:
 
 ## Quick start
 
-1. **Install Java 25.** Steph needs it to run. Nothing else is required:
-   the JavaFX libraries are packed inside the download.
-2. **Download `steph.jar`** from the latest release on the project's GitHub
-   Releases page. Put it in a folder of your choice. Steph will keep your
+1. **Install Java.** Ensure that Java 25 or later is installed on your
+   computer.
+
+   **Mac users:** Ensure you have the precise JDK version prescribed in the
+   [Java installation guide for Mac](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+2. **Download `steph.jar`** from the [v1.0 release](https://github.com/preyjwal/ip/releases/tag/v1.0) (under
+   "Assets"). Put it in a folder of your choice. Steph will keep your
    tasks in a `data` folder next to where you start it, so an empty folder of
    its own is a good idea.
 3. **Start Steph.** Open a terminal in that folder and run:
@@ -393,10 +396,10 @@ Steph loaded everything else and ignored that line.
 
 **`java -jar steph.jar` says `Unsupported class file major version` or
 `UnsupportedClassVersionError`.**
-Your Java is older than 25. Run `java -version` to check, and install Java 25.
+Your Java is older than 25. Run `java -version` to check, and install Java 25 or later.
 
 **`java: command not found`.**
-Java isn't installed, or isn't on your PATH. Install Java 25 and reopen the terminal.
+Java isn't installed, or isn't on your PATH. Install Java 25 or later and reopen the terminal.
 
 **The window doesn't open.**
 Run the command from a terminal (not by double-clicking) so you can see any
@@ -472,7 +475,7 @@ E | 0 | camp | 2026-10-15T14:00 | 2026-10-15T18:00
 | | |
 |---|---|
 | Runs on | Windows, macOS, Linux |
-| Requires | Java 25 only; JavaFX is bundled in `steph.jar` |
+| Requires | Java 25 or later; JavaFX is bundled in `steph.jar` |
 | Distribution | A single self-contained file, `steph.jar` |
 | Interfaces | Chat window (`java -jar steph.jar`) and console (`java -cp steph.jar steph.Steph`) |
 | Storage | One local text file, `data/steph.txt`; no network or account |
