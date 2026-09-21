@@ -1,25 +1,61 @@
-# Duke project template
+# Margit task manager
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![Margit interface](docs/Ui.png)
 
-## Setting up in Intellij
+Margit, the Fell Task Keeper, is a desktop task manager for recording,
+reviewing, and planning your tasks.
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+## Command summary
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+| Command | Format | Purpose |
+| --- | --- | --- |
+| Add todo | `todo DESCRIPTION` | Adds an undated task. |
+| Add deadline | `deadline DESCRIPTION /by DATE_OR_TIME` | Adds a task due by a date or date-time. |
+| Add event | `event DESCRIPTION /from DATE_OR_TIME /to DATE_OR_TIME` | Adds an event with a start and end. |
+| List tasks | `list` | Shows all saved tasks. |
+| Mark task | `mark INDEX` | Marks a listed task as complete. |
+| Unmark task | `unmark INDEX` | Restores a listed task as incomplete. |
+| Delete task | `delete INDEX` | Permanently removes a listed task. |
+| Find tasks | `find KEYWORD` | Finds task descriptions containing a keyword. |
+| View a date | `on DATE` | Shows scheduled tasks that occur on a date. |
+| Sort tasks | `sort` | Permanently sorts tasks into chronological order. |
+| Exit | `bye` | Ends the terminal session or shows a GUI farewell. |
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+See the [full User Guide](docs/README.md) for command examples, date formats,
+and detailed behaviour.
+
+## Prerequisites
+
+Use Java 25. Keep `src/main/java` as the Java source root.
+
+## Build a fat JAR
+
+From the repository root, run:
+
+```powershell
+.\gradlew.bat shadowJar
+```
+
+Gradle compiles the application and packages its runtime dependencies into a single executable fat JAR at:
+
+```text
+build/libs/margit.jar
+```
+
+The `build/` directory is ignored by Git, so do not commit this generated JAR. Publish it as a GitHub Release asset when you need to share it.
+
+## Run the JAR
+
+Copy `build/libs/margit.jar` to an empty folder, open PowerShell in that folder, and run:
+
+```powershell
+java -jar margit.jar
+```
+
+Running it from an empty folder prevents its `data/Margit.txt` save file from mixing with files from another run.
+
+## Run tests
+
+```powershell
+.\gradlew.bat test
+```

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="650.0" prefWidth="500.0" styleClass="main-window" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="margit.MainWindow">
+    <children>
+        <Label styleClass="app-title" text="MARGIT" AnchorPane.leftAnchor="20.0"
+               AnchorPane.topAnchor="16.0" />
+        <Label styleClass="app-subtitle" text="Fell task keeper" AnchorPane.rightAnchor="20.0"
+               AnchorPane.topAnchor="20.0" />
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" styleClass="conversation-scroll"
+                    vvalue="1.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="56.0">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true" styleClass="dialog-container" />
+            </content>
+        </ScrollPane>
+        <HBox spacing="10.0" styleClass="command-bar" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <TextField fx:id="userInput" onAction="#handleUserInput" promptText="Enter a command..."
+                           HBox.hgrow="ALWAYS" />
+                <Button mnemonicParsing="false" onAction="#handleUserInput" styleClass="send-button"
+                        text="Send" />
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

@@ -1,0 +1,105 @@
+.root {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.main-window {
+    -fx-background-color: #1f1f1c;
+}
+
+.app-title {
+    -fx-font-family: Georgia, "Times New Roman", serif;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e1c16e;
+}
+
+.app-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #c6bfad;
+}
+
+.conversation-scroll,
+.conversation-scroll > .viewport {
+    -fx-background-color: #1f1f1c;
+}
+
+.conversation-scroll > .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.conversation-scroll > .scroll-bar:vertical .thumb {
+    -fx-background-color: #605a4b;
+}
+
+.dialog-container {
+    -fx-background-color: #1f1f1c;
+    -fx-padding: 10px 0 14px 0;
+    -fx-spacing: 4px;
+}
+
+.dialog-label {
+    -fx-background-radius: 10px;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 10px 13px;
+}
+
+.user-dialog .dialog-label {
+    -fx-background-color: #3c3a34;
+    -fx-border-color: #605d55;
+    -fx-border-radius: 10px 2px 10px 10px;
+    -fx-background-radius: 10px 2px 10px 10px;
+    -fx-text-fill: #f1eee6;
+}
+
+.margit-dialog .dialog-label {
+    -fx-background-color: #302f29;
+    -fx-border-color: #a98f4c;
+    -fx-border-width: 0 0 0 3px;
+    -fx-background-radius: 2px 10px 10px 10px;
+    -fx-text-fill: #f1eee6;
+}
+
+.error-dialog .dialog-label {
+    -fx-background-color: #452a2d;
+    -fx-border-color: #c96c72;
+    -fx-border-width: 0 0 0 3px;
+    -fx-background-radius: 2px 10px 10px 10px;
+    -fx-text-fill: #fff0f0;
+}
+
+.margit-avatar {
+    -fx-effect: dropshadow(gaussian, rgba(225, 193, 110, 0.35), 8, 0.4, 0, 0);
+}
+
+.command-bar {
+    -fx-alignment: CENTER;
+    -fx-background-color: #292823;
+    -fx-border-color: #4d493d transparent transparent transparent;
+    -fx-padding: 10px 14px;
+}
+
+.command-bar .text-field {
+    -fx-background-color: #171715;
+    -fx-background-radius: 7px;
+    -fx-border-color: #5d594d;
+    -fx-border-radius: 7px;
+    -fx-prompt-text-fill: #aaa491;
+    -fx-text-fill: #f4f1e8;
+}
+
+.command-bar .text-field:focused {
+    -fx-border-color: #d4b466;
+    -fx-effect: dropshadow(gaussian, rgba(212, 180, 102, 0.22), 8, 0.25, 0, 0);
+}
+
+.send-button {
+    -fx-background-color: #b99b53;
+    -fx-background-radius: 7px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #211e16;
+}
+
+.send-button:hover {
+    -fx-background-color: #d1b46a;
+}

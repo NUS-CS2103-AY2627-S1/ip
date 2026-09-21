@@ -26,10 +26,19 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 ## Java version:
 
-Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+Ensure that Java 17 is used when running the application or build tasks, as required by CS2103/T. On macOS, use the course-prescribed Java 17 distribution.
+
+## Testing
+
+Maintain JUnit coverage for approximately the top 50% of highest-value methods, prioritizing complex, core, and critical business logic. After every code change, add or update JUnit tests as needed to continue meeting this coverage target.
+
+## Java coding standard
+
+For every Java production-code or test-code change in this project, follow the project-specific `$seedu-java-coding-standard` skill at `.codex/skills/seedu-java-coding-standard/SKILL.md`. It implements the SE-EDU intermediate Java coding standard for naming, layout, packages, imports, comments, Javadoc, and test names.
 
 ## Git
 
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+For every future branch and commit, follow the project-specific `$seedu-git-standard` skill at `.codex/skills/seedu-git-standard/SKILL.md`.
