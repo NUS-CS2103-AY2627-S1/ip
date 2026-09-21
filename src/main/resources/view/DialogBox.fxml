@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root type="HBox" spacing="10.0"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+    </padding>
+    <children>
+        <Label fx:id="avatar" alignment="CENTER" minHeight="46.0" minWidth="46.0"
+               prefHeight="46.0" prefWidth="46.0" styleClass="avatar" />
+        <Label fx:id="dialogText" maxWidth="520.0" minWidth="0.0" minHeight="-Infinity"
+               styleClass="dialog-bubble" wrapText="true" HBox.hgrow="ALWAYS">
+            <padding>
+                <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+            </padding>
+        </Label>
+    </children>
+</fx:root>

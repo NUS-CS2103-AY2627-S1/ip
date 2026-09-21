@@ -1,0 +1,184 @@
+[
+  {
+    "name": "Empty list recovery",
+    "input": ["list", "sort", "todo book", "delete 1", "list", "mark 1", "todo new task", "list", "bye"],
+    "expected": ["Your meadow is empty! Add a task with todo, deadline, or event.", "Nothing to sort yet.", "Now you have 0 tasks in the list.", "Baa-error: that task number is not in your list.", "1.[T][ ] new task"]
+  },
+  {
+    "name": "Search with no matches",
+    "input": ["find pineapple", "todo read book", "find pineapple", "find book", "bye"],
+    "expected": ["No matching tasks found. Try another keyword!", "Here are the matching tasks in your list:\n1.[T][ ] read book"]
+  },
+  {
+    "name": "Mixed commands retain sorted numbering",
+    "input": ["todo zebra", "todo apple", "sort", "mark 1", "delete 3", "delete 2", "list", "bye"],
+    "expected": ["Nice! I've marked this task as done:\n  [T][X] apple", "Baa-error: that task number is not in your list.", "Here are the tasks in your list:\n1.[T][X] apple"]
+  },
+  {
+    "name": "More error handling recovery",
+    "input": ["deadline", "event", "todo safe", "todo x | y", "event x /from Mon /to Tue /to Wed", "  list  ", "bye"],
+    "expected": ["Baa-error: a deadline needs", "Baa-error: an event needs", "please remove |", "use /to exactly once.", "Here are the tasks in your list:\n1.[T][ ] safe"]
+  },
+  {
+    "name": "Level 4 task types",
+    "input": [
+      "todo borrow book",
+      "deadline submit report /by 2019-06-06",
+      "event project meeting /from Monday 2pm /to 4pm",
+      "list",
+      "bye"
+    ],
+    "expected": [
+      "        __",
+      "       (oo)",
+      "  +---/----\\-----------------------+",
+      "  |        S H E P P Y             |",
+      "  |      your woolly helper        |",
+      "  +--------------------------------+",
+      "[T][ ] borrow book",
+      "[D][ ] submit report (by: Jun 06 2019)",
+      "[E][ ] project meeting (from: Monday 2pm to: 4pm)"
+    ]
+  },
+  {
+    "name": "Mark and unmark",
+    "input": ["todo read book", "mark 1", "list", "unmark 1", "list", "bye"],
+    "expected": ["[T][X] read book", "[T][ ] read book"]
+  },
+  {
+    "name": "Invalid commands do not change tasks",
+    "input": [
+      "todo",
+      "todo read book",
+      "blah",
+      "deadline report",
+      "event meeting",
+      "mark x",
+      "list",
+      "bye"
+    ],
+    "expected": [
+      "Baa-error: a task description cannot be empty.",
+      "Baa-error: I don't recognize that command.",
+      "Baa-error: a deadline needs a description and a /by date or time.",
+      "Baa-error: an event needs a description, /from time, and /to time.",
+      "Baa-error: the task number must be a whole number.",
+      "1.[T][ ] read book"
+    ]
+  },
+  {
+    "name": "Delete tasks and renumber",
+    "input": [
+      "todo first task",
+      "todo second task",
+      "todo third task",
+      "mark 2",
+      "delete 1",
+      "list",
+      "delete x",
+      "bye"
+    ],
+    "expected": [
+      "Noted. I've removed this task:",
+      "  [T][ ] first task",
+      "1.[T][X] second task",
+      "2.[T][ ] third task",
+      "Baa-error: the task number must be a whole number."
+    ]
+  },
+  {
+    "name": "Level 7 save changes",
+    "input": ["todo saved task", "mark 1", "delete 1", "bye"],
+    "expected": [
+      "Got it. I've added this task:",
+      "Nice! I've marked this task as done:",
+      "Noted. I've removed this task:"
+    ]
+  },
+  {
+    "name": "Level 7 missing storage file",
+    "input": ["list", "bye"],
+    "expected": ["Here are the tasks in your list:"]
+  },
+  {
+    "name": "Level 7 unknown stored task type",
+    "storage": ["X | 0 | invalid task"],
+    "input": ["list", "bye"],
+    "expected": [
+      "Baa-error: your task file contains an unknown task type: X",
+      "Baa-error: your tasks are unavailable"
+    ]
+  },
+  {
+    "name": "Level 7 invalid stored status",
+    "storage": ["T | 2 | invalid status"],
+    "input": ["list", "bye"],
+    "expected": [
+      "Baa-error: your task file contains an invalid status: 2",
+      "Baa-error: your tasks are unavailable"
+    ]
+  },
+  {
+    "name": "Level 7 incomplete stored task",
+    "storage": ["D | 0 | missing deadline"],
+    "input": ["list", "bye"],
+    "expected": [
+      "Baa-error: your task file contains the wrong number of fields.",
+      "Baa-error: your tasks are unavailable"
+    ]
+  },
+  {
+    "name": "Level 8 typed deadline date",
+    "input": ["deadline submit report /by 2019-10-15", "list", "bye"],
+    "expected": [
+      "[D][ ] submit report (by: Oct 15 2019)"
+    ]
+  },
+  {
+    "name": "Level 8 invalid deadline date",
+    "input": ["deadline submit report /by October 15", "list", "bye"],
+    "expected": [
+      "Baa-error: please use dates in yyyy-MM-dd format, such as 2019-10-15.",
+      "Here are the tasks in your list:"
+    ]
+  },
+  {
+    "name": "Level 9 find tasks",
+    "input": [
+      "todo read book",
+      "todo exercise",
+      "deadline return book /by 2019-10-15",
+      "find book",
+      "bye"
+    ],
+    "expected": [
+      "Here are the matching tasks in your list:",
+      "1.[T][ ] read book",
+      "2.[D][ ] return book (by: Oct 15 2019)"
+    ]
+  },
+  {
+    "name": "C-Sort orders and saves tasks",
+    "input": [
+      "todo Write report",
+      "todo buy milk",
+      "todo Attend meeting",
+      "sort",
+      "list",
+      "bye"
+    ],
+    "expected": [
+      "All sorted! Here are your tasks in alphabetical order:",
+      "1.[T][ ] Attend meeting\n2.[T][ ] buy milk\n3.[T][ ] Write report",
+      "Here are the tasks in your list:"
+    ]
+  },
+  {
+    "name": "C-Sort handles an empty list",
+    "input": ["sort", "list", "bye"],
+    "expected": [
+      "Nothing to sort yet. Your meadow is empty!",
+      "Here are the tasks in your list:\nYour meadow is empty!"
+    ]
+  }
+]

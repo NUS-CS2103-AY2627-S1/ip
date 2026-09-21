@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Beginner
+* IDE and level of expertise: VS Code, beginner
 
 # Guidance for interacting with users
 
@@ -21,15 +21,22 @@ Unless the user says otherwise, assume that you are assisting a student working 
   * Add explanatory Javadoc comments to all classes and to nontrivial methods and fields when their purpose or behavior is not obvious.
   * Make generated code as self-explanatory as possible, and include explanatory comments where they improve understanding.
   * When faced with a design choice, choose the simplest option that is sufficient for the requirements, while briefly explaining relevant more advanced alternatives.
+  * After each code update, update `test/ui-test-plan.md` if the user interface changed and run the project-specific `test-ui` skill.
+  * For Java changes, follow the project skill `.codex/skills/seedu-java-coding-standard/SKILL.md`.
+  * For Git commits, branches, merges, tags, and pushes, follow `.codex/skills/seedu-git-standard/SKILL.md`.
 
 # Project-specific requirements
 
 ## Java version:
 
-Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed. The current setup uses Zulu JDK 25.0.3.
 
 ## Git
 
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## Project skills
+
+The project-specific `seedu-java-coding-standard` and `seedu-git-standard` skills are required for the corresponding work. If a requested visual-presentation skill is unavailable, report the relevant `git diff --stat` and diff instead of silently skipping the review.

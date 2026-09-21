@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run scripted text-interface checks"
+  default_prompt: "Run the project UI test plan and report the console session."

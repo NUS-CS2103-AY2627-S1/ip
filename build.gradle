@@ -1,0 +1,92 @@
+plugins {
+    id 'application'
+    id 'checkstyle'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+group = 'sheppy'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    macArmNatives
+}
+
+dependencies {
+    def javaFxVersion = '17.0.7'
+
+    macArmNatives("org.openjfx:javafx-graphics:${javaFxVersion}:mac-aarch64") {
+        transitive = false
+    }
+
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+
+    testImplementation platform('org.junit:junit-bom:5.13.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+application {
+    mainClass = 'sheppy.gui.Launcher'
+    applicationDefaultJvmArgs = ['--enable-native-access=ALL-UNNAMED,javafx.graphics']
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.named('jar') {
+    manifest {
+        attributes('Main-Class': application.mainClass.get(), 'Enable-Native-Access': 'ALL-UNNAMED')
+    }
+}
+
+tasks.named('processResources') {
+    from({ configurations.macArmNatives.collect { zipTree(it) } }) {
+        include '*.dylib'
+        into 'natives/mac-aarch64'
+    }
+}
+
+shadowJar {
+    archiveFileName = 'sheppy.jar'
+    // Keep both Mac architectures without colliding native library names.
+    eachFile { details ->
+        if (details.path.endsWith('.dylib') && !details.path.contains('/')) {
+            details.path = "natives/mac-x86_64/${details.path}"
+        }
+    }
+}
+
+tasks.named('run') {
+    dependsOn tasks.named('shadowJar')
+    classpath = files(tasks.named('shadowJar'))
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

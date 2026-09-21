@@ -1,0 +1,64 @@
+.root {
+    -fx-background-color: #f7f3e8;
+    -fx-font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+    -fx-font-size: 14px;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-border-color: #c9b98b;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+}
+
+.dialog-bubble {
+    -fx-background-radius: 14px;
+    -fx-border-radius: 14px;
+}
+
+.sheppy-dialog .dialog-bubble {
+    -fx-background-color: #fffdf7;
+    -fx-border-color: #d8cda9;
+    -fx-text-fill: #403721;
+}
+
+.user-dialog .dialog-bubble {
+    -fx-background-color: #5d744d;
+    -fx-text-fill: white;
+}
+
+.avatar {
+    -fx-background-color: #e5d8af;
+    -fx-background-radius: 23px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #403721;
+}
+
+.user-dialog .avatar {
+    -fx-background-color: #33432c;
+    -fx-text-fill: white;
+}
+
+.text-field {
+    -fx-background-radius: 8px;
+    -fx-border-color: #c9b98b;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px;
+}
+
+.button {
+    -fx-background-color: #5d744d;
+    -fx-background-radius: 8px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #4b603e;
+}
