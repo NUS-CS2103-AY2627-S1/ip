@@ -1,0 +1,67 @@
+.root {
+    -fx-background-color: #ffffff;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 13px;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+#dialogContainer {
+    -fx-background-color: #ffffff;
+    -fx-spacing: 10;
+    -fx-padding: 12 10 12 10;
+}
+
+.bubble {
+    -fx-background-radius: 16;
+    -fx-padding: 10 14 10 14;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2px;
+}
+
+.bubble-user {
+    -fx-background-color: #0b93f6;
+    -fx-text-fill: white;
+}
+
+.bubble-bot {
+    -fx-background-color: #e5e5ea;
+    -fx-text-fill: #1c1c1e;
+}
+
+.bubble-error {
+    -fx-background-color: #fdecea;
+    -fx-text-fill: #a4262c;
+    -fx-border-color: #f3b4b0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 16;
+    -fx-font-weight: bold;
+}
+
+#userInput {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 20;
+    -fx-padding: 8 14 8 14;
+    -fx-font-size: 13px;
+    -fx-border-color: transparent;
+}
+
+#userInput:focused {
+    -fx-background-color: #e8e8e8;
+}
+
+#sendButton {
+    -fx-background-color: #0b93f6;
+    -fx-text-fill: white;
+    -fx-background-radius: 20;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+#sendButton:hover {
+    -fx-background-color: #0a84dd;
+}

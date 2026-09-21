@@ -16,5 +16,8 @@ bin/
 # Temp files
 _temp/
 
+# Task data file saved/loaded by the running program
+/data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
