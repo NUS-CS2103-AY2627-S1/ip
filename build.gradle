@@ -1,0 +1,116 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'jacoco'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
+jacoco {
+    toolVersion = '0.8.14'
+}
+
+jacocoTestReport {
+    dependsOn test
+    executionData(fileTree(layout.buildDirectory.dir('jacoco')) { include '**/*.exec' })
+    reports {
+        html.required = true
+        xml.required = true
+    }
+    // JavaFX layout, event wiring, and startup are covered by the manual GUI plan.
+    classDirectories.setFrom(sourceSets.main.output.asFileTree.matching {
+        exclude 'caitlyn/CaitlynGui*', 'caitlyn/Launcher*'
+    })
+}
+
+test.finalizedBy jacocoTestReport
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    String javaFxVersion = '17.0.7'
+
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:linux")
+}
+
+test {
+    useJUnitPlatform()
+
+    // Child CLI processes use their own coverage files and temporary working directories.
+    def cliCoverageDirectory = layout.buildDirectory.dir('jacoco/cli')
+    systemProperty 'caitlyn.cliCoverageDirectory', cliCoverageDirectory.get().asFile.absolutePath
+
+    // Storage tests use relative paths; keep their files away from the user's saved tasks.
+    workingDir = layout.buildDirectory.dir('test-workspace').get().asFile
+    doFirst {
+        workingDir.mkdirs()
+        delete cliCoverageDirectory
+    }
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'caitlyn.Launcher'
+    applicationDefaultJvmArgs = ['--add-modules=javafx.controls']
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs.addAll(['--add-modules', 'javafx.controls'])
+}
+
+tasks.withType(JavaExec).configureEach {
+    jvmArgs '--add-modules=javafx.controls'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'caitlyn.jar'
+}
+
+run {
+    standardInput = System.in
+}

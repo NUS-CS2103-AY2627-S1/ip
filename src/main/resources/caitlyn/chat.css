@@ -1,0 +1,138 @@
+.root {
+    -fx-font-family: "System";
+    -fx-font-size: 13px;
+    -fx-background-color: #0c1523;
+    -fx-text-fill: #edf3fa;
+}
+.header, .composer {
+    -fx-background-color: #101c2d;
+    -fx-padding: 12 14;
+}
+.header {
+    -fx-border-color: transparent transparent #2b3d53 transparent;
+}
+.composer {
+    -fx-border-color: #2b3d53 transparent transparent transparent;
+}
+.title {
+    -fx-text-fill: #f3f7fc;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+.subtitle, .status, .input-hint {
+    -fx-text-fill: #b4c5d8;
+    -fx-font-size: 11px;
+}
+.chat-scroll {
+    -fx-background-image: url("images/chat-background.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-color: #0c1523;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+.chat-scroll > .viewport {
+    -fx-background-color: rgba(6, 14, 27, 0.64);
+}
+.conversation {
+    -fx-padding: 14;
+}
+.message-card {
+    -fx-padding: 10 12;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+.assistant-card {
+    -fx-background-color: rgba(18, 32, 50, 0.97);
+    -fx-border-color: #385069;
+    -fx-border-width: 0 0 0 3;
+}
+.user-card {
+    -fx-background-color: #244968;
+    -fx-background-radius: 10 3 10 10;
+}
+.message-role {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #9ecbe6;
+}
+.message-body {
+    -fx-font-size: 13px;
+    -fx-text-fill: #f0f4fa;
+    -fx-line-spacing: 3px;
+}
+.user-card .message-body {
+    -fx-font-family: "Menlo", "Consolas", monospace;
+    -fx-font-size: 12px;
+}
+.error-card {
+    -fx-background-color: #3a222c;
+    -fx-border-color: #ff8991;
+}
+.error-card .message-role {
+    -fx-text-fill: #ffabb0;
+}
+.error-card .message-body {
+    -fx-text-fill: #fff0f1;
+}
+.text-field {
+    -fx-background-color: #091523;
+    -fx-background-radius: 8;
+    -fx-border-color: #48617b;
+    -fx-border-radius: 8;
+    -fx-padding: 10 12;
+    -fx-text-fill: #f0f4fa;
+    -fx-prompt-text-fill: #a0b3c8;
+    -fx-highlight-fill: #346d95;
+}
+.text-field:focused {
+    -fx-border-color: #90cfff;
+}
+.button, .menu-button {
+    -fx-background-color: #23384e;
+    -fx-background-radius: 7;
+    -fx-text-fill: #e5effa;
+    -fx-padding: 8 12;
+    -fx-cursor: hand;
+}
+.menu-button > .label { -fx-text-fill: #e5effa; }
+.menu-button > .arrow-button > .arrow { -fx-background-color: #b4c5d8; }
+.send-button {
+    -fx-background-color: #a7d6f4;
+    -fx-text-fill: #102337;
+    -fx-font-weight: bold;
+    -fx-padding: 10 16;
+}
+.button:hover, .menu-button:hover { -fx-background-color: #365571; }
+.send-button:hover { -fx-background-color: #c9eaff; }
+.button:focused, .menu-button:focused {
+    -fx-border-color: #bde4ff;
+    -fx-border-radius: 7;
+    -fx-border-insets: -2;
+}
+.context-menu { -fx-background-color: #192c41; }
+.menu-item .label { -fx-text-fill: #edf3fa; }
+.menu-item:focused { -fx-background-color: #345776; }
+.command-details { -fx-padding: 4 2; }
+.command-details .command-template {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #edf3fa;
+}
+.command-details .command-example {
+    -fx-font-size: 11px;
+    -fx-text-fill: #b4c5d8;
+}
+.scroll-bar:vertical {
+    -fx-background-color: #111f30;
+    -fx-pref-width: 10;
+}
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #536d86;
+    -fx-background-radius: 5;
+}
+.scroll-bar .increment-button, .scroll-bar .decrement-button { -fx-padding: 2; }
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
+}
