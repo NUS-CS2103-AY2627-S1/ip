@@ -93,6 +93,22 @@ public class Storage {
             throw new EsException("The saved task list is corrupted.");
         }
 
+        ArrayList<String> legacyTags = new ArrayList<>();
+        if (parts.length == 3) {
+            String[] words = description.split("\\s+");
+            StringBuilder cleanDescription = new StringBuilder();
+            for (String word : words) {
+                if (word.startsWith("#")) {
+                    legacyTags.add(word);
+                } else {
+                    if (cleanDescription.length() > 0) {
+                        cleanDescription.append(' ');
+                    }
+                    cleanDescription.append(word);
+                }
+            }
+            description = cleanDescription.toString();
+        }
         Task task;
         switch (type) {
         case TODO:
@@ -125,6 +141,9 @@ public class Storage {
             for (String tag : parts[tagIndex].trim().split(",")) {
                 task.addTag(tag.trim());
             }
+        }
+        for (String tag : legacyTags) {
+            task.addTag(tag);
         }
         return task;
     }
