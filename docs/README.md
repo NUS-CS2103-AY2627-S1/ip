@@ -45,6 +45,20 @@ Tags added during creation require `#`, for example `todo read book #study #quie
 
 Es accepts dates such as `2026-10-15`, `2026-10-15 18:00`, and `15/10/2026 1800`. Events must end after they begin. Es also understands `hi`, `hello`, `who are you?`, `what are you?`, and `where is this place?`, regardless of letter casing.
 
+## Edge cases
+
+- Commands must use single spaces with no leading or trailing whitespace.
+- `todo`, `deadline`, and `event` require a description.
+- `deadline` requires `/by`; `event` requires both `/from` and `/to`.
+- Dates must exist, and an event cannot end at or before its start.
+- Tags must be non-empty, must not contain spaces or `|`, and cannot be duplicated on one task.
+- Task numbers must refer to an existing task.
+- Duplicate task details are not added again.
+- `find` matches whole words in descriptions; `findtag` matches tags exactly, including case.
+- Invalid input is reported without terminating the application.
+
+When `bye` is entered in the GUI, Es displays the farewell briefly before closing the window.
+
 Invalid commands, missing arguments, malformed dates, duplicate tags, invalid event periods, and non-existent task numbers are reported without terminating Es. Use single spaces and avoid leading or trailing spaces. The GUI and console use the same command responses.
 
 Tasks are saved automatically in `data/es.txt`.
