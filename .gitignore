@@ -15,6 +15,8 @@ bin/
 
 # Temp files
 _temp/
+data/Topaz.txt
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+.codex/

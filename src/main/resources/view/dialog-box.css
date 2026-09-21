@@ -1,0 +1,43 @@
+.message-text {
+    -fx-font-size: 14px;
+    -fx-text-fill: #243247;
+}
+
+.message-heading {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #237a35;
+}
+
+.user-dialog {
+    -fx-background-color: #334b38;
+    -fx-background-radius: 14 14 3 14;
+    -fx-padding: 10 14;
+}
+
+.user-dialog .message-text {
+    -fx-text-fill: white;
+}
+
+.gronk-dialog {
+    -fx-background-color: #f1f8ec;
+    -fx-background-radius: 0 8 8 0;
+    -fx-border-color: #81b65b;
+    -fx-border-width: 0 0 0 3;
+    -fx-padding: 12 14;
+}
+
+.error-dialog {
+    -fx-background-color: #fff1f0;
+    -fx-border-color: #b42318;
+}
+
+.error-heading {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #b42318;
+}
+
+.error-dialog .message-text {
+    -fx-text-fill: #7a271a;
+}

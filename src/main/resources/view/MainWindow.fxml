@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane stylesheets="@main-window.css" prefHeight="600.0" prefWidth="400.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="topaz.ui.MainWindow">
+    <children>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                    AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <VBox fx:id="dialogContainer" spacing="4.0" />
+            </content>
+        </ScrollPane>
+        <HBox spacing="6.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0"
+              AnchorPane.rightAnchor="8.0">
+            <children>
+                <TextField fx:id="userInput" onAction="#handleUserInput" promptText="Try: todo read book"
+                           HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" text="Send" />
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
