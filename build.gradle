@@ -20,6 +20,11 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
+// Include each JavaFX platform's native libraries so the submitted fat JAR can
+// be launched on Windows, Linux, and macOS, regardless of the build machine.
+def javafxPlatforms = [ 'linux', 'mac', 'mac-aarch64', 'win' ]
+def javafxModules = [ 'base', 'graphics', 'controls', 'fxml' ]
+
 dependencies {
     String jUnitVersion = '5.14.4'
 
@@ -27,6 +32,12 @@ dependencies {
 
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    javafxPlatforms.each { platform ->
+        javafxModules.each { module ->
+            runtimeOnly "org.openjfx:javafx-${module}:25.0.1:${platform}"
+        }
+    }
 }
 
 test {
@@ -52,7 +63,7 @@ test {
 }
 
 application {
-    mainClass = 'Mono'
+    mainClass = 'Launcher'
 }
 
 jar {
