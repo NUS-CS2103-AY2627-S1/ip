@@ -18,3 +18,12 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# classes
+*.class
+
+# TaskList Storage
+data/stewie.txt
+
+# jar files
+out/artifacts/ip_jar/ip.jar

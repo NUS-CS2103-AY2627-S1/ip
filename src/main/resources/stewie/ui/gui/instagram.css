@@ -1,0 +1,277 @@
+.root {
+    -fx-font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+    -fx-background-color: #101018;
+}
+
+.sidebar {
+    -fx-background-color: #171722;
+    -fx-border-color: #2b2b3a;
+    -fx-border-width: 0 1px 0 0;
+}
+
+.logo-circle {
+    -fx-fill: linear-gradient(to bottom right, #feda75 0%, #fa7e1e 30%, #d62976 60%, #962fbf 82%, #4f5bd5 100%);
+}
+
+.logo-mark {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.brand-name {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.muted-label {
+    -fx-text-fill: #8e8da0;
+    -fx-font-size: 11px;
+}
+
+.navigation-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 12px;
+    -fx-text-fill: #aaa8bc;
+    -fx-font-size: 14px;
+    -fx-padding: 13px 14px;
+    -fx-cursor: hand;
+}
+
+.navigation-button:hover,
+.navigation-button-active {
+    -fx-background-color: #29283a;
+    -fx-text-fill: #ffffff;
+}
+
+.summary-card {
+    -fx-background-color: linear-gradient(to bottom right, #34294d, #221f3a);
+    -fx-background-radius: 18px;
+    -fx-padding: 18px;
+    -fx-border-color: #51406e;
+    -fx-border-radius: 18px;
+}
+
+.summary-title {
+    -fx-text-fill: #d6c8f0;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.summary-value {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.summary-hint {
+    -fx-text-fill: #b7a9cf;
+    -fx-font-size: 12px;
+}
+
+.chat-panel {
+    -fx-background-color: #101018;
+}
+
+.chat-header {
+    -fx-background-color: #171722;
+    -fx-border-color: #2b2b3a;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 20px 30px;
+}
+
+.chat-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.header-hint {
+    -fx-text-fill: #7e7d91;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 1px;
+}
+
+.conversation-scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+}
+
+.conversation-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.conversation {
+    -fx-background-color: transparent;
+}
+
+.message-row {
+    -fx-fill-width: true;
+}
+
+.message-bubble {
+    -fx-padding: 13px 17px;
+    -fx-background-radius: 18px;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 3px;
+}
+
+.assistant-bubble {
+    -fx-background-color: #222230;
+    -fx-text-fill: #e9e7f0;
+    -fx-border-color: #343347;
+    -fx-border-radius: 18px;
+}
+
+.user-bubble {
+    -fx-background-color: linear-gradient(to bottom right, #8d37bd, #d72f78);
+    -fx-text-fill: #ffffff;
+}
+
+.task-group {
+    -fx-padding: 2px 0 6px 0;
+}
+
+.task-card {
+    -fx-background-color: #1b1b28;
+    -fx-background-radius: 15px;
+    -fx-border-color: #303043;
+    -fx-border-radius: 15px;
+    -fx-padding: 13px 14px;
+}
+
+.task-card:hover {
+    -fx-background-color: #232333;
+    -fx-border-color: #7c4db0;
+}
+
+.task-done {
+    -fx-opacity: 0.67;
+}
+
+.task-type {
+    -fx-background-radius: 9px;
+    -fx-padding: 7px 9px;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.task-type-t {
+    -fx-background-color: #2b4059;
+    -fx-text-fill: #9ed0ff;
+}
+
+.task-type-d {
+    -fx-background-color: #493b24;
+    -fx-text-fill: #ffd68c;
+}
+
+.task-type-e {
+    -fx-background-color: #422a4c;
+    -fx-text-fill: #e7a5ff;
+}
+
+.task-description {
+    -fx-text-fill: #f2f0f6;
+    -fx-font-size: 14px;
+}
+
+.task-number {
+    -fx-text-fill: #7e7d91;
+    -fx-font-size: 10px;
+}
+
+.task-check {
+    -fx-cursor: hand;
+}
+
+.task-check .box {
+    -fx-background-color: transparent;
+    -fx-border-color: #716d84;
+    -fx-border-radius: 5px;
+}
+
+.task-check:selected .mark {
+    -fx-background-color: #e13b91;
+}
+
+.list-complete-check .box {
+    -fx-min-width: 22px;
+    -fx-pref-width: 22px;
+    -fx-max-width: 22px;
+    -fx-min-height: 22px;
+    -fx-pref-height: 22px;
+    -fx-max-height: 22px;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+}
+
+.list-complete-check:focused .box {
+    -fx-border-color: #e13b91;
+}
+
+.delete-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #8e8da0;
+    -fx-font-size: 20px;
+    -fx-padding: 0 4px;
+    -fx-cursor: hand;
+}
+
+.delete-button:hover {
+    -fx-text-fill: #ff6d9e;
+}
+
+.composer {
+    -fx-background-color: #171722;
+    -fx-border-color: #2b2b3a;
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 14px 30px 20px 30px;
+}
+
+.quick-chip {
+    -fx-background-color: #252536;
+    -fx-background-radius: 12px;
+    -fx-text-fill: #aaa8bc;
+    -fx-font-size: 11px;
+    -fx-padding: 7px 11px;
+    -fx-cursor: hand;
+}
+
+.quick-chip:hover {
+    -fx-background-color: #3a3150;
+    -fx-text-fill: #ffffff;
+}
+
+.message-field {
+    -fx-background-color: #252536;
+    -fx-background-radius: 16px;
+    -fx-border-color: #353548;
+    -fx-border-radius: 16px;
+    -fx-text-fill: #f4f1f7;
+    -fx-prompt-text-fill: #777589;
+    -fx-font-size: 13px;
+    -fx-padding: 13px 16px;
+}
+
+.message-field:focused {
+    -fx-border-color: #c23d9d;
+}
+
+.send-button {
+    -fx-background-color: linear-gradient(to bottom right, #feda75, #d62976 55%, #962fbf);
+    -fx-background-radius: 16px;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-min-width: 48px;
+    -fx-min-height: 44px;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(214, 41, 118, 0.42), 12, 0.3, 0, 3);
+}

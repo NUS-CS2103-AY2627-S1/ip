@@ -1,0 +1,5 @@
+T | 0 | eat
+T | 0 | eat
+T | 0 | poop
+D | 0 | finish something | 02 Aug 2026
+E | 0 | pgp welcome | 03 Aug 2026 | 04 Aug 2026

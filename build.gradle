@@ -1,0 +1,261 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'jacoco'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+checkstyle {
+    toolVersion = '14.1.0'
+}
+
+jacoco {
+    toolVersion = '0.8.14'
+}
+
+jacocoTestReport {
+    dependsOn test
+    executionData file('build/jacoco/test.exec'), file('build/jacoco/cli.exec')
+    reports {
+        html.required = true
+        xml.required = true
+    }
+}
+
+// Keep the complete report above; this companion report separates headless code from native GUI checks.
+tasks.register('jacocoCoreReport', JacocoReport) {
+    group = 'verification'
+    description = 'Reports model, parser, storage, and CLI coverage, excluding the native JavaFX interface.'
+    dependsOn test
+    executionData file('build/jacoco/test.exec'), file('build/jacoco/cli.exec')
+    sourceDirectories.setFrom(sourceSets.main.allSource.srcDirs)
+    classDirectories.setFrom(sourceSets.main.output.classesDirs.asFileTree.matching {
+        exclude 'stewie/ui/gui/**'
+    })
+    reports {
+        html.required = true
+        html.outputLocation = layout.buildDirectory.dir('reports/jacoco/core/html')
+        xml.required = true
+        xml.outputLocation = layout.buildDirectory.file('reports/jacoco/core/jacocoCoreReport.xml')
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+    implementation 'org.kordamp.ikonli:ikonli-javafx:12.4.0'
+    implementation 'org.kordamp.ikonli:ikonli-feather-pack:12.4.0'
+}
+
+javafx {
+    version = '25'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty 'stewie.cliCoverageFile', layout.buildDirectory.file('jacoco/cli.exec').get().asFile.absolutePath
+    doFirst {
+        delete layout.buildDirectory.file('jacoco/cli.exec')
+    }
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'stewie.ui.gui.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'stewie.jar'
+}
+
+tasks.withType(ShadowJar).configureEach {
+    filesMatching('META-INF/services/**') {
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    }
+    mergeServiceFiles()
+    manifest {
+        attributes 'Main-Class': application.mainClass.get(), 'Enable-Native-Access': 'ALL-UNNAMED'
+    }
+}
+
+// Keep architectures separate: their native libraries have identical names but different machine code.
+def releasePlatforms = [
+    'LinuxX64': [classifier: 'linux', archive: 'linux-x64'],
+    'LinuxArm64': [classifier: 'linux-aarch64', archive: 'linux-aarch64'],
+    'WindowsX64': [classifier: 'win', archive: 'windows-x64'],
+    'MacX64': [classifier: 'mac', archive: 'mac-x64'],
+    'MacArm64': [classifier: 'mac-aarch64', archive: 'mac-aarch64'],
+]
+def releaseJars = releasePlatforms.collectEntries { suffix, platform ->
+    def targetJavafx = configurations.create("javafx${suffix}") {
+        canBeConsumed = false
+        transitive = false
+    }
+    ['base', 'graphics', 'controls', 'fxml'].each { module ->
+        dependencies.add(targetJavafx.name, "org.openjfx:javafx-${module}:${javafx.version}:${platform.classifier}")
+    }
+    def releaseJar = tasks.register("shadowJar${suffix}", ShadowJar) {
+        group = 'distribution'
+        description = "Packages the application with JavaFX native libraries for ${platform.archive}."
+        archiveFileName = "stewie-${platform.archive}.jar"
+        from sourceSets.main.output
+        configurations = [project.configurations.runtimeClasspath]
+        dependencies {
+            // Replace the build host's JavaFX, including its platform-specific Java classes.
+            exclude(dependency('org.openjfx:.*:.*'))
+        }
+        from {
+            targetJavafx.collect { zipTree(it) }
+        }
+        exclude 'module-info.class', 'META-INF/versions/**/module-info.class'
+    }
+    [(suffix): releaseJar]
+}
+
+// Share byte-identical files, retaining platform-specific classes and native libraries in overlays.
+// Inner archives are stored uncompressed so the outer JAR can compress across neighboring class files.
+def universalPayload = tasks.register('universalPayload') {
+    dependsOn releaseJars.values()
+    inputs.files(releaseJars.values().collect { it.flatMap { task -> task.archiveFile } })
+    def destination = layout.buildDirectory.dir('universal-payload')
+    outputs.dir(destination)
+    doLast {
+        def runtimes = releaseJars.collectEntries { suffix, provider ->
+            def entries = [:]
+            new java.util.zip.ZipFile(provider.get().archiveFile.get().asFile).withCloseable { archive ->
+                archive.entries().each { entry ->
+                    if (!entry.directory) {
+                        entries[entry.name] = archive.getInputStream(entry).withCloseable { it.bytes }
+                    }
+                }
+            }
+            [(releasePlatforms[suffix].archive): entries]
+        }
+        def common = runtimes.values().first().findAll { name, bytes ->
+            runtimes.values().every { java.util.Arrays.equals(bytes, it[name]) }
+        }
+        delete destination
+        def directory = destination.get().asFile
+        directory.mkdirs()
+        def writeArchive = { name, entries ->
+            new java.util.zip.ZipOutputStream(new FileOutputStream(new File(directory, name))).withCloseable { zip ->
+                entries.each { path, bytes ->
+                    def checksum = new java.util.zip.CRC32()
+                    checksum.update(bytes)
+                    def entry = new java.util.zip.ZipEntry(path)
+                    entry.method = java.util.zip.ZipEntry.STORED
+                    entry.size = bytes.length
+                    entry.crc = checksum.value
+                    entry.time = 0
+                    zip.putNextEntry(entry)
+                    zip.write(bytes)
+                    zip.closeEntry()
+                }
+            }
+        }
+        writeArchive('common.jar', common)
+        runtimes.each { platform, entries ->
+            writeArchive("stewie-${platform}.jar", entries.findAll { name, bytes -> !common.containsKey(name) })
+        }
+    }
+}
+
+shadowJar {
+    configurations = []
+    include 'stewie/launcher/**', '**/*.jar'
+    manifest {
+        attributes 'Main-Class': 'stewie.launcher.UniversalLauncher'
+    }
+    from(universalPayload) {
+        into 'platforms'
+    }
+    doLast {
+        def size = archiveFile.get().asFile.length()
+        if (size > 12_000_000) {
+            throw new GradleException("Universal JAR exceeds 12 MB: ${size} bytes")
+        }
+    }
+}
+
+tasks.named('startShadowScripts') {
+    mainClass = 'stewie.launcher.UniversalLauncher'
+}
+
+tasks.register('linuxJars') {
+    group = 'distribution'
+    description = 'Builds runnable Linux x86-64 and ARM64 JARs on any build host.'
+    dependsOn releaseJars.LinuxX64, releaseJars.LinuxArm64
+}
+
+tasks.register('windowsJars') {
+    group = 'distribution'
+    description = 'Builds a runnable Windows x86-64 JAR on any build host.'
+    dependsOn releaseJars.WindowsX64
+}
+
+assemble {
+    dependsOn tasks.named('linuxJars'), tasks.named('windowsJars')
+}
+
+run {
+    standardInput = System.in
+    jvmArgs '--enable-native-access=javafx.graphics'
+}
+
+tasks.register('runCli', JavaExec) {
+    group = 'application'
+    description = 'Runs the Stewie command-line application.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'stewie.Stewie'
+    standardInput = System.in
+}
+
+tasks.register('runFx', JavaExec) {
+    group = 'application'
+    description = 'Runs the JavaFX application.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'stewie.ui.gui.StewieApplication'
+    doFirst {
+        def javafxJars = classpath.filter { file ->
+            file.name.startsWith('javafx-') && file.name.endsWith('.jar')
+        }
+        classpath = classpath.filter { file ->
+            !(file.name.startsWith('javafx-') && file.name.endsWith('.jar'))
+        }
+        jvmArgs '--module-path', javafxJars.asPath, '--add-modules', 'javafx.controls,javafx.fxml',
+                '--enable-native-access=javafx.graphics'
+    }
+}

@@ -1,0 +1,5 @@
+T | 1 | read book
+T | 1 | eat food
+E | 0 | hangout with friends | 07 Aug 2026 | 09 Sep 1999
+T | 1 | finish 2103
+T | 0 | eat dinner
