@@ -14,14 +14,28 @@ repositories {
     mavenCentral()
 }
 
+String javafxVersion = '21.0.2'
+
 javafx {
-    version = '21.0.2'
+    version = javafxVersion
     modules = ['javafx.controls', 'javafx.fxml']
 }
 
 dependencies {
     String jUnitVersion = '5.14.4'
     String testFxVersion = '4.0.18'
+
+    // The javafx plugin above only resolves natives for the machine doing
+    // the build (Windows here), so the shadow jar would only run on
+    // Windows. iP JARs get peer-graded on graders' own machines, which may
+    // be Mac or Linux, so every platform's natives must be bundled in.
+    // NativeLibLoader then picks the right one at runtime automatically.
+    for (String platform : ['win', 'mac', 'mac-aarch64', 'linux']) {
+        implementation "org.openjfx:javafx-base:${javafxVersion}:${platform}"
+        implementation "org.openjfx:javafx-graphics:${javafxVersion}:${platform}"
+        implementation "org.openjfx:javafx-controls:${javafxVersion}:${platform}"
+        implementation "org.openjfx:javafx-fxml:${javafxVersion}:${platform}"
+    }
 
     testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
     testImplementation "org.testfx:testfx-core:${testFxVersion}"
