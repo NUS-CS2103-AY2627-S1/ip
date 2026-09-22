@@ -1,0 +1,88 @@
+@font-face {
+  font-family: "RETROTECH";
+  src: url("../fonts/RETROTECH.ttf");
+}
+
+.pane {
+  -fx-background-image: url("../images/background.jpg");
+  -fx-background-size: cover;
+  -fx-background-position: center center;
+  -fx-background-attachment: fixed;
+}
+
+.scroll-pane {
+  -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+  -fx-background-color: transparent;
+}
+
+.dialog-container {
+  -fx-background-color: transparent;
+}
+
+.dialog-label {
+  -fx-padding: 10px;
+  -fx-background-radius: 15px;
+  -fx-border-radius: 15px;
+  -fx-effect: dropshadow(gaussian, rgba(0, 85, 150, 0.4), 5, 0, 0, 0);
+  -fx-font-weight: 500;
+  -fx-font-family: "Consolas";
+  -fx-font-size: 12.5px;
+}
+
+.title-bar {
+  -fx-padding: 10 15 10 15;
+  -fx-background-color: rgba(24, 20, 35, 0.751);
+  -fx-border-color: transparent transparent rgba(26, 20, 35, 0.85) transparent;
+  -fx-effect: dropshadow(gaussian, rgba(65, 65, 65, 0.216), 5, 0, 0, 0);
+  -fx-border-width: 0 0 1.5 0;
+}
+
+.title-label {
+  -fx-font-size: 35px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #ffe32f;
+  -fx-font-family: "RETROTECH";
+}
+
+.user-dialog {
+  -fx-background-color: rgb(0, 166, 255);
+  -fx-text-fill: seashell;
+  -fx-font-weight: bold;
+  -fx-background-radius: 15 15 4 15;
+}
+
+.yappa-dialog {
+  -fx-background-color: rgb(137, 96, 217);
+  -fx-text-fill: seashell;
+  -fx-font-weight: bold;
+  -fx-background-radius: 15 15 15 4;
+}
+
+.dialog-error {
+  -fx-background-color: rgb(220, 58, 58);
+}
+
+.user-timestamp-label {
+  -fx-alignment: BOTTOM-RIGHT;
+}
+
+.yappa-timestamp-label {
+  -fx-alignment: BOTTOM-LEFT;
+}
+
+.timestamp-label {
+  -fx-text-fill: seashell;
+  -fx-font-size: 10px;
+  -fx-opacity: 0.4;
+}
+
+.image-view {
+  -fx-effect: dropshadow(gaussian, rgba(0, 85, 150, 0.4), 5, 0, 0, 0);
+}
+
+.input-box {
+  -fx-background-color: white;
+}
