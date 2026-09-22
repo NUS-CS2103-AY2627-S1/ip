@@ -2,9 +2,15 @@
 /.idea/
 /out/
 /*.iml
+/.codex/*
+!/.codex/skills/
+/.codex/skills/*
+!/.codex/skills/seedu-java-coding-standard/
+!/.codex/skills/seedu-java-coding-standard/SKILL.md
 
 # Gradle build files
 /.gradle/
+.gradle-user-home/
 /build/
 src/main/resources/docs/
 

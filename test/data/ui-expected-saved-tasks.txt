@@ -1,0 +1,3 @@
+T | 1 | buy bread \| milk
+D | 0 | return book | 2019-06-06 18:00
+E | 0 | project meeting | 2019-08-06 14:00 | 2019-08-06 16:00

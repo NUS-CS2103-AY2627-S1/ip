@@ -1,0 +1,5 @@
+T | 1 | read book
+D | 0 | return book | 2026-09-15 18:00
+E | 0 | project meeting | 2026-09-16 14:00 | 2026-09-16 17:00
+T | 1 | join sports club
+T | 0 | buy bread \| milk

@@ -1,0 +1,77 @@
+.root {
+    -fx-background-color: #f7f8f3;
+
+    -fx-background-size: 500px 350px;
+    -fx-background-repeat: repeat;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+}
+#dialogContainer { -fx-padding: 10px; }
+.input-bar {
+    -fx-padding: 8px 10px;
+    -fx-background-color: #f7faef;
+    -fx-border-color: #cad8ba;
+    -fx-border-width: 1px 0 0 0;
+}
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-color: #92aa7b;
+    -fx-border-radius: 8px;
+    -fx-padding: 9px;
+    -fx-prompt-text-fill: #627458;
+    -fx-text-fill: #183624;
+}
+.button {
+    -fx-background-color: #315c37;
+    -fx-background-radius: 8px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 8px;
+    -fx-padding: 9px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+.button:hover { -fx-background-color: #426f45; }
+.button:pressed { -fx-background-color: #23452a; }
+.text-field:focused, .button:focused {
+    -fx-border-color: #b47b16;
+    -fx-border-width: 2px;
+    -fx-padding: 8px;
+}
+.scroll-pane { -fx-background-color: transparent; -fx-padding: 0; }
+.scroll-pane .viewport { -fx-background-color: #f7f8f3; }
+.scroll-bar { -fx-font-size: 10px; -fx-background-color: #e7eedb; }
+.scroll-bar .thumb { -fx-background-color: #829b69; -fx-background-radius: 6px; }
+.scroll-bar .increment-button, .scroll-bar .decrement-button { -fx-padding: 2px; }
+
+
+.app-header {
+    -fx-padding: 12px;
+    -fx-background-image: url("../images/img.png");
+    -fx-background-size: 500px 350px;
+    -fx-border-color: #d9e3d0;
+    -fx-border-width: 0 0 1px 0;
+}
+.app-title { -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #173c2a; }
+.app-subtitle { -fx-font-size: 12px; -fx-text-fill: #3e5b46; }
+.header-bubble {
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-border-color: #b8cdb0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 20px;
+    -fx-padding: 8px 12px;
+    -fx-effect: dropshadow(gaussian, rgba(24, 55, 32, 0.18), 8, 0.1, 0, 2);
+}
+.input-error {
+    -fx-text-fill: #8b2822;
+    -fx-background-color: #fff0ed;
+    -fx-padding: 8px 12px;
+    -fx-font-size: 12px;
+}
+#sendButton { -fx-background-radius: 22px; -fx-font-size: 18px; }
+
+.header-avatar-frame {
+    -fx-background-color: transparent;
+}

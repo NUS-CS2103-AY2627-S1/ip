@@ -1,0 +1,38 @@
+name: Java CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: ubuntu-latest
+            gradle-command: xvfb-run ./gradlew check
+          - platform: macos-15-intel
+            gradle-command: ./gradlew check
+          - platform: windows-latest
+            gradle-command: .\gradlew.bat check
+
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@v7
+
+      - name: Set up JDK 25
+        uses: actions/setup-java@v6
+        with:
+          distribution: zulu
+          java-version: '25'
+          java-package: jdk+fx
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Build and check
+        run: ${{ matrix.gradle-command }}
+
+      - name: Run command-line UI tests
+        run: python test/run_ui_tests.py

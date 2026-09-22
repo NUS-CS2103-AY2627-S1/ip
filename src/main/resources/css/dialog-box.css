@@ -1,0 +1,51 @@
+.user-command {
+    -fx-background-color: #315c37;
+    -fx-text-fill: white;
+    -fx-font-family: monospace;
+    -fx-font-size: 13px;
+    -fx-padding: 7px 10px;
+    -fx-background-radius: 10px 10px 2px 10px;
+}
+.panda-response {
+    -fx-background-color: white;
+    -fx-text-fill: #203826;
+    -fx-border-color: #d4dfc8;
+    -fx-border-width: 1px;
+    -fx-padding: 9px 10px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+}
+.error-response {
+    -fx-background-color: #fff0ed;
+    -fx-text-fill: #8b2822;
+    -fx-border-color: #c04739;
+    -fx-border-width: 1px 1px 1px 4px;
+    -fx-padding: 9px 10px 9px 7px;
+}
+
+.task-response { -fx-padding: 8px 0; }
+.response-heading { -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #24432e; }
+.response-caption { -fx-font-size: 12px; -fx-text-fill: #546454; }
+.task-card {
+    -fx-padding: 12px;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+}
+.task-t { -fx-background-color: #edf5e8; -fx-border-color: #c8dfb7; }
+.task-d { -fx-background-color: #fff4df; -fx-border-color: #ecd399; }
+.task-e { -fx-background-color: #edf0fc; -fx-border-color: #cdd4ef; }
+.removed-task { -fx-background-color: #faebe7; -fx-border-color: #e4beb4; }
+.task-title { -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #253b32; }
+.task-metadata { -fx-font-size: 12px; -fx-text-fill: #4e5d57; }
+.empty-message {
+    -fx-padding: 16px;
+    -fx-background-color: #edf5e8;
+    -fx-background-radius: 12px;
+    -fx-text-fill: #315c37;
+}
+
+.completed-task { -fx-background-color: #e2f3ec; -fx-border-color: #78b79c; }
+.reopened-task { -fx-background-color: #eaf1fc; -fx-border-color: #a7bfe5; }

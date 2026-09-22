@@ -1,0 +1,5 @@
+T | 1 | read Java book
+D | 0 | return library book | 2019-06-06 18:00
+E | 0 | project consultation | 2019-08-06 14:00 | 2019-08-08 16:00
+T | 1 | join sports club
+T | 0 | buy bread \| milk
