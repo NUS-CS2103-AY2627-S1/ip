@@ -61,10 +61,12 @@ test {
 }
 
 application {
-    // The GUI (lebron.Main) is the primary way to run the app; the console
-    // version (lebron.Lebron) is still runnable directly by class name,
+    // The GUI is the primary way to run the app. Launcher deliberately does
+    // not extend JavaFX Application, allowing bundled JavaFX dependencies to
+    // load when the JAR runs on a standard JDK without JavaFX.
+    // The console version (lebron.Lebron) is still runnable directly by class name,
     // e.g. for the text-UI test harness: java -cp <classes> lebron.Lebron
-    mainClass = 'lebron.Main'
+    mainClass = 'lebron.Launcher'
 }
 
 jar {
