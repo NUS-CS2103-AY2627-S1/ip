@@ -1,0 +1,104 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+    id 'checkstyle'
+}
+
+checkstyle {
+    toolVersion = '14.0.0'
+}
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javaFxVersion = '17.0.7'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'friday.Launcher'
+    applicationDefaultJvmArgs = ['--enable-native-access=javafx.graphics']
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'friday.jar'
+}
+
+tasks.register('packageMacApp', Exec) {
+    dependsOn shadowJar
+    description = 'Packages Friday as a macOS application image.'
+    group = 'distribution'
+
+    def packageDirectory = layout.buildDirectory.dir('package')
+    def configuredStoragePath = providers.gradleProperty('fridayStoragePath').orNull
+    def storageJavaOption = configuredStoragePath == null
+            ? '-Dfriday.storage.inUserHome=true'
+            : "-Dfriday.storage.path=${configuredStoragePath}"
+    inputs.file(layout.buildDirectory.file('libs/friday.jar'))
+    inputs.property('storageJavaOption', storageJavaOption)
+    outputs.dir(packageDirectory)
+
+    doFirst {
+        delete(packageDirectory)
+    }
+
+    commandLine "${System.getProperty('java.home')}/bin/jpackage",
+            '--type', 'app-image',
+            '--dest', packageDirectory.get().asFile,
+            '--input', layout.buildDirectory.dir('libs').get().asFile,
+            '--name', 'Friday',
+            '--main-jar', 'friday.jar',
+            '--main-class', 'friday.Launcher',
+            '--java-options', '--enable-native-access=javafx.graphics',
+            '--java-options', storageJavaOption,
+            '--mac-package-identifier', 'org.seeducation.friday'
+}
+
+run {
+    standardInput = System.in
+}
