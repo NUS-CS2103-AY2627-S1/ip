@@ -1,3 +1,6 @@
+# Compiled class files (covers manual javac runs outside /out or /bin)
+*.class
+
 # IDEA files
 /.idea/
 /out/
@@ -15,6 +18,9 @@ bin/
 
 # Temp files
 _temp/
+
+# Runtime data (task list saved by Storage; recreated on next run)
+/data/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

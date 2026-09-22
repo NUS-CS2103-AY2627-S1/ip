@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+
+<!--
+    One chat bubble: a wrapped text Label next to a circular avatar ImageView.
+    Uses the fx:root construct so DialogBox.java can load this file with itself
+    as both root and controller. The <padding> on the HBox is space inside the
+    row; the <HBox.margin> on the Label is the gap outside the bubble (feature
+    3: padding vs. margin).
+-->
+<fx:root alignment="TOP_RIGHT" maxWidth="1.7976931348623157E308" prefWidth="400.0"
+         spacing="8.0" type="javafx.scene.layout.HBox"
+         stylesheets="@../css/dialog-box.css"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="6.0" left="8.0" right="8.0" top="6.0" />
+    </padding>
+    <children>
+        <Label fx:id="dialog" text="Label" wrapText="true" minHeight="-Infinity">
+            <HBox.margin>
+                <Insets left="4.0" right="4.0" />
+            </HBox.margin>
+        </Label>
+        <StackPane id="avatarFrame">
+            <ImageView fx:id="displayPicture" fitHeight="56.0" fitWidth="56.0" pickOnBounds="true"
+                       preserveRatio="true">
+                <clip>
+                    <Circle radius="28.0" centerX="28.0" centerY="28.0" />
+                </clip>
+            </ImageView>
+        </StackPane>
+    </children>
+</fx:root>

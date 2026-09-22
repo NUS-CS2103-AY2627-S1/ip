@@ -1,0 +1,78 @@
+/*
+ * Styling for a single chat bubble (one DialogBox). The speech bubble itself
+ * is the Label; the avatar is the ImageView with id "displayPicture".
+ *
+ * Padding vs. margin: JavaFX CSS has -fx-padding (space *inside* the border,
+ * between the border and the text) but no direct margin property. The gap
+ * *outside* the bubble is set on the Label in DialogBox.fxml with
+ * <HBox.margin>, which is the FXML equivalent of a margin.
+ */
+
+.label {
+    -fx-background-color: #e8effa;
+    -fx-text-fill: #1c2b3a;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 14px;
+
+    /* Border: four properties -- colour, width, and matching rounded corners
+       on both the border and the background so they line up. */
+    -fx-border-color: #b7c9de;
+    -fx-border-width: 1px;
+    -fx-border-radius: 12px 12px 0 12px;
+    -fx-background-radius: 12px 12px 0 12px;
+}
+
+/* Steph's replies get the opposite "tail" corner and a distinct tint so the
+   two sides of the conversation read differently. */
+.reply-label {
+    -fx-background-color: #dff1e4;
+    -fx-border-color: #a9d5b5;
+    -fx-border-radius: 12px 12px 12px 0;
+    -fx-background-radius: 12px 12px 12px 0;
+}
+
+/* The circular mask itself is a Circle clip on the ImageView in
+   DialogBox.fxml (a clip -- not -fx-background-radius, which only affects
+   Region backgrounds, never an ImageView). The drop shadow lives on this
+   wrapping StackPane instead of the clipped ImageView, since a node's clip
+   also cuts off anything its own effect renders outside its bounds. */
+#avatarFrame {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 8, 0.3, 2, 3);
+}
+
+/*
+ * Command-specific tints (feature 6). DialogBox adds one of these style
+ * classes to Steph's reply bubble based on the command that produced it, so
+ * the colour of the reply signals what just happened.
+ */
+
+.add-label {
+    -fx-background-color: #fff3cd;
+    -fx-border-color: #f0d488;
+}
+
+.marked-label {
+    -fx-background-color: #d4edda;
+    -fx-border-color: #a9d5b5;
+}
+
+.delete-label {
+    -fx-background-color: #f8d7da;
+    -fx-border-color: #eeb5ba;
+}
+
+.find-label {
+    -fx-background-color: #d1ecf1;
+    -fx-border-color: #a6d5df;
+}
+
+/* Error replies (feature 7): a bolder, higher-contrast style than the tints
+   above so a rejected/malformed command reads as different at a glance
+   rather than just another colour in the same family. */
+.error-label {
+    -fx-background-color: #ffe0e0;
+    -fx-text-fill: #7a1f1f;
+    -fx-border-color: #d9534f;
+    -fx-border-width: 2px;
+    -fx-font-weight: bold;
+}

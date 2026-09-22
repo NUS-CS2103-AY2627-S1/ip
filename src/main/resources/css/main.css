@@ -1,0 +1,88 @@
+/*
+ * Styling for the main chat window: the background, the text field, the Send
+ * button (including its hover / pressed / focused states), and the scroll pane
+ * and scroll bar. Colours are kept in one place at the top as looked-up
+ * "-fx" custom properties so the palette can be tweaked in one spot.
+ */
+
+.root {
+    steph-bg: rgb(237, 245, 255);
+    steph-accent: #4a90d9;
+    steph-accent-dark: #2f6db3;
+    -fx-background-color: steph-bg;
+    -fx-font-family: "Arial";
+}
+
+/* ---- Text field ---------------------------------------------------------- */
+
+.text-field {
+    -fx-background-color: white;
+    -fx-font-size: 14px;
+    -fx-border-color: #c5d4e6;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 6px 8px;
+}
+
+/* :focused is a pseudo-class ("state") -- the field looks different while it
+   has keyboard focus. */
+.text-field:focused {
+    -fx-border-color: steph-accent;
+    -fx-border-width: 2px;
+}
+
+/* ---- Send button and its states --------------------------------------- */
+
+.button {
+    -fx-background-color: steph-accent;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: steph-accent-dark;
+}
+
+.button:pressed {
+    -fx-background-color: #24568c;
+}
+
+.button:focused {
+    -fx-border-color: steph-accent-dark;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+}
+
+/* ---- Scroll pane / scroll bar ---------------------------------------- */
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #b7c9de;
+    -fx-background-radius: 5px;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: steph-accent;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
