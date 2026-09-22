@@ -1,0 +1,122 @@
+.root {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: #0f1115;
+}
+
+.app-layout {
+    -fx-background-color: #0f1115;
+}
+
+.header {
+    -fx-alignment: center-left;
+    -fx-background-color: #15171c;
+    -fx-border-color: transparent transparent #292c34 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 14 18 14 18;
+}
+
+.header-title {
+    -fx-text-fill: #f4f6f8;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+}
+
+.header-subtitle {
+    -fx-text-fill: #9298a5;
+    -fx-font-size: 11px;
+}
+
+.status-pill {
+    -fx-background-color: #19372f;
+    -fx-background-radius: 20px;
+    -fx-padding: 5 10 5 10;
+    -fx-text-fill: #72d7b6;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.chat-scroll,
+.chat-scroll > .viewport {
+    -fx-background-color: #0f1115;
+}
+
+.chat-scroll {
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.dialog-container {
+    -fx-background-color: #0f1115;
+    -fx-padding: 18 12 24 12;
+}
+
+.composer-bar {
+    -fx-alignment: center;
+    -fx-background-color: #15171c;
+    -fx-border-color: #292c34 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 12 14 14 14;
+    -fx-spacing: 10px;
+}
+
+.composer-input {
+    -fx-background-color: #22252c;
+    -fx-background-insets: 0;
+    -fx-background-radius: 12px;
+    -fx-border-color: #353944;
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+    -fx-font-size: 14px;
+    -fx-padding: 10 13 10 13;
+    -fx-prompt-text-fill: #7f8591;
+    -fx-text-fill: #f2f3f5;
+}
+
+.composer-input:focused {
+    -fx-background-color: #252830;
+    -fx-border-color: #5d79d6;
+}
+
+.send-button {
+    -fx-background-color: #10a37f;
+    -fx-background-insets: 0;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 17 10 17;
+    -fx-text-fill: white;
+}
+
+.send-button:hover {
+    -fx-background-color: #14b88f;
+}
+
+.send-button:pressed {
+    -fx-background-color: #0d876a;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-padding: 2px;
+    -fx-pref-width: 9px;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #373b45;
+    -fx-background-radius: 8px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button,
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+    -fx-opacity: 0;
+}

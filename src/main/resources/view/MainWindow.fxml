@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="680.0" prefWidth="520.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="longfrog.ui.MainWindow">
+    <stylesheets>
+        <URL value="@../css/main.css" />
+    </stylesheets>
+    <children>
+        <VBox styleClass="app-layout"
+              AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox styleClass="header">
+                    <children>
+                        <VBox spacing="2.0">
+                            <children>
+                                <Label styleClass="header-title" text="Longfrog" />
+                            </children>
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label styleClass="status-pill" text="READY" />
+                    </children>
+                </HBox>
+                <ScrollPane fx:id="scrollPane"
+                            fitToWidth="true"
+                            hbarPolicy="NEVER"
+                            styleClass="chat-scroll"
+                            vvalue="1.0"
+                            VBox.vgrow="ALWAYS">
+                    <content>
+                        <VBox fx:id="dialogContainer"
+                              fillWidth="true"
+                              minHeight="0.0"
+                              spacing="12.0"
+                              styleClass="dialog-container" />
+                    </content>
+                </ScrollPane>
+                <HBox styleClass="composer-bar">
+                    <children>
+                        <TextField fx:id="userInput"
+                                   onAction="#handleUserInput"
+                                   promptText="Message Longfrog..."
+                                   styleClass="composer-input"
+                                   HBox.hgrow="ALWAYS" />
+                        <Button fx:id="sendButton"
+                                mnemonicParsing="false"
+                                onAction="#handleUserInput"
+                                styleClass="send-button"
+                                text="Send" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

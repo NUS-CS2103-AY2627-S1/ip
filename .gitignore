@@ -3,6 +3,9 @@
 /out/
 /*.iml
 
+# User Data
+data/
+
 # Gradle build files
 /.gradle/
 /build/
@@ -18,3 +21,7 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Local Codex project skills
+/.codex/skills/test-ui/
+/.codex/skills/present-changes-visually/

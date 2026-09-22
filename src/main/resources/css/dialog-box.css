@@ -1,0 +1,26 @@
+.dialog-box {
+    -fx-spacing: 9px;
+}
+
+.dialog-box .label {
+    -fx-background-color: #3158b7;
+    -fx-background-radius: 14px 14px 4px 14px;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 10 13 10 13;
+    -fx-text-fill: #ffffff;
+}
+
+.dialog-box .reply-label {
+    -fx-background-color: #20232a;
+    -fx-background-radius: 14px 14px 14px 4px;
+    -fx-border-color: #30343d;
+    -fx-border-radius: 14px 14px 14px 4px;
+    -fx-border-width: 1px;
+    -fx-text-fill: #e8eaf0;
+}
+
+.dialog-box #displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 8, 0.15, 0, 2);
+}
