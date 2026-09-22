@@ -1,0 +1,47 @@
+.dialog-box {
+    -fx-spacing: 10px;
+    -fx-padding: 6px 12px;
+}
+
+.label {
+    -fx-padding: 10px 14px;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 3px;
+}
+
+/* Asymmetric styling: User bubble */
+.user-dialog .label {
+    -fx-background-color: #1e293b;
+    -fx-text-fill: #f1f5f9;
+    -fx-background-radius: 16px 16px 3px 16px;
+    -fx-border-color: #334155;
+    -fx-border-radius: 16px 16px 3px 16px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 6, 0, 0, 2);
+}
+
+/* Asymmetric styling: Wiz magical assistant bubble */
+.wiz-dialog .label {
+    -fx-background-color: #2e1065;
+    -fx-text-fill: #f5f3ff;
+    -fx-background-radius: 16px 16px 16px 3px;
+    -fx-border-color: #6b21a8;
+    -fx-border-radius: 16px 16px 16px 3px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(107, 33, 168, 0.3), 8, 0, 0, 2);
+}
+
+/* Error message styling: Distinct ruby red highlight */
+.error-dialog .label {
+    -fx-background-color: #450a0a;
+    -fx-text-fill: #fee2e2;
+    -fx-background-radius: 16px 16px 16px 3px;
+    -fx-border-color: #ef4444;
+    -fx-border-radius: 16px 16px 16px 3px;
+    -fx-border-width: 1.5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(239, 68, 68, 0.35), 8, 0, 0, 2);
+}
+
+.image-view {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 6, 0, 0, 2);
+}
