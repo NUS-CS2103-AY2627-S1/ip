@@ -1,0 +1,70 @@
+/* ==========================================================================
+   Root Application Window
+   ========================================================================== */
+
+.root {
+    /* Create a looked-up color called "main-color" within root. */
+    main-color: rgb(237, 255, 242);
+    -fx-background-color: radial-gradient(radius 100%, red, yellow, blue);
+    -fx-background-image: url("../images/background.png");
+    -fx-background-size: stretch;
+}
+
+/* ================================s==========================================
+   Input Controls
+   ========================================================================== */
+
+.text-field {
+    -fx-background-color: #d9ffe2;
+    -fx-font: 20px "Arial";
+}
+
+.button {
+    -fx-background-color: #00fa9a;
+    -fx-cursor: hand;
+    -fx-font: italic bold 16px "Arial";
+}
+
+.button:hover {
+    -fx-background-color: #00d888;
+}
+
+.button:pressed {
+    -fx-background-color: #00b874;
+}
+
+.button:disabled {
+    -fx-opacity: 1.0;
+    -fx-background-color: #a0a0a0;
+    -fx-text-fill: #ffffff;
+}
+
+
+/* ==========================================================================
+   Scroll Pane & Scroll Bar
+   ========================================================================== */
+
+.scroll-pane {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #ff9cb4;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

@@ -1,0 +1,70 @@
+/* ==========================================================================
+   Base Dialog Box Styles
+   ========================================================================== */
+
+.dialog-text {
+    -fx-background-color: #d9ffe2;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-color: #90c99e;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-border-width: 1px;
+    -fx-padding: 6px;
+    -fx-text-fill: #17211a;
+}
+
+.dialog-text .content,
+.dialog-text .scroll-pane,
+.dialog-text .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-text .scroll-bar:horizontal,
+.dialog-text .scroll-bar:vertical {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+}
+
+.reply-label {
+    -fx-background-color: #f4f7f5;
+    -fx-border-color: #cad5ce;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+/* ==========================================================================
+   Command-Specific Dialog Styles
+   ========================================================================== */
+
+.add-label {
+    -fx-background-color: yellow;
+}
+
+.marked-label {
+    -fx-background-color: palegreen;
+}
+
+.delete-label {
+    -fx-background-color: lightpink;
+}
+
+.error-label {
+    -fx-background-color: #ffebee;
+    -fx-background-radius: 0.4em 1em 1em 0.4em;
+    -fx-border-color: #c62828;
+    -fx-border-radius: 0.4em 1em 1em 0.4em;
+    -fx-border-width: 0 0 0 4px;
+    -fx-text-fill: #7f1d1d;
+}
+
+/* ==========================================================================
+   Avatar Picture
+   ========================================================================== */
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-rotate: 0;
+}

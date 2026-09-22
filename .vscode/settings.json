@@ -1,0 +1,13 @@
+{
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.jdt.ls.java.home": "C:\\Program Files\\Java\\jdk-25.0.4",
+    "java.import.gradle.java.home": "C:\\Program Files\\Java\\jdk-25.0.4",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-25",
+            "path": "C:\\Program Files\\Java\\jdk-25.0.4",
+            "default": true
+        }
+    ],
+    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx4G -Xms100m -Xlog:disable"
+}
