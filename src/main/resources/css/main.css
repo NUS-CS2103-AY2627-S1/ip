@@ -1,0 +1,57 @@
+.root {
+    main-color: rgb(245, 230, 255);       /* Create a looked-up color called "main-color" within root. */
+    -fx-background-color: main-color;
+}
+
+.text-field {
+    -fx-background-color: #c8b8ff;
+    -fx-font: 20px "Arial";
+}
+
+.button {
+    -fx-background-color: rgb(199, 115, 255);
+    -fx-font: italic bold 16px "Arial";
+}
+
+.button:hover {
+    -fx-background-color:rgb(129, 115, 255);
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color:cyan;
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #9062bf;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.profile-header {
+    -fx-background-color: #eee3ff;
+    -fx-padding: 6px 12px 6px 12px;
+    -fx-border-color: #d0b8e8;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.profile-name {
+    -fx-font: italic bold 17px "Helvetia";
+}

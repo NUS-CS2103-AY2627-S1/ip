@@ -1,0 +1,137 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+    //id 'checkstyle'
+}
+/*
+checkstyle {
+    toolVersion = '10.17.0'
+    configFile = file("$rootDir/config/checkstyle/checkstyle.xml")
+}*/
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    jUnitVersion = '5.12.2'
+}
+
+dependencies {
+    String javaFxVersion = '17.0.7'
+
+    def javafxModules = [
+            'base',
+            'controls',
+            'fxml',
+            'graphics',
+            'media'
+    ]
+
+    def javafxPlatforms = [
+            'win',
+            'linux',
+            'mac'
+    ]
+
+    javafxModules.each { module ->
+        // Platform-independent JavaFX classes
+        implementation(
+                "org.openjfx:javafx-${module}:${javaFxVersion}"
+        )
+
+        // Native libraries for each operating system
+        javafxPlatforms.each { platform ->
+            runtimeOnly(
+                    "org.openjfx:javafx-${module}:${javaFxVersion}:${platform}"
+            )
+        }
+    }
+
+    testImplementation(
+            "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+    )
+
+    testRuntimeOnly(
+            "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    )
+
+    testRuntimeOnly(
+            "org.junit.platform:junit-platform-launcher:1.14.4"
+    )
+}
+
+//dependencies {
+//    String javaFxVersion = '17.0.7'
+//
+//    implementation("org.openjfx:javafx-base:${javaFxVersion}:${javafxPlatform}")
+//    implementation("org.openjfx:javafx-controls:${javaFxVersion}:${javafxPlatform}")
+//    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:${javafxPlatform}")
+//    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:${javafxPlatform}")
+//    implementation("org.openjfx:javafx-media:${javaFxVersion}:${javafxPlatform}")
+    //String javaFxVersion = '17.0.7'
+
+//    implementation("org.openjfx:javafx-base:${javaFxVersion}:win")
+//    implementation("org.openjfx:javafx-base:${javaFxVersion}:mac")
+//    implementation("org.openjfx:javafx-base:${javaFxVersion}:linux")
+//    implementation("org.openjfx:javafx-controls:${javaFxVersion}:win")
+//    implementation("org.openjfx:javafx-controls:${javaFxVersion}:mac")
+//    implementation("org.openjfx:javafx-controls:${javaFxVersion}:linux")
+//    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:win")
+//    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:mac")
+//    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:linux")
+//    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:win")
+//    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:mac")
+//    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:linux")
+//
+//    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+//
+//    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+//    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+//}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'miaow.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'miaow.jar'
+}
+
+run {
+    standardInput = System.in
+    enableAssertions = true
+}
+
+tasks.register('assertionCheck', JavaExec) {
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'miaow.AssertionCheck'
+    enableAssertions = true
+}
