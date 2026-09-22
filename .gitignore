@@ -16,5 +16,10 @@ bin/
 # Temp files
 _temp/
 
+# Saved task list (created at runtime, personal data)
+/data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+.claude

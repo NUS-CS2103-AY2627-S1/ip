@@ -1,0 +1,104 @@
+.root {
+    -fx-font-family: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: #F7F1E8;
+}
+
+.app-header {
+    -fx-background-color: #552583;
+    -fx-border-color: transparent transparent #FDB927 transparent;
+    -fx-border-width: 0 0 4 0;
+}
+
+.header-title {
+    -fx-font-size: 21px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #FFFFFF;
+}
+
+.header-subtitle {
+    -fx-font-size: 11px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #FDE7A9;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport,
+.dialog-container {
+    -fx-background-color: #F7F1E8;
+}
+
+.scroll-pane {
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.dialog-container {
+    -fx-background-insets: 0;
+}
+
+.user-bubble {
+    -fx-background-color: #552583;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 15 15 4 15;
+    -fx-padding: 9 12 9 12;
+}
+
+.lebron-bubble {
+    -fx-background-color: #FFFDF9;
+    -fx-text-fill: #2D2039;
+    -fx-background-radius: 4 15 15 15;
+    -fx-border-color: #E7DED3;
+    -fx-border-width: 1;
+    -fx-border-radius: 4 15 15 15;
+    -fx-padding: 8 11 8 11;
+}
+
+.error-bubble {
+    -fx-background-color: #FFF1F0;
+    -fx-text-fill: #8F1D24;
+    -fx-background-radius: 4 15 15 15;
+    -fx-border-color: #F0BFC3;
+    -fx-border-width: 1;
+    -fx-border-radius: 4 15 15 15;
+    -fx-padding: 8 11 8 11;
+    -fx-font-weight: 700;
+}
+
+.composer {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E0D3C3 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+.text-field {
+    -fx-background-color: #F8F5F0;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #D8CCBE;
+    -fx-padding: 8 11 8 11;
+    -fx-prompt-text-fill: #807486;
+}
+
+.text-field:focused {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #552583;
+    -fx-border-width: 1.5;
+}
+
+.button {
+    -fx-background-color: #FDB927;
+    -fx-text-fill: #2D174A;
+    -fx-background-radius: 10;
+    -fx-padding: 8 15 8 15;
+    -fx-font-weight: 800;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #F3A712;
+}
+
+.button:pressed {
+    -fx-background-color: #E29A08;
+}
