@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="mono.ui.MonoController" styleClass="app-root">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="14" styleClass="header">
+            <padding>
+                <Insets top="22" right="30" bottom="22" left="30" />
+            </padding>
+            <Label text="MONO" styleClass="brand" />
+            <VBox spacing="2">
+                <Label text="Your task companion" styleClass="header-title" />
+                <Label text="Plan it. Track it. Get it done." styleClass="header-subtitle" />
+            </VBox>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="conversationScroll" fitToWidth="true" hbarPolicy="NEVER"
+                    styleClass="conversation-scroll">
+            <content>
+                <VBox fx:id="conversationBox" fillWidth="true" spacing="14"
+                      styleClass="conversation-box">
+                    <padding>
+                        <Insets top="28" right="30" bottom="28" left="30" />
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <VBox spacing="12" styleClass="composer">
+            <padding>
+                <Insets top="18" right="30" bottom="24" left="30" />
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="8" styleClass="suggestions">
+                <Label text="Quick start" styleClass="suggestion-label" />
+                <Button text="list" onAction="#handleCommandSuggestion" styleClass="suggestion-button" />
+                <Button text="todo " onAction="#handleCommandSuggestion" styleClass="suggestion-button" />
+                <Button text="deadline " onAction="#handleCommandSuggestion" styleClass="suggestion-button" />
+                <Button text="event " onAction="#handleCommandSuggestion" styleClass="suggestion-button" />
+            </HBox>
+            <HBox alignment="CENTER" spacing="12">
+                <TextField fx:id="commandField" onAction="#handleSend" HBox.hgrow="ALWAYS"
+                           promptText="Type a command, e.g. todo read a book" styleClass="command-field" />
+                <Button fx:id="sendButton" defaultButton="true" mnemonicParsing="false" text="Send"
+                        onAction="#handleSend" styleClass="send-button" />
+            </HBox>
+            <Label fx:id="statusLabel" text="" styleClass="status-label" />
+        </VBox>
+    </bottom>
+</BorderPane>
