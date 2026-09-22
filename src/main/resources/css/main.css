@@ -1,0 +1,107 @@
+.root {
+    main-color: #312c51;
+    secondary-color: #48426d;
+    accent-color: #f0c38e;
+    highlight-color: #f1aa9b;
+    conversation-color: #f7f3ee;
+    -fx-font-family: "Arial";
+    -fx-background-color: main-color;
+}
+
+.input-bar {
+    -fx-background-color: main-color;
+    -fx-padding: 8px 12px 12px 12px;
+}
+
+.app-header {
+    -fx-background-color: main-color;
+    -fx-border-color: accent-color;
+    -fx-border-width: 0 0 2px 0;
+}
+
+.header-avatar {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 6, 0.35, 2, 2);
+}
+
+.header-title {
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.header-subtitle {
+    -fx-text-fill: #d8d4e7;
+    -fx-font-size: 12px;
+}
+
+.header-status-dot {
+    -fx-text-fill: highlight-color;
+    -fx-font-size: 12px;
+}
+
+.header-status {
+    -fx-text-fill: accent-color;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.text-field {
+    -fx-background-color: secondary-color;
+    -fx-background-radius: 10px 0 0 10px;
+    -fx-border-color: accent-color;
+    -fx-border-width: 2px 0 2px 2px;
+    -fx-border-radius: 10px 0 0 10px;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #d8d4e7;
+    -fx-font-size: 16px;
+    -fx-min-height: 48px;
+    -fx-padding: 0 14px;
+    -fx-focus-color: highlight-color;
+    -fx-faint-focus-color: transparent;
+}
+
+.text-field:focused {
+    -fx-border-color: highlight-color;
+}
+
+.button {
+    -fx-background-color: accent-color;
+    -fx-text-fill: main-color;
+    -fx-background-radius: 0 10px 10px 0;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-min-height: 48px;
+    -fx-min-width: 92px;
+    -fx-pref-width: 92px;
+    -fx-max-width: 92px;
+}
+
+.button:hover {
+    -fx-background-color: highlight-color;
+}
+
+.button:pressed {
+    -fx-background-color: secondary-color;
+    -fx-text-fill: white;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: conversation-color;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: conversation-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: secondary-color;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
