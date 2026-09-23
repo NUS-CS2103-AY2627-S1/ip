@@ -1,0 +1,115 @@
+/*
+ * The colors every stylesheet refers to by name. Defining them once on the
+ * root lets the whole look be retuned here, and they are inherited by the
+ * dialog boxes even though those load a stylesheet of their own.
+ */
+.root {
+    /* A soft violet theme, in the style of the AI assistants saLLMan imitates. */
+    background: #f7f6fc;
+    surface: #ffffff;
+    divider: #e4e1f2;
+    ink: #1e1b2e;
+    muted: #6e6a86;
+    accent: #6d4aff;
+    accent-deep: #4f46e5;
+    on-accent: #ffffff;
+    error: #c92a2a;
+    error-surface: #fff5f5;
+
+    -fx-background-color: background;
+    -fx-font-size: 13px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* A slim, quiet scroll bar: it is there to be used, not looked at. */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: divider;
+    -fx-background-radius: 4px;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: muted;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-padding: 0;
+    -fx-opacity: 0;
+}
+
+/* Names who the user is talking to, and keeps up the eager-assistant act. */
+.header {
+    -fx-background-color: surface;
+    -fx-border-color: transparent transparent divider transparent;
+}
+
+.brand {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: ink;
+}
+
+.status {
+    -fx-font-size: 11px;
+    -fx-text-fill: #2f9e44;
+}
+
+.disclaimer {
+    -fx-font-size: 10px;
+    -fx-text-fill: muted;
+}
+
+/* The input row is set apart from the conversation above it. */
+.input-bar {
+    -fx-background-color: surface;
+    -fx-border-color: divider transparent transparent transparent;
+}
+
+.text-field {
+    -fx-background-color: background;
+    -fx-background-radius: 18px;
+    -fx-border-color: divider;
+    -fx-border-radius: 18px;
+    -fx-padding: 8px 14px 8px 14px;
+    -fx-font-size: 14px;
+    -fx-text-fill: ink;
+    -fx-prompt-text-fill: muted;
+}
+
+.text-field:focused {
+    -fx-border-color: accent;
+}
+
+.button {
+    -fx-background-color: linear-gradient(to right, accent, accent-deep);
+    -fx-background-radius: 18px;
+    -fx-padding: 8px 18px 8px 18px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: on-accent;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-opacity: 0.9;
+}
+
+.button:pressed {
+    -fx-opacity: 0.75;
+}
+
+/* Send is switched off until something is typed, so it is dimmed to say so. */
+.button:disabled {
+    -fx-opacity: 0.45;
+    -fx-cursor: default;
+}

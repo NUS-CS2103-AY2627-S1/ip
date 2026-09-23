@@ -1,0 +1,4 @@
+# GitHub Pages shows this title at the top of every page. Without it, the
+# site is headed with the repository's name, "ip", instead of the product's.
+title: saLLMan
+description: A task-tracking chatbot with the personality of an over-eager AI assistant

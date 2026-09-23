@@ -1,0 +1,52 @@
+name: Java CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@v7
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v6
+
+      - name: Setup JDK 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: '25'
+          java-package: jdk+fx
+
+      - name: Build and check with Gradle
+        run: ./gradlew check
+
+      - name: Measure test coverage
+        if: matrix.platform == 'ubuntu-latest'
+        run: ./gradlew jacocoTestReport
+
+      - name: Publish the coverage report
+        if: matrix.platform == 'ubuntu-latest'
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-report
+          path: build/reports/jacoco/test/html
+          if-no-files-found: error
+
+      - name: Assemble the runnable JAR
+        if: matrix.platform == 'ubuntu-latest'
+        run: ./gradlew shadowJar
+
+      - name: Publish the JAR as a build artifact
+        if: matrix.platform == 'ubuntu-latest'
+        uses: actions/upload-artifact@v7
+        with:
+          name: sallman-jar
+          path: build/libs/sallman.jar
+          if-no-files-found: error
+

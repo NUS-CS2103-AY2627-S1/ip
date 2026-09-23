@@ -13,8 +13,14 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Saved task list, generated at runtime
+/data/
+
 # Temp files
 _temp/
+
+# AI agent skills (kept local, not pushed to the fork)
+/.claude/skills/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

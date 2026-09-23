@@ -1,0 +1,56 @@
+/* Shared by every message bubble. */
+.label {
+    -fx-padding: 8px 12px 8px 12px;
+    -fx-background-radius: 14px;
+    -fx-border-radius: 14px;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2px;
+    /* A shadow soft enough to lift the bubble off the background without being seen as one. */
+    -fx-effect: dropshadow(gaussian, rgba(30, 27, 46, 0.10), 6, 0, 0, 2);
+}
+
+/*
+ * What the user typed: compact and filled with the accent color. The corner
+ * nearest the right edge is squared off to show which side it came from.
+ */
+.user-label {
+    -fx-background-color: linear-gradient(to right, accent, accent-deep);
+    -fx-text-fill: on-accent;
+    -fx-background-radius: 14px 14px 4px 14px;
+}
+
+/* saLLMan's replies: a plain card, so longer text stays easy to read. */
+.reply-label {
+    -fx-background-color: surface;
+    -fx-border-color: divider;
+    -fx-text-fill: ink;
+    -fx-background-radius: 4px 14px 14px 14px;
+    -fx-border-radius: 4px 14px 14px 14px;
+}
+
+/*
+ * A reply that reports a problem. A thick colored edge and tinted card make it
+ * stand out from ordinary replies at a glance, before any of it is read.
+ */
+.error-label {
+    -fx-background-color: error-surface;
+    -fx-border-color: error;
+    -fx-border-width: 1px 1px 1px 4px;
+    -fx-text-fill: error;
+}
+
+/* A quieter colored edge that tells apart what kind of change a reply confirms. */
+.add-label {
+    -fx-border-color: #2f9e44;
+    -fx-border-width: 1px 1px 1px 4px;
+}
+
+.marked-label {
+    -fx-border-color: #1098ad;
+    -fx-border-width: 1px 1px 1px 4px;
+}
+
+.delete-label {
+    -fx-border-color: #e67700;
+    -fx-border-width: 1px 1px 1px 4px;
+}
