@@ -1,0 +1,71 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'checkstyle'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+javafx {
+    version = '25'
+    modules = ['javafx.controls']
+}
+
+// The javafx plugin above only resolves natives for the machine running this build, so the
+// shadow JAR would only work on that one OS/architecture. Explicitly depending on every
+// platform classifier makes the packaged JAR actually cross-platform, as the assignment
+// requires (verified: a Windows tester could not run a JAR built with only the block above).
+def javafxClassifiers = ['win', 'mac', 'mac-aarch64', 'linux', 'linux-aarch64']
+def javafxModules = ['javafx-base', 'javafx-graphics', 'javafx-controls']
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.12.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.12.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.12.2'
+
+    javafxClassifiers.each { classifier ->
+        javafxModules.each { module ->
+            implementation "org.openjfx:${module}:25:${classifier}"
+        }
+    }
+}
+
+application {
+    mainClass = 'vermithor.Launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+checkstyle {
+    toolVersion = '10.26.1'
+    configFile = file('config/checkstyle/checkstyle.xml')
+}
+
+tasks.named('run') {
+    standardInput = System.in
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'vermithor.Launcher'
+    }
+}
+
+shadowJar {
+    archiveBaseName = 'vermithor'
+    archiveClassifier = ''
+    manifest {
+        attributes 'Main-Class': 'vermithor.Launcher'
+    }
+}
