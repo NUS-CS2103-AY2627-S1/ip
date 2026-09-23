@@ -1,0 +1,9 @@
+.label {
+    -fx-background-color: #d7ebff;
+    -fx-text-fill: #243247;
+    -fx-font-size: 16px;
+    -fx-background-radius: 1em;
+    -fx-border-radius: 1em;
+}
+.reply-label { -fx-background-color: white; }
+.error-label { -fx-font-style: italic; }

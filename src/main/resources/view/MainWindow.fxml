@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane prefHeight="600.0" prefWidth="400.0" stylesheets="@../css/main.css"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="bob.ui.MainWindow">
+    <TextField fx:id="userInput" onAction="#handleUserInput" AnchorPane.bottomAnchor="1.0"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="76.0" />
+    <Button onAction="#handleUserInput" text="Send" AnchorPane.bottomAnchor="1.0"
+            AnchorPane.rightAnchor="0.0" />
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <content><VBox fx:id="dialogContainer" /></content>
+    </ScrollPane>
+</AnchorPane>
