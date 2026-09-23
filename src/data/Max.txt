@@ -1,0 +1,5 @@
+[T] | [ ] | buy eggs \| rice
+[T] | [ ] | read book
+[D] | [ ] | complete ip  | 2010-08-10
+[D] | [ ] | read book  | 2002-09-20
+[D] | [ ] | read book  | 2002-09-20T10:00

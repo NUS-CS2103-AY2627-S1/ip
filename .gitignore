@@ -18,3 +18,15 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Java class files
+*.class
+
+# Ignore data files
+data/
+
+
+.classpath
+.project
+.settings/
+ 

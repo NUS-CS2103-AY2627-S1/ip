@@ -1,0 +1,42 @@
+.dialog-box .message {
+    -fx-text-fill: #1d292b;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 0px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.dialog-box.bot-message {
+    -fx-alignment: TOP_LEFT;
+    -fx-padding: 2px 10px 2px 6px;
+}
+
+.dialog-box.bot-message .message {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #166b68;
+    -fx-border-width: 0 0 0 3px;
+    -fx-border-radius: 3px;
+    -fx-padding: 8px 12px;
+    -fx-text-fill: #1d292b;
+}
+
+.dialog-box.user-message {
+    -fx-alignment: TOP_RIGHT;
+    -fx-padding: 2px 6px 2px 10px;
+}
+
+.dialog-box.user-message .message {
+    -fx-background-color: #166b68;
+    -fx-background-radius: 3px;
+    -fx-padding: 8px 12px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.dialog-box.error-message .message {
+    -fx-background-color: #fff4f3;
+    -fx-border-color: #b3261e;
+    -fx-border-width: 0 0 0 3px;
+    -fx-border-radius: 3px;
+    -fx-text-fill: #8f1711;
+    -fx-font-weight: bold;
+}
