@@ -1,0 +1,67 @@
+package murphy;
+
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+
+/** JavaFX presentation for Murphy's task chatbot. */
+public class MurphyApplication extends Application {
+    private final VBox messages = new VBox(12);
+    private final Label taskCount = new Label();
+    private final TextField input = new TextField();
+    private final MurphyService service = new MurphyService(java.nio.file.Paths.get("data", "murphy.txt"), this::showStorageMessage);
+
+    /** Shows a recoverable storage warning in the conversation. */
+    private void showStorageMessage(String message) {
+        if (messages != null) {
+            addMessage("MURPHY", message.trim(), false);
+        }
+    }
+
+    /** Builds and displays Murphy's main window. */
+    @Override
+    public void start(Stage stage) {
+        Font.loadFont(getClass().getResourceAsStream("/fonts/Fredoka.ttf"), 16);
+        Font.loadFont(getClass().getResourceAsStream("/fonts/Nunito.ttf"), 16);
+        BorderPane root = new BorderPane();
+        root.getStyleClass().add("root-pane");
+        root.setTop(createTopBar());
+        messages.getStyleClass().add("messages");
+        addMessage("MURPHY", "Woof! Give me something to remember.", false);
+        ScrollPane conversation = new ScrollPane(messages);
+        conversation.setFitToWidth(true);
+        conversation.getStyleClass().add("conversation");
+        root.setCenter(conversation);
+        root.setRight(createSidebar());
+        root.setBottom(createInputArea());
+        Scene scene = new Scene(root, 1000, 700);
+        scene.getStylesheets().add(getClass().getResource("/murphy.css").toExternalForm());
+        stage.setTitle("Murphy // Personal Task Archive");
+        stage.setMinWidth(760);
+        stage.setMinHeight(520);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private VBox createTopBar() { VBox top = new VBox(createHeader(), createCommandBar()); top.getStyleClass().add("top-bar"); return top; }
+    private VBox createHeader() { Label title = new Label("MURPHY"); title.getStyleClass().add("title"); Label subtitle = new Label("TASK ARCHIVE"); subtitle.getStyleClass().add("subtitle"); Label status = new Label("● ON PATROL"); status.getStyleClass().add("status"); HBox row = new HBox(18, title, subtitle); row.setAlignment(Pos.BASELINE_LEFT); VBox header = new VBox(4, row, status); header.getStyleClass().add("header"); return header; }
+    private HBox createCommandBar() { HBox commands = new HBox(8); commands.getStyleClass().add("command-bar"); for (String command : new String[] {"TODO", "DEADLINE", "EVENT", "LIST", "FIND", "ON", "MARK", "UNMARK", "DELETE", "BYE"}) { Button pill = new Button(command.toLowerCase()); pill.getStyleClass().add("command-pill"); pill.setOnAction(event -> { input.setText(command.toLowerCase() + " "); input.requestFocus(); }); commands.getChildren().add(pill); } return commands; }
+    private VBox createSidebar() { taskCount.setText(taskSummary()); taskCount.getStyleClass().add("task-count"); Label heading = new Label("TASKS"); heading.getStyleClass().add("side-heading"); Label commandsHeading = new Label("COMMAND CHEAT SHEET"); commandsHeading.getStyleClass().add("side-heading"); Label commands = new Label("todo <description>\ndeadline <description> /by <date>\nevent <description> /from <start> /to <end>\nlist\nfind <keyword>\non <yyyy-MM-dd>\nmark <task number>\nunmark <task number>\ndelete <task number>\nbye"); commands.setWrapText(true); commands.getStyleClass().add("command-help"); VBox side = new VBox(16, heading, taskCount, commandsHeading, commands); side.getStyleClass().add("sidebar"); return side; }
+    private HBox createInputArea() { input.setPromptText("type a command..."); Button send = new Button("SEND"); Runnable submit = () -> { String command = input.getText().trim(); if (!command.isEmpty()) { addMessage("YOU", command, true); String response = service.respond(command); addMessage("MURPHY", response, false); taskCount.setText(taskSummary()); input.clear(); if (command.equalsIgnoreCase("bye")) { Platform.exit(); } } }; send.setOnAction(event -> submit.run()); input.setOnAction(event -> submit.run()); HBox area = new HBox(10, input, send); HBox.setHgrow(input, Priority.ALWAYS); area.getStyleClass().add("input-area"); return area; }
+    private void addMessage(String sender, String text, boolean user) { Label name = new Label(sender); name.getStyleClass().add("message-sender"); Label body = new Label(text); body.setWrapText(true); body.getStyleClass().add(user ? "user-bubble" : text.startsWith("OOPS!") ? "error-bubble" : "murphy-bubble"); body.maxWidthProperty().bind(messages.widthProperty().subtract(210)); VBox bubble = new VBox(6, name, body); bubble.setMaxWidth(Double.MAX_VALUE); bubble.setAlignment(user ? Pos.CENTER_RIGHT : Pos.CENTER_LEFT); ImageView avatar = createAvatar(user ? "/images/user-frenchie-sunglasses.png" : "/images/murphy-frenchie.png"); HBox row = new HBox(14); row.setAlignment(user ? Pos.TOP_RIGHT : Pos.TOP_LEFT); if (user) { row.getChildren().addAll(bubble, avatar); } else { row.getChildren().addAll(avatar, bubble); } messages.getChildren().add(row); }
+    private ImageView createAvatar(String resourcePath) { ImageView avatar = new ImageView(new Image(getClass().getResource(resourcePath).toExternalForm())); avatar.setFitWidth(76); avatar.setFitHeight(76); avatar.setPreserveRatio(true); avatar.getStyleClass().add("avatar"); return avatar; }
+    private String taskSummary() { long done = service.getTasks().asList().stream().filter(task -> task.isDone()).count(); return "TOTAL  " + service.getTasks().size() + "\nDONE   " + done + "\nOPEN   " + (service.getTasks().size() - done); }
+}

@@ -12,9 +12,11 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
+*.class
 
 # Temp files
 _temp/
+/data/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
