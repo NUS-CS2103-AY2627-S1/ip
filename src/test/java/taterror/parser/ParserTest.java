@@ -46,6 +46,12 @@ public class ParserTest {
     }
 
     @Test
+    public void parseTaskIndex_trailingOrExtraWhitespace_stillParses() {
+        assertEquals(0, Parser.parseTaskIndex("mark 1 ", "mark"));
+        assertEquals(1, Parser.parseTaskIndex("delete  2", "delete"));
+    }
+
+    @Test
     public void parseArguments_bareKeyword_returnsEmptyString() {
         assertEquals("", Parser.parseArguments("todo", "todo"));
     }

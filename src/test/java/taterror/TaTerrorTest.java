@@ -105,4 +105,34 @@ public class TaTerrorTest {
                 "OOPS!!! That's not a real priority. Try none, low, medium, or high.",
                 taTerror.getResponse("todo read book /priority urgent"));
     }
+
+    @Test
+    public void getResponse_markWithTrailingSpace_treatedSameAsWithout() {
+        TaTerror taTerror = new TaTerror();
+        // Out-of-range on purpose so nothing is marked/saved; the point is that a
+        // trailing space no longer produces the "not even a number" error.
+        assertEquals(
+                "OOPS!!! That task number doesn't even exist. Try again.",
+                taTerror.getResponse("mark 99999 "));
+    }
+
+    @Test
+    public void getResponse_byeWithSurroundingWhitespace_stillRecognizedAsBye() {
+        TaTerror taTerror = new TaTerror();
+        assertTrue(TaTerror.BYE_RESPONSES.contains(taTerror.getResponse("  bye  ")));
+    }
+
+    @Test
+    public void isExitCommand_byeWithWhitespace_returnsTrue() {
+        TaTerror taTerror = new TaTerror();
+        assertTrue(taTerror.isExitCommand("bye"));
+        assertTrue(taTerror.isExitCommand(" bye "));
+    }
+
+    @Test
+    public void isExitCommand_otherInput_returnsFalse() {
+        TaTerror taTerror = new TaTerror();
+        assertTrue(!taTerror.isExitCommand("list"));
+        assertTrue(!taTerror.isExitCommand("goodbye"));
+    }
 }
