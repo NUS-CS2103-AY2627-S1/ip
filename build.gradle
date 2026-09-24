@@ -1,0 +1,99 @@
+plugins {
+    id 'application'
+    id 'checkstyle'
+}
+
+repositories {
+    mavenCentral()
+}
+
+def javaFxVersion = '17.0.7'
+def osName = System.getProperty('os.name').toLowerCase()
+def isArm = System.getProperty('os.arch') in ['aarch64', 'arm64']
+def hostPlatform = osName.contains('mac') ? (isArm ? 'mac-aarch64' : 'mac') :
+        (osName.contains('win') ? 'win' : (isArm ? 'linux-aarch64' : 'linux'))
+
+configurations {
+    universalJavafx
+    appleSiliconJavafx
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.13.1'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // Separate native architectures: duplicate filenames cannot share a fat JAR.
+    ['base', 'controls', 'fxml', 'graphics'].each { module ->
+        implementation("org.openjfx:javafx-${module}:${javaFxVersion}:${hostPlatform}") {
+            transitive = false
+        }
+        ['win', 'mac', 'linux'].each { platform ->
+            universalJavafx("org.openjfx:javafx-${module}:${javaFxVersion}:${platform}") {
+                transitive = false
+            }
+        }
+        appleSiliconJavafx("org.openjfx:javafx-${module}:${javaFxVersion}:mac-aarch64") {
+            transitive = false
+        }
+    }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+application {
+    mainClass = 'aravii.Launcher'
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
+tasks.withType(Checkstyle).configureEach {
+    configDirectory = file('config/checkstyle')
+}
+
+tasks.named('jar') {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from { configurations.universalJavafx.collect { zipTree(it) } }
+    exclude 'module-info.class', 'META-INF/versions/**/module-info.class'
+    manifest {
+        attributes('Main-Class': application.mainClass.get())
+    }
+}
+
+tasks.register('macArmJar', Jar) {
+    archiveClassifier = 'mac-aarch64'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from sourceSets.main.output
+    from { configurations.appleSiliconJavafx.collect { zipTree(it) } }
+    exclude 'module-info.class', 'META-INF/versions/**/module-info.class'
+    manifest {
+        attributes('Main-Class': application.mainClass.get())
+    }
+}
+
+tasks.register('runCli', JavaExec) {
+    group = 'application'
+    description = 'Runs the text interface with standard input.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'aravii.AravII'
+    standardInput = System.in
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+tasks.named('wrapper') {
+    gradleVersion = '9.7.1'
+    distributionType = Wrapper.DistributionType.BIN
+    distributionSha256Sum = 'acd53f1edaf02f1a8ff99879f8a34b302661a057d9b063ae9e35b552f804d20a'
+}
