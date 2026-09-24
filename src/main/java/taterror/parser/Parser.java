@@ -124,7 +124,7 @@ public class Parser {
      */
     public static int parseTaskIndex(String input, String keyword) {
         assert input.startsWith(keyword) : "input must actually start with the given keyword: " + keyword;
-        return Integer.parseInt(input.substring(keyword.length() + 1)) - 1;
+        return Integer.parseInt(input.substring(keyword.length() + 1).trim()) - 1;
     }
 
     /**

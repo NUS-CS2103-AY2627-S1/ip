@@ -1,11 +1,14 @@
 package taterror.gui;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import taterror.TaTerror;
 
 /**
@@ -15,6 +18,8 @@ import taterror.TaTerror;
  * of {@link DialogBox} bubbles.
  */
 public class MainWindow {
+    private static final double EXIT_DELAY_SECONDS = 1.5;
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -57,7 +62,8 @@ public class MainWindow {
      * Reads the current input, gets the chatbot's reply, and appends both as a
      * new pair of dialog bubbles - unless the input is blank, in which case
      * nothing happens. Fired when the user presses Enter in the input field or
-     * clicks Send.
+     * clicks Send. After a {@code bye}, the window closes itself shortly after
+     * showing the farewell.
      */
     @FXML
     private void handleUserInput() {
@@ -71,5 +77,21 @@ public class MainWindow {
                 DialogBox.getTaTerrorDialog(response, taTerrorImage)
         );
         userInput.clear();
+        if (taTerror.isExitCommand(input)) {
+            closeAfterFarewell();
+        }
+    }
+
+    /**
+     * Ends the session after {@code bye}: disables further input so nothing can
+     * be typed during the pause, then closes the app after a short delay so the
+     * farewell bubble is actually readable before the window disappears.
+     */
+    private void closeAfterFarewell() {
+        userInput.setDisable(true);
+        sendButton.setDisable(true);
+        PauseTransition delay = new PauseTransition(Duration.seconds(EXIT_DELAY_SECONDS));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
     }
 }

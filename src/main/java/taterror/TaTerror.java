@@ -79,10 +79,13 @@ public class TaTerror {
      * mark/unmark/delete/priority, produces an error reply rather than
      * throwing.
      *
-     * @param input the raw command line typed by the user
+     * <p>Leading/trailing whitespace around the command is ignored.
+     *
+     * @param rawInput the raw command line typed by the user
      * @return the chatbot's reply, ready to display as-is
      */
-    public String getResponse(String input) {
+    public String getResponse(String rawInput) {
+        String input = rawInput.trim();
         try {
             switch (Parser.parseCommandType(input)) {
                 case BYE:
@@ -111,6 +114,14 @@ public class TaTerror {
         } catch (NumberFormatException e) {
             return "OOPS!!! That's not even a number. Are you okay?";
         }
+    }
+
+    /**
+     * Returns whether {@code rawInput} is the {@code bye} command (ignoring
+     * surrounding whitespace), so a front end knows when to end the session.
+     */
+    public boolean isExitCommand(String rawInput) {
+        return Parser.isByeCommand(rawInput.trim());
     }
 
     /**
@@ -291,7 +302,7 @@ public class TaTerror {
         ui.showGreeting();
 
         String input = ui.readCommand();
-        while (!input.equals("bye")) {
+        while (!taTerror.isExitCommand(input)) {
             ui.showResponse(taTerror.getResponse(input));
             input = ui.readCommand();
         }
