@@ -1,25 +1,42 @@
-# Duke project template
+# Hampster 🐹
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Hampster is a small **Java 25** command-line task manager. It supports todo items, deadlines, events, listing, finding, marking, deleting, and saving tasks to storage. The name is a playful reference to the Java mascot _Duke_.
 
-## Setting up in Intellij
+## Prerequisites
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+- JDK 25
+- IntelliJ IDEA or a terminal
+- Gradle Wrapper included in this repository
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Running the application
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+1. Open the project in IntelliJ IDEA, or open a terminal in the project directory.
+2. Confirm that the project SDK and language level are set to **JDK 25**.
+3. Start the interactive application with:
+
+```powershell
+.\gradlew run
+```
+
+4. When Hampster asks `Whaddya want?`, enter a command and press Enter.
+
+## Available commands
+
+- `todo <description>` — create a todo task
+- `deadline <description> /by <date>` — create a deadline
+- `event <description> /from <date> /to <date>` — create an event
+- `list` — display all tasks
+- `find <keyword>` — search task descriptions
+- `mark <number>` and `unmark <number>` — update task status
+- `delete <number>` — remove a task
+- `bye` — exit Hampster
+
+For the complete command syntax, see the [source files](src/main/java/hampster/command) and the [command parser](src/main/java/hampster/parser/CommandParser.java).
+
+## Development checklist
+
+- [x] Configure Java 25
+- [x] Run the application from an interactive terminal
+- [ ] Add more automated tests
+
+**Warning:** Keep Java source files under `src/main/java`; Gradle expects this standard project layout. ~~Move Java files wherever you like.~~
