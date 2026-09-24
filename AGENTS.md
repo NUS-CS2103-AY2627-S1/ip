@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: intermediate. 
+* IDE and level of expertise: beginner.
 
 # Guidance for interacting with users
 
@@ -24,12 +24,30 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Java coding standard
+
+For every Java source or test-code change in this project, load and follow the project-local
+`seedu-java-coding-standard` skill at `.codex/skills/seedu-java-coding-standard/SKILL.md`.
+It is mandatory for all Java code reviews and implementations; resolve any applicable violations
+in touched code before completing the task.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## Console UI regression testing
+
+After changing application code, review `test/ui-test-plan.md` and update it whenever the change adds, changes, or removes observable console behavior. Then invoke the project `test-ui` skill and run its complete test plan. If a case fails, stop the test session immediately and report the recorded actual and expected outputs before making further code changes.
+
+## JUnit test coverage
+
+Maintain JUnit tests for approximately the top 50% highest-value methods, prioritizing complex, core, and critical business logic over simple getters, constructors, and delegation methods. After every code change, review the affected methods and update or add JUnit tests as needed to continue meeting this target. Run the complete Gradle test suite after updating tests.
+
 ## Git
 
+For every future commit proposal, review, and creation, load and follow the project-local
+`seedu-git-standard` skill at `.codex/skills/seedu-git-standard/SKILL.md`. This is mandatory
+for commit messages and branch names; apply it before asking for or acting on commit approval.
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.

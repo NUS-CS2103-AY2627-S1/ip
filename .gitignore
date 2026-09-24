@@ -2,11 +2,13 @@
 /.idea/
 /out/
 /*.iml
+/*.class
 
 # Gradle build files
 /.gradle/
 /build/
 src/main/resources/docs/
+/.gradle-user-home/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
@@ -18,3 +20,7 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+/test/ui-test-session.md
+
+# Runtime task data
+/data/

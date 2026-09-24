@@ -1,0 +1,122 @@
+.app-shell {
+    -fx-background-color:
+            linear-gradient(from 0% 0% to 100% 100%, rgba(255, 255, 255, 0.05), transparent 42%),
+            linear-gradient(from 100% 0% to 0% 100%, #292929, #121212 68%);
+    -fx-font-family: "Arial";
+}
+
+.header-bar {
+    -fx-background-color: linear-gradient(to right, #080808, #151515);
+    -fx-background-radius: 16px 16px 6px 6px;
+    -fx-border-color: #3d3d3d;
+    -fx-border-radius: 16px 16px 6px 6px;
+    -fx-border-width: 1px;
+}
+
+.brand-icon {
+    -fx-text-fill: #ffe600;
+    -fx-font-family: "Segoe UI Emoji";
+    -fx-font-size: 27px;
+    -fx-rotate: -8deg;
+}
+
+.header-title {
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.system-badge {
+    -fx-background-color: #ffe600;
+    -fx-background-radius: 14px;
+    -fx-padding: 5px 11px;
+    -fx-text-fill: #111111;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.contact-bar {
+    -fx-background-color: rgba(5, 5, 5, 0.86);
+    -fx-background-radius: 8px 8px 0 0;
+    -fx-border-color: transparent transparent #343434 transparent;
+    -fx-border-width: 0 0 2px 0;
+}
+
+.chat-icon {
+    -fx-font-family: "Segoe UI Symbol";
+    -fx-font-size: 18px;
+    -fx-text-fill: #686868;
+}
+
+.contact-name {
+    -fx-text-fill: white;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+}
+
+.online-label {
+    -fx-text-fill: #a8d600;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.chat-panel,
+.chat-panel .viewport {
+    -fx-background-color: linear-gradient(to top, #242424 0%, #171717 42%, #050505 100%);
+}
+
+.chat-panel {
+    -fx-background-radius: 0 0 10px 10px;
+    -fx-border-color: #303030;
+    -fx-border-radius: 0 0 10px 10px;
+    -fx-border-width: 0 1px 1px 1px;
+    -fx-padding: 8px 2px 10px 2px;
+}
+
+.dialog-container {
+    -fx-padding: 8px 4px 16px 4px;
+}
+
+.composer-field {
+    -fx-background-color: #0a0a0a;
+    -fx-background-radius: 9px 0 0 9px;
+    -fx-border-color: #3d3d3d;
+    -fx-border-radius: 9px 0 0 9px;
+    -fx-font-size: 15px;
+    -fx-prompt-text-fill: #767676;
+    -fx-text-fill: white;
+}
+
+.send-button {
+    -fx-background-color: #ffe600;
+    -fx-background-radius: 0 9px 9px 0;
+    -fx-border-color: #ffe600;
+    -fx-border-radius: 0 9px 9px 0;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111111;
+}
+
+.send-button:hover {
+    -fx-background-color: #fff36a;
+}
+
+.send-button:pressed {
+    -fx-background-color: #d6c200;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #555555;
+    -fx-background-radius: 4px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}
