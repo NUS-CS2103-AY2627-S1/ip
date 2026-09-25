@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_RIGHT"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         prefWidth="400.0"
+         type="javafx.scene.layout.HBox"
+         style="-fx-font-family: 'Comic Sans MS', 'Comic Sans', cursive;"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+         <StackPane fx:id="bubbleContainer" alignment="CENTER_LEFT" maxWidth="285.0"
+             maxHeight="1.7976931348623157E308" prefWidth="285.0"
+             style="-fx-background-color: #fff3a3; -fx-background-radius: 14;">
+             <children>
+              <VBox spacing="6.0" prefWidth="265.0" maxWidth="265.0"
+                  maxHeight="1.7976931348623157E308">
+                  <children>
+                      <Label fx:id="headerLabel" text="Rice Bot" wrapText="true"
+                          style="-fx-font-family: 'Comic Sans MS', 'Comic Sans', cursive; -fx-font-weight: bold; -fx-text-fill: #2f2933; -fx-font-size: 14px;" />
+                      <HBox alignment="CENTER_LEFT" spacing="4.0" prefWidth="265.0" maxWidth="265.0">
+                          <children>
+                              <Label fx:id="warningIcon" alignment="CENTER" maxWidth="22.0" maxHeight="22.0"
+                                  prefWidth="22.0" prefHeight="22.0" text="!"
+                                  style="-fx-font-family: 'Comic Sans MS', 'Comic Sans', cursive; -fx-background-color: #e07a2d; -fx-background-radius: 11; -fx-text-fill: white;
+                                      -fx-font-weight: bold;" />
+                              <HBox fx:id="suggestionRow" alignment="CENTER_LEFT" spacing="4.0"
+                                  prefWidth="239.0" maxWidth="239.0">
+                                  <children>
+                                      <Label fx:id="suggestionIcon" alignment="CENTER" maxWidth="22.0" maxHeight="22.0"
+                                          prefWidth="22.0" prefHeight="22.0" text="✓"
+                                          style="-fx-font-family: 'Comic Sans MS', 'Comic Sans', cursive; -fx-background-color: #2f855a; -fx-background-radius: 11; -fx-text-fill: white;
+                                              -fx-font-weight: bold;" />
+                                      <Label fx:id="suggestion" wrapText="true" maxWidth="190.0"
+                                          style="-fx-font-family: 'Comic Sans MS', 'Comic Sans', cursive; -fx-text-fill: #2f855a; -fx-font-size: 10px;" />
+                                  </children>
+                              </HBox>
+                          </children>
+                      </HBox>
+                      <Label fx:id="dialog" text="Label" wrapText="true" prefWidth="265.0"
+                          minWidth="0.0" maxWidth="265.0" maxHeight="1.7976931348623157E308"
+                          textOverrun="CLIP"
+                          style="-fx-font-family: 'Comic Sans MS', 'Comic Sans', cursive; -fx-text-fill: #1f2933;" />
+                      <Label fx:id="inputLabel" wrapText="true" prefWidth="265.0"
+                          minWidth="0.0" maxWidth="265.0" maxHeight="1.7976931348623157E308"
+                          textOverrun="CLIP"
+                          style="-fx-font-family: 'Comic Sans MS', 'Comic Sans', cursive; -fx-text-fill: #1f2933; -fx-font-size: 12px;" />
+                  </children>
+              </VBox>
+             </children>
+             <padding>
+              <Insets bottom="10.0" left="12.0" right="8.0" top="28.0" />
+             </padding>
+         </StackPane>
+        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
+    </children>
+    <padding>
+        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+    </padding>
+</fx:root>

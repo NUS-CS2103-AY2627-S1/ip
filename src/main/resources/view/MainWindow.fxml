@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Background?>
+<?import javafx.scene.layout.BackgroundImage?>
+<?import javafx.scene.layout.BackgroundPosition?>
+<?import javafx.scene.layout.BackgroundRepeat?>
+<?import javafx.scene.layout.BackgroundSize?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane minHeight="400.0" minWidth="300.0"
+            prefHeight="600.0" prefWidth="400.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="rice.MainWindow">
+    <background>
+        <Background>
+            <images>
+                <BackgroundImage>
+                    <image>
+                        <Image url="@/images/RiceCrop.jpg" />
+                    </image>
+                    <repeatX>
+                        <BackgroundRepeat fx:constant="NO_REPEAT" />
+                    </repeatX>
+                    <repeatY>
+                        <BackgroundRepeat fx:constant="NO_REPEAT" />
+                    </repeatY>
+                    <position>
+                        <BackgroundPosition fx:constant="CENTER" />
+                    </position>
+                    <size>
+                        <BackgroundSize width="100.0" height="100.0"
+                                        widthAsPercentage="true" heightAsPercentage="true"
+                                        contain="false" cover="true" />
+                    </size>
+                </BackgroundImage>
+            </images>
+        </Background>
+    </background>
+    <children>
+        <TextField fx:id="userInput"
+                   onAction="#handleUserInput"
+                   prefHeight="41.0"
+                   style="-fx-font-family: 'Comic Sans MS', 'Comic Sans', cursive; -fx-background-color: #fff3a3; -fx-border-color: #e0b400; -fx-border-width: 1.0;"
+                   AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="76.0"
+                   AnchorPane.bottomAnchor="0.0" />
+        <Button fx:id="sendButton"
+                mnemonicParsing="false"
+                onAction="#handleUserInput"
+                prefHeight="41.0"
+                prefWidth="76.0"
+                text="Send"
+                style="-fx-font-family: 'Comic Sans MS', 'Comic Sans', cursive;"
+                AnchorPane.rightAnchor="0.0"
+                AnchorPane.bottomAnchor="0.0" />
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    hvalue="1.0"
+                    style="-fx-background: transparent; -fx-background-color: transparent; -fx-control-inner-background: transparent;"
+                    vvalue="1.0"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.bottomAnchor="42.0">
+            <content>
+                <VBox fx:id="dialogContainer"
+                      fillWidth="true"
+                      prefWidth="388.0" />
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

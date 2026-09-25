@@ -1,25 +1,161 @@
-# Duke project template
+# Rice User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Rice is a task-management chatbot that helps you keep track of your to-dos, deadlines, and events in one place.
 
-## Setting up in Intellij
+## Quick start
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+1. Open the Rice application.
+2. Type a command in the input box and press Enter.
+3. View the response and continue managing your tasks.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Here are some commands you can try:
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+- `list` - shows all current tasks
+- `todo Buy groceries` - adds a simple to-do item
+- `deadline Submit report /by 2026-09-30` - adds a task with a deadline
+- `event Team meeting /from 2026-09-25 /to 2026-09-25` - adds a time-based event
+- `mark 1` - marks the first task as done
+- `delete 2` - removes the second task
+- `bye` - exits the application
+
+## Features
+
+### Adding a todo: `todo`
+
+Adds a simple task to your task list.
+
+Format: `todo DESCRIPTION`
+
+Example:
+
+- `todo cook rice`
+
+Expected outcome:
+
+Rice adds the task and confirms the updated number of tasks in your list.
+
+### Adding a deadline: `deadline`
+
+Adds a task that has a due date.
+
+Format: `deadline DESCRIPTION /by YYYY-MM-DD`
+
+Example:
+
+- `deadline Submit assignment /by 2026-10-01`
+
+Expected outcome:
+
+Rice adds the task and displays it with its deadline in the task list.
+
+### Adding an event: `event`
+
+Adds an event with a start and end date.
+
+Format: `event DESCRIPTION /from YYYY-MM-DD /to YYYY-MM-DD`
+
+Example:
+
+- `event Career fair /from 2026-10-08 /to 2026-10-09`
+
+Expected outcome:
+
+Rice adds the event and shows the event details in the list.
+
+### Listing tasks: `list`
+
+Shows all tasks currently stored in Rice.
+
+Format: `list`
+
+Example:
+
+- `list`
+
+Expected outcome:
+
+Rice displays every task in order, including its status and details.
+
+### Marking tasks as done: `mark`
+
+Marks a task as completed.
+
+Format: `mark INDEX`
+
+Example:
+
+- `mark 2`
+
+Expected outcome:
+
+Rice marks the specified task as completed and confirms the update.
+
+### Marking tasks as not done: `unmark`
+
+Marks a completed task as not yet done.
+
+Format: `unmark INDEX`
+
+Example:
+
+- `unmark 2`
+
+Expected outcome:
+
+Rice updates the task status and confirms that it is no longer complete.
+
+### Deleting a task: `delete`
+
+Removes a task from the list.
+
+Format: `delete INDEX`
+
+Example:
+
+- `delete 3`
+
+Expected outcome:
+
+Rice removes the specified task and confirms the deletion.
+
+### Finding tasks: `find`
+
+Searches for tasks containing a keyword.
+
+Format: `find KEYWORD`
+
+Example:
+
+- `find project`
+
+Expected outcome:
+
+Rice displays any matching tasks that contain the keyword.
+
+### Feature Sorting tasks
+
+Rice automatically sorts tasks by their date when needed, ensuring tasks with deadlines appear in a sensible order.
+
+### Feature Adjustable chat window
+
+The chat window is designed to fit the application layout comfortably, allowing you to view messages and task updates without clutter.
+
+## Command summary
+
+| Command | Description |
+| --- | --- |
+| `todo DESCRIPTION` | Adds a to-do task |
+| `deadline DESCRIPTION /by YYYY-MM-DD` | Adds a task with a deadline |
+| `event DESCRIPTION /from YYYY-MM-DD /to YYYY-MM-DD` | Adds an event |
+| `list` | Lists all tasks |
+| `mark INDEX` | Marks a task as done |
+| `unmark INDEX` | Marks a task as not done |
+| `delete INDEX` | Deletes a task |
+| `find KEYWORD` | Finds tasks matching a keyword |
+| `bye` | Exits the app |
+
+## Notes
+
+- Use `YYYY-MM-DD` for date inputs.
+- Task numbers refer to the order shown in `list`.
+- Rice saves your tasks automatically between runs.
