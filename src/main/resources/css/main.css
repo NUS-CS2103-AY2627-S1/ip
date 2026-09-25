@@ -1,0 +1,62 @@
+.root {
+    -fx-background-color: #f2f4ed;
+    -fx-font-family: "Avenir Next", "Arial";
+    -fx-font-size: 14px;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-label {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 6px 16px 16px 16px;
+    -fx-padding: 11px 14px;
+    -fx-text-fill: #20342b;
+}
+
+.user-dialog .dialog-label {
+    -fx-background-color: #2f7657;
+    -fx-background-radius: 16px 6px 16px 16px;
+    -fx-text-fill: white;
+}
+
+.goat-dialog .dialog-label {
+    -fx-background-color: #ffffff;
+}
+
+.error-dialog .dialog-label {
+    -fx-background-color: #fff0ed;
+    -fx-border-color: #c94c3b;
+    -fx-border-radius: 6px 16px 16px 16px;
+    -fx-border-width: 0 0 0 4px;
+    -fx-text-fill: #8a281d;
+}
+
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(24, 64, 46, 0.22), 8, 0.15, 0, 2);
+}
+
+.input-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d3dacd transparent transparent transparent;
+}
+
+.text-field {
+    -fx-background-color: #eef3f0;
+    -fx-background-radius: 8px;
+    -fx-padding: 9px 11px;
+}
+
+.button {
+    -fx-background-color: #2f7657;
+    -fx-background-radius: 8px;
+    -fx-font-weight: bold;
+    -fx-padding: 9px 18px;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #245f45;
+}
