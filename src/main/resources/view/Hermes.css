@@ -1,0 +1,33 @@
+.root {
+    -fx-background-color: #f5f7fa;
+    -fx-font-family: "System";
+    -fx-font-size: 14px;
+}
+
+.dialog-container {
+    -fx-padding: 12px;
+    -fx-background-color: #f5f7fa;
+}
+
+.dialog-label {
+    -fx-background-color: #dbeafe;
+    -fx-background-radius: 12px;
+    -fx-padding: 9px 12px;
+    -fx-text-fill: #1b4f72;
+}
+
+.hermes-dialog .dialog-label {
+    -fx-background-color: #e5e7eb;
+    -fx-text-fill: #203855;
+}
+
+.input-row {
+    -fx-padding: 10px 12px 12px 12px;
+    -fx-background-color: white;
+}
+
+.button {
+    -fx-background-color: #1b6ea6;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
