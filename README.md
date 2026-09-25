@@ -1,25 +1,133 @@
-# Duke project template
+# Friedberg
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Friedberg is a Java task-management chatbot with a JavaFX graphical interface and a command-line interface. It is designed for users who prefer managing tasks through concise text commands.
 
-## Setting up in Intellij
+**[Read the Friedberg User Guide](https://chuanhao01.github.io/ip/)** for command formats, examples, and screenshots.
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+![Friedberg JavaFX interface](docs/Ui.png)
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Features
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+Friedberg supports:
+
+- to-do tasks;
+- deadlines with validated dates;
+- events with start and end dates;
+- marking and unmarking tasks;
+- finding active tasks by description;
+- deleting tasks;
+- archiving and restoring tasks;
+- automatic local data persistence;
+- strict command-format validation;
+- an in-application `help` command.
+
+## Requirements
+
+- Java Development Kit (JDK) 25
+- No separate Gradle installation is required; the project includes the Gradle Wrapper.
+
+## Running Friedberg
+
+### JavaFX GUI
+
+From the project root, run:
+
+```bash
+./gradlew run
+```
+
+On Windows, use:
+
+```bat
+gradlew.bat run
+```
+
+### Command-line interface
+
+```bash
+./gradlew runCli
+```
+
+## Building the application
+
+Create the executable Shadow JAR with:
+
+```bash
+./gradlew shadowJar
+```
+
+The generated application is located at:
+
+```text
+build/libs/Friedberg.jar
+```
+
+Run it with:
+
+```bash
+java -jar build/libs/Friedberg.jar
+```
+
+## Running tests and checks
+
+Run the automated test suite:
+
+```bash
+./gradlew test
+```
+
+Run tests and Checkstyle together:
+
+```bash
+./gradlew check
+```
+
+## Data storage
+
+Friedberg automatically creates and uses these files relative to the working directory:
+
+```text
+data/friedberg_data
+data/friedberg_archive
+```
+
+- `friedberg_data` stores active tasks.
+- `friedberg_archive` stores archived tasks.
+
+Do not edit these files while Friedberg is running.
+
+## Command overview
+
+Enter `help` in Friedberg to display all supported commands.
+
+| Action | Command format |
+| --- | --- |
+| Show help | `help` |
+| Add a to-do | `todo DESCRIPTION` |
+| Add a deadline | `deadline DESCRIPTION /by DATE` |
+| Add an event | `event DESCRIPTION /from FROM_DATE /to TO_DATE` |
+| List active tasks | `list` |
+| Find active tasks | `find QUERY` |
+| Mark a task | `mark TASK_INDEX` |
+| Unmark a task | `unmark TASK_INDEX` |
+| Delete a task | `delete TASK_INDEX` |
+| Archive a task | `archive TASK_INDEX` |
+| List archived tasks | `alist` |
+| Restore an archived task | `unarchive TASK_INDEX` |
+| Exit | `bye` |
+
+Dates use the `yyyy-MM-dd` format, for example `2026-09-10`.
+
+## Project structure
+
+```text
+src/main/java/        Java source code
+src/main/resources/   FXML, CSS, and image resources
+src/test/java/        Automated tests
+docs/                 User guide and screenshots
+data/                 Runtime task data
+```
+
+## Acknowledgements
+
+Friedberg was developed as an individual project for the National University of Singapore (NUS) module **CS2103 Software Engineering**. It is based on the Duke project used in the SE-EDU introductory software engineering curriculum.

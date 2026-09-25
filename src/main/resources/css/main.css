@@ -1,0 +1,137 @@
+.root {
+    main-color: rgb(237, 255, 242);
+    input-color: rgb(236, 255, 241);
+    accent-color: mediumspringgreen;
+    accent-hover-color: cyan;
+    accent-pressed-color: orange;
+    text-color: rgb(31, 41, 55);
+    user-bubble-color: linear-gradient(to bottom right, #b8fff1, #8be9fd);
+    reply-bubble-color: rgba(255, 255, 255, 0.92);
+    add-bubble-color: rgb(255, 246, 157);
+    status-bubble-color: rgb(193, 255, 193);
+    remove-bubble-color: rgb(255, 205, 213);
+    error-bubble-color: rgb(255, 170, 170);
+
+    -fx-background-color: linear-gradient(to bottom right, #dbeafe, #93c5fd, #1d4ed8);
+}
+
+.text-field {
+    -fx-background-color: input-color;
+    -fx-border-color: derive(accent-color, -25%);
+    -fx-border-width: 1px 0 0 0;
+    -fx-font: 18px "Arial";
+    -fx-padding: 8px;
+    -fx-prompt-text-fill: derive(text-color, 45%);
+    -fx-text-fill: text-color;
+}
+
+.text-field:focused {
+    -fx-background-color: white;
+    -fx-border-color: derive(accent-color, -45%);
+}
+
+.button {
+    -fx-background-color: accent-color;
+    -fx-border-color: derive(accent-color, -35%);
+    -fx-border-width: 1px 0 0 1px;
+    -fx-font: italic bold 16px "Arial";
+    -fx-text-fill: text-color;
+}
+
+.button:hover {
+    -fx-background-color: accent-hover-color;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 8, 0.3, 0, 1);
+}
+
+.button:pressed {
+    -fx-background-color: accent-pressed-color;
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+.scroll-pane {
+    -fx-background-color: rgba(255, 255, 255, 0.28);
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-font-size: 10px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: derive(accent-color, -15%);
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+}
+
+.dialog-label {
+    -fx-background-color: user-bubble-color;
+    -fx-background-insets: 0 7px 0 7px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
+    -fx-border-insets: 0 7px 0 7px;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-border-width: 2px;
+    -fx-padding: 6px;
+    -fx-text-fill: text-color;
+}
+
+.user-label {
+    -fx-background-color: user-bubble-color;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.reply-label {
+    -fx-background-color: reply-bubble-color;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.add-label {
+    -fx-background-color: add-bubble-color;
+}
+
+.status-label {
+    -fx-background-color: status-bubble-color;
+}
+
+.remove-label {
+    -fx-background-color: remove-bubble-color;
+}
+
+.error-label {
+    -fx-background-color: error-bubble-color;
+}
+
+.avatar-frame {
+    -fx-min-height: 84px;
+    -fx-min-width: 84px;
+    -fx-pref-height: 84px;
+    -fx-pref-width: 84px;
+    -fx-max-height: 84px;
+    -fx-max-width: 84px;
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-background-radius: 14px;
+    -fx-border-color: rgba(30, 64, 175, 0.75);
+    -fx-border-radius: 14px;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 4, 4);
+    -fx-padding: 4px;
+}
+
+#displayPicture {
+    -fx-rotate: 0;
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+}
