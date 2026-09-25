@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run chatbot UI cases and stop on failure"
+  default_prompt: "Use $test-ui to run the cases in test/ui-test-plan.md."

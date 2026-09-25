@@ -18,3 +18,13 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+*.class
+
+# Runtime chatbot data
+/data/
+
+# Eclipse and JDT Language Server files
+/.classpath
+/.project
+/.settings/

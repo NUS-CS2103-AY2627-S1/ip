@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Can program well enough
+* IDE and level of expertise: Does not use an IDE, uses nvim
 
 # Guidance for interacting with users
 
@@ -24,12 +24,34 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Java coding standard
+
+Before creating, editing, or reviewing Java code, use the project-specific
+[`seedu-java-coding-standard`](.codex/skills/seedu-java-coding-standard/SKILL.md)
+skill and follow [`docs/java-coding-standard.md`](docs/java-coding-standard.md).
+This requirement applies to production and test code.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## JUnit test coverage
+
+Maintain JUnit tests for approximately the top 50% highest-value production
+methods. Prioritize complex methods, core business logic, persistence, parsing,
+validation, state changes, and failure recovery over trivial constructors and
+simple getters.
+
+After every production code change, reassess the affected behavior and update
+or add JUnit tests as needed to continue meeting this target. Run the full test
+suite with `./gradlew test` before finishing the change.
+
 ## Git
 
+Before proposing or creating commits, branches, merges, or tags, use the
+project-specific
+[`seedu-git-standard`](.codex/skills/seedu-git-standard/SKILL.md) skill. All
+future commits must follow that skill's SE-EDU conventions.
+
 Use lightweight tags unless the user requests an annotated tag.
-When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
