@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: intermediate
+* IDE and level of expertise: intermediate
 
 # Guidance for interacting with users
 
@@ -24,11 +24,29 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Java coding standard
+
+All Java code in this project must follow the repository skill at
+`.agents/skills/seedu-java-coding-standard/SKILL.md`, based on the SE-EDU Java basic and intermediate
+conventions. Read and apply that skill whenever Java code is created, edited, reviewed, or refactored.
+
+## Post-code-change testing
+
+After every code update:
+
+1. Review `test/ui-test-plan.md` against the changed behavior.
+2. Update the test plan when the change adds or modifies user-visible behavior, inputs, or expected outputs. If the existing plan still covers the behavior, leave it unchanged.
+3. Invoke the project-specific `test-ui` skill at `.agents/skills/test-ui/SKILL.md` after the plan review or update. The skill must compile the project, run the applicable UI test cases, compare actual output with expected output, and show the console transcript.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
 ## Git
+
+All commits and proposed commit messages must follow the repository skill at
+`.agents/skills/seedu-git-standard/SKILL.md`. Read and apply that skill before proposing or creating a
+commit, branch, or tag.
 
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
