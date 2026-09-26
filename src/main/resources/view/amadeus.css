@@ -1,0 +1,243 @@
+/*
+ * The whole look of the app, in one place.
+ *
+ * Keeping the colours and spacing here rather than in the FXML means a tweak to,
+ * say, the accent colour is one edit instead of one edit per control. The FXML
+ * files only say WHICH style applies to a control (via styleClass); this file says
+ * what that style IS.
+ *
+ * The palette is white and yellow, taken straight from the Amadeus mark itself: a white
+ * background, near-black text for reading comfort, and the mark's own gold as the one
+ * accent - used for the user's own words and for nothing else on an ordinary reply, so
+ * it always points at "you said this". Errors need a colour of their own regardless: if
+ * they used the same gold as everything else, a mistyped command would look like any
+ * other reply instead of standing out, so a warm red is kept in reserve for exactly that.
+ */
+
+/*
+ * Named colours, declared once on the root and then referred to by name below.
+ * JavaFX calls this a "looked-up colour": any property starting with "-" can be
+ * defined here and used as a value further down, the same way a constant is.
+ */
+.root {
+    -amadeus-bg: #ffffff;
+    -amadeus-surface: #fffdf3;
+    -amadeus-border: #ecdfa0;
+    -amadeus-text: #241d00;
+    -amadeus-text-dim: #96895a;
+    -amadeus-accent: #ffdb69;
+    -amadeus-accent-dark: #241d00;
+    -amadeus-error: #c0392b;
+    -amadeus-error-tint: #fdeeec;
+
+    -fx-font-family: "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: -amadeus-bg;
+}
+
+/* ---------------------------------------------------------------------- header */
+
+/*
+ * The identity strip at the top: the mark, the name, and a hairline in the accent
+ * colour underneath. -amadeus-surface (also used by the input bar) rather than pure
+ * white is what makes it read as a distinct strip instead of just floating text over
+ * the same page background the conversation sits on.
+ */
+.app-header {
+    -fx-background-color: -amadeus-surface;
+    -fx-border-color: -amadeus-accent;
+    -fx-border-width: 0 0 1.5px 0;
+    -fx-padding: 10px 14px;
+}
+
+.app-header-title {
+    -fx-text-fill: -amadeus-text;
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+}
+
+/* ---------------------------------------------------------------- conversation */
+
+/*
+ * The scroll pane defaults to its own opaque background, which would show as a seam
+ * where it meets the window's own background the moment the two are ever not the same
+ * colour. Both properties are needed: "-fx-background" covers the pane itself and the
+ * ".viewport" rule covers the area the content scrolls inside.
+ */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* A focus ring around the whole conversation would be noise, not information. */
+.scroll-pane:focused {
+    -fx-background-insets: 0;
+}
+
+.dialog-container {
+    -fx-padding: 10px 10px 14px 10px;
+}
+
+/* ------------------------------------------------------------------- messages */
+
+/*
+ * Shared by every message. The two sides differ only in the rules below this one,
+ * so anything common - text colour, wrapping, line spacing - is written once here.
+ */
+.message {
+    -fx-text-fill: -amadeus-text;
+    -fx-line-spacing: 2px;
+    -fx-wrap-text: true;
+}
+
+/*
+ * What the chatbot says: a textbox of its own, white rather than filled, outlined in
+ * the accent colour. The sharp corner sits bottom-LEFT, toward its own avatar - the
+ * mirror image of the user bubble below, whose sharp corner points bottom-right toward
+ * theirs - so the two still read as opposite sides of the conversation even though both
+ * are now boxes, just distinguished by fill (white outlined vs. solid gold) rather than
+ * by shape (flat text vs. bubble).
+ */
+.message-bot {
+    -fx-background-color: -amadeus-bg;
+    -fx-background-radius: 10px 10px 10px 2px;
+    -fx-border-color: -amadeus-accent;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 10px 10px 10px 2px;
+    -fx-padding: 7px 11px;
+}
+
+/*
+ * What the user typed: a filled bubble, right-aligned, in the accent colour.
+ * Dark text on the accent keeps the contrast high enough to read comfortably.
+ */
+.message-user {
+    -fx-background-color: -amadeus-accent;
+    -fx-background-radius: 10px 10px 2px 10px;
+    -fx-padding: 7px 11px;
+    -fx-text-fill: -amadeus-accent-dark;
+    -fx-font-weight: bold;
+}
+
+/*
+ * An error: the same box as an ordinary reply from the chatbot, but outlined and typed
+ * in red instead of gold, with a faint red wash behind the text. Two signals rather than
+ * one (colour AND fill) means it still stands out for a user who cannot easily tell gold
+ * from red.
+ */
+.message-error {
+    -fx-background-color: -amadeus-error-tint;
+    -fx-background-radius: 10px 10px 10px 2px;
+    -fx-border-color: -amadeus-error;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 10px 10px 10px 2px;
+    -fx-text-fill: -amadeus-error;
+    -fx-padding: 7px 11px;
+}
+
+/* ------------------------------------------------------------------ input row */
+
+.input-bar {
+    -fx-background-color: -amadeus-surface;
+    -fx-border-color: -amadeus-border;
+    -fx-border-width: 1px 0 0 0;                /* a hairline rule, not a boxed panel */
+    -fx-padding: 8px;
+}
+
+.text-field {
+    -fx-background-color: -amadeus-bg;
+    -fx-background-radius: 6px;
+    -fx-border-color: -amadeus-border;
+    -fx-border-radius: 6px;
+    -fx-border-width: 1px;
+    -fx-text-fill: -amadeus-text;
+    -fx-prompt-text-fill: -amadeus-text-dim;
+    -fx-padding: 8px 10px;
+    -fx-highlight-fill: -amadeus-accent;
+    -fx-highlight-text-fill: -amadeus-accent-dark;
+}
+
+/* The accent border is enough to show focus, so JavaFX's own blue glow is turned off. */
+.text-field:focused {
+    -fx-border-color: -amadeus-accent;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
+}
+
+.button {
+    -fx-background-color: -amadeus-accent;
+    -fx-background-radius: 6px;
+    -fx-text-fill: -amadeus-accent-dark;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+}
+
+/*
+ * Darkening on hover, not lightening: the accent is already a pale gold close to the
+ * white background, so lightening it further on interaction would wash it out instead
+ * of drawing the eye.
+ */
+.button:hover {
+    -fx-background-color: derive(-amadeus-accent, -10%);
+}
+
+/* Pressing darkens further than hovering, so the button reads as pushed in. */
+.button:pressed {
+    -fx-background-color: derive(-amadeus-accent, -22%);
+}
+
+.button:focused {
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
+}
+
+/* A disabled control means the session has ended, so it is dimmed rather than hidden. */
+.button:disabled,
+.text-field:disabled {
+    -fx-opacity: 0.4;
+}
+
+/* ------------------------------------------------------------------ scrollbar */
+
+/*
+ * The default scrollbar is wide and has arrow buttons at both ends, which in a window
+ * this narrow is a real amount of width spent on something rarely clicked. This slims
+ * it to a track and a thumb.
+ */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: -amadeus-border;
+    -fx-background-radius: 4px;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: -amadeus-text-dim;
+}
+
+/* Collapsing the arrow buttons to nothing removes them without hiding the whole bar. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-padding: 0;
+    -fx-pref-height: 0;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-padding: 0;
+    -fx-shape: null;
+}

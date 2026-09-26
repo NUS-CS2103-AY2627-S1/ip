@@ -24,6 +24,25 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Coding standard (mandatory)
+
+All Java code in this project — both `src/main/java` and `src/test/java` — MUST follow
+the SE-EDU Java coding standard (intermediate level):
+https://se-education.org/guides/conventions/java/intermediate.html
+
+The rules are captured in the project skill `seedu-java-coding-standard`
+(`.claude/skills/seedu-java-coding-standard/SKILL.md`). Invoke that skill **before**
+writing or editing any Java file, and check the code against its checklist **before**
+reporting the work as complete. This applies to generated code, edited code, and test
+code without exception.
+
+Points most often missed:
+
+* Every non-private class and method needs a Javadoc header whose first sentence is a summary.
+* `@param` is all-or-none per method — document every parameter or none.
+* Explicit imports only, grouped static → `java.*` → `org.*` → project, and no line over 120 chars.
+* Test methods are named `featureUnderTest_testScenario_expectedBehavior()`.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.

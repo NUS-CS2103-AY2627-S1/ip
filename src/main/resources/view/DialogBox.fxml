@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+<!--
+  One message. fx:root means "load into whatever object asked for me" rather than
+  creating a new HBox, which is what lets DialogBox.java construct these repeatedly.
+
+  The avatar is cropped to a rounded square rather than a circle: the Amadeus logo runs
+  almost edge to edge horizontally, so a circular clip would cut off its left and right
+  points, while a rounded square (an option the assignment itself allows) leaves the
+  whole mark intact.
+
+  DialogBox.java decides, per message, whether the avatar sits before or after the text
+  and which side the row is aligned to; the FXML only says what an avatar looks like.
+
+  The label needs both wrapText and minHeight="-Infinity": without them a long reply
+  is truncated to a single line ending in "...".
+-->
+<fx:root maxWidth="1.7976931348623157E308" spacing="10.0" type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ImageView fx:id="displayPicture" fitHeight="64.0" fitWidth="64.0" preserveRatio="true">
+            <clip>
+                <Rectangle arcHeight="16.0" arcWidth="16.0" height="64.0" width="64.0" />
+            </clip>
+        </ImageView>
+        <Label fx:id="dialog" minHeight="-Infinity" styleClass="message" text="Label" wrapText="true" />
+    </children>
+</fx:root>

@@ -1,0 +1,11 @@
+# Normalize line endings to LF in the repository regardless of a contributor's local
+# core.autocrlf setting, so diffs stay clean across Windows/Mac/Linux. Git still checks
+# files out using whatever line ending the local platform/config prefers.
+* text=auto eol=lf
+
+# Windows batch files need CRLF to run reliably in cmd.exe.
+*.bat text eol=crlf
+
+# Not text; never attempt line-ending conversion on these.
+*.png binary
+*.jar binary

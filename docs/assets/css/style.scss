@@ -1,0 +1,11 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+// Amadeus-branded headings. The app's own pale gold accent (#ffdb69) reads fine as a
+// fill behind dark text, but is far too light to work as text colour on a white page -
+// this is a darker, more saturated gold from the same family, chosen for legibility.
+h1, h2, h3, h4, h5, h6 {
+  color: #b8860b;
+}

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+  The window: a scrolling conversation above, a text field and a Send button below.
+
+  A VBox stacks the two, and VBox.vgrow="ALWAYS" on the scroll pane makes it take
+  every pixel the input row does not need. That is what makes the window resize
+  properly: stretch the window and the conversation grows, while the input row keeps
+  its natural height and stays at the bottom.
+
+  (This replaced an AnchorPane whose scroll pane was pinned 42px above the bottom -
+  a number that had to be kept in step by hand with the height of the input row. The
+  VBox works the height out for itself, so the two can no longer fall out of step.)
+
+  HBox.hgrow="ALWAYS" does the same job horizontally: the text field absorbs the
+  extra width, and the Send button stays the size of its label.
+-->
+<VBox prefHeight="600.0" prefWidth="420.0" styleClass="root-pane"
+      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="amadeus.ui.MainWindow">
+    <children>
+        <!--
+          Identity strip: the mark plus the name, so the window reads as "Amadeus" even
+          with the title bar cropped off a screenshot or covered by another window. A
+          hairline in the accent colour is what separates it from the conversation below,
+          rather than a shadow or a second background colour, to keep it to one flat layer.
+        -->
+        <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="app-header">
+            <children>
+                <ImageView fitHeight="44.0" fitWidth="44.0" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/DaAmadeus.png" />
+                    </image>
+                </ImageView>
+                <Label styleClass="app-header-title" text="AMADEUS" />
+            </children>
+        </HBox>
+
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true" spacing="7.0" styleClass="dialog-container" />
+            </content>
+        </ScrollPane>
+
+        <!-- onAction on the text field is what makes the Enter key send the message. -->
+        <HBox alignment="CENTER" spacing="8.0" styleClass="input-bar">
+            <children>
+                <TextField fx:id="userInput" onAction="#handleUserInput"
+                           promptText="Awaiting your instruction..." HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton" onAction="#handleUserInput" text="Send" />
+            </children>
+        </HBox>
+    </children>
+</VBox>
