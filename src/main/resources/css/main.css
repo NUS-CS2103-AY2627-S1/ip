@@ -1,0 +1,58 @@
+.root {
+    -fx-background-color: linear-gradient(to right, #111b35 0%, #1d2b50 49%, #481722 51%, #260b15 100%);
+    -fx-font-family: "Georgia";
+}
+.app-header {
+    -fx-pref-height: 78px;
+    -fx-padding: 10px;
+    -fx-background-color: rgba(10, 10, 20, 0.72);
+    -fx-border-color: transparent transparent #d9b44a transparent;
+    -fx-border-width: 0 0 2px 0;
+}
+.app-title { -fx-font-size: 21px; -fx-font-weight: bold; -fx-text-fill: #f6d778; }
+.app-subtitle { -fx-font-size: 11px; -fx-font-style: italic; -fx-text-fill: #ddd5c6; }
+.scroll-pane, .scroll-pane .viewport { -fx-background-color: transparent; }
+.text-field {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 15px;
+    -fx-padding: 10px;
+    -fx-background-color: #f7f2e8;
+}
+.button {
+    -fx-background-color: #b38b2e;
+    -fx-text-fill: #151020;
+    -fx-font-weight: bold;
+    -fx-background-radius: 0;
+}
+.button:hover { -fx-background-color: #e0bd5b; }
+.bot-bubble, .user-bubble { -fx-padding: 10px 14px; -fx-background-radius: 14px; -fx-font-size: 14px; }
+.bot-bubble {
+    -fx-background-radius: 14px 14px 14px 0;
+}
+.bot-bubble.royal-bubble {
+    -fx-font-family: "Baskerville Old Face";
+    -fx-font-size: 16px;
+    -fx-background-color: #fff2bd;
+    -fx-text-fill: #2d220b;
+    -fx-border-color: #d3a62e;
+    -fx-border-radius: 14px 14px 14px 0;
+}
+.bot-bubble.rude-bubble {
+    -fx-background-color: #3a3338;
+    -fx-text-fill: #fff0f2;
+    -fx-border-color: #d44d63;
+    -fx-border-radius: 14px 14px 14px 0;
+}
+.persona-icon {
+    -fx-min-width: 28px;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+.royal-icon { -fx-text-fill: #f2c94c; }
+.rude-icon { -fx-text-fill: #ff6078; }
+.user-bubble {
+    -fx-background-color: #d8e5ff;
+    -fx-text-fill: #111b35;
+    -fx-background-radius: 14px 14px 0 14px;
+}

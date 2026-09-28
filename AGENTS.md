@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Intermediate
+* IDE and level of expertise: Intermediate
 
 # Guidance for interacting with users
 
@@ -23,6 +23,24 @@ Unless the user says otherwise, assume that you are assisting a student working 
   * When faced with a design choice, choose the simplest option that is sufficient for the requirements, while briefly explaining relevant more advanced alternatives.
 
 # Project-specific requirements
+
+## Java coding standard
+
+All Java production and test code in this project must follow the project skill
+`.codex/skills/seedu-java-coding-standard/SKILL.md`, based on the SE-EDU Java basic and intermediate
+standard. Apply it to every code change and run Checkstyle when the Gradle environment permits.
+
+## Git commit standard
+
+All future commit messages must follow `.codex/skills/seedu-git-standard/SKILL.md`, based on the
+SE-EDU Git conventions. Keep unrelated changes in separate commits and review the staged diff
+before committing.
+
+## Test coverage
+
+JUnit tests should cover approximately the top 50% of the project's highest-value methods,
+prioritizing complex, core, and critical business logic. Update or add the relevant JUnit tests
+after every code change so that the project continues to comply with this coverage target.
 
 ## Java version:
 

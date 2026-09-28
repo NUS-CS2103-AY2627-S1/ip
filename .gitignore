@@ -5,8 +5,10 @@
 
 # Gradle build files
 /.gradle/
+/.gradle-user/
 /build/
 src/main/resources/docs/
+/.gradle-user/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
@@ -16,5 +18,13 @@ bin/
 # Temp files
 _temp/
 
+# Local task data
+/data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Codex files
+/.codex/*
+!/.codex/skills/
+!/.codex/skills/**

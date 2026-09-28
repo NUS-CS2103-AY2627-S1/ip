@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane prefHeight="640.0" prefWidth="520.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kotha.ui.MainWindow">
+    <VBox alignment="CENTER" styleClass="app-header" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Label text="♛  KOTHA  ♠" styleClass="app-title" />
+        <Label text="Two moods. One task manager." styleClass="app-subtitle" />
+    </VBox>
+    <HBox spacing="0.0" prefHeight="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <TextField fx:id="userInput" onAction="#handleUserInput" promptText="Type a command..." HBox.hgrow="ALWAYS" />
+        <Button fx:id="profileButton" text="Portrait" onAction="#chooseProfilePicture" prefHeight="50.0" />
+        <Button text="Command" onAction="#handleUserInput" prefHeight="50.0" />
+    </HBox>
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="78.0"><content><VBox fx:id="dialogContainer" spacing="10.0" /></content></ScrollPane>
+</AnchorPane>

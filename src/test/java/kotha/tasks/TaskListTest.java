@@ -1,0 +1,38 @@
+package kotha.tasks;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+class TaskListTest {
+
+    @Test
+    void addTask_increasesListSize() {
+        TaskList taskList = new TaskList();
+
+        taskList.add(new ToDo("read book"));
+
+        assertEquals(1, taskList.size());
+    }
+
+    @Test
+    void getTask_returnsCorrectTask() {
+        TaskList taskList = new TaskList();
+        Task task = new ToDo("read book");
+        taskList.add(task);
+
+        assertEquals(task, taskList.get(0));
+    }
+
+    @Test
+    void find_returnsTasksContainingKeywordIgnoringCase() {
+        TaskList taskList = new TaskList();
+        Task matchingTask = new ToDo("Read a book");
+        taskList.add(matchingTask);
+        taskList.add(new ToDo("Attend meeting"));
+
+        assertEquals(List.of(matchingTask), taskList.find("BOOK"));
+    }
+}

@@ -1,0 +1,81 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'com.gradleup.shadow' version '9.5.1'
+    id 'checkstyle'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+checkstyle {
+    toolVersion = '11.0.0'
+}
+repositories {
+    mavenCentral()
+}
+
+def javafxVersion = '25'
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    // JavaFX graphics contains platform-specific native libraries. The JavaFX
+    // Gradle plugin normally selects only the platform used to build the
+    // project, which makes a fat JAR produced on Windows unusable on Linux or
+    // macOS. Include the native graphics artifacts for all supported desktop
+    // platforms so the same JAR can select the appropriate native library at
+    // runtime.
+    runtimeOnly "org.openjfx:javafx-graphics:${javafxVersion}:win"
+    runtimeOnly "org.openjfx:javafx-graphics:${javafxVersion}:linux"
+    runtimeOnly "org.openjfx:javafx-graphics:${javafxVersion}:mac"
+}
+
+javafx {
+    version = javafxVersion
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'kotha.ui.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'kotha.jar'
+}
+
+run {
+    standardInput = System.in
+    enableAssertions = true
+}
