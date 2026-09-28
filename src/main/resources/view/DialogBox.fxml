@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+
+<fx:root alignment="TOP_RIGHT"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         prefWidth="400.0"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0"/>
+    </padding>
+    <Label fx:id="dialog" text="Label" wrapText="true" minHeight="-Infinity"/>
+    <StackPane fx:id="pictureContainer" prefHeight="64.0" prefWidth="64.0">
+        <ImageView fx:id="displayPicture" fitHeight="56.0" fitWidth="56.0"
+                   pickOnBounds="true" preserveRatio="true"/>
+        <Circle fx:id="pictureBorder" centerX="32.0" centerY="32.0"
+                fill="TRANSPARENT" radius="29.0" stroke="#5c677d" strokeWidth="2.0"/>
+    </StackPane>
+</fx:root>
