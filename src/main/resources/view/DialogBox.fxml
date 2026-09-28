@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<fx:root alignment="TOP_RIGHT" minWidth="0.0" spacing="8.0" maxWidth="1.7976931348623157E308" prefWidth="400.0" stylesheets="@../css/dialog-box.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialog" minWidth="0.0" minHeight="-Infinity" text="Label" wrapText="true">
+         <padding>
+            <Insets bottom="8.0" left="10.0" right="10.0" top="8.0" />
+         </padding>
+         <font>
+            <Font name="Gabriola" size="16.0" />
+         </font></Label>
+        <ImageView fx:id="displayPicture" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+            <!-- Frame Nicola's face more closely without changing the source image. -->
+            <viewport>
+                <Rectangle2D minX="150.0" minY="0.0" width="400.0" height="400.0" />
+            </viewport>
+        </ImageView>
+    </children>
+    <padding>
+        <Insets bottom="5.0" left="8.0" right="8.0" top="5.0" />
+    </padding>
+</fx:root>

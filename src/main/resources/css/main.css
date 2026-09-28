@@ -1,0 +1,68 @@
+.root {
+    main-color: #FFF0F5;    /* Create a looked-up color called "main-color" within root. */
+    -fx-background-color: main-color;
+    -fx-background-image: url("../images/nicola-background.jpg"); /* Set image */
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+}
+
+.text-field {
+    -fx-background-color: linear-gradient(to bottom right, rgba(230, 203, 177, 0.8), rgba(219, 230, 177, 0.8));
+    -fx-font: 20px "Gabriola";
+}
+
+.button {
+    -fx-background-color: linear-gradient(to bottom right, rgba(230, 203, 177, 0.8), rgba(219, 230, 177, 0.8));
+    -fx-text-fill: #3e352b;
+    -fx-border-color: rgba(255, 248, 233, 0.8);
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-font: italic bold 18px "Gabriola";
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom right, rgba(230, 203, 177, 0.95), rgba(219, 230, 177, 0.95));
+    -fx-font-size: 22px;
+    -fx-cursor: hand;
+}
+
+.button:pressed {
+    -fx-background-color: linear-gradient(to bottom right, rgba(210, 183, 157, 0.95), rgba(199, 210, 157, 0.95));
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 12px;  /* Change width of scroll bar. */
+    -fx-background-color: #e8e0ce;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #e8e0ce;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #87957a;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #708364;
+}
+
+.scroll-bar .thumb:pressed {
+    -fx-background-color: #596c50;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
