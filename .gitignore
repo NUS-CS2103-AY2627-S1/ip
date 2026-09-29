@@ -16,5 +16,11 @@ bin/
 # Temp files
 _temp/
 
+# Emma's saved tasks: personal state, recreated on demand
+/data/
+
+# Claude Code personal settings (project skills are committed)
+.claude/settings.local.json
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

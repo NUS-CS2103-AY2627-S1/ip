@@ -1,0 +1,6 @@
+{
+    // Re-read build.gradle automatically when it changes, so a new dependency
+    // (such as JavaFX) reaches the editor's classpath without a manual reload.
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.import.gradle.enabled": true
+}

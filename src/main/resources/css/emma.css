@@ -1,0 +1,166 @@
+/*
+ * How Emma's window looks: colours, fonts, padding and corners.
+ *
+ * This is kept apart from MainWindow and DialogBox so that the Java code only
+ * says what goes where, and the look can be adjusted without recompiling.
+ * The window is expected to sit in a small corner of the screen while Emma's
+ * replies can run to many lines, so the spacing here is deliberately tight:
+ * every row of padding is a row of task list the user cannot see.
+ */
+
+.main-window {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
+    -fx-font-size: 13px;
+    /* A warm off-white canvas, so that white bubbles read as raised against it. */
+    -fx-background-color: #f5f5f4;
+}
+
+/* ---- the scrolling conversation ------------------------------------------ */
+
+/*
+ * A ScrollPane paints its own grey box and a 1px border by default, which would
+ * sit between the canvas and the bubbles. Both are cleared so the canvas colour
+ * runs to the edges of the window.
+ */
+.conversation-scroll,
+.conversation-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.conversation-scroll {
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+.conversation {
+    -fx-padding: 6 8 8 8;
+}
+
+/*
+ * A slim scrollbar with no end buttons. The stock one is about 14px wide and has
+ * an arrow at each end; none of that is needed, and the width comes straight off
+ * the space the text has to wrap in.
+ */
+.conversation-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8;
+}
+
+.conversation-scroll .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.conversation-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: #d6d3d1;
+    -fx-background-radius: 4;
+}
+
+.conversation-scroll .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #a8a29e;
+}
+
+.conversation-scroll .scroll-bar .increment-button,
+.conversation-scroll .scroll-bar .decrement-button {
+    -fx-padding: 0;
+}
+
+.conversation-scroll .scroll-bar .increment-arrow,
+.conversation-scroll .scroll-bar .decrement-arrow {
+    -fx-shape: none;
+    -fx-padding: 0;
+}
+
+/* ---- one row of the conversation ----------------------------------------- */
+
+/*
+ * The gap between rows is carried entirely by this padding, so two neighbouring
+ * messages are 6px apart rather than the 12px two full-padded boxes would give.
+ */
+.dialog-box {
+    -fx-spacing: 8;
+    -fx-padding: 3 0 3 0;
+}
+
+.bubble {
+    -fx-padding: 7 11 7 11;
+    /* Multi-line replies are mostly task lists; a little air makes them scannable. */
+    -fx-line-spacing: 2;
+}
+
+/*
+ * Each bubble has three rounded corners and one square one, on the side nearest
+ * the speaker's picture, so who said what is clear even at a glance.
+ */
+.bubble-user {
+    -fx-background-color: #ea580c;
+    -fx-text-fill: white;
+    -fx-background-radius: 14 14 4 14;
+}
+
+.bubble-emma {
+    -fx-background-color: white;
+    -fx-text-fill: #1c1917;
+    -fx-background-radius: 14 14 14 4;
+    -fx-border-color: #e7e5e4;
+    -fx-border-radius: 14 14 14 4;
+    -fx-border-width: 1;
+}
+
+/*
+ * A refused command: red fill, red outline and bold text at once. Three signals
+ * rather than colour alone, so it still stands out to a colour-blind reader.
+ */
+.bubble-error {
+    -fx-background-color: #fef2f2;
+    -fx-text-fill: #b91c1c;
+    -fx-font-weight: bold;
+    -fx-background-radius: 14 14 14 4;
+    -fx-border-color: #ef4444;
+    -fx-border-radius: 14 14 14 4;
+    -fx-border-width: 1.5;
+}
+
+/* ---- the bar the user types in ------------------------------------------- */
+
+/* White, with a hairline above it, so it reads as a separate surface. */
+.input-bar {
+    -fx-background-color: white;
+    -fx-spacing: 6;
+    -fx-padding: 6 8 6 8;
+    -fx-border-color: #e7e5e4 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+.input-field {
+    -fx-background-color: #f5f5f4;
+    -fx-background-radius: 8;
+    -fx-padding: 0 10 0 10;
+    -fx-prompt-text-fill: #a8a29e;
+}
+
+.input-field:focused {
+    -fx-background-color: white;
+    -fx-border-color: #ea580c;
+    -fx-border-radius: 8;
+    -fx-border-width: 1.5;
+}
+
+.send-button {
+    -fx-background-color: #ea580c;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: #c2410c;
+}
+
+.send-button:pressed {
+    -fx-background-color: #9a3412;
+}
+
+.send-button:disabled {
+    -fx-opacity: 0.4;
+}
