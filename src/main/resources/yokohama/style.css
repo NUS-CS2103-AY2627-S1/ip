@@ -1,0 +1,18 @@
+.app { -fx-background-color: #edf3f7; -fx-font-family: "Segoe UI", Arial, sans-serif; }
+.sidebar { -fx-background-color: white; -fx-min-width: 260px; -fx-padding: 24px 16px; -fx-border-color: transparent #dfe7ed transparent transparent; }
+.logo { -fx-text-fill: #2697d8; -fx-font-size: 23px; -fx-font-weight: bold; -fx-padding: 0 8px 10px; }
+.search { -fx-background-color: #f1f4f6; -fx-background-radius: 18px; -fx-text-fill: #8796a1; -fx-padding: 10px 14px; -fx-max-width: infinity; }
+.chat-item { -fx-background-color: #dceefb; -fx-background-radius: 10px; -fx-text-fill: #30404a; -fx-font-size: 14px; -fx-padding: 14px 12px; -fx-max-width: infinity; }
+.sidebar-hint { -fx-text-fill: #8c9aa4; -fx-font-size: 12px; -fx-padding: 8px 10px; }
+.chat-header { -fx-background-color: white; -fx-padding: 15px 24px; -fx-border-color: transparent transparent #dfe7ed transparent; }
+.chat-name { -fx-font-size: 17px; -fx-font-weight: bold; -fx-text-fill: #263238; }
+.chat-status { -fx-font-size: 12px; -fx-text-fill: #2697d8; }
+.message-pane, .message-pane > .viewport { -fx-background-color: #edf3f7; }
+.messages { -fx-padding: 18px 24px; }
+.assistant-bubble, .user-bubble, .error-bubble { -fx-padding: 10px 14px; -fx-background-radius: 14px; -fx-font-size: 14px; -fx-text-fill: #263238; }
+.assistant-bubble { -fx-background-color: white; }
+.user-bubble { -fx-background-color: #cceac3; }
+.error-bubble { -fx-background-color: #ffe1e1; -fx-border-color: #e05252; -fx-border-radius: 14px; -fx-text-fill: #a52121; -fx-font-weight: bold; }
+.composer { -fx-background-color: white; -fx-padding: 13px 20px; -fx-border-color: #dfe7ed transparent transparent transparent; }
+.text-field { -fx-background-color: #f1f4f6; -fx-background-radius: 18px; -fx-padding: 10px 14px; -fx-font-size: 14px; }
+.send-button { -fx-background-color: #2697d8; -fx-background-radius: 18px; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 9px 18px; }
