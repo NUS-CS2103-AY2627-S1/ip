@@ -1,0 +1,6 @@
+T | 0 | studyyyyyyyyyyy
+E | 0 | outing | dunno | dunno
+D | 1 | return | tue
+T | 0 | study
+E | 0 | meetup | today 10am | today 10pm
+T | 0 | read textbook
