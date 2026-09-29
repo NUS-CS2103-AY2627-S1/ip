@@ -16,5 +16,11 @@ bin/
 # Temp files
 _temp/
 
+# Classes
+src/main/java/*.class
+
+# TaskTracker Save File
+data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

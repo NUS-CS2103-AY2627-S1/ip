@@ -1,0 +1,81 @@
+.root {
+    main-color: linear-gradient(to bottom right, deepskyblue, blue);
+    -fx-background-color: main-color;
+    -fx-background-image: url("../images/Background.png");
+    -fx-background-size: stretch;
+}
+
+/* Bottom Input Field */
+.text-field {
+    -fx-background-color: rgba(248, 250, 252, 0.95);
+    -fx-border-color: #38bdf8;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-text-fill: #0f172a;
+    -fx-font: 14px "Segoe UI", "Arial";
+}
+
+.text-field:focused {
+    -fx-border-color: #0284c7;
+}
+
+/* Dimmed/grayed-out text mode for failed command recall */
+.text-field.ghost-mode {
+    -fx-text-fill: #94a3b8; /* Muted slate gray */
+    -fx-font-style: italic;
+}
+
+/* Send Button */
+.button {
+    -fx-background-color: #0284c7;
+    -fx-background-radius: 6px;
+    -fx-text-fill: #ffffff;
+    -fx-font: bold 14px "Segoe UI", "Arial";
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #0369a1;
+}
+
+.button:pressed {
+    -fx-background-color: #0c4a6e;
+}
+
+/* Scroll Area & Enlarged Modern Scrollbar */
+.scroll-pane {
+    -fx-background-color: rgba(0, 0, 0, 0.45);
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Vertical scrollbar width */
+.scroll-bar:vertical {
+    -fx-pref-width: 14px;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+    -fx-background-radius: 7px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.45);
+    -fx-background-radius: 7px;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.75);
+}
+
+/* Keeps buttons hidden */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+    -fx-opacity: 0;
+}

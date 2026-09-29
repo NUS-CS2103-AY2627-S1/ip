@@ -1,0 +1,83 @@
+/* Base default fallback */
+#dialog {
+    -fx-opacity: 1.0;
+}
+
+.reply-label, .user-label {
+    -fx-min-width: 50px;
+}
+
+.user-label {
+    -fx-background-color: linear-gradient(to bottom right, #38bdf8, #0284c7);
+    -fx-border-color: #0369a1;
+    -fx-border-width: 1.5px;
+    -fx-background-radius: 16px 16px 2px 16px;
+    -fx-border-radius: 16px 16px 2px 16px;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+    -fx-font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+    -fx-font-weight: 600;
+}
+
+.reply-label {
+    -fx-font-family: "Consolas", "Menlo", "Monaco", "DejaVu Sans Mono", monospace;
+    -fx-font-size: 12.5px;
+    -fx-background-radius: 2px 10px 10px 10px;
+    -fx-border-radius: 2px 10px 10px 10px;
+    -fx-border-width: 1.5px;
+}
+
+/* Neutral baseline: List & Standard info (Clean modern card) */
+.info-label {
+    -fx-background-color: rgba(248, 250, 252, 0.96);
+    -fx-border-color: #94a3b8;
+    -fx-text-fill: #0f172a;
+}
+
+/* Routine operations: Add & Help share a clean warm slate tone */
+.add-label {
+    -fx-background-color: rgba(254, 252, 232, 0.96); /* subtle warm cream */
+    -fx-border-color: #ca8a04;
+    -fx-text-fill: #713f12;
+}
+
+.help-label {
+    -fx-background-color: rgba(245, 243, 255, 0.97); /* Soft lilac / lavender */
+    -fx-border-color: #8b5cf6;                        /* Violet border accent */
+    -fx-border-width: 1.5px;
+    -fx-text-fill: #3b0764;                           /* Deep plum text for sharp readability */
+    -fx-background-radius: 2px 10px 10px 10px;
+    -fx-border-radius: 2px 10px 10px 10px;
+}
+
+/* Success & Recovery: Mark done & Undo share crisp emerald green */
+.marked-label, .restored-label {
+    -fx-background-color: rgba(236, 253, 245, 0.96);
+    -fx-border-color: #10b981;
+    -fx-text-fill: #064e3b;
+}
+
+/* Incomplete / Unmark: Subtle cool blue */
+.unmarked-label {
+    -fx-background-color: rgba(240, 249, 255, 0.96);
+    -fx-border-color: #0ea5e9;
+    -fx-text-fill: #0c4a6e;
+}
+
+/* Removal & Deletion: Warm amber (alert without looking like a crash) */
+.delete-label {
+    -fx-background-color: rgba(255, 247, 237, 0.96);
+    -fx-border-color: #f97316;
+    -fx-text-fill: #7c2d12;
+}
+
+/* Errors & Syntax exceptions: Crisp crimson */
+.error-label {
+    -fx-background-color: rgba(254, 242, 242, 0.96);
+    -fx-border-color: #ef4444;
+    -fx-text-fill: #7f1d1d;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.25, 1, 2);
+}
