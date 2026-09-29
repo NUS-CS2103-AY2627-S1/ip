@@ -1,0 +1,40 @@
+.root {
+    -fx-background-color: #eef3f9;
+    -fx-font-family: "Avenir Next", "Arial";
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #c8d4e5;
+    -fx-border-radius: 10;
+    -fx-font-size: 15px;
+    -fx-padding: 0 14 0 14;
+}
+
+.text-field:focused {
+    -fx-border-color: #3f6ad8;
+    -fx-border-width: 2;
+}
+
+.button {
+    -fx-background-color: #3f6ad8;
+    -fx-background-radius: 10;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #3158bd;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-padding: 0;
+}

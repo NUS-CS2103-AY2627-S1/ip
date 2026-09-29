@@ -1,0 +1,19 @@
+.label {
+    -fx-background-color: #dce7ff;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-color: #adc3ef;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-font-size: 14px;
+    -fx-text-fill: #18243a;
+}
+
+.reply-label {
+    -fx-background-color: #e1f4df;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-color: #afd6ab;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.18), 8, 0.3, 2, 2);
+}
