@@ -1,0 +1,42 @@
+.dialog-label {
+    -fx-background-color: #1b4332;
+    -fx-background-radius: 16px 16px 4px 16px;
+    -fx-border-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Georgia", "Palatino Linotype", serif;
+    -fx-font-size: 13.5px;
+    -fx-padding: 9px 13px;
+    -fx-effect: dropshadow(gaussian, rgba(27, 67, 50, 0.2), 4, 0.1, 0, 1);
+}
+
+.reply-label {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16px 16px 16px 4px;
+    -fx-border-color: #e2dcd2;
+    -fx-border-radius: 16px 16px 16px 4px;
+    -fx-border-width: 1px;
+    -fx-text-fill: #1e293b;
+    -fx-font-family: "Georgia", "Palatino Linotype", serif;
+    -fx-font-size: 13.5px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 10px 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 6, 0.1, 0, 2);
+}
+
+.error-label {
+    -fx-background-color: #fef2f2;
+    -fx-background-radius: 16px 16px 16px 4px;
+    -fx-border-color: #f87171;
+    -fx-border-radius: 16px 16px 16px 4px;
+    -fx-border-width: 1.5px;
+    -fx-text-fill: #991b1b;
+    -fx-font-family: "Georgia", "Palatino Linotype", serif;
+    -fx-font-size: 13.5px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 10px 14px;
+    -fx-effect: dropshadow(gaussian, rgba(153, 27, 27, 0.12), 6, 0.1, 0, 2);
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(212, 175, 55, 0.35), 6, 0.2, 0, 1);
+}
