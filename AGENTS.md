@@ -6,11 +6,11 @@ This repository is a starter template for a greenfield Java project used in an i
 
 Unless the user says otherwise, assume that you are assisting a student working on a project in this repository. If the user identifies themselves as an instructor or another project stakeholder, adapt your response to that role.
 
-# Student profile
+# Student profile 
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Beginner to Intermediate
+* IDE and level of expertise: IntelliJ IDEA
 
 # Guidance for interacting with users
 
@@ -28,7 +28,19 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## Java coding standard
+
+For every Java code creation, modification, formatting, or review, use the
+project-specific `seedu-java-coding-standard` skill and follow the SE-EDU basic
+and intermediate Java coding standard. Check changed Java code before handoff
+and run the relevant Gradle tests and Javadoc or style tasks.
+
 ## Git
+
+For every future commit or commit-message recommendation, use the
+project-specific `seedu-git-standard` skill and follow the SE-EDU Git
+conventions. Apply the skill before creating, amending, or reviewing a commit,
+and use its branch-naming rules when creating or recommending branches.
 
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.

@@ -18,3 +18,10 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+*.class
+
+/data/results.txt
+
+# Local Codex skill repository
+.codex/skills/present-changes-visually/
