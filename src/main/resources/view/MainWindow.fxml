@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="rootPane"
+            fx:controller="bean.ui.MainWindow"
+            maxHeight="-Infinity"
+            maxWidth="-Infinity"
+            minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="800.0"
+            prefWidth="600.0"
+            styleClass="main-window"
+            stylesheets="@../styles/main.css"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    hvalue="1.0"
+                    prefHeight="521.0"
+                    prefWidth="400.0"
+                    styleClass="scrollPane"
+                    vvalue="0.0"
+                    AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="38.0">
+            <content>
+                <VBox fx:id="dialogContainer"
+                      spacing="10.0">
+                    <padding>
+                        <Insets top="5"
+                                bottom="120.0"
+                                right="5"
+                                left="5" />
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+        <StackPane styleClass="user-input-container"
+                   prefHeight="80.0"
+                   prefWidth="324.0"
+                   AnchorPane.bottomAnchor="5.0"
+                   AnchorPane.leftAnchor="5.0"
+                   AnchorPane.rightAnchor="89.0">
+            <TextField fx:id="userInput"
+                       onAction="#handleUserInput"
+                       maxHeight="1.7976931348623157E308"
+                       maxWidth="1.7976931348623157E308"
+                       prefHeight="80.0"
+                       prefWidth="324.0"
+                       styleClass="userInput"
+                       stylesheets="@../styles/main.css"
+                       alignment="CENTER_LEFT" />
+        </StackPane>
+        <StackPane styleClass="send-button-container"
+                   prefHeight="80.0"
+                   prefWidth="76.0"
+                   AnchorPane.bottomAnchor="5.0"
+                   AnchorPane.rightAnchor="5.0">
+            <Button fx:id="sendButton"
+                    mnemonicParsing="false"
+                    onAction="#handleUserInput"
+                    maxHeight="1.7976931348623157E308"
+                    maxWidth="1.7976931348623157E308"
+                    prefHeight="80.0"
+                    prefWidth="76.0"
+                    text="Send"
+                    styleClass="sendButton" />
+        </StackPane>
+        <HBox fx:id="windowBar"
+              alignment="CENTER_LEFT"
+              spacing="8.0"
+              prefHeight="38.0"
+              styleClass="window-bar"
+              onMousePressed="#handleWindowPressed"
+            onMouseDragged="#handleWindowDragged"
+              AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <children>
+                <ImageView fitHeight="24.0"
+                           fitWidth="24.0"
+                           preserveRatio="true"
+                           styleClass="window-icon">
+                    <image>
+                        <Image url="@../images/BeanUser.jpg" />
+                    </image>
+                </ImageView>
+                <Label text="Bean"
+                       styleClass="window-title" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="minimizeButton"
+                        mnemonicParsing="false"
+                        onAction="#minimizeWindow"
+                        text="—"
+                        styleClass="window-button" />
+                <Button fx:id="maximizeButton"
+                        mnemonicParsing="false"
+                        onAction="#toggleMaximizeWindow"
+                        text="□"
+                        styleClass="window-button" />
+                <Button fx:id="closeButton"
+                        mnemonicParsing="false"
+                        onAction="#closeWindow"
+                        text="×"
+                        styleClass="window-button window-close-button" />
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

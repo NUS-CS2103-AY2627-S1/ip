@@ -1,0 +1,350 @@
+.main-window {
+    -fx-background-color: #298dff;
+}
+
+.window-bar {
+    -fx-background-color: linear-gradient(to bottom, #0377fc, #176ed1);
+    -fx-border-color: rgba(255, 255, 255, 0.55);
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 0 6px 0 14px;
+    -fx-effect: dropshadow(gaussian, rgba(31, 63, 105, 0.28), 8, 0.18, 0, 2);
+}
+
+.window-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.window-icon {
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(31, 63, 105, 0.3), 5, 0.18, 0, 1);
+}
+
+.window-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-min-width: 34px;
+    -fx-pref-width: 34px;
+    -fx-min-height: 28px;
+    -fx-pref-height: 28px;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+
+.window-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.18);
+}
+
+.window-close-button:hover {
+    -fx-background-color: #c7354c;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.sendButton {
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #dedfe2);
+    -fx-background-insets: 0;
+    -fx-background-radius: 18px;
+    -fx-text-fill: #35363a;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(63, 66, 72, 0.28), 10, 0.22, 0, 4);
+}
+
+.sendButton:hover {
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #f0f1f2);
+}
+
+.sendButton:pressed {
+    -fx-background-color: linear-gradient(to bottom, #d1d2d5, #f5f5f4);
+    -fx-translate-y: 1px;
+}
+
+.send-button-container,
+.user-input-container {
+    -fx-background-color: transparent;
+}
+
+.userInput {
+    -fx-background-color: rgba(184, 216, 236, 0.96);
+    -fx-background-insets: 0;
+    -fx-background-radius: 18px;
+    -fx-border-color: #6fa8dc;
+    -fx-border-width: 2px;
+    -fx-border-radius: 18px;
+    -fx-text-fill: #1f4059;
+    -fx-prompt-text-fill: #4d7189;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 16px;
+    -fx-effect: dropshadow(gaussian, rgba(63, 66, 72, 0.18), 12, 0.18, 0, 4);
+}
+
+.userInput:focused {
+    -fx-border-color: #6fa8dc;
+    -fx-effect: dropshadow(gaussian, rgba(47, 110, 159, 0.34), 14, 0.22, 0, 4);
+}
+
+.dialog {
+    -fx-background-color: rgba(255, 255, 255, 0.58);
+    -fx-background-radius: 24px;
+    -fx-border-color: rgba(255, 255, 255, 0.94);
+    -fx-border-width: 2px;
+    -fx-border-radius: 24px;
+    -fx-effect: innershadow(gaussian, rgba(255, 255, 255, 0.9), 12, 0.2, 0, -3);
+}
+
+.user-dialog .dialog {
+    -fx-background-color: rgba(255, 255, 255, 0.62);
+    -fx-border-color: rgba(216, 237, 251, 0.98);
+    -fx-border-width: 2px;
+}
+
+.bean-dialog .dialog {
+    -fx-background-color: rgba(255, 255, 255, 0.62);
+    -fx-border-color: rgba(231, 228, 248, 0.98);
+    -fx-border-width: 2px;
+}
+
+.error-dialog .dialog {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 240%,
+        #ffe2e0 0%, #ffe2e0 4%,
+        #f3c3c3 4%, #f3c3c3 8%,
+        #ffe2e0 8%, #ffe2e0 12%,
+        #f3c3c3 12%, #f3c3c3 16%,
+        #ffe2e0 16%, #ffe2e0 20%,
+        #f3c3c3 20%, #f3c3c3 24%,
+        #ffe2e0 24%, #ffe2e0 28%,
+        #f3c3c3 28%, #f3c3c3 32%,
+        #ffe2e0 32%, #ffe2e0 36%,
+        #f3c3c3 36%, #f3c3c3 40%,
+        #ffe2e0 40%, #ffe2e0 44%,
+        #f3c3c3 44%, #f3c3c3 48%,
+        #ffe2e0 48%, #ffe2e0 52%,
+        #f3c3c3 52%, #f3c3c3 56%,
+        #ffe2e0 56%, #ffe2e0 60%,
+        #f3c3c3 60%, #f3c3c3 64%,
+        #ffe2e0 64%, #ffe2e0 68%,
+        #f3c3c3 68%, #f3c3c3 72%,
+        #ffe2e0 72%, #ffe2e0 76%,
+        #f3c3c3 76%, #f3c3c3 80%,
+        #ffe2e0 80%, #ffe2e0 84%,
+        #f3c3c3 84%, #f3c3c3 88%,
+        #ffe2e0 88%, #ffe2e0 92%,
+        #f3c3c3 92%, #f3c3c3 96%,
+        #ffe2e0 96%, #ffe2e0 100%);
+    -fx-border-color: #a5222e;
+    -fx-border-width: 2px;
+    -fx-effect: null;
+}
+
+.dialog-wrapper {
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(63, 66, 72, 0.2), 14, 0.2, 0, 5);
+}
+
+.dialog-text {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16px;
+    -fx-text-fill: #35363a;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(63, 66, 72, 0.12), 8, 0.18, 0, 3);
+}
+
+.user-dialog .dialog-text {
+    -fx-background-color: linear-gradient(to bottom, #f8fcff, #d9ebf8);
+    -fx-border-color: rgba(255, 255, 255, 0.86);
+    -fx-border-width: 1px;
+    -fx-border-radius: 16px;
+}
+
+.bean-dialog .dialog-text {
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #e7edf7);
+    -fx-border-color: rgba(255, 255, 255, 0.66);
+    -fx-border-width: 1px;
+    -fx-border-radius: 16px;
+    -fx-effect: innershadow(gaussian, rgba(255, 255, 255, 0.72), 8, 0.22, 0, -2);
+}
+
+.task-list {
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #e7edf7);
+    -fx-background-radius: 16px;
+    -fx-border-color: rgba(255, 255, 255, 0.86);
+    -fx-border-width: 1px;
+    -fx-border-radius: 16px;
+    -fx-padding: 10px 12px;
+    -fx-effect: innershadow(gaussian, rgba(255, 255, 255, 0.72), 8, 0.22, 0, -2);
+}
+
+.task-action {
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #e7edf7);
+    -fx-background-radius: 16px;
+    -fx-border-color: rgba(255, 255, 255, 0.86);
+    -fx-border-width: 1px;
+    -fx-border-radius: 16px;
+    -fx-padding: 10px 12px;
+    -fx-effect: innershadow(gaussian, rgba(255, 255, 255, 0.72), 8, 0.22, 0, -2);
+}
+
+.task-list-header {
+    -fx-text-fill: #35363a;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.task-list-item,
+.task-action-item,
+.task-list-empty {
+    -fx-text-fill: #3f5364;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 7px;
+    -fx-background-color: rgba(218, 235, 247, 0.72);
+    -fx-background-radius: 9px;
+}
+
+.task-action-header,
+.task-action-footer {
+    -fx-text-fill: #35363a;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.task-action-footer {
+    -fx-font-size: 13px;
+    -fx-text-fill: #71808b;
+}
+
+.task-row-text {
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-fill: #3f5364;
+}
+
+.task-list-empty {
+    -fx-text-fill: #71808b;
+    -fx-font-style: italic;
+}
+
+.priority-high {
+    -fx-background-color: #ffe0df;
+    -fx-border-color: #efa3a4;
+    -fx-border-width: 1px;
+    -fx-border-radius: 9px;
+    -fx-text-fill: #a5222e;
+}
+
+.priority-high .task-row-text {
+    -fx-fill: #a5222e;
+}
+
+.priority-medium {
+    -fx-background-color: #fff2bd;
+    -fx-border-color: #e4c865;
+    -fx-border-width: 1px;
+    -fx-border-radius: 9px;
+    -fx-text-fill: #765900;
+}
+
+.priority-medium .task-row-text {
+    -fx-fill: #765900;
+}
+
+.priority-low {
+    -fx-background-color: #dff2e3;
+    -fx-border-color: #9bc9a5;
+    -fx-border-width: 1px;
+    -fx-border-radius: 9px;
+    -fx-text-fill: #2d7040;
+}
+
+.priority-low .task-row-text {
+    -fx-fill: #2d7040;
+}
+
+.task-completed {
+    -fx-strikethrough: true;
+}
+
+.error-dialog .dialog-text {
+    -fx-background-color: linear-gradient(to bottom, #fff8f8, #ffd6d4);
+    -fx-border-color: #a5222e;
+    -fx-border-width: 1px;
+    -fx-border-radius: 16px;
+    -fx-effect: null;
+    -fx-text-fill: #a5222e;
+}
+
+.displayPicture {
+    -fx-border-color: transparent;
+}
+
+.avatar-border {
+    -fx-fill: transparent;
+    -fx-stroke: #9a9ca1;
+    -fx-stroke-width: 3px;
+}
+
+.scrollPane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scrollPane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+    -fx-padding: 1px;
+}
+
+.scrollPane .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-background-radius: 4px;
+}
+
+.scrollPane .scroll-bar:vertical .thumb {
+    -fx-background-color: #1f5f9e;
+    -fx-background-radius: 4px;
+    -fx-background-insets: 1px;
+}
+
+.scrollPane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #123f70;
+}
+
+.scrollPane .scroll-bar:vertical .increment-button,
+.scrollPane .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-max-height: 0;
+    -fx-min-height: 0;
+    -fx-opacity: 0;
+    -fx-padding: 0;
+    -fx-pref-height: 0;
+}
+
+.scrollPane .scroll-bar:vertical .increment-arrow,
+.scrollPane .scroll-bar:vertical .decrement-arrow {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-shape: "";
+}

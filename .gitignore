@@ -4,6 +4,7 @@
 /*.iml
 
 # Gradle build files
+/.gradle-user-home
 /.gradle/
 /build/
 src/main/resources/docs/
@@ -13,8 +14,22 @@ src/main/resources/docs/
 *.iml
 bin/
 
+memory.txt
+
 # Temp files
 _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+memory.txt
+.vscode
+debug.log
+.codex/*
+!.codex/skills/
+!.codex/skills/seedu-java-coding-standard/
+!.codex/skills/seedu-java-coding-standard/SKILL.md
+!.codex/skills/seedu-git-standard/
+!.codex/skills/seedu-git-standard/SKILL.md
+
+ip.code-workspace

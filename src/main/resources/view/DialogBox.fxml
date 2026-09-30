@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.layout.StackPane?>
+
+<fx:root styleClass="dialog"
+         alignment="TOP_RIGHT"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         prefWidth="400.0"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets = "@../styles/main.css"
+         spacing="10"
+         >
+  <children>
+    <Label fx:id="dialog" 
+           styleClass="dialog-text"
+           text="Label" 
+           wrapText="true" 
+           maxWidth="1.7976931348623157E308"
+           maxHeight="1.7976931348623157E308"
+           HBox.hgrow="ALWAYS"
+           minHeight="-Infinity"
+           alignment="TOP_LEFT">
+        <padding>
+            <Insets left="10.0"
+                    right="10.0" 
+                    bottom = "5" 
+                    top="5"/>
+        </padding>
+    </Label>
+
+    <StackPane fx:id="avatarContainer"
+               prefWidth="109.0"
+               prefHeight="109.0"
+               alignment="CENTER"
+               >
+        <ImageView fx:id="displayPicture" 
+                styleClass="displayPicture"
+                fitHeight="99.0" 
+                fitWidth="99.0" 
+                pickOnBounds="true" 
+                preserveRatio="true"
+                >
+            <clip>
+                <Circle fx:id="imageClip"
+                        centerX="49.5"
+                        centerY="49.5"
+                        radius="49.5" 
+                        />
+            </clip>
+        </ImageView>
+        <Circle fx:id="avatarBorder"
+                centerX="49.5"
+                centerY="49.5"
+                radius="48.0"
+                styleClass="avatar-border"
+                mouseTransparent="true" />
+    </StackPane>
+  </children>
+  <padding>
+    <Insets bottom="8.0"
+            left="8.0"
+            right="8.0"
+            top="8.0" />
+  </padding>
+</fx:root>
