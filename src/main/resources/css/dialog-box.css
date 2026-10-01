@@ -1,0 +1,31 @@
+.label {
+    -fx-font: 15px "Arial";
+    -fx-padding: 8px;
+}
+
+.user-command-label {
+    -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
+    -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.victoria-reply-label {
+    -fx-background-color: #f1f6ff;
+    -fx-border-color: #7b9acc;
+    -fx-border-width: 1px;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.error-label {
+    -fx-background-color: #ffe5e5;
+    -fx-border-color: #d32f2f;
+    -fx-text-fill: #8b0000;
+    -fx-font-weight: bold;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+}

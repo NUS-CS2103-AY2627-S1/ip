@@ -1,25 +1,33 @@
-# Duke project template
+# Victoria
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Victoria is a JavaFX task-management chatbot. It helps you record to-dos, deadlines, and events in a simple chat interface, and saves your task list automatically.
 
-## Setting up in Intellij
+For commands and examples, see the [User Guide](docs/README.md).
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+## Requirements
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+- Java 25
+- IntelliJ IDEA (recommended for development)
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## Run in IntelliJ IDEA
+
+1. Open this project folder in IntelliJ IDEA and accept the default import options.
+2. Set the project SDK to **JDK 25** and the language level to **SDK default**.
+3. Run `victoria.gui.Launcher` from `src/main/java/victoria/gui/Launcher.java`.
+
+Victoria opens in a chat window. Type a command and press Enter to send it.
+
+## Build and run the JAR
+
+From the project root, run the following with Java 25:
+
+```text
+gradlew.bat clean shadowJar
+java -jar build/libs/victoria.jar
+```
+
+On macOS or Linux, use `./gradlew clean shadowJar` instead. The executable JAR is created at `build/libs/victoria.jar`.
+
+## Data
+
+Victoria saves tasks automatically in `data/victoria.txt` and restores them when it starts again. Keep this file if you want to retain your task list when moving to another computer.
