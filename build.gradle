@@ -6,7 +6,7 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.1.0'
 }
 
-version = '0.2'
+version = '0.2.1'
 
 checkstyle {
     toolVersion = '10.2'
@@ -28,7 +28,22 @@ javafx {
     modules = ['javafx.controls', 'javafx.fxml']
 }
 
+// Explicitly bundle JavaFX natives for every target OS so the fat jar
+// runs on Windows, Linux, and macOS (both Intel and Apple Silicon),
+// not only the OS the jar was built on.
+// Order matters: shadowJar bundles the first classifier's natives when
+// filenames collide (mac vs mac-aarch64 both ship same libNAME.dylib
+// paths), so put the Apple Silicon classifier first because the course
+// smoke test environment uses Mac(ARM).
+def javafxTargetPlatforms = ['mac-aarch64', 'win', 'linux', 'mac']
+def javafxBundledModules = ['base', 'controls', 'graphics', 'fxml']
+
 dependencies {
+    javafxBundledModules.each { mod ->
+        javafxTargetPlatforms.each { platform ->
+            implementation "org.openjfx:javafx-${mod}:21.0.2:${platform}"
+        }
+    }
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
