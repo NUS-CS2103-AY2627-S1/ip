@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Console UI"
+  short_description: "Run Bany UI tests from the project plan"
+  default_prompt: "Use $test-ui to run the console UI test plan."

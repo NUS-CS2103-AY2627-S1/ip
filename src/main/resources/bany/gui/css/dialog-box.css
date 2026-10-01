@@ -1,0 +1,60 @@
+.label {
+    -fx-background-color: white;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-border-color: gray;
+    -fx-border-width: 0.4px;
+    -fx-label-padding: 8px 12px;
+    -fx-alignment: center-left;
+    -fx-wrap-text: true;
+    -fx-font-size: 12pt;
+}
+
+.bot-label {
+    -fx-background-color: white;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-label-padding: 8px 12px;
+    -fx-alignment: center-left;
+    -fx-wrap-text: true;
+}
+
+.user-label {
+    -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-padding: 8px 12px;
+    -fx-alignment: center-left;
+    -fx-wrap-text: true;
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+/* Paste this below reply-label */
+.error-label {
+    -fx-background-color: rgba(255, 0, 0, 0.35);
+}
+
+.warning-label {
+    -fx-background-color: rgba(255, 255, 0, 0.35);
+}
+
+.delete-label {
+    -fx-background-color: lightpink;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+
