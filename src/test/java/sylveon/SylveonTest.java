@@ -68,6 +68,24 @@ public class SylveonTest {
     }
 
     @Test
+    public void findKeyword_ignoresCaseAndShowsMatchingTask() {
+        Sylveon sylveon = createSylveon();
+        sylveon.getResponse("todo Submit Project Report");
+        sylveon.getResponse("todo Buy groceries");
+
+        assertEquals("Here are the matching tasks:\n1. [ ] Submit Project Report",
+                sylveon.getResponse("find project"));
+    }
+
+    @Test
+    public void findWithoutMatches_returnsHelpfulMessage() {
+        Sylveon sylveon = createSylveon();
+        sylveon.getResponse("todo Submit Project Report");
+
+        assertEquals("There are no matching tasks.", sylveon.getResponse("find holiday"));
+    }
+
+    @Test
     public void eventStartingInPast_returnsHelpfulError() {
         assertEquals("Error! An event cannot start in the past :)",
                 createSylveon().getResponse("event meeting /from 2000-01-01 /to 2000-01-02"));

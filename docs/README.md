@@ -53,7 +53,7 @@ Finds tasks whose descriptions contain a keyword:
 
 Format: `find KEYWORD`
 
-Example: `find project`
+Example: `find project` (searches are case-insensitive)
 
 The matching tasks are displayed with numbers that can be used with `mark`,
 `unmark`, or `delete`.

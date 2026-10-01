@@ -46,4 +46,19 @@ public class TaskListTest {
         assertEquals(todo, taskList.get(1));
         assertEquals(later, taskList.get(2));
     }
+
+    @Test
+    public void find_keywordWithDifferentCase_returnsMatchingTasks() {
+        ArrayList<Task> initialTasks = new ArrayList<>();
+        Task matchingTask = new Todo("Submit Project Report");
+        initialTasks.add(matchingTask);
+        initialTasks.add(new Todo("Buy groceries"));
+
+        TaskList taskList = new TaskList(initialTasks);
+
+        ArrayList<Task> matchingTasks = taskList.find("project");
+
+        assertEquals(1, matchingTasks.size());
+        assertEquals(matchingTask, matchingTasks.get(0));
+    }
 }

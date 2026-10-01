@@ -2,6 +2,7 @@ package sylveon;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Locale;
 
 /** Manages the collection of tasks in sylveon.Sylveon. */
 public class TaskList {
@@ -93,14 +94,15 @@ public class TaskList {
     /**
      * Returns all tasks whose descriptions contain the specified keyword.
      *
-     * @param keyword keyword to search for
+     * @param keyword keyword to search for, ignoring letter case
      * @return tasks whose descriptions contain the keyword
      */
     public ArrayList<Task> find(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
+        String normalizedKeyword = keyword.toLowerCase(Locale.ROOT);
 
         for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
+            if (task.getDescription().toLowerCase(Locale.ROOT).contains(normalizedKeyword)) {
                 matchingTasks.add(task);
             }
         }
