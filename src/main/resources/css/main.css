@@ -1,0 +1,31 @@
+.root { -fx-background-color: #f0f4f8; -fx-background-image: url('../images/background-forest.png'); -fx-background-size: cover; }
+.text-field { -fx-background-color: white; -fx-padding: 8px; -fx-pref-height: 42px; }
+.button { -fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-height: 42px; }
+.button:hover { -fx-background-color: #1d4ed8; }
+.scroll-pane, .scroll-pane .viewport { -fx-background-color: transparent; }
+.dialog-container { -fx-padding: 18px 20px; }
+.user-dialog { -fx-alignment: TOP_RIGHT; }
+.bo-dialog { -fx-alignment: TOP_LEFT; }
+.label { -fx-padding: 8px; }
+.user-label {
+    -fx-background-color: #bfdbfe;
+    -fx-background-radius: 16px;
+    -fx-padding: 10px 14px;
+}
+.reply-label {
+    -fx-background-color: rgba(255, 255, 255, 0.94);
+    -fx-border-color: #86efac;
+    -fx-border-width: 0 0 0 4px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 12px 16px;
+}
+.error-label {
+    -fx-background-color: #fee2e2;
+    -fx-border-color: #ef4444;
+    -fx-text-fill: #991b1b;
+}
+.error-dialog {
+    -fx-background-color: rgba(254, 226, 226, 0.45);
+    -fx-background-radius: 6px;
+}
