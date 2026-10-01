@@ -125,6 +125,7 @@ You may follow a date with an optional four-digit, 24-hour time in `HHmm` format
 The date and time must be valid. Natural-language dates such as `tomorrow` are not supported.
 
 > **Note:** `/by`, `/from`, and `/to` are reserved separators. Include a space before and after each separator.
+> Use each separator only once. In an event command, `/from` must appear before `/to`.
 
 ## Features
 
@@ -183,7 +184,8 @@ event Team consultation /from 2026-09-23 1030 /to 2026-09-23 1130
 
 Lumi assigns the task the `[E]` type and displays both ends of the event.
 
-> **Tip:** Use an end date and time later than the start so that the event duration is meaningful when snoozed.
+> **Important:** The end date and time must be later than the start. Lumi rejects events with no duration or
+> events that end before they start.
 
 ### Listing tasks: `list`
 

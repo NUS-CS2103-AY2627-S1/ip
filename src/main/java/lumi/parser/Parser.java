@@ -90,6 +90,10 @@ public final class Parser {
 
     /** Creates a deadline after validating its description and due date. */
     private static Deadline parseDeadline(String details) throws LumiException {
+        int separatorCount = countSeparators(details, DEADLINE_SEPARATOR);
+        if (separatorCount > 1) {
+            throw new LumiException("the /by parameter can only be used once.");
+        }
         int separatorPosition = findSeparator(details, DEADLINE_SEPARATOR, 0);
         if (separatorPosition < 0) {
             throw new LumiException("a deadline needs a due date. "
@@ -110,14 +114,23 @@ public final class Parser {
 
     /** Creates an event after validating its description and date range. */
     private static Event parseEvent(String details) throws LumiException {
+        int startSeparatorCount = countSeparators(details, EVENT_START_SEPARATOR);
+        int endSeparatorCount = countSeparators(details, TO_SEPARATOR);
+        if (startSeparatorCount > 1) {
+            throw new LumiException("the /from parameter can only be used once.");
+        }
+        if (endSeparatorCount > 1) {
+            throw new LumiException("the /to parameter can only be used once.");
+        }
+
         int startSeparatorPosition = findSeparator(details, EVENT_START_SEPARATOR, 0);
-        int endSeparatorPosition = startSeparatorPosition < 0
-                ? -1
-                : findSeparator(details, TO_SEPARATOR,
-                        startSeparatorPosition + EVENT_START_SEPARATOR.length());
+        int endSeparatorPosition = findSeparator(details, TO_SEPARATOR, 0);
         if (startSeparatorPosition < 0 || endSeparatorPosition < 0) {
             throw new LumiException("an event needs start and end details. "
                     + "Try: event <description> /from <start> /to <end>");
+        }
+        if (endSeparatorPosition < startSeparatorPosition) {
+            throw new LumiException("put /from before /to in an event.");
         }
 
         String description = details.substring(0, startSeparatorPosition).trim();
@@ -134,8 +147,12 @@ public final class Parser {
         if (endDateText.isEmpty()) {
             throw new LumiException("the /to value cannot be empty.");
         }
-        return new Event(description, DateTimeParser.parseUserInput(startDateText),
-                DateTimeParser.parseUserInput(endDateText));
+        LocalDateTime startDate = DateTimeParser.parseUserInput(startDateText);
+        LocalDateTime endDate = DateTimeParser.parseUserInput(endDateText);
+        if (!endDate.isAfter(startDate)) {
+            throw new LumiException("an event's end must be later than its start.");
+        }
+        return new Event(description, startDate, endDate);
     }
 
     /**
@@ -169,6 +186,9 @@ public final class Parser {
                     + "Try: snooze <task number> /to <when>");
         }
 
+        if (countSeparators(details, TO_SEPARATOR) > 1) {
+            throw new LumiException("the /to parameter can only be used once.");
+        }
         int separatorPosition = findSeparator(details, TO_SEPARATOR, 0);
         if (separatorPosition < 0) {
             throw new LumiException("tell me when to snooze the task until. "
@@ -248,6 +268,17 @@ public final class Parser {
             position = text.indexOf(separator, position + 1);
         }
         return -1;
+    }
+
+    /** Counts complete separator tokens while ignoring separator-like description text. */
+    private static int countSeparators(String text, String separator) {
+        int count = 0;
+        int position = findSeparator(text, separator, 0);
+        while (position >= 0) {
+            count++;
+            position = findSeparator(text, separator, position + separator.length());
+        }
+        return count;
     }
 
     /**

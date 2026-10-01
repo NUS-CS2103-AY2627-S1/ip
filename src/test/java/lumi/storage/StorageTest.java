@@ -75,6 +75,8 @@ public class StorageTest {
                 "D | 0 | missing date",
                 "D | 0 | bad date | 2019-02-29T00:00:00",
                 "E | 0 | missing end | 2019-01-01T00:00:00",
+                "E | 0 | backwards | 2019-01-02T00:00:00 | 2019-01-01T00:00:00",
+                "E | 0 | no duration | 2019-01-01T00:00:00 | 2019-01-01T00:00:00",
                 "T | 0 |   ",
                 "T | 0 | bad\\qescape",
                 "T | 0 | trailing\\"
@@ -84,7 +86,7 @@ public class StorageTest {
 
         assertEquals(1, result.tasks().size());
         assertEquals("valid task", result.tasks().get(0).getDescription());
-        assertEquals(10, result.skippedLineCount());
+        assertEquals(12, result.skippedLineCount());
     }
 
     @Test

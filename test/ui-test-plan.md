@@ -586,3 +586,50 @@ T | 0 | read book
 D | 0 | submit report | 2019-10-20T18:00:00
 E | 0 | project meeting | 2019-10-21T15:00:00 | 2019-10-21T17:00:00
 ```
+
+## TC-10: Invalid parameters and event ranges preserve state
+
+Aim: Verify that duplicate parameters, misordered event parameters, and invalid event ranges are rejected without
+adding or rescheduling tasks.
+
+### Inputs
+
+```text
+event backwards /from 2019-10-16 1600 /to 2019-10-16 1400
+event no duration /from 2019-10-16 1400 /to 2019-10-16 1400
+deadline duplicate date /by 2019-10-15 /by 2019-10-16
+event repeated start /from 2019-10-15 /from 2019-10-16 /to 2019-10-17
+event repeated end /from 2019-10-15 /to 2019-10-16 /to 2019-10-17
+event wrong order /to 2019-10-16 /from 2019-10-15
+deadline valid deadline /by 2019-10-20
+snooze 1 /to 2019-10-21 /to 2019-10-22
+list
+bye
+```
+
+### Expected outputs
+
+```text
+ Signal unclear: an event's end must be later than its start.
+---
+ Signal unclear: an event's end must be later than its start.
+---
+ Signal unclear: the /by parameter can only be used once.
+---
+ Signal unclear: the /from parameter can only be used once.
+---
+ Signal unclear: the /to parameter can only be used once.
+---
+ Signal unclear: put /from before /to in an event.
+---
+ It's on the map. I've added this task:
+   [D][ ] valid deadline (by: Oct 20 2019)
+ Your map now holds 1 task.
+---
+ Signal unclear: the /to parameter can only be used once.
+---
+ Here's your current constellation:
+ 1.[D][ ] valid deadline (by: Oct 20 2019)
+---
+ Until next time. Your tasks are safe here.
+```

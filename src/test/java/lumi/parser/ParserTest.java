@@ -112,6 +112,9 @@ public class ParserTest {
                 Parser.parseSnoozeRequest("snooze 2 /towards 2019-10-20", 3));
         assertLumiExceptionMessage("Signal unclear: the /to value cannot be empty.", () ->
                 Parser.parseSnoozeRequest("snooze 2 /to", 3));
+        assertLumiExceptionMessage("Signal unclear: the /to parameter can only be used once.", () ->
+                Parser.parseSnoozeRequest(
+                        "snooze 2 /to 2019-10-20 /to 2019-10-21", 3));
     }
 
     @Test
@@ -193,6 +196,10 @@ public class ParserTest {
                         Parser.parseTask("deadline /by 2019-10-15", CommandType.DEADLINE));
         assertLumiExceptionMessage("Signal unclear: the /by value cannot be empty.", () ->
                 Parser.parseTask("deadline return book /by", CommandType.DEADLINE));
+        assertLumiExceptionMessage("Signal unclear: the /by parameter can only be used once.", () ->
+                Parser.parseTask(
+                        "deadline return book /by 2019-10-15 /by 2019-10-16",
+                        CommandType.DEADLINE));
     }
 
     @Test
@@ -201,8 +208,10 @@ public class ParserTest {
                 + "Try: event <description> /from <start> /to <end>";
 
         assertLumiExceptionMessage(missingDetailsMessage, () -> Parser.parseTask("event meeting", CommandType.EVENT));
-        assertLumiExceptionMessage(missingDetailsMessage, () -> Parser.parseTask(
-                        "event meeting /to Tuesday /from Monday", CommandType.EVENT));
+        assertLumiExceptionMessage("Signal unclear: put /from before /to in an event.", () ->
+                Parser.parseTask(
+                        "event meeting /to 2019-10-16 /from 2019-10-15",
+                        CommandType.EVENT));
         assertLumiExceptionMessage(
                 "Signal unclear: an event needs a description before /from.", () -> Parser.parseTask(
                         "event /from 2019-10-15 /to 2019-10-16", CommandType.EVENT));
@@ -210,6 +219,26 @@ public class ParserTest {
                         "event meeting /from /to 2019-10-16", CommandType.EVENT));
         assertLumiExceptionMessage("Signal unclear: the /to value cannot be empty.", () -> Parser.parseTask(
                         "event meeting /from 2019-10-15 /to", CommandType.EVENT));
+        assertLumiExceptionMessage("Signal unclear: the /from parameter can only be used once.", () ->
+                Parser.parseTask(
+                        "event meeting /from 2019-10-15 /from 2019-10-16 /to 2019-10-17",
+                        CommandType.EVENT));
+        assertLumiExceptionMessage("Signal unclear: the /to parameter can only be used once.", () ->
+                Parser.parseTask(
+                        "event meeting /from 2019-10-15 /to 2019-10-16 /to 2019-10-17",
+                        CommandType.EVENT));
+    }
+
+    @Test
+    public void parseTask_eventEndNotAfterStart_exceptionThrown() {
+        String expectedMessage = "Signal unclear: an event's end must be later than its start.";
+
+        assertLumiExceptionMessage(expectedMessage, () -> Parser.parseTask(
+                "event meeting /from 2019-10-16 1600 /to 2019-10-16 1400",
+                CommandType.EVENT));
+        assertLumiExceptionMessage(expectedMessage, () -> Parser.parseTask(
+                "event meeting /from 2019-10-16 1400 /to 2019-10-16 1400",
+                CommandType.EVENT));
     }
 
     @Test

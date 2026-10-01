@@ -21,9 +21,16 @@ public class Event extends Task {
      * @param description Description of the event.
      * @param from Date or time at which the event starts.
      * @param to Date or time at which the event ends.
+     * @throws IllegalArgumentException If either date is missing or the event does not end after it starts.
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
+        if (from == null || to == null) {
+            throw new IllegalArgumentException("Event dates cannot be null");
+        }
+        if (!to.isAfter(from)) {
+            throw new IllegalArgumentException("An event must end after it starts");
+        }
         this.from = from;
         this.to = to;
     }

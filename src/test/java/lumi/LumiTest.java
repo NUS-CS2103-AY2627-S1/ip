@@ -115,4 +115,21 @@ public class LumiTest {
         assertEquals(" Here's your current constellation:\n 1.[T][X] read book",
                 lumi.getResponse("list"));
     }
+
+    @Test
+    public void constructor_dataPathIsDirectory_environmentErrorsReportedWithoutCrash()
+            throws IOException {
+        Path dataPath = temporaryDirectory.resolve("lumi.txt");
+        Files.createDirectory(dataPath);
+
+        Lumi lumi = new Lumi(dataPath);
+
+        assertEquals("I couldn't open your saved tasks, so we're starting with a clear map.",
+                lumi.getStartupMessage());
+        assertEquals(" It's on the map. I've added this task:\n"
+                        + "   [T][ ] read book\n"
+                        + " Your map now holds 1 task.\n"
+                        + " Signal unclear: I couldn't save the latest task changes.",
+                lumi.getResponse("todo read book"));
+    }
 }
