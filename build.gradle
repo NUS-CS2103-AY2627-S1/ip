@@ -1,0 +1,79 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+checkstyle {
+    toolVersion = '13.9.0'
+    configFile = file('config/checkstyle/checkstyle.xml')
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javaFxVersion = '17.0.7'
+
+    implementation(
+            "org.openjfx:javafx-base:${javaFxVersion}:win",
+            "org.openjfx:javafx-base:${javaFxVersion}:mac",
+            "org.openjfx:javafx-base:${javaFxVersion}:linux",
+            "org.openjfx:javafx-controls:${javaFxVersion}:win",
+            "org.openjfx:javafx-controls:${javaFxVersion}:mac",
+            "org.openjfx:javafx-controls:${javaFxVersion}:linux",
+            "org.openjfx:javafx-fxml:${javaFxVersion}:win",
+            "org.openjfx:javafx-fxml:${javaFxVersion}:mac",
+            "org.openjfx:javafx-fxml:${javaFxVersion}:linux",
+            "org.openjfx:javafx-graphics:${javaFxVersion}:win",
+            "org.openjfx:javafx-graphics:${javaFxVersion}:mac",
+            "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+    )
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'floppy.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'floppy.jar'
+}
+
+run {
+    standardInput = System.in
+}

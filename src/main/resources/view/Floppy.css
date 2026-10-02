@@ -1,0 +1,79 @@
+.app-root {
+    -fx-background-color: #f5f7fb;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.app-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #24324a;
+}
+
+.app-subtitle {
+    -fx-font-size: 10px;
+    -fx-text-fill: #6f7c90;
+}
+
+.chat-scroll,
+.chat-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-background-color: #f5f7fb;
+    -fx-padding: 10 4 14 4;
+}
+
+.dialog-row {
+    -fx-padding: 4 10;
+}
+
+.dialog-label {
+    -fx-background-radius: 14;
+    -fx-padding: 9 12;
+    -fx-font-size: 13px;
+}
+
+.floppy-dialog .dialog-label {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dce3ee;
+    -fx-border-radius: 14;
+    -fx-text-fill: #24324a;
+}
+
+.user-dialog .dialog-label {
+    -fx-background-color: #3157d5;
+    -fx-text-fill: #ffffff;
+    -fx-max-width: 290px;
+}
+
+.error-dialog .dialog-label {
+    -fx-background-color: #fff0f1;
+    -fx-border-color: #e35d6a;
+    -fx-border-radius: 14;
+    -fx-text-fill: #a12632;
+    -fx-font-weight: bold;
+}
+
+.command-input {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #c9d3e2;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 0 12;
+    -fx-prompt-text-fill: #7a8799;
+}
+
+.command-input:focused {
+    -fx-border-color: #3157d5;
+}
+
+.send-button {
+    -fx-background-color: #3157d5;
+    -fx-background-radius: 0;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.send-button:hover {
+    -fx-background-color: #2748b5;
+}
