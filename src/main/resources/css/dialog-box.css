@@ -1,0 +1,33 @@
+.label {
+    -fx-background-color: #3a3936;   /* dark neutral bubble instead of cyan gradient */
+    -fx-text-fill: #e8e6dc;
+    -fx-border-color: #4a4844 #4a4844 #4a4844 #4a4844;
+    -fx-border-width: 1px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.reply-label {
+    -fx-background-color: #33322f;   /* subtly distinct shade for replies */
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.welcome-label {
+    -fx-font-style: italic;
+}
+
+.error-label {
+    -fx-background-color: c85050;
+    -fx-text-fill: #fff5f5;
+    -fx-border-color: #d95a5a;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 5, 5);
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-rotate: 0;
+}

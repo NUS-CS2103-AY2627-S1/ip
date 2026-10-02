@@ -1,0 +1,47 @@
+.root {
+    main-color: #262624;       /* Claude's dark warm-gray background */
+    -fx-background-color: main-color;
+}
+
+.text-field {
+    -fx-background-color: #3a3936;   /* slightly lighter input field */
+    -fx-text-fill: #e8e6dc;          /* warm off-white text */
+    -fx-font: 15px "Arial";
+}
+
+.button {
+    -fx-background-color: #da7756;   /* Claude's signature terracotta */
+    -fx-text-fill: #262624;
+    -fx-font: italic bold 13px "Arial";
+}
+
+.button:hover {
+    -fx-background-color: #e8926e;   /* lighter terracotta on hover */
+    -fx-font-size: 13px;
+}
+
+.button:pressed {
+    -fx-background-color: #c05f3c;   /* darker/deeper terracotta when pressed */
+    -fx-font-size: 14px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #5a5854;   /* muted gray thumb instead of pink */
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

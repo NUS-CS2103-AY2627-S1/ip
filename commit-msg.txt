@@ -1,0 +1,44 @@
+Refine parser with better argument extraction
+
+Command parsing relies on hard-coded offsets scattered across
+several methods to extract arguments from user input, e.g. slicing
+strings at fixed positions for each command type.
+
+Hard-coded offsets are easy to get wrong when a command's format
+changes, and duplicating the same extraction logic across methods
+makes the parser harder to read and maintain.
+
+Let's,
+* remove the hard-coded command-length offsets
+* centralise argument extraction into a single shared method that
+  all command-parsing branches call into
+
+User-facing behaviour is unchanged; this is purely an internal
+readability and maintainability improvement.
+Add Java assertions to document internal invariants
+
+The codebase relies on several implicit assumptions that are not
+currently documented anywhere in the code -- e.g. that Parser's
+enum lookup cannot fail once a non-blank command word has been
+parsed, that Task/Deadline/Event are never constructed with a
+null or blank description or date, that FlorkDateTime always
+encodes exactly one concrete value, and that TaskList.get() and
+validateIndex() are only ever called with an in-range index.
+
+If a future change breaks one of these assumptions, it would fail
+silently or produce a confusing downstream error (e.g. a
+NullPointerException deep inside toString()) instead of failing
+clearly at the point the assumption was actually violated.
+
+Let's,
+* add assert statements at the point each invariant is relied
+  upon, in Parser, Task, TaskList, FlorkDateTime, Deadline, and
+  Event
+* add a regression test in TaskTest covering TaskList.add()/get()
+  with a valid task
+
+Invalid user input continues to throw FlorkingExceptions as
+before; assertions are used only for conditions the implementation
+itself should never violate, not for input validation.
+
+Verified with `./gradlew test --no-daemon` (all tests pass).
