@@ -86,7 +86,7 @@ public class Event extends Task {
      */
     private static void validateChronology(LocalDateTime start, LocalDateTime end) {
         if (!start.isBefore(end)) {
-            throw new DaveCommandException("NEGATIVE! Event start date/time must be strictly earlier "
+            throw new DaveCommandException("Pardon, Sire! Event start date/time must be strictly earlier "
                     + "than end date/time.");
         }
     }

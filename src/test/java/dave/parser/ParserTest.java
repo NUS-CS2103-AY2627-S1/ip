@@ -150,19 +150,19 @@ public class ParserTest {
     @Test
     public void parseIndex_zero_throwsDaveCommandException() {
         DaveCommandException e = assertThrows(DaveCommandException.class, () -> Parser.parseIndex("0"));
-        assertEquals("Wrong number!", e.getMessage());
+        assertEquals("Pardon, Sire! That is an invalid scroll number.", e.getMessage());
     }
 
     @Test
     public void parseIndex_negative_throwsDaveCommandException() {
         DaveCommandException e = assertThrows(DaveCommandException.class, () -> Parser.parseIndex("-1"));
-        assertEquals("Wrong number!", e.getMessage());
+        assertEquals("Pardon, Sire! That is an invalid scroll number.", e.getMessage());
     }
 
     @Test
     public void parseIndex_multipleTokens_throwsDaveCommandException() {
         DaveCommandException e = assertThrows(DaveCommandException.class, () -> Parser.parseIndex("1 2"));
-        assertEquals("Wrong number!", e.getMessage());
+        assertEquals("Pardon, Sire! That is an invalid scroll number.", e.getMessage());
     }
 
     @Test

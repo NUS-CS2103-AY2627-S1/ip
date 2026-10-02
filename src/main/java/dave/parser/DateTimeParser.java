@@ -55,11 +55,11 @@ public class DateTimeParser {
         }
 
         if (trimmed.matches(DATE_TIME_SYNTAX_REGEX)) {
-            throw new DaveCommandException("NEGATIVE! Invalid date: date does not exist on the calendar "
+            throw new DaveCommandException("Pardon, Sire! Invalid date: date does not exist on the calendar "
                     + "(e.g., Feb 30, Apr 31, or invalid leap year).");
         }
 
-        throw new DaveCommandException("NEGATIVE! Date must be in yyyy-MM-dd or yyyy-MM-dd HH:mm format "
-                + "(e.g., 2019-10-15 or 2005-12-22 16:00)");
+        throw new DaveCommandException("Pardon, Sire! Date must be in yyyy-MM-dd or yyyy-MM-dd HH:mm format "
+                + "(e.g., 2019-10-15 or 2005-12-22 16:00).");
     }
 }

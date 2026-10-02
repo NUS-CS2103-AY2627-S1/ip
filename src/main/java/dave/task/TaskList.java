@@ -75,7 +75,7 @@ public class TaskList {
      */
     public Task delete(int index) {
         if (index < 0 || index >= this.tasks.size()) {
-            throw new DaveCommandException("Wrong number!");
+            throw new DaveCommandException("Pardon, Sire! That is an invalid scroll number.");
         }
         return this.tasks.remove(index);
     }
@@ -89,7 +89,7 @@ public class TaskList {
      */
     public Task get(int index) {
         if (index < 0 || index >= this.tasks.size()) {
-            throw new DaveCommandException("Wrong number!");
+            throw new DaveCommandException("Pardon, Sire! That is an invalid scroll number.");
         }
         return this.tasks.get(index);
     }
@@ -104,7 +104,7 @@ public class TaskList {
      */
     public Task setDone(int index, boolean isDone) {
         if (index < 0 || index >= this.tasks.size()) {
-            throw new DaveCommandException("Wrong number!");
+            throw new DaveCommandException("Pardon, Sire! That is an invalid scroll number.");
         }
         Task task = this.tasks.get(index);
         task.setDone(isDone);

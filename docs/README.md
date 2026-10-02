@@ -1,6 +1,6 @@
 # Dave — User Guide
 
-*Hello! I'm Dave. At your service!*
+*Greetings, my Liege! I am Dave, your Knight Butler. I stand ever ready at your service!*
 
 Dave is your focused desktop task companion. Add todos, deadlines, and events, track your
 progress, and easily reschedule commitments through a clean, modern chat interface.
@@ -65,7 +65,8 @@ Adds an untimed task to your list.
 - **Example:** `todo read textbook`
 - **Response:**
   ```text
-  added: [T][ ] read textbook
+  As you command, Sire. I have inscribed this quest upon your scroll:
+      [T][ ] read textbook
   ```
 
 ### Deadline — Task with a due date
@@ -77,7 +78,8 @@ Adds a task that must be completed by a specific date and optional time.
   - `deadline pay bills /by 2026-11-01`
 - **Response:**
   ```text
-  added: [D][ ] submit assignment (by: Oct 15 2026 18:00)
+  As you command, Sire. I have inscribed this quest upon your scroll:
+      [D][ ] submit assignment (by: Oct 15 2026 18:00)
   ```
 
 > [!NOTE]
@@ -93,7 +95,8 @@ Adds a scheduled event spanning a duration from a start date/time to an end date
   - `event team lunch /to 2026-10-25 13:00 /from 2026-10-25 12:00` (delimiters can be in either order)
 - **Response:**
   ```text
-  added: [E][ ] project presentation (from: Oct 20 2026 14:00 to: Oct 20 2026 16:00)
+  As you command, Sire. I have inscribed this quest upon your scroll:
+      [E][ ] project presentation (from: Oct 20 2026 14:00 to: Oct 20 2026 16:00)
   ```
 
 > [!IMPORTANT]
@@ -127,7 +130,7 @@ Searches all task descriptions containing the specified search keyword or phrase
 - **Example:** `find assignment`
 - **Response:**
   ```text
-  Here are the matching tasks in your list:
+  Here are the matching quests upon your scroll:
   2. [D][ ] submit assignment (by: Oct 15 2026 18:00)
   ```
 
@@ -165,7 +168,7 @@ Shifts a deadline or both event boundaries forward by 1 day.
 - **Example:** `snooze 2`
 - **Response:**
   ```text
-  Affirmative! I've snoozed this task:
+  Understood, Sire. The deadline has been granted reprieve:
       [D][ ] submit assignment (by: Oct 16 2026 18:00)
   ```
 
@@ -179,7 +182,7 @@ Postpones a task forward by a specified amount and unit. Supported units: `days`
   - `snooze 3 1 week` (shifts event forward by 1 week)
 - **Response:**
   ```text
-  Affirmative! I've snoozed this task:
+  Understood, Sire. The deadline has been granted reprieve:
       [D][ ] submit assignment (by: Oct 19 2026 18:00)
   ```
 
@@ -190,7 +193,7 @@ Reschedules a deadline to a specific new target date and optional time.
 - **Example:** `snooze 2 /to 2026-10-25 20:00`
 - **Response:**
   ```text
-  Affirmative! I've snoozed this task:
+  Understood, Sire. The deadline has been granted reprieve:
       [D][ ] submit assignment (by: Oct 25 2026 20:00)
   ```
 
@@ -201,7 +204,7 @@ Reschedules both boundaries of an event to new start and end dates/times.
 - **Example:** `snooze 3 /from 2026-10-28 10:00 /to 2026-10-28 12:00`
 - **Response:**
   ```text
-  Affirmative! I've snoozed this task:
+  Understood, Sire. The deadline has been granted reprieve:
       [E][ ] project presentation (from: Oct 28 2026 10:00 to: Oct 28 2026 12:00)
   ```
 
@@ -231,9 +234,9 @@ Exits Dave and automatically saves your state.
 - **Format:** `bye`
 - **Response:**
   ```text
-  The wind calls. Farewell!
+  Duty calls me to the ramparts, my Liege. Farewell!
   ```
-  *(Dave displays the farewell and automatically closes after 1 second)*
+  *(Dave displays the farewell and automatically closes after 1.5 seconds)*
 
 ---
 
@@ -249,13 +252,13 @@ Dave automatically saves your task list to `data/dave.txt` in the folder from wh
 
 | Problem | Cause | Solution |
 |---|---|---|
-| `I'm afraid I cannot understand you` | Unrecognized command word or typo | Check the [Command Summary](#command-summary) for supported commands. |
-| `NEGATIVE! Invalid date: date does not exist on the calendar...` | Non-existent calendar date (e.g. Feb 30, Apr 31) | Ensure the date is a valid day on the calendar in `yyyy-MM-dd` format. |
-| `NEGATIVE! Event start date/time must be strictly earlier than end date/time.` | Event `/from` time is later than or equal to `/to` time | Ensure the event start comes before the event end. |
-| `NEGATIVE! This task already exists in your list...` | Adding an identical task | You already have this task. Delete or update the existing task first. |
-| `NEGATIVE! ... cannot contain the '\|' character` | Reserved storage separator used | Do not use the `\|` character in task descriptions or search queries. |
-| `NEGATIVE! The /by delimiter cannot be specified multiple times.` | Repeated delimiter flags | Specify `/by`, `/from`, and `/to` only once per command. |
-| `Wrong number!` | Task number is non-positive, not a number, or out of range | Use `list` to inspect valid positive task numbers (e.g., `mark 1`). |
+| `Forgive me, my Liege, but that command is foreign to my training.` | Unrecognized command word or typo | Check the [Command Summary](#command-summary) for supported commands. |
+| `Pardon, Sire! Invalid date: date does not exist on the calendar...` | Non-existent calendar date (e.g. Feb 30, Apr 31) | Ensure the date is a valid day on the calendar in `yyyy-MM-dd` format. |
+| `Pardon, Sire! Event start date/time must be strictly earlier than end date/time.` | Event `/from` time is later than or equal to `/to` time | Ensure the event start comes before the event end. |
+| `Hold, Sire! This quest already rests upon your scroll...` | Adding an identical task | You already have this task. Delete or update the existing task first. |
+| `Pardon, Sire! ... cannot contain the '\|' character` | Reserved storage separator used | Do not use the `\|` character in task descriptions or search queries. |
+| `Pardon, Sire! The /by delimiter cannot be specified multiple times.` | Repeated delimiter flags | Specify `/by`, `/from`, and `/to` only once per command. |
+| `Pardon, Sire! That is an invalid scroll number.` | Task number is non-positive, not a number, or out of range | Use `list` to inspect valid positive task numbers (e.g., `mark 1`). |
 | `Warning: N corrupted task entry(ies) in data file could not be read...` | Data file contains corrupted or manually edited invalid lines | Dave safely skips corrupted lines and loads valid tasks. Check `data/dave.txt` to fix any manual formatting errors. |
 | `Unable to access storage file (permission denied)` | File access permissions restricted | Ensure your operating system user account has read/write access to the folder. |
 

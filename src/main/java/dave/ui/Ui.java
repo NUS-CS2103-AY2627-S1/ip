@@ -57,7 +57,7 @@ public class Ui {
     public void showWelcome() {
         showLine();
         System.out.println(BANNER);
-        System.out.printf("Hello! I'm %s.\\nAt your service!\\n", NAME);
+        System.out.println(formatWelcome());
         showLine();
     }
 
@@ -152,9 +152,7 @@ public class Ui {
      */
     public void showTaskList(List<Task> tasks) {
         showLine();
-        for (int i = 1; i <= tasks.size(); i++) {
-            System.out.printf("%d. %s\n", i, tasks.get(i - 1));
-        }
+        System.out.println(formatTaskList(tasks));
         showLine();
     }
 
@@ -165,10 +163,7 @@ public class Ui {
      */
     public void showMatchingTasks(List<IndexedTask> tasks) {
         showLine();
-        System.out.println("Here are the matching tasks in your list:");
-        for (IndexedTask item : tasks) {
-            System.out.printf("%d. %s\n", item.getOriginalIndex(), item.getTask());
-        }
+        System.out.println(formatMatchingTasks(tasks));
         showLine();
     }
 
@@ -178,7 +173,8 @@ public class Ui {
      * @return Formatted welcome greeting string.
      */
     public String formatWelcome() {
-        return String.format("Hello! I'm %s.\nAt your service!", NAME);
+        return String.format("Greetings, my Liege! I am %s, your Knight Butler.\n"
+                + "I stand ever ready at your service!", NAME);
     }
 
     /**
@@ -187,7 +183,7 @@ public class Ui {
      * @return Formatted farewell message string.
      */
     public String formatGoodbye() {
-        return "The wind calls. Farewell!";
+        return "Duty calls me to the ramparts, my Liege. Farewell!";
     }
 
     /**
@@ -197,7 +193,7 @@ public class Ui {
      * @return Formatted task addition confirmation string.
      */
     public String formatTaskAdded(Task task) {
-        return String.format("added: %s", task);
+        return String.format("As you command, Sire. I have inscribed this quest upon your scroll:\n    %s", task);
     }
 
     /**
@@ -207,7 +203,7 @@ public class Ui {
      * @return Formatted task removal confirmation string.
      */
     public String formatTaskDeleted(Task task) {
-        return String.format("Affirmative! This task was removed:\n    %s", task);
+        return String.format("By your decree, Sire. This quest has been struck from the scroll:\n    %s", task);
     }
 
     /**
@@ -217,7 +213,7 @@ public class Ui {
      * @return Formatted task snooze confirmation string.
      */
     public String formatTaskSnoozed(Task task) {
-        return String.format("Affirmative! I've snoozed this task:\n    %s", task);
+        return String.format("Understood, Sire. The deadline has been granted reprieve:\n    %s", task);
     }
 
     /**
@@ -228,8 +224,10 @@ public class Ui {
      * @return Formatted task status update string.
      */
     public String formatTaskStatusUpdated(Task task, boolean isComplete) {
-        String statusMessage = isComplete ? "Another one down!" : "Negative progress...";
-        return String.format("%s\n%s", statusMessage, task);
+        String statusMessage = isComplete
+                ? "A glorious victory, my Liege! Another quest fulfilled:"
+                : "As you command, Sire. The quest has been reopened upon your ledger:";
+        return String.format("%s\n    %s", statusMessage, task);
     }
 
     /**
@@ -240,7 +238,7 @@ public class Ui {
      */
     public String formatTaskList(List<Task> tasks) {
         if (tasks.isEmpty()) {
-            return "There are no tasks in your list.";
+            return "Your scroll lies empty, Sire. No quests await your blade.";
         }
         StringBuilder builder = new StringBuilder();
         for (int i = 1; i <= tasks.size(); i++) {
@@ -260,9 +258,9 @@ public class Ui {
      */
     public String formatMatchingTasks(List<IndexedTask> tasks) {
         if (tasks.isEmpty()) {
-            return "No matching tasks found in your list.";
+            return "No matching quests were found upon your scroll, Sire.";
         }
-        StringBuilder builder = new StringBuilder("Here are the matching tasks in your list:\n");
+        StringBuilder builder = new StringBuilder("Here are the matching quests upon your scroll:\n");
         for (int i = 0; i < tasks.size(); i++) {
             IndexedTask item = tasks.get(i);
             builder.append(String.format("%d. %s", item.getOriginalIndex(), item.getTask()));

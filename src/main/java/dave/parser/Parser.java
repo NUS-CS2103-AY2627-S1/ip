@@ -64,7 +64,7 @@ public class Parser {
     public static Todo parseTodo(String arguments) {
         String trimmed = arguments.trim();
         if (trimmed.isEmpty()) {
-            throw new DaveCommandException("NEGATIVE! The description of a todo cannot be empty");
+            throw new DaveCommandException("Pardon, Sire! The description of a todo cannot be empty.");
         }
         validateNoReservedCharacters(trimmed, "Task description");
         return new Todo(trimmed);
@@ -80,25 +80,25 @@ public class Parser {
     public static Deadline parseDeadline(String arguments) {
         int byCount = countMatches(arguments, BY_FLAG_PATTERN);
         if (byCount > 1) {
-            throw new DaveCommandException("NEGATIVE! The /by delimiter cannot be specified multiple times.");
+            throw new DaveCommandException("Pardon, Sire! The /by delimiter cannot be specified multiple times.");
         }
         if (byCount == 0) {
-            throw new DaveCommandException("NEGATIVE! A deadline requires /by [time]");
+            throw new DaveCommandException("Pardon, Sire! A deadline requires an appointed time (/by [time]).");
         }
 
         Matcher matcher = BY_FLAG_PATTERN.matcher(arguments);
         if (!matcher.find()) {
-            throw new DaveCommandException("NEGATIVE! A deadline requires /by [time]");
+            throw new DaveCommandException("Pardon, Sire! A deadline requires an appointed time (/by [time]).");
         }
 
         String description = arguments.substring(0, matcher.start()).trim();
         String byString = arguments.substring(matcher.end()).trim();
 
         if (description.isEmpty()) {
-            throw new DaveCommandException("NEGATIVE! The description of a deadline cannot be empty");
+            throw new DaveCommandException("Pardon, Sire! The description of a deadline cannot be empty.");
         }
         if (byString.isEmpty()) {
-            throw new DaveCommandException("NEGATIVE! A deadline requires /by [time]");
+            throw new DaveCommandException("Pardon, Sire! A deadline requires an appointed time (/by [time]).");
         }
 
         validateNoReservedCharacters(description, "Task description");
@@ -119,13 +119,13 @@ public class Parser {
         int toCount = countMatches(arguments, TO_FLAG_PATTERN);
 
         if (fromCount > 1) {
-            throw new DaveCommandException("NEGATIVE! The /from delimiter cannot be specified multiple times.");
+            throw new DaveCommandException("Pardon, Sire! The /from delimiter cannot be specified multiple times.");
         }
         if (toCount > 1) {
-            throw new DaveCommandException("NEGATIVE! The /to delimiter cannot be specified multiple times.");
+            throw new DaveCommandException("Pardon, Sire! The /to delimiter cannot be specified multiple times.");
         }
         if (fromCount == 0 || toCount == 0) {
-            throw new DaveCommandException("NEGATIVE! An event requires /from [time] and /to [time]");
+            throw new DaveCommandException("Pardon, Sire! An event requires both /from [time] and /to [time].");
         }
 
         Matcher fromMatcher = FROM_FLAG_PATTERN.matcher(arguments);
@@ -148,10 +148,10 @@ public class Parser {
         }
 
         if (description.isEmpty()) {
-            throw new DaveCommandException("NEGATIVE! The description of an event cannot be empty");
+            throw new DaveCommandException("Pardon, Sire! The description of an event cannot be empty.");
         }
         if (fromString.isEmpty() || toString.isEmpty()) {
-            throw new DaveCommandException("NEGATIVE! An event requires /from [time] and /to [time]");
+            throw new DaveCommandException("Pardon, Sire! An event requires both /from [time] and /to [time].");
         }
 
         validateNoReservedCharacters(description, "Task description");
@@ -173,16 +173,16 @@ public class Parser {
     public static int parseIndex(String arguments) {
         String trimmed = arguments.trim();
         if (trimmed.isEmpty() || trimmed.contains(" ")) {
-            throw new DaveCommandException("Wrong number!");
+            throw new DaveCommandException("Pardon, Sire! That is an invalid scroll number.");
         }
         try {
             int itemNumber = Integer.parseInt(trimmed);
             if (itemNumber <= 0) {
-                throw new DaveCommandException("Wrong number!");
+                throw new DaveCommandException("Pardon, Sire! That is an invalid scroll number.");
             }
             return itemNumber - 1;
         } catch (NumberFormatException e) {
-            throw new DaveCommandException("Wrong number!");
+            throw new DaveCommandException("Pardon, Sire! That is an invalid scroll number.");
         }
     }
 
@@ -196,7 +196,7 @@ public class Parser {
     public static String parseFind(String arguments) {
         String trimmed = arguments.trim();
         if (trimmed.isEmpty()) {
-            throw new DaveCommandException("NEGATIVE! The search keyword cannot be empty");
+            throw new DaveCommandException("Pardon, Sire! The search keyword cannot be empty.");
         }
         validateNoReservedCharacters(trimmed, "Search keyword");
         return trimmed;
@@ -212,7 +212,7 @@ public class Parser {
     public static SnoozeRequest parseSnooze(String arguments) {
         String trimmed = arguments.trim();
         if (trimmed.isEmpty()) {
-            throw new DaveCommandException("Wrong number!");
+            throw new DaveCommandException("Pardon, Sire! That is an invalid scroll number.");
         }
 
         String[] parts = trimmed.split("\\s+", 2);
@@ -225,13 +225,13 @@ public class Parser {
         String spec = parts[1].trim();
 
         if (countMatches(spec, FROM_FLAG_PATTERN) > 1) {
-            throw new DaveCommandException("NEGATIVE! The /from delimiter cannot be specified multiple times.");
+            throw new DaveCommandException("Pardon, Sire! The /from delimiter cannot be specified multiple times.");
         }
         if (countMatches(spec, TO_FLAG_PATTERN) > 1) {
-            throw new DaveCommandException("NEGATIVE! The /to delimiter cannot be specified multiple times.");
+            throw new DaveCommandException("Pardon, Sire! The /to delimiter cannot be specified multiple times.");
         }
         if (countMatches(spec, BY_FLAG_PATTERN) > 1) {
-            throw new DaveCommandException("NEGATIVE! The /by delimiter cannot be specified multiple times.");
+            throw new DaveCommandException("Pardon, Sire! The /by delimiter cannot be specified multiple times.");
         }
 
         if (spec.contains(SNOOZE_FROM_PREFIX) || spec.startsWith("/from")) {
@@ -256,13 +256,13 @@ public class Parser {
     private static SnoozeRequest parseEventSnooze(int index, String spec) {
         String toPrefix = "/to ";
         if (!spec.contains(toPrefix) && !spec.contains("/to")) {
-            throw new DaveCommandException("NEGATIVE! Rescheduling an event requires /from [time] and /to [time]");
+            throw new DaveCommandException("Pardon, Sire! Rescheduling an event requires /from [time] and /to [time].");
         }
 
         Matcher fromMatcher = FROM_FLAG_PATTERN.matcher(spec);
         Matcher toMatcher = TO_FLAG_PATTERN.matcher(spec);
         if (!fromMatcher.find() || !toMatcher.find()) {
-            throw new DaveCommandException("NEGATIVE! Rescheduling an event requires /from [time] and /to [time]");
+            throw new DaveCommandException("Pardon, Sire! Rescheduling an event requires /from [time] and /to [time].");
         }
 
         String fromStr;
@@ -276,7 +276,7 @@ public class Parser {
         }
 
         if (fromStr.isEmpty() || toStr.isEmpty()) {
-            throw new DaveCommandException("NEGATIVE! Rescheduling an event requires /from [time] and /to [time]");
+            throw new DaveCommandException("Pardon, Sire! Rescheduling an event requires /from [time] and /to [time].");
         }
 
         ParsedDateTime fromParsed = DateTimeParser.parse(fromStr);
@@ -301,7 +301,7 @@ public class Parser {
         }
 
         if (dateString.isEmpty()) {
-            throw new DaveCommandException("NEGATIVE! A target date-time must follow /to");
+            throw new DaveCommandException("Pardon, Sire! A target date-time must follow /to.");
         }
 
         ParsedDateTime targetParsed = DateTimeParser.parse(dateString);
@@ -319,19 +319,19 @@ public class Parser {
     private static SnoozeRequest parseRelativeSnooze(int index, String spec) {
         String[] durationParts = spec.split("\\s+", 2);
         if (durationParts.length < 2) {
-            throw new DaveCommandException("NEGATIVE! Specify a valid duration (e.g., '3 days') "
+            throw new DaveCommandException("Pardon, Sire! Specify a valid duration (e.g., '3 days') "
                     + "or target date-time (e.g., '/to 2026-10-25').");
         }
 
         try {
             long amount = Long.parseLong(durationParts[0]);
             if (amount <= 0) {
-                throw new DaveCommandException("NEGATIVE! Snooze duration amount must be a positive number");
+                throw new DaveCommandException("Pardon, Sire! Snooze duration amount must be a positive number.");
             }
             ChronoUnit unit = parseChronoUnit(durationParts[1]);
             return new SnoozeRequest(index, amount, unit);
         } catch (NumberFormatException e) {
-            throw new DaveCommandException("NEGATIVE! Specify a valid duration (e.g., '3 days') "
+            throw new DaveCommandException("Pardon, Sire! Specify a valid duration (e.g., '3 days') "
                     + "or target date-time (e.g., '/to 2026-10-25').");
         }
     }
@@ -379,7 +379,7 @@ public class Parser {
             case "mins":
                 return ChronoUnit.MINUTES;
             default:
-                throw new DaveCommandException("NEGATIVE! Unrecognized time unit: " + unitText
+                throw new DaveCommandException("Pardon, Sire! Unrecognized time unit: " + unitText
                         + ". Use days, hours, weeks, or minutes.");
         }
     }
@@ -410,7 +410,7 @@ public class Parser {
     private static void validateNoReservedCharacters(String text, String fieldName) {
         if (text.contains(RESERVED_STORAGE_CHAR)) {
             throw new DaveCommandException(String.format(
-                    "NEGATIVE! %s cannot contain the '%s' character as it is reserved for storage.",
+                    "Pardon, Sire! %s cannot contain the '%s' character as it is reserved for storage.",
                     fieldName, RESERVED_STORAGE_CHAR));
         }
     }

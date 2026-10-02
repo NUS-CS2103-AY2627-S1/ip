@@ -100,10 +100,10 @@ public class Dave {
             return false;
         }
 
-        return response.startsWith("NEGATIVE!")
-                || response.startsWith("Wrong number!")
-                || response.startsWith("Warning:")
-                || response.equals("I'm afraid I cannot understand you");
+        return response.startsWith("Pardon, Sire!")
+                || response.startsWith("Hold, Sire!")
+                || response.startsWith("Forgive me")
+                || response.startsWith("Warning:");
     }
 
     /**
@@ -150,7 +150,7 @@ public class Dave {
                 case UNKNOWN:
                     // Fallthrough
                 default:
-                    return "I'm afraid I cannot understand you";
+                    return "Forgive me, my Liege, but that command is foreign to my training.";
             }
         } catch (DaveCommandException e) {
             return e.getMessage();
@@ -254,7 +254,7 @@ public class Dave {
         if (this.tasks.hasDuplicate(task)) {
             Task duplicate = this.tasks.findDuplicate(task);
             throw new DaveCommandException(
-                    "NEGATIVE! This task already exists in your list:\n  " + duplicate);
+                    "Hold, Sire! This quest already rests upon your scroll:\n  " + duplicate);
         }
         int initialSize = this.tasks.size();
         this.tasks.add(task);

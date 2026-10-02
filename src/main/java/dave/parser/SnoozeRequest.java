@@ -117,7 +117,8 @@ public class SnoozeRequest {
         assert task != null : "Target task cannot be null when applying snooze";
 
         if (!task.canSnooze()) {
-            throw new DaveCommandException("NEGATIVE! Todo tasks cannot be snoozed as they have no date or time.");
+            throw new DaveCommandException(
+                    "Pardon, Sire! Todo tasks cannot be snoozed as they have no appointed date or time.");
         }
 
         if (this.isRelative) {
@@ -141,7 +142,7 @@ public class SnoozeRequest {
         } else if (task instanceof Event event) {
             event.snoozeBy(this.relativeAmount, this.relativeUnit);
         } else {
-            throw new DaveCommandException("NEGATIVE! This task cannot be snoozed.");
+            throw new DaveCommandException("Pardon, Sire! This quest cannot be snoozed.");
         }
     }
 
@@ -153,7 +154,7 @@ public class SnoozeRequest {
      */
     private void applyEventReschedule(Task task) throws DaveCommandException {
         if (!(task instanceof Event event)) {
-            throw new DaveCommandException("NEGATIVE! A deadline cannot be rescheduled with /from and /to");
+            throw new DaveCommandException("Pardon, Sire! A deadline cannot be rescheduled with /from and /to.");
         }
         event.reschedule(
                 this.eventFromDateTime.getDateTime(), this.eventFromDateTime.hasTime(),
@@ -168,8 +169,8 @@ public class SnoozeRequest {
      */
     private void applyDeadlineReschedule(Task task) throws DaveCommandException {
         if (!(task instanceof Deadline deadline)) {
-            throw new DaveCommandException("NEGATIVE! Rescheduling an event requires /from [time] and /to [time], "
-                    + "or a relative duration");
+            throw new DaveCommandException("Pardon, Sire! Rescheduling an event requires /from [time] and /to [time], "
+                    + "or a relative duration.");
         }
         deadline.snoozeTo(this.targetDateTime.getDateTime(), this.targetDateTime.hasTime());
     }
