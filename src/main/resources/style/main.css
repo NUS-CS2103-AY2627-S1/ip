@@ -1,0 +1,196 @@
+/* Main application palette: midnight navy, ice white, and electric cyan. */
+.app-shell {
+    -fx-background-color: #06163d;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.header {
+    -fx-background-color: linear-gradient(to right, rgba(5, 20, 61, 0.98),
+        rgba(13, 53, 111, 0.94));
+    -fx-border-color: transparent transparent #5bdaf4 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.header-avatar {
+    -fx-effect: dropshadow(gaussian, rgba(91, 218, 244, 0.42), 12, 0.28, 0, 2);
+}
+
+.app-title {
+    -fx-text-fill: #f3fdff;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.app-subtitle,
+.hint-text {
+    -fx-text-fill: #abd9ed;
+    -fx-font-size: 12px;
+}
+
+.status-group {
+    -fx-padding: 0 2px 0 8px;
+}
+
+.status-pill {
+    -fx-background-color: rgba(92, 224, 247, 0.14);
+    -fx-background-radius: 14px;
+    -fx-border-color: #5bdaf4;
+    -fx-border-radius: 14px;
+    -fx-padding: 5px 9px;
+    -fx-text-fill: #c9f8ff;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
+
+.status-caption {
+    -fx-text-fill: #8ebbd0;
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+}
+
+.conversation-area {
+    -fx-background-color: #071c4c;
+}
+
+.background-art {
+    -fx-opacity: 1;
+}
+
+.conversation-scroll {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.conversation-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.user-message {
+    -fx-alignment: center-right;
+}
+
+.clsl-message {
+    -fx-alignment: center-left;
+}
+
+.message-row {
+    -fx-padding: 1px 0;
+}
+
+.message-bubble {
+    -fx-background-radius: 18px;
+    -fx-padding: 11px 15px;
+    -fx-effect: dropshadow(gaussian, rgba(32, 201, 236, 0.2), 10, 0.16, 0, 3);
+}
+
+.clsl-message .message-bubble {
+    -fx-background-color: rgba(242, 252, 255, 0.96);
+    -fx-border-color: #8dddec;
+    -fx-border-radius: 18px;
+}
+
+.user-message .message-bubble {
+    -fx-background-color: linear-gradient(to bottom right, #41d6e9, #176db2);
+    -fx-background-radius: 18px;
+}
+
+.sender-label {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 5px 0;
+}
+
+.clsl-message .sender-label {
+    -fx-text-fill: #17627d;
+}
+
+.user-message .sender-label,
+.user-message .message-text {
+    -fx-text-fill: white;
+}
+
+.message-text {
+    -fx-font-size: 14px;
+    -fx-text-fill: #234556;
+}
+
+.composer-container {
+    -fx-background-color: linear-gradient(to bottom, #0a2d65, #061a46);
+    -fx-border-color: #4ccce8 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-min-height: 92px;
+    -fx-pref-height: 92px;
+}
+
+.composer {
+    -fx-background-color: rgba(242, 252, 255, 0.97);
+    -fx-background-radius: 22px;
+    -fx-border-color: #77d9eb;
+    -fx-border-radius: 22px;
+    -fx-padding: 4px 6px 4px 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.36), 11, 0.18, 0, 3);
+}
+
+.message-input {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-text-fill: #1d4254;
+    -fx-prompt-text-fill: #7898a5;
+    -fx-padding: 8px 2px;
+}
+
+.message-input:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.send-button {
+    -fx-background-color: linear-gradient(to bottom, #35d7e9, #1674b2);
+    -fx-background-radius: 17px;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 9px 18px;
+    -fx-min-width: 72px;
+}
+
+.send-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #63e5f1, #2389c2);
+}
+
+.send-button:pressed {
+    -fx-background-color: #125a91;
+}
+
+.send-button:focused {
+    -fx-border-color: #b7f7ff;
+    -fx-border-radius: 17px;
+    -fx-border-width: 2px;
+}
+
+.composer-hint {
+    -fx-text-fill: #a5d9ea;
+    -fx-font-size: 10px;
+    -fx-padding: 0 6px 0 8px;
+}
+
+.conversation-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-padding: 2px 3px 2px 0;
+}
+
+.conversation-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(87, 220, 241, 0.52);
+    -fx-background-radius: 6px;
+}
+
+.conversation-scroll .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(124, 235, 249, 0.8);
+}
+
+.conversation-scroll .scroll-bar:vertical .increment-button,
+.conversation-scroll .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}

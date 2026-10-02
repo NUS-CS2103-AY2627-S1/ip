@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane styleClass="app-shell" stylesheets="@../style/main.css"
+            xmlns="http://javafx.com/javafx/17.0.7"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="clsl.ui.javafx.MainController">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="14" styleClass="header">
+            <padding>
+                <Insets bottom="15" left="20" right="20" top="15" />
+            </padding>
+            <ImageView fitHeight="54" fitWidth="54" preserveRatio="true" styleClass="header-avatar">
+                <image>
+                    <Image url="@../images/pig.jpg" />
+                </image>
+            </ImageView>
+            <VBox spacing="3">
+                <Label styleClass="app-title" text="Clsl" />
+                <Label styleClass="app-subtitle" text="Your friendly task companion" />
+            </VBox>
+        </HBox>
+    </top>
+    <center>
+        <StackPane fx:id="conversationArea" styleClass="conversation-area">
+            <ImageView fx:id="backgroundImageView" mouseTransparent="true"
+                       pickOnBounds="false" preserveRatio="false" styleClass="background-art">
+                <image>
+                    <Image url="@../images/clsl-ice-background.png" />
+                </image>
+            </ImageView>
+            <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                        pannable="true" styleClass="conversation-scroll">
+                <content>
+                    <VBox fx:id="dialogContainer" fillWidth="true" spacing="12"
+                          styleClass="dialog-container">
+                        <padding>
+                            <Insets bottom="18" left="18" right="18" top="18" />
+                        </padding>
+                    </VBox>
+                </content>
+            </ScrollPane>
+        </StackPane>
+    </center>
+    <bottom>
+        <VBox minHeight="92" prefHeight="92" spacing="8" styleClass="composer-container">
+            <padding>
+                <Insets bottom="14" left="16" right="16" top="12" />
+            </padding>
+            <HBox alignment="CENTER" spacing="10" styleClass="composer">
+                <TextField fx:id="userInput" styleClass="message-input" HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput"
+                        styleClass="send-button" text="Send" />
+            </HBox>
+        </VBox>
+    </bottom>
+</BorderPane>
