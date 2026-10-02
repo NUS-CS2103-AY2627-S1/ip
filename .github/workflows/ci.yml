@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [master, 'branch-*']
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: gradle
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.13'
+      - name: Make Gradle wrapper executable
+        run: chmod +x gradlew
+      - name: Unit tests, style checks and fat JAR
+        run: ./gradlew --no-daemon check shadowJar
+      - name: Console regression tests
+        if: ${{ !cancelled() }}
+        run: python test/run_ui_tests.py
+      - name: Preserve verification reports
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: verification-reports
+          path: |
+            build/reports/
+            test/ui-test-results.md
+          retention-days: 7

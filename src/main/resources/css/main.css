@@ -1,0 +1,87 @@
+.root {
+    -fx-background-color: #f6f4ef;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+#header {
+    -fx-background-color: #143038;
+}
+
+#appTitle {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+#appSubtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #9ec6c1;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #c2bcae;
+    -fx-background-radius: 8px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}
+
+#inputBar {
+    -fx-background-color: #fffdf8;
+    -fx-border-color: #e5dfd2 transparent transparent transparent;
+}
+
+.text-field {
+    -fx-background-color: #f6f4ef;
+    -fx-background-radius: 8px;
+    -fx-border-color: #ded7c9;
+    -fx-border-radius: 8px;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #6b6355;
+    -fx-padding: 9px 12px;
+}
+
+.text-field:focused {
+    -fx-border-color: #10a39e;
+}
+
+.button {
+    -fx-background-color: #10a39e;
+    -fx-background-radius: 8px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 9px 18px;
+    -fx-text-fill: #ffffff;
+}
+
+.button:hover {
+    -fx-background-color: #0d8e8a;
+}
+
+.button:focused {
+    -fx-border-color: #143038;
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+    -fx-border-insets: -3px;
+}
+
+.button:pressed {
+    -fx-background-color: #0b7d79;
+}
+
+.button:disabled {
+    -fx-opacity: 0.55;
+}

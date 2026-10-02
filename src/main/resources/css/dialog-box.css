@@ -1,0 +1,24 @@
+.label {
+    -fx-background-color: #e7e3f3;
+    -fx-background-insets: 0;
+    -fx-background-radius: 14px 14px 3px 14px;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 10px 13px;
+    -fx-text-fill: #2a2542;
+}
+
+.ari-reply {
+    -fx-background-color: #d5efec;
+    -fx-background-radius: 14px 14px 14px 3px;
+    -fx-text-fill: #14333a;
+}
+
+.error-reply {
+    -fx-background-color: #fae2d6;
+    -fx-text-fill: #7c3418;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(20, 48, 56, 0.18), 8, 0.2, 0, 2);
+}
