@@ -3,6 +3,9 @@
 /out/
 /*.iml
 
+# Compiled class files
+*.class
+
 # Gradle build files
 /.gradle/
 /build/
@@ -15,6 +18,8 @@ bin/
 
 # Temp files
 _temp/
-
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# database
+data/ramly.txt

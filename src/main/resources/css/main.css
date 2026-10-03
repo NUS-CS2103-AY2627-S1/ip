@@ -1,0 +1,86 @@
+.root {
+    -fx-background-color: #f8f3e7;
+    -fx-font-family: "Avenir Next", "Trebuchet MS", sans-serif;
+}
+
+.header {
+    -fx-background-color: linear-gradient(to bottom right, #173b33, #3f6f5b);
+}
+
+.eyebrow {
+    -fx-text-fill: #f2b84b;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 1.6px;
+}
+
+.title {
+    -fx-text-fill: #f8f3e7;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.subtitle {
+    -fx-text-fill: #dce8df;
+    -fx-font-size: 13px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-padding: 2px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #8ea89a;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.composer {
+    -fx-background-color: #fffaf0;
+    -fx-border-color: #d9d0bd transparent transparent transparent;
+    -fx-border-width: 1px;
+}
+
+.text-field {
+    -fx-background-color: #edf2ec;
+    -fx-background-radius: 16px;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-padding: 12px 16px;
+}
+
+.text-field:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #f2b84b;
+    -fx-border-radius: 16px;
+}
+
+.button {
+    -fx-background-color: #173b33;
+    -fx-background-radius: 16px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-padding: 0 20px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #3f6f5b;
+}
+
+.button:pressed {
+    -fx-background-color: #20342d;
+}
