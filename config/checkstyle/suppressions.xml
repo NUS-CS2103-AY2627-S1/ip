@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<!-- Tests do not require header Javadocs and may use underscores in test names. -->
+<suppressions>
+    <suppress checks="MissingJavadocMethod|MissingJavadocType|MethodName"
+              files="[/\\]src[/\\]test[/\\]java[/\\]"/>
+</suppressions>

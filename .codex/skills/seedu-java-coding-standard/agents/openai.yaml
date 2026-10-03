@@ -1,0 +1,4 @@
+interface:
+  display_name: "SE-EDU Java Coding Standard"
+  short_description: "Apply this project Java coding standard"
+  default_prompt: "Use $seedu-java-coding-standard to review this project Java code for basic and intermediate SE-EDU compliance."

@@ -9,20 +9,28 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Beginner
+* IDE and level of expertise: Intellij IDEA, Beginner
 
 # Guidance for interacting with users
 
 * Explain the rationale for significant actions: what you did and why.
 * Keep explanations brief but instructive, supporting learning through responsible use of AI. For example:
 
-  * When suggesting a Git command, briefly explain what it does.
+  * When suggesting a Git verity.command, briefly explain what it does.
   * Add explanatory Javadoc comments to all classes and to nontrivial methods and fields when their purpose or behavior is not obvious.
   * Make generated code as self-explanatory as possible, and include explanatory comments where they improve understanding.
   * When faced with a design choice, choose the simplest option that is sufficient for the requirements, while briefly explaining relevant more advanced alternatives.
 
 # Project-specific requirements
+
+## Java coding standard
+
+For every Java creation, modification, refactor, or review in this repository,
+you must load and follow the project-specific `seedu-java-coding-standard`
+skill at `.codex/skills/seedu-java-coding-standard/SKILL.md`. All Java
+production and test code must follow the basic and intermediate SE-EDU Java
+coding standard rules captured by that skill.
 
 ## Java version:
 
@@ -30,6 +38,18 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 
 ## Git
 
+Before proposing, writing, reviewing, or creating any commit message or branch
+name, you must load and follow the project-specific `seedu-git-standard` skill
+at `.codex/skills/seedu-git-standard/SKILL.md`. All future commits must follow
+the SE-EDU Git conventions and the course-specific optional-body policy
+captured by that skill.
+
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## Testing requirements
+
+- Maintain at least 50% automated test coverage.
+- After every production-code change, add or update the relevant JUnit tests.
+- Run `./gradlew test` before committing.

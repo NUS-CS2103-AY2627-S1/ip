@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_LEFT"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         minWidth="0.0"
+         spacing="8.0"
+         styleClass="dialog-box"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@../css/dialog-box.css" />
+    </stylesheets>
+    <children>
+        <Region fx:id="leadingSpacer"
+                managed="false"
+                visible="false"
+                HBox.hgrow="ALWAYS" />
+        <ImageView fx:id="displayPicture"
+                   fitHeight="99.0"
+                   fitWidth="99.0"
+                   managed="false"
+                   pickOnBounds="true"
+                   preserveRatio="true"
+                   visible="false" />
+        <VBox fx:id="messageContainer"
+              alignment="TOP_LEFT"
+              minWidth="0.0"
+              spacing="3.0"
+              styleClass="message-container">
+            <children>
+                <Label fx:id="speakerLabel"
+                       alignment="TOP_LEFT"
+                       maxWidth="1.7976931348623157E308"
+                       styleClass="speaker-label"
+                       text="VERITY"
+                       textAlignment="LEFT" />
+                <Label fx:id="dialog"
+                       alignment="TOP_LEFT"
+                       maxWidth="1.7976931348623157E308"
+                       minWidth="0.0"
+                       styleClass="message-text"
+                       text="Message"
+                       textAlignment="LEFT"
+                       wrapText="true" />
+            </children>
+        </VBox>
+        <Region fx:id="trailingSpacer"
+                HBox.hgrow="ALWAYS" />
+    </children>
+</fx:root>

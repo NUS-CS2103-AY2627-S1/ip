@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="620.0" prefWidth="430.0"
+            styleClass="app-root"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="verity.gui.MainWindow">
+    <stylesheets>
+        <URL value="@../css/main.css" />
+    </stylesheets>
+    <center>
+        <StackPane fx:id="conversationArea"
+                   styleClass="conversation-area">
+            <children>
+                <ImageView fx:id="backgroundImage"
+                           managed="false"
+                           mouseTransparent="true"
+                           pickOnBounds="false"
+                           smooth="true"
+                           styleClass="background-image" />
+                <ScrollPane fx:id="scrollPane"
+                            fitToWidth="true"
+                            hbarPolicy="NEVER"
+                            vbarPolicy="AS_NEEDED">
+                    <content>
+                        <VBox fx:id="dialogContainer"
+                              fillWidth="true" />
+                    </content>
+                </ScrollPane>
+                <VBox fx:id="emptyState"
+                      alignment="CENTER"
+                      mouseTransparent="true"
+                      spacing="5.0"
+                      styleClass="empty-state">
+                    <children>
+                        <Label styleClass="empty-state-title"
+                               text="Verity is ready" />
+                        <Label styleClass="empty-state-hint"
+                               maxWidth="300.0"
+                               text="Enter a command below — for example, list"
+                               wrapText="true" />
+                    </children>
+                </VBox>
+            </children>
+        </StackPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER"
+              spacing="8.0"
+              styleClass="command-bar">
+            <children>
+                <TextField fx:id="userInput"
+                           minWidth="0.0"
+                           onAction="#handleUserInput"
+                           prefHeight="42.0"
+                           promptText="Enter a command..."
+                           HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton"
+                        mnemonicParsing="false"
+                        onAction="#handleUserInput"
+                        prefHeight="42.0"
+                        prefWidth="72.0"
+                        text="Send" />
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>

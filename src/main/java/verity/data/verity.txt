@@ -1,0 +1,5 @@
+T	1	read book
+D	1	return book	2026-06-06
+T	0	cook
+T	0	attend tutorial
+D	0	finish wk4 ip	2026-09-04

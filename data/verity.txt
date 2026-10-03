@@ -1,0 +1,5 @@
+D	1	submit report	2026-10-10		
+E	0	workshop	2026-10-10	2026-10-12		
+T	0	create help		
+T	0	Prepare invoice	C001	
+T	0	eat dinner		
