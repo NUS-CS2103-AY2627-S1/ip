@@ -24,12 +24,22 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Java coding standard
+
+For every Java code creation, modification, or review in this repository, agents must load and follow the project skill at `.agents/skills/seedu-java-coding-standard/SKILL.md`. All Java code must comply with the SE-EDU basic and intermediate Java coding standard described by that skill.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## Testing
+
+Maintain JUnit tests for at least the top 50% highest-value methods, prioritizing complex, core, and critical business logic over trivial methods.
+After each code change, update or add the relevant JUnit tests as needed to continue meeting this target, and run the test suite to verify the change.
+
 ## Git
 
+For every future commit-message proposal or commit creation in this repository, agents must load and follow the project skill at `.agents/skills/seedu-git-standard/SKILL.md`. Agents must also follow its branch-naming rules when proposing or creating branches.
+
 Use lightweight tags unless the user requests an annotated tag.
-When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.

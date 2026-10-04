@@ -1,0 +1,179 @@
+.root {
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+    -fx-font-size: 14px;
+}
+
+.app-root {
+    -fx-background-color: #f2f7f6;
+}
+
+.app-header {
+    -fx-background-color: #e6f2ef;
+    -fx-border-color: transparent transparent #cfe3df transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.brand-icon {
+    -fx-alignment: center;
+    -fx-background-color: #0f766e;
+    -fx-background-radius: 18px;
+    -fx-font-size: 18px;
+    -fx-font-weight: 700;
+    -fx-min-height: 36px;
+    -fx-min-width: 36px;
+    -fx-pref-height: 36px;
+    -fx-pref-width: 36px;
+    -fx-text-fill: #ffffff;
+}
+
+.app-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #1f2937;
+}
+
+.app-subtitle {
+    -fx-font-size: 11px;
+    -fx-text-fill: #64748b;
+}
+
+.conversation-scroll-pane,
+.conversation-scroll-pane > .viewport {
+    -fx-background-color: #f2f7f6;
+}
+
+.conversation-scroll-pane {
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.dialog-container {
+    -fx-background-color: #f2f7f6;
+}
+
+.message-row {
+    -fx-fill-height: true;
+}
+
+.user-message {
+    -fx-background-color: #0f766e;
+    -fx-background-radius: 16px 16px 4px 16px;
+    -fx-padding: 10px 13px;
+}
+
+.user-message-text {
+    -fx-text-fill: #ffffff;
+    -fx-line-spacing: 1px;
+}
+
+.kelore-message,
+.error-message {
+    -fx-background-radius: 4px 16px 16px 16px;
+    -fx-border-radius: 4px 16px 16px 16px;
+    -fx-padding: 11px 13px;
+}
+
+.kelore-message {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d8e5e2;
+    -fx-border-width: 1px;
+}
+
+.error-message {
+    -fx-background-color: #fff4f2;
+    -fx-border-color: #e7a39b;
+    -fx-border-width: 1px;
+}
+
+.message-heading {
+    -fx-font-size: 11px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #0f766e;
+}
+
+.error-message .message-heading {
+    -fx-text-fill: #b42318;
+}
+
+.kelore-message-text,
+.error-message .kelore-message-text {
+    -fx-text-fill: #1f2937;
+    -fx-line-spacing: 3px;
+}
+
+.message-avatar {
+    -fx-alignment: center;
+    -fx-background-radius: 14px;
+    -fx-font-size: 11px;
+    -fx-font-weight: 700;
+    -fx-min-height: 28px;
+    -fx-min-width: 28px;
+    -fx-pref-height: 28px;
+    -fx-pref-width: 28px;
+}
+
+.kelore-avatar {
+    -fx-background-color: #0f766e;
+    -fx-text-fill: #ffffff;
+}
+
+.user-avatar {
+    -fx-background-color: #dce7e5;
+    -fx-text-fill: #425b57;
+}
+
+.error-avatar {
+    -fx-background-color: #b42318;
+    -fx-text-fill: #ffffff;
+}
+
+.input-area {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cfe3df transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+}
+
+.command-input {
+    -fx-background-color: #f8fafc;
+    -fx-background-radius: 10px;
+    -fx-border-color: #b7ccc8;
+    -fx-border-radius: 10px;
+    -fx-padding: 10px 12px;
+    -fx-prompt-text-fill: #8491a5;
+}
+
+.command-input:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #0f766e;
+}
+
+.send-button {
+    -fx-background-color: #0f766e;
+    -fx-background-radius: 10px;
+    -fx-font-weight: 700;
+    -fx-padding: 10px 16px;
+    -fx-text-fill: #ffffff;
+}
+
+.send-button:hover {
+    -fx-background-color: #115e59;
+    -fx-cursor: hand;
+}
+
+.send-button:pressed {
+    -fx-background-color: #134e4a;
+}
+
+.send-button:disabled,
+.command-input:disabled {
+    -fx-opacity: 0.55;
+}
+
+.scroll-bar:vertical {
+    -fx-pref-width: 9px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #aebfbc;
+    -fx-background-radius: 5px;
+}
