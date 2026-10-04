@@ -1,0 +1,120 @@
+/* Background for the entire window */
+.root {
+    -fx-font-family: "Segoe UI", "Consolas", "Helvetica Neue", Arial, sans-serif;
+    -fx-background-color: #ffffff;
+}
+
+/* ScrollPane and Dialog Container (transparent to reveal centered logo) */
+.scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* ScrollBar light styling */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #cbd5e1;
+    -fx-background-radius: 6px;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #94a3b8;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+#dialogContainer {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+    -fx-spacing: 14px;
+}
+
+/* Dialog Box Layout */
+.dialog-box {
+    -fx-spacing: 12px;
+    -fx-padding: 6px 8px;
+}
+
+/* Base Speech Bubble */
+.label {
+    -fx-font-family: "Segoe UI", "Consolas", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13.5px;
+    -fx-background-radius: 14px;
+    -fx-border-radius: 14px;
+    -fx-padding: 10px 14px;
+}
+
+/* User Message Bubble (Soft Cyan on White) */
+.user-label {
+    -fx-background-color: #e0f2fe;
+    -fx-text-fill: #0369a1;
+    -fx-border-color: #38bdf8;
+    -fx-border-width: 1.2px;
+    -fx-effect: dropshadow(gaussian, rgba(2, 132, 199, 0.15), 6, 0, 0, 1);
+}
+
+/* Penny Message Bubble (Soft Rose on White) */
+.penny-label {
+    -fx-background-color: #fff1f2;
+    -fx-text-fill: #881337;
+    -fx-border-color: #fb7185;
+    -fx-border-width: 1.2px;
+    -fx-effect: dropshadow(gaussian, rgba(225, 29, 72, 0.15), 6, 0, 0, 1);
+}
+
+/* User Input Field */
+#userInput {
+    -fx-font-family: "Segoe UI", "Consolas", sans-serif;
+    -fx-font-size: 13.5px;
+    -fx-background-color: #f8fafc;
+    -fx-text-fill: #0f172a;
+    -fx-prompt-text-fill: #94a3b8;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #cbd5e1;
+    -fx-border-width: 1.5px;
+    -fx-padding: 8px 12px;
+}
+
+#userInput:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e11d48;
+    -fx-effect: dropshadow(gaussian, rgba(225, 29, 72, 0.25), 6, 0, 0, 0);
+}
+
+/* Send Button */
+#sendButton {
+    -fx-font-family: "Segoe UI", "Consolas", sans-serif;
+    -fx-font-size: 13.5px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-background-color: #e11d48;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(225, 29, 72, 0.3), 6, 0, 0, 1);
+}
+
+#sendButton:hover {
+    -fx-background-color: #f43f5e;
+    -fx-effect: dropshadow(gaussian, rgba(244, 63, 94, 0.5), 10, 0, 0, 0);
+}
+
+#sendButton:pressed {
+    -fx-background-color: #be123c;
+}
