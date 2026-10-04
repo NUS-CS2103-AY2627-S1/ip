@@ -1,0 +1,70 @@
+.root {
+    main-color: #171233;
+    -fx-background-color: linear-gradient(to bottom right, #171233, #2E1859 55%, #132B52);
+    -fx-font-family: "Trebuchet MS";
+}
+
+#brandLabel {
+    -fx-pref-height: 52px;
+    -fx-background-color: linear-gradient(to right, #7C3AED, #DB3FA9, #19B5D8);
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(16, 8, 40, 0.55), 12, 0.3, 0, 3);
+}
+
+.text-field {
+    -fx-background-color: #27204A;
+    -fx-border-color: #8B7CF6;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 14px;
+    -fx-background-radius: 14px;
+    -fx-font-size: 17px;
+    -fx-text-fill: #FFFFFF;
+    -fx-prompt-text-fill: #BDB4E8;
+    -fx-padding: 9px 14px;
+}
+
+.button {
+    -fx-background-color: linear-gradient(to bottom right, #E946B4, #8157F5);
+    -fx-background-radius: 14px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(233, 70, 180, 0.35), 10, 0.3, 0, 2);
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom right, #FF63C7, #9978FF);
+}
+
+.button:pressed {
+    -fx-background-color: #6D47D9;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #241B47;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: linear-gradient(to bottom, #E946B4, #36CFE3);
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

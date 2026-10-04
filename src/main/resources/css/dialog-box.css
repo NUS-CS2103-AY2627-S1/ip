@@ -1,0 +1,55 @@
+.label {
+    -fx-background-color: linear-gradient(to bottom right, #E946B4, #B847D9);
+    -fx-border-color: #FF8DDA;
+    -fx-border-width: 1px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 14px;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 10px 14px;
+}
+
+.reply-label {
+    -fx-background-color: #EDE9FF;
+    -fx-border-color: #9C8CF7;
+    -fx-border-width: 1px;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-text-fill: #241846;
+}
+
+.add-label {
+    -fx-background-color: #CFF8FF;
+    -fx-border-color: #36CFE3;
+}
+
+.marked-label {
+    -fx-background-color: #D7FBE8;
+    -fx-border-color: #45D69A;
+}
+
+.delete-label {
+    -fx-background-color: #FFE0E8;
+    -fx-border-color: #FF789A;
+}
+
+.error-label {
+    -fx-background-color: linear-gradient(to bottom right, #FFF1C7, #FFC7D4);
+    -fx-border-color: #FF4778;
+    -fx-border-width: 2px;
+    -fx-text-fill: #65152D;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(255, 71, 120, 0.45), 12, 0.35, 0, 2);
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(80, 220, 255, 0.45),
+            14,
+            0.45,
+            0,
+            2
+    );
+}
