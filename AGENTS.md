@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Basic to Intermediate, typical year 2 computer science student without programming experience pre-college.
+* IDE and level of expertise: Basic familiarity with IDEs like IntelliJ, PyCharm, etc.
 
 # Guidance for interacting with users
 
@@ -24,11 +24,37 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## JUnit coverage target
+
+Prioritize JUnit tests for approximately the top 50% of the codebase's
+highest-value methods, especially complex, core, or business-critical logic.
+When production code changes, update the relevant JUnit tests in the same
+change whenever the behavior or coverage is affected. This keeps the tests
+aligned with the implementation and maintains the 50% high-value coverage
+target.
+
+## After every code update:
+
+1. Review whether the change affects the console UI, and update `test/ui-test-plan.md` with or revise the relevant test case when needed.
+2. Invoke the project-specific `test-ui` skill by running:
+
+   ```bash
+   python3 .agents/skills/test-ui/scripts/run_ui_tests.py
+   ```
+
+3. If a UI test fails, stop and report the failing test, expected output, and actual output before making further changes. After fixing the code, rerun the skill.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## Java coding standard:
+
+All Java source and test code in this project must follow the project-specific `seedu-java-coding-standard` skill, based on the [SE-EDUCATION Java coding standard](https://se-education.org/guides/conventions/java/intermediate.html). Load and apply that skill for every Java code change.
+
 ## Git
+
+All future commits and branch names must follow the project-specific `seedu-git-standard` skill, based on the [SE-EDUCATION Git conventions](https://se-education.org/guides/conventions/git.html). Load and apply that skill before proposing or creating commits.
 
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.

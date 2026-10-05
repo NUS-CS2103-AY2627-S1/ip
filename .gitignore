@@ -18,3 +18,9 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+#Task data saved by chatbot during runtime
+/data/
+
+#AI generated logs
+docs/level7-session-log.md

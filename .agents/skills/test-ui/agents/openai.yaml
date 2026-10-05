@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI Test Runner"
+  short_description: "Run scripted console UI tests and stop at the first failure"
+  default_prompt: "Use $test-ui to run the project UI test plan, show each console transcript, and stop immediately on the first failed expected-output check."
