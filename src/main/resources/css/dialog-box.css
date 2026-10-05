@@ -1,0 +1,41 @@
+.label {
+    -fx-background-color: rgba(20, 27, 32, 0.95);
+    -fx-background-radius: 14px 14px 14px 4px;
+    -fx-border-color: rgba(77, 208, 225, 0.75);
+    -fx-border-radius: 14px 14px 14px 4px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.20), 8, 0.1, 0, 2);
+    -fx-font-family: "Menlo", "Monaco", "Consolas", monospace;
+    -fx-font-size: 13px;
+    -fx-text-fill: #e8f5f7;
+}
+
+.reply-label {
+    -fx-background-color: rgba(20, 27, 32, 0.95);
+}
+
+.welcome-label {
+    -fx-font-family: "Monospaced";
+    -fx-font-size: 11px;
+}
+
+.user-label {
+    -fx-background-color: #d6ad60;
+    -fx-background-radius: 14px 14px 4px 14px;
+    -fx-border-color: #f0cf87;
+    -fx-border-radius: 14px 14px 4px 14px;
+    -fx-font-family: "Arial";
+    -fx-text-fill: #171717;
+}
+
+.error-label {
+    -fx-background-color: #ffe7e7;
+    -fx-border-color: #d94a4a;
+    -fx-border-radius: 14px 14px 14px 4px;
+    -fx-border-width: 1px;
+    -fx-text-fill: #8b1e1e;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.30), 6, 0.2, 0, 2);
+}

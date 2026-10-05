@@ -1,0 +1,8 @@
+T | 1 | buy bread
+T | 1 | run
+T | 0 | buy bread
+T | 0 | run
+T | 0 | Hi
+T | 0 | hi
+T | 0 | Yos
+T | 0 | hello

@@ -24,6 +24,16 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Skills and standards
+
+Use the project-specific skill `seedu-java-coding-standard` for all Java code changes and reviews.
+All Java source and test code must follow the SE-EDU Java coding standard:
+https://se-education.org/guides/conventions/java/intermediate.html
+
+Use the project-specific skill `seedu-git-standard` for all Git advice and for any requested
+commit, tag, branch, merge, or push operation. All future commits must follow the SE-EDU Git
+conventions: https://se-education.org/guides/conventions/git.html
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
