@@ -1,0 +1,112 @@
+/*
+ * Window chrome for E.V.: background, scroll pane and input bar.
+ *
+ * Colors are written as literals rather than shared looked-up colors because
+ * dialog-box.css is attached to each DialogBox rather than to the scene root,
+ * and a failed color lookup in JavaFX fails silently rather than loudly. The
+ * two files therefore each carry the few colors they need. Keep them in step.
+ */
+/*
+ * The wallpaper sits on the root. The flat color underneath it is not
+ * redundant: it is what shows if the image ever fails to resolve, which keeps
+ * a broken resource from producing white text on a white window.
+ */
+.root {
+    -fx-background-color: #07080c;
+    -fx-background-image: url("../images/spiderman_background_wallpaper.jpg");
+    -fx-background-size: auto;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-font-family: "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/*
+ * Scrim. The viewport is tinted rather than transparent so the wallpaper reads
+ * as a backdrop instead of competing with the messages on top of it. Raise the
+ * alpha toward 1 if text over the bright areas is ever hard to read.
+ */
+.scroll-pane > .viewport {
+    -fx-background-color: rgba(7, 8, 12, 0.55);
+}
+
+/*
+ * The default scrollbar is a wide grey slab that takes a noticeable share of a
+ * window this narrow, so it is thinned and muted to sit behind the conversation.
+ */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8;
+}
+
+.scroll-bar:vertical > .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:vertical > .thumb {
+    -fx-background-color: #2b3446;
+    -fx-background-radius: 4;
+}
+
+.scroll-bar:vertical > .thumb:hover {
+    -fx-background-color: #3c4860;
+}
+
+/* The arrow buttons add clutter at this width and earn nothing. */
+.scroll-bar > .increment-button,
+.scroll-bar > .decrement-button,
+.scroll-bar > .increment-button > .increment-arrow,
+.scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+/*
+ * Input bar, styled as the console strip of a HUD: translucent panel, cyan
+ * system accent, no rounded corners.
+ */
+.text-field {
+    -fx-background-color: rgba(10, 18, 26, 0.85);
+    -fx-background-radius: 0;
+    -fx-border-color: rgba(53, 199, 224, 0.35) transparent transparent transparent;
+    -fx-border-width: 1;
+    -fx-text-fill: #d7f4fb;
+    -fx-prompt-text-fill: #5d7f8c;
+    -fx-font-family: Monospaced;
+    -fx-font-size: 13px;
+    -fx-padding: 0 14 0 14;
+}
+
+/* The top edge brightens on focus, since the field has no visible outline. */
+.text-field:focused {
+    -fx-border-color: #35c7e0 transparent transparent transparent;
+}
+
+.button {
+    -fx-background-color: rgba(53, 199, 224, 0.16);
+    -fx-background-radius: 0;
+    -fx-border-color: #35c7e0;
+    -fx-border-width: 1;
+    -fx-text-fill: #7fe3f5;
+    -fx-font-family: Monospaced;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: rgba(53, 199, 224, 0.32);
+    -fx-text-fill: #d7f4fb;
+    -fx-effect: dropshadow(gaussian, rgba(53, 199, 224, 0.55), 12, 0.2, 0, 0);
+}
+
+.button:pressed {
+    -fx-background-color: rgba(53, 199, 224, 0.55);
+    -fx-text-fill: #04212b;
+}

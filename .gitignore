@@ -15,6 +15,15 @@ bin/
 
 # Temp files
 _temp/
-
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+testcases.txt
+
+# Compiled class files
+*.class
+/actual.txt
+
+/actual.txt
+/data/
+
+.vscode/

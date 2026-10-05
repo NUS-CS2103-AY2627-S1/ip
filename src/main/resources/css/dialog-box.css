@@ -1,0 +1,42 @@
+/*
+ * Chat bubbles, styled as HUD readout panels rather than rounded speech
+ * bubbles: translucent so the wallpaper reads through them, a bright hairline
+ * border, a thicker edge on the speaker's side, and an outward glow.
+ *
+ * .label styles the user's panel, which is the default. .reply-label is added
+ * by DialogBox.flip() for E.V., so cyan reads as the system and red as Spidey.
+ *
+ * The message font is monospaced because task listings are columnar data
+ * ("1.[T][ ] read book"), and a proportional font leaves the brackets ragged.
+ * "Monospaced" is JavaFX's logical family, which resolves to a real fixed-width
+ * font on every platform. A list of concrete names would not: JavaFX does not
+ * fall through -fx-font-family the way browsers do, so the first name that is
+ * missing on the running machine drops silently back to the proportional
+ * System font instead of trying the next one.
+ *
+ * See the note in main.css on why colors are repeated across the two files.
+ */
+.label {
+    -fx-background-color: rgba(122, 14, 32, 0.58);
+    -fx-background-radius: 2;
+    -fx-border-color: #e04058;
+    -fx-border-radius: 2;
+    -fx-border-width: 1 3 1 1;
+    -fx-text-fill: #ffe9ec;
+    -fx-font-family: Monospaced;
+    -fx-font-size: 12.5px;
+    -fx-effect: dropshadow(gaussian, rgba(224, 64, 88, 0.40), 12, 0.15, 0, 0);
+}
+
+.reply-label {
+    -fx-background-color: rgba(8, 26, 38, 0.66);
+    -fx-border-color: #35c7e0;
+    -fx-border-width: 1 1 1 3;
+    -fx-text-fill: #d7f4fb;
+    -fx-effect: dropshadow(gaussian, rgba(53, 199, 224, 0.38), 12, 0.15, 0, 0);
+}
+
+/* A cool halo so the circular avatar reads as a lit element, not a sticker. */
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(120, 200, 230, 0.40), 14, 0.25, 0, 0);
+}

@@ -1,25 +1,65 @@
-# Duke project template
+# E.V.
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+[![Java CI](https://github.com/aerodart/ip/actions/workflows/gradle.yml/badge.svg)](https://github.com/aerodart/ip/actions/workflows/gradle.yml)
 
-## Setting up in Intellij
+E.V. is a JavaFX desktop task assistant that keeps track of your todos,
+deadlines and events, and remembers them between sessions. It is themed after
+*Spider-Man: Brand New Day*, with a heads-up display interface and a suit-AI
+persona.
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+[User guide](https://aerodart.github.io/ip/)
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Features
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+- Add todos, deadlines and events
+- Mark tasks as done or not done
+- Delete tasks from the registry
+- Search tasks by keyword, ignoring case
+- Sort tasks alphabetically by description
+- Automatic saving to and loading from `data/ev.txt`
+
+## Getting started
+
+Requires JDK 25.
+
+Run from source:
+
+```
+./gradlew run
+```
+
+Or build a standalone jar and run that:
+
+```
+./gradlew shadowJar
+java -jar build/libs/ev.jar
+```
+
+## Building
+
+```
+./gradlew build
+```
+
+This compiles the code, runs the unit tests and produces `build/libs/ev.jar`.
+
+## Acknowledgements
+
+- The JavaFX GUI scaffolding is adapted from the SE-EDU JavaFX tutorial:
+  <https://se-education.org/guides/tutorials/javaFx.html>
+  This covers `Main`, `Launcher`, `DialogBox` including its `fx:root` construction
+  and `flip()` method, the FXML view skeletons, and the Gradle shadow-jar setup.
+- The project skeleton is forked from the CS2103T iP template:
+  <https://github.com/NUS-CS2103-AY2627-S1/ip>
+- Artwork is third-party and used here only for a student project. None of it is
+  original work:
+  - Chat background, from peakpx:
+    <https://www.peakpx.com/en/hd-wallpaper-desktop-gobwf>
+  - E.V.'s avatar, a J.A.R.V.I.S. interface still, via ScreenRant:
+    <https://screenrant.com/spider-man-homecoming-jarvis/>
+  - The user's avatar, a frame from a Spider-Man GIF on Tenor:
+    <https://tenor.com/en-GB/view/spider-man-gif-5310236965465327623>
+- Claude (Anthropic) was used throughout this project as a coding
+  assistant for reviewing code and testcases, diagnosing bugs and drafting parts of the documentation. All output was reviewed, tested and revised by me before being
+  committed.
+
