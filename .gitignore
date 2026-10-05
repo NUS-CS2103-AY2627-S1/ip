@@ -18,3 +18,19 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+.codex/
+
+# Keep the project-specific Java standard skill under version control.
+!.codex/
+.codex/*
+!.codex/skills/
+.codex/skills/*
+!.codex/skills/seedu-java-coding-standard/
+!.codex/skills/seedu-java-coding-standard/**
+!.codex/skills/seedu-git-standard/
+!.codex/skills/seedu-git-standard/**
+
+# Kaykay task data created at runtime
+/data/kaykay.txt
+/data/kaykay.txt.tmp

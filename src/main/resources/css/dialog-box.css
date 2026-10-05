@@ -1,0 +1,42 @@
+.dialog-text {
+    -fx-border-width: 1px;
+    -fx-font-size: 14px;
+    -fx-padding: 9px 13px;
+}
+
+.user-dialog {
+    -fx-background-color: #4f46e5;
+    -fx-background-radius: 16px 16px 4px 16px;
+    -fx-border-color: #6366f1;
+    -fx-border-radius: 16px 16px 4px 16px;
+    -fx-padding: 7px 11px;
+    -fx-text-fill: white;
+}
+
+.kaykay-dialog {
+    -fx-background-color: #1e293b;
+    -fx-background-radius: 16px 16px 16px 4px;
+    -fx-border-color: #334155;
+    -fx-border-radius: 16px 16px 16px 4px;
+    -fx-text-fill: #e2e8f0;
+}
+
+.success-dialog {
+    -fx-background-color: #1e293b;
+    -fx-background-radius: 16px 16px 16px 4px;
+    -fx-border-color: #34d399;
+    -fx-border-radius: 16px 16px 16px 4px;
+    -fx-text-fill: #d1fae5;
+}
+
+.error-dialog {
+    -fx-background-color: #3b1828;
+    -fx-background-radius: 16px 16px 16px 4px;
+    -fx-border-color: #fb7185;
+    -fx-border-radius: 16px 16px 16px 4px;
+    -fx-text-fill: #ffe4e6;
+}
+
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 5, 0.15, 0, 1);
+}
