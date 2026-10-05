@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="680.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oreo.MainWindow">
+   <children>
+      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox prefHeight="76.0" styleClass="app-header">
+               <padding><Insets bottom="12.0" left="24.0" right="24.0" top="12.0" /></padding>
+               <children>
+                  <Label styleClass="app-title" text="OREO" />
+                  <Label styleClass="app-subtitle" text="Your sweet little task companion" />
+               </children>
+            </VBox>
+            <ScrollPane fx:id="scrollPane" fitToWidth="true" prefHeight="540.0" VBox.vgrow="ALWAYS">
+               <content>
+                  <VBox fx:id="dialogContainer" spacing="9.0">
+                     <padding><Insets bottom="16.0" left="18.0" right="18.0" top="16.0" /></padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
+            <HBox spacing="8.0" styleClass="input-bar">
+               <padding><Insets bottom="12.0" left="18.0" right="18.0" top="12.0" /></padding>
+               <children>
+                  <TextField fx:id="userInput" onAction="#handleUserInput" promptText="Type a command, e.g. todo buy milk" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" text="Send" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -1,0 +1,107 @@
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: #fbfaf8;
+}
+
+.app-header {
+    -fx-background-color: #30261f;
+}
+
+.app-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 23px;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 4px;
+}
+
+.app-subtitle {
+    -fx-text-fill: #d8c9bb;
+    -fx-font-size: 12px;
+}
+
+.scroll-pane, .scroll-pane > .viewport {
+    -fx-background-color: #fbfaf8;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: #fbfaf8;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-padding: 2px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #d2cbc4;
+    -fx-background-radius: 8px;
+}
+
+.input-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e6e0da transparent transparent transparent;
+}
+
+.text-field {
+    -fx-background-color: #f7f5f2;
+    -fx-background-radius: 9px;
+    -fx-border-radius: 9px;
+    -fx-border-color: #d8d0c8;
+    -fx-padding: 9px 12px;
+    -fx-font-size: 13px;
+}
+
+.text-field:focused {
+    -fx-border-color: #8d5f3f;
+    -fx-border-width: 1.5px;
+}
+
+.button {
+    -fx-background-color: #5e4637;
+    -fx-text-fill: white;
+    -fx-background-radius: 9px;
+    -fx-font-weight: bold;
+    -fx-padding: 9px 15px;
+}
+
+.button:hover {
+    -fx-background-color: #795548;
+}
+
+.dialog {
+    -fx-padding: 10px 12px;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 1px;
+}
+
+.bot-message {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e5dfd9;
+    -fx-border-radius: 8px;
+    -fx-border-width: 0 0 0 3px;
+    -fx-background-radius: 8px;
+    -fx-text-fill: #2d2925;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.user-message {
+    -fx-background-color: #5e4637;
+    -fx-text-fill: white;
+    -fx-background-radius: 16px 16px 3px 16px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.tag-summary {
+    -fx-background-color: #fff7df;
+    -fx-border-color: #d19a39;
+    -fx-border-radius: 8px;
+    -fx-border-width: 0 0 0 4px;
+    -fx-font-weight: bold;
+}
+
+.error-message {
+    -fx-background-color: #fff0ee;
+    -fx-border-color: #c8483f;
+    -fx-text-fill: #8d2924;
+    -fx-font-weight: bold;
+}
