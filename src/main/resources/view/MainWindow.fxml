@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.7" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="moon.MainWindow" prefWidth="760.0" prefHeight="560.0"
+            minWidth="520.0" minHeight="420.0" styleClass="main-window">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="top-bar">
+            <ImageView fitHeight="42.0" fitWidth="42.0" preserveRatio="true" styleClass="header-avatar">
+                <image>
+                    <Image url="@../images/moon-avatar.png" />
+                </image>
+            </ImageView>
+            <VBox spacing="2.0">
+                <Label text="Moon" styleClass="header-title" />
+            </VBox>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                    styleClass="chat-scroll">
+            <content>
+                <VBox fx:id="dialogContainer" spacing="12.0" fillWidth="true" styleClass="dialog-container" />
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER" spacing="10.0" styleClass="input-bar">
+            <TextField fx:id="userInput" HBox.hgrow="ALWAYS" promptText="Drop a command..."
+                       styleClass="command-input" onAction="#handleUserInput" />
+            <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput"
+                    text="Send" styleClass="send-button" />
+        </HBox>
+    </bottom>
+</BorderPane>

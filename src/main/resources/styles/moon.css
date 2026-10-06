@@ -1,0 +1,137 @@
+.main-window {
+    -fx-background-color: #06142f;
+    -fx-background-image: url("/images/moon-night.png");
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-font-family: "Segoe UI";
+}
+
+.top-bar {
+    -fx-background-color: rgba(3, 13, 33, 0.92);
+    -fx-padding: 14 18;
+    -fx-border-color: rgba(147, 197, 253, 0.22);
+    -fx-border-width: 0 0 1 0;
+}
+
+.header-avatar {
+    -fx-effect: dropshadow(gaussian, rgba(125, 211, 252, 0.55), 14, 0.25, 0, 0);
+}
+
+.header-title {
+    -fx-text-fill: #f8fbff;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.header-subtitle {
+    -fx-text-fill: #a9c3e8;
+    -fx-font-size: 12px;
+}
+
+.chat-scroll,
+.chat-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.chat-scroll {
+    -fx-padding: 14;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
+}
+
+.chat-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 9;
+}
+
+.chat-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(147, 197, 253, 0.45);
+    -fx-background-radius: 8;
+}
+
+.dialog-container {
+    -fx-padding: 8 4 16 4;
+}
+
+.dialog-box {
+    -fx-padding: 2;
+}
+
+.message-bubble {
+    -fx-font-size: 14px;
+    -fx-text-fill: #e7f0ff;
+    -fx-padding: 10 14;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+}
+
+.moon-message .message-bubble {
+    -fx-background-color: rgba(8, 30, 68, 0.88);
+    -fx-border-color: rgba(125, 211, 252, 0.38);
+}
+
+.user-message .message-bubble {
+    -fx-background-color: rgba(30, 64, 175, 0.80);
+    -fx-border-color: rgba(147, 197, 253, 0.58);
+}
+
+.error-message .message-bubble {
+    -fx-background-color: rgba(185, 28, 28, 0.68);
+    -fx-border-color: rgba(252, 165, 165, 0.88);
+    -fx-text-fill: #fff1f2;
+}
+
+.avatar {
+    -fx-background-color: rgba(147, 197, 253, 0.22);
+    -fx-background-radius: 20;
+    -fx-padding: 4;
+}
+
+.user-avatar {
+    -fx-alignment: center;
+    -fx-text-fill: #e0f2fe;
+    -fx-font-size: 17px;
+    -fx-min-width: 32px;
+    -fx-min-height: 32px;
+}
+
+.input-bar {
+    -fx-background-color: rgba(3, 13, 33, 0.94);
+    -fx-padding: 12 14;
+    -fx-border-color: rgba(147, 197, 253, 0.22);
+    -fx-border-width: 1 0 0 0;
+}
+
+.command-input {
+    -fx-background-color: rgba(224, 242, 254, 0.95);
+    -fx-background-radius: 12;
+    -fx-prompt-text-fill: #64748b;
+    -fx-font-size: 14px;
+    -fx-padding: 10 13;
+}
+
+.command-input:focused {
+    -fx-border-color: #7dd3fc;
+    -fx-border-radius: 12;
+    -fx-border-width: 2;
+}
+
+.send-button {
+    -fx-background-color: #2563eb;
+    -fx-background-radius: 12;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 18;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: #3b82f6;
+}
+
+.send-button:pressed {
+    -fx-background-color: #1d4ed8;
+}

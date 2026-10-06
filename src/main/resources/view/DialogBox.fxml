@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<fx:root type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17.0.7"
+         xmlns:fx="http://javafx.com/fxml/1" spacing="8.0" styleClass="dialog-box">
+    <children>
+        <ImageView fx:id="moonAvatar" fitHeight="32.0" fitWidth="32.0" preserveRatio="true"
+                   styleClass="avatar">
+            <image>
+                <Image url="@../images/moon-avatar.png" />
+            </image>
+        </ImageView>
+        <Label fx:id="userAvatar" text="👤" styleClass="avatar user-avatar" />
+        <Label fx:id="messageLabel" maxWidth="560.0" wrapText="true" styleClass="message-bubble" />
+    </children>
+</fx:root>
