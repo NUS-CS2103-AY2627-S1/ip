@@ -1,0 +1,75 @@
+.root-pane {
+    -fx-background-color: linear-gradient(to bottom right, #fff8e1, #e8f4fd);
+}
+
+.scroll-pane, .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.dialog-label {
+    -fx-padding: 10;
+    -fx-background-radius: 14;
+    -fx-font-size: 13px;
+}
+
+.welcome-heading {
+    -fx-fill: #3a3a3a;
+    -fx-font-weight: bold;
+}
+
+.welcome-body {
+    -fx-fill: #3a3a3a;
+}
+
+.ducky-label, .success-label, .error-label {
+    -fx-pref-width: 300;
+}
+
+.user-label {
+    -fx-background-color: #4a90d9;
+    -fx-text-fill: white;
+}
+
+.ducky-label {
+    -fx-background-color: #f5c518;
+    -fx-text-fill: #3a3a3a;
+}
+
+.success-label {
+    -fx-background-color: #43a047;
+    -fx-text-fill: white;
+}
+
+.error-label {
+    -fx-background-color: #d32f2f;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: #8b1e1e;
+    -fx-border-width: 2;
+    -fx-border-radius: 14;
+}
+
+.user-input {
+    -fx-pref-height: 34;
+    -fx-background-radius: 16;
+    -fx-background-color: white;
+    -fx-border-color: #4a90d9;
+    -fx-border-radius: 16;
+    -fx-padding: 6 12;
+}
+
+.send-button {
+    -fx-pref-height: 34;
+    -fx-background-color: #4a90d9;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 16;
+}
+
+.send-button:hover {
+    -fx-background-color: #3a7bc0;
+}
