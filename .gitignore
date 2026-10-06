@@ -1,6 +1,7 @@
 # IDEA files
 /.idea/
 /out/
+/data/Gihun456.txt
 /*.iml
 
 # Gradle build files

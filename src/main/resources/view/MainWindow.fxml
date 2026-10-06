@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gihun456.gui.MainWindow">
+  <children>
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" vvalue="0.0" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <content>
+        <VBox fx:id="dialogContainer" fillWidth="true" spacing="2.0" />
+      </content>
+    </ScrollPane>
+    <HBox alignment="CENTER" spacing="0.0" styleClass="input-bar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <StackPane alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+        <TextField fx:id="userInput" onAction="#handleUserInput" opacity="0.75" prefHeight="41.0" />
+        <Label fx:id="inputHint" mouseTransparent="true" styleClass="input-hint" text=" I've played these games before!" />
+      </StackPane>
+      <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" opacity="0.75" prefHeight="41.0" prefWidth="127.0" text="Play Game" />
+    </HBox>
+  </children>
+</AnchorPane>
