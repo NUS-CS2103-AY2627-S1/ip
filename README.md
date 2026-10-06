@@ -23,3 +23,38 @@ Prerequisites: JDK 25, update Intellij to the most recent version.
    ```
 
 **Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+
+
+# Caesar - Personal Task Assistant
+
+Caesar is a lightweight, command-line personal assistant chatbot designed to help you organize, track, and manage your daily tasks with ease.
+
+---
+
+## Features
+
+### 1. Task Management
+* **To-Do Tasks:** Add tasks without any specific date or time.
+* **Deadlines:** Add tasks that need to be completed before a specific deadline.
+* **Events:** Add tasks that start and end at specific times.
+
+### 2. Task Operations
+* **Mark / Unmark:** Mark tasks as done or revert them back to incomplete.
+* **Delete:** Remove unwanted tasks from the list.
+* **Reschedule:** Move a deadline to a new date, or an event to new start and end dates.
+* **List:** View all currently tracked tasks.
+* **Sort:** View tasks organized by status (pending tasks first).
+
+---
+
+## Quick Start
+
+### Prerequisites
+* **Java 25** or later installed on your system.
+
+### Running the Application
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/luyao-111/ip.git](https://github.com/luyao-111/ip.git)
+   cd ip

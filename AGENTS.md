@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Basic
+* IDE and level of expertise: Medium
 
 # Guidance for interacting with users
 
@@ -20,9 +20,32 @@ Unless the user says otherwise, assume that you are assisting a student working 
   * When suggesting a Git command, briefly explain what it does.
   * Add explanatory Javadoc comments to all classes and to nontrivial methods and fields when their purpose or behavior is not obvious.
   * Make generated code as self-explanatory as possible, and include explanatory comments where they improve understanding.
-  * When faced with a design choice, choose the simplest option that is sufficient for the requirements, while briefly explaining relevant more advanced alternatives.
+* When faced with a design choice, choose the simplest option that is sufficient for the requirements, while briefly explaining relevant more advanced alternatives.
+
+## Java coding standard
+
+All Java source and test code in this project must follow the project-specific
+skill at `.codex/skills/seedu-java-coding-standard/SKILL.md`, which is based on
+the SE-EDU basic and intermediate Java coding standard. Apply it to existing
+code touched by a change as well as to new code, including package naming,
+layout, naming, imports, braces, and required Javadoc comments.
+
+## Git standard
+
+All future commits in this project must follow the project-specific skill at
+`.codex/skills/seedu-git-standard/SKILL.md`, which is based on the SE-EDU Git
+conventions. Commit subjects must be imperative, capitalized, concise, and
+free of a trailing period; non-trivial commits must include a 72-character
+wrapped body explaining what changed and why. Use meaningful kebab-case branch
+names, preserving any required repository or host prefix.
 
 # Project-specific requirements
+
+## Testing:
+
+* Maintain JUnit test coverage for approximately the highest-value 50% of methods, prioritizing complex, core, and business-critical logic.
+* After every code change, add or update the relevant JUnit tests so that the test suite remains compliant with this coverage target.
+* Run the relevant Gradle tests after making code or test changes.
 
 ## Java version:
 
