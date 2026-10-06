@@ -1,0 +1,143 @@
+/* Light Mode Styles (Default) */
+.root-pane {
+    -fx-background-color: #f7f9fa;
+}
+
+.header-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-text-fill: #333333;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.dialog-box {
+    -fx-background-color: transparent;
+}
+
+.speaker-box {
+    -fx-border-color: transparent #dddddd transparent transparent;
+    -fx-border-width: 0 1 0 0;
+    -fx-padding: 0 8 0 0;
+}
+
+.speaker-name {
+    -fx-font-weight: bold;
+    -fx-font-size: 11px;
+    -fx-text-fill: #555555;
+}
+
+.dialog-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #222222;
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #222222;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-font-size: 13px;
+}
+
+.send-button {
+    -fx-background-color: #4285f4;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: #3367d6;
+}
+
+.theme-button {
+    -fx-background-color: #e8eaed;
+    -fx-text-fill: #3c4043;
+    -fx-font-size: 11px;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-border-color: #dadce0;
+    -fx-cursor: hand;
+}
+
+.theme-button:hover {
+    -fx-background-color: #dadce0;
+}
+
+/* Dark Mode Styles */
+.dark-theme {
+    -fx-background-color: #1e1e1e;
+}
+
+.dark-theme .header-title {
+    -fx-text-fill: #e8eaed;
+}
+
+.dark-theme .scroll-pane {
+    -fx-background-color: #1e1e1e;
+    -fx-background: #1e1e1e;
+}
+
+.dark-theme .scroll-pane > .viewport {
+    -fx-background-color: #1e1e1e;
+}
+
+.dark-theme .dialog-container {
+    -fx-background-color: #1e1e1e;
+}
+
+.dark-theme .dialog-box {
+    -fx-background-color: transparent;
+}
+
+.dark-theme .speaker-box {
+    -fx-border-color: transparent #3e3e42 transparent transparent;
+    -fx-border-width: 0 1 0 0;
+}
+
+.dark-theme .speaker-name {
+    -fx-text-fill: #9aa0a6;
+}
+
+.dark-theme .dialog-text {
+    -fx-text-fill: #e8eaed;
+}
+
+.dark-theme .text-field {
+    -fx-background-color: #2d2d30;
+    -fx-text-fill: #e8eaed;
+    -fx-border-color: #3e3e42;
+}
+
+.dark-theme .send-button {
+    -fx-background-color: #1a73e8;
+    -fx-text-fill: #ffffff;
+}
+
+.dark-theme .send-button:hover {
+    -fx-background-color: #1765cc;
+}
+
+.dark-theme .theme-button {
+    -fx-background-color: #2d2d30;
+    -fx-text-fill: #e8eaed;
+    -fx-border-color: #555555;
+}
+
+.dark-theme .theme-button:hover {
+    -fx-background-color: #3e3e42;
+}
