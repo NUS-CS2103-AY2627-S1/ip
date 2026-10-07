@@ -1,0 +1,7 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run scripted console UI tests"
+  default_prompt: "Use $test-ui to run the console UI tests from test/ui-test-plan.md."
+
+policy:
+  allow_implicit_invocation: true

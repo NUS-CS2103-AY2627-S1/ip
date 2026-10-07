@@ -1,0 +1,4 @@
+interface:
+  display_name: "SE-EDU Code Quality"
+  short_description: "Review code using SE-EDU quality principles"
+  default_prompt: "Use $seedu-code-quality to review and improve this code without changing its behavior."

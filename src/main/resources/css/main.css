@@ -1,0 +1,70 @@
+.root {
+    main-color: #f4eddf;
+    -fx-background-color: main-color;
+    -fx-background-image: url("../images/IMG_6998.jpg"); /* Set image */
+    -fx-background-size: stretch;
+
+}
+
+.text-field {
+    -fx-background-color: #fffdf8;
+    -fx-text-fill: #2f2923;
+    -fx-prompt-text-fill: #786d60;
+    -fx-background-radius: 12px;
+    -fx-border-color: #786d60;
+    -fx-border-width: 1px;
+    -fx-border-radius: 12px;
+}
+
+#sendButton {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8px;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+}
+
+#sendButton:hover {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+#sendButton:hover .image-view {
+    -fx-scale-x: 1.12;
+    -fx-scale-y: 1.12;
+}
+
+#sendButton:pressed {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+#sendButton:pressed .image-view {
+    -fx-scale-x: 0.92;
+    -fx-scale-y: 0.92;
+    -fx-opacity: 0.8;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: rgba(255, 253, 248, 0.75);
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #a9d8e8;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
