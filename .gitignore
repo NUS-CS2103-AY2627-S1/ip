@@ -15,6 +15,7 @@ bin/
 
 # Temp files
 _temp/
+.mary/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

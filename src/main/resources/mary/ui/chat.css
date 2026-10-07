@@ -1,0 +1,45 @@
+.chat-window {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #fcf4ed;
+    -fx-text-fill: #293d32;
+}
+.header { -fx-padding: 24 28 12 28; }
+.app-title { -fx-font-family: "Trebuchet MS", "Segoe UI", sans-serif; -fx-font-size: 34px; -fx-font-weight: bold; -fx-text-fill: #513c53; }
+.subtitle { -fx-font-size: 13px; -fx-text-fill: #51635e; }
+.titled-pane { -fx-text-fill: #275e51; -fx-font-size: 13px; }
+.titled-pane > .title { -fx-background-color: #efdfda; -fx-background-radius: 8; }
+.titled-pane > .content { -fx-background-color: #fffaf0; -fx-border-color: #d9e2d8; }
+.guide-text { -fx-padding: 8; -fx-font-size: 12px; -fx-text-fill: #334b43; }
+.scroll-pane, .scroll-pane > .viewport { -fx-background-color: transparent; }
+.scroll-pane { -fx-background-insets: 0; -fx-padding: 0; }
+.messages { -fx-padding: 16 28 24 28; }
+.bubble { -fx-padding: 15 18; -fx-background-radius: 15; }
+.assistant-bubble { -fx-background-color: #fffaf0; -fx-border-color: #e0c8c6; -fx-border-radius: 15; }
+.user-bubble { -fx-background-color: #644b64; }
+.sender { -fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #587267; }
+.message-text { -fx-text-fill: #243d35; -fx-line-spacing: 3; }
+.user-bubble .sender { -fx-text-fill: #f5d9e7; }
+.user-bubble .message-text { -fx-text-fill: #fffaf0; }
+.footer { -fx-padding: 16 28 20 28; -fx-background-color: #efe0e5; }
+.button { -fx-cursor: hand; -fx-background-radius: 8; }
+.suggestion { -fx-background-color: #fffaf0; -fx-text-fill: #2c604e; -fx-padding: 7 12; -fx-font-size: 12px; }
+.suggestion:hover { -fx-background-color: #dbe6d9; }
+.text-field {
+    -fx-background-color: #fffaf0;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #becfc1;
+    -fx-padding: 13;
+    -fx-prompt-text-fill: #64756a;
+    -fx-text-fill: #243d35;
+}
+.text-field:focused { -fx-border-color: #644b64; -fx-border-width: 2; -fx-padding: 12; }
+.send-button { -fx-background-color: #965239; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 13 22; }
+.send-button:hover { -fx-background-color: #793a27; }
+.button:focused { -fx-border-color: #a36b20; -fx-border-width: 2; -fx-border-radius: 8; }
+.status { -fx-text-fill: #59665a; -fx-font-size: 11px; }
+.eyebrow { -fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #826243; }
+.emblem { -fx-background-color: #644b64; -fx-background-radius: 40; }
+.emblem-cat { -fx-fill: #f5c399; -fx-stroke: #f5c399; -fx-stroke-width: 1.5; }
+.emblem-face { -fx-fill: transparent; -fx-stroke: #513c53; -fx-stroke-width: 2; -fx-stroke-line-cap: round; }
