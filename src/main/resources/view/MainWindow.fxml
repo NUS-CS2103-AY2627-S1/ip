@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.SVGPath?>
+<AnchorPane prefHeight="680.0" prefWidth="560.0" styleClass="chat-window"
+            stylesheets="@theme.css" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="sumo.gui.MainWindow">
+    <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <HBox alignment="CENTER_LEFT" spacing="14.0" styleClass="header">
+            <SVGPath content="M 0 0 L 20 0 L 10 17 Z" styleClass="android-mark" />
+            <VBox spacing="3.0">
+                <Label text="SUMO" styleClass="title" />
+                <Label text="Your task assistant" styleClass="muted" />
+            </VBox>
+            <Region HBox.hgrow="ALWAYS" />
+            <Circle fx:id="statusRing" radius="6.0" styleClass="status-ring" />
+            <Label fx:id="sessionStatus" text="Ready" styleClass="status-text" />
+        </HBox>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS" minHeight="0.0"
+                    accessibleText="Conversation" styleClass="conversation">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true" spacing="6.0" styleClass="dialogs" />
+            </content>
+        </ScrollPane>
+        <VBox spacing="10.0" styleClass="composer">
+            <Label text="COMMAND" labelFor="$userInput" styleClass="section-label" />
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <TextField fx:id="userInput" onAction="#handleUserInput" HBox.hgrow="ALWAYS"
+                           minWidth="0.0" promptText="Enter a command…" accessibleText="Command" />
+                <Button fx:id="sendButton" text="Send" onAction="#handleUserInput"
+                        mnemonicParsing="false" minWidth="76.0" />
+            </HBox>
+            <Label text="Try: todo read book  ·  list  ·  find book" wrapText="true" styleClass="muted" />
+        </VBox>
+    </VBox>
+</AnchorPane>

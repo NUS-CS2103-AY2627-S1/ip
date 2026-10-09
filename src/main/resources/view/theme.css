@@ -1,0 +1,77 @@
+/* Local JavaFX theme inspired by Detroit's android identifiers. */
+.chat-window {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+    -fx-background-color: #101923;
+    -fx-accent: #63caff;
+    -fx-focus-color: #63caff;
+    -fx-faint-focus-color: transparent;
+}
+.label { -fx-text-fill: #e9f1f7; }
+.header {
+    -fx-padding: 20 22;
+    -fx-background-color: #17232f;
+    -fx-border-color: transparent transparent #334958 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+.title { -fx-font-size: 22px; -fx-font-weight: bold; }
+.muted { -fx-text-fill: #b0c1d0; -fx-font-size: 12px; }
+.section-label { -fx-text-fill: #8fd9ff; -fx-font-size: 11px; -fx-font-weight: bold; }
+.android-mark { -fx-fill: #63caff; }
+.status-ring { -fx-fill: transparent; -fx-stroke: #63caff; -fx-stroke-width: 2.5; }
+.status-ring.ended { -fx-stroke: #b0c1d0; }
+.status-text { -fx-text-fill: #c9eaff; -fx-font-size: 12px; }
+.conversation, .conversation > .viewport { -fx-background-color: #101923; }
+.conversation { -fx-padding: 0; -fx-background-insets: 0; }
+.conversation:focused { -fx-border-color: #63caff; }
+.dialogs { -fx-padding: 18 14; }
+.dialog-bubble {
+    -fx-padding: 12 14;
+    -fx-background-color: #22394c;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #3b5971;
+    -fx-line-spacing: 3px;
+}
+.assistant-dialog .dialog-bubble {
+    -fx-background-color: #1b2a37;
+    -fx-border-color: #63caff #304454 #304454 #304454;
+    -fx-border-width: 2 1 1 1;
+}
+.composer {
+    -fx-padding: 16 22 18 22;
+    -fx-background-color: #17232f;
+    -fx-border-color: #334958 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+.text-field {
+    -fx-background-color: #101923;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #587084;
+    -fx-text-fill: #e9f1f7;
+    -fx-prompt-text-fill: #a4b6c6;
+    -fx-highlight-fill: #32678a;
+    -fx-highlight-text-fill: white;
+    -fx-padding: 11 12;
+}
+.text-field:focused { -fx-border-color: #63caff; }
+.button {
+    -fx-background-color: #8bd8ff;
+    -fx-text-fill: #102230;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: transparent;
+    -fx-padding: 11 16;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.button:hover { -fx-background-color: #b4e7ff; }
+.button:pressed { -fx-background-color: #63bde9; }
+.button:focused { -fx-border-color: white; -fx-border-width: 2; -fx-padding: 10 15; }
+.button:disabled, .text-field:disabled { -fx-opacity: 0.55; }
+.scroll-bar { -fx-background-color: #101923; }
+.scroll-bar .thumb { -fx-background-color: #526c80; -fx-background-radius: 6; }
+.scroll-bar .thumb:hover { -fx-background-color: #7894aa; }
+.scroll-bar .increment-button, .scroll-bar .decrement-button { -fx-background-color: transparent; }
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow { -fx-background-color: #b0c1d0; }
