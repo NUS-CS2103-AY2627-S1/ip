@@ -1,6 +1,6 @@
 # Gongrilla User Guide
 
-<img src="Ui.png" alt="Gongrilla GUI">
+![Ui.png](docs/Ui.png)
 
 Gongrilla is a friendly task-management chatbot. Type a command in the terminal and press **Enter**.
 
