@@ -15,7 +15,7 @@ between sessions.
 
 ## User guide
 
-See the [Bob User Guide](docs/README.md) for the complete command reference.
+See the [Bob User Guide](https://adwaithanoop.github.io/ip/) for the complete command reference.
 
 ## Setting up in IntelliJ
 
