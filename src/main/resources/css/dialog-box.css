@@ -1,0 +1,39 @@
+.label {
+    -fx-background-color: #eeeeee;
+    -fx-border-color: #d62839;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-max-width: 280px;
+    -fx-wrap-text: true;
+    -fx-text-fill: #212121;
+}
+
+.reply-label {
+    -fx-background-color: #f7e2e5;
+    -fx-border-color: #d62839;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.error-label {
+    -fx-background-color: #9e0000;
+    -fx-border-color: #9e0000;
+    -fx-text-fill: #ffffff;
+}
+
+.dark-mode .label {
+    -fx-background-color: #242424;
+    -fx-border-color: #ef476f;
+    -fx-text-fill: #eaeaea;
+}
+
+.dark-mode .reply-label {
+    -fx-background-color: #2e1c20;
+    -fx-border-color: #ef476f;
+}
+
+.dark-mode .error-label {
+    -fx-background-color: #ff5c5c;
+    -fx-text-fill: #181818;
+}

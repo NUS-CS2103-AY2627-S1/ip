@@ -1,0 +1,102 @@
+.root {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: #f5efef;
+}
+
+.dark-mode {
+    -fx-background-color: #1c1c1c;
+}
+
+.text-field {
+    -fx-background-color: #eeeeee;
+    -fx-text-fill: #212121;
+}
+
+.dark-mode .text-field {
+    -fx-background-color: #242424;
+    -fx-text-fill: #eaeaea;
+}
+
+.button {
+    -fx-background-color: #d62839;
+    -fx-text-fill: #ffffff;
+}
+
+.button:hover {
+    -fx-background-color: #ef476f;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+#darkModeToggle {
+    -fx-background-color: transparent;
+    -fx-border-color: #d62839;
+    -fx-border-width: 2px;
+    -fx-border-radius: 1em;
+    -fx-background-radius: 1em;
+    -fx-text-fill: #d62839;
+}
+
+.dark-mode #darkModeToggle {
+    -fx-border-color: #ef476f;
+    -fx-text-fill: #ef476f;
+}
+
+#fullscreenToggle {
+    -fx-background-color: transparent;
+    -fx-border-color: #d62839;
+    -fx-border-width: 2px;
+    -fx-border-radius: 1em;
+    -fx-background-radius: 1em;
+    -fx-text-fill: #d62839;
+}
+
+.dark-mode #fullscreenToggle {
+    -fx-border-color: #ef476f;
+    -fx-text-fill: #ef476f;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #d62839;
+    -fx-background-radius: 1em;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #ef476f;
+}
+
+.scroll-pane .scroll-bar:vertical .increment-button,
+.scroll-pane .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane .scroll-bar:vertical .increment-arrow,
+.scroll-pane .scroll-bar:vertical .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
+}
+
+.dark-mode .scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #ef476f;
+}
+
+.dark-mode .scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #ff6b8a;
+}
