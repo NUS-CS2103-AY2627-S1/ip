@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4aa2bc14-28ed-46a3-815b-fd49db7238f6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/main/java/zsiggy/DialogBox.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/zsiggy/Launcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/zsiggy/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/java/zsiggy/MainWindow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/resources/view/MainWindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../data/tasks.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../data/tasks.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/zsiggy/Duke.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/zsiggy/Duke.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8,
+  "fromUser": false
+}]]></component>
+  <component name="ProjectId" id="3Iqp1tQatSHsC5ztPe0U2Jfs2ID" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "branch-Level-10",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/NUS/CS2103T/ip/src"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-34e2839f716b-intellij.indexing.shared.core-IU-262.9437.185" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.9437.185" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4aa2bc14-28ed-46a3-815b-fd49db7238f6" name="Changes" comment="" />
+      <created>1788501740833</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1788501740833</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
