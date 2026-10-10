@@ -1,0 +1,64 @@
+.root {
+    -fx-background-color: #b5f6f5;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+    -fx-font-size: 14px;
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-padding: 10px 15px;
+}
+
+.text-field:focused {
+    -fx-border-color: #0078D7;
+    -fx-background-color: #ffffff;
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+}
+
+.button {
+    -fx-background-color: #0078D7;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-cursor: hand;
+    -fx-padding: 8px 16px;
+}
+
+.button:hover {
+    -fx-background-color: #005A9E;
+}
+
+.button:pressed {
+    -fx-background-color: #004578;
+}
+
+.list-view {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.list-view .viewport {
+    -fx-background-color: transparent;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 5px 0;
+}
+
+/* Prevent blue highlight when a message is clicked */
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: transparent;
+}
+
+.help-bar {
+    -fx-alignment: center;
+    -fx-background-color: transparent;
+    -fx-text-fill: #555555;
+    -fx-font-size: 12px;
+}
