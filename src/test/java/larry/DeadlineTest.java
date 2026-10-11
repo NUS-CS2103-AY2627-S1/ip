@@ -1,6 +1,9 @@
 package larry;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.time.format.DateTimeParseException;
 
 import org.junit.jupiter.api.Test;
 public class DeadlineTest {
@@ -22,5 +25,17 @@ public class DeadlineTest {
                 "[D][X] submit assignment (by: Sep 10 2026)",
                 deadline.toString()
         );
+    }
+
+    @Test
+    public void getBy_validDate_returnsIsoDate() {
+        Deadline deadline = new Deadline("submit assignment", "2026-09-10");
+        assertEquals("2026-09-10", deadline.getBy());
+    }
+
+    @Test
+    public void constructor_invalidDate_throwsException() {
+        assertThrows(DateTimeParseException.class, () ->
+                new Deadline("submit assignment", "not-a-date"));
     }
 }
