@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: 6/10.
+* IDE and level of expertise: Some experience working with IntelliJ.
 
 # Guidance for interacting with users
 
@@ -24,11 +24,29 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Java coding standard
+
+All Java code in this project must follow the project-specific
+`.agents/skills/seedu-java-coding-standard/SKILL.md`, which is based on the
+[SE-EDU Java coding standard (basic + intermediate)](https://se-education.org/guides/conventions/java/intermediate.html).
+Use it whenever creating, reviewing, or modifying Java code. Check the changed
+files for naming, import ordering, four-space indentation, K&R braces, the
+120-character line limit, explicit imports, smallest practical variable scope,
+encapsulation, and required public API/class Javadocs before finishing.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
 ## Git
+
+All future commits in this project must follow
+`.agents/skills/seedu-git-standard/SKILL.md`, which is based on the
+[SE-EDU Git conventions](https://se-education.org/guides/conventions/git.html).
+Use imperative, capitalized commit subjects with no trailing period, aim for
+50 characters, and never exceed 72 characters. Non-trivial commits must have a
+72-character-wrapped body explaining what changed and why. Use meaningful
+kebab-case branch names, including the issue-number format when applicable.
 
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.

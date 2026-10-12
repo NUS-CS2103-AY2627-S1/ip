@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="echo.MainWindow">
+  <children>
+    <HBox alignment="CENTER_LEFT" prefHeight="48.0" spacing="12.0" styleClass="header-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <Label styleClass="header-title" text="E.C.H.O." />
+        <Label styleClass="header-subtitle" text="Everyday Conversational &amp; Helpful Operator" />
+        <Label styleClass="header-status" text="● HUD ACTIVE" />
+      </children>
+    </HBox>
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" prefHeight="540.0" prefWidth="850.0" styleClass="scroll-pane" vvalue="1.0" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="48.0">
+      <content>
+        <VBox fx:id="dialogContainer" prefHeight="535.0" prefWidth="848.0" styleClass="dialog-container" />
+      </content>
+    </ScrollPane>
+    <HBox alignment="CENTER" prefHeight="62.0" spacing="10.0" styleClass="input-bar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <children>
+        <TextField fx:id="userInput" onAction="#handleUserInput" promptText="Enter tactical directive (e.g., help, list, todo, deadline, event)..." styleClass="input-field" HBox.hgrow="ALWAYS" />
+        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="38.0" prefWidth="95.0" styleClass="send-button" text="SEND" />
+      </children>
+    </HBox>
+  </children>
+</AnchorPane>

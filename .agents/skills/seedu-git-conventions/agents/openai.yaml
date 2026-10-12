@@ -1,0 +1,4 @@
+interface:
+  display_name: "SE-EDU Git Conventions"
+  short_description: "Apply SE-EDU Git commit, branch, and tagging rules"
+  default_prompt: "Use $seedu-git-conventions to review this commit message, branch name, or tag."
