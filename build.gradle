@@ -1,0 +1,78 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+javafx {
+    version = '21.0.6'
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javaFxVersion = '21.0.6'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    // Bundle JavaFX native libraries for all target platforms so that the
+    // produced fat JAR (braun.jar) runs on Windows, Linux, and macOS without
+    // needing a separate JavaFX installation on the target machine.
+    // The org.openjfx.javafxplugin only adds the current host-platform
+    // classifier; the four blocks below add the remaining three platforms.
+    for (String platform : ['win', 'linux', 'mac', 'mac-aarch64']) {
+        implementation "org.openjfx:javafx-base:${javaFxVersion}:${platform}"
+        implementation "org.openjfx:javafx-controls:${javaFxVersion}:${platform}"
+        implementation "org.openjfx:javafx-fxml:${javaFxVersion}:${platform}"
+        implementation "org.openjfx:javafx-graphics:${javaFxVersion}:${platform}"
+        implementation "org.openjfx:javafx-media:${javaFxVersion}:${platform}"
+    }
+}
+
+test {
+    enableAssertions = true
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'braun.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'braun.jar'
+}
+
+run {
+    enableAssertions = true
+    standardInput = System.in
+}

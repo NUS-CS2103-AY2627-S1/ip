@@ -1,0 +1,132 @@
+/* ==========================================================================
+   Braun Late-Night Broadcast Theme (1970s Supernatural CRT TV Host)
+   ========================================================================== */
+
+.root {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: #12141c;
+}
+
+/* ScrollPane and Dialog Container */
+.scroll-pane {
+    -fx-background-color: #12141c;
+    -fx-background: #12141c;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #12141c;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #2e3447;
+    -fx-background-radius: 4px;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #ffb74d;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+#dialogContainer {
+    -fx-background-color: #12141c;
+    -fx-padding: 12 10 12 10;
+}
+
+/* User Dialog Bubble (Daydream Inc. Field Explorer) */
+.user-dialog {
+    -fx-background-color: #1e293b;
+    -fx-background-radius: 14 4 14 14;
+    -fx-border-color: #00e5ff;
+    -fx-border-width: 1.2px;
+    -fx-border-radius: 14 4 14 14;
+    -fx-text-fill: #f1f5f9;
+    -fx-padding: 10 14 10 14;
+    -fx-font-size: 13px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 229, 255, 0.18), 6, 0, 0, 1);
+}
+
+/* Braun Dialog Bubble (CRT Television Talk-Show Host) */
+.braun-dialog {
+    -fx-background-color: #252836;
+    -fx-background-radius: 4 14 14 14;
+    -fx-border-color: #ffb74d;
+    -fx-border-width: 1.2px;
+    -fx-border-radius: 4 14 14 14;
+    -fx-text-fill: #fef3c7;
+    -fx-padding: 10 14 10 14;
+    -fx-font-size: 13px;
+    -fx-effect: dropshadow(gaussian, rgba(255, 183, 77, 0.20), 6, 0, 0, 1);
+}
+
+/* Braun Error Dialog Bubble (Crimson Red Warning Transmission) */
+.braun-error-dialog {
+    -fx-background-color: #2b171d;
+    -fx-background-radius: 4 14 14 14;
+    -fx-border-color: #ef4444;
+    -fx-border-width: 1.4px;
+    -fx-border-radius: 4 14 14 14;
+    -fx-text-fill: #fecaca;
+    -fx-padding: 10 14 10 14;
+    -fx-font-size: 13px;
+    -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.35), 8, 0, 0, 1);
+}
+
+/* Avatar Image Views */
+.avatar-view {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.55), 6, 0, 0, 2);
+}
+
+/* Input Bar (TextField & Button) */
+#userInput {
+    -fx-background-color: #1a1d27;
+    -fx-background-radius: 4 0 0 4;
+    -fx-border-color: #2e3447;
+    -fx-border-width: 1px 0 1px 1px;
+    -fx-border-radius: 4 0 0 4;
+    -fx-text-fill: #ffffff;
+    -fx-prompt-text-fill: #64748b;
+    -fx-padding: 0 12 0 12;
+    -fx-font-size: 13px;
+}
+
+#userInput:focused {
+    -fx-border-color: #ffb74d;
+    -fx-background-color: #1f2330;
+}
+
+#sendButton {
+    -fx-background-color: linear-gradient(to bottom, #f59e0b, #d97706);
+    -fx-background-radius: 0 4 4 0;
+    -fx-border-color: #b45309;
+    -fx-border-width: 1px;
+    -fx-border-radius: 0 4 4 0;
+    -fx-text-fill: #0f172a;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+
+#sendButton:hover {
+    -fx-background-color: linear-gradient(to bottom, #fbbf24, #f59e0b);
+}
+
+#sendButton:pressed {
+    -fx-background-color: #b45309;
+}
