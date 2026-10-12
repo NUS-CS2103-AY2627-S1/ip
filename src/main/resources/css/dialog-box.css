@@ -1,0 +1,35 @@
+.dialog-line {
+    -fx-font-size: 13px;
+    -fx-text-fill: #1a1a1a;
+    -fx-padding: 2 4 2 4;
+}
+
+.task-line {
+    -fx-font-size: 13px;
+    -fx-text-fill: #1a1a1a;
+    -fx-background-color: #d9d9d9;
+    -fx-background-radius: 8;
+    -fx-padding: 5 10 5 10;
+}
+
+.user-bubble {
+    -fx-background-color: #d1e7ff;
+    -fx-background-radius: 12;
+    -fx-padding: 8;
+}
+
+.duke-bubble {
+    -fx-background-color: #e2f7d8;
+    -fx-background-radius: 12;
+    -fx-padding: 8;
+}
+
+.scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}

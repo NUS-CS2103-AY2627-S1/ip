@@ -13,8 +13,20 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Windows folder metadata files
+desktop.ini
+
+# Unused image files
+src/main/resources/images/DaDuke.jpg
+src/main/resources/images/DaUser.jpg
+src/main/resources/images/Old.png
+src/main/resources/images/Old2.png
+
 # Temp files
 _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Data files
+data/

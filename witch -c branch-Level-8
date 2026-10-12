@@ -1,0 +1,18 @@
+*   [33m1aff7e1[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;33mtag: [m[1;33mLevel-7[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge branch-Level-7 into master
+[31m|[m[32m\[m  
+[31m|[m * [33med6d2d8[m[33m ([m[1;31morigin/branch-Level-7[m[33m, [m[1;32mbranch-Level-7[m[33m)[m Level-7: Add task saving and loading via Storage
+[31m|[m[31m/[m  
+* [33m0f0d4cd[m[33m ([m[1;33mtag: [m[1;33mA-Enums[m[33m)[m A-Enums: changed switch keyword system to use enum
+* [33m114b3ad[m[33m ([m[1;33mtag: [m[1;33mLevel-6[m[33m)[m Level-6: delete task. Also added printing cumulative task number after add/delete
+* [33mda84560[m[33m ([m[1;33mtag: [m[1;33mLevel-5[m[33m)[m Level-5: invalid input handlind - created new error class to forward messages, wrapped main switch in try catch block to catch error messages
+* [33m0467e2b[m[33m ([m[1;33mtag: [m[1;33mLevel-4[m[33m)[m Level-4: Reworked if statements into a switch + helpers. Added 3 subclasses for different types of tasks.
+* [33ma89cbda[m Level-3: change Task.getStatusIcon() so it matches given function on the CS2103T site
+* [33m2dd8c0f[m[33m ([m[1;33mtag: [m[1;33mLevel-3[m[33m)[m Level-3: mark as done. Moved Task to a separate object as it now holds properties
+* [33me6c3f85[m[33m ([m[1;33mtag: [m[1;33mLevel-2[m[33m)[m Level-2: Task List
+* [33ma5df6f4[m[33m ([m[1;33mtag: [m[1;33mLevel-1[m[33m)[m Level-1: echoing inputs
+* [33m69fd88e[m[33m ([m[1;33mtag: [m[1;33mLevel-0[m[33m)[m Level-0: greet and exit. Also moved banner to separate file
+* [33m57b1f2d[m Add AGENTS.md and CLAUDE.md
+[32m|[m * [33me38f220[m[33m ([m[1;31morigin/add-gradle-support[m[33m)[m Add Gradle support
+[32m|[m[32m/[m  
+* [33mbefbd32[m Remove text-ui-test folder
+* [33m87474f1[m Duke.java: Rename logo -> banner
