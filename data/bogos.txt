@@ -1,0 +1,4 @@
+T | false | borrow book
+E | true | project meeting | 2026-09-05 | 2026-09-06
+T | false | swim
+D | false | clean house | 2030-01-01

@@ -1,0 +1,104 @@
+/* A restrained retro-alien palette based on Bogos's green portrait. */
+.main-window {
+    -fx-background-color: #0b1f17;
+    -fx-font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+}
+
+.app-header {
+    -fx-background-color: linear-gradient(to right, #123d27, #1d5a31);
+    -fx-border-color: transparent transparent #b7e34a transparent;
+    -fx-border-width: 0 0 2 0;
+    -fx-padding: 14 20 12 20;
+}
+
+.app-title {
+    -fx-text-fill: #f5eedc;
+    -fx-font-size: 24px;
+    -fx-font-weight: 800;
+    -fx-letter-spacing: 1.5px;
+}
+
+.app-subtitle {
+    -fx-text-fill: #b7e34a;
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+}
+
+.chat-scroll-pane,
+.chat-scroll-pane > .viewport {
+    -fx-background-color: #0b1f17;
+}
+
+.chat-scroll-pane > .scroll-bar:vertical {
+    -fx-background-color: #0b1f17;
+}
+
+.chat-scroll-pane > .scroll-bar:vertical .thumb {
+    -fx-background-color: #2e7d32;
+    -fx-background-radius: 10;
+}
+
+.dialog-container {
+    -fx-background-color: #0b1f17;
+    -fx-padding: 8 0 8 0;
+}
+
+.dialog-box {
+    -fx-spacing: 10;
+}
+
+.dialog-label {
+    -fx-background-radius: 16;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 10 14 10 14;
+}
+
+.bogos-dialog .dialog-label {
+    -fx-background-color: #2e7d32;
+    -fx-border-color: #b7e34a;
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+    -fx-text-fill: #f5eedc;
+}
+
+.user-dialog .dialog-label {
+    -fx-background-color: #f5eedc;
+    -fx-text-fill: #102018;
+}
+
+.speaker-image {
+    -fx-effect: dropshadow(gaussian, rgba(183, 227, 74, 0.28), 10, 0.25, 0, 2);
+}
+
+.command-input {
+    -fx-background-color: #f5eedc;
+    -fx-background-radius: 12;
+    -fx-border-color: #416f42;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-font-size: 14px;
+    -fx-text-fill: #102018;
+    -fx-prompt-text-fill: #55705c;
+}
+
+.command-input:focused {
+    -fx-border-color: #b7e34a;
+    -fx-border-width: 2;
+}
+
+.send-button {
+    -fx-background-color: #b7e34a;
+    -fx-background-radius: 12;
+    -fx-font-size: 12px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #102018;
+}
+
+.send-button:hover {
+    -fx-background-color: #d2f477;
+}
+
+.send-button:pressed {
+    -fx-background-color: #8fbc39;
+}
