@@ -1,0 +1,71 @@
+.root {
+    baymax-red: #d71920;
+    baymax-dark-red: #a90f16;
+    baymax-ink: #202124;
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #f3f4f6);
+    -fx-font-family: "Orbitron";
+    -fx-background-image: url("../image/background.jpg");
+    -fx-background-size: cover;
+}
+
+#dialogContainer {
+    -fx-padding: 10px 4px;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 18px;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 18px;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 14px;
+    -fx-prompt-text-fill: #6b7280;
+    -fx-text-fill: baymax-ink;
+}
+
+.text-field:focused {
+    -fx-border-color: baymax-red;
+    -fx-effect: dropshadow(gaussian, rgba(215, 25, 32, 0.18), 8, 0.2, 0, 0);
+}
+
+.button {
+    -fx-background-color: baymax-red;
+    -fx-background-radius: 18px;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: derive(baymax-red, -12%);
+}
+
+.button:pressed {
+    -fx-background-color: baymax-dark-red;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #c7c9cc;
+    -fx-background-radius: 5px;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: baymax-red;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}
