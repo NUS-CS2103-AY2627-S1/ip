@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Basics up to CS2030s in java proficiency
+* IDE and level of expertise: IntelliJ with Vim key bindings, new to IntelliJ
 
 # Guidance for interacting with users
 
@@ -24,9 +24,17 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Java coding standard
+
+Use the project-local `.codex/skills/seedu-java-coding-standard` skill for every new or modified Java file. It is mandatory whenever code is generated or changed: apply it before compiling or testing, then review the complete diff for naming, layout, imports, braces, encapsulation, and production Javadocs. Use the SE-EDU basic and intermediate Java coding standard linked by that skill, with the Google Java Style Guide as the fallback for uncovered topics.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+
+## UI testing
+
+After each code update, review `test/ui-test-plan.md` and update it when the change affects the command-line interface or its expected output. Then invoke the repository-local `test-ui` skill to run the recorded UI test cases and preserve the generated console-session record. Stop and report the first failing case; do not continue the test session after a failure.
 
 ## Git
 

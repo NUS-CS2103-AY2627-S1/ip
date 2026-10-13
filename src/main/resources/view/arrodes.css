@@ -1,0 +1,113 @@
+.app-root {
+    -fx-background-color: #17151f;
+    -fx-background-image: url("/images/background.jpg");
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-font-family: "Segoe UI";
+}
+
+.conversation {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.conversation .viewport {
+    -fx-background-color: transparent;
+    -fx-padding: 8 0 10 0;
+}
+
+.dialog-container {
+    -fx-background-color: transparent;
+    -fx-padding: 4 10 8 10;
+}
+
+.dialog-box {
+    -fx-spacing: 10;
+    -fx-alignment: top-left;
+}
+
+.dialog-text {
+    -fx-font-size: 14px;
+    -fx-text-fill: #ece7d5;
+    -fx-background-radius: 12px;
+    -fx-padding: 9 12 9 12;
+}
+
+.arrodes-dialog .dialog-text {
+    -fx-background-color: #29243b;
+    -fx-border-color: #6e5a9b;
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+    -fx-font-size: 15px;
+    -fx-padding: 11 14 11 14;
+}
+
+.user-dialog {
+    -fx-alignment: top-right;
+}
+
+.user-dialog .dialog-text {
+    -fx-background-color: #a98243;
+    -fx-text-fill: #17151f;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 7 10 7 10;
+}
+
+.error-dialog .dialog-text {
+    -fx-background-color: #4b202e;
+    -fx-border-color: #e17c78;
+    -fx-border-radius: 12px;
+    -fx-border-width: 1.5px;
+    -fx-text-fill: #ffd9d1;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-padding: 11 14 11 14;
+}
+
+.profile-picture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.45), 5, 0.2, 0, 2);
+}
+
+.command-input {
+    -fx-background-color: #242130;
+    -fx-border-color: #6e5a9b;
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 0 14 0 14;
+    -fx-font-size: 14px;
+    -fx-text-fill: #f4efdf;
+    -fx-prompt-text-fill: #958da8;
+}
+
+.command-input:focused {
+    -fx-border-color: #c7a968;
+    -fx-border-width: 2px 0 0 0;
+}
+
+.send-button {
+    -fx-background-color: #c7a968;
+    -fx-text-fill: #17151f;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: #e0c47d;
+}
+
+.send-button:pressed {
+    -fx-background-color: #a98243;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: #17151f;
+    -fx-pref-width: 8px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #51456c;
+    -fx-background-radius: 8px;
+}
