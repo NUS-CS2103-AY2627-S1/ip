@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: low - intermediate
+* IDE and level of expertise: NVim, 1 year of experience
 
 # Guidance for interacting with users
 
@@ -28,8 +28,32 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## Java coding standard
+
+Follow the SE-EDU Java coding standard (basic + intermediate) for all Java code in this project, including tests and any code reviewed or suggested.
+The rules are captured in the `seedu-java-coding-standard` skill in `.codex/skills/seedu-java-coding-standard/`; invoke it before writing or reviewing Java code.
+
 ## Git
+
+Follow the SE-EDU Git conventions for every commit message and branch name, as captured in the `seedu-git-standard` skill in `.codex/skills/seedu-git-standard/`.
 
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
+Keep commit subjects within 50 characters when practical and never exceed 72 characters.
+Wrap commit message body lines at 72 characters.
 Do not commit or push unless explicitly asked.
+
+## JUnit testing
+
+* Write JUnit 5 tests in `src/test/java/`, mirroring the package structure of `src/main/java/`.
+* Test coverage target: the top ~50% of highest-value methods, prioritizing complex, core, or critical business logic (e.g. parsing, task operations, and storage round-tripping) over trivial getters and wiring.
+* Update the JUnit tests after each code change so the coverage target continues to hold.
+* Run the full suite with `./gradlew test`; all tests must pass before work is considered complete.
+
+## UI regression testing
+
+After each code update:
+
+* Update `test/ui-test-plan.md` if commands, expected output, or relevant test coverage changed.
+* Invoke the project-specific `test-ui` skill in `.codex/skills/test-ui/`.
+* Stop at the first failed UI test and report the command together with the expected and actual output.

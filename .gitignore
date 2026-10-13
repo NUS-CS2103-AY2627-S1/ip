@@ -1,7 +1,15 @@
+# binary files
+**/*.class
+
 # IDEA files
 /.idea/
 /out/
 /*.iml
+
+# Eclipse files
+/.classpath
+/.project
+/.settings/
 
 # Gradle build files
 /.gradle/
@@ -15,6 +23,12 @@ bin/
 
 # Temp files
 _temp/
+
+# Local agent planning docs
+docs/superpowers/
+
+# Saved task data
+/data/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

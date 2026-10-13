@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0"
+    xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+    stylesheets="@../css/main.css" fx:controller="ruby.MainWindow">
+    <children>
+
+        <!-- header container -->
+        <HBox alignment="CENTER_LEFT" styleClass="app-header" AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox spacing="3.0">
+                    <children>
+                        <Label styleClass="app-title" text="Ruby" />
+                        <Label styleClass="app-subtitle"
+                            text="Ruby — still more reliable than your brain." />
+                    </children>
+                </VBox>
+                <Label maxWidth="1.7976931348623157E308" styleClass="header-hint"
+                    text="Try: todo read book" HBox.hgrow="ALWAYS" />
+            </children>
+        </HBox>
+
+        <!-- Dialog container -->
+        <ScrollPane
+            fx:id="scrollPane" fitToWidth="true"
+            prefWidth="400.0" hbarPolicy="NEVER" hvalue="1.0" vvalue="1.0"
+            AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="82.0">
+            <content>
+                <VBox fx:id="dialogContainer" prefWidth="388.0" />
+            </content>
+        </ScrollPane>
+
+        <!-- User input and Send button  container -->
+        <HBox alignment="CENTER" spacing="10.0" styleClass="composer"
+            AnchorPane.bottomAnchor="0.0"
+            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="46.0"
+                    promptText="Type a command…" HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput"
+                    prefHeight="46.0" prefWidth="72.0" text="Send" />
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
