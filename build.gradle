@@ -1,0 +1,173 @@
+plugins {
+    id 'application'
+    id 'checkstyle'
+}
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    javafxPlatforms
+}
+
+dependencies {
+    String javaFxVersion = '17.0.7'
+    String osName = System.getProperty('os.name').toLowerCase()
+    String osArchitecture = System.getProperty('os.arch').toLowerCase()
+    boolean isArmArchitecture = osArchitecture.contains('aarch64') || osArchitecture.contains('arm64')
+    String javafxPlatform = osName.contains('mac')
+            ? (isArmArchitecture ? 'mac-aarch64' : 'mac')
+            : osName.contains('win') ? 'win' : (isArmArchitecture ? 'linux-aarch64' : 'linux')
+
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:${javafxPlatform}")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:${javafxPlatform}")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:${javafxPlatform}")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:${javafxPlatform}")
+    ['win', 'linux', 'mac', 'mac-aarch64'].each { platform ->
+        javafxPlatforms("org.openjfx:javafx-graphics:${javaFxVersion}:${platform}") {
+            transitive = false
+        }
+    }
+    implementation 'dev.langchain4j:langchain4j-open-ai:1.10.0'
+    runtimeOnly 'org.slf4j:slf4j-nop:2.0.17'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.12.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+application {
+    mainClass = 'duke.gui.Launcher'
+    applicationDefaultJvmArgs = ['--enable-native-access=ALL-UNNAMED']
+}
+
+// Packaging approach inspired by https://openjfx.io/openjfx-docs/#modular.
+// Intel and Apple Silicon libraries have identical names, so keep each platform in its own folder.
+def javafxNativeDirectory = layout.buildDirectory.dir('generated/javafx-natives')
+tasks.register('prepareJavafxNatives') {
+    inputs.files(configurations.javafxPlatforms)
+    outputs.dir(javafxNativeDirectory)
+    doLast {
+        delete(javafxNativeDirectory)
+        configurations.javafxPlatforms.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+            def platformDirectory = javafxNativeDirectory.get().dir("javafx-natives/${artifact.classifier}").asFile
+            copy {
+                from zipTree(artifact.file)
+                include '*.dll', '*.so', '*.dylib'
+                into platformDirectory
+            }
+            new File(platformDirectory, 'libraries.list').text =
+                    platformDirectory.listFiles().collect { it.name }.sort().join('\n') + '\n'
+        }
+    }
+}
+
+// Dependency JARs can use the same notice paths. Preserve each supplied notice separately
+// so the fat JAR's duplicate-entry handling cannot discard another library's attribution.
+def dependencyNoticeDirectory = layout.buildDirectory.dir('generated/dependency-notices')
+tasks.register('prepareDependencyNotices') {
+    inputs.files(configurations.runtimeClasspath, configurations.javafxPlatforms)
+    outputs.dir(dependencyNoticeDirectory)
+    doLast {
+        delete(dependencyNoticeDirectory)
+        def artifacts = (configurations.runtimeClasspath.resolvedConfiguration.resolvedArtifacts
+                + configurations.javafxPlatforms.resolvedConfiguration.resolvedArtifacts)
+        artifacts.each { artifact ->
+            def version = artifact.moduleVersion.id
+            def classifier = artifact.classifier ? "-${artifact.classifier}" : ''
+            def noticePath = ("META-INF/wangsa/dependency-notices/${version.group}/"
+                    + "${artifact.name}-${version.version}${classifier}")
+            copy {
+                from zipTree(artifact.file)
+                include '**/*LICENSE*', '**/*NOTICE*', '**/COPYING*', '**/COPYRIGHT*', '**/legal/**'
+                caseSensitive = false
+                includeEmptyDirs = false
+                into dependencyNoticeDirectory.get().dir(noticePath)
+            }
+        }
+    }
+}
+
+tasks.named('jar', Jar) {
+    dependsOn 'prepareJavafxNatives', 'prepareDependencyNotices'
+    archiveBaseName = 'Wangsa'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from({
+        (configurations.runtimeClasspath + configurations.javafxPlatforms).collect { dependency ->
+            dependency.isDirectory() ? dependency : zipTree(dependency)
+        }
+    }) {
+        // Keep JavaFX's native libraries in the platform-specific folders prepared above.
+        exclude '*.dll', '*.so', '*.dylib'
+    }
+    from javafxNativeDirectory
+    from dependencyNoticeDirectory
+    from('docs/CREDITS.md') {
+        into 'META-INF/wangsa'
+    }
+    exclude 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA', 'module-info.class'
+    manifest {
+        attributes('Main-Class': application.mainClass.get(), 'Enable-Native-Access': 'ALL-UNNAMED')
+    }
+}
+
+// Keep the course's suggested command usable with Wangsa's existing cross-platform fat-JAR builder.
+// This is an alias, not the third-party Shadow plugin.
+tasks.register('shadowJar') {
+    group = 'build'
+    description = 'Builds the portable fat JAR using Wangsa\'s custom jar task.'
+    dependsOn 'jar'
+}
+
+// An optional easy-start download; the standalone course submission JAR remains available.
+tasks.register('portableZip', Zip) {
+    group = 'distribution'
+    description = 'Packages the JAR with Windows and Mac start scripts and a short quick start.'
+    dependsOn 'jar'
+    archiveFileName = 'Wangsa.zip'
+    destinationDirectory = layout.buildDirectory.dir('distributions')
+    into('Wangsa') {
+        from(tasks.named('jar'))
+        from('packaging') {
+            exclude '*.command'
+        }
+        from('packaging') {
+            include '*.command'
+            filePermissions {
+                unix('rwxr-xr-x')
+            }
+        }
+    }
+}
+
+tasks.named('run', JavaExec) {
+    standardInput = System.in
+}
+
+tasks.register('runCli', JavaExec) {
+    group = 'application'
+    description = 'Runs Wangsa using the command-line interface.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'duke.Wangsa'
+    standardInput = System.in
+}
+
+tasks.withType(JavaExec).configureEach {
+    jvmArgs '--enable-native-access=ALL-UNNAMED'
+}
+
+tasks.named('test', Test) {
+    useJUnitPlatform()
+    enableAssertions = true
+    jvmArgs '--enable-native-access=ALL-UNNAMED'
+}
+
+checkstyle {
+    toolVersion = '10.17.0'
+    maxWarnings = 0
+}

@@ -13,8 +13,17 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Runtime task data
+/data/
+/.wangsa/
+
 # Temp files
 _temp/
+/tmp/
+/output/
+
+# Standalone local downloads and release candidates
+/*.jar
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

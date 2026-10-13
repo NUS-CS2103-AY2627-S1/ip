@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Intermediate
+* IDE and level of expertise: Intermediate
 
 # Guidance for interacting with users
 
@@ -33,3 +33,11 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## Coding standards
+
+Follow the project-specific `seedu-java-coding-standard` and
+`seedu-git-standard` skills for all future Java changes and commits.
+Keep Java source in packages, use four-space indentation and a 120-character
+hard line limit, document public APIs with Javadoc, and use imperative,
+capitalized commit subjects with concise explanatory bodies.

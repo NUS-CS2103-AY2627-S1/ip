@@ -1,0 +1,56 @@
+WANGSA - QUICK START
+
+1. Install Java 25 if you do not already have it:
+   https://adoptium.net/temurin/releases/?version=25
+   Choose the installer for your operating system and processor.
+
+2. Extract the whole ZIP into a folder you own, such as Documents/Wangsa.
+   On Windows, right-click the ZIP and choose Extract All.
+   Do not run the app from inside the ZIP.
+
+3. Open the extracted folder:
+   Windows: double-click Start-Wangsa.bat.
+   Mac: double-click Start-Wangsa.command.
+   Linux: open a terminal here and run java -jar Wangsa.jar.
+   You can also run java -jar Wangsa.jar in a terminal on Windows or Mac.
+
+4. Click the command box at the bottom of Wangsa. Type one command at a time,
+   then press Enter or click SEND:
+   todo read a book
+   deadline ST2334 /by 2026-09-30
+   list
+   mark 1
+
+Starting from an empty list, you now have two tasks; the first is marked done.
+Type help for all commands. Type bye to close.
+Tasks save automatically. No database, account, or API key is needed.
+
+IF A COMMAND IS REJECTED
+
+- Use lowercase command names: list, not /list or List.
+- Keep the slash in /by: deadline ST2334 /by 2026-09-30.
+- Use a real date in YYYY-MM-DD format. September has 30 days, not 31.
+- After an error, type the whole corrected command again. No task was added.
+- For mark, unmark, or delete, use a task number from list.
+
+YOUR TASKS
+
+Wangsa creates data/wangsa.txt in its launch folder after your first change.
+The start scripts use the extracted app folder. In a terminal, change to that
+folder before launching; it should contain your usual data folder.
+Keep the JAR and data folder together. To back up tasks, close Wangsa and
+copy the data folder. To update, close Wangsa and replace only the JAR.
+The .wangsa folder caches bundled JavaFX libraries; it contains no task data.
+
+IF IT DOES NOT OPEN
+
+Run java -version in a terminal and check that it says 25.
+Keep the extracted app in a writable folder, not a protected system folder.
+If your system blocks a downloaded app, review its warning and source before
+opening it. You can run java -jar Wangsa.jar in a terminal to see any error.
+Supported: Windows x64, Linux x64 with GTK 3, Intel Mac, Apple Silicon Mac.
+
+Earlier versions used wangsa.db. This version does not read or delete that
+file. Keep a backup if it contains tasks you still need to transfer.
+
+Guide and credits: https://manutd1234.github.io/ip/
