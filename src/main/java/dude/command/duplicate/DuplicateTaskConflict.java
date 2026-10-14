@@ -24,7 +24,7 @@ public record DuplicateTaskConflict(Task candidate, List<DuplicateMatch> matches
     }
 
     /**
-     * A matching task and its zero-based position in the task list.
+     * Represents a matching task and its zero-based position in the task list.
      *
      * @param index Zero-based task-list index.
      * @param task  Existing matching task.

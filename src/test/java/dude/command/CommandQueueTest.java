@@ -153,16 +153,16 @@ public class CommandQueueTest {
     }
 
     private static class RecordingStorage extends Storage {
-        private boolean failNextSave;
+        private boolean shouldFailNextSave;
 
         private void failNextSave() {
-            failNextSave = true;
+            shouldFailNextSave = true;
         }
 
         @Override
         public void saveTasks(TaskList tasks) throws IOException {
-            if (failNextSave) {
-                failNextSave = false;
+            if (shouldFailNextSave) {
+                shouldFailNextSave = false;
                 throw new IOException("test failure");
             }
             assertTrue(tasks != null);

@@ -16,7 +16,7 @@ abstract class TaskCompletionCommand extends Command implements Undoable {
     private final String argument;
     private final CompletionAction action;
     private Task task;
-    private boolean previousState;
+    private boolean wasDone;
 
     /**
      * Creates a task-completion command.
@@ -35,7 +35,7 @@ abstract class TaskCompletionCommand extends Command implements Undoable {
     @Override
     public final CommandResult execute() throws UsageException, CommandExecutionException {
         task = tasks().get(parseTaskIndex(action.commandType(), argument));
-        previousState = task.isDone();
+        wasDone = task.isDone();
         setDone(action.completed());
         environment().ui().showUpdatedTask(task, action.commandType());
         save();
@@ -44,7 +44,7 @@ abstract class TaskCompletionCommand extends Command implements Undoable {
 
     @Override
     public final void undo() {
-        setDone(previousState);
+        setDone(wasDone);
     }
 
     @Override

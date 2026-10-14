@@ -90,12 +90,12 @@ public class GuiController {
     public GuiResponse execute(String input) {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         String errorMessage = null;
-        boolean exit = false;
+        boolean shouldExit = false;
         try (PrintStream output = new PrintStream(buffer, true, StandardCharsets.UTF_8)) {
             Ui outputUi = new Ui(new Scanner(""), output);
             Command command = commandCreator.create(Parser.parse(input), outputUi);
             CommandResult result = commandQueue.execute(command);
-            exit = result.shouldExit();
+            shouldExit = result.shouldExit();
         } catch (UsageException exception) {
             errorMessage = formatGuiError(exception);
         } catch (CommandExecutionException exception) {
@@ -104,7 +104,8 @@ public class GuiController {
         if (errorMessage != null) {
             return new GuiResponse(errorMessage, true, false);
         }
-        return new GuiResponse(cleanForGui(buffer.toString(StandardCharsets.UTF_8)), false, exit);
+        return new GuiResponse(cleanForGui(buffer.toString(StandardCharsets.UTF_8)), false,
+                shouldExit);
     }
 
     /**
