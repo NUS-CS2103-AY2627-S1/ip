@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="720.0" prefWidth="640.0"
+            styleClass="app-root"
+            stylesheets="@../styles/milo-theme.css"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="milo.gui.MainWindow">
+    <children>
+        <VBox AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="top-bar">
+                    <padding>
+                        <Insets bottom="12.0" left="18.0" right="18.0" top="12.0" />
+                    </padding>
+                    <children>
+                        <ImageView fitHeight="38.0"
+                                   fitWidth="38.0"
+                                   mouseTransparent="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../images/milo-avatar.png" />
+                            </image>
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" spacing="1.0">
+                            <children>
+                                <Label styleClass="brand-title" text="BroSpot" />
+                                <Label styleClass="brand-subtitle" text="NUS task manager" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <ScrollPane fx:id="scrollPane"
+                            fitToWidth="true"
+                            hbarPolicy="NEVER"
+                            styleClass="conversation-scroll"
+                            VBox.vgrow="ALWAYS">
+                    <content>
+                        <VBox fx:id="dialogContainer"
+                              fillWidth="true"
+                              spacing="12.0"
+                              styleClass="dialog-container">
+                            <padding>
+                                <Insets bottom="24.0" left="0.0" right="0.0" top="24.0" />
+                            </padding>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+                <HBox alignment="CENTER" spacing="10.0" styleClass="command-bar">
+                    <padding>
+                        <Insets bottom="14.0" left="20.0" right="20.0" top="14.0" />
+                    </padding>
+                    <children>
+                        <HBox alignment="CENTER" spacing="8.0"
+                              styleClass="message-composer"
+                              HBox.hgrow="ALWAYS">
+                            <children>
+                                <TextField fx:id="userInput"
+                                           onAction="#handleUserInput"
+                                           promptText="Message BroSpot"
+                                           styleClass="message-input"
+                                           HBox.hgrow="ALWAYS" />
+                                <Button accessibleText="Send"
+                                        maxHeight="38.0"
+                                        maxWidth="38.0"
+                                        minHeight="38.0"
+                                        minWidth="38.0"
+                                        mnemonicParsing="false"
+                                        onAction="#handleUserInput"
+                                        prefHeight="38.0"
+                                        prefWidth="38.0"
+                                        styleClass="send-button"
+                                        text="↑" />
+                            </children>
+                        </HBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
