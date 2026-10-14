@@ -1,0 +1,52 @@
+/* Adapted from the SE-EDU JavaFX Tutorial, Part 5:
+   https://se-education.org/guides/tutorials/javaFxPart5.html */
+
+.label {
+    -fx-background-color: linear-gradient(to bottom right, #fff1e3, #f7cebc);
+    -fx-border-color: #522f21;
+    -fx-border-width: 5px;
+    -fx-background-radius: 1.25em 1.25em 0 1.25em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.reply-label {
+    -fx-background-radius: 1.25em 1.25em 1.25em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.user-dialog {
+    -fx-alignment: top-right;
+}
+
+.bingus-dialog {
+    -fx-alignment: bottom-left;
+}
+
+
+.neutral-label {
+    -fx-background-color: linear-gradient(to bottom right, #fff1e3, #f7cebc);
+    -fx-border-color: #522f21;
+}
+
+.success-label {
+    -fx-background-color: linear-gradient(to bottom right, #e7f7e5, #c8e8c5);
+    -fx-border-color: #3f7847;
+}
+
+.error-label {
+    -fx-background-color: linear-gradient(to bottom right, #ffe6e3, #f5bcb7);
+    -fx-border-color: #b23e36;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+

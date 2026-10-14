@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI Test Runner"
+  short_description: "Verify bingus.Bingus console command output."
+  default_prompt: "Use $test-ui to run the UI test plan."

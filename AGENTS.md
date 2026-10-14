@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Medium
+* IDE and level of expertise: Medium
 
 # Guidance for interacting with users
 
@@ -23,6 +23,12 @@ Unless the user says otherwise, assume that you are assisting a student working 
   * When faced with a design choice, choose the simplest option that is sufficient for the requirements, while briefly explaining relevant more advanced alternatives.
 
 # Project-specific requirements
+## Java coding standard
+
+For every Java code change in this project, agents must follow the
+project-specific `seedu-java-coding-standard` skill in
+`.codex/skills/seedu-java-coding-standard/`. Apply its SE-EDU-based rules when
+creating, editing, or reviewing Java source and test files.
 
 ## Java version:
 
@@ -33,3 +39,9 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## Testing
+
+Maintain JUnit coverage for approximately the highest-value 50% of public behaviour, prioritising complex,
+core, and critical business logic over trivial accessors or boilerplate. Update or add the relevant JUnit tests
+whenever production code changes, so this coverage target remains satisfied.

@@ -1,0 +1,75 @@
+/* Adapted from the SE-EDU JavaFX Tutorial, Part 5:
+   https://se-education.org/guides/tutorials/javaFxPart5.html */
+
+.root {
+    main-color: rgb(237, 255, 242);       /* Create a looked-up color called "main-color" within root. */
+    -fx-background-color: main-color;
+    -fx-background-image: url("../images/background.png");
+    -fx-background-size: cover;
+}
+
+.app-header {
+    -fx-background-color: rgba(82, 47, 33, 0.9);
+    -fx-padding: 8px 12px;
+}
+
+.app-title {
+    -fx-font: bold 22px "Arial";
+    -fx-text-fill: #fff1e3;
+}
+
+.text-field {
+    -fx-background-color: #ffedd9;
+    -fx-font: 16px "Arial";
+    -fx-prompt-text-fill: #9e8070;
+}
+
+.text-field:focused {
+    -fx-border-color: #8a523b;
+    -fx-border-width: 2px;
+}
+
+.input-bar {
+    -fx-background-color: #ffedd9;
+}
+
+.button {
+    -fx-background-color: #e8bd90;
+    -fx-font: italic bold 16px "Arial";
+}
+
+.button:hover {
+    -fx-background-color: #8a523b;
+}
+
+.button:pressed {
+    -fx-background-color: #c98251;
+}
+
+.button:focused {
+    -fx-border-color: #522f21;
+    -fx-border-width: 2px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #ff9cb4;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
