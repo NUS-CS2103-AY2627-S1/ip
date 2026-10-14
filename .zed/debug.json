@@ -1,0 +1,16 @@
+
+[
+  {
+    "adapter": "Java",
+    "request": "launch",
+    "label": "Launch Bott",
+    "mainClass": "bott.Bott",
+    "projectName": "ip",
+    "classPaths": [
+      "$Runtime",
+      "$ZED_WORKTREE_ROOT/build/classes/java/main"
+    ],
+    "stopOnEntry": false,
+    "cwd": "$ZED_WORKTREE_ROOT"
+  }
+]

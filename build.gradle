@@ -1,0 +1,78 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+javafx {
+    // Only the base controls are used; the GUI is built in code, without FXML.
+    version = '25'
+    modules = ['javafx.controls']
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    // The javafx plugin above only resolves native libraries for the platform Gradle
+    // itself is running on, so a shadowJar built on one OS silently omits the natives
+    // needed to run on the others. Since the jar is distributed to graders on
+    // Windows/Linux/Mac, all platform classifiers are pulled in explicitly here so
+    // shadowJar bundles native libraries for every platform, not just the build machine's.
+    for (String platform : ['win', 'linux', 'mac', 'mac-aarch64']) {
+        implementation "org.openjfx:javafx-base:${javafx.version}:${platform}"
+        implementation "org.openjfx:javafx-graphics:${javafx.version}:${platform}"
+        implementation "org.openjfx:javafx-controls:${javafx.version}:${platform}"
+    }
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    // The console interface stays available via bott.Bott.main().
+    mainClass = 'bott.gui.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'bott.jar'
+}
+
+run {
+    standardInput = System.in
+    // Run with -ea so the assert statements in the code are checked during
+    // development. (Gradle's 'test' task already enables assertions by default.)
+    enableAssertions = true
+}
