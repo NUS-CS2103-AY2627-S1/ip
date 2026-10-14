@@ -16,5 +16,11 @@ bin/
 # Temp files
 _temp/
 
+# Saved task data (generated at runtime)
+data/
+
+# Local-only Claude Code skills
+.claude/skills/present-changes-visually/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

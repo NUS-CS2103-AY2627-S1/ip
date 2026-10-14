@@ -1,0 +1,76 @@
+@font-face {
+    font-family: "Monocraft";
+    src: url("../fonts/Monocraft.ttf");
+}
+
+.root {
+    -fx-background-color: #4d4235;
+    -fx-background-image: url("../images/background.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-font-family: "Monocraft";
+}
+
+.input-bar {
+    -fx-padding: 7px;
+    -fx-background-color: rgba(20, 20, 20, 0.72);
+    -fx-border-color: rgba(244, 226, 181, 0.52);
+    -fx-border-width: 1px;
+}
+
+.text-field {
+    -fx-background-color: rgba(7, 10, 14, 0.92);
+    -fx-text-fill: white;
+    -fx-font-family: "Monocraft";
+    -fx-font-size: 16px;
+    -fx-background-radius: 2px;
+    -fx-border-color: #897456;
+    -fx-border-width: 1px;
+    -fx-prompt-text-fill: #aaaaaa;
+}
+
+.button {
+    -fx-background-color: #f5c518;
+    -fx-background-radius: 2px;
+    -fx-border-width: 2px;
+    -fx-border-color: #fff2b0 #8a6d00 #8a6d00 #fff2b0;
+    -fx-font-family: "Monocraft";
+    -fx-font-weight: bold;
+    -fx-text-fill: #2b2200;
+    -fx-padding: 8px 14px;
+}
+
+.button:hover {
+    -fx-background-color: #ffd94c;
+}
+
+.button:pressed {
+    -fx-border-color: #8a6d00 #fff2b0 #fff2b0 #8a6d00;
+    -fx-background-color: #d5a900;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+#dialogContainer {
+    -fx-padding: 8px 4px 8px 4px;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #5a4a35;
+    -fx-background-radius: 0;
+    -fx-border-color: #d9d9d9 #2b2b2b #2b2b2b #d9d9d9;
+    -fx-border-width: 2px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
