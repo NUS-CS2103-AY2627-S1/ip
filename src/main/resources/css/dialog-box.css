@@ -1,0 +1,76 @@
+.dialog-label {
+    -fx-font: 14px "Arial";
+    -fx-text-fill: #17456a;
+    -fx-line-spacing: 3px;
+}
+
+.user-label {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-background-radius: 20px 20px 4px 20px;
+    -fx-border-color: rgba(255, 255, 255, 0.95);
+    -fx-border-radius: 20px 20px 4px 20px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(51, 94, 128, 0.14), 9, 0.2, 0, 2);
+    -fx-font: 14px "Arial";
+    -fx-text-fill: #193d60;
+    -fx-label-padding: 1px;
+}
+
+.queen-label {
+    -fx-background-color: rgba(235, 248, 255, 0.9);
+    -fx-background-radius: 20px 20px 20px 4px;
+    -fx-border-color: rgba(255, 255, 255, 0.94);
+    -fx-border-radius: 20px 20px 20px 4px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(35, 103, 151, 0.16), 10, 0.2, 0, 2);
+    -fx-font: 14px "Arial";
+    -fx-text-fill: #154d76;
+    -fx-label-padding: 1px;
+}
+
+.error-label {
+    -fx-background-color: rgba(246, 238, 255, 0.92);
+    -fx-background-radius: 20px 20px 20px 4px;
+    -fx-border-color: rgba(226, 205, 248, 0.95);
+    -fx-border-radius: 20px 20px 20px 4px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(92, 65, 132, 0.16), 9, 0.2, 0, 2);
+    -fx-font: 14px "Arial";
+    -fx-text-fill: #4b3962;
+    -fx-label-padding: 1px;
+}
+
+.user-row,
+.baby-row {
+    -fx-padding: 6px 10px;
+}
+
+.avatar-text {
+    -fx-font: bold 13px "Arial";
+    -fx-text-fill: #22506c;
+}
+
+.baby-avatar,
+.error-avatar,
+.user-avatar {
+    -fx-alignment: center;
+    -fx-background-radius: 32px;
+    -fx-border-radius: 32px;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(29, 88, 128, 0.25), 9, 0.22, 0, 2);
+}
+
+.baby-avatar {
+    -fx-background-color: rgba(235, 250, 255, 0.88);
+    -fx-border-color: rgba(255, 255, 255, 0.96);
+}
+
+.error-avatar {
+    -fx-background-color: rgba(247, 240, 255, 0.9);
+    -fx-border-color: rgba(237, 218, 252, 0.96);
+}
+
+.user-avatar {
+    -fx-background-color: rgba(239, 250, 255, 0.9);
+    -fx-border-color: rgba(255, 255, 255, 0.96);
+}

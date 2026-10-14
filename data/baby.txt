@@ -1,0 +1,9 @@
+T | 0 | aini
+D | 0 | return book | 2019-12-02 1800
+E | 0 | meeting | 2019-12-02 1400 | 2019-12-02 1600
+T | 1 | whadup
+T | 0 | iluvu
+T | 0 | read book
+D | 0 | return book | 2026-09-01 1800
+T | 0 | buy food
+T | 0 | iluvu

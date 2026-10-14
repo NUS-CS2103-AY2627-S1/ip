@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<fx:root alignment="TOP_RIGHT"
+         maxWidth="1.7976931348623157E308"
+         spacing="12.0"
+         stylesheets="@../css/dialog-box.css"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/25"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialog" maxWidth="390.0" wrapText="true">
+            <padding>
+                <Insets bottom="11.0" left="15.0" right="15.0" top="11.0" />
+            </padding>
+        </Label>
+
+        <StackPane fx:id="avatarFrame"
+                   maxHeight="64.0"
+                   maxWidth="64.0"
+                   minHeight="64.0"
+                   minWidth="64.0"
+                   prefHeight="64.0"
+                   prefWidth="64.0">
+            <children>
+                <ImageView fx:id="displayPicture"
+                           fitHeight="58.0"
+                           fitWidth="58.0"
+                           pickOnBounds="true"
+                           preserveRatio="true"
+                           smooth="true" />
+                <Label fx:id="avatarText" styleClass="avatar-text" />
+            </children>
+        </StackPane>
+    </children>
+</fx:root>

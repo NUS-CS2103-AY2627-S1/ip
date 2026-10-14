@@ -1,0 +1,297 @@
+
+
+===== PAGE 1 =====
+8/21/26, 11:01 AM CS2103/T - Week 2 - Topics
+ Prev.      Next Week
+Week Summary Admin Topics Project Tutorial 
+Week 2
+[Mon, Aug 17th] - Topics
+  Detailed Table of Contents
+ Guidance for the item(s) below:
+Now, let's switch our focus to the project management aspect of SE.
+Broadly speaking, there are two approaches to doing a software project. Those two approaches are also highly relevant to the way
+this course is run, and how it is different from most SE courses elsewhere.
+Let's learn about those two approaches early so that we can better understand how this course works.
+ [W2.1] SDLC Process Models: Basics
+
+  Video
+ W2.1a 
+ 
+Project Management → SDLC Process Models → Introduction → What
+The simplest way to build software is to start coding and keep fixing what breaks, with no explicit stages at all.
+That approach, sometimes called code-and-fix , has no overhead and works well enough for a small program written
+by one person over a short period. It stops working as the software and the team grow. There is no way to tell how
+far along the work is, and no way to divide it among several people without them colliding. There is also no record of
+the decisions already made, so changes become harder and more expensive.
+Software development goes through different stages such as requirements, analysis, design, implementation,
+and testing. These stages are collectively known as the software development lifecycle (SDLC). There are
+several approaches, known as software development lifecycle models (also called software process models), that
+describe different ways to go through the SDLC. Each process model prescribes a 'roadmap' for the development
+effort: the aims of the development stages, the outcome of each stage, and how the stages relate to one another.
+Reaching users is not the end of the lifecycle. Deployment, operation, and maintenance are commonly counted as
+lifecycle activities too, and process models differ in how they partition and name them. Once the software is released,
+it has to be operated, kept working as its environment changes, and improved. What happens during that time feeds
+back into development: defects reported by users, the way the software is actually used, and requests for things it
+cannot yet do all become inputs to later work. Most software spends far longer in this state than it spent being built for
+the first time.
+
+https://nus-cs2103-ay2627-s1.github.io/website/schedule/week2/topics.html#W2-1 1/8
+
+
+===== PAGE 2 =====
+8/21/26, 11:01 AM CS2103/T - Week 2 - Topics
+ W2.1b 
+Project Management → SDLC Process Models → Introduction → Sequential
+models
+The sequential model , also called the waterfall model, views software development as a linear process, with the
+project progressing through the development stages in order. The name waterfall stems from how the model is drawn
+to look like a waterfall (see below).
+When one stage of the process is completed, it produces some artifacts to be used in the next stage. For
+example, the requirements stage produces a comprehensive list of requirements to be used in the design stage.
+A strict sequential model project moves only in the forward direction i.e., each stage is completed before starting
+the next. For example, once the requirements stage is over, there is no provision for revising the requirements later. In
+practice the model is often relaxed to let a stage send work back to the one before it, although doing so means
+redoing work that was already treated as finished.
+This model can work well for a project that solves a well-understood problem, in which case the requirements can
+remain stable and the effort can be estimated accurately. Furthermore, as each stage has a well-defined outcome,
+progress is easy to track: it is visible from which stage the project is in. Progress within a long stage, which is where an
+overrun usually builds up, stays much harder to see.
+However, real-world projects often tackle problems that are not well-understood at the beginning, which makes
+those projects unsuitable for this model. For example, target users of a software product may not be able to state their
+requirements accurately at the start of the project if they have not used a similar product before.
+A second weakness is that feedback arrives late. Each stage's output is checked mainly by the stage that follows it,
+so integration and contact with real users come near the end. A mistake made while gathering requirements or
+designing therefore tends to surface at the point where going back to completed work costs the most.
+
+ W2.1c 
+Project Management → SDLC Process Models → Introduction → Iterative models
+The iterative model advocates producing the software by going through several iterations. Each iteration could
+go through all the stages of the SDLC, from requirements gathering to deployment.
+Each iteration produces a new version of the product, building upon the previous version. Feedback from each
+iteration is factored into the subsequent iterations. For example, if an implementation task took longer than expected,
+the effort estimate for similar tasks in future iterations can be adjusted. Similarly, if a feature introduced in the current
+iteration was not well-received by target users, it can be removed or tweaked in the next iteration.
+https://nus-cs2103-ay2627-s1.github.io/website/schedule/week2/topics.html#W2-1 2/8
+
+
+===== PAGE 3 =====
+8/21/26, 11:01 AM CS2103/T - Week 2 - Topics
+The two models divide a project along different lines. A sequential project is divided by activity: a stage is
+'requirements' or 'testing', and it ends when that activity is finished for the whole product. An iterative project is
+divided into bounded cycles instead: an iteration runs through several activities and ends in a result the team can
+learn from. What each iteration is for is then a choice -- most often a slice of functionality, 'the part that does X', but it
+can equally be a component, a risky assumption, or a level of completeness across the whole product.
+The iterative model can use a breadth-first or depth-first approach.
+In the breadth-first approach, an iteration evolves all major components and all functionality areas in
+parallel, producing a working product at the end of each iteration i.e., most features and most components
+are updated in every iteration.
+In the depth-first approach, an iteration focuses on fleshing out only some components or some
+functionality area. Accordingly, early depth-first iterations might not produce a working product.
+Iterating and incrementing are two different things, and most projects do both. To iterate is to rework something
+that already exists, in the light of feedback; to increment is to add to it. That is why the two are usually named
+together, as an iterative and incremental approach.
+What an iteration delivers is called an increment : a usable improvement or addition to the product, not merely a
+new version of the code.
+An iteration is only worth its overhead if it ends in evidence. Before starting one, decide what would show it
+succeeded -- a condition the result must satisfy, a test that must pass, or a demonstration to a target user -- and what
+decision the answer will drive. Without that, an iteration produces a new version and no new knowledge.
+ Example Taking a Minesweeper game as an example:
+breadth-first iterations will deliver a fully playable version early. These early versions may have
+primitive functionality, e.g. a rudimentary text-based UI, fixed board size, limited minefield layouts.
+This functionality (and the corresponding components) will then be improved in later iterations.
+an early depth-first iteration could deliver the full user interface (UI) but with no game logic at all.
+Alternatively, an early iteration could focus on just the logic for generating initial layouts of the
+minefield. Neither is a playable version of the game, but both can collect early feedback -- on the UI in
+the first case, on the minefield layouts in the second. That feedback then guides later iterations.
+A project can be done as a mixture of breadth-first and depth-first iterations i.e., an iteration can contain some
+breadth-first work as well as some depth-first work, or some iterations can be breadth-first while others are depth-
+first.
+Whichever shape the iterations take, an early one is a chance to find out you were wrong while changing course
+is still cheap. That makes the assumptions whose failure would cost the most -- an unproven technology, an
+unfamiliar user need, a performance target nobody has hit yet -- worth putting into an early iteration rather than a late
+one. Ordering iterations by risk in this way is the central idea of the spiral model .
+As AI coding advances, producing a candidate implementation is becoming much cheaper than it used to be;
+deciding what to build and confirming that the result is correct have not. Within an iteration, that shifts the effort
+away from writing code and toward specifying and verifying. It does not reduce the value of being precise about
+what is wanted: a vague requirement that once produced a question from a teammate now produces a confident
+implementation of the wrong thing, quickly.
+
+
+ Guidance for the item(s) below:
+https://nus-cs2103-ay2627-s1.github.io/website/schedule/week2/topics.html#W2-1 3/8
+
+
+===== PAGE 4 =====
+8/21/26, 11:01 AM CS2103/T - Week 2 - Topics
+
+AI's impact on » Git and GitHub
+Git is becoming less something you type and more something you lean on.
+Remembering commands matters less now. An agent can run git for you, so you no longer need to recall the
+exact command for undoing a change or tidying up a messy history. You do still need to know what those commands
+do, or you cannot tell whether the agent did the right thing.
+Being able to go back matters more. An agent can change many files in seconds, and not every change will be one
+you wanted. If you committed your work first, getting back is easy; if you did not, the version that worked may be
+gone for good.
+Reading changes matters more, too. More of your time on Git and GitHub now goes into looking at diffs and pull
+requests, checking work you did not write yourself. That is why small commits with clear messages are worth the
+trouble: they are easier to read, easier to undo one at a time, and they record why something was done, which the
+code alone never tells you.
+With that in mind, let's resume our Git-Mastery journey, covering a few more tours. the first two focus on working with GitHub, while
+the other two focus on getting more out of the Git revision history.
+ [W2.2] RCS: Getting Started with GitHub
+
+ W2.2a 
+Git-Mastery → Tour 2: Backing up a Repo on the Cloud
+See Git-Mastery → Tour 2: Backing up a Repo on the Cloud
+
+ W2.2b 
+Git-Mastery → Tour 3: Working Off a Remote Repo
+See Git-Mastery → Tour 3: Working Off a Remote Repo
+
+
+ [W2.3] RCS: Doing More with Revision History
+
+ W2.3a 
+Git-Mastery → Tour 4: Using the Revision History of a Repo
+See Git-Mastery → Tour 4: Using the Revision History of a Repo
+
+https://nus-cs2103-ay2627-s1.github.io/website/schedule/week2/topics.html#W2-1 4/8
+
+
+===== PAGE 5 =====
+8/21/26, 11:01 AM CS2103/T - Week 2 - Topics
+ W2.3b 
+Git-Mastery → Tour 5: Fine-Tuning the Revision History
+See Git-Mastery → Tour 5: Fine-Tuning the Revision History
+
+
+ Guidance for the item(s) below:
+As you are likely to be using an IDE for the iP, let's learn at least enough about IDEs to get you started using one.
+🤔 In case you are puzzled by the sudden change of topic, it's because we take an iterative approach to covering topics, as explained
+in the panel below:
+ Admin  Course Overview → Extract 
+ [W2.4] IDEs: Basic Features
+
+ W2.4a 
+Implementation → IDEs → What
+Professional software engineers often write code using Integrated Development Environments (IDEs) . IDEs
+support most development-related work within the same tool (hence, the term integrated).
+An IDE generally consists of:
+A source code editor that includes features such as syntax coloring, auto-completion, easy code navigation, error
+highlighting, and code-snippet generation.
+A compiler and/or an interpreter (together with other build automation support) that facilitates the compilation,
+linking, running, and deployment of a program.
+A debugger that allows the developer to execute the program one step at a time to observe the run-time behavior
+in order to locate bugs.
+Other tools that aid various aspects of coding, e.g., support for automated testing, drag-and-drop construction of
+UI components, version management support, simulation of the target runtime platform, modeling support, AI-
+assisted coding help, and collaborative coding with others.
+Examples of popular IDEs:
+Java: Eclipse, IntelliJ IDEA, NetBeans
+C#, C++: Visual Studio
+Swift: Xcode
+Python: PyCharm
+Multiple languages: VS Code
+Some experienced developers, in particular those with a UNIX background, prefer lightweight yet powerful text editors
+with scripting capabilities (e.g., Vim or NeoVim) over heavier IDEs.
+ Exercises:
+ Which of these are features available in IDEs?
+ 
+https://nus-cs2103-ay2627-s1.github.io/website/schedule/week2/topics.html#W2-1 5/8
+
+
+===== PAGE 6 =====
+8/21/26, 11:01 AM CS2103/T - Week 2 - Topics
+
+ W2.4b 
+Tools → IDEs → Project setup
+Refer to these se-edu guides:
+IntelliJ IDEA: Setting up
+VS Code: Refer to the first few tutorials given here.
+
+
+ Guidance for the item(s) below:
+As you start adding features to your project iteratively, you'll need a way to detect if the new code breaks the existing code. Next,
+let's learn a rather simple way to do that using a certain type of testing (we'll be learning more sophisticated methods in later weeks).
+This also means we are now switching focus from the implementation aspect to the testing aspect of SE.
+ [W2.5] Intro to Automated Testing
+
+ W2.5a 
+Quality Assurance → Testing → Introduction → What
+  Video
+ Testing: Operating a system or component under specified conditions, observing or recording the results,
+and making an evaluation of some aspect of the system or component. -- source: IEEE
+When testing, you execute a set of test cases . A test case specifies how to perform a test. At a minimum, it
+specifies the input to the software under test (SUT) and the expected behavior.
+https://nus-cs2103-ay2627-s1.github.io/website/schedule/week2/topics.html#W2-1 6/8
+
+
+===== PAGE 7 =====
+8/21/26, 11:01 AM CS2103/T - Week 2 - Topics
+ Example A minimal test case for testing a browser:
+Input – Start the browser using a blank page (vertical scrollbar disabled). Then, load longfile.html
+located in the test data folder.
+Expected behavior – The scrollbar should be automatically enabled upon loading .
+longfile.html
+ Other details a test case can contain ... + extra
+Test cases can be determined based on the specification, reviewing similar existing systems, or comparing to
+the past behavior of the SUT.
+For each test case you should do the following:
+1. Feed the input to the SUT
+2. Observe the actual output
+3. Compare actual output with the expected output
+A test case failure is a mismatch between the expected behavior and the actual behavior. A failure indicates a
+potential defect (or a bug) -- we say 'potential' because the error could be in the test case itself.
+ Example In the browser example above, a test case failure is implied if the scrollbar remains disabled after loading
+longfile.html . The defect/bug causing that failure could be an uninitialized variable.
+ A deeper look at the definition of testing + extra
+
+ W2.5b 
+Quality Assurance → Testing → Regression Testing → What
+  Video
+When you modify a system, the modification may result in some unintended and undesirable effects on the
+system. Such an effect is called a regression .
+Regression testing is the re-testing of the software to detect regressions. The typical way to detect regressions
+is retesting all related components, even if they had been tested before.
+Regression testing is more effective when it is done frequently, after each small change. However, doing so can be
+prohibitively expensive if testing is done manually. Hence, regression testing is more practical when it is
+automated.
+ Exercises:
+ Regression Testing definition: T/F?
+ 
+
+https://nus-cs2103-ay2627-s1.github.io/website/schedule/week2/topics.html#W2-1 7/8
+
+
+===== PAGE 8 =====
+8/21/26, 11:01 AM CS2103/T - Week 2 - Topics
+ W2.5c 
+Quality Assurance → Testing → Test Automation → What
+
+An automated test case can be run programmatically and the result of the test case (pass or fail) is
+determined programmatically. Compared to manual testing, automated testing reduces the effort
+required to run tests repeatedly and increases precision of testing (because manual testing is susceptible
+to human errors).
+ Resources:
+[Quora post] What is the best way to avoid bugs
+[Quora post] Is automated testing relevant to startups?
+
+ W2.5d : OPTIONAL
+Quality Assurance → Testing → Test Automation → Automated testing of CLI
+applications
+☝ Follow up notes for the item(s) above:
+
+AI's impact on » AI and testing
+AI greatly reduces the effort needed to automate tests. Drafting test cases, writing test code, and
+setting up supporting mechanisms now take much less time. As a result, "we did not have time to write
+tests" is a much weaker excuse.
+However, an AI agent cannot know the expected behavior unless someone defines it. This part of a
+test case must come from someone who understands what the software should do. If an agent writes both
+the software and its tests, it may make the same mistake in both. All the tests may then pass without
+proving that the software is correct.
+Regression testing becomes even more valuable. AI agents can make large changes quickly, but they do
+not automatically know which behaviors matter most. An automated regression test suite gives you more
+confidence when accepting changes you did not write yourself -- and such changes are now being made
+more frequently.
+
+https://nus-cs2103-ay2627-s1.github.io/website/schedule/week2/topics.html#W2-1 8/8
