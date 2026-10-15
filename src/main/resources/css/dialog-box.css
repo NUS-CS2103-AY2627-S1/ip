@@ -1,0 +1,24 @@
+.dialog-box {
+    -fx-spacing: 8;
+}
+
+.dialog-box .label {
+    -fx-background-color: #dfe9ff;
+    -fx-background-radius: 14;
+    -fx-border-color: #b9c9ed;
+    -fx-border-radius: 14;
+    -fx-padding: 9 12;
+    -fx-text-fill: #302a3a;
+    -fx-wrap-text: true;
+}
+
+.dialog-box.esther-dialog .label {
+    -fx-background-color: #eee3ff;
+    -fx-border-color: #d0b7ef;
+}
+
+.dialog-box.error-dialog .label {
+    -fx-background-color: #ffe5e8;
+    -fx-border-color: #e88995;
+    -fx-text-fill: #7a2633;
+}
