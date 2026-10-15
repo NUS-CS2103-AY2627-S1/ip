@@ -1,25 +1,55 @@
-# Duke project template
+# Apollo project template
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+A task manager chatbot, bestowed the personality of a Greek God.
 
-## Setting up in Intellij
+## AI-usage
+Used ChatGPT's Codex 5.6 Sol in the following locations
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+### Apollo.java
+- Added date parsing and date-query commands.
+- Integrated extracted classes TaskList, Storage, Parser and UI.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### Deadline.java
+- Changed /by from String to LocalDateTime
+- Added display and ISO persistence formatting
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+### Event.java
+- Changed /from and /to from String to LocalDateTime
+- Added display and ISO persistence formatting
+
+### A-MoreOOP
+- Extracted and abstracted function from Apollo.java into the respective classes
+- DateParser.java, TaskList.java, Storage.java, Parser.java and UI.java
+
+### A-JavaDoc
+- Generated relevant and useful JavaDoc for public classes/methods
+- JavaDoc was reviewed by me 
+
+### A-CodingStandard
+- Bulk of coding standard was fixed by AI, majority of it looks correct to me.
+
+### Level-10
+- Helped refactor Apollo to become UI-independent, as well as create CLIAppliation.java to allow users to access the CLI appliation, whilst the default `./gradlew run`  will run the JavaFX application
+
+### A-Assertions
+- Helped identify possible locations where assert statements would be useful.
+
+### A-CodeQuality
+- Identify and implement parts of code where code quality can be improved
+- Removed redundant code violating DRY Principle in Ui
+- Refactored magic strings used for responses and introduced ResponseType enum
+
+### A-Streams
+- Helped replace for-loops with cleaner stream operations in TaskList and Storage
+
+### A-BetterGui
+- Prompted codex with the design I had in mind, and updated the relevant files like MainWindow.fxml and css classes
+- Ensured that the style changes did not impact the functionality of the code
+
+### A-Personality
+- Main idea of personality (Greek God Apollo) was already there, Codex helped to adjust some messages to align with the personality
+
+### A-MoreTesting
+- With the addition of past few increments, Codex helped to generate relevant and important test cases that were useful in catching potential bugs. (e.g. Caught bug on allowing blank descriptions)
+
+>All AI-generated code was reviewed by me, Isaac Choong, understood and tested before commiting and pushing to the remote repository.

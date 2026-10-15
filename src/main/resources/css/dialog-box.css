@@ -1,0 +1,64 @@
+.dialog-box {
+    -fx-font-family: "System";
+}
+
+.dialog-label {
+    -fx-background-color: #e8eef6;
+    -fx-background-radius: 14px 14px 3px 14px;
+    -fx-border-color: #b8c3d1;
+    -fx-border-radius: 14px 14px 3px 14px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(51, 37, 28, 0.10), 7, 0.08, 0, 2);
+    -fx-font-size: 14px;
+    -fx-text-fill: #33251c;
+}
+
+.apollo-dialog .reply-label {
+    -fx-background-color: #fff3cf;
+    -fx-background-radius: 14px 14px 14px 3px;
+    -fx-border-color: #d9a441;
+    -fx-border-radius: 14px 14px 14px 3px;
+}
+
+.apollo-dialog .add-label {
+    -fx-background-color: #f9e7b2;
+    -fx-border-color: #c9952f;
+}
+
+.apollo-dialog .marked-label {
+    -fx-background-color: #dce8c8;
+    -fx-border-color: #899d62;
+}
+
+.apollo-dialog .delete-label {
+    -fx-background-color: #f2d2c8;
+    -fx-border-color: #a94732;
+}
+
+.apollo-dialog .list-label {
+    -fx-background-color: #e7edf0;
+    -fx-border-color: #8299a3;
+}
+
+.apollo-dialog .error-label {
+    -fx-background-color: #f4d7cf;
+    -fx-border-color: #9f3f31;
+    -fx-text-fill: #6e2118;
+}
+
+.apollo-dialog .bye-label {
+    -fx-background-color: #f4dfaa;
+    -fx-border-color: #a87318;
+    -fx-font-style: italic;
+}
+
+.avatar-frame {
+    -fx-background-color: #b8c3d1;
+    -fx-background-radius: 50%;
+    -fx-effect: dropshadow(gaussian, rgba(51, 37, 28, 0.22), 8, 0.15, 0, 2);
+    -fx-padding: 3px;
+}
+
+.apollo-dialog .avatar-frame {
+    -fx-background-color: linear-gradient(to bottom right, #ffd166, #a87318);
+}

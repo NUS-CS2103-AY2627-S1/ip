@@ -1,0 +1,132 @@
+.app-root {
+    apollo-cream: #fff8e7;
+    apollo-gold: #d9a441;
+    apollo-dark-gold: #a87318;
+    apollo-brown: #33251c;
+    apollo-muted: #6f6258;
+    -fx-background-color: apollo-cream;
+    -fx-font-family: "System";
+}
+
+.app-header {
+    -fx-background-color: linear-gradient(to right, #33251c, #563824);
+    -fx-border-color: transparent transparent apollo-gold transparent;
+    -fx-border-width: 0 0 2px 0;
+    -fx-effect: dropshadow(gaussian, rgba(51, 37, 28, 0.24), 10, 0.15, 0, 3);
+}
+
+.sun-emblem {
+    -fx-effect: dropshadow(gaussian, rgba(255, 209, 102, 0.45), 12, 0.25, 0, 0);
+}
+
+.app-title {
+    -fx-font-family: "Serif";
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffd166;
+}
+
+.app-subtitle {
+    -fx-font-size: 12px;
+    -fx-font-style: italic;
+    -fx-text-fill: #f7e4b2;
+}
+
+.chat-scroll,
+.chat-scroll > .viewport,
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.chat-scroll {
+    -fx-background-color: linear-gradient(to bottom, #fffaf0, #fff4dc);
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.command-bar {
+    -fx-background-color: #f3e3c4;
+    -fx-border-color: #dbc18e transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+    -fx-effect: dropshadow(gaussian, rgba(51, 37, 28, 0.12), 8, 0.1, 0, -2);
+}
+
+.text-field {
+    -fx-background-color: #fffdf7;
+    -fx-background-radius: 10px;
+    -fx-border-color: #cdbb98;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #8a7b6f;
+    -fx-text-fill: apollo-brown;
+    -fx-padding: 8px 12px;
+}
+
+.text-field:focused {
+    -fx-border-color: apollo-gold;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(217, 164, 65, 0.22), 7, 0.1, 0, 0);
+}
+
+.button {
+    -fx-background-color: linear-gradient(to bottom, #edbd58, apollo-gold);
+    -fx-background-radius: 10px;
+    -fx-border-color: #b67e1f;
+    -fx-border-radius: 10px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: apollo-brown;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #f5cb70, #e5b24d);
+}
+
+.button:pressed {
+    -fx-background-color: apollo-dark-gold;
+    -fx-text-fill: #fff8e7;
+}
+
+.undo-button {
+    -fx-background-color: #ddd4c3;
+    -fx-border-color: #c8bda9;
+    -fx-text-fill: apollo-muted;
+}
+
+.undo-button.undo-available {
+    -fx-background-color: linear-gradient(to bottom, #edbd58, apollo-gold);
+    -fx-border-color: #b67e1f;
+    -fx-text-fill: apollo-brown;
+}
+
+.undo-button.undo-available:hover {
+    -fx-background-color: linear-gradient(to bottom, #f5cb70, #e5b24d);
+}
+
+.undo-button:disabled {
+    -fx-cursor: default;
+    -fx-opacity: 0.72;
+}
+
+.chat-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 9px;
+    -fx-padding: 2px;
+}
+
+.chat-scroll .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.chat-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: #caa45b;
+    -fx-background-radius: 8px;
+}
+
+.chat-scroll .scroll-bar .increment-button,
+.chat-scroll .scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
