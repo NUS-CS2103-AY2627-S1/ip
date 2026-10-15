@@ -1,0 +1,33 @@
+.label {
+    -fx-background-color: linear-gradient(to bottom right, #d8f3ff, #bce7ff);
+    -fx-border-color: #4a90b8;
+    -fx-border-width: 1px;
+    -fx-font: 15px "Arial";
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.reply-label {
+    -fx-background-color: linear-gradient(to bottom right, #e4f7df, #c9edc1);
+    -fx-border-color: #6a9f5d;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+
+.error-label {
+    -fx-background-color: #ffe0e0;
+    -fx-border-color: #c0392b;
+    -fx-text-fill: #8b1e16;
+}

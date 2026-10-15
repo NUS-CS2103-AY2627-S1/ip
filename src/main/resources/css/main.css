@@ -1,0 +1,85 @@
+.root {
+    main-color: rgb(237, 255, 242);
+    -fx-background-color: main-color;
+    -fx-background-image: url("../images/Background.jpg"); /* Set image */
+    -fx-background-size: cover;
+    -fx-background-size: cover;
+    -fx-background-repeat: repeat;
+}
+
+.text-field {
+    -fx-background-color: #d9ffe2;
+    -fx-font: 16px "Arial";
+    -fx-padding: 8px;
+}
+
+.button {
+    -fx-background-color: mediumspringgreen;
+    -fx-font: italic bold 16px "Arial";
+}
+
+.button:hover {
+    -fx-background-color: cyan;
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color:orange;
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-padding: 8px;
+}
+
+.welcome-card {
+    -fx-alignment: center;
+    -fx-background-color: linear-gradient(to bottom right, #102a43, #176b87);
+    -fx-background-radius: 18px;
+    -fx-border-color: #7de2d1;
+    -fx-border-radius: 18px;
+    -fx-border-width: 1px;
+    -fx-padding: 28px 18px;
+    -fx-spacing: 6px;
+}
+
+.welcome-title {
+    -fx-text-fill: #ffffff;
+    -fx-font: bold 30px "Arial";
+}
+
+.welcome-subtitle {
+    -fx-text-fill: #b8fff0;
+    -fx-font: bold 15px "Arial";
+}
+
+.welcome-hint {
+    -fx-text-fill: #e5f7f4;
+    -fx-font: 13px "Arial";
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #ff9cb4;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.button:disabled {
+    -fx-opacity: 0.55;
+}
