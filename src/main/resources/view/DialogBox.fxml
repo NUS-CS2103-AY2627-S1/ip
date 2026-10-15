@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_RIGHT"
+         spacing="8.0"
+         minHeight="-Infinity" maxHeight="-Infinity"
+         minWidth="0.0"
+         maxWidth="1.7976931348623157E308"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox minWidth="0.0" spacing="4.0">
+            <Label fx:id="dialog"
+                   styleClass="dialog-text"
+                   text="Label"
+                   wrapText="true"
+                   minHeight="-Infinity"
+                   minWidth="0.0" />
+            <Hyperlink fx:id="userGuideLink" styleClass="user-guide-link"
+                       visible="false" managed="false" wrapText="true" minWidth="0.0" />
+        </VBox>
+        <ImageView fx:id="displayPicture" pickOnBounds="true" preserveRatio="true" />
+    </children>
+</fx:root>
+

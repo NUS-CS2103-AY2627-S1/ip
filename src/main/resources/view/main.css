@@ -1,0 +1,47 @@
+.conversation-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.conversation-background {
+    -fx-background-image: url("../images/background.png");
+    -fx-background-size: 100% auto;
+    -fx-background-repeat: repeat-y;
+    -fx-background-position: center top;
+}
+
+.conversation-background .dialog-text {
+    -fx-text-fill: #ffffff;
+}
+
+.user-dialog {
+    -fx-padding: 6px 5px;
+}
+
+.user-dialog .dialog-text {
+    -fx-font-size: 13px;
+    -fx-font-weight: normal;
+}
+
+.tuesday-dialog {
+    -fx-padding: 12px 5px;
+}
+
+.tuesday-dialog .dialog-text {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.user-guide-link {
+    -fx-text-fill: #a8d8ff;
+    -fx-underline: true;
+    -fx-padding: 0;
+}
+
+.user-guide-link:hover, .user-guide-link:visited {
+    -fx-text-fill: #d7edff;
+}
+
+.user-guide-link:focused {
+    -fx-border-color: #ffffff;
+    -fx-border-style: dotted;
+}

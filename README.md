@@ -1,25 +1,39 @@
-# Duke project template
+# Tuesday
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Tuesday is a JavaFX task-management chatbot. Add todos, deadlines, and events; find tasks; and track completion through text commands.
 
-## Setting up in Intellij
+See the [user guide](docs/README.md) for commands, date/time formats, and duplicate-task handling.
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+## Requirements
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+- JDK 25.
+- A graphical desktop for running the app and JavaFX tests.
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## Run and check the project
+
+Run these commands from the project directory in PowerShell:
+
+```powershell
+.\gradlew.bat run
+.\gradlew.bat check
+.\gradlew.bat shadowJar
+```
+
+`run` opens Tuesday, `check` runs tests and Checkstyle, and `shadowJar` creates `build/libs/tuesday.jar` with its dependencies. Launch that JAR with:
+
+```powershell
+java -jar build/libs/tuesday.jar
+```
+
+On macOS or Linux, use `./gradlew` in place of `.\gradlew.bat`.
+
+## Set up in IntelliJ IDEA
+
+1. Open this project directory and import the Gradle project.
+2. Set the project SDK and Gradle JVM to JDK 25, and use the SDK default language level.
+3. Run the Gradle `run` task, or run `Tuesday.main()` in `src/main/java/tuesday/Tuesday.java`.
+4. The Tuesday window opens with a text field and Send button.
+
+Keep `src/main/java` and `src/test/java` as the source roots. Classes are grouped under the `tuesday` package, and layouts are in `src/main/resources/view`.
+
+Task changes are saved to `data/Tuesday.txt`, relative to the directory from which you launch the app.
