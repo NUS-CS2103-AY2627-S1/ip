@@ -1,0 +1,126 @@
+.root {
+    -fx-font-family: "System";
+}
+
+.app-root {
+    -fx-background-color: #f6f3ed;
+}
+
+.app-header {
+    -fx-background-color: linear-gradient(to right, #172235, #243752);
+    -fx-padding: 18px 24px;
+}
+
+.brand-mark {
+    -fx-background-color: #f5bd4f;
+    -fx-background-radius: 16px;
+    -fx-font-size: 27px;
+}
+
+.app-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.app-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #c9d5e6;
+}
+
+.storage-status {
+    -fx-background-color: rgba(255, 255, 255, 0.10);
+    -fx-background-radius: 14px;
+    -fx-font-size: 11px;
+    -fx-padding: 6px 10px;
+    -fx-text-fill: #b9e8ca;
+}
+
+.conversation-pane,
+.conversation-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.conversation-pane {
+    -fx-border-color: transparent;
+    -fx-padding: 12px 0;
+}
+
+.dialog-container {
+    -fx-padding: 8px 0 18px 0;
+}
+
+.dialog-box .dialog {
+    -fx-background-radius: 17px;
+    -fx-effect: dropshadow(gaussian, rgba(22, 34, 53, 0.10), 12, 0.12, 0, 3);
+    -fx-font-size: 14px;
+    -fx-font-style: normal;
+    -fx-font-weight: normal;
+    -fx-line-spacing: 2px;
+    -fx-padding: 12px 16px;
+    -fx-text-fill: #263247;
+}
+
+.user-dialog .dialog {
+    -fx-background-color: #dcecff;
+}
+
+.cat-dialog .dialog {
+    -fx-background-color: #fff3cf;
+}
+
+.dialog-box .avatar {
+    -fx-background-color: #243752;
+    -fx-background-radius: 15px;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.cat-dialog .avatar {
+    -fx-background-color: #f5bd4f;
+    -fx-font-size: 23px;
+}
+
+.composer {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e2ddd2 transparent transparent transparent;
+    -fx-padding: 16px 20px 14px 20px;
+}
+
+.text-field {
+    -fx-background-color: #f4f6f9;
+    -fx-background-radius: 12px;
+    -fx-border-color: #d8dee8;
+    -fx-border-radius: 12px;
+    -fx-font-size: 14px;
+    -fx-padding: 12px 14px;
+}
+
+.text-field:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #4a76b8;
+}
+
+.button {
+    -fx-background-color: #243752;
+    -fx-background-radius: 12px;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 12px 18px;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #365782;
+}
+
+.button:pressed {
+    -fx-background-color: #172235;
+}
+
+.command-hint {
+    -fx-font-size: 11px;
+    -fx-text-fill: #7c8798;
+}
