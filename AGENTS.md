@@ -24,11 +24,27 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Mandatory Java coding standard
+
+All Java production and test code in this project MUST follow the project skill at
+`.codex/skills/seedu-java-coding-standard/SKILL.md`. Before creating, modifying, reviewing, or
+formatting Java code, read and apply that skill. This requirement is mandatory unless the user
+explicitly gives conflicting instructions.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## Testing
+
+Maintain JUnit tests for approximately the top 50% highest-value methods, prioritising complex, core, and critical business logic over simple UI or wiring code. After every code change, add or update the relevant JUnit tests so this coverage target continues to be met, then run the appropriate Gradle test task.
+
 ## Git
+
+All future commits in this project MUST follow the project skill at
+`.codex/skills/seedu-git-standard/SKILL.md`. Before proposing, reviewing, or creating a commit,
+read and apply that skill. This requirement is mandatory unless the user explicitly gives
+conflicting instructions.
 
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.

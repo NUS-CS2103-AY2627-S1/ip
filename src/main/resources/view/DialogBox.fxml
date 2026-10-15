@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_RIGHT"
+         maxWidth="1.7976931348623157E308"
+         spacing="8.0"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/25"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox fx:id="dialogContent" spacing="8.0" styleClass="dialog-content">
+            <children>
+                <Label fx:id="welcomeBanner"
+                       managed="false"
+                       minHeight="-Infinity"
+                       styleClass="welcome-banner"
+                       text="Banner"
+                       visible="false" />
+                <Label fx:id="errorTitle"
+                       managed="false"
+                       minHeight="-Infinity"
+                       styleClass="error-title"
+                       text="Error"
+                       visible="false" />
+                <ScrollPane fx:id="helpScrollPane"
+                            fitToHeight="true"
+                            hbarPolicy="AS_NEEDED"
+                            managed="false"
+                            minHeight="-Infinity"
+                            pannable="true"
+                            styleClass="help-scroll-pane"
+                            vbarPolicy="NEVER"
+                            visible="false">
+                    <content>
+                        <Label fx:id="helpTable"
+                               minHeight="-Infinity"
+                               styleClass="help-table"
+                               text="Help"
+                               wrapText="false" />
+                    </content>
+                </ScrollPane>
+                <Label fx:id="dialog"
+                       maxWidth="1.7976931348623157E308"
+                       minHeight="-Infinity"
+                       text="Message"
+                       wrapText="true" />
+            </children>
+        </VBox>
+        <Label fx:id="displayPicture"
+               alignment="CENTER"
+               minHeight="28.0"
+               minWidth="28.0"
+               prefHeight="28.0"
+               prefWidth="28.0"
+               styleClass="avatar-placeholder"
+               text="N" />
+    </children>
+    <padding>
+        <Insets bottom="5.0" left="12.0" right="12.0" top="5.0" />
+    </padding>
+</fx:root>
