@@ -1,0 +1,50 @@
+.root {
+    -fx-font-family: "Arial";
+    -fx-background-color: #f5f7f8;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-box {
+    -fx-spacing: 8;
+}
+
+.dialog-text {
+    -fx-padding: 9 12 9 12;
+    -fx-background-radius: 6;
+    -fx-font-size: 13px;
+}
+
+.user-dialog .dialog-text {
+    -fx-background-color: #2563a9;
+    -fx-text-fill: white;
+}
+
+.hse-dialog .dialog-text {
+    -fx-background-color: #e4f0e8;
+    -fx-text-fill: #183b2a;
+}
+
+.error-dialog .dialog-text {
+    -fx-background-color: #fde8e7;
+    -fx-text-fill: #9b1c1c;
+}
+
+.profile-picture {
+    -fx-background-radius: 18;
+}
+
+.text-field {
+    -fx-background-radius: 0;
+    -fx-border-color: #d4dbe0;
+    -fx-border-width: 1 0 0 0;
+}
+
+.button {
+    -fx-background-color: #1f6f5f;
+    -fx-background-radius: 0;
+    -fx-text-fill: white;
+}

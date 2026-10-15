@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane
+            minHeight="360.0" minWidth="480.0"
+            prefHeight="600.0" prefWidth="400.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="hse.gui.MainWindow">
+    <children>
+        <TextField fx:id="userInput"
+                   onAction="#handleUserInput"
+                   prefHeight="41.0"
+                   promptText="Type a command..."
+                   AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="82.0" />
+        <Button fx:id="sendButton"
+                mnemonicParsing="false"
+                onAction="#handleUserInput"
+                prefHeight="41.0"
+                prefWidth="82.0"
+                text="Send"
+                AnchorPane.bottomAnchor="0.0"
+                AnchorPane.rightAnchor="0.0" />
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vvalue="1.0">
+            <content>
+                <VBox fx:id="dialogContainer"
+                      fillWidth="true" />
+            </content>
+            <AnchorPane.bottomAnchor>41.0</AnchorPane.bottomAnchor>
+            <AnchorPane.leftAnchor>0.0</AnchorPane.leftAnchor>
+            <AnchorPane.rightAnchor>0.0</AnchorPane.rightAnchor>
+            <AnchorPane.topAnchor>0.0</AnchorPane.topAnchor>
+        </ScrollPane>
+    </children>
+</AnchorPane>
