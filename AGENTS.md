@@ -33,3 +33,16 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## Project standards
+
+Follow `skills/seedu-java-coding-standard/SKILL.md` for all Java code and
+`skills/seedu-git-standard/SKILL.md` for all commits. These skills encode the
+SE-EDU Java and Git conventions and are mandatory for this project.
+
+## Testing
+
+JUnit coverage should focus on approximately the top 50% of methods by value,
+prioritising complex, core, and critical business logic. Update the relevant
+JUnit tests after every code change so the project continues to meet this
+coverage target.

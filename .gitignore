@@ -8,6 +8,9 @@
 /build/
 src/main/resources/docs/
 
+# Generated JAR files
+*.jar
+
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
