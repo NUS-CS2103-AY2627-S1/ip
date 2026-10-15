@@ -1,0 +1,73 @@
+.root {
+    -fx-font-family: "System";
+    -fx-background-color: #fff7fc;
+}
+
+.scroll-pane, .scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-padding: 8 4 4 4;
+}
+
+.message-row {
+    -fx-padding: 4 10;
+}
+
+.message-row .label {
+    -fx-padding: 11 16;
+    -fx-font-size: 13px;
+    -fx-text-fill: #3d3045;
+}
+
+.user-message .label {
+    -fx-background-color: #e5ddff;
+    -fx-background-radius: 14 14 3 14;
+}
+
+.jelly-message .label {
+    -fx-background-color: #ffe6f4;
+    -fx-background-radius: 14 14 14 3;
+    -fx-border-color: #f2bfdc;
+    -fx-border-radius: 14 14 14 3;
+}
+
+.error-message .label {
+    -fx-background-color: #fff0f3;
+    -fx-border-color: #e58aa5;
+    -fx-text-fill: #8f3150;
+}
+
+#inputBar {
+    -fx-padding: 10 12 12 12;
+    -fx-background-color: #fffafd;
+    -fx-border-color: #f2bfdc;
+    -fx-border-width: 1 0 0 0;
+}
+
+.input-hint {
+    -fx-padding: 0 4 0 4;
+    -fx-font-size: 10px;
+    -fx-text-fill: #8f7890;
+}
+
+#inputField {
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-color: #e4c2dc;
+    -fx-focus-color: #c56aa8;
+    -fx-faint-focus-color: #c56aa833;
+    -fx-padding: 8 12;
+}
+
+.button {
+    -fx-background-color: #c56aa8;
+    -fx-background-radius: 16;
+    -fx-text-fill: white;
+    -fx-padding: 8 16;
+}
+
+.button:hover {
+    -fx-background-color: #a94f90;
+}

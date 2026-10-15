@@ -33,3 +33,20 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+All Java code must follow the project skill `.codex/skills/seedu-java-coding-standard/SKILL.md`, based on the SE-EDU Java basic and intermediate standard. All commit messages must follow `.codex/skills/seedu-git-standard/SKILL.md`, based on the SE-EDU Git conventions.
+
+## UI testing
+
+After each code update, update `test/ui-test-plan.md` when the observable console behavior changes, then invoke the project-local `test-ui` skill by running:
+
+```bash
+bash .codex/skills/test-ui/scripts/run_ui_tests.sh
+```
+
+The skill must stop at the first failed case and show the complete input, actual output, and expected output.
+
+When reviewing command parsers, test malformed inputs interleaved with valid
+commands. Confirm that rejected commands do not change task counts or task
+states, and prefer exact command matching (for example, accept `todo` and
+`todo <description>` but reject unrelated strings beginning with `todo`).
