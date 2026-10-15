@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="640.0" prefWidth="460.0"
+            styleClass="app-shell"
+            stylesheets="@../css/main.css"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="bot.MainWindow">
+    <children>
+        <HBox alignment="CENTER_LEFT"
+              prefHeight="82.0"
+              styleClass="top-bar"
+              AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox alignment="CENTER_LEFT" spacing="2.0">
+                    <children>
+                        <Label styleClass="brand-title" text="BOT // TASK INTELLIGENCE" />
+                        <Label styleClass="brand-subtitle" text="COMMAND CENTER" />
+                    </children>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <HBox alignment="CENTER" spacing="6.0" styleClass="status-pill">
+                    <children>
+                        <Label styleClass="status-dot" text="●" />
+                        <Label styleClass="status-text" text="SYSTEM ONLINE" />
+                    </children>
+                </HBox>
+            </children>
+        </HBox>
+        <ScrollPane fx:id="scrollPane"
+                    styleClass="chat-scroll"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vvalue="1.0"
+                    AnchorPane.bottomAnchor="82.0"
+                    AnchorPane.leftAnchor="12.0"
+                    AnchorPane.rightAnchor="12.0"
+                    AnchorPane.topAnchor="82.0">
+            <content>
+                <VBox fx:id="dialogContainer"
+                      fillWidth="true"
+                      prefWidth="448.0"
+                      spacing="6.0" />
+            </content>
+        </ScrollPane>
+        <HBox alignment="CENTER"
+              styleClass="input-area"
+              AnchorPane.bottomAnchor="12.0"
+              AnchorPane.leftAnchor="12.0"
+              AnchorPane.rightAnchor="12.0">
+            <children>
+                <TextField fx:id="userInput"
+                           onAction="#handleUserInput"
+                           promptText="Enter command protocol..."
+                           HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton"
+                        defaultButton="true"
+                        mnemonicParsing="false"
+                        onAction="#handleUserInput"
+                        text="SEND" />
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

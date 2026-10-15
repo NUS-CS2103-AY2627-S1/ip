@@ -1,0 +1,4 @@
+interface:
+  display_name: "SE-EDU Git Standard"
+  short_description: "Draft and review SE-EDU-compliant Git metadata"
+  default_prompt: "Use $seedu-git-standard to draft a compliant commit message for my current changes."

@@ -1,0 +1,40 @@
+.dialog-box {
+    -fx-spacing: 10px;
+}
+
+.message-label {
+    -fx-font-size: 14px;
+    -fx-line-spacing: 3px;
+    -fx-padding: 11px 14px;
+}
+
+.user-message {
+    -fx-background-color: linear-gradient(to bottom right, #14b8a6, #087d91);
+    -fx-background-radius: 18px 18px 5px 18px;
+    -fx-border-color: rgba(153, 246, 228, 0.42);
+    -fx-border-radius: 18px 18px 5px 18px;
+    -fx-effect: dropshadow(gaussian, rgba(20, 217, 196, 0.2), 12, 0.16, 0, 3);
+    -fx-text-fill: #f2fffd;
+}
+
+.bot-message {
+    -fx-background-color: rgba(12, 24, 45, 0.94);
+    -fx-background-radius: 18px 18px 18px 5px;
+    -fx-border-color: rgba(94, 234, 212, 0.28);
+    -fx-border-radius: 18px 18px 18px 5px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.32), 14, 0.16, 0, 4);
+    -fx-text-fill: #dcecff;
+}
+
+.error-message {
+    -fx-background-color: linear-gradient(to bottom right, rgba(67, 18, 38, 0.96), rgba(37, 17, 34, 0.96));
+    -fx-border-color: rgba(251, 113, 133, 0.78);
+    -fx-effect: dropshadow(gaussian, rgba(244, 63, 94, 0.22), 14, 0.2, 0, 3);
+    -fx-text-fill: #fecdd3;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(94, 234, 212, 0.62), 10, 0.3, 0, 0);
+    -fx-opacity: 0.96;
+}
