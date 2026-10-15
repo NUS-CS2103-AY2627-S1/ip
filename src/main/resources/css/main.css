@@ -1,0 +1,59 @@
+.root {
+    -fx-background-color: linear-gradient(to bottom, #f7f3e8, #edf2e5);
+    -fx-font-family: "Georgia", "Segoe UI", serif;
+}
+
+.app-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #476a4a;
+}
+
+.app-subtitle {
+    -fx-font-size: 11px;
+    -fx-text-fill: #726656;
+}
+
+.command-hint {
+    -fx-font-size: 11px;
+    -fx-text-fill: #71806a;
+}
+
+.header-accent {
+    -fx-font-size: 22px;
+    -fx-text-fill: #a9c7c9;
+}
+
+.summary-pill {
+    -fx-background-color: #e5eddd;
+    -fx-background-radius: 10px;
+    -fx-font-size: 10px;
+    -fx-padding: 3px 8px;
+    -fx-text-fill: #526a49;
+}
+
+.text-field {
+    -fx-background-color: #fffaf1;
+    -fx-background-radius: 14px;
+    -fx-border-color: #b7c7aa;
+    -fx-border-radius: 14px;
+    -fx-border-width: 1px;
+    -fx-font-size: 13px;
+    -fx-text-fill: #4a4035;
+}
+
+.button {
+    -fx-background-color: #476a4a;
+    -fx-background-radius: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #36563a;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
