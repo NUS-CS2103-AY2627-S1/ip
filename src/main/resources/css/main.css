@@ -1,0 +1,105 @@
+.root {
+    -fx-background-color: #0d1218;
+    -fx-background-image: url("../images/bg.png");
+    -fx-background-size: cover;
+    -fx-font-family: "Segoe UI", "Arial";
+}
+
+.header {
+    -fx-background-color: #151d27;
+    -fx-border-color: transparent transparent #263443 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 14 22 14 22;
+}
+
+.header-title {
+    -fx-text-fill: #f3f7fb;
+}
+
+.header-subtitle {
+    -fx-text-fill: #8b9aaa;
+}
+
+.status-dot {
+    -fx-fill: #37d3a1;
+    -fx-effect: dropshadow(gaussian, rgba(55, 211, 161, 0.55), 8, 0.4, 0, 0);
+}
+
+.status-label {
+    -fx-text-fill: #a8b6c4;
+    -fx-font-size: 12px;
+}
+
+.scroll-pane {
+    -fx-background-color: rgba(13, 18, 24, 0.78);
+    -fx-border-color: transparent;
+    -fx-padding: 12 10 2 10;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.transcript {
+    -fx-background-color: transparent;
+    -fx-padding: 8 4 4 4;
+}
+
+.input-bar {
+    -fx-background-color: #151d27;
+    -fx-border-color: #263443 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+.command-hint {
+    -fx-text-fill: #7d8996;
+    -fx-font-size: 10px;
+}
+
+.text-field {
+    -fx-background-color: #0d1218;
+    -fx-background-radius: 12;
+    -fx-border-color: #334657;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-text-fill: #edf3f8;
+    -fx-prompt-text-fill: #718193;
+    -fx-padding: 0 14 0 14;
+}
+
+.text-field:focused {
+    -fx-border-color: #36c9a0;
+    -fx-effect: dropshadow(gaussian, rgba(54, 201, 160, 0.18), 10, 0.35, 0, 0);
+}
+
+.button {
+    -fx-background-color: #2db995;
+    -fx-background-radius: 11;
+    -fx-text-fill: #071510;
+    -fx-cursor: hand;
+    -fx-padding: 0 18 0 18;
+}
+
+.button:hover {
+    -fx-background-color: #48d5b1;
+}
+
+.button:pressed {
+    -fx-background-color: #229b7e;
+}
+
+.scroll-bar {
+    -fx-background-color: #0d1218;
+    -fx-pref-width: 8px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #405263;
+    -fx-background-radius: 8;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

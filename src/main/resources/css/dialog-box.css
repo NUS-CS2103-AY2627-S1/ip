@@ -1,0 +1,65 @@
+.dialog-box {
+    -fx-spacing: 9;
+    -fx-padding: 5 8 7 8;
+}
+
+.user-dialog { -fx-alignment: BOTTOM_RIGHT; }
+.bot-dialog { -fx-alignment: BOTTOM_LEFT; }
+
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 6, 0.35, 0, 2);
+}
+
+.message-content {
+    -fx-max-width: 560;
+    -fx-padding: 10 13 10 13;
+    -fx-background-insets: 0;
+}
+
+.speaker-name {
+}
+
+.dialog-label {
+    -fx-wrap-text: true;
+    -fx-line-spacing: 2;
+    -fx-min-width: 0;
+    -fx-padding: 0;
+    -fx-text-alignment: LEFT;
+}
+
+.user-bubble {
+    -fx-background-color: #1a927d;
+    -fx-background-radius: 15 15 4 15;
+    -fx-border-color: #2a3a4a;
+    -fx-border-radius: 15 15 4 15;
+    -fx-border-width: 1;
+    -fx-text-fill: #f4fffc;
+}
+
+.user-bubble .speaker-name,
+.user-bubble .dialog-label {
+    -fx-text-fill: #f4fffc;
+}
+
+.bot-bubble {
+    -fx-background-color: #19232e;
+    -fx-border-color: #2a3a4a;
+    -fx-border-radius: 15 15 15 4;
+    -fx-border-width: 1;
+    -fx-background-radius: 15 15 15 4;
+}
+
+.bot-bubble .speaker-name,
+.bot-bubble .dialog-label {
+    -fx-text-fill: #e6edf3;
+}
+
+.error-bubble {
+    -fx-background-color: #321f27;
+    -fx-border-color: #e1697d;
+}
+
+.error-bubble .speaker-name,
+.error-bubble .dialog-label {
+    -fx-text-fill: #ffd9df;
+}

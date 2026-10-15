@@ -15,6 +15,17 @@ bin/
 
 # Temp files
 _temp/
-
+.class
+present-changes-visually
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Local review and UI-test artifacts
+/.gradle-user/
+/build-review/
+/build-review-test/
+/data/
+/ui-test-*-workspace/
+/ui-test-*-workspace-*/
+/ui-test-workspace/
+/ui-test-assertions-*.txt
