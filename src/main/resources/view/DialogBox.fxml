@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_RIGHT" fillHeight="true" maxWidth="1.7976931348623157E308"
+         type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox fx:id="messagePanel" minWidth="0.0" spacing="4.0" styleClass="message-panel">
+            <padding>
+                <Insets bottom="10.0" left="12.0" right="12.0" top="10.0" />
+            </padding>
+            <children>
+                <HBox fx:id="severityHeading" alignment="CENTER_LEFT" managed="false"
+                      spacing="5.0" visible="false">
+                    <children>
+                        <Label fx:id="severityIcon" styleClass="severity-icon" />
+                        <Label fx:id="severityLabel" styleClass="severity-label" />
+                    </children>
+                </HBox>
+                <Label fx:id="messageLabel" maxWidth="1.7976931348623157E308"
+                       minHeight="-Infinity" minWidth="0.0" styleClass="message-text"
+                       wrapText="true" VBox.vgrow="ALWAYS" />
+            </children>
+        </VBox>
+    </children>
+</fx:root>

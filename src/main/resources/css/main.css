@@ -1,0 +1,226 @@
+.root {
+    -fx-background-color: #0b141d;
+    -fx-font-family: system;
+    -fx-font-size: 14px;
+}
+
+.app-header {
+    -fx-background-color: #0b141d;
+    -fx-border-color: transparent transparent #71dcec transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.header-background {
+    -fx-opacity: 0.28;
+}
+
+.header-overlay {
+    -fx-background-color: rgba(7, 19, 28, 0.82);
+}
+
+.brand-label {
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e7f1f7;
+}
+
+.header-subtitle {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #71dcec;
+}
+
+.serina-portrait-frame {
+    -fx-background-color: rgba(113, 220, 236, 0.10);
+    -fx-background-radius: 23px;
+    -fx-border-color: #71dcec;
+    -fx-border-radius: 23px;
+    -fx-border-width: 1px;
+}
+
+.captain-identity {
+    -fx-background-color: rgba(16, 38, 49, 0.90);
+    -fx-background-radius: 3px;
+    -fx-border-color: #355d6b;
+    -fx-border-radius: 3px;
+    -fx-padding: 4px 7px;
+}
+
+.captain-label {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #a9bdc9;
+}
+
+.chat-scroll,
+.chat-scroll > .viewport,
+.dialog-container {
+    -fx-background-color: #0b141d;
+}
+
+.chat-scroll {
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.composer {
+    -fx-background-color: #0d1b25;
+    -fx-border-color: #284452 transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+    -fx-min-height: 64px;
+}
+
+.text-field {
+    -fx-background-color: #101f2a;
+    -fx-background-radius: 3px;
+    -fx-border-color: #355463;
+    -fx-border-radius: 3px;
+    -fx-padding: 9px 12px;
+    -fx-pref-height: 40px;
+    -fx-prompt-text-fill: #708895;
+    -fx-text-fill: #e7f1f7;
+}
+
+.text-field:focused {
+    -fx-border-color: #71dcec;
+    -fx-border-width: 2px;
+    -fx-padding: 8px 11px;
+}
+
+.send-button,
+.help-button {
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+
+.send-button {
+    -fx-background-color: #176b7a;
+    -fx-border-color: #71dcec;
+    -fx-pref-height: 40px;
+    -fx-text-fill: #f2fbff;
+}
+
+.help-button {
+    -fx-background-color: rgba(11, 27, 37, 0.88);
+    -fx-border-color: #71dcec;
+    -fx-text-fill: #9ceaf5;
+}
+
+.send-button:hover,
+.help-button:hover {
+    -fx-background-color: #205b69;
+}
+
+.send-button:pressed,
+.help-button:pressed {
+    -fx-background-color: #123f4a;
+}
+
+.send-button:focused,
+.help-button:focused {
+    -fx-border-color: #e7f1f7;
+    -fx-border-width: 2px;
+}
+
+.send-button:disabled,
+.help-button:disabled {
+    -fx-background-color: #25343d;
+    -fx-border-color: #52636d;
+    -fx-opacity: 1;
+    -fx-text-fill: #7f929d;
+}
+
+.message-panel {
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+    -fx-border-width: 1px;
+}
+
+.message-text {
+    -fx-line-spacing: 2px;
+}
+
+.user-panel {
+    -fx-background-color: #164452;
+    -fx-border-color: #3a8c99;
+}
+
+.user-panel .message-text {
+    -fx-text-fill: #f2fbff;
+}
+
+.serina-panel {
+    -fx-background-color: #142431;
+    -fx-border-color: #2f4d5c;
+}
+
+.serina-panel .message-text {
+    -fx-text-fill: #e7f1f7;
+}
+
+.error-panel {
+    -fx-background-color: #381b20;
+    -fx-border-color: #ffb4ab #5d3338 #5d3338 #ff8178;
+    -fx-border-width: 1px 1px 1px 4px;
+}
+
+.error-panel .message-text,
+.error-panel .severity-label,
+.error-panel .severity-icon {
+    -fx-text-fill: #ffb4ab;
+}
+
+.warning-panel {
+    -fx-background-color: #3a2e18;
+    -fx-border-color: #ffd18a #665234 #665234 #e9ae4f;
+    -fx-border-width: 1px 1px 1px 4px;
+}
+
+.warning-panel .message-text,
+.warning-panel .severity-label,
+.warning-panel .severity-icon {
+    -fx-text-fill: #ffd18a;
+}
+
+.severity-label,
+.severity-icon {
+    -fx-font-weight: bold;
+}
+
+.severity-icon {
+    -fx-alignment: center;
+    -fx-border-color: #ffd18a;
+    -fx-border-radius: 8px;
+    -fx-min-height: 16px;
+    -fx-min-width: 16px;
+}
+
+.error-panel .severity-icon {
+    -fx-border-color: #ffb4ab;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: #0b141d;
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: #10212b;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #416775;
+    -fx-background-radius: 2px;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #71dcec;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}
