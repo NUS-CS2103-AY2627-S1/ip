@@ -1,0 +1,63 @@
+.app-root {
+    -fx-background-image: url("../images/CatCafe_background.jpg");
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+.text-field {
+    -fx-background-color: rgba(43, 45, 49, 0.94);
+    -fx-background-radius: 10px;
+    -fx-border-color: #666a73;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+    -fx-font: 20px "System";
+    -fx-padding: 0 14px;
+    -fx-prompt-text-fill: #b8bbc2;
+    -fx-text-fill: #f3f4f6;
+}
+
+.text-field:focused {
+    -fx-border-color: #991b1b;
+    -fx-effect: dropshadow(gaussian, rgba(153, 27, 27, 0.24), 7, 0, 0, 0);
+}
+
+.button {
+    -fx-background-color: #3a3d43;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+    -fx-font: bold 18px "System";
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #991b1b;
+}
+
+.button:pressed {
+    -fx-background-color: #6f1515;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: rgba(255, 250, 244, 0.2);
+}
+
+.scroll-bar {
+    -fx-font-size: 9px;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #666a73;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

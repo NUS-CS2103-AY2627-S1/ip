@@ -8,6 +8,12 @@
 /build/
 src/main/resources/docs/
 
+# Legacy Maven build files
+/target/
+
+# Runtime task data
+/data/
+
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml

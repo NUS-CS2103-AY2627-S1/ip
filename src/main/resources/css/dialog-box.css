@@ -1,0 +1,47 @@
+.message-label {
+    -fx-background-color: #475569;
+    -fx-background-radius: 14px 14px 4px 14px;
+    -fx-font: 22px "System";
+    -fx-text-fill: white;
+}
+
+.larry-label {
+    -fx-background-color: rgba(43, 45, 49, 0.96);
+    -fx-background-radius: 4px 14px 14px 14px;
+    -fx-border-color: #666a73;
+    -fx-border-radius: 4px 14px 14px 14px;
+    -fx-border-width: 1px;
+    -fx-text-fill: #f3f4f6;
+}
+
+.speaker-name {
+    -fx-background-color: rgba(127, 29, 29, 0.95);
+    -fx-background-radius: 8px;
+    -fx-font-family: "Unutterable";
+    -fx-font-size: 30px;
+    -fx-padding: 3px 10px;
+    -fx-text-fill: white;
+}
+
+.success-label,
+.status-label {
+    -fx-background-color: rgba(43, 45, 49, 0.96);
+    -fx-border-color: #668273;
+}
+
+.delete-label {
+    -fx-background-color: rgba(43, 45, 49, 0.96);
+    -fx-border-color: #a37655;
+}
+
+.error-label {
+    -fx-background-color: rgba(58, 32, 38, 0.97);
+    -fx-border-color: #b91c1c;
+    -fx-border-width: 1px 1px 1px 4px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fecaca;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.18), 4, 0, 0, 1);
+}
