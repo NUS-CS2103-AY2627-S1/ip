@@ -1,0 +1,22 @@
+.tag-chip {
+    -fx-border-radius: 1em;
+    -fx-background-radius: 1em;
+    -fx-background-color: lightgray;
+    -fx-padding: 2;
+}
+
+.tag-chip > .label {
+    -fx-padding: 0 0 0 1.3em;
+}
+
+.tag-chip > .button {
+    -fx-background-color: transparent;
+    -fx-padding: 1;
+}
+
+.tag-chip > .button .image-view {
+    -fx-fit-width: 1.2em;
+    -fx-fit-height: 1.2em;
+    -fx-scale-x: 0.5;
+    -fx-scale-y: 0.5;
+}

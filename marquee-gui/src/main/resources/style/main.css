@@ -1,0 +1,29 @@
+.task-list-header {
+    -fx-background-color: lightgray;
+}
+
+.task-list-header .field {
+    -fx-background-color: whitesmoke;
+    -fx-background-insets: 0 1 2 0;
+}
+
+.task-list-header .first-field {
+    -fx-background-insets: 0 1 2 1;
+}
+
+.filter-button {
+    -fx-background-color: transparent;
+    -fx-padding: 5;
+}
+
+.filter-button .image-view {
+    -fx-opacity: 50%;
+}
+
+.filter-button:active {
+    -fx-background-color: yellow;
+}
+
+.filter-button:active .image-view {
+    -fx-opacity: 100%;
+}

@@ -1,0 +1,46 @@
+.list-view {
+    -fx-background-insets: 0;
+    -fx-padding: 1;
+}
+
+.list-cell {
+    -fx-padding: 0;
+}
+
+.task-item .text {
+    -fx-fill: black;
+}
+
+.task-item {
+    -fx-background-color: lightgray;
+}
+
+.task-item .field {
+    -fx-background-color: whitesmoke;
+    -fx-background-insets: 0 1 1 0;
+}
+
+.task-item .first-field {
+    -fx-background-insets: 0 1 1 1;
+}
+
+.task-item:completed .field {
+    -fx-background-color: lightgreen;
+}
+
+.list-cell:filled:selected .task-item {
+    -fx-background-color: darkgrey;
+}
+
+.list-cell:filled:selected .task-item .field {
+    -fx-background-insets: 1 1 1 0;
+    -fx-translate-y: 0;
+}
+
+.list-cell:filled:selected .task-item .first-field {
+    -fx-background-insets: 1 1 1 1;
+}
+
+.list-view:focused .list-cell:filled:selected .task-item {
+    -fx-background-color: dodgerblue;
+}

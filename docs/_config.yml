@@ -1,0 +1,11 @@
+title: "Marquee"
+theme: minima
+
+header_pages:
+  - cli.md
+  - gui.md
+
+markdown: kramdown
+
+repository: "vutuanlong07/ip"
+github_icon: "images/github-icon.png"

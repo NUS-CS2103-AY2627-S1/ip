@@ -5,8 +5,12 @@
 
 # Gradle build files
 /.gradle/
+/buildSrc/.gradle
 /build/
-src/main/resources/docs/
+/marquee-core/build/
+/marquee-cli/build/
+/marquee-gui/build/
+/buildSrc/build/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
@@ -15,6 +19,3 @@ bin/
 
 # Temp files
 _temp/
-
-/text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT

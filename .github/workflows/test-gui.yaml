@@ -1,0 +1,45 @@
+name: Test GUI build
+on:
+  workflow_dispatch:
+    inputs:
+      jar_name:
+        description: 'Tag to test'
+        required: true
+        type: string
+jobs:
+  check-jar:
+    name: Test run the JAR
+    runs-on: ${{ matrix.os }}
+    env:
+      JAR_NAME: marquee-${{ inputs.jar_name }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-26, macos-26-intel, ubuntu-26.04, ubuntu-26.04-arm]
+    steps:
+      - name: Setup Java
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 25
+      - name: Download binaries
+        uses: actions/download-artifact@v8
+        with:
+          path: ./
+          name: ${{ env.JAR_NAME }}
+      - name: Run the JAR on ${{ matrix.os }}
+        shell: pwsh
+        run: |
+          $job = Start-Job -ScriptBlock {
+            $logs = $(java -jar ${{ env.JAR_NAME }}.jar) *>&1
+            return @{ logs=$logs; exitcode=$LASTEXITCODE }
+          }
+          Wait-Job $job -Timeout 10
+          if ($job.State -eq "Running") {
+            Stop-Job $job
+            exit 0
+          } else {
+            $result = Receive-Job $job
+            echo $result.logs
+            exit $result.exitcode
+          }

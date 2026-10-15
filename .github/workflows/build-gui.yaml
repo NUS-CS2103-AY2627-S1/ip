@@ -1,0 +1,47 @@
+name: GUI build
+on:
+  push:
+    tags:
+      - 'gui-v*'
+      - '!gui-v*-SNAPSHOT'
+permissions:
+  contents: write
+jobs:
+  build-gui-jar:
+    name: Build JAR for marquee-gui
+    runs-on: ubuntu-latest
+    env:
+      JAR_NAME: marquee-${{ github.ref_name }}
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v7
+      - name: Setup Java
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 25
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+      - name: Build with Gradle
+        run: ./gradlew :marquee-gui:shadowJar -PjarName="${{ env.JAR_NAME }}"
+      - name: Upload JAR
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ env.JAR_NAME }}
+          path: marquee-gui/build/libs/${{ env.JAR_NAME }}.jar
+  publish:
+    name: Publish the built binaries
+    needs: [build-gui-jar]
+    runs-on: ubuntu-slim
+    steps:
+      - name: Download binaries
+        uses: actions/download-artifact@v8
+        with:
+          path: marquee-gui/releases
+          pattern: marquee-${{ github.ref_name }}*
+          merge-multiple: true
+      - name: Create release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: marquee-gui/releases/*
+          draft: true

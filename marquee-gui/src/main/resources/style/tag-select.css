@@ -1,0 +1,29 @@
+.list-view {
+    -fx-border-width: 1;
+    -fx-border-color: darkgrey;
+    -fx-background-color: lightgray;
+    -fx-background-insets: 0;
+    -fx-padding: 1 0 0 0;
+}
+
+.list-cell .text {
+    -fx-fill: black;
+}
+
+.list-cell {
+    -fx-background-color: white;
+    -fx-background-insets: 0 1 1 1;
+    -fx-padding: 1;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: darkgrey;
+}
+
+.list-view:focused .list-cell:filled:selected {
+    -fx-background-color: dodgerblue;
+}
+
+.list-cell:empty {
+    -fx-background-insets: 0;
+}

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ButtonType?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<fx:root headerText="Search tasks" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="300.0" type="DialogPane" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <GridPane focusTraversable="true" hgap="20.0" vgap="10.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="70.0" />
+            <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints valignment="TOP" vgrow="SOMETIMES" />
+            <RowConstraints valignment="TOP" vgrow="SOMETIMES" />
+            <RowConstraints valignment="TOP" vgrow="SOMETIMES" />
+            <RowConstraints valignment="TOP" vgrow="SOMETIMES" />
+            <RowConstraints valignment="TOP" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label styleClass="fieldLabel" text="Completed" GridPane.rowIndex="1" />
+            <CheckBox fx:id="mark" allowIndeterminate="true" indeterminate="true" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label styleClass="fieldLabel" text="Description" />
+            <TextArea fx:id="description" prefColumnCount="10" prefRowCount="3" promptText="Search..." wrapText="true" GridPane.columnIndex="1" />
+            <Label styleClass="fieldLabel" text="Tags" GridPane.rowIndex="2" />
+            <StackPane fx:id="tagsContainer" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label styleClass="fieldLabel" text="Start time" GridPane.rowIndex="3" />
+            <TextField fx:id="start" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label styleClass="fieldLabel" text="End time" GridPane.rowIndex="4" />
+            <TextField fx:id="end" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </GridPane>
+   </content>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+   <buttonTypes>
+      <ButtonType fx:constant="OK" />
+      <ButtonType fx:constant="CANCEL" />
+   </buttonTypes>
+</fx:root>
