@@ -1,25 +1,58 @@
-# Duke project template
+# Bingus Dingus
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Bingus Dingus is a desktop task manager for todos, deadlines, and events. It
+uses a simple command-based interface to help you manage your tasks.
 
-## Setting up in Intellij
+## Prerequisites
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+- JDK 25
+- IntelliJ IDEA (optional)
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Running the application
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+To run the application with Gradle:
+
+```text
+gradlew.bat run
+```
+
+To build a standalone JAR file:
+
+```text
+gradlew.bat shadowJar
+```
+
+The JAR is created at `build/libs/bingusdingus.jar`. Run it with:
+
+```text
+java -jar build/libs/bingusdingus.jar
+```
+
+Task data is saved automatically in `data/bingusdingus.txt` relative to the
+application's working directory.
+
+## Running the tests
+
+Run the automated unit tests and Checkstyle checks with:
+
+```text
+gradlew.bat test check
+```
+
+## Setting up in IntelliJ IDEA
+
+1. Open IntelliJ IDEA and select **Open**.
+2. Select this project directory.
+3. Configure the project SDK to use JDK 25 and set the project language level
+   to **SDK default**.
+4. To run the graphical application, open
+   `src/main/java/bingusdingus/gui/Launcher.java` and run `Launcher.main()`.
+
+If IntelliJ reports stale compilation errors after setup, reload the Gradle
+project or restart the IDE.
+
+## Documentation
+
+See the published [Bingus Dingus User Guide](https://chunghean.github.io/ip/)
+for command formats, examples, date and time formats, saving behavior, and
+error handling.

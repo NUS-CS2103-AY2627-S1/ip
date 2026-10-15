@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run command/output UI tests for this Java app"
+  default_prompt: "After a code update, review test/ui-test-plan.md, update it if needed, then run its UI tests and stop at the first failure."
