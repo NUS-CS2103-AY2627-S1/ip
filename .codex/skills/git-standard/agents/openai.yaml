@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Standard"
+  short_description: "Apply SE-EDU Git commit conventions"
+  default_prompt: "Use $git-standard to review a commit or branch name against the SE-EDU Git conventions."

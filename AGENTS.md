@@ -33,3 +33,22 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## Post-update UI testing
+
+After every code update:
+
+1. Review `test/ui-test-plan.md` and update it when the change adds, removes, or changes observable command-line UI behavior.
+2. Invoke the project-specific `test-ui` skill to run the recorded UI tests and show the console transcript. Run it from the repository root with:
+
+   ```bash
+   python3 .codex/skills/test-ui/scripts/run_ui_tests.py test/ui-test-plan.md
+   ```
+
+## Java coding standard
+
+All Java code in this project must follow the project-specific `seedu-java-coding-standard` skill, based on the SE-EDU basic and intermediate Java coding conventions. Invoke that skill when reviewing or updating Java code, and apply its rules to new and modified code.
+
+## Git standard
+
+All future commits and branches in this project must follow the project-specific `git-standard` skill, based on the SE-EDU Git conventions. Invoke that skill before creating or proposing commits or branches. Commit subjects must be imperative, capitalized, period-free, and no longer than 72 characters; non-trivial commit bodies must explain what changed and why, with lines wrapped at 72 characters.

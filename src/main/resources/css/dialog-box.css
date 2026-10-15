@@ -1,0 +1,50 @@
+.dialog-box {
+    -fx-padding: 2px 6px;
+}
+
+.dialog-text {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px 12px 12px 3px;
+    -fx-border-color: #e0e6ef;
+    -fx-border-radius: 12px 12px 12px 3px;
+    -fx-padding: 9px 12px;
+    -fx-text-fill: #233044;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2px;
+}
+
+.user-dialog .dialog-text {
+    -fx-background-color: #dff4f1;
+    -fx-border-color: #b6ded9;
+    -fx-background-radius: 12px 12px 3px 12px;
+    -fx-border-radius: 12px 12px 3px 12px;
+    -fx-text-fill: #155e59;
+    -fx-font-size: 12px;
+}
+
+.jason-dialog .dialog-text {
+    -fx-max-width: 620px;
+}
+
+.error-response .dialog-text {
+    -fx-background-color: #fff1f0;
+    -fx-border-color: #e28b86;
+    -fx-text-fill: #9f2f2a;
+}
+
+.add-command .dialog-text {
+    -fx-background-color: #e6f6ec;
+    -fx-border-color: #b7dfc4;
+}
+
+.mark-command .dialog-text {
+    -fx-background-color: #d9f7df;
+}
+
+.delete-command .dialog-text {
+    -fx-background-color: #ffe0e0;
+}
+
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(35, 48, 68, 0.18), 4, 0.3, 1, 1);
+}
