@@ -1,0 +1,134 @@
+/*
+ * Look and feel for the Bucket GUI.
+ *
+ * Kept here rather than in inline style attributes so the FXML stays about layout
+ * and this file stays about appearance, and so both speakers can be restyled from
+ * one place.
+ *
+ * The conversation is deliberately asymmetric. It is a person talking to a tool,
+ * not two people talking to each other, so the two sides do not mirror one
+ * another: Bucket's replies run wide and left in a fixed-width font because they
+ * are mostly task lists that need their columns to line up, while what the user
+ * typed is a short right-aligned echo in a proportional font.
+ */
+
+.root {
+    -fx-background-color: #f7f7f5;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+}
+
+/* The scroll pane is only a viewport; the window colour should show through. */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane:focused {
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
+}
+
+.dialog-container {
+    -fx-padding: 10 10 10 10;
+    -fx-spacing: 8;
+}
+
+/*
+ * One message. The bubble carries the padding so the text never touches an edge,
+ * and the radius is small enough to read as a panel rather than a speech balloon.
+ */
+.bubble {
+    -fx-padding: 8 11 8 11;
+    -fx-background-radius: 8;
+}
+
+/* Bucket speaks in a fixed-width font so task lists keep their columns aligned. */
+.bot-bubble {
+    -fx-background-color: #ebe9e4;
+}
+
+.bot-text {
+    -fx-font-family: "Consolas", "Menlo", "Courier New", monospace;
+    -fx-font-size: 12.5px;
+    -fx-text-fill: #2b2b28;
+}
+
+/* The user's own words are a short echo, so they get the accent and hug their text. */
+.user-bubble {
+    -fx-background-color: #3c6e9f;
+}
+
+.user-text {
+    -fx-font-size: 12.5px;
+    -fx-text-fill: white;
+}
+
+/*
+ * Errors are tinted and carry a bar down the left edge. Colour alone would be easy
+ * to miss at a glance, and would say nothing to someone who cannot separate red
+ * from grey, so the bar gives the message a second, non-colour cue.
+ */
+.error-bubble {
+    -fx-background-color: #fdeceb;
+    -fx-border-color: #d64a3f;
+    -fx-border-width: 0 0 0 3;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8 0 0 8;
+}
+
+.error-text {
+    -fx-text-fill: #a3241c;
+}
+
+/* Small and circular: the speakers never change, so a large picture only costs width. */
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 2, 0, 0, 1);
+}
+
+.input-bar {
+    -fx-background-color: #f0efec;
+    -fx-border-color: #dedbd4;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 8;
+    -fx-spacing: 8;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 6;
+    -fx-border-color: #d8d6d0;
+    -fx-border-radius: 6;
+    -fx-padding: 7 10 7 10;
+    -fx-font-size: 12.5px;
+    -fx-prompt-text-fill: #9a9790;
+}
+
+.text-field:focused {
+    -fx-border-color: #3c6e9f;
+}
+
+.button {
+    -fx-background-color: #3c6e9f;
+    -fx-background-radius: 6;
+    -fx-text-fill: white;
+    -fx-font-size: 12.5px;
+    -fx-padding: 7 16 7 16;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #33608c;
+}
+
+.button:pressed {
+    -fx-background-color: #2b5278;
+}
+
+.button:disabled {
+    -fx-opacity: 0.4;
+}

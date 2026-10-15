@@ -1,0 +1,93 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javaFxVersion = '17.0.7'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    // Each JavaFX module is declared once per platform. The ':win', ':mac' and ':linux'
+    // classifiers bundle that platform's native libraries into the shadowJar, so the
+    // built JAR runs anywhere rather than only on the machine that built it.
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+}
+
+test {
+    useJUnitPlatform()
+
+    // Runs the suite as though the machine were set to another language, e.g.
+    //   gradlew test -PtestLocale=zh-CN
+    // Dates are formatted through a locale-sensitive API, so this is how the app is
+    // checked on a Chinese or German install without having one to hand.
+    if (project.hasProperty('testLocale')) {
+        def parts = project.property('testLocale').toString().split('-')
+        jvmArgs "-Duser.language=${parts[0]}"
+        if (parts.length > 1) {
+            jvmArgs "-Duser.country=${parts[1]}"
+        }
+    }
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    // Launcher rather than Main: JavaFX refuses to start when the class holding main
+    // extends Application but its libraries came off the plain classpath.
+    mainClass = 'bucket.Launcher'
+
+    // The JVM ignores every assert statement unless started with -ea, so without this
+    // the assumptions documented in the code would never actually be checked. This
+    // covers `gradlew run` and the generated start scripts. Gradle already enables
+    // assertions for the test task by default.
+    applicationDefaultJvmArgs = ['-ea']
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'bucket.jar'
+}
+
+run {
+    standardInput = System.in
+}

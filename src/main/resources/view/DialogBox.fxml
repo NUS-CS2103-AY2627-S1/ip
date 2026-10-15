@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<!--
+  One message. The row carries no fixed width any more, so it follows the window
+  when it is resized; which side it sits on, and whether it shows a picture, is
+  decided in DialogBox depending on who is speaking.
+
+  minHeight of -Infinity lets a wrapped label grow downwards rather than clipping.
+-->
+<fx:root alignment="TOP_LEFT"
+         spacing="7.0"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <ImageView fx:id="displayPicture"
+               fitHeight="24.0"
+               fitWidth="24.0"
+               pickOnBounds="true"
+               preserveRatio="true"
+               styleClass="avatar" />
+    <Label fx:id="dialog"
+           text="Label"
+           wrapText="true"
+           minHeight="-Infinity"
+           styleClass="bubble" />
+  </children>
+</fx:root>
