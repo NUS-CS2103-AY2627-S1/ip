@@ -1,0 +1,73 @@
+.root {
+    -fx-background-color: #f4f7fb;
+    -fx-font-family: "System";
+    -fx-font-size: 14px;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-padding: 18px 14px;
+}
+
+.message-bubble {
+    -fx-background-radius: 14px;
+    -fx-padding: 10px 14px;
+}
+
+.bot-message {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.user-message {
+    -fx-background-color: #dcd9ff;
+    -fx-text-fill: black;
+}
+
+.speaker-badge {
+    -fx-alignment: center;
+    -fx-background-radius: 18px;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-min-height: 36px;
+    -fx-min-width: 36px;
+    -fx-pref-height: 36px;
+    -fx-pref-width: 36px;
+}
+
+.bot-badge {
+    -fx-background-color: #ffca6b;
+    -fx-text-fill: #4c350c;
+    -fx-translate-x: -7px;
+}
+
+.user-badge {
+    -fx-background-color: #dcd9ff;
+    -fx-text-fill: #4035a5;
+    -fx-translate-x: 7px;
+}
+
+.command-input {
+    -fx-background-radius: 8px;
+    -fx-border-color: #d8deeb;
+    -fx-border-radius: 8px;
+    -fx-padding: 9px 12px;
+    -fx-prompt-text-fill: #555555;
+    -fx-text-fill: black;
+}
+
+.button {
+    -fx-background-color: #6c63ff;
+    -fx-background-radius: 8px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 9px 17px;
+}
+
+.button:hover {
+    -fx-background-color: #574fd6;
+}

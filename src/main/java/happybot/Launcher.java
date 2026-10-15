@@ -1,0 +1,18 @@
+package happybot;
+
+import javafx.application.Application;
+
+/**
+ * Launches the JavaFX application without extending Application itself.
+ */
+public class Launcher {
+
+    /**
+     * Starts the HappyBot graphical user interface.
+     *
+     * @param args Command-line arguments passed to JavaFX.
+     */
+    public static void main(String[] args) {
+        Application.launch(Main.class, args);
+    }
+}
