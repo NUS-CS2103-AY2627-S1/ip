@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Intermediate
+* IDE and level of expertise: Intermediate experience with using IntelliJ
 
 # Guidance for interacting with users
 
@@ -23,6 +23,17 @@ Unless the user says otherwise, assume that you are assisting a student working 
   * When faced with a design choice, choose the simplest option that is sufficient for the requirements, while briefly explaining relevant more advanced alternatives.
 
 # Project-specific requirements
+
+## Test coverage target
+
+JUnit tests should focus on approximately the highest-value 50% of methods, prioritizing
+complex, core, or critical business logic. Update the relevant JUnit tests after every
+code change so that the project continues to meet this coverage target.
+
+## Coding and Git standards
+
+All Java code must follow `.codex/skills/seedu-java-coding-standard/SKILL.md`.
+All future commits must follow `.codex/skills/seedu-git-standard/SKILL.md`.
 
 ## Java version:
 

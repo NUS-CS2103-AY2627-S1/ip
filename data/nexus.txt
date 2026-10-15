@@ -1,0 +1,2 @@
+[T][X] read textbook
+[D][ ] submit assignment (by: Sep 20 2026)
