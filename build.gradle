@@ -1,0 +1,137 @@
+plugins {
+    id 'java'
+    id 'checkstyle'
+    id 'jacoco'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javaFxVersion = '17.0.7'
+    String osName = System.getProperty('os.name').toLowerCase()
+    String architecture = System.getProperty('os.arch').toLowerCase()
+    String localJavaFxPlatform
+    if (osName.contains('mac')) {
+        localJavaFxPlatform = architecture.contains('aarch64') ? 'mac-aarch64' : 'mac'
+    } else if (osName.contains('win')) {
+        localJavaFxPlatform = 'win'
+    } else {
+        localJavaFxPlatform = architecture.contains('aarch64') ? 'linux-aarch64' : 'linux'
+    }
+    List<String> javaFxPlatforms = ['win', 'linux', localJavaFxPlatform].unique()
+
+    ['base', 'controls', 'fxml', 'graphics'].each { module ->
+        javaFxPlatforms.each { platform ->
+            implementation("org.openjfx:javafx-${module}:${javaFxVersion}:${platform}")
+        }
+    }
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+def coverageExclusions = [
+    'peter/Launcher.class',
+    'peter/Main.class',
+    'peter/ui/DialogBox.class',
+    'peter/ui/MainWindow.class'
+]
+
+jacocoTestReport {
+    dependsOn test
+    classDirectories.setFrom(files(sourceSets.main.output.classesDirs).asFileTree.matching {
+        exclude coverageExclusions
+    })
+
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+
+jacocoTestCoverageVerification {
+    dependsOn test
+    classDirectories.setFrom(files(sourceSets.main.output.classesDirs).asFileTree.matching {
+        exclude coverageExclusions
+    })
+
+    violationRules {
+        rule {
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.95
+            }
+            limit {
+                counter = 'BRANCH'
+                value = 'COVEREDRATIO'
+                minimum = 0.90
+            }
+        }
+    }
+}
+
+check.dependsOn jacocoTestCoverageVerification
+
+application {
+    mainClass = 'peter.Launcher'
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'peter.Launcher'
+        )
+    }
+   
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA"
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+shadowJar {
+    archiveFileName = 'peter.jar'
+}
+
+run {
+    standardInput = System.in
+}
+
+tasks.register('runText', JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'peter.Peter'
+    standardInput = System.in
+}

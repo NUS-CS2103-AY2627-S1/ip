@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="600.0" prefWidth="400.0" stylesheets="@../css/main.css"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="peter.ui.MainWindow" styleClass="app-shell">
+  <top>
+    <HBox alignment="CENTER_LEFT" styleClass="app-header">
+      <children>
+        <VBox spacing="1.0">
+          <children>
+            <Label styleClass="app-title" text="Peter" />
+            <Label styleClass="app-subtitle" text="Your steady task navigator" />
+          </children>
+        </VBox>
+      </children>
+    </HBox>
+  </top>
+  <center>
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0"
+                pannable="true" vvalue="1.0" styleClass="conversation-scroll">
+      <content>
+        <VBox fx:id="dialogContainer" fillWidth="true" styleClass="dialog-container" />
+      </content>
+    </ScrollPane>
+  </center>
+  <bottom>
+    <HBox alignment="CENTER" spacing="8.0" styleClass="composer">
+      <children>
+        <TextField fx:id="userInput" onAction="#handleUserInput" promptText="Type a command…"
+                   HBox.hgrow="ALWAYS" />
+        <Button fx:id="sendButton" defaultButton="true" mnemonicParsing="false"
+                onAction="#handleUserInput" text="Send" />
+      </children>
+    </HBox>
+  </bottom>
+</BorderPane>

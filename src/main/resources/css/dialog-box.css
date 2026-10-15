@@ -1,0 +1,34 @@
+.label {
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+    -fx-text-fill: #202939;
+}
+
+.peter-message {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 4px 12px 12px 12px;
+    -fx-border-color: #e1e6ed;
+    -fx-border-radius: 4px 12px 12px 12px;
+}
+
+.user-message {
+    -fx-background-color: #4057d6;
+    -fx-background-radius: 12px 12px 4px 12px;
+    -fx-text-fill: #ffffff;
+}
+
+.error-message {
+    -fx-background-color: #fff3f2;
+    -fx-background-radius: 4px 12px 12px 12px;
+    -fx-border-color: #ef9a9a;
+    -fx-border-radius: 4px 12px 12px 12px;
+    -fx-text-fill: #9f2420;
+}
+
+.user-dialog .label {
+    -fx-font-weight: 500;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(23, 32, 51, 0.16), 5, 0.12, 0, 1);
+}

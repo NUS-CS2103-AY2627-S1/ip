@@ -1,25 +1,80 @@
-# Duke project template
+# Peter
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+> “Your mind is for having ideas, not holding them.” — David Allen ([source](https://gettingthingsdone.com/))
 
-## Setting up in Intellij
+Peter is a calm task navigator with both a JavaFX GUI and a text-based interface. It helps you chart todos, deadlines, and events while keeping every response clear, encouraging, and quick to scan. 🧭
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+Read the [Peter User Guide](https://peterpei666.github.io/ip/) for command examples and usage instructions.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Features
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+- Add todos, deadlines, and events
+- List, mark, unmark, and delete tasks
+- Find tasks using a keyword
+- View deadlines on a selected date
+- Sort deadlines chronologically
+- Save tasks automatically and restore them the next time Peter starts
+
+## Getting started
+
+Peter requires **JDK 25**. To run it from a terminal:
+
+1. Clone this repository.
+2. Open the project directory in VS Code or a terminal.
+3. Make sure Java 25 is active.
+4. Run `./gradlew run` for the GUI, or `./gradlew runText` for the text-based UI.
+5. Enter a command such as `todo read book`.
+
+You can learn more about Markdown used in this document from the [GitHub Flavored Markdown guide](https://guides.github.com/features/mastering-markdown/).
+
+## Example commands
+
+```text
+todo read book
+deadline return book /by 2026-09-10 1800
+event project meeting /from 1400 /to 1600
+list
+mark 1
+find book
+view 2026-09-10
+sort
+bye
+```
+
+## Project progress
+
+- [x] Manage todos
+- [x] Manage deadlines
+- [x] Manage events
+- [x] Save and load tasks
+- [x] Search tasks by keyword
+- [x] Sort deadlines chronologically
+- [x] Add a graphical user interface
+
+## Java entry point
+
+If you are learning Java, the `main` method is a useful place to begin exploring the code:
+
+```java
+public static void main(String[] args) {
+    new Peter("data/peter.txt").run();
+}
+```
+
+## Testing and style checks
+
+Run the automated tests and Checkstyle checks before submitting changes:
+
+```bash
+./gradlew test checkstyleMain checkstyleTest
+```
+
+Generate the JaCoCo coverage report with:
+
+```bash
+./gradlew jacocoTestReport
+```
+
+The HTML report is written to `build/reports/jacoco/test/html/index.html`. The `check` task enforces at least
+95% line coverage and 90% branch coverage for automatically testable, non-GUI code. Keeping these checks green
+makes the project easier to understand and maintain.
