@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1" maxWidth="1.7976931348623157E308"
+         alignment="CENTER_RIGHT" spacing="8">
+    <children>
+        <Label fx:id="messageLabel" wrapText="true" maxWidth="420" />
+        <ImageView fx:id="avatarView" fitHeight="30" fitWidth="30" preserveRatio="true" />
+    </children>
+    <padding>
+        <Insets top="2" right="0" bottom="2" left="0" />
+    </padding>
+</fx:root>
