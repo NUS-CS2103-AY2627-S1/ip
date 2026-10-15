@@ -18,3 +18,12 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Suki save file
+/data/
+
+# Downloaded test dependency
+/lib/
+
+# Local reference copy of the SE-EDU git conventions
+/GIT-CONVENTIONS.md

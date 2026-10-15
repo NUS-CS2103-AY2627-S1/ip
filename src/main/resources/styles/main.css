@@ -1,0 +1,74 @@
+.root {
+    -fx-background-color: #f6f7fb;
+    -fx-font-family: "System";
+    -fx-font-size: 13px;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-padding: 8px 0;
+}
+
+.user-dialog #dialog,
+.suki-dialog #dialog {
+    -fx-background-radius: 10px;
+    -fx-padding: 9px 12px;
+}
+
+.user-dialog #dialog {
+    -fx-background-color: #dbeafe;
+    -fx-text-fill: #172554;
+}
+
+.suki-dialog #dialog {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 10px;
+    -fx-text-fill: #1f2937;
+}
+
+.error-dialog #dialog {
+    -fx-background-color: #fee2e2;
+    -fx-border-color: #ef4444;
+    -fx-text-fill: #991b1b;
+    -fx-font-weight: bold;
+}
+
+.avatar {
+    -fx-background-radius: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.user-dialog .avatar {
+    -fx-background-color: #2563eb;
+}
+
+.suki-dialog .avatar {
+    -fx-background-color: #7c3aed;
+}
+
+.error-dialog .avatar {
+    -fx-background-color: #dc2626;
+}
+
+.text-field {
+    -fx-background-radius: 8px;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 8px;
+}
+
+.button {
+    -fx-background-color: #4f46e5;
+    -fx-background-radius: 8px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #4338ca;
+}
