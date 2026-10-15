@@ -15,6 +15,10 @@ bin/
 
 # Temp files
 _temp/
+.package-classes/
+.gooble-verify/
+*.class
+/data/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
