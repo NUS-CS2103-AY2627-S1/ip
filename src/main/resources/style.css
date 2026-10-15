@@ -1,0 +1,287 @@
+.root {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.main-window {
+    -fx-background-color: #f5f7fb;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header {
+    -fx-background-color:
+            linear-gradient(to right, #172554, #1e3a8a);
+}
+
+
+/* Header mascot */
+
+.header-avatar {
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(0, 0, 0, 0.18),
+            10,
+            0.15,
+            0,
+            3
+    );
+}
+
+.header-avatar-circle {
+    -fx-fill: white;
+}
+
+.header-avatar-icon {
+    -fx-text-fill: #2563eb;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+
+/* Header text */
+
+.header-title {
+    -fx-text-fill: white;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+.header-subtitle {
+    -fx-text-fill: #dbeafe;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.header-tagline {
+    -fx-text-fill: #93c5fd;
+    -fx-font-size: 11px;
+}
+
+.online-badge {
+    -fx-background-color: rgba(34, 197, 94, 0.20);
+    -fx-background-radius: 10px;
+
+    -fx-padding: 3px 8px;
+
+    -fx-text-fill: #86efac;
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+}
+
+
+/* =========================================================
+   CHAT AREA
+   ========================================================= */
+
+.chat-scroll-pane {
+    -fx-background-color: #f5f7fb;
+    -fx-background: #f5f7fb;
+    -fx-border-color: transparent;
+}
+
+.chat-scroll-pane > .viewport {
+    -fx-background-color: #f5f7fb;
+}
+
+.dialog-container {
+    -fx-background-color: #f5f7fb;
+}
+
+
+/* =========================================================
+   DIALOG BOXES
+   ========================================================= */
+
+.user-dialog,
+.kiaw-dialog {
+    -fx-spacing: 11px;
+}
+
+.dialog-label {
+    -fx-padding: 11px 15px;
+
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2px;
+}
+
+
+/* User bubble */
+
+.user-dialog-label {
+    -fx-background-color:
+            linear-gradient(to bottom right, #2563eb, #1d4ed8);
+
+    -fx-background-radius: 17px 17px 4px 17px;
+
+    -fx-text-fill: white;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(37, 99, 235, 0.22),
+            8,
+            0.12,
+            0,
+            2
+    );
+}
+
+
+/* Kiaw bubble */
+
+.kiaw-dialog-label {
+    -fx-background-color: white;
+
+    -fx-background-radius: 17px 17px 17px 4px;
+
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 17px 17px 17px 4px;
+    -fx-border-width: 1px;
+
+    -fx-text-fill: #1e293b;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(15, 23, 42, 0.08),
+            8,
+            0.10,
+            0,
+            2
+    );
+}
+
+
+/* =========================================================
+   CHAT AVATARS
+   ========================================================= */
+
+.avatar-container {
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(15, 23, 42, 0.10),
+            5,
+            0.10,
+            0,
+            2
+    );
+}
+
+.avatar-circle {
+    -fx-fill: #dbeafe;
+}
+
+.avatar-text {
+    -fx-font-weight: bold;
+}
+
+
+/* User avatar */
+
+.user-avatar .avatar-circle {
+    -fx-fill: #dbeafe;
+}
+
+.user-avatar .avatar-text {
+    -fx-text-fill: #1d4ed8;
+    -fx-font-size: 9px;
+}
+
+
+/* Kiaw avatar */
+
+.kiaw-avatar .avatar-circle {
+    -fx-fill:
+            linear-gradient(to bottom right, #172554, #2563eb);
+}
+
+.kiaw-avatar .avatar-text {
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+}
+
+
+/* =========================================================
+   INPUT AREA
+   ========================================================= */
+
+.composer {
+    -fx-background-color: white;
+
+    -fx-border-color:
+            #e2e8f0 transparent transparent transparent;
+
+    -fx-border-width: 1px 0 0 0;
+}
+
+.user-input {
+    -fx-pref-height: 44px;
+
+    -fx-background-color: #f8fafc;
+    -fx-background-radius: 14px;
+
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 14px;
+
+    -fx-padding: 0 15px;
+
+    -fx-font-size: 13px;
+    -fx-text-fill: #1e293b;
+
+    -fx-prompt-text-fill: #94a3b8;
+}
+
+.user-input:focused {
+    -fx-background-color: white;
+
+    -fx-border-color: #2563eb;
+    -fx-border-width: 1.5px;
+}
+
+
+/* Send button */
+
+.send-button {
+    -fx-pref-height: 44px;
+    -fx-pref-width: 86px;
+
+    -fx-background-color:
+            linear-gradient(to bottom right, #2563eb, #1d4ed8);
+
+    -fx-background-radius: 14px;
+
+    -fx-text-fill: white;
+
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+
+    -fx-cursor: hand;
+
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(37, 99, 235, 0.18),
+            6,
+            0.10,
+            0,
+            2
+    );
+}
+
+.send-button:hover {
+    -fx-background-color: #1d4ed8;
+}
+
+.send-button:pressed {
+    -fx-background-color: #1e40af;
+}
+
+
+/* Command hint */
+
+.command-hint {
+    -fx-text-fill: #94a3b8;
+    -fx-font-size: 10px;
+
+    -fx-padding: 0 3px 0 3px;
+}

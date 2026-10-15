@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+
+<fx:root alignment="TOP_RIGHT"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+
+    <children>
+
+        <Label fx:id="dialog"
+               maxWidth="365.0"
+               wrapText="true"
+               styleClass="dialog-label" />
+
+        <StackPane fx:id="avatarContainer"
+                   minHeight="46.0"
+                   minWidth="46.0"
+                   prefHeight="46.0"
+                   prefWidth="46.0"
+                   maxHeight="46.0"
+                   maxWidth="46.0"
+                   styleClass="avatar-container">
+
+            <children>
+
+                <Circle radius="23.0"
+                        styleClass="avatar-circle" />
+
+                <Label fx:id="avatarText"
+                       styleClass="avatar-text" />
+
+            </children>
+        </StackPane>
+
+    </children>
+
+    <padding>
+        <Insets top="7.0"
+                right="12.0"
+                bottom="7.0"
+                left="12.0" />
+    </padding>
+
+</fx:root>

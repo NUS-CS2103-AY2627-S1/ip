@@ -1,25 +1,99 @@
-# Duke project template
+# Kiaw
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Kiaw is a desktop task management chatbot that helps users organise todos,
+deadlines, and events using simple text commands.
 
-## Setting up in Intellij
+Kiaw provides a JavaFX graphical interface and stores task data locally so
+that tasks remain available between sessions.
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+## Features
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Kiaw supports:
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+- Adding todos
+- Adding deadlines with due dates
+- Adding events with start and end dates
+- Listing tasks
+- Marking and unmarking tasks
+- Deleting tasks
+- Finding tasks by keyword
+- Sorting dated tasks chronologically
+- Persistent local storage
+- Graceful handling of invalid commands and corrupted stored records
+- A JavaFX graphical user interface
+
+## Example commands
+
+```text
+todo read book
+
+deadline submit assignment /by 2026-09-15
+
+event project meeting /from 2026-10-01 /to 2026-10-02
+
+list
+
+find book
+
+sort
+
+mark 1
+
+unmark 1
+
+delete 1
+
+bye
+```
+
+Dates should be entered in `yyyy-MM-dd` format.
+
+## Running Kiaw
+
+### Using Gradle
+
+Run:
+
+```text
+./gradlew run
+```
+
+On Windows PowerShell:
+
+```text
+.\gradlew.bat run
+```
+
+### Using the JAR file
+
+Generate the JAR using:
+
+```text
+./gradlew shadowJar
+```
+
+On Windows:
+
+```text
+.\gradlew.bat shadowJar
+```
+
+The generated JAR can be found in:
+
+```text
+build/libs/
+```
+
+## User Guide
+
+See [`docs/README.md`](docs/README.md) for the detailed user guide.
+
+## Acknowledgements
+
+This project was developed with some assistance from ChatGPT by OpenAI.
+
+The generated and suggested changes were reviewed, tested, and integrated by
+the project author.
+
+This project was developed using the CS2103 iP materials and SE-EDU Duke
+project resources provided as part of the course.
