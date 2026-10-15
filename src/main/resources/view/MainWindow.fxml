@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  The window's layout: the conversation fills the centre and the place to type
+  sits along the bottom.
+
+  A BorderPane rather than the anchored pane of the tutorial, because it gives
+  its centre whatever room the other edges leave. That is what lets the window be
+  resized without any position here being worked out again.
+
+  Two kinds of name appear below. "fx:id" pairs a control with the field of the
+  same name in the controller, so the controller can reach it; "id" is the name
+  the stylesheet knows the control by. They are deliberately spelt differently:
+  one is Java's, the other CSS's.
+-->
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="640.0" prefWidth="520.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="elsa.gui.MainWindow">
+    <center>
+        <ScrollPane fx:id="scrollPane" id="scroll-pane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="ALWAYS">
+            <content>
+                <VBox fx:id="dialogContainer" id="dialog-container" />
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox id="input-row">
+            <children>
+                <TextField fx:id="userInput" id="user-input"
+                           promptText="Type a command, or &quot;help&quot;"
+                           onAction="#handleUserInput"
+                           HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton" id="send-button"
+                        text="Send"
+                        mnemonicParsing="false"
+                        onAction="#handleUserInput" />
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>

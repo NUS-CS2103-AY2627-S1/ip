@@ -1,0 +1,190 @@
+/*
+ * The Ice Palace theme: a pale frosted background, white bubbles for Elsa and
+ * ice blue ones for the user.
+ *
+ * Every colour the window uses is named once at the top and referred to by name
+ * below, so the theme can be changed here without hunting through the rules.
+ * JavaFX calls these "looked-up colours": a name beginning with -fx- defined on
+ * .root can be used as a value anywhere inside it.
+ */
+
+.root {
+    -ice-pale:      #EAF6FB;   /* the top of the background */
+    -ice-white:     #FFFFFF;   /* Elsa's bubble, and the input row */
+    -ice-tint:      #F7FCFE;   /* the text field, a shade off white */
+    -ice-border:    #CDE9F3;   /* dividing lines */
+    -ice-edge:      #BFE3F0;   /* the outline round Elsa's bubble */
+    -ice-blue:      #3E8FB8;   /* the user's bubble */
+    -ice-deep:      #2E7BA6;   /* the send button, and the focused field */
+    -ice-pressed:   #24618A;   /* the send button while held down */
+    -ice-navy:      #123A5A;   /* text on a light background */
+    -ice-faded:     #8FB6CA;   /* the prompt in the empty text field */
+    -ice-track:     #E4F2F8;   /* the channel the scrollbar thumb runs in */
+    -ice-thumb:     #9FCFE3;   /* the scrollbar thumb itself */
+    -ice-alarm:     #FDF1F2;   /* a bubble holding something Elsa could not do */
+    -ice-alarm-edge: #F0C2C8;  /* the outline round it */
+    -ice-alarm-bar: #C2445A;   /* the bar down its leading edge */
+    -ice-alarm-text: #7A2436;  /* the words inside it */
+
+    -fx-background-color: linear-gradient(to bottom, -ice-pale 0%, -ice-white 70%);
+    -fx-font-family: "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
+    -fx-font-size: 13px;
+}
+
+/*
+ * A ScrollPane paints its own grey panel by default, which would sit as a slab
+ * on top of the background. Both the pane and the viewport inside it have to be
+ * cleared for the background to show through.
+ */
+#scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-padding: 0;
+}
+
+#scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+#dialog-container {
+    -fx-spacing: 14px;
+    -fx-padding: 16px 14px 16px 14px;
+    -fx-background-color: transparent;
+}
+
+/* The row holding one entry: the words and the picture beside them. */
+.dialog-box {
+    -fx-spacing: 10px;
+}
+
+/* The bubble the words sit in. Shared by both speakers; the colours differ. */
+.dialog-label {
+    -fx-padding: 10px 14px;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-line-spacing: 3px;
+    -fx-effect: dropshadow(gaussian, rgba(18, 58, 90, 0.10), 5, 0, 0, 1);
+}
+
+.elsa-bubble {
+    -fx-background-color: -ice-white;
+    -fx-text-fill: -ice-navy;
+    -fx-border-color: -ice-edge;
+    -fx-border-width: 1px;
+}
+
+.user-bubble {
+    -fx-background-color: -ice-blue;
+    -fx-text-fill: -ice-white;
+}
+
+/*
+ * A bubble holding something Elsa could not do. Warm where the rest of the
+ * window is cold, so it is picked out while scrolling past.
+ *
+ * It is marked twice over, by colour and by the bar down its leading edge,
+ * because a reader who does not tell the two shades apart would be left with no
+ * difference at all. The bar is the border's left side widened; the other three
+ * sides stay at a hairline, which is why the widths are written out in full.
+ */
+.error-bubble {
+    -fx-background-color: -ice-alarm;
+    -fx-text-fill: -ice-alarm-text;
+    -fx-border-color: -ice-alarm-edge -ice-alarm-edge -ice-alarm-edge -ice-alarm-bar;
+    -fx-border-width: 1px 1px 1px 4px;
+}
+
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(18, 58, 90, 0.18), 6, 0, 0, 2);
+}
+
+/* The row along the bottom, lifted off the conversation by a single line. */
+#input-row {
+    -fx-spacing: 8px;
+    -fx-padding: 10px 12px 12px 12px;
+    -fx-background-color: -ice-white;
+    -fx-border-color: -ice-border transparent transparent transparent;
+    -fx-border-width: 1px;
+}
+
+#user-input {
+    -fx-background-color: -ice-tint;
+    -fx-background-radius: 18px;
+    -fx-border-color: -ice-border;
+    -fx-border-radius: 18px;
+    -fx-border-width: 1px;
+    -fx-padding: 8px 14px;
+    -fx-text-fill: -ice-navy;
+    -fx-prompt-text-fill: -ice-faded;
+}
+
+#user-input:focused {
+    -fx-border-color: -ice-deep;
+}
+
+#send-button {
+    -fx-background-color: -ice-deep;
+    -fx-background-radius: 18px;
+    -fx-text-fill: -ice-white;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 18px;
+    -fx-cursor: hand;
+}
+
+#send-button:hover {
+    -fx-background-color: -ice-blue;
+}
+
+#send-button:pressed {
+    -fx-background-color: -ice-pressed;
+}
+
+/* Both controls are disabled once the user says goodbye, while the window waits
+   long enough for the farewell to be read. */
+#user-input:disabled,
+#send-button:disabled {
+    -fx-opacity: 0.45;
+}
+
+/*
+ * The scrollbar is always on show, so it is drawn as a sunken frost channel with
+ * a solid thumb in it: wide enough to grab, and clearly a bar even when the
+ * conversation is short enough that it fills the whole track. The arrow buttons
+ * are removed, since the bar is short enough to drag and they only add clutter.
+ */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-padding: 2px 3px 2px 1px;
+    -fx-pref-width: 12px;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: -ice-track;
+    -fx-background-radius: 6px;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: -ice-thumb;
+    -fx-background-radius: 6px;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: -ice-blue;
+}
+
+.scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: -ice-deep;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
+}

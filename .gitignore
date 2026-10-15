@@ -18,3 +18,6 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Saved task list, written at runtime
+/data/

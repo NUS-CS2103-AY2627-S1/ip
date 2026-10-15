@@ -1,0 +1,100 @@
+plugins {
+    id 'java'
+    id 'checkstyle'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+checkstyle {
+    toolVersion = '14.1.0'
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javaFxVersion = '17.0.7'
+
+    // JavaFX ships a separate native library per operating system, named by the
+    // classifier at the end of each line. All three are declared so that the
+    // project builds and runs on any of them, rather than only on the machine
+    // that wrote this file.
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    // The window is how the chatbot is used, so it is what `gradle run` starts
+    // and what Gradle writes as `Main-Class` into the shipped jar's manifest.
+    mainClass = 'elsa.gui.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'elsa.jar'
+}
+
+// The text interface at elsa.Elsa is no longer what the chatbot ships as, but
+// it is still the interface the text-based UI tests drive, so it stays runnable
+// under its own task. `standardInput` is redirected because, unlike the window,
+// it reads its commands from the console.
+tasks.register('runText', JavaExec) {
+    group = 'application'
+    description = 'Runs the text interface.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'elsa.Elsa'
+    standardInput = System.in
+    enableAssertions = true
+}
+
+// Java ignores every `assert` statement unless the JVM is started with -ea, so
+// an assertion that is never enabled is only a comment that costs a line. The
+// `test` task turns them on by default; a JavaExec task does not, so both ways
+// of starting the chatbot by hand say so here. The shipped jar deliberately
+// runs without them: an assertion is a check on this code's own reasoning, and
+// a user gaining a crash where they had a working program is a poor trade.
+tasks.named('run') {
+    enableAssertions = true
+}
