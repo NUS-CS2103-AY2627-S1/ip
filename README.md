@@ -23,3 +23,49 @@ Prerequisites: JDK 25, update Intellij to the most recent version.
    ```
 
 **Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+
+## Creating and running the fat JAR
+
+The Shadow plugin packages the application and all its runtime dependencies into
+one executable JAR file.
+
+1. From the project root, create the fat JAR:
+
+   ```shell
+   ./gradlew shadowJar
+   ```
+
+   On Windows, use `gradlew.bat shadowJar` instead.
+
+2. Find the generated JAR at `build/libs/luna.jar`.
+
+3. Run it from the project root with Java 25:
+
+   ```shell
+   java -jar build/libs/luna.jar
+   ```
+
+Running `./gradlew build` also creates the same fat JAR, in addition to running
+the project's normal verification tasks.
+
+## Acknowledgements
+
+### Reuse of previous work
+
+Substantial portions of this project were reused and adapted by **Sarina Ke**
+from her own CS2103T individual project submitted during a previous course
+attempt. The reuse covers significant parts of the application's codebase,
+including its task-management logic, command processing, persistence, tests,
+and graphical user interface. The reused work has since been reviewed and
+further modified for the current submission.
+
+Source: Sarina Ke's previous CS2103T individual project submission.
+
+### AI-assisted work
+
+- **Tool:** OpenAI Codex
+- **Used by:** Sarina Ke
+- **Extent of use:** Used extensively throughout the project to suggest,
+  generate, modify, refactor, and review code; improve JavaFX FXML and CSS;
+  diagnose errors; develop and run tests; and edit project documentation. The
+  generated suggestions and changes were reviewed and integrated by Sarina Ke.

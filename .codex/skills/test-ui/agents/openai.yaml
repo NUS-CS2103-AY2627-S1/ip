@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run scripted CLI tests and compare exact output"
+  default_prompt: "Use $test-ui to run the UI test cases recorded in test/ui-test-plan.md."

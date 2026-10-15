@@ -1,0 +1,10 @@
+{
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-25",
+      "path": "/Users/sarinake/.sdkman/candidates/java/25.0.3.fx-zulu",
+      "default": true
+    }
+  ],
+  "java.import.gradle.java.home": "/Users/sarinake/.sdkman/candidates/java/25.0.3.fx-zulu"
+}

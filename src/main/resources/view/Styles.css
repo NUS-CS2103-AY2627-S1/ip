@@ -1,0 +1,88 @@
+.root-pane {
+    -fx-background-color: #fff7fa;
+    -fx-font-family: "Inter", "SF Pro Text", "Segoe UI", sans-serif;
+    -fx-font-size: 13px;
+}
+
+.conversation-scroll,
+.conversation-scroll > .viewport {
+    -fx-background-color: #fff7fa;
+}
+
+.conversation-scroll {
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.dialog-container {
+    -fx-background-color: #fff7fa;
+    -fx-padding: 10px 0 12px 0;
+}
+
+.dialog-row {
+    -fx-font-size: 13px;
+}
+
+.dialog-label {
+    -fx-background-radius: 12px;
+    -fx-label-padding: 9px 12px;
+    -fx-line-spacing: 2px;
+}
+
+.luna-dialog .dialog-label {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #f1d6e0;
+    -fx-border-radius: 12px;
+    -fx-text-fill: #3c2730;
+}
+
+.user-dialog .dialog-label {
+    -fx-background-color: #c74375;
+    -fx-text-fill: #ffffff;
+}
+
+.avatar-frame {
+    -fx-background-color: #fde5ee;
+    -fx-background-radius: 11px;
+    -fx-border-color: #efbfd0;
+    -fx-border-radius: 11px;
+    -fx-border-width: 1px;
+}
+
+.composer {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #f0d3de transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+}
+
+.command-field {
+    -fx-background-color: #fff0f5;
+    -fx-background-radius: 9px;
+    -fx-border-color: transparent;
+    -fx-padding: 9px 11px;
+    -fx-prompt-text-fill: #936a79;
+}
+
+.command-field:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d65384;
+    -fx-border-radius: 9px;
+}
+
+.send-button {
+    -fx-background-color: #c74375;
+    -fx-background-radius: 9px;
+    -fx-font-weight: 700;
+    -fx-padding: 9px 16px;
+    -fx-text-fill: #ffffff;
+}
+
+.send-button:hover {
+    -fx-background-color: #b33565;
+    -fx-cursor: hand;
+}
+
+.send-button:pressed {
+    -fx-background-color: #982950;
+}
