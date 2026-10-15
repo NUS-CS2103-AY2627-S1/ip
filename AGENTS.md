@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Intermediate
+* IDE and level of expertise: Intellj IDEA and Intermediate
 
 # Guidance for interacting with users
 
@@ -32,4 +32,10 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
-Do not commit or push unless explicitly asked.
+Do not stage, commit, push, merge, or otherwise alter Git history unless explicitly asked.
+
+## Mandatory project standards
+
+All Java code in this project must follow `.codex/skills/seedu-java-coding-standard/SKILL.md`, which is based on the SE-EDU basic and intermediate Java coding standard.
+All future commit messages must follow `.codex/skills/seedu-git-standard/SKILL.md`, which is based on the SE-EDU Git conventions.
+Apply these standards to new code and to standards-related updates to existing code.
