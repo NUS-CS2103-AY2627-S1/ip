@@ -1,0 +1,147 @@
+.root {
+    sage-window-background: #f4f6f1;
+    sage-surface: #ffffff;
+    sage-border: #cbd5c7;
+    sage-primary: #345d43;
+    sage-primary-hover: #264b34;
+    -fx-background-color: sage-window-background;
+    -fx-font-family: "System";
+    -fx-font-size: 14px;
+    -fx-text-fill: #26372c;
+}
+
+.header-container {
+    -fx-background-color: #eaf0e5;
+    -fx-border-color: transparent transparent #d4dece transparent;
+}
+
+.header-bar {
+    -fx-padding: 15px 18px;
+}
+
+.app-title {
+    -fx-font-size: 23px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #264b34;
+}
+
+.app-subtitle,
+.input-hint,
+.help-caption {
+    -fx-font-size: 11px;
+    -fx-text-fill: #53614f;
+}
+
+.help-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 7px;
+    -fx-border-color: #afc1a7;
+    -fx-border-radius: 7px;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+    -fx-padding: 7px 10px;
+    -fx-text-fill: #34513a;
+}
+
+.help-button:hover {
+    -fx-background-color: #dce7d5;
+}
+
+.help-panel {
+    -fx-padding: 0 18px 14px 18px;
+}
+
+.help-title {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34513a;
+}
+
+.help-examples {
+    -fx-font-family: "Monospaced";
+    -fx-font-size: 11px;
+    -fx-text-fill: #304333;
+    -fx-line-spacing: 3px;
+}
+
+.dialog-scroll-pane,
+.dialog-scroll-pane > .viewport,
+.dialog-scroll-pane > .corner {
+    -fx-background-color: transparent;
+}
+
+.dialog-scroll-pane {
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+.dialog-container {
+    -fx-padding: 14px 14px 20px 14px;
+}
+
+.input-bar {
+    -fx-background-color: sage-surface;
+    -fx-border-color: sage-border transparent transparent transparent;
+    -fx-padding: 12px 14px 10px 14px;
+}
+
+.command-input {
+    -fx-background-color: #fafbf8;
+    -fx-background-radius: 8px;
+    -fx-border-color: sage-border;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px 11px;
+    -fx-prompt-text-fill: #64735e;
+    -fx-text-fill: #26372c;
+}
+
+.command-input:focused {
+    -fx-border-color: sage-primary;
+    -fx-effect: dropshadow(gaussian, rgba(52, 93, 67, 0.16), 5, 0, 0, 0);
+}
+
+.send-button {
+    -fx-background-color: sage-primary;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-padding: 11px 14px;
+    -fx-text-fill: white;
+}
+
+.send-button:hover {
+    -fx-background-color: sage-primary-hover;
+}
+
+.send-button:focused,
+.help-button:focused {
+    -fx-border-color: #243f2c;
+    -fx-border-insets: -2px;
+    -fx-border-radius: 9px;
+    -fx-border-width: 2px;
+}
+
+.send-button:pressed {
+    -fx-background-color: #1e3d29;
+}
+
+.send-button:disabled {
+    -fx-opacity: 0.55;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 11px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #a9b7a1;
+    -fx-background-radius: 8px;
+    -fx-background-insets: 2px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}

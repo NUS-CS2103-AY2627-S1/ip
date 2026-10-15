@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'en' }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ site.description | escape }}">
+    <meta name="theme-color" content="#345d43">
+    <title>{{ page.title | default: site.title | escape }} · Sage</title>
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <nav class="site-nav" aria-label="Main navigation">
+        <a class="brand" href="{{ '/' | relative_url }}">Sage</a>
+        <div class="nav-links">
+          <a href="{{ '/' | relative_url }}">User guide</a>
+          <a href="https://github.com/codeforce233/ip">GitHub</a>
+        </div>
+      </nav>
+    </header>
+    <main id="main-content" class="page-content">
+      {{ content }}
+    </main>
+    <footer class="site-footer">
+      <p>Sage · A little clarity, one step at a time.</p>
+      <a href="https://github.com/codeforce233/ip/issues">Report a problem</a>
+    </footer>
+  </body>
+</html>

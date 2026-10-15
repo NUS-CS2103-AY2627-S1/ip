@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_LEFT"
+         maxWidth="1.7976931348623157E308"
+         minWidth="0.0"
+         spacing="9.0"
+         styleClass="dialog-box"
+         stylesheets="@../css/dialog-box.css"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="speaker" minWidth="-Infinity" styleClass="command-speaker" text="You ›" />
+        <VBox maxWidth="1.7976931348623157E308" minWidth="0.0" spacing="5.0" HBox.hgrow="ALWAYS">
+            <Label fx:id="status" styleClass="response-status" text="Sage" />
+            <Label fx:id="dialog"
+                   maxWidth="1.7976931348623157E308"
+                   minHeight="-Infinity"
+                   minWidth="0.0"
+                   styleClass="dialog-label"
+                   text="Dialog"
+                   wrapText="true" />
+        </VBox>
+    </children>
+</fx:root>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="660.0" prefWidth="500.0"
+            stylesheets="@../css/main.css"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="sage.gui.MainWindow">
+    <top>
+        <VBox styleClass="header-container">
+            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="header-bar">
+                <VBox minWidth="0.0" spacing="2.0" HBox.hgrow="ALWAYS">
+                    <Label styleClass="app-title" text="Sage" />
+                    <Label maxWidth="1.7976931348623157E308" minWidth="0.0" styleClass="app-subtitle"
+                           text="A little clarity, one step at a time." wrapText="true" />
+                </VBox>
+                <Button fx:id="helpButton"
+                        accessibleText="Show command reference"
+                        minWidth="96.0"
+                        onAction="#toggleHelp"
+                        styleClass="help-button"
+                        text="Commands" />
+            </HBox>
+            <VBox fx:id="helpPanel" spacing="6.0" styleClass="help-panel" visible="false">
+                <Label styleClass="help-title" text="A few ways to get started" />
+                <Label maxWidth="1.7976931348623157E308" minWidth="0.0"
+                       styleClass="help-examples" wrapText="true"
+                       text="todo Read a chapter&#10;note Movie: Arrival&#10;deadline Send report /by 2026-09-30&#10;event Lunch /from 2026-09-30 1200 /to 2026-09-30 1300" />
+                <Label maxWidth="1.7976931348623157E308" minWidth="0.0"
+                       styleClass="help-caption" wrapText="true"
+                       text="list · find keyword · mark 1 · unmark 1 · delete 1 · bye" />
+                <Label maxWidth="1.7976931348623157E308" minWidth="0.0"
+                       styleClass="help-caption" wrapText="true"
+                       text="Use the number from list to mark or delete an item. Notes cannot be marked done." />
+            </VBox>
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="scrollPane"
+                    accessibleText="Conversation history"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    minHeight="0.0"
+                    minWidth="0.0"
+                    pannable="true"
+                    styleClass="dialog-scroll-pane">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true" minWidth="0.0"
+                      spacing="8.0" styleClass="dialog-container" />
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <VBox spacing="7.0" styleClass="input-bar">
+            <HBox alignment="CENTER" spacing="8.0">
+                <TextField fx:id="userInput"
+                           accessibleHelp="Type a Sage command and press Enter. Press Up in an empty field to recall your last command."
+                           accessibleText="Command input"
+                           maxWidth="1.7976931348623157E308"
+                           minWidth="0.0"
+                           onAction="#handleUserInput"
+                           promptText="Try: todo Read a chapter"
+                           styleClass="command-input"
+                           HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton"
+                        accessibleText="Send command"
+                        defaultButton="true"
+                        minWidth="76.0"
+                        mnemonicParsing="true"
+                        onAction="#handleUserInput"
+                        styleClass="send-button"
+                        text="_Send" />
+            </HBox>
+            <Label maxWidth="1.7976931348623157E308" minWidth="0.0" styleClass="input-hint"
+                   text="Enter to send · ↑ to recall · Right-click a message to copy" wrapText="true" />
+        </VBox>
+    </bottom>
+</BorderPane>

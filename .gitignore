@@ -18,3 +18,23 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+gradle.properties
+
+# Personal task data and local diagnostics
+/data/
+/sage*.jar
+*.class
+*.log
+hs_err_pid*
+replay_pid*
+
+# Local credentials and machine configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+__pycache__/
+
+# Locally installed visual-review tooling (not a configured submodule)
+/.codex/skills/present-changes-visually/

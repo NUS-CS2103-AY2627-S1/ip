@@ -1,0 +1,133 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'jacoco'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+// macOS Intel and ARM libraries share filenames, so package them separately.
+def isMacArm64 = providers.gradleProperty('macArm64')
+        .map { it.toBoolean() }
+        .getOrElse(System.getProperty("os.arch") in ["aarch64", "arm64"])
+def macJavaFxPlatform = isMacArm64 ? 'mac-aarch64' : 'mac'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String javaFxVersion = '17.0.7'
+    String jUnitVersion = '5.14.4'
+
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:${macJavaFxPlatform}")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:${macJavaFxPlatform}")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:${macJavaFxPlatform}")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:${macJavaFxPlatform}")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:linux")
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+// All required JavaFX modules are listed above. Their POMs must not add a second,
+// host-selected native architecture when building the other release variant.
+configurations.implementation.dependencies.each { dependency ->
+    if (dependency.group == 'org.openjfx') {
+        dependency.transitive = false
+    }
+}
+
+test {
+    useJUnitPlatform()
+    enableAssertions = true
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+jacoco {
+    // This release officially supports Java 25 class files.
+    toolVersion = '0.8.14'
+}
+
+def testableClasses = sourceSets.main.output.asFileTree.matching {
+    include '**/*.class'
+    exclude 'sage/gui/**', 'sage/Launcher.class'
+}
+
+jacocoTestReport {
+    dependsOn test
+    classDirectories.setFrom(testableClasses)
+    reports {
+        html.required = true
+        xml.required = true
+    }
+}
+
+jacocoTestCoverageVerification {
+    dependsOn test
+    classDirectories.setFrom(testableClasses)
+    violationRules {
+        rule {
+            limit {
+                counter = 'LINE'
+                minimum = 0.90
+            }
+            limit {
+                counter = 'BRANCH'
+                minimum = 0.80
+            }
+        }
+    }
+}
+
+check.dependsOn jacocoTestReport, jacocoTestCoverageVerification
+
+application {
+    mainClass.set('sage.Launcher')
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'sage.jar'
+    mergeServiceFiles()
+}
+
+run {
+    standardInput = System.in
+}

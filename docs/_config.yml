@@ -1,0 +1,16 @@
+title: Sage
+description: A little clarity, one step at a time. A desktop companion for tasks and notes.
+url: https://codeforce233.github.io
+baseurl: /ip
+lang: en
+markdown: kramdown
+plugins:
+  - jekyll-relative-links
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default

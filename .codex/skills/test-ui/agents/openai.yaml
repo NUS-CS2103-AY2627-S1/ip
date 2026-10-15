@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run console UI regression tests against expected CLI output"
+  default_prompt: "Use $test-ui to validate the interactive chatbot behavior against the UI test plan."
