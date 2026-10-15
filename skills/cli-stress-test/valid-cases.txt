@@ -1,0 +1,27 @@
+todo buy groceries
+deadline finish report /by 2026-08-28
+event team meeting /from 2pm /to 3pm
+todo read book
+list
+mark 1
+mark 2
+mark 3
+mark 4
+unmark 4
+find report
+find meeting
+find book
+delete 4
+delete 1
+list
+todo call Mum
+deadline submit lab /by 2026-09-01
+event code review /from 9am /to 10am
+mark 3
+find lab
+delete 5
+list
+todo persisted task
+deadline dated task /by 2026-08-24
+mark 1
+bye

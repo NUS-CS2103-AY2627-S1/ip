@@ -1,0 +1,30 @@
+
+todo
+deadline
+deadline submit report
+deadline submit report /by
+event
+event team meeting /from
+event team meeting /from 2pm
+event team meeting /from 2pm /to
+list extra
+mark
+mark 0
+mark abc
+mark 999999999999999999999999
+unmark 1 2
+delete
+delete -1
+delete abc
+todo buy milk
+deadline submit report /by Friday
+event team meeting /from 2pm /to 3pm
+mark 1
+unmark 2
+delete 3
+find
+find report
+unknown command
+list
+deadline invalid date /by tomorrow
+bye

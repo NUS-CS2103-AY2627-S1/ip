@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+LD_LIBRARY_PATH=/lib/jvm/openjdk25/lib /lib/jvm/openjdk25/bin/javac --release 25 "$@"

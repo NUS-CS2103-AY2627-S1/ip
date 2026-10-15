@@ -1,0 +1,24 @@
+.chat-root {
+    -fx-background-color: #fff8ec;
+    -fx-font-family: "DejaVu Sans", sans-serif;
+}
+
+.user-message {
+    -fx-background-color: #dceeff;
+    -fx-background-radius: 10;
+}
+
+.puke-message {
+    -fx-background-color: #fff0bd;
+    -fx-background-radius: 10;
+}
+
+.message-text {
+    -fx-font-size: 14px;
+    -fx-text-fill: #292929;
+}
+
+.speaker-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #5d4630;
+}
