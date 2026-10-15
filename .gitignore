@@ -16,5 +16,8 @@ bin/
 # Temp files
 _temp/
 
+# Clearblue's saved task data
+/data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

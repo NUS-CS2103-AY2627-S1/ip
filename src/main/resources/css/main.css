@@ -1,0 +1,62 @@
+/* Palette (from the reference swatch, lightest to darkest):
+   #F8F9FA off-white | #BFC1C3 light gray | #8CC6E4 sky blue
+   #4CA6CE medium blue | #1D5C78 dark navy */
+
+.root {
+    -fx-background-color: #F8F9FA;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 1em 0 0 1em;
+    -fx-border-color: #BFC1C3;
+    -fx-border-radius: 1em 0 0 1em;
+    -fx-border-width: 1px 0 1px 1px;
+    -fx-padding: 8px 12px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #1D5C78;
+}
+
+.text-field:focused {
+    -fx-border-color: #8CC6E4;
+}
+
+/* Rounded only on the outer edge, so the field and the button read as one
+   continuous pill-shaped bar even though they sit flush against each other. */
+.button {
+    -fx-background-color: #4CA6CE;
+    -fx-background-radius: 0 1em 1em 0;
+    -fx-text-fill: white;
+    -fx-font: bold 14px "Segoe UI";
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #1D5C78;
+}
+
+.button:pressed {
+    -fx-background-color: #164A61;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: #F8F9FA;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #8CC6E4;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

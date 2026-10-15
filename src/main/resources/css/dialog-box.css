@@ -1,0 +1,35 @@
+/* Palette reused from main.css (kept in sync manually rather than shared,
+   since a JavaFX looked-up color defined in one stylesheet only reliably
+   resolves for nodes styled by that same stylesheet):
+   #F8F9FA off-white | #BFC1C3 light gray | #8CC6E4 sky blue
+   #4CA6CE medium blue | #1D5C78 dark navy */
+
+.label {
+    -fx-background-color: linear-gradient(to bottom right, #4CA6CE, #1D5C78);
+    -fx-text-fill: white;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-padding: 10px 14px;
+    -fx-background-insets: 0px 7px 0px 7px;
+}
+
+.reply-label {
+    -fx-background-color: #BFC1C3;
+    -fx-text-fill: #1D5C78;
+    -fx-background-radius: 1em 1em 1em 0;
+}
+
+/* Not part of the reference palette: errors need a warm, alerting color
+   that a blue-only palette can't provide on its own, so this is a
+   deliberate, contained exception rather than an extra palette color. */
+.error-label {
+    -fx-background-color: #FBEAEA;
+    -fx-text-fill: #B3261E;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-color: #D9534F;
+    -fx-border-width: 0 0 0 4;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 8, 0.3, 3, 3);
+}
