@@ -1,0 +1,93 @@
+.root-pane {
+    -fx-background-color: #FFF8F0;
+    -fx-font-family: "Comic Sans MS", "Segoe UI", "SansSerif";
+}
+/* The forest background sits behind the whole conversation; bubbles keep
+   fully opaque fills (see .waddles-dialog/.user-dialog below) so text stays
+   readable on top of it regardless of what's behind them. */
+.conversation, .conversation > .viewport {
+    -fx-background-color: #FFF8F0;
+    -fx-background-image: url("../images/forest_background.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+    -fx-background-size: cover;
+}
+.dialog-container {
+    -fx-background-color: transparent;
+    -fx-padding: 12;
+    -fx-spacing: 6;
+}
+.dialog-box {
+    -fx-spacing: 10;
+}
+.dialog-label {
+    -fx-background-radius: 18;
+    -fx-padding: 12 16;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 3;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 6, 0.1, 0, 2);
+}
+.waddles-dialog .dialog-label {
+    -fx-background-color: #FFD9C7;
+    -fx-text-fill: #5A3825;
+}
+.user-dialog .dialog-label {
+    -fx-background-color: #F4C572;
+    -fx-text-fill: #4A3010;
+}
+
+/* Error replies (invalid commands) get a distinct red-toned bubble with a
+   visible border, instead of the usual peachy Waddles color, so a mistake
+   catches the eye immediately rather than blending in with normal replies. */
+.error-dialog .dialog-label {
+    -fx-background-color: #FFE1DE;
+    -fx-text-fill: #8B2F27;
+    -fx-border-color: #E2564B;
+    -fx-border-width: 2;
+    -fx-border-radius: 18;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(226,86,75,0.35), 8, 0.15, 0, 2);
+}
+
+/* Circular emoji avatar; the ring/fill color reflects the character. */
+.avatar {
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 5, 0.1, 0, 1);
+}
+.waddles-dialog .avatar {
+    -fx-background-color: #FBE1E8;
+    -fx-border-color: #EF9DAF;
+}
+.user-dialog .avatar {
+    -fx-background-color: #FCE3EE;
+    -fx-border-color: #E85A8C;
+}
+
+.command-input {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 20;
+    -fx-border-color: #F4C572;
+    -fx-border-radius: 20;
+    -fx-border-width: 1.5;
+    -fx-padding: 0 16;
+    -fx-pref-height: 42;
+    -fx-font-size: 13px;
+    -fx-prompt-text-fill: #C9A98A;
+}
+.send-button {
+    -fx-background-color: #F4A950;
+    -fx-background-radius: 20;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-pref-height: 42;
+    -fx-cursor: hand;
+}
+.send-button:hover {
+    -fx-background-color: #E08A2E;
+}
+.send-button:pressed {
+    -fx-background-color: #C9761F;
+}
