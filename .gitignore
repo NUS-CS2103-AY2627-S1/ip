@@ -8,10 +8,18 @@
 /build/
 src/main/resources/docs/
 
+# CLI tools
+.codex/
+.claude/
+
 # MacOS custom attributes files created by Finder
 .DS_Store
-*.iml
 bin/
+
+# Javabase files
+*.class
+*.jar
+*.war
 
 # Temp files
 _temp/

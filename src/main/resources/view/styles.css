@@ -1,0 +1,120 @@
+.app-root {
+    -fx-background-color: #f5f7fb;
+    -fx-font-family: "System";
+    -fx-font-size: 14px;
+}
+
+.bg-pane {
+    -fx-background-color: #f5f7fb;
+    -fx-padding: 18 12 18 12;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-box {
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-padding: 10 14 10 14;
+    -fx-effect: dropshadow(gaussian, rgba(30, 41, 59, 0.12), 10, 0.15, 0, 3);
+}
+
+.dialog-box .label {
+    -fx-text-fill: #172033;
+    -fx-line-spacing: 2px;
+}
+
+.dialog-colour-1 { -fx-background-color: #dbeafe; }
+.dialog-colour-2 { -fx-background-color: #dcfce7; }
+.dialog-colour-3 { -fx-background-color: #fef3c7; }
+.dialog-colour-4 { -fx-background-color: #fce7f3; }
+.dialog-colour-5 { -fx-background-color: #ede9fe; }
+
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #d7deea;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 0 16 0 16;
+}
+
+.button {
+    -fx-background-color: #4f46e5;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #4338ca;
+}
+
+.button:pressed {
+    -fx-background-color: #3730a3;
+}
+
+.settings-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d7deea;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 6 12 6 12;
+}
+
+.settings-bar .label {
+    -fx-text-fill: #334155;
+}
+
+.settings-bar .toggle-button {
+    -fx-background-color: #e2e8f0;
+    -fx-text-fill: #172033;
+    -fx-cursor: hand;
+}
+
+.settings-bar .toggle-button:selected {
+    -fx-background-color: #4f46e5;
+    -fx-text-fill: white;
+}
+
+.font-size-label {
+    -fx-min-width: 36;
+}
+
+.dark-mode {
+    -fx-background-color: #111827;
+}
+
+.dark-mode .bg-pane {
+    -fx-background-color: #111827;
+}
+
+.dark-mode .settings-bar {
+    -fx-background-color: #1f2937;
+    -fx-border-color: #475569;
+}
+
+.dark-mode .settings-bar .label {
+    -fx-text-fill: #e2e8f0;
+}
+
+.dark-mode .text-field {
+    -fx-background-color: #1f2937;
+    -fx-border-color: #475569;
+    -fx-text-fill: #f8fafc;
+    -fx-prompt-text-fill: #94a3b8;
+}
+
+.dark-mode .dialog-box .label {
+    -fx-text-fill: #f8fafc;
+}
+
+.dark-mode .dialog-colour-1 { -fx-background-color: #1e3a5f; }
+.dark-mode .dialog-colour-2 { -fx-background-color: #164e3b; }
+.dark-mode .dialog-colour-3 { -fx-background-color: #713f12; }
+.dark-mode .dialog-colour-4 { -fx-background-color: #701a4a; }
+.dark-mode .dialog-colour-5 { -fx-background-color: #4c1d95; }

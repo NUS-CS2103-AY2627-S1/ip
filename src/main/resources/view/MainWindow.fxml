@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" styleClass="app-root" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25.0.3" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tardt.app.MainWindow">
+    <children>
+        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <FlowPane hgap="8.0" styleClass="settings-bar" vgap="4.0">
+                    <children>
+                        <ToggleButton fx:id="darkModeToggle" mnemonicParsing="false" onAction="#handleThemeToggle" text="Dark mode" />
+                        <Label text="Text size" />
+                        <Slider fx:id="fontSizeSlider" blockIncrement="1.0" majorTickUnit="2.0" max="20.0" min="12.0" prefWidth="110.0" showTickLabels="false" showTickMarks="false" snapToTicks="true" value="14.0" />
+                        <Label fx:id="fontSizeLabel" styleClass="font-size-label" text="14 px" />
+                    </children>
+                </FlowPane>
+                <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" minHeight="0.0" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+                    <content>
+                        <VBox fx:id="dialogContainer" fillWidth="true" prefWidth="388.0" spacing="10.0" styleClass="bg-pane" stylesheets="@styles.css" />
+                    </content>
+                </ScrollPane>
+                <HBox alignment="CENTER_LEFT" minHeight="48.0">
+                    <children>
+                        <TextField fx:id="userInput" HBox.hgrow="ALWAYS" minHeight="48.0" minWidth="0.0" onAction="#handleUserInput" prefHeight="48.0" promptText="Type a command..." />
+                        <Button fx:id="sendButton" minHeight="48.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="48.0" text="Send" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

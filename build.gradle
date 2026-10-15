@@ -1,0 +1,113 @@
+plugins {
+    id 'checkstyle'
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    String javaFxVersion = '25.0.3'
+
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:linux")
+}
+
+test {
+    useJUnitPlatform()
+    enableAssertions = true
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    // mainClass = 'tardt.TardT'
+    mainClass.set("tardt.app.Launcher")
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'TardT.jar'
+}
+
+/**
+ * Builds a native installer/application image for the operating system on
+ * which Gradle is running. jpackage includes a private Java runtime, while
+ * the shadow JAR remains the cross-platform artifact for users who already
+ * have Java 25 installed.
+ *
+ * Run with: ./gradlew packageApp
+ * Build this task separately on macOS, Windows, and Linux for a release.
+ */
+tasks.register('packageApp', Exec) {
+    dependsOn shadowJar
+
+    def packageDirectory = layout.buildDirectory.dir('jpackage').get().asFile
+    doFirst {
+        packageDirectory.mkdirs()
+    }
+
+    def os = org.gradle.internal.os.OperatingSystem.current()
+    def type = os.isMacOsX() ? 'dmg' : (os.isWindows() ? 'msi' : 'deb')
+
+    commandLine 'jpackage',
+            '--type', type,
+            '--name', 'TardT',
+            '--dest', packageDirectory.absolutePath,
+            '--input', shadowJar.destinationDirectory.get().asFile.absolutePath,
+            '--main-jar', shadowJar.archiveFileName.get(),
+            '--main-class', application.mainClass.get(),
+            '--app-version', '1.0.0',
+            '--vendor', 'TardT'
+}
+
+run {
+    standardInput = System.in
+}
