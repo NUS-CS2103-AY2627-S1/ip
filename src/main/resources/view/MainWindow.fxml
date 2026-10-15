@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="680.0" prefWidth="560.0" styleClass="app-root"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="otaku.ui.MainWindow">
+    <children>
+        <VBox spacing="4.0" styleClass="header" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label styleClass="title" text="OTAKU // QUESTKEEPER" />
+                <Label styleClass="subtitle" text="Turn everyday tasks into completed quests" />
+            </children>
+        </VBox>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                    styleClass="conversation" AnchorPane.bottomAnchor="76.0"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="88.0">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true" spacing="14.0" styleClass="dialog-container" />
+            </content>
+        </ScrollPane>
+        <HBox alignment="CENTER" spacing="10.0" styleClass="composer"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0">
+            <children>
+                <TextField fx:id="userInput" HBox.hgrow="ALWAYS" onAction="#handleUserInput"
+                           promptText="Enter your next move…" styleClass="command-field" />
+                <Button fx:id="sendButton" defaultButton="true" onAction="#handleUserInput"
+                        styleClass="send-button" text="Log quest" />
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

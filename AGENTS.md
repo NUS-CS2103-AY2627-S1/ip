@@ -28,7 +28,27 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## Java coding standard
+
+For every Java creation, edit, or review, load and follow the project skill at
+`.codex/skills/seedu-java-coding-standard/SKILL.md`.
+
+## UI testing
+
+After each code update that can affect command-line behavior:
+
+1. Update `test/ui-test-plan.md` if its commands, inputs, or expected outputs have changed.
+2. Invoke the project-local `test-ui` skill at `.codex/skills/test-ui` and report its test transcript.
+3. For every command feature, include both valid and invalid inputs in the UI test plan. Place invalid inputs between valid ones when possible, then verify later output proves the invalid input did not change the task list.
+
+## JUnit testing
+
+Maintain JUnit tests for roughly the top 50% highest-value methods, prioritizing complex, core, and critical business logic. After each code change, update the relevant JUnit tests as needed to preserve this coverage target, and run them using Gradle.
+
 ## Git
+
+Before proposing, reviewing, or creating any commit, load and follow the project skill at
+`.codex/skills/seedu-git-standard/SKILL.md`.
 
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
