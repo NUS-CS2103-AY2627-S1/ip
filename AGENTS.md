@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: 500-2000 lines
+* IDE and level of expertise: Slightly mediocre
 
 # Guidance for interacting with users
 
@@ -24,9 +24,29 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Project coding and Git standards
+
+* Apply the project skill `$seedu-java-coding-standard` to every Java code change. This skill is based on the SE-EDU Java basic and intermediate coding standard and its linked fallback style guide.
+* Apply the project skill `$seedu-git-standard` when preparing every future commit. Do not commit or push unless explicitly asked.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+
+## UI testing after code changes
+
+After every application code update:
+
+1. Review `test/ui-test-plan.md` and update it when the change adds or alters commands, console output, or other user-visible behavior. Keep each affected test case's aim, inputs, and expected output current.
+2. Invoke the `$test-ui` skill after reviewing the plan, even when the review determines that the plan needs no changes.
+
+Do not consider the code update complete until this UI test session has finished. If a test fails, follow the skill's stop-on-first-failure rule and report the actual and expected outputs instead of continuing with later cases.
+
+## JUnit test coverage target
+
+Maintain JUnit tests for at least the top 50% of the codebase's highest-value methods, prioritizing complex, core, or critical business logic.
+
+After every code change, review the affected JUnit tests and update or add tests as needed so that they remain accurate and continue to meet the 50% coverage target. Do not consider a code change complete until the relevant JUnit tests have been updated and pass.
 
 ## Git
 

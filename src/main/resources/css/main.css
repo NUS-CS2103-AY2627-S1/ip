@@ -1,0 +1,103 @@
+.root {
+    -fx-background-color: linear-gradient(to bottom, #fff8eb 0%, #f7e2bd 100%);
+    -fx-font-family: "Trebuchet MS";
+}
+
+.brand-bar {
+    -fx-background-color: linear-gradient(to right, #6f371f 0%, #9a542d 55%, #c77b3b 100%);
+    -fx-border-color: transparent transparent #e0b774 transparent;
+    -fx-border-width: 0 0 3 0;
+    -fx-effect: dropshadow(gaussian, rgba(72, 39, 23, 0.22), 10, 0.25, 0, 3);
+}
+
+.brand-avatar {
+    -fx-effect: dropshadow(gaussian, rgba(255, 236, 194, 0.45), 8, 0.35, 0, 1);
+}
+
+.brand-title {
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 21px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fff8e7;
+}
+
+.brand-subtitle {
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 12px;
+    -fx-text-fill: #f9dfad;
+}
+
+.command-panel {
+    -fx-background-color: rgba(255, 251, 241, 0.96);
+    -fx-border-color: #dfbb82 transparent transparent transparent;
+    -fx-border-width: 1.5 0 0 0;
+    -fx-effect: dropshadow(gaussian, rgba(72, 39, 23, 0.16), 12, 0.20, 0, -2);
+}
+
+.command-panel-title {
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #704127;
+}
+
+.command-panel-hint {
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 9px;
+    -fx-text-fill: #a27a5c;
+}
+
+.text-field {
+    -fx-background-color: #fffdf7;
+    -fx-background-radius: 12;
+    -fx-border-color: #c99052;
+    -fx-border-radius: 12;
+    -fx-border-width: 1.5;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 14px;
+    -fx-padding: 0 12 0 12;
+    -fx-prompt-text-fill: #9c765b;
+}
+
+.text-field:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #a4512a;
+    -fx-effect: dropshadow(gaussian, rgba(184, 92, 45, 0.16), 6, 0.25, 0, 0);
+}
+
+.button {
+    -fx-background-color: #b85c2d;
+    -fx-background-radius: 12;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-weight: bold;
+    -fx-text-fill: #fffaf0;
+    -fx-effect: dropshadow(gaussian, rgba(83, 42, 25, 0.20), 5, 0.2, 0, 2);
+}
+
+.button:hover {
+    -fx-background-color: #cf743c;
+}
+
+.button:pressed {
+    -fx-background-color: #8f4122;
+    -fx-translate-y: 1;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: rgba(255, 250, 239, 0.58);
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #c99052;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}

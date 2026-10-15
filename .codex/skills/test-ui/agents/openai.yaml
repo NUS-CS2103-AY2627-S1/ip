@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI Test Runner"
+  short_description: "Run exact console input/output test plans"
+  default_prompt: "Use $test-ui to record and run these console commands and expected outputs."

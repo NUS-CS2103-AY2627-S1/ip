@@ -1,0 +1,85 @@
+.message-card {
+    -fx-alignment: top-left;
+}
+
+.speaker-label {
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 4 0 4;
+    -fx-text-fill: #855d45;
+}
+
+.dialog-label {
+    -fx-background-color: linear-gradient(to bottom right, #cf6f4e 0%, #a74635 100%);
+    -fx-background-radius: 12 12 3 12;
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2px;
+    -fx-text-fill: #fffaf2;
+}
+
+.user-dialog-row {
+    -fx-padding: 8 0 2 76;
+}
+
+.user-message-card {
+    -fx-alignment: top-right;
+    -fx-max-width: 240px;
+}
+
+.user-speaker {
+    -fx-alignment: center-right;
+    -fx-text-fill: #995f4c;
+}
+
+.application-dialog-row {
+    -fx-padding: 2 44 10 0;
+}
+
+.application-message-card {
+    -fx-alignment: top-left;
+}
+
+.application-speaker {
+    -fx-text-fill: #754221;
+}
+
+.reply-label {
+    -fx-background-color: linear-gradient(to bottom right, #fffdf6 0%, #f5dfb9 100%);
+    -fx-background-radius: 3 14 14 14;
+    -fx-border-color: #d4a15e;
+    -fx-border-radius: 3 14 14 14;
+    -fx-text-fill: #4b2c20;
+}
+
+.add-label {
+    -fx-background-color: linear-gradient(to bottom right, #fff7dc 0%, #f2ca78 100%);
+}
+
+.status-label {
+    -fx-background-color: linear-gradient(to bottom right, #f4f7d5 0%, #cbd58a 100%);
+    -fx-border-color: #9da95d;
+}
+
+.delete-label {
+    -fx-background-color: linear-gradient(to bottom right, #fff0e8 0%, #ebb098 100%);
+    -fx-border-color: #c87962;
+}
+
+.error-label {
+    -fx-background-color: linear-gradient(to bottom right, #ffe8e3 0%, #e99b8a 100%);
+    -fx-border-color: #c86559;
+}
+
+.query-label {
+    -fx-background-color: linear-gradient(to bottom right, #fffdf5 0%, #efd8ad 100%);
+}
+
+.farewell-label {
+    -fx-background-color: linear-gradient(to bottom right, #fff0c9 0%, #eab45f 100%);
+}
+
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(61, 41, 29, 0.18), 7, 0.35, 1, 2);
+}
