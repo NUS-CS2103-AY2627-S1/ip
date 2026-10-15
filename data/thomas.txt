@@ -1,0 +1,4 @@
+T | N | gym
+D | N | assign1 | 6th sept
+E | N | sports club | 6pm | 8pm
+D | N | 2103 | tmr
