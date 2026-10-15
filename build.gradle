@@ -1,0 +1,83 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+javafx {
+    version = '23.0.2'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    // The javafx {} block above only bundles native libraries for whichever
+    // platform Gradle is running on. Add every other platform's natives
+    // explicitly too, so the single shadow jar we release runs on Windows,
+    // Linux and both Mac architectures, not just the machine that built it.
+    // (JavaFX picks the matching native library for the current OS/arch at
+    // startup, so it's safe to have all of them on the classpath at once.)
+    String javafxVersion = '23.0.2'
+    List<String> javafxPlatforms = ['win', 'mac', 'mac-aarch64', 'linux', 'linux-aarch64']
+    List<String> javafxModules = ['base', 'graphics', 'controls', 'fxml']
+    for (platform in javafxPlatforms) {
+        for (module in javafxModules) {
+            implementation "org.openjfx:javafx-${module}:${javafxVersion}:${platform}"
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    // Launch through Launcher (a plain class), not the JavaFX Application
+    // subclass, so the app also starts correctly from the shaded JAR.
+    mainClass = 'percy.Launcher'
+    // -ea: run with assertions enabled so the assumptions documented in the
+    // code are actually checked during development.
+    // --enable-native-access: silence the warnings JavaFX triggers on Java 24+.
+    applicationDefaultJvmArgs = ['-ea', '--enable-native-access=javafx.graphics']
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'percy.jar'
+}
+
+run {
+    standardInput = System.in
+}
