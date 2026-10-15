@@ -1,3 +1,7 @@
+# IDE files
+# .vscode/ holds machine-specific absolute JDK paths, so it stays local
+/.vscode/
+
 # IDEA files
 /.idea/
 /out/
@@ -15,6 +19,12 @@ bin/
 
 # Temp files
 _temp/
+
+# Save data written by the app at runtime
+/data/
+
+# Local, untracked Claude notes
+CLAUDE.local.md
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

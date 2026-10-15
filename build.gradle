@@ -1,0 +1,108 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    // Holds every platform's JavaFX native-library jars, for shadowJar
+    // to bundle into the release JAR; kept separate from the normal
+    // runtime classpath so `./gradlew run` doesn't try to load them all
+    // at once (see the comment below).
+    crossPlatformJavaFx
+}
+
+// JavaFX ships one native-library JAR per OS/architecture. Running the
+// app straight from Gradle (./gradlew run) only needs the classifier
+// matching the machine doing the building, but the shadowJar release
+// artifact is handed to graders/teammates on unknown OSes, so that one
+// needs every platform's native libraries bundled in so JavaFX's
+// extractor can pick the right one at runtime wherever it's run.
+String osName = System.getProperty("os.name").toLowerCase()
+String osArch = System.getProperty("os.arch").toLowerCase()
+String localJavaFxClassifier
+if (osName.contains("win")) {
+    localJavaFxClassifier = "win"
+} else if (osName.contains("mac")) {
+    localJavaFxClassifier = osArch.contains("aarch64") ? "mac-aarch64" : "mac"
+} else {
+    localJavaFxClassifier = osArch.contains("aarch64") ? "linux-aarch64" : "linux"
+}
+List<String> allJavaFxClassifiers = ["win", "mac", "mac-aarch64", "linux", "linux-aarch64"]
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javaFxVersion = '25.0.4'
+    List<String> javaFxModules = ["base", "controls", "fxml", "graphics"]
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    // ./gradlew run only needs this machine's classifier.
+    for (String module : javaFxModules) {
+        runtimeOnly "org.openjfx:javafx-${module}:${javaFxVersion}:${localJavaFxClassifier}"
+    }
+    // The shadowJar release build needs every platform bundled in; see
+    // the shadowJar task below, which depends on this configuration
+    // instead of the default runtime classpath.
+    for (String classifier : allJavaFxClassifiers) {
+        for (String module : javaFxModules) {
+            crossPlatformJavaFx "org.openjfx:javafx-${module}:${javaFxVersion}:${classifier}"
+        }
+    }
+    // Needed at compile time regardless of which classifier(s) end up on the runtime classpath.
+    for (String module : javaFxModules) {
+        compileOnly "org.openjfx:javafx-${module}:${javaFxVersion}:${localJavaFxClassifier}"
+    }
+}
+
+checkstyle {
+    toolVersion = '14.1.0'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'jeryl.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'jeryl.jar'
+    configurations = [project.configurations.runtimeClasspath, project.configurations.crossPlatformJavaFx]
+}
+
+run {
+    standardInput = System.in
+    enableAssertions = true
+}

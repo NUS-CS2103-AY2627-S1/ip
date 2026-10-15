@@ -1,0 +1,84 @@
+.root {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: #1e1b24;
+}
+
+.scroll-pane, .scroll-pane .viewport {
+    -fx-background-color: #1e1b24;
+    -fx-background-insets: 0;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: derive(#1e1b24, 25%);
+    -fx-background-radius: 4;
+}
+
+#dialogContainer {
+    -fx-background-color: #1e1b24;
+    -fx-spacing: 4;
+    -fx-padding: 10 10 10 10;
+}
+
+/* Base bubble look. Individual roles below override color/alignment,
+   keeping the two sides of the conversation visually asymmetric rather
+   than mirrored. */
+.dialog-label {
+    -fx-background-radius: 14;
+    -fx-padding: 9 13 9 13;
+    -fx-font-size: 13px;
+}
+
+/* The user's own messages: a plain, quiet bubble - it's their own
+   words, nothing to editorialize about. */
+.user-label {
+    -fx-background-color: #34314a;
+    -fx-text-fill: #f1eefb;
+}
+
+/* Jeryl's replies: the accent color, since Jeryl is the one with the
+   personality here. */
+.reply-label {
+    -fx-background-color: #6c4fd6;
+    -fx-text-fill: #ffffff;
+}
+
+/* Error replies get pulled out of the accent color entirely so a
+   mistyped command is impossible to miss while scrolling past. */
+.error-label {
+    -fx-background-color: #4a1720;
+    -fx-text-fill: #ff9fae;
+    -fx-border-color: #d6335a;
+    -fx-border-width: 1.2;
+    -fx-border-radius: 14;
+}
+
+#userInput {
+    -fx-background-color: #2a2733;
+    -fx-background-radius: 8;
+    -fx-border-color: #423d54;
+    -fx-border-radius: 8;
+    -fx-padding: 8 10 8 10;
+    -fx-text-fill: #f1eefb;
+    -fx-prompt-text-fill: #8b849c;
+}
+
+#userInput:focused {
+    -fx-border-color: #6c4fd6;
+}
+
+#sendButton {
+    -fx-background-color: #6c4fd6;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+    -fx-pref-width: 72;
+}
+
+#sendButton:hover {
+    -fx-background-color: derive(#6c4fd6, 15%);
+}
+
+#sendButton:pressed, #sendButton:armed {
+    -fx-background-color: derive(#6c4fd6, -20%);
+}

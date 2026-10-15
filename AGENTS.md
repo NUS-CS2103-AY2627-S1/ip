@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Student in an introductory software engineering course; comfortable with basic Java/OOP but new to larger, multi-file codebases and industry tooling (Git, Gradle, etc.).
+* IDE and level of expertise: VS Code, novice-level familiarity.
 
 # Guidance for interacting with users
 
@@ -26,7 +26,7 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 ## Java version:
 
-Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+Ensure that Java 25 is used when running the application or build tasks. On macOS, Java 25 is installed via Homebrew (`brew install openjdk@25`), not sdkman. Since it's keg-only, either use the full path `/opt/homebrew/opt/openjdk@25/bin/java` (and `javac`), or add it to `PATH` first: `export PATH="/opt/homebrew/opt/openjdk@25/bin:$PATH"`.
 
 ## Git
 
