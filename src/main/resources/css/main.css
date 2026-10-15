@@ -1,0 +1,88 @@
+.root {
+    main-color: #f4f1e8;
+    -fx-background-color: main-color;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.text-field {
+    -fx-background-color: #fffdf7;
+    -fx-background-radius: 18 0 0 18;
+    -fx-border-color: #c8d2c1;
+    -fx-border-radius: 18 0 0 18;
+    -fx-border-width: 1 0 1 1;
+    -fx-font-size: 15px;
+    -fx-padding: 0 14 0 14;
+    -fx-text-fill: #33443c;
+    -fx-prompt-text-fill: #829087;
+}
+
+.text-field:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #78907a;
+}
+
+.button {
+    -fx-background-color: #607a62;
+    -fx-background-radius: 0 18 18 0;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 15 0 12;
+    -fx-text-fill: #ffffff;
+}
+
+.button:hover {
+    -fx-background-color: #4f6853;
+}
+
+.button:pressed {
+    -fx-background-color: #3f5543;
+}
+
+.button:disabled,
+.text-field:disabled {
+    -fx-opacity: 0.65;
+}
+
+.zen-header {
+    -fx-alignment: center-left;
+    -fx-background-color: #607a62;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 16 0 16;
+    -fx-text-fill: #ffffff;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #a8b8a3;
+    -fx-background-radius: 1em;
+}
+
+.banner-label {
+    -fx-alignment: center;
+    -fx-background-color: #fffdf7;
+    -fx-background-radius: 16;
+    -fx-border-color: #ddd8ca;
+    -fx-border-radius: 16;
+    -fx-border-width: 1px;
+    -fx-font-family: "Consolas", monospace;
+    -fx-font-size: 8px;
+    -fx-padding: 12 18 12 18;
+    -fx-text-alignment: center;
+    -fx-text-fill: #3f5543;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

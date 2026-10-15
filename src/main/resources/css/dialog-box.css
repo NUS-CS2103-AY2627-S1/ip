@@ -1,0 +1,22 @@
+.label {
+    -fx-background-color: #dfe9d9;
+    -fx-background-radius: 16 16 3 16;
+    -fx-border-color: #c2d0bd;
+    -fx-border-radius: 16 16 3 16;
+    -fx-border-width: 1px;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #294033;
+}
+
+.reply-label {
+    -fx-background-color: #fffdf7;
+    -fx-background-radius: 16 16 16 3;
+    -fx-border-color: #ddd8ca;
+    -fx-border-radius: 16 16 16 3;
+    -fx-text-fill: #3f4840;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(54, 68, 56, 0.18), 4, 0.25, 0, 1);
+}
