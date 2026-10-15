@@ -13,8 +13,12 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Saved chatbot tasks
+/data/
+
 # Temp files
 _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+.gradle-home/
