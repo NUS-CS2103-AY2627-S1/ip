@@ -1,0 +1,44 @@
+/* ===================== Root & Background ===================== */
+.root {
+    main-color: rgb(237, 255, 242); /* Looked-up color used throughout */
+    -fx-background-color: main-color;
+}
+
+/* ===================== Text Field ===================== */
+.text-field {
+    -fx-background-color: #d9ffe2;
+    -fx-font: 14px "Arial";
+}
+
+/* ===================== Send Button ===================== */
+.button {
+    -fx-background-color: mediumspringgreen;
+    -fx-font: italic bold 14px "Arial";
+}
+.button:hover {
+    -fx-background-color: cyan;
+    -fx-font-size: 15px;
+}
+.button:pressed {
+    -fx-background-color: orange;
+    -fx-font-size: 16px;
+}
+
+/* ===================== Scroll Pane ===================== */
+.scroll-pane, .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: main-color;
+}
+.scroll-bar .thumb {
+    -fx-background-color: #8fbc8f;
+    -fx-background-radius: 1em;
+}
+/* Hide the increment and decrement buttons */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
