@@ -1,0 +1,19 @@
+.user-label {
+    -fx-min-width: 100;
+    -fx-background-radius: 5;
+    -fx-border-color: #FFFFFF;
+    -fx-border-radius: 5;
+    -fx-border-width: 3;
+    -fx-padding: 3 40 3 6;
+    -fx-background-color: #A8E68A;
+}
+
+.reply-label {
+    -fx-min-width: 100;
+    -fx-background-radius: 5;
+    -fx-border-color: #FFFFFF;
+    -fx-border-radius: 5;
+    -fx-border-width: 3;
+    -fx-padding: 3 6 3 40;
+    -fx-background-color: #E6C78A;
+}

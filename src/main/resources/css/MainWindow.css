@@ -1,0 +1,6 @@
+/* Sets text inputs and send buttons to retain full opacity when disabled. */
+/* adapted from stackoverflow.com/questions/28604650/javafx-change-textcolor-of-disabled-textfield-in-css */
+.text-field:disabled,
+.button:disabled {
+    -fx-opacity: 1.0;
+}
