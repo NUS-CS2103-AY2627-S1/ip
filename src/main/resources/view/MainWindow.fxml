@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane
+        fx:id="appShell"
+        prefHeight="720.0"
+        prefWidth="1100.0"
+        styleClass="app-shell"
+        xmlns="http://javafx.com/javafx/17"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="zinc.javafx.MainWindow">
+
+    <left>
+        <VBox
+                prefWidth="200.0"
+                fx:id="sidebar"
+                styleClass="sidebar">
+
+            <Button
+                    maxWidth="Infinity"
+                    onAction="#startNewConversation"
+                    styleClass="new-chat"
+                    text="New conversation" />
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <Button
+                    maxWidth="-Infinity"
+                    onAction="#exitProgram"
+                    styleClass="sidebar-link"
+                    text="Exit" />
+        </VBox>
+    </left>
+
+    <center>
+        <BorderPane
+                fx:id="chatPane"
+                styleClass="chat-pane">
+            <center>
+                <ScrollPane
+                        fx:id="scrollPane"
+                        fitToWidth="true"
+                        pannable="true"
+                        hbarPolicy="NEVER"
+                        styleClass="message-scroll">
+                    <content>
+                        <VBox
+                                fx:id="dialogContainer"
+                                fillWidth="true"
+                                spacing="16"
+                                styleClass="messages" />
+                    </content>
+                </ScrollPane>
+            </center>
+
+            <bottom>
+                <VBox
+                        spacing="10"
+                        styleClass="composer-wrap">
+                    <HBox spacing="8">
+                        <Button
+                                onAction="#showHelp"
+                                styleClass="quickCommand"
+                                text="Command List" />
+                        <Button
+                                onAction="#showContactList"
+                                styleClass="quickCommand"
+                                text="Contact List" />
+                        <Button
+                                onAction="#showTaskList"
+                                styleClass="quickCommand"
+                                text="Task List"/>
+                    </HBox>
+
+                    <HBox
+                            spacing="10"
+                            styleClass="composer">
+                        <TextField
+                                fx:id="userInput"
+                                onAction="#handleUserInput"
+                                promptText="Message Zinc..."
+                                HBox.hgrow="ALWAYS" />
+                        <Button
+                                onAction="#handleUserInput"
+                                styleClass="send-button"
+                                text=">" />
+                    </HBox>
+                </VBox>
+            </bottom>
+        </BorderPane>
+    </center>
+</BorderPane>

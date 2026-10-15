@@ -1,0 +1,233 @@
+/* Base application */
+.app-shell {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: #f8f9fd;
+}
+
+/* Navigation sidebar */
+.sidebar {
+    -fx-background-color: #666666;
+    -fx-min-width: 0;
+    -fx-padding: 28 18 20 18;
+    -fx-spacing: 10;
+}
+
+.new-chat {
+    -fx-background-color: #bababa;
+    -fx-text-fill: white;
+    -fx-background-radius: 9;
+    -fx-min-width: 0;
+    -fx-padding: 12;
+    -fx-font-weight: bold;
+}
+
+.sidebar-link {
+    -fx-background-color: transparent;
+    -fx-text-fill: #aeb1c5;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 11 12;
+    -fx-background-radius: 8;
+}
+
+.sidebar-link:hover {
+    -fx-background-color: #24263a;
+}
+
+.sidebar-morning {
+    -fx-background-color: linear-gradient(to bottom, #4f9fe0 0%, #2f4f8f 100%);
+}
+
+.sidebar-sunset {
+    -fx-background-color: linear-gradient(to bottom, #e9968f 0%, #66518b 100%);
+}
+
+.sidebar-night {
+    -fx-background-color: linear-gradient(to bottom, #1d3278 0%, #0a1539 100%);
+}
+
+.new-chat:hover {
+    -fx-background-color: #9e9e9e;
+}
+
+/* Chat workspace */
+.chat-pane {
+    -fx-background-color: #f8f9fd;
+    -fx-min-width: 600px;
+    -fx-min-height: 400px;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+.background-morning {
+    -fx-background-image: url("../images/main-window-background-morning.png");
+}
+
+.background-sunset {
+    -fx-background-image: url("../images/main-window-background-sunset.png");
+}
+
+.background-night {
+    -fx-background-image: url("../images/main-window-background-night.png");
+}
+
+.topbar {
+    -fx-padding: 24 38 20 38;
+    -fx-border-color: transparent transparent #e7e8f0 transparent;
+}
+
+.active {
+    -fx-text-fill: #37ad7a;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+/* Conversation history */
+.message-scroll {
+    -fx-background-color: transparent;
+}
+
+.message-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.messages {
+    -fx-padding: 36 38 26 38;
+}
+
+.dialog-box {
+    -fx-padding: 15 38 15 38;
+}
+
+.avatar-frame {
+    -fx-background-color: linear-gradient(to bottom right, #f1e2c9 0%, #d8b98b 100%);
+    -fx-background-radius: 14;
+}
+
+.avatar-border {
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(to bottom right, #c58a4a 0%, #704019 48%, #a86d34 100%);
+    -fx-border-width: 7;
+    -fx-border-radius: 14;
+}
+
+.message-bubble {
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-font-size: 14px;
+    -fx-padding: 12 16;
+}
+
+.user-message {
+    -fx-background-color: #7667f5;
+    -fx-text-fill: white;
+}
+
+.zinc-message {
+    -fx-background-color: #f0f1f8;
+    -fx-border-color: #d9dbe8;
+    -fx-text-fill: #24263a;
+}
+
+/* Message composer */
+.composer-wrap {
+    -fx-padding: 0 38 24 38;
+}
+
+.composer {
+    -fx-padding: 5;
+    -fx-background-color: white;
+    -fx-border-color: #e1e3ed;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+}
+
+.composer .text-field {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 12;
+}
+
+.send-button {
+    -fx-background-color: #7667f5;
+    -fx-text-fill: white;
+    -fx-background-radius: 9;
+    -fx-font-size: 18px;
+    -fx-min-width: 42;
+    -fx-min-height: 42;
+}
+
+.quickCommand {
+    -fx-background-color: #eeeffb;
+    -fx-text-fill: #6860bd;
+    -fx-background-radius: 15;
+    -fx-padding: 7 13;
+    -fx-font-size: 11px;
+}
+
+/* Command browser */
+.help-window {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: #f8f9fd;
+}
+
+.help-header {
+    -fx-padding: 24 28 18 28;
+    -fx-border-color: transparent transparent #e1e3ed transparent;
+}
+
+.help-heading {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #24263a;
+}
+
+.help-subheading {
+    -fx-text-fill: #66697a;
+}
+
+.help-content {
+    -fx-background-color: transparent;
+    -fx-padding: 18 28 18 28;
+}
+
+.help-command-tree {
+    -fx-background-color: white;
+    -fx-border-color: #e1e3ed;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.help-detail-scroll,
+.help-detail-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.help-detail {
+    -fx-padding: 8 18 18 24;
+}
+
+.help-topic-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #24263a;
+}
+
+.help-usage {
+    -fx-font-family: "Consolas";
+    -fx-background-color: #eeeffb;
+    -fx-background-radius: 8;
+    -fx-padding: 14;
+    -fx-text-fill: #453c9e;
+}
+
+.help-footer {
+    -fx-padding: 12 28 20 28;
+}
+
+.help-footer .button {
+    -fx-background-color: #7667f5;
+    -fx-background-radius: 8;
+    -fx-padding: 8 20;
+    -fx-text-fill: white;
+}
