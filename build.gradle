@@ -1,0 +1,73 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+    id 'checkstyle'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String javaFxVersion = '17.0.7'
+    List<String> platforms = ['win', 'linux', 'mac', 'mac-aarch64']
+    List<String> modules = ['base', 'controls', 'fxml', 'graphics']
+
+    platforms.each { platform ->
+        modules.each { module ->
+            implementation "org.openjfx:javafx-${module}:${javaFxVersion}:${platform}"
+        }
+    }
+
+    String jUnitVersion = '5.14.4'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+    enableAssertions = true
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass.set('bobo.Launcher')
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'bobo.jar'
+}
+
+run {
+    standardInput = System.in
+    enableAssertions = true
+}
+
+checkstyle {
+    toolVersion = '14.1.0'
+}

@@ -1,0 +1,97 @@
+TEAMMATES Proof of Submission
+1789054843579::20260910234057+0800
+==============================
+Submitted by: CS2103T-T13-3//SUNDARRAJAN KRITHIC SUNDAR [e1512590@u.nus.edu]
+Course: CS2103-Aug2026
+Session: Prelim Peer Evaluation
+
+
+
+1: The team members' contribution to team-based tasks is,
+ag1zfnRlYW1tYXRlc3Y0ch0LEhBGZWVkYmFja1F1ZXN0aW9uGICAsKCFmZgJDA
+4482d841c05e96e14781e40d6e9ddcfe
+> e1528250@u.nus.edu
+Equal share
+> e1511869@u.nus.edu
+Equal share
+> e1509071@u.nus.edu
+Equal share
+> e1512590@u.nus.edu
+Equal share
+> e1525984@u.nus.edu
+Equal share
+
+
+2: Evaluate the following aspects of the professional conduct of your team members
+ag1zfnRlYW1tYXRlc3Y0ch0LEhBGZWVkYmFja1F1ZXN0aW9uGICAsLDerpAJDA
+abdf1d592a0d80294781e40d6e9dddb5
+> e1528250@u.nus.edu
+a,A. Excellent,6,b,A. Excellent,6,c,A. Excellent,6,d,A. Excellent,6,e,A. Excellent,6,f,A. Excellent,6,g,A. Excellent,6
+> e1511869@u.nus.edu
+a,A. Excellent,6,b,A. Excellent,6,c,A. Excellent,6,d,A. Excellent,6,e,A. Excellent,6,f,A. Excellent,6,g,A. Excellent,6
+> e1509071@u.nus.edu
+a,A. Excellent,6,b,A. Excellent,6,c,A. Excellent,6,d,A. Excellent,6,e,A. Excellent,6,f,A. Excellent,6,g,A. Excellent,6
+> e1525984@u.nus.edu
+a,A. Excellent,6,b,A. Excellent,6,c,A. Excellent,6,d,A. Excellent,6,e,A. Excellent,6,f,A. Excellent,6,g,A. Excellent,6
+
+
+3: Evaluate the technical competency of your team members
+ag1zfnRlYW1tYXRlc3Y0ch0LEhBGZWVkYmFja1F1ZXN0aW9uGICAsKCn45gJDA
+aacb7ee511ca99934781e40d6e9dde6c
+> e1528250@u.nus.edu
+a,B. Good,5,b,B. Good,5,c,A. Excellent,6
+> e1511869@u.nus.edu
+a,A. Excellent,6,b,A. Excellent,6,c,A. Excellent,6
+> e1509071@u.nus.edu
+a,B. Good,5,b,A. Excellent,6,c,A. Excellent,6
+> e1525984@u.nus.edu
+a,A. Excellent,6,b,A. Excellent,6,c,A. Excellent,6
+
+
+4: [Optional] Any ANONYMOUS feedback you want to give your team members?
+ag1zfnRlYW1tYXRlc3Y0ch0LEhBGZWVkYmFja1F1ZXN0aW9uGICAsKCF_YUJDA
+c25eb4151e6a78024781e40d6e9ddf23
+> e1528250@u.nus.edu
+NIL
+> e1511869@u.nus.edu
+NIL
+> e1509071@u.nus.edu
+NIL
+> e1525984@u.nus.edu
+NIL
+
+
+5: [Optional] Any CONFIDENTIAL comments about the team members?
+ag1zfnRlYW1tYXRlc3Y0ch0LEhBGZWVkYmFja1F1ZXN0aW9uGICAsODBlYMJDA
+e6fd39b56e8572924781e40d6e9ddfda
+> e1528250@u.nus.edu
+NIL
+> e1511869@u.nus.edu
+NIL
+> e1509071@u.nus.edu
+NIL
+> e1525984@u.nus.edu
+NIL
+
+
+6: [Optional] Evaluate the technical competence of other classmates you worked with during the tutorial 
+ag1zfnRlYW1tYXRlc3Y0ch0LEhBGZWVkYmFja1F1ZXN0aW9uGICAsNDE9IIJDA
+cdc460f6b7b8f9874781e40d6e9dd091
+> e1526250@u.nus.edu
+a,F. Unable to Judge,1,b,F. Unable to Judge,1,c,F. Unable to Judge,1
+> e1526026@u.nus.edu
+a,F. Unable to Judge,1,b,F. Unable to Judge,1,c,F. Unable to Judge,1
+> e1513115@u.nus.edu
+a,F. Unable to Judge,1,b,F. Unable to Judge,1,c,F. Unable to Judge,1
+> e1526196@u.nus.edu
+a,F. Unable to Judge,1,b,F. Unable to Judge,1,c,F. Unable to Judge,1
+> e1513109@u.nus.edu
+a,F. Unable to Judge,1,b,F. Unable to Judge,1,c,F. Unable to Judge,1
+
+
+7: How much do you plan to contribute to the team project?
+ag1zfnRlYW1tYXRlc3Y0ch0LEhBGZWVkYmFja1F1ZXN0aW9uGICAsMD3k5cJDA
+b6cbcdadaa3815c04781e40d6e9dd148
+> e1512590@u.nus.edu
+A bit more than an equal share
+

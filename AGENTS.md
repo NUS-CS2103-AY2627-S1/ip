@@ -33,3 +33,9 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+Follow the `seedu-git-standard` skill for all Git commit messages (imperative mood, capitalized subject, no trailing period, max 50 chars).
+
+## Coding Standards
+
+All Java code in this project must strictly comply with the `seedu-java-coding-standard` skill based on SE-EDU intermediate Java conventions (explicit imports, K&R braces, 4-space indent, 120-char max line length, member ordering, and guard clauses).
+
