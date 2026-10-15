@@ -1,0 +1,85 @@
+.root-pane {
+    -fx-background-color: #111214;
+    -fx-background-image: url("/images/web-pattern.png");
+    -fx-background-repeat: repeat;
+}
+
+.banner {
+    -fx-background-color: #0a0a0b;
+    -fx-border-color: transparent transparent #d52535 transparent;
+    -fx-border-width: 0 0 3 0;
+    -fx-alignment: center;
+}
+
+.banner-title {
+    -fx-text-fill: #d52535;
+    -fx-font-family: "Segoe UI Black", "Arial Black", sans-serif;
+    -fx-font-size: 22px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 2, 0.5, 1, 1);
+}
+
+.scroll-pane, .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+#dialogContainer {
+    -fx-background-color: transparent;
+    -fx-padding: 12 10 12 10;
+    -fx-spacing: 10;
+}
+
+.dialog-label {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 13px;
+    -fx-padding: 10 16 10 16;
+    -fx-background-radius: 14;
+}
+
+.user-bubble {
+    -fx-background-color: #1b4b9c;
+    -fx-text-fill: white;
+    -fx-background-radius: 14 14 2 14;
+}
+
+.peter-card {
+    -fx-background-color: #1a1b1e;
+    -fx-text-fill: #e8e8ea;
+    -fx-background-radius: 0 10 10 0;
+    -fx-border-color: transparent transparent transparent #d52535;
+    -fx-border-width: 0 0 0 3;
+}
+
+.error-card {
+    -fx-background-color: #2a1f12;
+    -fx-text-fill: #ffd9a0;
+    -fx-background-radius: 0 10 10 0;
+    -fx-border-color: transparent transparent transparent #e8a33d;
+    -fx-border-width: 0 0 0 3;
+}
+
+.text-field {
+    -fx-background-color: #1a1b1e;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #8a8a8e;
+    -fx-background-radius: 8;
+    -fx-border-color: #2a2b2f;
+    -fx-border-radius: 8;
+    -fx-font-size: 13px;
+    -fx-highlight-fill: #d52535;
+}
+
+.button {
+    -fx-background-color: #d52535;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #b81f31;
+}
+
+.button:pressed {
+    -fx-background-color: #931827;
+}
