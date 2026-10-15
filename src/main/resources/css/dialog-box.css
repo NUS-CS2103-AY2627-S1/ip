@@ -1,0 +1,28 @@
+.label {
+    -fx-background-color: rgba(30, 64, 175, 0.96);
+    -fx-text-fill: #eff6ff;
+    -fx-font: 15px "Trebuchet MS";
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-border-color: #38bdf8;
+    -fx-padding: 7px 12px;
+}
+
+.reply-label {
+    -fx-background-color: rgba(7, 26, 43, 0.96);
+    -fx-text-fill: #f8fafc;
+    -fx-border-color: #f97316;
+}
+
+.error-label {
+    -fx-background-color: rgba(127, 29, 29, 0.96);
+    -fx-text-fill: #fff1f2;
+    -fx-border-color: #fb7185;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.16), 5, 0.3, 0, 1);
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-rotate: 0;
+}

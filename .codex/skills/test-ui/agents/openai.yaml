@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run console UI tests against expected output"
+  default_prompt: "Use $test-ui to run the UI test plan and stop on the first failure."
