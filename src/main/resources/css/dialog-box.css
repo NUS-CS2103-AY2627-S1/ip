@@ -1,0 +1,18 @@
+.label {
+    -fx-background-color: #dcecff;
+    -fx-background-radius: 14px;
+    -fx-padding: 10px 14px 10px 14px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #202020;
+}
+
+.reply-label {
+    -fx-background-color: #e8e7ff;
+}
+
+.error-label {
+    -fx-background-color: #ffe0e0;
+    -fx-text-fill: #8b1a1a;
+    -fx-border-color: #e57373;
+    -fx-border-radius: 14px;
+}
