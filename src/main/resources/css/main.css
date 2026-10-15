@@ -1,0 +1,95 @@
+.root {
+    -fx-background-color: #dce4ce;
+    -fx-background-image: url("../images/FarmBackground.jpg");
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-font-family: "System";
+    -fx-font-size: 14px;
+    -fx-font-style: normal;
+    -fx-font-weight: normal;
+}
+
+.input-bar {
+    -fx-background-color: rgba(47, 72, 45, 0.94);
+    -fx-border-color: #d1ae6c transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 10px 12px;
+    -fx-spacing: 8px;
+}
+
+.text-field {
+    -fx-background-color: #fff9e8;
+    -fx-background-insets: 0;
+    -fx-background-radius: 8px;
+    -fx-border-color: #c7ad76;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-font-style: normal;
+    -fx-font-weight: normal;
+    -fx-padding: 9px 12px;
+    -fx-prompt-text-fill: #75684f;
+    -fx-text-fill: #263526;
+}
+
+.text-field:focused {
+    -fx-border-color: #a8742f;
+    -fx-effect: dropshadow(gaussian, rgba(30, 55, 31, 0.35), 7, 0.2, 0, 0);
+}
+
+.button {
+    -fx-background-color: #b6782f;
+    -fx-background-insets: 0;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-min-width: 72px;
+    -fx-padding: 9px 16px;
+    -fx-text-fill: #ffffff;
+}
+
+.button:hover {
+    -fx-background-color: #9c6225;
+}
+
+.button:pressed {
+    -fx-background-color: #7e4d1d;
+}
+
+.button:focused {
+    -fx-effect: dropshadow(gaussian, rgba(255, 235, 184, 0.55), 7, 0.2, 0, 0);
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: rgba(249, 246, 231, 0.72);
+}
+
+#dialogContainer {
+    -fx-background-color: transparent;
+    -fx-padding: 14px;
+    -fx-spacing: 8px;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #617a4d;
+    -fx-background-insets: 2px;
+    -fx-background-radius: 8px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}

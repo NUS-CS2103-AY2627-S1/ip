@@ -13,6 +13,17 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Runtime task data
+/data/
+
+# Codex Skills
+.codex/*
+!.codex/skills/
+.codex/skills/*
+!.codex/skills/keep-code-simple/
+!.codex/skills/seedu-java-coding-standard/
+!.codex/skills/seedu-git-standard/
+
 # Temp files
 _temp/
 
