@@ -1,0 +1,9 @@
+T | 1 | Outline project presentation
+D | 0 | Submit project reflection | 2026-09-18T23:59:00
+E | 0 | Demo rehearsal | 2026-09-17T14:00:00 | 2026-09-17T15:00:00
+T | 0 | Review peer testing notes
+D | 0 | Capture user guide screenshots | 2026-09-19T18:00:00
+T | 0 | Prepare showcase talking points
+T | 0 | Email mentor the weekly progress update
+D | 0 | Complete database assignment | 2026-09-22T18:00:00
+E | 0 | Team consultation | 2026-09-23T10:30:00 | 2026-09-23T11:30:00

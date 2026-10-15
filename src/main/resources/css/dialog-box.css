@@ -1,0 +1,48 @@
+.dialog-row {
+    -fx-padding: 4px 12px;
+}
+
+.message-label {
+    -fx-padding: 9px 11px;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2px;
+    -fx-text-fill: #292c46;
+}
+
+.assistant-message {
+    -fx-background-color: #fffdf8;
+    -fx-background-radius: 4px 13px 13px 13px;
+    -fx-border-color: #ded9cc;
+    -fx-border-radius: 4px 13px 13px 13px;
+    -fx-border-width: 1px;
+}
+
+.user-message {
+    -fx-background-color: #5962b0;
+    -fx-background-radius: 13px 13px 4px 13px;
+    -fx-text-fill: #ffffff;
+}
+
+.error-message {
+    -fx-background-color: #fff0f1;
+    -fx-background-radius: 4px 13px 13px 13px;
+    -fx-border-color: #d95b72;
+    -fx-border-radius: 4px 13px 13px 13px;
+    -fx-border-width: 1px 1px 1px 3px;
+    -fx-text-fill: #8f2941;
+}
+
+.bot-mark-background {
+    -fx-fill: #f4c95d;
+}
+
+.bot-mark-letter {
+    -fx-font-family: "Georgia";
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #20243d;
+}
+
+#botMark {
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.18), 5, 0.2, 0, 1);
+}
