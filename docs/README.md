@@ -1,30 +1,57 @@
-# Duke User Guide
+# BERT Assistant User Guide
 
-// Update the title above to match the actual product name
+**BERT Assistant** is a friendly chatbot for keeping track of todos, deadlines, and events. Type a command in the chat box and press Enter. Your tasks are saved automatically.
 
-// Product screenshot goes here
+![BERT Assistant interface](Ui.png)
 
-// Product intro goes here
+> **Tip:** Put text containing spaces in single quotes, for example `'buy groceries'`.
 
-## Adding deadlines
+## Quick start
 
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+Add a todo, then view it:
 
 ```
-expected output
+todo 'buy groceries'
+list
 ```
 
-## Feature ABC
+Each task has a number in the list. Use that number to manage it.
 
-// Feature details
+## Commands
 
+### Add tasks
 
-## Feature XYZ
+```
+todo 'read Chapter 3'
+deadline 'submit proposal' 2026-09-25 23:59
+event 'team meeting' 2026-09-22 14:00 2026-09-22 15:30
+```
 
-// Feature details
+Dates and times accept convenient formats. For example, use `2026-09-19 12:16` or the more natural `19/9/2026 12.16pm`. A deadline or event without a time starts or ends at midnight.
+
+### View and find
+
+```
+list
+find 'meeting'
+```
+
+`list` shows every task. `find` shows tasks whose descriptions contain the keyword.
+
+### Mark, unmark, and delete
+
+```
+mark 1
+unmark 1
+delete 1
+```
+
+Replace `1` with the task number shown by `list`. Marking a task records it as complete; deleting it removes it permanently.
+
+### Exit
+
+```
+bye
+```
+
+You can also use the shorter command names: `t`, `d`, `e`, `f`, `m`, `um`, `r`, and `q`.

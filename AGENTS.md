@@ -33,3 +33,31 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+Strictly stick to agents/GIT_CONVENTIONS.md when handing git.
+
+## Java Coding Standards
+
+Strictly stick to the styling rules described in agents/JAVA_CODING_STANDARD.md when writing Java code.
+
+Additionally, adhere to these rules:
+
+* Never create getter and setter methods for attributes in classes that are not datatypes.
+* Do not create extra constructors with less parameters than the main constructor.
+  * Prefer passing in appropriate arguments to object initialization.
+* Null values
+  * Instead of null return values, throw exceptions when parsers cannot parse values into variables.
+  * Instead of null checks, Use booleans to check for specific states.
+  * If a variable must be set to null in the rare case that the variable will never be used, alert the human programmer.
+
+## Filesystem MCP
+
+Always use the filesystem MCP for manipulating files.
+Do not use PowerShell just for accessing files unless strictly necessary, such as if filesystem fails or is not installed.
+
+Available tools include:
+- Read/write files
+- Create/list/delete directories
+- Move files/directories
+- Search files
+- Get file metadata
+- Dynamic directory access control

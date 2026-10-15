@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox prefHeight="640.0" prefWidth="960.0" spacing="20.0" styleClass="root-container" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kpei.ui.controllers.MainWindowController">
+    <stylesheets>
+        <URL value="@../styles/main.css" />
+    </stylesheets>
+    <children>
+        <VBox prefWidth="540.0" spacing="16.0" HBox.hgrow="ALWAYS">
+            <children>
+                <fx:include fx:id="banner" source="Banner.fxml" />
+                <fx:include fx:id="cliTerminal" source="CliTerminal.fxml" VBox.vgrow="ALWAYS" />
+            </children>
+        </VBox>
+        <VBox prefWidth="380.0" HBox.hgrow="SOMETIMES">
+            <children>
+                <fx:include fx:id="listView" source="ListView.fxml" VBox.vgrow="ALWAYS" />
+            </children>
+        </VBox>
+    </children>
+</HBox>

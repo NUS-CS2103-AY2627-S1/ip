@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane fx:id="bannerContainer" alignment="CENTER" prefHeight="120.0" maxHeight="120.0" maxWidth="Infinity" styleClass="banner-card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kpei.ui.controllers.BannerController">
+    <stylesheets>
+        <URL value="@../styles/main.css" />
+    </stylesheets>
+    <children>
+        <ImageView fx:id="bannerImageView" fitHeight="110.0" pickOnBounds="true" preserveRatio="true" />
+    </children>
+</StackPane>

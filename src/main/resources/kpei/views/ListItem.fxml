@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefWidth="300.0" spacing="4.0" styleClass="list-item-card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kpei.ui.controllers.ListItemController">
+    <stylesheets>
+        <URL value="@../styles/main.css" />
+    </stylesheets>
+    <children>
+        <Label fx:id="titleLabel" styleClass="list-item-title" text="1. Task description" wrapText="true" />
+        <Label fx:id="typeLabel" styleClass="list-item-type" text="task" />
+        <Label fx:id="dateLabel" styleClass="list-item-date" text="by date" wrapText="true" />
+    </children>
+</VBox>

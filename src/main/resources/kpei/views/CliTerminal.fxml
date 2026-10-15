@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="450.0" prefWidth="480.0" spacing="8.0" styleClass="terminal-container" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kpei.ui.controllers.CliTerminalController">
+    <stylesheets>
+        <URL value="@../styles/main.css" />
+    </stylesheets>
+    <children>
+        <TextArea fx:id="terminalOutput" focusTraversable="false" prefHeight="380.0" prefWidth="480.0" styleClass="terminal-text-area" VBox.vgrow="ALWAYS" />
+        <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="terminal-prompt-bar">
+            <children>
+                <Label styleClass="terminal-prompt-symbol" text="&gt;" />
+                <TextField fx:id="commandInput" onAction="#handleUserInput" promptText="Enter command..." styleClass="terminal-input-field" HBox.hgrow="ALWAYS" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

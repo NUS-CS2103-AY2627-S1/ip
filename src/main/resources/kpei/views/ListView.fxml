@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="580.0" prefWidth="350.0" spacing="12.0" styleClass="list-view-container" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kpei.ui.controllers.ListViewController">
+    <stylesheets>
+        <URL value="@../styles/main.css" />
+    </stylesheets>
+    <children>
+        <Label fx:id="listTitle" styleClass="list-view-title" text="task_list.txt" />
+        <ListView fx:id="taskListView" styleClass="task-list-view" VBox.vgrow="ALWAYS" />
+    </children>
+</VBox>
