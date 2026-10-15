@@ -1,0 +1,5 @@
+T | 1 | kept task
+D | 0 | bad date | 2026-02-30
+E | 0 | backwards event | 2026-08-27 | 2026-08-26
+T | 0 | extra field | unexpected
+Q | 0 | unknown type

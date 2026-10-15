@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Adequate
+* IDE and level of expertise: Adequate
 
 # Guidance for interacting with users
 
@@ -27,6 +27,23 @@ Unless the user says otherwise, assume that you are assisting a student working 
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+
+## Java coding standard
+
+Use the project-specific `seedu-java-coding-standard` skill for every Java code change or Java style review. All Java in this project must follow the SE-EDU basic and intermediate Java coding standard.
+
+## UI testing
+
+After every code update:
+
+1. Update `test/ui-test-plan.md` when the change adds, modifies, or removes user-visible behaviour or relevant test coverage.
+2. Invoke the project-specific `test-ui` skill and act on its result before reporting the change as complete.
+
+## JUnit testing
+
+Maintain JUnit coverage for approximately the top 50% highest-value methods in the codebase. Prioritize methods that contain complex logic, implement core business behaviour, or protect critical data and invariants; do not treat this as a raw line-coverage target.
+
+After every code change, review the affected methods and update or add JUnit tests as needed to keep this target satisfied. Run the relevant Gradle JUnit tests and resolve any failures before reporting the change as complete.
 
 ## Git
 
