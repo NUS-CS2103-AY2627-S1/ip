@@ -1,25 +1,139 @@
-# Duke project template
+# Pulbot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Pulbot is a desktop task manager with a chat-style interface. You enter short
+commands to create todos, deadlines, and events, and Pulbot saves your tasks
+between sessions.
 
-## Setting up in Intellij
+## Features
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+- Create todos, deadlines, and events.
+- Mark tasks as complete or incomplete.
+- Delete tasks by their displayed number.
+- Find tasks by a case-insensitive keyword.
+- View deadlines and events that occur on a specific date.
+- Reject duplicate tasks before they are saved.
+- Store task data automatically in `data/pulbot.txt`.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+## Requirements
+
+- Java Development Kit (JDK) 25
+- A desktop environment that supports JavaFX
+
+The Gradle wrapper downloads the required build tools and JavaFX dependencies.
+You don't need to install Gradle separately.
+
+## Run Pulbot
+
+1. Clone the repository and open its directory:
+
+   ```shell
+   git clone https://github.com/pulas2345/ip.git
+   cd ip
    ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+
+2. Confirm that your terminal uses JDK 25:
+
+   ```shell
+   java -version
    ```
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+   On macOS with SDKMAN, you can select the required JDK with this command:
+
+   ```shell
+   sdk use java 25.0.3.fx-zulu
+   ```
+
+3. Start the application:
+
+   ```shell
+   ./gradlew run
+   ```
+
+   On Windows, run `gradlew.bat run` instead.
+
+## Use commands
+
+Enter commands in the text field at the bottom of the Pulbot window.
+
+| Command | Description | Example |
+| --- | --- | --- |
+| `todo DESCRIPTION` | Add a task without a date. | `todo read chapter 3` |
+| `deadline DESCRIPTION /by DATE_TIME` | Add a task with a deadline. | `deadline submit report /by 18/9/2026 2359` |
+| `event DESCRIPTION /from DATE_TIME /to DATE_TIME` | Add an event with a start and end time. | `event tutorial /from 18/9/2026 1000 /to 18/9/2026 1100` |
+| `list` | Display every task. | `list` |
+| `find KEYWORD` | Find tasks whose descriptions contain a keyword. | `find report` |
+| `on DATE` | Display deadlines and events occurring on a date. | `on 18/9/2026` |
+| `mark NUMBER` | Mark a task as complete. | `mark 2` |
+| `unmark NUMBER` | Mark a task as incomplete. | `unmark 2` |
+| `delete NUMBER` | Delete a task. | `delete 2` |
+| `bye` | Close Pulbot. | `bye` |
+
+Use `d/M/yyyy HHmm` for date-times and `d/M/yyyy` for dates. Pulbot interprets
+times using the computer's local time zone.
+
+### Duplicate tasks
+
+Pulbot rejects a new task when an existing task has the same type, description,
+and date-time details. Description comparison ignores capitalization and
+surrounding spaces. Completion status doesn't make a task unique.
+
+For example, if `todo read book` already exists, Pulbot rejects
+`todo READ BOOK` with this message:
+
+```text
+This task already exists in your list.
+```
+
+## Build a runnable JAR
+
+Create a JAR that includes the JavaFX dependencies:
+
+```shell
+./gradlew shadowJar
+```
+
+Gradle creates `build/libs/Pulbot.jar`. Run it with JDK 25:
+
+```shell
+java -jar build/libs/Pulbot.jar
+```
+
+## Run development checks
+
+Run the automated tests and coding-standard checks before submitting a change:
+
+```shell
+./gradlew test checkstyleMain checkstyleTest
+```
+
+Run every verification task and rebuild the application with this command:
+
+```shell
+./gradlew build shadowJar
+```
+
+## Project structure
+
+```text
+src/main/java/pulbot/
+├── command/    Command parsing and execution
+├── storage/    File loading and saving
+├── task/       Task types and task-list operations
+├── ui/         Console presentation
+└── *.java      Application and JavaFX controllers
+```
+
+Tests follow the same package structure under `src/test/java/pulbot/`.
+
+## Data storage
+
+Pulbot creates `data/pulbot.txt` when it first saves a task. The application
+manages this file automatically. Closing and reopening Pulbot reloads the saved
+tasks.
+
+If saved data cannot be loaded, Pulbot reports a warning and blocks task changes to protect the original file. Back up and repair or move `data/pulbot.txt`, then restart Pulbot. If a save fails, the command reports an error and restores the in-memory task list.
+
+## Acknowledgments
+
+* This project is based on the [NUS CS2103/T iP starter template](https://github.com/NUS-CS2103-AY2627-S1/ip).
+* The JavaFX launcher, FXML controllers, and dialog layout adapt the [SE-EDU JavaFX tutorial](https://se-education.org/guides/tutorials/javaFx.html).

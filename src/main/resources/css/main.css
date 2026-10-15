@@ -1,0 +1,63 @@
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #050608, #121318);
+}
+
+.ascii-background {
+    -fx-font: 6px "Menlo";
+    -fx-text-fill: #ef1f3b;
+}
+
+.text-field {
+    -fx-background-color: #17191f;
+    -fx-background-radius: 8px 0 0 8px;
+    -fx-border-color: #65101e;
+    -fx-border-radius: 8px 0 0 8px;
+    -fx-font: 15px "Arial";
+    -fx-padding: 0 12px;
+    -fx-prompt-text-fill: #747780;
+    -fx-text-fill: #f5f5f7;
+}
+
+.button {
+    -fx-background-color: linear-gradient(to bottom, #ee2441, #b80f28);
+    -fx-background-radius: 0 8px 8px 0;
+    -fx-border-color: #ff4961;
+    -fx-border-radius: 0 8px 8px 0;
+    -fx-cursor: hand;
+    -fx-font: bold 14px "Arial";
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #ff3d57, #d31531);
+}
+
+.button:pressed {
+    -fx-background-color: #8f0b20;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #a91329;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .track,
+.scroll-pane .corner {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
