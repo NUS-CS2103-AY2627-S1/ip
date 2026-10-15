@@ -2,6 +2,7 @@ package nabmak;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Scanner;
 
 import nabmak.parser.NabmakException;
@@ -71,82 +72,199 @@ public class Nabmak {
         if (input.equals("bye")) {
             return "BYE!";
         } else if (input.equals("list")) {
-            StringBuilder output = new StringBuilder("Your TODOLIST\n");
-
-            for (int i = 0; i < tasks.size(); i++) {
-                output.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
-            }
-
-            return output.toString();
+            return handleList();
         } else if (input.startsWith("mark ")) {
-            int num = Integer.parseInt(input.substring(5));
-            Task task = tasks.get(num - 1);
-            task.markDone();
-            storage.save(tasks.getTasks());
-
-            return "Good that task is DONE\n" + task.toString();
+            return handleMark(input.substring(5));
         } else if (input.startsWith("unmark ")) {
-            int num = Integer.parseInt(input.substring(7));
-            Task task = tasks.get(num - 1);
-            task.markNotDone();
-            storage.save(tasks.getTasks());
-            return "Tuff this task not done :(\n" + task.toString();
+            return handleUnmark(input.substring(7));
         } else if (input.startsWith("todo ")) {
             return addTask(new ToDo(input.substring(5)));
         } else if (input.startsWith("deadline ")) {
-            String info = input.substring(9);
-            int mid = info.indexOf(" /by ");
-            String desc = info.substring(0, mid);
-            LocalDateTime deadline = LocalDateTime.parse(info.substring(mid + 5), DATE_FORMAT);
-            return addTask(new Deadline(desc, deadline));
+            return handleDeadline(input.substring(9));
         } else if (input.startsWith("event ")) {
-            String info = input.substring(6);
-            int left = info.indexOf(" /from ");
-            int right = info.indexOf(" /to ");
-            String desc = info.substring(0, left);
-            LocalDateTime start = LocalDateTime.parse(info.substring(left + 7, right), DATE_FORMAT);
-            LocalDateTime end = LocalDateTime.parse(info.substring(right + 5), DATE_FORMAT);
-            return addTask(new Event(desc, start, end));
+            return handleEvent(input.substring(6));
         } else if (input.startsWith("delete ")) {
-            int num = Integer.parseInt(input.substring(7));
-            Task deleted = tasks.delete(num - 1);
-            storage.save(tasks.getTasks());
-            return "Noted. I've removed the task:\n" + deleted + "\nNow got " + tasks.size()
-                + " tasks.";
+            return handleDelete(input.substring(7));
         } else if (input.startsWith("find ")) {
-            TaskList matches = tasks.find(input.substring(5));
-            StringBuilder response = new StringBuilder("You looking for these?:\n");
-            for (int i = 0; i < matches.size(); i++) {
-                response.append(i + 1).append(". ").append(matches.get(i)).append("\n");
-            }
-            return response.toString();
+            return handleFind(input.substring(5));
         } else if (input.startsWith("place add ")) {
-            String info = input.substring(10);
-            int mid = info.indexOf(" /details ");
-            String name = info.substring(0, mid);
-            String details = info.substring(mid + 10);
-            Place place = new Place(name, details);
-            places.add(place);
-            placeStorage.save(places.getPlaces());
-            return "Ok new place!\n" + place
-                + "\nNow got " + places.size() + " places.";
+            return handlePlaceAdd(input.substring(10));
         } else if (input.startsWith("place delete ")) {
-            int num = Integer.parseInt(input.substring(13));
-            Place deleted = places.delete(num - 1);
-            placeStorage.save(places.getPlaces());
-            return "Noted. I've removed the place:\n" + deleted + "\nNow got " + places.size()
-                + " places.";
+            return handlePlaceDelete(input.substring(13));
         } else if (input.equals("place list")) {
-            StringBuilder output = new StringBuilder("Your PLACES\n");
-
-            for (int i = 0; i < places.size(); i++) {
-                output.append(i + 1).append(". ").append(places.get(i)).append("\n");
-            }
-
-            return output.toString();
+            return handlePlaceList();
         }
 
         return "";
+    }
+
+    /**
+     * Returns all tasks as a numbered list.
+     *
+     * @return response listing every task
+     */
+    private String handleList() {
+        return formatList("Your TODOLIST\n", tasks.getTasks());
+    }
+
+    /**
+     * Marks a task as done and saves the change.
+     *
+     * @param numStr task number given by the user
+     * @return confirmation message
+     */
+    private String handleMark(String numStr) {
+        Task task = tasks.get(parseIndex(numStr));
+        task.markDone();
+        storage.save(tasks.getTasks());
+
+        return "Good that task is DONE\n" + task.toString();
+    }
+
+    /**
+     * Marks a task as not done and saves the change.
+     *
+     * @param numStr task number given by the user
+     * @return confirmation message
+     */
+    private String handleUnmark(String numStr) {
+        Task task = tasks.get(parseIndex(numStr));
+        task.markNotDone();
+        storage.save(tasks.getTasks());
+
+        return "Tuff this task not done :(\n" + task.toString();
+    }
+
+    /**
+     * Creates and adds a deadline task.
+     *
+     * @param info text after "deadline "
+     * @return confirmation message
+     */
+    private String handleDeadline(String info) {
+        int mid = info.indexOf(" /by ");
+        String desc = info.substring(0, mid);
+        LocalDateTime deadline = parseDate(info.substring(mid + 5));
+
+        return addTask(new Deadline(desc, deadline));
+    }
+
+    /**
+     * Creates and adds an event task.
+     *
+     * @param info text after "event "
+     * @return confirmation message
+     */
+    private String handleEvent(String info) {
+        int left = info.indexOf(" /from ");
+        int right = info.indexOf(" /to ");
+        String desc = info.substring(0, left);
+        LocalDateTime start = parseDate(info.substring(left + 7, right));
+        LocalDateTime end = parseDate(info.substring(right + 5));
+
+        return addTask(new Event(desc, start, end));
+    }
+
+    /**
+     * Deletes a task and saves the change.
+     *
+     * @param numStr task number given by the user
+     * @return confirmation message
+     */
+    private String handleDelete(String numStr) {
+        Task deleted = tasks.delete(parseIndex(numStr));
+        storage.save(tasks.getTasks());
+
+        return "Noted. I've removed the task:\n" + deleted + "\nNow got " + tasks.size()
+            + " tasks.";
+    }
+
+    /**
+     * Finds tasks whose description contains the keyword.
+     *
+     * @param keyword keyword
+     * @return list of matching tasks
+     */
+    private String handleFind(String keyword) {
+        TaskList matches = tasks.find(keyword);
+
+        return formatList("You looking for these?:\n", matches.getTasks());
+    }
+
+    /**
+     * Creates and adds a place.
+     *
+     * @param info text after "place add "
+     * @return confirmation message
+     */
+    private String handlePlaceAdd(String info) {
+        int mid = info.indexOf(" /details ");
+        Place place = new Place(info.substring(0, mid), info.substring(mid + 10));
+        places.add(place);
+        placeStorage.save(places.getPlaces());
+
+        return "Ok new place!\n" + place
+            + "\nNow got " + places.size() + " places.";
+    }
+
+    /**
+     * Deletes a place and saves the change.
+     *
+     * @param numStr place number given by the user
+     * @return confirmation message
+     */
+    private String handlePlaceDelete(String numStr) {
+        Place deleted = places.delete(parseIndex(numStr));
+        placeStorage.save(places.getPlaces());
+
+        return "Noted. I've removed the place:\n" + deleted + "\nNow got " + places.size()
+            + " places.";
+    }
+
+    /**
+     * Returns all places as a numbered list.
+     *
+     * @return list of place
+     */
+    private String handlePlaceList() {
+        return formatList("Your PLACES\n", places.getPlaces());
+    }
+
+    /**
+     * Converts a 1 based number typed by the user into a 0 based list index.
+     *
+     * @param numStr number given by the user
+     * @return 0 based index
+     */
+    private static int parseIndex(String numStr) {
+        return Integer.parseInt(numStr.trim()) - 1;
+    }
+
+    /**
+     * Converts a date string that has already been validated by the parser.
+     *
+     * @param text date in 'dd-MM-yyyy HH:mm' format
+     * @return the parsed date and time
+     */
+    private static LocalDateTime parseDate(String text) {
+        return LocalDateTime.parse(text, DATE_FORMAT);
+    }
+
+    /**
+     * Builds a numbered list of items under a header.
+     *
+     * @param header text shown before the list
+     * @param items items to list
+     * @return the header followed by items
+     */
+    private static String formatList(String header, List<?> items) {
+        StringBuilder output = new StringBuilder(header);
+
+        for (int i = 0; i < items.size(); i++) {
+            output.append(i + 1).append(". ").append(items.get(i)).append("\n");
+        }
+
+        return output.toString();
     }
 
     /**
@@ -177,4 +295,5 @@ public class Nabmak {
     public static void main(String[] args) {
         new Nabmak().run();
     }
+
 }
