@@ -1,0 +1,95 @@
+.root {
+    midnight: #0b1020;
+    gold: #d6b76f;
+    pale-gold: #f2d994;
+    -fx-background-color: linear-gradient(to bottom, #10182b, midnight);
+}
+
+.header {
+    -fx-background-color: linear-gradient(to right, #17223a, #11192d);
+    -fx-border-color: #8b7040;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 10 18 10 18;
+    -fx-spacing: 12;
+    -fx-alignment: center-left;
+}
+
+.pawn-emblem {
+    -fx-font-family: "Segoe UI Symbol";
+    -fx-font-size: 43px;
+    -fx-text-fill: pale-gold;
+    -fx-effect: dropshadow(gaussian, rgba(214, 183, 111, 0.45), 12, 0.35, 0, 0);
+}
+
+.brand-title {
+    -fx-font-family: "Cinzel";
+    -fx-font-size: 22px;
+    -fx-text-fill: pale-gold;
+}
+
+.brand-subtitle {
+    -fx-font-family: "Arial";
+    -fx-font-size: 10px;
+    -fx-text-fill: #aeb9cc;
+}
+
+.input-bar {
+    -fx-background-color: #11192c;
+    -fx-border-color: #8b7040;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 10;
+    -fx-spacing: 8;
+}
+
+.text-field {
+    -fx-background-color: #202b43;
+    -fx-background-radius: 5;
+    -fx-border-color: #8b7040;
+    -fx-border-radius: 5;
+    -fx-border-width: 1;
+    -fx-font-family: "Arial";
+    -fx-font-size: 15px;
+    -fx-prompt-text-fill: #aeb9cc;
+    -fx-text-fill: #f7f2e7;
+}
+
+.text-field:focused {
+    -fx-border-color: gold;
+}
+
+.button {
+    -fx-background-color: linear-gradient(to bottom, #f2d994, gold);
+    -fx-background-radius: 5;
+    -fx-font-family: "Cinzel";
+    -fx-font-size: 13px;
+    -fx-text-fill: midnight;
+}
+
+.button:hover {
+    -fx-background-color: #f5dfa9;
+}
+
+.button:pressed {
+    -fx-background-color: #ad8d50;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: midnight;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #8b7040;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
