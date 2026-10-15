@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Intermediate
+* IDE and level of expertise: IntelliJ IDEA, intermediate
 
 # Guidance for interacting with users
 
@@ -28,8 +28,21 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## Java coding standard
+
+For every task that creates, modifies, or reviews Java code, use the repository skill
+`$seedu-java-coding-standard` at
+`.agents/skills/seedu-java-coding-standard/SKILL.md`. All production and test Java
+code must follow the SE-EDU basic and intermediate Java coding standard summarized
+by that skill. Follow the Google Java Style Guide for topics the SE-EDU standard
+does not cover.
+
 ## Git
 
 Use lightweight tags unless the user requests an annotated tag.
-When proposing or creating a commit message, include enough detail to explain the rationale for the change.
+For every task that proposes, reviews, creates, amends, squashes, or merges a
+commit, use the repository skill `$seedu-git-standard` at
+`.agents/skills/seedu-git-standard/SKILL.md`. All commit messages, including merge
+commit messages, must follow the SE-EDU Git conventions enforced by that skill.
+Use the same skill when naming branches.
 Do not commit or push unless explicitly asked.

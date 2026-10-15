@@ -1,0 +1,22 @@
+.label {
+    -fx-background-color: #8a5a3b;
+    -fx-background-radius: 12px 12px 2px 12px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 9px 12px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.reply-label {
+    -fx-background-color: #e1c9ad;
+    -fx-background-radius: 12px 12px 12px 2px;
+    -fx-text-fill: #3f2c22;
+}
+
+.error-label {
+    -fx-background-color: #fee2e2;
+    -fx-border-color: #dc2626;
+    -fx-border-radius: 12px 12px 12px 2px;
+    -fx-border-width: 0 0 0 4px;
+    -fx-text-fill: #991b1b;
+}
