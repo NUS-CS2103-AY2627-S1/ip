@@ -1,0 +1,70 @@
+.root {
+    -fx-font-family: "Avenir Next", "System";
+    -fx-background-color: linear-gradient(to bottom, #f4e2cf, #e7c5a1);
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.speaker {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #79513b;
+    -fx-padding: 0 5px;
+}
+
+.message {
+    -fx-background-color: #fffaf3;
+    -fx-background-radius: 7px 7px 7px 2px;
+    -fx-padding: 10px 13px;
+    -fx-text-fill: #38251a;
+    -fx-effect: dropshadow(gaussian, rgba(75, 41, 24, 0.12), 5, 0, 0, 2);
+}
+
+.user-dialog .message {
+    -fx-background-color: #5e321e;
+    -fx-background-radius: 7px 7px 2px 7px;
+    -fx-text-fill: white;
+}
+
+.user-dialog .speaker {
+    -fx-text-fill: #5e321e;
+}
+
+.error-dialog .message {
+    -fx-background-color: #ffe4e1;
+    -fx-border-color: #b53a3a;
+    -fx-border-radius: 7px 7px 7px 2px;
+    -fx-border-width: 1px;
+    -fx-text-fill: #8b2525;
+}
+
+.error-dialog .speaker {
+    -fx-text-fill: #a12e2e;
+}
+
+.text-field {
+    -fx-background-color: #fff8ef;
+    -fx-background-radius: 10px;
+    -fx-border-color: #b88967;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+    -fx-padding: 0 16px;
+}
+
+.button {
+    -fx-background-color: #4b2918;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #704214;
+}
+
+.button:pressed {
+    -fx-background-color: #38251a;
+}
