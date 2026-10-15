@@ -1,0 +1,92 @@
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #f1f5f7;
+    -fx-text-fill: #213746;
+}
+
+.app-shell { -fx-background-color: #f1f5f7; }
+.header {
+    -fx-padding: 22 24 20 24;
+    -fx-background-color: linear-gradient(to right, #173b4f, #245d70);
+    -fx-border-color: transparent transparent #7bc0cf transparent;
+    -fx-border-width: 0 0 3 0;
+}
+.title {
+    -fx-font-size: 29px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+.subtitle { -fx-font-size: 13px; -fx-text-fill: #d3e7ed; }
+.scroll-pane, .scroll-pane > .viewport { -fx-background-color: transparent; }
+.scroll-pane {
+    -fx-background-color: linear-gradient(to bottom, #f5f8fa, #edf3f5);
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+.conversation { -fx-padding: 22 24 26 24; }
+.message-row { -fx-fill-height: true; }
+.author {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #627887;
+}
+.user-author { -fx-text-fill: #27677c; }
+.bot-message, .user-message {
+    -fx-padding: 11 14 11 14;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+    -fx-text-fill: #213746;
+}
+.bot-message {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d9e3e8;
+}
+.user-message {
+    -fx-background-color: #d8edf4;
+    -fx-border-color: #bddce7;
+}
+.error-author { -fx-text-fill: #9a3d48; }
+.error-message {
+    -fx-background-color: #fff0f1;
+    -fx-border-color: #e3a5ac;
+    -fx-text-fill: #762b35;
+}
+.composer {
+    -fx-padding: 14 22 20 22;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dbe5e9 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+.hint { -fx-font-size: 11px; -fx-text-fill: #607482; }
+.command-input {
+    -fx-padding: 11 13 11 13;
+    -fx-background-color: #f8fafb;
+    -fx-background-radius: 10;
+    -fx-border-color: #c7d5dc;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-prompt-text-fill: #7d8e98;
+}
+.command-input:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #2d829d;
+    -fx-border-width: 2;
+}
+.send-button {
+    -fx-padding: 11 16 11 16;
+    -fx-background-color: #28758e;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.send-button:hover { -fx-background-color: #205f75; }
+.send-button:pressed { -fx-background-color: #174d60; }
+.send-button:focused {
+    -fx-border-color: #91d2e2;
+    -fx-border-width: 2;
+}
+.send-button:disabled { -fx-opacity: 0.6; }

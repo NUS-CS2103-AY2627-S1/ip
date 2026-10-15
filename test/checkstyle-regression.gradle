@@ -1,0 +1,62 @@
+// Run with: ./gradlew.bat -I test/checkstyle-regression.gradle verifyCheckstyleRules
+// Generate isolated fixtures under build; never edit application or test sources.
+gradle.projectsEvaluated {
+    def project = gradle.rootProject
+    def fixtureDirectory = project.layout.buildDirectory.dir('checkstyle-regression/sources')
+    def reportFile = project.layout.buildDirectory.file('checkstyle-regression/report.xml')
+
+    def prepareFixtures = project.tasks.register('prepareCheckstyleFixtures') {
+        outputs.dir(fixtureDirectory)
+        doLast {
+            def directory = fixtureDirectory.get().asFile
+            directory.mkdirs()
+            new File(directory, 'Valid.java').text = '''package fixture;
+
+/**
+ * Provides a compliant fixture.
+ */
+public class Valid {
+}
+'''
+            new File(directory, 'invalid.java').text = '''package fixture;
+
+/**
+ * Provides deliberate naming and whitespace violations.
+ */
+public class invalid {
+    private int count=1;
+}
+'''
+        }
+    }
+
+    project.tasks.register('verifyCheckstyleRules', org.gradle.api.plugins.quality.Checkstyle) {
+        description = 'Verifies that the project rules accept valid code and detect errors and warnings.'
+        dependsOn(prepareFixtures)
+        source = project.fileTree(fixtureDirectory)
+        classpath = project.files()
+        // Deliberate violations are verified below instead of failing the task immediately.
+        ignoreFailures = true
+        reports {
+            xml.required = true
+            xml.outputLocation = reportFile
+            html.required = false
+        }
+        doLast {
+            def report = new groovy.xml.XmlSlurper().parse(reportFile.get().asFile)
+            def valid = report.file.find { it.@name.text().endsWith('Valid.java') }
+            def invalid = report.file.find { it.@name.text().endsWith('invalid.java') }
+            assert valid.size() == 1 && valid.error.size() == 0 : 'Compliant fixture must pass'
+            assert invalid.error.any {
+                it.@source.text().endsWith('WhitespaceAroundCheck') && it.@severity.text() == 'error'
+            } : 'Missing whitespace must be reported as an error'
+            assert invalid.error.any {
+                it.@source.text().endsWith('TypeNameCheck') && it.@severity.text() == 'warning'
+            } : 'Lowercase class name must be reported as a warning'
+            assert project.checkstyle.maxWarnings == 0 : 'Production checks must reject warnings'
+            assert !project.tasks.checkstyleMain.ignoreFailures : 'Production checks must reject errors'
+            assert !project.tasks.checkstyleTest.ignoreFailures : 'Test checks must reject errors'
+            logger.lifecycle('PASS: Valid code accepted; style errors and warnings detected; strict checks enabled.')
+        }
+    }
+}

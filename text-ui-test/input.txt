@@ -1,0 +1,37 @@
+reminders
+todo
+blah
+deadline
+deadline return book
+event
+event project meeting
+event project meeting /from Mon 2pm
+todo borrow book
+deadline return book /by 2019-10-15
+deadline repeated /by 2019-10-16 /by 2019-10-17
+todo unsafe | description
+deadline invalid date /by 2019-02-30
+event project meeting /from 2019-10-15 14:00 /to 2019-10-15 16:00
+event same time /from 2019-10-15 14:00 /to 2019-10-15 14:00
+event reversed /from 2019-10-15 16:00 /to 2019-10-15 14:00
+event invalid time /from 2019-02-30 14:00 /to 2019-02-30 16:00
+todo join sports club
+find book
+find club
+find missing
+list
+ list
+delete
+delete abc
+delete 99
+delete 2
+list
+mark
+unmark
+mark 2
+unmark 2
+mark abc
+unmark abc
+mark 99
+deadline spaced deadline   /by   2019-10-16
+bye
