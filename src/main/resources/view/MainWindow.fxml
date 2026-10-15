@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+    The layout of PiplupBot's window: the conversation, which scrolls, above
+    a box to type in and a button to send what is typed.
+
+    GuiUi loads this file and acts as its controller. Each fx:id names the
+    GuiUi field that the part is put into, and each onAction="#..." names the
+    GuiUi method that runs when the part is used. How the parts look is up to
+    the stylesheet, which finds them by their styleClass. The @ in front of its
+    path means "relative to this file", so it is found in the css folder beside
+    this file's view folder, both inside the JAR file and out of it.
+
+    ACKNOWLEDGEMENTS: This file was written with the help of Claude.
+-->
+<BorderPane prefWidth="480.0" prefHeight="560.0" stylesheets="@../css/main.css"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <!-- fitToWidth keeps the conversation as wide as the window, so a long reply
+             wraps onto more lines instead of making the window scroll sideways. -->
+        <ScrollPane fx:id="scrollPane" fitToWidth="true">
+            <VBox fx:id="conversation" styleClass="conversation"/>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox styleClass="input-bar">
+            <!-- HBox.hgrow lets the input box take whatever width the button leaves over.
+                 Pressing Enter in the box and clicking the button both send the line. -->
+            <TextField fx:id="inputBox" HBox.hgrow="ALWAYS" promptText="Type a command, e.g. todo read book"
+                       onAction="#handleInput"/>
+            <Button fx:id="sendButton" text="Send" onAction="#handleInput"/>
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -3,6 +3,15 @@
 /out/
 /*.iml
 
+# Binary files
+*.class
+*.jar
+*.exe
+
+# Claude files
+/.claude/
+test/ui-test-plan.md
+
 # Gradle build files
 /.gradle/
 /build/
@@ -15,6 +24,9 @@ bin/
 
 # Temp files
 _temp/
+
+# Saved task list (runtime data, not source)
+/data/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

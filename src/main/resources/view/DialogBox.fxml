@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.Circle?>
+
+<!--
+    One message in the conversation, laid out as one of the user's: the words
+    in a speech bubble, then a round picture. DialogBox loads this file once
+    for every message, and swaps the two parts round for the bot's replies.
+
+    fx:root means this file describes the content of an object that already
+    exists, instead of creating a new one: DialogBox is an HBox, and it passes
+    itself in as the HBox below. It is also the controller, so each fx:id names
+    the DialogBox field that the part is put into.
+
+    ACKNOWLEDGEMENTS: This file was written with the help of Claude.
+-->
+<fx:root type="javafx.scene.layout.HBox" alignment="TOP_RIGHT" styleClass="dialog-box"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <!-- A minHeight of -Infinity means "never shorter than it would like to be".
+         A label squeezed shorter than its text cuts the text off with "...", so
+         this keeps every line of a long reply. -->
+    <Label fx:id="bubble" styleClass="bubble" wrapText="true" minHeight="-Infinity"/>
+    <ImageView fx:id="pictureView" fitWidth="40.0" fitHeight="40.0">
+        <!-- Only the part of the picture inside this circle is drawn, which makes it round. -->
+        <clip>
+            <Circle centerX="20.0" centerY="20.0" radius="20.0"/>
+        </clip>
+    </ImageView>
+</fx:root>
