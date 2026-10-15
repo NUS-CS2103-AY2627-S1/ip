@@ -1,0 +1,76 @@
+.root {
+    -fx-background-color: #08111f;
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-text-fill: #d7e9f2;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog {
+    -fx-background-radius: 10px;
+}
+
+.user-dialog {
+    -fx-alignment: top-right;
+}
+
+.laby-dialog {
+    -fx-alignment: top-left;
+}
+
+.chat-label {
+    -fx-padding: 10px 14px;
+    -fx-background-radius: 10px;
+    -fx-font-size: 14px;
+}
+
+.user-dialog .chat-label {
+    -fx-background-color: #66e3ff;
+    -fx-text-fill: #08111f;
+}
+
+.laby-dialog .chat-label {
+    -fx-background-color: #08111f;
+    -fx-border-color: #66e3ff;
+    -fx-border-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-text-fill: #66e3ff;
+}
+
+.error-dialog .chat-label {
+    -fx-border-color: #ff4d5a;
+    -fx-text-fill: #ff4d5a;
+    -fx-font-weight: bold;
+}
+
+.avatar-image {
+    -fx-background-radius: 24px;
+    -fx-border-color: #66e3ff;
+    -fx-border-radius: 24px;
+}
+
+.input-bar {
+    -fx-padding: 10px;
+    -fx-background-color: #08111f;
+    -fx-border-color: #66e3ff;
+    -fx-border-width: 1px 0 0 0;
+}
+
+.input-bar .text-field {
+    -fx-pref-height: 38px;
+    -fx-background-color: #08111f;
+    -fx-border-color: #66e3ff;
+    -fx-border-radius: 6px;
+    -fx-text-fill: #66e3ff;
+    -fx-prompt-text-fill: #66e3ff;
+}
+
+.input-bar .button {
+    -fx-pref-width: 72px;
+    -fx-max-height: Infinity;
+    -fx-background-color: #66e3ff;
+    -fx-text-fill: #08111f;
+}

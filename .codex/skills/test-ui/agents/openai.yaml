@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run fail-fast console UI tests from a Markdown test plan."
+  default_prompt: "Use $test-ui to run the console test cases in test/ui-test-plan.md and report the transcript."
