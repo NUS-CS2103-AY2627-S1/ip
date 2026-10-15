@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Medium
+* IDE and level of expertise: Low
 
 # Guidance for interacting with users
 
@@ -32,4 +32,15 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
+Follow the project-specific `seedu-git-standard` skill when creating or suggesting future commits.
 Do not commit or push unless explicitly asked.
+
+## Testing
+
+Maintain JUnit test coverage for roughly the top 50% highest-value methods in the codebase, prioritizing complex, core, or critical business logic over simple getters and boilerplate.
+After each code change, review and update the relevant JUnit tests so the test suite continues to comply with this coverage target.
+
+## Coding standard
+
+Follow the project-specific `seedu-java-coding-standard` skill for all Java code in this project.
+New and modified Java code must comply with the SE-EDU Java basic and intermediate coding standard.

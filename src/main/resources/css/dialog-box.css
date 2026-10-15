@@ -1,0 +1,64 @@
+.label {
+    -fx-background-color: #dce8ff;
+    -fx-border-color: #b9c9e8;
+    -fx-border-width: 1px;
+    -fx-background-radius: 8px 8px 0 8px;
+    -fx-border-radius: 8px 8px 0 8px;
+    -fx-font: 13px "Arial";
+    -fx-line-spacing: 2px;
+}
+
+.reply-label {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8px 8px 8px 0;
+    -fx-border-radius: 8px 8px 8px 0;
+}
+
+.default-response-label {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cfd6e6;
+}
+
+.add-response-label {
+    -fx-background-color: #e5f7ed;
+    -fx-border-color: #98d8b4;
+}
+
+.status-response-label {
+    -fx-background-color: #fff4d6;
+    -fx-border-color: #edca70;
+}
+
+.delete-response-label {
+    -fx-background-color: #ffe2e2;
+    -fx-border-color: #ee9c9c;
+}
+
+.search-response-label {
+    -fx-background-color: #e7f0ff;
+    -fx-border-color: #9dbbea;
+}
+
+.stats-response-label {
+    -fx-background-color: #e4f7f8;
+    -fx-border-color: #8ed0d5;
+}
+
+.exit-response-label {
+    -fx-background-color: #eeeaf8;
+    -fx-border-color: #bcaee0;
+}
+
+.error-response-label {
+    -fx-background-color: #fff0df;
+    -fx-border-color: #eba260;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.14), 5, 0.2, 1, 2);
+    -fx-opacity: 0.92;
+}
+
+.bot-picture {
+    -fx-opacity: 0.82;
+}
