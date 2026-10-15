@@ -1,0 +1,7 @@
+.space-window { -fx-background-color: #050b24; -fx-font-family: "Avenir Next"; }
+.space-scroll { -fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent; }
+.space-scroll > .viewport { -fx-background-color: rgba(5, 11, 36, 0.52); }
+.command-input { -fx-background-color: rgba(10, 20, 55, 0.94); -fx-text-fill: #e8f4ff; -fx-prompt-text-fill: #8ca6c7; -fx-border-color: #5878ba; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 0 12; -fx-font-size: 14px; }
+.launch-button { -fx-background-color: #6d55d9; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand; }
+.launch-button:hover { -fx-background-color: #8873ec; }
+.dialog-text { -fx-background-color: rgba(19, 31, 74, 0.9); -fx-text-fill: #e9f3ff; -fx-font-size: 14px; -fx-padding: 10px 12px; -fx-background-radius: 12; -fx-border-color: rgba(111, 162, 255, 0.55); -fx-border-radius: 12; }

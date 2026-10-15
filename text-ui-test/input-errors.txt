@@ -1,0 +1,11 @@
+mark
+mark abc
+mark 0
+delete 1
+deadline submit report
+deadline submit report /by
+event team meeting /to 4pm /from 2pm
+event team meeting /from /to 4pm
+todo
+unknown
+bye
