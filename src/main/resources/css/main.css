@@ -1,0 +1,62 @@
+.root {
+    -fx-font-family: "Trebuchet MS";
+    -fx-font-size: 15px;
+    -fx-text-fill: #242220;
+    -fx-font-smoothing-type: gray;
+}
+.app-shell { -fx-background-color: #F6F3EE; }
+.app-header { -fx-padding: 18px 22px; -fx-background-color: #F0ECE6; }
+.wordmark { -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #F6F3EE; }
+.tagline { -fx-font-size: 12px; -fx-text-fill: #FFFCF7; }
+.avatar {
+    -fx-min-width: 64px; -fx-pref-width: 64px; -fx-max-width: 64px;
+    -fx-min-height: 64px; -fx-pref-height: 64px; -fx-max-height: 64px;
+    -fx-background-color: white; -fx-background-radius: 64px;
+    -fx-border-radius: 64px; -fx-border-width: 2px; -fx-border-color: #5B463A;
+}
+.user-avatar { -fx-border-color: #242220; }
+.online-pip {
+    -fx-min-width: 8px; -fx-pref-width: 8px; -fx-max-width: 8px;
+    -fx-min-height: 8px; -fx-pref-height: 8px; -fx-max-height: 8px;
+    -fx-background-color: #5B463A; -fx-background-radius: 8px;
+}
+.chat-scroll, .chat-scroll > .viewport { -fx-background-color: #F6F3EE; }
+.chat-scroll { -fx-padding: 0; -fx-background-insets: 0; }
+.dialog-list { -fx-padding: 24px 20px; }
+.composer-panel {
+    -fx-padding: 14px 20px 20px; -fx-background-color: #F6F3EE;
+    -fx-border-color: #E8E3DC transparent transparent transparent;
+}
+.command-hint { -fx-font-size: 12px; -fx-text-fill: #6F6963; }
+.text-field {
+    -fx-pref-height: 44px; -fx-min-height: 44px; -fx-padding: 0 16px;
+    -fx-background-color: #FFFCF7; -fx-background-radius: 22px;
+    -fx-border-color: #DDD8D1; -fx-border-radius: 22px;
+    -fx-text-fill: #242220; -fx-prompt-text-fill: #6F6963;
+}
+.text-field:focused { -fx-border-color: #5B463A; -fx-border-width: 2px; }
+.button {
+    -fx-min-width: 44px; -fx-pref-width: 44px; -fx-max-width: 44px;
+    -fx-min-height: 44px; -fx-pref-height: 44px; -fx-max-height: 44px;
+    -fx-background-color: #5B463A; -fx-background-radius: 44px; -fx-padding: 0;
+    -fx-cursor: hand;
+}
+.button:hover { -fx-background-color: #514941; }
+.button:focused { -fx-border-color: #5B463A; -fx-border-radius: 44px; -fx-border-insets: -3px; }
+.send-icon { -fx-fill: transparent; -fx-stroke: #F6F3EE; -fx-stroke-width: 2px; -fx-stroke-line-cap: round; -fx-stroke-line-join: round; }
+.scroll-bar:vertical { -fx-pref-width: 9px; -fx-background-color: #F6F3EE; }
+.scroll-bar:vertical .thumb { -fx-background-color: #DDD8D1; -fx-background-radius: 9px; }
+.scroll-bar .increment-button, .scroll-bar .decrement-button { -fx-pref-height: 0; -fx-opacity: 0; }
+
+/* Fixed neutral palette; existing layout and command interactions are preserved. */
+.app-header { -fx-background-color: #F6F3EE; -fx-border-color: transparent transparent #DDD8D1; }
+.wordmark { -fx-text-fill: #242220; }
+.tagline { -fx-text-fill: #6F6963; }
+.avatar { -fx-background-color: #FFFCF7; -fx-border-color: #DDD8D1; }
+.text-field { -fx-border-color: #D8D2CB; -fx-prompt-text-fill: #99928B; }
+.button { -fx-background-color: #403A35; }
+.button:hover { -fx-background-color: #514941; }
+.send-icon { -fx-stroke: #FFF9F1; }
+.welcome-box { -fx-padding: 8px 0 16px; }
+.welcome-title { -fx-font-family: "Inter"; -fx-font-size: 20px; -fx-fill: #242220; }
+.welcome-count { -fx-font-family: "Inter"; -fx-font-size: 14px; -fx-text-fill: #6F6963; }

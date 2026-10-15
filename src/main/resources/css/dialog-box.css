@@ -1,0 +1,104 @@
+.dialog-row { -fx-padding: 0; }
+.message-bubble {
+    -fx-padding: 12px 15px;
+    -fx-background-radius: 6px 18px 18px 18px;
+    -fx-border-radius: 6px 18px 18px 18px;
+    -fx-border-width: 0 0 0 3px;
+    -fx-border-color: #5B463A;
+}
+.wwaffle-bubble { -fx-background-color: #FFFCF7; }
+.user-bubble {
+    -fx-background-color: #F0ECE6;
+    -fx-background-radius: 18px 6px 18px 18px;
+    -fx-border-width: 0;
+}
+.speaker-label { -fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #242220; }
+.message-label { -fx-font-size: 15px; -fx-line-spacing: 3px; -fx-text-fill: #242220; }
+.timestamp { -fx-font-size: 11px; -fx-text-fill: #6F6963; -fx-padding: 3px 0 0; }
+.user-bubble .speaker-label, .user-bubble .message-label { -fx-text-fill: #F6F3EE; }
+
+.body-text { -fx-font-family: "Trebuchet MS"; -fx-font-size: 15px; -fx-fill: #242220; }
+.user-bubble .body-text { -fx-fill: #F6F3EE; }
+
+.user-bubble .speaker-label { -fx-text-fill: #6F6963; }
+.user-bubble .message-label { -fx-text-fill: #242220; }
+.user-bubble .body-text { -fx-fill: #242220; }
+.timestamp { -fx-text-fill: #8D8780; }
+
+.greeting-bubble .body-text {
+    -fx-font-family: "Inter";
+    -fx-font-weight: 500;
+    -fx-fill: #242220;
+}
+
+.goodbye-music-card {
+    -fx-padding: 11px 12px;
+    -fx-background-color: #FFFCF7;
+    -fx-border-color: #DDD8D1;
+    -fx-border-radius: 9px;
+    -fx-background-radius: 9px;
+    -fx-min-height: 96px;
+}
+.goodbye-music-metadata {
+    -fx-font-family: "Manrope";
+    -fx-font-weight: 600;
+    -fx-font-size: 13px;
+    -fx-text-fill: #6F6963;
+}
+.goodbye-music-lyric {
+    -fx-font-family: "Manrope";
+    -fx-font-weight: 700;
+    -fx-font-size: 21px;
+    -fx-text-fill: #242220;
+}
+.goodbye-bubble { -fx-spacing: 10px; }
+.goodbye-bubble .body-text {
+    -fx-font-family: "Inter";
+    -fx-font-weight: 500;
+    -fx-fill: #242220;
+}
+
+.goodbye-mascot { -fx-padding: 8px 0 16px; }
+.goodbye-mascot .body-text {
+    -fx-font-family: "Inter";
+    -fx-font-weight: 500;
+    -fx-font-size: 20px;
+    -fx-fill: #242220;
+}
+
+.thanks-mascot { -fx-padding: 8px 0 16px; }
+.thanks-mascot .body-text {
+    -fx-font-family: "Inter";
+    -fx-font-weight: 500;
+    -fx-font-size: 20px;
+    -fx-fill: #242220;
+}
+
+.checklist-row { -fx-padding: 12px 0; -fx-border-color: transparent transparent #DDD8D1; }
+.checklist-bubble { -fx-spacing: 10px; }
+.task-checklist {
+    -fx-padding: 2px 14px;
+    -fx-background-color: #FFFCF7;
+    -fx-background-radius: 9px;
+    -fx-border-color: #DDD8D1;
+    -fx-border-radius: 9px;
+}
+.checklist-row-last { -fx-border-color: transparent; }
+.checklist-status {
+    -fx-min-width: 20px; -fx-pref-width: 20px; -fx-max-width: 20px;
+    -fx-min-height: 20px; -fx-pref-height: 20px; -fx-max-height: 20px;
+    -fx-border-color: #8D8780; -fx-border-radius: 3px;
+    -fx-alignment: center; -fx-text-fill: #403A35;
+}
+.checklist-title, .checklist-completed { -fx-font-family: "Inter"; -fx-font-size: 15px; -fx-text-fill: #242220; }
+.checklist-completed { -fx-text-fill: #9F9992; }
+.checklist-meta { -fx-font-family: "Inter"; -fx-font-size: 11px; -fx-text-fill: #6F6963; }
+.checklist-number { -fx-font-size: 12px; -fx-text-fill: #8D8780; }
+
+.checklist-description {
+    -fx-font-family: "Inter";
+    -fx-font-size: 15px;
+    -fx-fill: #242220;
+}
+.checklist-done-description { -fx-fill: #9F9992; }
+.sort-key { -fx-font-weight: bold; }

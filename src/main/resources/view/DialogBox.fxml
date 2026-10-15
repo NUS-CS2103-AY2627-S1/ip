@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_LEFT"
+         maxWidth="1.7976931348623157E308"
+         spacing="10.0"
+         styleClass="dialog-row"
+         stylesheets="@../css/dialog-box.css"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17.0.7"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <StackPane fx:id="avatar" styleClass="avatar"><ImageView fx:id="portrait" fitWidth="44" fitHeight="44" preserveRatio="true" smooth="true" /></StackPane>
+        <VBox fx:id="bubble" minWidth="0.0" spacing="4.0" styleClass="message-bubble">
+            <children>
+                <Label fx:id="speaker" wrapText="true" styleClass="speaker-label" text="WWaffle" />
+                <TextFlow fx:id="dialog" minWidth="0.0" maxWidth="1.7976931348623157E308"
+                          styleClass="message-label" />
+            <Label fx:id="timestamp" styleClass="timestamp" />
+            </children>
+        </VBox>
+    </children>
+</fx:root>

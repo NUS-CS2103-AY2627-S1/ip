@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.SVGPath?>
+
+<BorderPane prefHeight="800.0" prefWidth="620.0"
+            styleClass="app-shell"
+            stylesheets="@../css/main.css"
+            xmlns="http://javafx.com/javafx/17.0.7"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="wwaffle.gui.MainWindow">
+    <top>
+        <VBox styleClass="app-header">
+            <HBox alignment="CENTER_LEFT" spacing="14">
+                <HBox spacing="-12">
+                    <StackPane styleClass="avatar, wwaffle-avatar">
+                        <ImageView fitWidth="44" fitHeight="44" preserveRatio="true"><image><Image url="@../images/waffle-circle.png" /></image></ImageView>
+                    </StackPane>
+                    <StackPane styleClass="avatar, user-avatar">
+                        <ImageView fitWidth="44" fitHeight="44" preserveRatio="true"><image><Image url="@../images/coffee-circle.png" /></image></ImageView>
+                    </StackPane>
+                </HBox>
+                <VBox spacing="2.0">
+                    <Label styleClass="wordmark" text="WWaffle" />
+                    <Label styleClass="tagline" text="Your task companion" />
+                </VBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <Region styleClass="online-pip" accessibleText="Online" />
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    styleClass="chat-scroll"
+                    vbarPolicy="AS_NEEDED">
+            <content>
+                <VBox fx:id="dialogContainer"
+                      fillWidth="true"
+                      spacing="18.0"
+                      styleClass="dialog-list" />
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <VBox spacing="9.0" styleClass="composer-panel">
+            <Label wrapText="true" styleClass="command-hint"
+                   text="You’re Coffee. Chat with WWaffle." />
+            <HBox alignment="CENTER" spacing="10.0" styleClass="composer-row">
+                <TextField minWidth="0.0" fx:id="userInput"
+                           onAction="#handleUserInput"
+                           promptText="What’s on your plate?"
+                           HBox.hgrow="ALWAYS" />
+                <Button defaultButton="true"
+                        mnemonicParsing="false"
+                        onAction="#handleUserInput"
+                        accessibleText="Send message">
+                    <graphic><SVGPath content="M12 19 L12 5 M5 12 L12 5 L19 12" styleClass="send-icon" /></graphic>
+                </Button>
+            </HBox>
+        </VBox>
+    </bottom>
+</BorderPane>
