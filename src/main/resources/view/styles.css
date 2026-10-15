@@ -1,0 +1,230 @@
+/*
+ * Minimalist stylesheet for the LittleR chat window.
+ *
+ * Colours are declared once as "looked-up colours" on .root and referenced
+ * everywhere else, so the whole palette can be retuned from one place.
+ */
+
+.root {
+    -color-bg: #F4F5F7;
+    -color-surface: #FFFFFF;
+    -color-border: #E3E5EA;
+    -color-primary: #4A55E0;
+    -color-primary-dark: #3943C4;
+    -color-text: #23252B;
+    -color-text-inverse: #FFFFFF;
+    -color-error-bg: #FDECEC;
+    -color-error-border: #E8A5A5;
+    -color-error-text: #8A1F1F;
+
+    -fx-font-family: "Segoe UI", -apple-system, "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: -color-bg;
+}
+
+/* ---------- Chat history area ---------- */
+
+.chat-scroll-pane,
+.chat-scroll-pane .viewport {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.chat-scroll-pane {
+    -fx-border-width: 0;
+}
+
+.dialog-container {
+    -fx-background-color: transparent;
+    -fx-padding: 14 12 14 12;
+    -fx-spacing: 10;
+}
+
+/* Slim, unobtrusive scrollbar */
+.chat-scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8;
+}
+
+.chat-scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: derive(-color-border, -10%);
+    -fx-background-radius: 4;
+}
+
+.chat-scroll-pane .scroll-bar:vertical .track,
+.chat-scroll-pane .scroll-bar:vertical .increment-button,
+.chat-scroll-pane .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+}
+
+/* ---------- Speech bubbles ---------- */
+/* Corner radii are asymmetric (one sharp corner) to read as a speech-bubble
+ * "tail" pointing toward the speaker's avatar, without needing a custom shape. */
+
+.bot-bubble {
+    -fx-background-color: -color-surface;
+    -fx-background-radius: 4 16 16 16;
+    -fx-border-color: -color-border;
+    -fx-border-radius: 4 16 16 16;
+    -fx-border-width: 1;
+    -fx-padding: 10 14 10 14;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 4, 0, 0, 1);
+}
+
+.user-bubble {
+    -fx-background-color: -color-primary;
+    -fx-background-radius: 16 4 16 16;
+    -fx-border-color: -color-primary;
+    -fx-border-radius: 16 4 16 16;
+    -fx-border-width: 1;
+    -fx-padding: 10 14 10 14;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 4, 0, 0, 1);
+}
+
+/* ---------- Message text runs ----------
+ * Every Text run inside a bubble gets exactly one of the two base classes below,
+ * which sets its default colour to match the bubble it's in. Highlight classes
+ * (declared further down) are layered on top for specific tokens; because they
+ * are declared *after* the base classes here, they win the CSS cascade at equal
+ * selector specificity. */
+
+.bubble-text {
+    -fx-fill: -color-text;
+}
+
+.bubble-text-inverse {
+    -fx-fill: -color-text-inverse;
+}
+
+/* Overrides .bubble-text's default colour specifically inside an error bubble
+ * (higher specificity than .bubble-text alone, so it wins regardless of order). */
+.error-bubble .bubble-text {
+    -fx-fill: -color-error-text;
+}
+
+/* User input: the recognized command word and any "/delimiter" tokens. */
+.command-token {
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-weight: bold;
+    -fx-fill: #FFE08A;
+}
+
+.delimiter-token {
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-style: italic;
+    -fx-fill: #A8D8FF;
+}
+
+/* Bot replies: list indices, task type/status/alias brackets, priorities, tags, headers. */
+.list-index {
+    -fx-font-weight: bold;
+    -fx-fill: -color-primary;
+}
+
+.bracket-tag {
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-weight: bold;
+    -fx-fill: -color-text;
+}
+
+.status-done {
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-weight: bold;
+    -fx-fill: #1E8E5A;
+}
+
+.status-pending {
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-weight: bold;
+    -fx-fill: derive(-color-text, 60%);
+}
+
+.priority-high {
+    -fx-font-weight: bold;
+    -fx-fill: #D64545;
+}
+
+.priority-medium {
+    -fx-font-weight: bold;
+    -fx-fill: #C98A1E;
+}
+
+.priority-low {
+    -fx-font-weight: bold;
+    -fx-fill: #4A6FD6;
+}
+
+.hash-tag {
+    -fx-font-style: italic;
+    -fx-fill: #0E8C8C;
+}
+
+.section-header {
+    -fx-font-weight: bold;
+    -fx-fill: -color-primary-dark;
+}
+
+/* Applied on top of .bot-bubble when LittleR's reply is an error, so
+ * mistakes are visually distinct from normal replies. */
+.error-bubble {
+    -fx-background-color: -color-error-bg;
+    -fx-border-color: -color-error-border;
+    -fx-text-fill: -color-error-text;
+}
+
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 2, 0, 0, 1);
+}
+
+/* ---------- Welcome banner ---------- */
+.welcome-banner {
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-size: 12px;
+    -fx-text-fill: -color-primary;
+    -fx-padding: 16 12 8 12;
+    -fx-alignment: CENTER;
+}
+
+/* ---------- Input bar ---------- */
+
+.input-bar {
+    -fx-background-color: -color-surface;
+    -fx-border-color: -color-border transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+.chat-input {
+    -fx-background-color: -color-bg;
+    -fx-background-radius: 18;
+    -fx-border-color: -color-border;
+    -fx-border-radius: 18;
+    -fx-border-width: 1;
+    -fx-padding: 8 14 8 14;
+    -fx-prompt-text-fill: derive(-color-text, 50%);
+}
+
+.chat-input:focused {
+    -fx-border-color: -color-primary;
+}
+
+.send-button {
+    -fx-background-color: -color-primary;
+    -fx-background-radius: 18;
+    -fx-text-fill: -color-text-inverse;
+    -fx-font-weight: bold;
+    -fx-padding: 8 18 8 18;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: -color-primary-dark;
+}
+
+.send-button:armed {
+    -fx-background-color: derive(-color-primary-dark, -10%);
+}
+
+.send-button:disabled,
+.chat-input:disabled {
+    -fx-opacity: 0.6;
+}
