@@ -1,0 +1,4 @@
+T | 1 | normal | open eyes
+T | 0 | normal | take shower
+D | 0 | high | reach school | 2020-11-11 1100
+E | 0 | high | project meeting | 2020-11-11 1200 | 2020-11-11 1300

@@ -1,0 +1,33 @@
+.label {
+    -fx-background-color: white;
+    -fx-border-color: #c8d2ed;
+    -fx-border-width: 1px;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+    -fx-padding: 10px 14px;
+    -fx-font-size: 18px;
+    -fx-font-family: "Courier New";
+    -fx-text-fill: #26324a;
+    -fx-wrap-text: true;
+    -fx-text-overrun: clip;
+}
+
+.reply-label {
+    -fx-background-color: #dce6ff;
+    -fx-border-color: #aebff0;
+}
+
+.add-label {
+    -fx-background-color: #d9f5e5;
+    -fx-border-color: #9ed8b5;
+}
+
+.marked-label {
+    -fx-background-color: #fff1c9;
+    -fx-border-color: #e5c878;
+}
+
+.delete-label {
+    -fx-background-color: #ffe0e5;
+    -fx-border-color: #e8a8b3;
+}

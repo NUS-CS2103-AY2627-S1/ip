@@ -1,0 +1,50 @@
+.root {
+    -fx-background-color: linear-gradient(
+        to bottom right,
+        #e8f0ff,
+        #f7ecff
+    );
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 18px;
+    -fx-border-color: #b8c7e6;
+    -fx-border-radius: 18px;
+    -fx-padding: 8px 14px;
+    -fx-font-size: 18px;
+    -fx-font-family: "Courier New";
+}
+
+.button {
+    -fx-background-color: #5865d9;
+    -fx-background-radius: 18px;
+    -fx-text-fill: white;
+    -fx-font-family: "Courier New";
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 10px;
+    -fx-min-width: 76px;
+}
+
+.button:hover {
+    -fx-background-color: #4351c4;
+}
+
+.button:pressed {
+    -fx-background-color: #303da3;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #9aa9d6;
+    -fx-background-radius: 10px;
+}
