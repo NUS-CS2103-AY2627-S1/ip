@@ -1,0 +1,39 @@
+.root {
+    -fx-font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+    -fx-background-color: #fffaf7;
+}
+.app-shell { -fx-background-color: #fffaf7; }
+.chat-header {
+    -fx-padding: 22px 30px;
+    -fx-background-color: linear-gradient(to right, #f4dce9, #dceff0);
+}
+.brand-name { -fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #44304f; }
+.brand-subtitle { -fx-font-size: 16px; -fx-text-fill: #786781; }
+.conversation-scroll { -fx-background-color: transparent; -fx-border-width: 0; }
+.conversation-scroll > .viewport { -fx-background-color: #fffaf7; }
+.conversation { -fx-background-color: #fffaf7; }
+.message-bubble {
+    -fx-padding: 16px 20px; -fx-font-size: 14px; -fx-line-spacing: 5px;
+    -fx-background-radius: 22px; -fx-text-fill: #3e3448;
+}
+.assistant-bubble { -fx-background-color: #eadcf7; }
+.user-bubble { -fx-background-color: #ccefe8; }
+.assistant-message { -fx-padding: 0 80px 0 0; }
+.user-message { -fx-padding: 0 0 0 80px; }
+.avatar {
+    -fx-min-width: 38px; -fx-min-height: 38px; -fx-max-width: 38px; -fx-max-height: 38px;
+    -fx-alignment: center; -fx-background-radius: 30px; -fx-font-size: 12px; -fx-font-weight: bold;
+}
+.assistant-avatar { -fx-background-color: #d8bdf1; -fx-text-fill: #59416e; }
+.user-avatar { -fx-background-color: #f3c2b7; -fx-text-fill: #774b43; }
+.error-message .assistant-bubble { -fx-background-color: #f8d8d8; -fx-text-fill: #8a3b42; }
+.chat-footer { -fx-padding: 16px 28px 20px 28px; -fx-background-color: #fffdfb; -fx-border-color: #eadfe7 transparent transparent transparent; }
+.composer { -fx-padding: 5px; -fx-background-color: #fffdfb; }
+.text-field { -fx-background-color: #fffaf7; -fx-border-color: #ded1df; -fx-border-radius: 24px; -fx-background-radius: 24px; -fx-padding: 13px 18px; -fx-font-size: 14px; }
+.text-field:focused { -fx-border-color: #b89bc9; -fx-background-color: #ffffff; }
+.button { -fx-background-radius: 24px; -fx-padding: 12px 24px; -fx-font-weight: bold; -fx-cursor: hand; }
+.send-button { -fx-background-color: #bfe8dc; -fx-text-fill: #315d53; }
+.send-button:hover { -fx-background-color: #a9ddcf; }
+.command-hints { -fx-font-size: 12px; -fx-text-fill: #8a7b8e; }
+.scroll-bar:vertical { -fx-background-color: transparent; }
+.scroll-bar:vertical .thumb { -fx-background-color: #d9c8db; -fx-background-radius: 10px; }

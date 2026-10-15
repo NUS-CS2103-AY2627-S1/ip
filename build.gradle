@@ -1,0 +1,83 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'com.gradleup.shadow' version '9.6.1'
+}
+
+javafx {
+    version = '21'
+    modules = ['javafx.controls']
+}
+
+checkstyle {
+    toolVersion = '10.21.4'
+    configFile = file('config/checkstyle/checkstyle.xml')
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javafxVersion = '21'
+    List<String> javafxPlatforms = ['win', 'linux', 'mac', 'mac-aarch64']
+
+    // Bundle JavaFX runtime modules for the major desktop platforms in the fat JAR.
+    // The JavaFX Gradle plugin adds the current platform by default; these entries
+    // ensure that the published JAR also contains the other platforms' natives.
+    javafxPlatforms.each { platform ->
+        implementation "org.openjfx:javafx-base:${javafxVersion}:${platform}"
+        implementation "org.openjfx:javafx-graphics:${javafxVersion}:${platform}"
+        implementation "org.openjfx:javafx-controls:${javafxVersion}:${platform}"
+    }
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+    jvmArgs '-ea'
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'ip.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Keep the conventional archive name available for future packaging configuration.
+    archiveClassifier = 'without-dependencies'
+}
+
+run {
+    standardInput = System.in
+    jvmArgs '-ea'
+}
+
+shadowJar {
+    archiveFileName = 'tabby.jar'
+    mergeServiceFiles()
+    exclude 'module-info.class'
+}

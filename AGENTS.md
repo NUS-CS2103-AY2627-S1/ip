@@ -24,6 +24,18 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Java coding standard
+
+All Java code must follow `.codex/skills/seedu-java-coding-standard/SKILL.md`, based on the SE-EDU intermediate Java conventions. Use the lower-case package structure, explicit imports, four-space indentation, a 120-character line limit, and descriptive JavaDoc for public classes and methods.
+
+## Git standard
+
+All future commits must follow `.codex/skills/seedu-git-standard/SKILL.md`, based on the SE-EDU Git conventions. Use imperative, capitalized subjects without a final period, keep them within the recommended length, and include a concise WHAT/WHY body for non-trivial changes.
+
+## Testing
+
+Maintain JUnit tests for approximately the highest-value 50% of the codebase's methods, prioritizing core business logic, complex validation, and critical behavior. Update the relevant JUnit tests after every code change so that the test coverage target remains satisfied.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
