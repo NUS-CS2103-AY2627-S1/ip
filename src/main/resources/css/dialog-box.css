@@ -1,0 +1,41 @@
+.dialog-text {
+    -fx-background-color: #f3dfbb;
+    -fx-border-color: #b99570;
+    -fx-border-width: 1.5px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.dialog-text Text {
+    -fx-fill: #3b2922;
+}
+
+.reply-label {
+    -fx-background-color: #fffdf7;
+    -fx-border-color: #c7a37b;
+    -fx-background-radius: 0 1em 1em 1em;
+    -fx-border-radius: 0 1em 1em 1em;
+}
+
+.reply-label.error {
+    -fx-background-color: #fff0e9;
+    -fx-border-color: #b56c58;
+}
+
+.reply-label.error Text {
+    -fx-fill: #783c30;
+}
+
+.sticker-bubble {
+    -fx-padding: 8px;
+    -fx-border-width: 1.5px;
+}
+
+.user-command {
+    -fx-border-width: 0;
+    -fx-padding: 7px 10px;
+}
+
+.reply-label.error .error-heading {
+    -fx-font-weight: bold;
+}

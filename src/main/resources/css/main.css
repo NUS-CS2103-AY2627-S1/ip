@@ -1,0 +1,109 @@
+.root {
+    -fx-background-color: #fff7e8;
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+}
+
+.label {
+    -fx-text-fill: #3b2922;
+}
+
+.bakery-header {
+    -fx-background-color: #f5e4c8;
+    -fx-border-color: #d4b28c;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 10px 16px;
+}
+
+.bakery-title {
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+}
+
+.bakery-subtitle {
+    -fx-text-fill: #71513b;
+    -fx-font-size: 12px;
+}
+
+.composer {
+    -fx-background-color: #f5e4c8;
+    -fx-border-color: #d4b28c;
+    -fx-border-width: 1px 0 0 0;
+}
+
+.text-field {
+    -fx-background-color: #fffdf7;
+    -fx-background-radius: 12px;
+    -fx-border-color: #b99570;
+    -fx-border-radius: 12px;
+    -fx-border-width: 2px;
+    -fx-text-fill: #3b2922;
+    -fx-prompt-text-fill: #80664f;
+    -fx-highlight-fill: #8a4b28;
+    -fx-highlight-text-fill: #fffdf7;
+    -fx-padding: 9px;
+}
+
+.text-field:focused {
+    -fx-border-color: #8a4b28;
+}
+
+.button {
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+    -fx-padding: 9px 14px;
+    -fx-background-color: #8a4b28;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-border-color: transparent;
+    -fx-border-width: 2px;
+    -fx-text-fill: #fffdf7;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: null;
+}
+
+.button:hover {
+    -fx-background-color: #71391e;
+}
+
+.button:pressed {
+    -fx-background-color: #542a19;
+}
+
+.button:focused {
+    -fx-border-color: #3b2922;
+    -fx-border-insets: -3px;
+}
+
+.scroll-pane, .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-padding: 6px 0;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: #fff7e8;
+    -fx-pref-width: 12px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #bc9870;
+    -fx-background-radius: 8px;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+}
+
+.bakery-header:compact {
+    -fx-padding: 5px 12px;
+    -fx-spacing: 8px;
+}
+
+.bakery-header:compact .bakery-title {
+    -fx-font-size: 16px;
+}
