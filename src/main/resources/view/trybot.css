@@ -1,0 +1,77 @@
+.app {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #f7f8f4;
+    -fx-background-image: url("../images/background.png");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-text-fill: #263e36;
+}
+.label { -fx-text-fill: #263e36; }
+.input-hint {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(18, 16, 43, 0.9), 3, 0.6, 0, 1);
+}
+.conversation, .conversation > .viewport {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+.messages { -fx-padding: 20 18; }
+.message { -fx-padding: 13 15; -fx-background-radius: 12; }
+.bot-message {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dce5da;
+    -fx-border-radius: 12;
+}
+.user-message { -fx-background-color: #e2ecdf; -fx-background-radius: 12 12 3 12; }
+.speaker { -fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #49715b; }
+.message-text { -fx-font-size: 14px; -fx-line-spacing: 3px; }
+.error-message {
+    -fx-background-color: #fff1ed;
+    -fx-border-color: #b75038;
+    -fx-border-width: 1 1 1 4;
+    -fx-border-radius: 12;
+}
+.error-message .speaker, .error-message .message-text { -fx-text-fill: #8b3526; }
+.composer {
+    -fx-padding: 12 18 14 18;
+    -fx-background-color: transparent;
+}
+.button { -fx-cursor: hand; -fx-background-insets: 0; }
+.suggestion {
+    -fx-background-color: #f4f7f1;
+    -fx-text-fill: #365b46;
+    -fx-border-color: #d3dfce;
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+    -fx-padding: 5 11;
+    -fx-font-size: 12px;
+}
+.suggestion:hover { -fx-background-color: #e2ecdf; }
+.text-field {
+    -fx-background-color: #f9faf7;
+    -fx-background-radius: 9;
+    -fx-border-color: #aebfb0;
+    -fx-border-radius: 9;
+    -fx-text-fill: #263e36;
+    -fx-prompt-text-fill: #65766a;
+    -fx-padding: 10 12;
+    -fx-highlight-fill: #28634e;
+}
+.text-field:focused { -fx-border-color: #28634e; -fx-border-width: 2; -fx-padding: 9 11; }
+.send-button {
+    -fx-background-color: #28634e;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 9;
+    -fx-font-weight: bold;
+    -fx-padding: 11 14;
+}
+.send-button:hover { -fx-background-color: #1c4c3b; }
+.button:focused { -fx-effect: dropshadow(gaussian, #628773, 4, 0.5, 0, 0); }
+.button:disabled { -fx-opacity: 0.5; }
+.scroll-bar:vertical { -fx-background-color: transparent; -fx-pref-width: 10; }
+.scroll-bar:vertical .track { -fx-background-color: transparent; }
+.scroll-bar:vertical .thumb { -fx-background-color: #c3cec0; -fx-background-radius: 6; }

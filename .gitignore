@@ -1,6 +1,7 @@
 # IDEA files
 /.idea/
 /out/
+/data/trybot.txt
 /*.iml
 
 # Gradle build files

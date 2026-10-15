@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: I would say I am a basic programmer with about 1 year of programming experience
+* IDE and level of expertise: IntelliJ and about 4/10 expertise
 
 # Guidance for interacting with users
 
@@ -22,7 +22,28 @@ Unless the user says otherwise, assume that you are assisting a student working 
   * Make generated code as self-explanatory as possible, and include explanatory comments where they improve understanding.
   * When faced with a design choice, choose the simplest option that is sufficient for the requirements, while briefly explaining relevant more advanced alternatives.
 
+## Java coding standard
+
+All Java production code and tests in this repository must follow the project-specific skill at
+`.codex/skills/seedu-java-coding-standard/SKILL.md`, based on the SE-EDU basic-plus-intermediate
+Java coding standard. Apply it whenever Java code is created, edited, reviewed, or refactored.
+
+## Git standard
+
+All future commits and branch names in this repository must follow the project-specific skill at
+`.codex/skills/seedu-git-standard/SKILL.md`, based on the SE-EDU Git conventions. Apply it before
+proposing or creating any commit, and do not commit or push without explicit user authorization.
+
 # Project-specific requirements
+
+## Code-update validation
+
+After every code update:
+
+1. Update the JUnit tests affected by the change. Maintain unit-test coverage for approximately the top 50% of methods by prioritizing complex, core, or critical business logic. JUnit tests need to be updated after each code change to comply with this target.
+2. Review `test/ui-test-plan.md` and add or update test cases, inputs, or expected outputs when the change affects the console UI. If the plan remains accurate, no test-plan edit is needed.
+3. Invoke the project-specific `$test-ui` skill from the repository root, using the test plan as the source of truth.
+4. Report the test session result and console transcript. The session must stop at the first failed test.
 
 ## Java version:
 
