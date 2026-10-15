@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run transcript-based chatbot UI tests"
+  default_prompt: "Use $test-ui to run the project UI test plan."

@@ -1,0 +1,63 @@
+.root {
+    main-color: #f7f7f5;
+    accent-color: #d71920;
+    ink-color: #171717;
+    -fx-background-color: main-color;
+}
+
+.app-title {
+    -fx-background-color: white;
+    -fx-border-color: accent-color;
+    -fx-border-width: 0 0 3px 0;
+    -fx-font: bold 20px "Arial";
+    -fx-padding: 0 14px 0 14px;
+    -fx-text-fill: ink-color;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-color: ink-color;
+    -fx-border-radius: 8px;
+    -fx-font: 15px "Arial";
+}
+
+.text-field:focused {
+    -fx-border-color: accent-color;
+}
+
+.button {
+    -fx-background-color: accent-color;
+    -fx-background-radius: 8px;
+    -fx-font: bold 14px "Arial";
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: derive(accent-color, 18%);
+}
+
+.button:pressed {
+    -fx-background-color: derive(accent-color, -15%);
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: main-color;
+    -fx-font-size: 9px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: ink-color;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}
