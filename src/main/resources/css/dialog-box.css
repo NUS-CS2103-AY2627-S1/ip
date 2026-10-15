@@ -1,0 +1,60 @@
+/*
+ * One turn of the conversation. The user's bubble and Thomas's are styled
+ * apart on purpose: the user's is a short line they already know, so it is
+ * compact and tinted; Thomas's may be a whole list, so it is wide and plain.
+ * The tints follow railway signalling: green for clear, red for danger.
+ */
+.label {
+    -fx-padding: 8px 12px 8px 12px;
+    -fx-line-spacing: 2px;
+    -fx-text-fill: #1f2933;
+    /* A soft shadow lifts the bubble off the picture behind it. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 6, 0.2, 0, 2);
+}
+
+/* What the user typed: right side, boiler blue, tail at the bottom right. */
+.user-label {
+    -fx-background-color: #1d4f9c;
+    -fx-background-radius: 14px 14px 2px 14px;
+    -fx-text-fill: white;
+}
+
+/*
+ * Thomas's reply: left side, cream like a paper ticket, edged in brass, tail
+ * at the top left.
+ */
+.reply-label {
+    -fx-background-color: #fff8e7;
+    -fx-background-radius: 2px 14px 14px 14px;
+    -fx-border-color: #e3b23c;
+    -fx-border-width: 1px;
+    -fx-border-radius: 2px 14px 14px 14px;
+}
+
+/* A wagon coupled up: the signal is green, the line is clear. */
+.add-label {
+    -fx-background-color: #e6f4ea;
+    -fx-border-color: #4c9a5a;
+}
+
+/* A wagon delivered or put back: a shade of the boiler's blue. */
+.marked-label {
+    -fx-background-color: #e7eef9;
+    -fx-border-color: #1d4f9c;
+}
+
+/* A wagon uncoupled or a change reversed: amber, the caution signal. */
+.delete-label {
+    -fx-background-color: #fff1d6;
+    -fx-border-color: #e3b23c;
+}
+
+/*
+ * A rejected line: the danger signal. The same bubble as every other reply,
+ * only red, so a typo is noticed at a glance without looking like a
+ * different kind of thing.
+ */
+.error-label {
+    -fx-background-color: #fbdada;
+    -fx-border-color: #c8102e;
+}

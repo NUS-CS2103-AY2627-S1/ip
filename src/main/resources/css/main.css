@@ -1,0 +1,108 @@
+/*
+ * The window as a whole, painted in Thomas's own livery: boiler blue for the
+ * chrome, buffer-beam red for the one button, brass for the trim. The picture
+ * sits on the root at full strength and shows in the gaps between bubbles;
+ * the bubbles themselves are opaque, so the text never has the picture
+ * behind it.
+ *
+ * Rockwell is a slab serif, the letterform of railway signage and number
+ * plates. JavaFX falls back to the system font where it is not installed, so
+ * the window still reads correctly, only less like a station.
+ */
+.root {
+    -fx-font-family: "Rockwell";
+    -fx-font-size: 14px;
+    -fx-background-color: #1d4f9c;
+    -fx-background-image: url("../images/background.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+/* Everything between the root and the conversation column is see-through. */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/*
+ * A faint blue darkening over the picture, so that the cream bubbles stand
+ * off it even where the sky is bright. On the column of bubbles rather than
+ * on the scroll pane, whose background the default theme repaints; the column
+ * fills the viewport because fitToHeight is set.
+ */
+.conversation {
+    -fx-background-color: rgba(10, 40, 90, 0.18);
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/*
+ * The input bar is the footplate: boiler blue with a brass rail along the
+ * top, so it reads as part of the engine rather than a strip stuck on.
+ */
+.input-bar {
+    -fx-background-color: #1d4f9c;
+    -fx-border-color: #e3b23c transparent transparent transparent;
+    -fx-border-width: 3px 0 0 0;
+    -fx-alignment: center;
+}
+
+.text-field {
+    -fx-background-color: #fff8e7;
+    -fx-background-radius: 16px;
+    -fx-border-color: transparent;
+    -fx-padding: 6px 12px 6px 12px;
+    -fx-text-fill: #1f2933;
+    -fx-prompt-text-fill: #8a7a5a;
+}
+
+.text-field:focused {
+    -fx-border-color: #e3b23c;
+    -fx-border-radius: 16px;
+    -fx-border-width: 2px;
+}
+
+/*
+ * The send button is the whistle: a red pill, the color of the buffer beam,
+ * labelled with what it does. Red on blue is the one contrast in the window
+ * that is meant to be shouted.
+ */
+.button {
+    -fx-background-color: #c8102e;
+    -fx-background-radius: 16px;
+    -fx-min-height: 32px;
+    -fx-max-height: 32px;
+    -fx-padding: 0 14px 0 14px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #a80d26;
+}
+
+.button:pressed {
+    -fx-background-color: #86091e;
+}
+
+/* A slim, unobtrusive scroll bar. */
+.scroll-bar {
+    -fx-font-size: 8px;
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #e3b23c;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

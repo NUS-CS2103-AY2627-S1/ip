@@ -16,5 +16,8 @@ bin/
 # Temp files
 _temp/
 
+# The chatbot's save file: one user's task list, not part of the project
+/data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
