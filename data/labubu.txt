@@ -1,0 +1,4 @@
+T|INCOMPLETE|do some stuff
+T|INCOMPLETE|even more stuff
+D|COMPLETED|return book|2026-07-06T23:59
+E|INCOMPLETE|team meeting|2026-07-06T14:00|2026-07-06T15:30

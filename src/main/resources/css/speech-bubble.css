@@ -1,0 +1,21 @@
+.bot-row { -fx-alignment: center-left; -fx-spacing: 8; }
+.user-row { -fx-alignment: center-right; }
+.bot-bubble, .user-bubble { -fx-max-width: 500; -fx-padding: 10 14; -fx-background-radius: 16; }
+.bot-bubble { -fx-background-color: white; -fx-border-color: #edc6dc; -fx-border-radius: 16; }
+.user-bubble { -fx-background-color: #d9b8ff; }
+.error-bubble {
+    -fx-max-width: 500;
+    -fx-background-color: #fff3cd;
+    -fx-background-radius: 16;
+    -fx-border-color: #e0a800;
+    -fx-border-radius: 16;
+    -fx-padding: 10 14;
+    -fx-text-fill: #842029;
+}
+.error-icon {
+    -fx-alignment: center;
+    -fx-font-size: 18;
+    -fx-padding: 0;
+    -fx-text-fill: #dc3545;
+    -fx-translate-x: -4;
+}
