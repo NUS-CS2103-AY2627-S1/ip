@@ -1,0 +1,49 @@
+/* Window-level styling for the Hu9o GUI (JavaFX tutorial part 5). */
+
+.root {
+    -fx-background-color: #f4ede4;
+}
+
+.text-field {
+    -fx-background-color: #fffaf3;
+    -fx-border-color: #c8b6a0;
+    -fx-border-width: 1px;
+    -fx-font: 14px "Arial";
+}
+
+.button {
+    -fx-background-color: #b5835a;
+    -fx-text-fill: white;
+    -fx-font: bold 13px "Arial";
+}
+
+.button:hover {
+    -fx-background-color: #9c6b44;
+}
+
+.button:pressed {
+    -fx-background-color: #7d5335;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: #f4ede4;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #c8b6a0;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

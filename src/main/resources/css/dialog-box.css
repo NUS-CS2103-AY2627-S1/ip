@@ -1,0 +1,26 @@
+/* Chat-bubble styling for the Hu9o GUI (JavaFX tutorial part 5).
+   .label       - the user's bubble (right side)
+   .reply-label - added when a bubble is flipped for one of Hu9o's replies
+   .error-label - added on top of .reply-label when the reply is an error */
+
+.label {
+    -fx-background-color: #d7ecff;
+    -fx-background-radius: 12px 12px 0 12px;
+    -fx-padding: 8px 10px;
+    -fx-font: 13px "Arial";
+    -fx-text-fill: #1c2b36;
+}
+
+.reply-label {
+    -fx-background-color: #e9dcc8;
+    -fx-background-radius: 12px 12px 12px 0;
+}
+
+.error-label {
+    -fx-background-color: #ffd6d6;
+    -fx-text-fill: #7a1f1f;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 8, 0.4, 3, 3);
+}

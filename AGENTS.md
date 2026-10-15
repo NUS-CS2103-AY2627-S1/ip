@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: intermediate  
+* IDE and level of expertise: VSCode and intermediate
 
 # Guidance for interacting with users
 
@@ -24,6 +24,20 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Coding standard
+
+All Java code in this repository (both `src/main` and `src/test`) MUST follow the
+se-education.org intermediate Java coding convention
+(<https://se-education.org/guides/conventions/java/intermediate.html>), captured
+in the `seedu-java-coding-standard` skill (`.claude/skills/` and `.codex/skills/`).
+
+Consult that skill before writing, editing, or reviewing any `.java` file, and
+treat its checklist as blocking: naming (methods are verbs, constants are
+`UPPER_SNAKE_CASE`, booleans read as predicates), layout (4-space indent, K&R
+braces, always-braced bodies, indented `switch` cases, 120-column limit),
+imports (explicit and grouped), and header Javadoc on every public class and
+method with punctuated `@param`/`@return`/`@throws` descriptions.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
@@ -33,3 +47,7 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## UI test workflow
+
+After every code change, update `test/ui-test-plan.md` when the change adds, removes, or intentionally changes console UI behaviour. Then invoke the project-local `test-ui` skill by running `python .codex/skills/test-ui/scripts/run_ui_tests.py` from the project root. Review and report the generated `test/ui-test-session.md`; stop and report the actual and expected outputs if a case fails.

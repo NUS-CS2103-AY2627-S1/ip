@@ -16,5 +16,20 @@ bin/
 # Temp files
 _temp/
 
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Java Class Files
+*.class
+
+#data files
+/data/*
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+
+# Ignore Kotlin plugin data
+.kotlin
