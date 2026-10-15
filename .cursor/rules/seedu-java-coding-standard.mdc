@@ -1,0 +1,16 @@
+---
+description: Mandate the SE-EDU Java coding standard for all Java in this project.
+alwaysApply: true
+---
+
+# SE-EDU Java coding standard
+
+All Java code in this project MUST follow the SE-EDU Java coding standard (basic + intermediate).
+
+When writing, editing, reviewing, or generating Java (including tests and Javadoc):
+
+1. Read and follow `.cursor/skills/seedu-java-coding-standard/SKILL.md`.
+2. Apply every basic and intermediate rule in that skill.
+3. For topics not covered there, follow the Google Java Style Guide.
+
+Do not skip this skill for Java work in this repository.

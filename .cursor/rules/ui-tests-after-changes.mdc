@@ -1,0 +1,14 @@
+---
+description: After code updates, refresh UI and JUnit tests and run both test suites.
+alwaysApply: true
+---
+
+# Tests after code updates
+
+Whenever you change application code in this repository (especially under `src/`):
+
+1. Update `test/ui-test-plan.md` if needed so each case's aim, inputs, and expected output still match the chatbot's console behaviour.
+2. Invoke the `test-ui` skill: read `.cursor/skills/test-ui/SKILL.md` and follow it (typically run `python3 .cursor/skills/test-ui/scripts/run-ui-tests.py`).
+3. Update JUnit tests under `src/test/java/` if needed so they still comply with the ~50% highest-value-methods coverage target described in `AGENTS.md` (complex, core, or critical business logic). Run `./gradlew test`.
+
+Do all applicable steps before treating the code update as finished. On a failing test, fix the code or the tests/plan, then re-run until everything passes or the user directs otherwise.

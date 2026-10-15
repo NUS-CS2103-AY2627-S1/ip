@@ -1,0 +1,16 @@
+---
+description: Mandate the SE-EDU Git conventions for all commits in this project.
+alwaysApply: true
+---
+
+# SE-EDU Git conventions
+
+All commits in this project MUST follow the SE-EDU Git conventions.
+
+When proposing or creating a commit, writing a commit message, or naming a branch:
+
+1. Read and follow `.cursor/skills/seedu-git-standard/SKILL.md`.
+2. Apply every subject, body, and branch-name rule in that skill.
+
+Do not skip this skill for Git work in this repository.
+Still do not commit or push unless the user explicitly asks.
