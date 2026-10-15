@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Relatively experienced, but rusty with Java.
+* IDE and level of expertise: IntelliJ IDEA, intermediate.
 
 # Guidance for interacting with users
 
@@ -23,6 +23,15 @@ Unless the user says otherwise, assume that you are assisting a student working 
   * When faced with a design choice, choose the simplest option that is sufficient for the requirements, while briefly explaining relevant more advanced alternatives.
 
 # Project-specific requirements
+
+## Java coding standard
+
+All Java source and test code must follow the project skill at
+`.agents/skills/seedu-java-coding-standard/SKILL.md`, based on the
+[SE-EDU Java coding standard](https://se-education.org/guides/conventions/java/intermediate.html).
+This includes naming, four-space indentation, K&R braces, explicit imports, a 120-character hard line limit,
+braces around all loop and conditional bodies, and accurate Javadocs for all classes and non-private methods plus
+non-trivial private methods.
 
 ## Java version:
 

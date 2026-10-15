@@ -16,5 +16,12 @@ bin/
 # Temp files
 _temp/
 
+# Codex files
+.codex-tmp
+.agents
+
+# zaru data files
+data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

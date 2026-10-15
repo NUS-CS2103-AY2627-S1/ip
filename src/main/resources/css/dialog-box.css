@@ -1,0 +1,31 @@
+.label {
+    -fx-background-color: rgba(255, 241, 211, 0.96);
+    -fx-background-insets: 0;
+    -fx-background-radius: 14px 14px 4px 14px;
+    -fx-border-color: rgba(171, 105, 46, 0.78);
+    -fx-border-radius: 14px 14px 4px 14px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(55, 34, 18, 0.16), 8, 0.12, 0, 2);
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 9px 12px;
+    -fx-text-fill: #4a3424;
+}
+
+.reply-label {
+    -fx-background-color: rgba(245, 224, 188, 0.97);
+    -fx-background-radius: 14px 14px 14px 4px;
+    -fx-border-color: rgba(145, 91, 42, 0.72);
+    -fx-border-radius: 14px 14px 14px 4px;
+}
+
+.error-label {
+    -fx-background-color: rgba(250, 211, 202, 0.98);
+    -fx-border-color: #b96f60;
+    -fx-text-fill: #68372e;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(55, 34, 18, 0.28), 9, 0.2, 0, 2);
+}

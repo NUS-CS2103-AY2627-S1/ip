@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+<fx:root alignment="TOP_RIGHT"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         prefWidth="400.0"
+         spacing="6.0"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1"
+         stylesheets="@../css/dialog-box.css">
+    <children>
+        <Label fx:id="dialogLabel"
+               minHeight="-Infinity"
+               text="Label"
+               wrapText="true" />
+        <ImageView fx:id="displayPicture"
+                   fitHeight="40.0"
+                   fitWidth="40.0"
+                   pickOnBounds="true"
+                   preserveRatio="true">
+            <clip>
+                <Rectangle arcHeight="14.0"
+                           arcWidth="14.0"
+                           height="40.0"
+                           width="40.0" />
+            </clip>
+        </ImageView>
+    </children>
+    <padding>
+        <Insets bottom="7.0" left="8.0" right="8.0" top="7.0" />
+    </padding>
+</fx:root>
