@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<AnchorPane prefHeight="720" prefWidth="640" stylesheets="@../css/main.css"
+ xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bot67.gui.MainWindow">
+ <VBox AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+  <HBox styleClass="header" alignment="CENTER_LEFT" spacing="12">
+   <ImageView fx:id="headerPicture" fitWidth="48" fitHeight="48" preserveRatio="true" />
+   <VBox spacing="3" HBox.hgrow="ALWAYS">
+    <Label text="Bot67" styleClass="title" />
+    <Label text="A little less to remember." styleClass="muted" />
+   </VBox>
+  </HBox>
+  <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+   <VBox fx:id="dialogContainer" spacing="18" styleClass="conversation" />
+  </ScrollPane>
+  <VBox styleClass="composer" spacing="12">
+   <TitledPane fx:id="commandGuide" text="Command guide" expanded="false" animated="false" minHeight="-Infinity">
+    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" minHeight="140" prefHeight="140" maxHeight="140">
+    <Label wrapText="true" minHeight="-Infinity" maxWidth="Infinity" alignment="TOP_LEFT" styleClass="guide"
+     text="Replace &lt;...&gt; with your own values (omit the brackets).&#10;&#10;todo &lt;description&gt;&#10;deadline &lt;description&gt; /by &lt;date or time&gt;&#10;event &lt;description&gt; /from &lt;start&gt; /to &lt;end&gt;&#10;list&#10;find &lt;keyword&gt;&#10;sort&#10;mark &lt;task number&gt;&#10;unmark &lt;task number&gt;&#10;delete &lt;task number&gt;&#10;bye&#10;&#10;Use list to find task numbers.&#10;Dates: yyyy-MM-dd (2026-10-15)&#10;Date and time: yyyy-MM-ddTHH:mm (2026-10-15T14:00)&#10;Keep spaces before and after /by, /from, and /to." />
+    </ScrollPane>
+   </TitledPane>
+   <HBox spacing="10" alignment="CENTER">
+    <TextField fx:id="userInput" onAction="#handleUserInput" promptText="Type a command…" accessibleText="Command input" HBox.hgrow="ALWAYS" />
+    <Button fx:id="sendButton" onAction="#handleUserInput" text="Send" mnemonicParsing="false" />
+   </HBox>
+   <Label text="Enter to send · Tasks are saved on this device" styleClass="muted" />
+  </VBox>
+ </VBox>
+</AnchorPane>

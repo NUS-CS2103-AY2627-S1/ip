@@ -1,6 +1,9 @@
 # Project context
 
-This repository is a starter template for a greenfield Java project used in an introductory software engineering course in an undergraduate computer science program. Students use it as the starting point for their own projects.
+This repository contains Bot67, a Java 25 desktop task manager developed for the NUS CS2103T individual project.
+It began from the course's Duke starter template and now includes a JavaFX chat interface, a console interface,
+task commands, and local file storage. User documentation lives in `docs/README.md`; developer setup instructions
+live in the root `README.md`.
 
 # Default user context
 
@@ -9,8 +12,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Intermediate
+* IDE and level of expertise: Beginner
 
 # Guidance for interacting with users
 
@@ -33,3 +36,12 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## UI testing after code changes
+
+After every code update:
+
+1. Update `test/ui-test-plan.md` if the command syntax or expected behavior has changed.
+2. Invoke the project-specific `test-ui` skill using the test cases in `test/ui-test-plan.md`.
+3. Stop at the first failed test and report the actual output alongside the expected output.
+4. Show the console input and output record when the test run passes.

@@ -1,0 +1,3 @@
+.label { -fx-background-color: #f9dce6; -fx-background-radius: 14 3 14 14; -fx-padding: 12 16; -fx-font-size: 14; -fx-text-fill: #49343f; }
+.reply-label { -fx-background-color: white; -fx-background-radius: 3 14 14 14; -fx-border-color: #e8c9d4; -fx-border-radius: 3 14 14 14; }
+.error-label { -fx-background-color: #fff2ef; -fx-border-color: #da9a8c; -fx-text-fill: #8c3020; }
