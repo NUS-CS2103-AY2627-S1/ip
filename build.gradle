@@ -1,0 +1,100 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+    id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+javafx {
+    version = '25'
+    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.media' ]
+}
+
+// The JavaFX Gradle plugin adds only the natives for the current build OS.
+// Keep the regular dependencies above for compiling and running locally, and
+// add every platform's JavaFX artifacts to the fat JAR so it can be launched
+// on Windows, Linux, and macOS.
+configurations {
+    crossPlatformJavafxLinux
+    crossPlatformJavafxMacAarch64
+    crossPlatformJavafxWin
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javafxVersion = '25'
+    List<String> javafxModules = ['base', 'controls', 'fxml', 'graphics', 'media']
+    List<String> javafxPlatforms = ['linux', 'mac-aarch64', 'win']
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    implementation "org.openjfx:javafx-controls:25"
+    implementation "org.openjfx:javafx-fxml:25"
+    implementation "org.openjfx:javafx-media:25"
+
+    javafxPlatforms.each { platform ->
+        String platformConfiguration = "crossPlatformJavafx${platform.split('-')*.capitalize().join('')}"
+        javafxModules.each { module ->
+            add(platformConfiguration, "org.openjfx:javafx-${module}:${javafxVersion}:${platform}") {
+                transitive = false
+            }
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'skynet.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'skynet.jar'
+    configurations = [project.configurations.crossPlatformJavafxLinux,
+                      project.configurations.crossPlatformJavafxMacAarch64,
+                      project.configurations.crossPlatformJavafxWin]
+    // Platform JARs contain the same Java classes but different native files.
+    // Keep the first copy of duplicate classes while retaining all native
+    // libraries, whose platform-specific filenames do not collide.
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+run {
+    standardInput = System.in
+}
