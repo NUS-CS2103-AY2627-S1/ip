@@ -1,25 +1,190 @@
-# Duke project template
+# Jeff
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Jeff is a desktop task-management chatbot that helps users manage todos,
+deadlines, and events through simple text commands.
 
-## Setting up in Intellij
+Jeff supports adding, listing, marking, deleting, finding, and updating tasks.
+Tasks are saved automatically and restored when the application is reopened.
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+![Jeff GUI](docs/Ui.png)
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Features
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+Jeff allows users to:
+
+- add todos, deadlines, and events;
+- view all saved tasks;
+- mark tasks as completed or incomplete;
+- delete tasks;
+- search for tasks by keyword;
+- update individual task details;
+- preserve task completion status when updating tasks; and
+- save and restore tasks automatically.
+
+For complete command instructions, see the
+[Jeff User Guide](docs/README.md).
+
+## Requirements
+
+- Java Development Kit (JDK) 25
+- Windows, macOS, or Linux
+
+Check your Java version using:
+
+```bash
+java -version
+```
+
+## Running the application
+
+### Running the JAR file
+
+1. Download `Jeff.jar`.
+2. Place it inside an empty folder.
+3. Open a terminal in that folder.
+4. Run:
+
+```bash
+java -jar Jeff.jar
+```
+
+Jeff will create a `data` folder in the current directory to store tasks.
+
+### Running from the source code
+
+Clone this repository:
+
+```bash
+git clone https://github.com/patientotter/ip.git
+cd ip
+```
+
+On Windows PowerShell:
+
+```powershell
+.\gradlew clean run
+```
+
+On macOS or Linux:
+
+```bash
+./gradlew clean run
+```
+
+## Building the application
+
+On Windows PowerShell:
+
+```powershell
+.\gradlew clean shadowJar
+```
+
+On macOS or Linux:
+
+```bash
+./gradlew clean shadowJar
+```
+
+The generated JAR file can be found at:
+
+```text
+build/libs/Jeff.jar
+```
+
+## Testing
+
+Run the automated tests with:
+
+### Windows PowerShell
+
+```powershell
+.\gradlew clean test
+```
+
+### macOS or Linux
+
+```bash
+./gradlew clean test
+```
+
+## Code-quality checks
+
+Run Checkstyle with:
+
+### Windows PowerShell
+
+```powershell
+.\gradlew checkstyleMain checkstyleTest
+```
+
+### macOS or Linux
+
+```bash
+./gradlew checkstyleMain checkstyleTest
+```
+
+The generated Checkstyle reports can be found in:
+
+```text
+build/reports/checkstyle/
+```
+
+## Generating JavaDoc
+
+On Windows PowerShell:
+
+```powershell
+.\gradlew javadoc
+```
+
+On macOS or Linux:
+
+```bash
+./gradlew javadoc
+```
+
+The generated JavaDoc can be found in:
+
+```text
+build/docs/javadoc/
+```
+
+## Full verification
+
+Before committing changes, run:
+
+### Windows PowerShell
+
+```powershell
+.\gradlew clean test checkstyleMain checkstyleTest javadoc shadowJar
+```
+
+### macOS or Linux
+
+```bash
+./gradlew clean test checkstyleMain checkstyleTest javadoc shadowJar
+```
+
+All tasks should finish with:
+
+```text
+BUILD SUCCESSFUL
+```
+
+## User guide
+
+Refer to the [Jeff User Guide](docs/README.md) for:
+
+- the complete command summary;
+- command formats and examples;
+- task symbols;
+- update-field compatibility;
+- common input errors; and
+- information about saved data.
+
+## Acknowledgements
+
+Jeff was developed as an individual project for the NUS CS2103 course.
+
+The JavaFX graphical interface is based on the
+[SE-EDU JavaFX tutorial](https://se-education.org/guides/tutorials/javaFx.html).
