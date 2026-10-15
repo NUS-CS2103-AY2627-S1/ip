@@ -1,0 +1,123 @@
+.main-window {
+    -fx-background-color: #f4f7fb;
+    -fx-font-family: "Segoe UI";
+}
+
+.app-header {
+    -fx-background-color: #ffffff;
+}
+
+.app-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #283593;
+}
+
+.app-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #68758a;
+}
+
+.status-badge {
+    -fx-background-color: #e7f8f1;
+    -fx-background-radius: 12px;
+    -fx-padding: 4px 9px;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #16835d;
+}
+
+.chat-scroll,
+.chat-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.dialog-row {
+    -fx-max-width: infinity;
+}
+
+.user-bubble,
+.orbit-bubble,
+.error-bubble {
+    -fx-padding: 10px 13px;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+}
+
+.user-bubble {
+    -fx-background-color: #4656d9;
+    -fx-background-radius: 16px 16px 4px 16px;
+    -fx-text-fill: white;
+}
+
+.orbit-bubble {
+    -fx-background-color: white;
+    -fx-background-radius: 16px 16px 16px 4px;
+    -fx-text-fill: #243047;
+    -fx-effect: dropshadow(gaussian, rgba(30, 50, 80, 0.10), 8, 0.15, 0, 2);
+}
+
+.error-bubble {
+    -fx-background-color: #fff1f0;
+    -fx-background-radius: 16px 16px 16px 4px;
+    -fx-border-color: #f2b8b5;
+    -fx-border-radius: 16px 16px 16px 4px;
+    -fx-text-fill: #9f201b;
+}
+
+.input-panel {
+    -fx-background-color: white;
+    -fx-border-color: #dfe5ee transparent transparent transparent;
+}
+
+.text-area {
+    -fx-font-size: 14px;
+    -fx-background-color: #f7f9fc;
+    -fx-background-radius: 9px;
+    -fx-border-color: #cdd6e3;
+    -fx-border-radius: 9px;
+    -fx-min-height: 44px;
+    -fx-pref-height: 44px;
+    -fx-max-height: 84px;
+}
+
+.text-area:focused {
+    -fx-border-color: #4656d9;
+    -fx-effect: dropshadow(gaussian, rgba(70, 86, 217, 0.18), 5, 0.10, 0, 0);
+}
+
+.text-area .content {
+    -fx-background-color: transparent;
+    -fx-background-radius: 9px;
+}
+
+.button {
+    -fx-background-color: #4656d9;
+    -fx-background-radius: 9px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-min-height: 44px;
+    -fx-min-width: 76px;
+}
+
+.button:hover {
+    -fx-background-color: #3545c0;
+}
+
+.button:pressed {
+    -fx-background-color: #29379d;
+}
+
+.feedback-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #a42620;
+}
+
+.input-hint {
+    -fx-font-size: 11px;
+    -fx-text-fill: #66758a;
+}
