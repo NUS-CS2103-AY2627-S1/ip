@@ -1,0 +1,3 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run fail-fast console UI tests"

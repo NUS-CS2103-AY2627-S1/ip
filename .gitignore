@@ -5,6 +5,7 @@
 
 # Gradle build files
 /.gradle/
+/.gradle-user-home/
 /build/
 src/main/resources/docs/
 
@@ -16,5 +17,14 @@ bin/
 # Temp files
 _temp/
 
+# Java .class files
+*.class
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Temporary output from the project-local console UI test runner
+test/.ui-test-build/
+
+# Persistent coordination files for task storage
+/data/*.lock

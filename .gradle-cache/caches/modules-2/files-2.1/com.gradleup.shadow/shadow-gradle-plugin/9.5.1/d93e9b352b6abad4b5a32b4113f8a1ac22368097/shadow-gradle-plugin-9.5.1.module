@@ -1,0 +1,307 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.gradleup.shadow",
+    "module": "shadow-gradle-plugin",
+    "version": "9.5.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.6.1"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.plugin.api-version": "9.2.0",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.apache.ant",
+          "module": "ant",
+          "version": {
+            "requires": "1.10.17"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "shadow-gradle-plugin-9.5.1.jar",
+          "url": "shadow-gradle-plugin-9.5.1.jar",
+          "size": 334374,
+          "sha512": "499a5c37541228156b37d730175d897ee1202ddc7786ac72cdb5030904ad8fe7d638a3b4e39e1beba479d1e5026daaaa4007de25a7793ded1f247133bf027ed6",
+          "sha256": "e90bffe0a5172389e11bf26cd59cb5005c81189228f5003950bfe343454f3261",
+          "sha1": "97298458c2c81ed8efe27140498e464e28c95dfd",
+          "md5": "ee3ac8a0bf708e75aca68d2d32642daf"
+        }
+      ],
+      "capabilities": [
+        {
+          "group": "com.github.jengelman.gradle.plugins",
+          "name": "shadow",
+          "version": "9.5.1"
+        },
+        {
+          "group": "com.gradleup.shadow",
+          "name": "shadow-gradle-plugin",
+          "version": "9.5.1"
+        },
+        {
+          "group": "io.github.goooler.shadow",
+          "name": "shadow-gradle-plugin",
+          "version": "9.5.1"
+        },
+        {
+          "group": "gradle.plugin.com.github.jengelman.gradle.plugins",
+          "name": "shadow",
+          "version": "9.5.1"
+        },
+        {
+          "group": "com.github.johnrengelman",
+          "name": "shadow",
+          "version": "9.5.1"
+        },
+        {
+          "group": "gradle.plugin.com.github.johnrengelman",
+          "name": "shadow",
+          "version": "9.5.1"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "commons-codec",
+          "module": "commons-codec",
+          "version": {
+            "requires": "1.22.0"
+          }
+        },
+        {
+          "group": "commons-io",
+          "module": "commons-io",
+          "version": {
+            "requires": "2.22.0"
+          }
+        },
+        {
+          "group": "org.apache.logging.log4j",
+          "module": "log4j-core",
+          "version": {
+            "requires": "2.26.1"
+          }
+        },
+        {
+          "group": "org.vafer",
+          "module": "jdependency",
+          "version": {
+            "requires": "2.16"
+          }
+        },
+        {
+          "group": "org.jdom",
+          "module": "jdom2",
+          "version": {
+            "requires": "2.0.6.1"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-metadata-jvm",
+          "version": {
+            "requires": "2.4.0"
+          }
+        },
+        {
+          "group": "org.codehaus.plexus",
+          "module": "plexus-utils",
+          "version": {
+            "requires": "4.0.3"
+          }
+        },
+        {
+          "group": "org.codehaus.plexus",
+          "module": "plexus-xml",
+          "version": {
+            "requires": "4.1.1"
+          }
+        },
+        {
+          "group": "org.apache.ant",
+          "module": "ant",
+          "version": {
+            "requires": "1.10.17"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "shadow-gradle-plugin-9.5.1.jar",
+          "url": "shadow-gradle-plugin-9.5.1.jar",
+          "size": 334374,
+          "sha512": "499a5c37541228156b37d730175d897ee1202ddc7786ac72cdb5030904ad8fe7d638a3b4e39e1beba479d1e5026daaaa4007de25a7793ded1f247133bf027ed6",
+          "sha256": "e90bffe0a5172389e11bf26cd59cb5005c81189228f5003950bfe343454f3261",
+          "sha1": "97298458c2c81ed8efe27140498e464e28c95dfd",
+          "md5": "ee3ac8a0bf708e75aca68d2d32642daf"
+        }
+      ],
+      "capabilities": [
+        {
+          "group": "com.github.jengelman.gradle.plugins",
+          "name": "shadow",
+          "version": "9.5.1"
+        },
+        {
+          "group": "com.gradleup.shadow",
+          "name": "shadow-gradle-plugin",
+          "version": "9.5.1"
+        },
+        {
+          "group": "io.github.goooler.shadow",
+          "name": "shadow-gradle-plugin",
+          "version": "9.5.1"
+        },
+        {
+          "group": "gradle.plugin.com.github.jengelman.gradle.plugins",
+          "name": "shadow",
+          "version": "9.5.1"
+        },
+        {
+          "group": "com.github.johnrengelman",
+          "name": "shadow",
+          "version": "9.5.1"
+        },
+        {
+          "group": "gradle.plugin.com.github.johnrengelman",
+          "name": "shadow",
+          "version": "9.5.1"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "shadow-gradle-plugin-9.5.1-javadoc.jar",
+          "url": "shadow-gradle-plugin-9.5.1-javadoc.jar",
+          "size": 261,
+          "sha512": "1487e5a20c9e4d74f298e07c42e96a61be11b7a768c3fbc199ee138cd68e1fc2267d1cfe3f11f288acc05df755315344d052cc5f6f751f126ab4fe1caa5125ea",
+          "sha256": "c6deada2fac53b8ea6523dbda77597b128006674616f140f04df23264c6d1aa3",
+          "sha1": "2ad14aed781c4a73ed4dbb421966d408a0a06686",
+          "md5": "f43436d6bec321290f6af228ad602604"
+        }
+      ],
+      "capabilities": [
+        {
+          "group": "com.github.jengelman.gradle.plugins",
+          "name": "shadow",
+          "version": "9.5.1"
+        },
+        {
+          "group": "com.gradleup.shadow",
+          "name": "shadow-gradle-plugin",
+          "version": "9.5.1"
+        },
+        {
+          "group": "io.github.goooler.shadow",
+          "name": "shadow-gradle-plugin",
+          "version": "9.5.1"
+        },
+        {
+          "group": "gradle.plugin.com.github.jengelman.gradle.plugins",
+          "name": "shadow",
+          "version": "9.5.1"
+        },
+        {
+          "group": "com.github.johnrengelman",
+          "name": "shadow",
+          "version": "9.5.1"
+        },
+        {
+          "group": "gradle.plugin.com.github.johnrengelman",
+          "name": "shadow",
+          "version": "9.5.1"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "shadow-gradle-plugin-9.5.1-sources.jar",
+          "url": "shadow-gradle-plugin-9.5.1-sources.jar",
+          "size": 78031,
+          "sha512": "736cb5302597091e03a06cdea964b7f81e25253dcc593f908da78530ccb382bbf8a70d11b1aad86aa2345f333b8328e41aa4ba59f2da9f76d7122d7bfe4e925f",
+          "sha256": "bf16cc5ef5352465738f3ed9ea3ada7812ce423f271a9b51ffeceee953464fa7",
+          "sha1": "a5d6e998d1a2246aa4515d55b881d9c0dc4af14b",
+          "md5": "d4becc7d9a059d14e483a97afbfeba9e"
+        }
+      ],
+      "capabilities": [
+        {
+          "group": "com.github.jengelman.gradle.plugins",
+          "name": "shadow",
+          "version": "9.5.1"
+        },
+        {
+          "group": "com.gradleup.shadow",
+          "name": "shadow-gradle-plugin",
+          "version": "9.5.1"
+        },
+        {
+          "group": "io.github.goooler.shadow",
+          "name": "shadow-gradle-plugin",
+          "version": "9.5.1"
+        },
+        {
+          "group": "gradle.plugin.com.github.jengelman.gradle.plugins",
+          "name": "shadow",
+          "version": "9.5.1"
+        },
+        {
+          "group": "com.github.johnrengelman",
+          "name": "shadow",
+          "version": "9.5.1"
+        },
+        {
+          "group": "gradle.plugin.com.github.johnrengelman",
+          "name": "shadow",
+          "version": "9.5.1"
+        }
+      ]
+    }
+  ]
+}

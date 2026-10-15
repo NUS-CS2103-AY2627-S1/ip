@@ -1,0 +1,91 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "org.apache.logging.log4j",
+    "module": "log4j-api",
+    "version": "2.26.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "org.jspecify",
+          "module": "jspecify",
+          "version": {
+            "requires": "1.0.0"
+          }
+        },
+        {
+          "group": "biz.aQute.bnd",
+          "module": "biz.aQute.bnd.annotation",
+          "version": {
+            "requires": "7.1.0"
+          }
+        },
+        {
+          "group": "com.google.errorprone",
+          "module": "error_prone_annotations",
+          "version": {
+            "requires": "2.38.0"
+          }
+        },
+        {
+          "group": "org.osgi",
+          "module": "org.osgi.annotation.bundle",
+          "version": {
+            "requires": "2.0.0"
+          }
+        },
+        {
+          "group": "org.osgi",
+          "module": "org.osgi.annotation.versioning",
+          "version": {
+            "requires": "1.1.2"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "log4j-api-2.26.1.jar",
+          "url": "log4j-api-2.26.1.jar",
+          "size": 351428,
+          "sha512": "f29f7697ee8d8d824e5dad33abbd9d1bdea49e69c39484362a40779e8d120800ef37b3702c49589ad1fc5639b704faef2bfb592001b413e8a09e6d5947ebae1e",
+          "sha256": "f1810a4704ccce019d02bba029dc02a4f2ac0c997f647b465e7d409c1927f822",
+          "sha1": "b9864ed8d0c01f65f3b0bf70f1447e5cc1b49c24",
+          "md5": "8ed35fc9ea449bc9e21a8139842d6233"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [],
+      "files": [
+        {
+          "name": "log4j-api-2.26.1.jar",
+          "url": "log4j-api-2.26.1.jar",
+          "size": 351428,
+          "sha512": "f29f7697ee8d8d824e5dad33abbd9d1bdea49e69c39484362a40779e8d120800ef37b3702c49589ad1fc5639b704faef2bfb592001b413e8a09e6d5947ebae1e",
+          "sha256": "f1810a4704ccce019d02bba029dc02a4f2ac0c997f647b465e7d409c1927f822",
+          "sha1": "b9864ed8d0c01f65f3b0bf70f1447e5cc1b49c24",
+          "md5": "8ed35fc9ea449bc9e21a8139842d6233"
+        }
+      ]
+    }
+  ]
+}

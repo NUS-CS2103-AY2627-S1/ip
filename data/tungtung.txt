@@ -1,0 +1,6 @@
+T | 0 | borrow book
+E | 1 | project meeting | 2019-10-15 | 2019-10-16
+T | 1 | play game
+T | 0 | feed the floor
+T | 1 | meg
+T | 1 | crack hb

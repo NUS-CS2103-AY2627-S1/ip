@@ -1,0 +1,133 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "org.junit.platform",
+    "module": "junit-platform-commons",
+    "version": "1.14.4",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.14"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "org.junit",
+          "module": "junit-bom",
+          "version": {
+            "requires": "5.14.4"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          },
+          "endorseStrictVersions": true
+        },
+        {
+          "group": "org.apiguardian",
+          "module": "apiguardian-api",
+          "version": {
+            "requires": "1.1.2"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "junit-platform-commons-1.14.4.jar",
+          "url": "junit-platform-commons-1.14.4.jar",
+          "size": 164357,
+          "sha512": "2cd0aad67137deecdbeddb2ca48ad4f26be29392f52cdf9c685c04a90ea438859769838e3767e9887916dcf90c50e3c30a4006dd7941b269e3fc856136155e54",
+          "sha256": "55c8a0c069ac1bc4e1f8bbb26b5eae95cbd10e4ff1b23248441ab61a607381e1",
+          "sha1": "8fc5afb31243ac7141e48e5aa571955340c83795",
+          "md5": "2e8ac3dadfa02b7eacb87e48596ce514"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "org.junit",
+          "module": "junit-bom",
+          "version": {
+            "requires": "5.14.4"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          },
+          "endorseStrictVersions": true
+        }
+      ],
+      "files": [
+        {
+          "name": "junit-platform-commons-1.14.4.jar",
+          "url": "junit-platform-commons-1.14.4.jar",
+          "size": 164357,
+          "sha512": "2cd0aad67137deecdbeddb2ca48ad4f26be29392f52cdf9c685c04a90ea438859769838e3767e9887916dcf90c50e3c30a4006dd7941b269e3fc856136155e54",
+          "sha256": "55c8a0c069ac1bc4e1f8bbb26b5eae95cbd10e4ff1b23248441ab61a607381e1",
+          "sha1": "8fc5afb31243ac7141e48e5aa571955340c83795",
+          "md5": "2e8ac3dadfa02b7eacb87e48596ce514"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "junit-platform-commons-1.14.4-javadoc.jar",
+          "url": "junit-platform-commons-1.14.4-javadoc.jar",
+          "size": 427001,
+          "sha512": "0eb2bec66f90fc12501432fa45f7f5f9c83036b9fe4e741562f41c467c8d3e1923bff7fb1fe6fd01a31d020888e9b43721b5cf317a5c1cda616c45e833d9f0f4",
+          "sha256": "13890816d011cb8e758a33e059807309a0331ba72b783363d4bd94fe6c72611c",
+          "sha1": "9e158fb285282ac03ba6d4f96bad0125f19840e6",
+          "md5": "b542c9c693408ee062e407721114ba50"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "junit-platform-commons-1.14.4-sources.jar",
+          "url": "junit-platform-commons-1.14.4-sources.jar",
+          "size": 111148,
+          "sha512": "12e68e807057d20934d0a0bcce0bf7a3286e6fc252b40969dab1321ec7638731b05cc7d824fb8e704cc2438544d1959a8ae85aa86cbcf96fb5e987d7f308ac6a",
+          "sha256": "d8e0d15694b5a1395d1a803e409b28afbb6ea8a5f3f1625e847c53e0b3589d7d",
+          "sha1": "3ad1d4a36090d0b1b3cf9911d4316fab066d6518",
+          "md5": "a259acce91449f3f263abbe4c21b395c"
+        }
+      ]
+    }
+  ]
+}
