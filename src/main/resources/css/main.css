@@ -1,0 +1,49 @@
+.root {
+    main-color: #f8f0ff;
+    -fx-background-color: main-color;
+}
+
+.text-field {
+    -fx-background-color: #fffaff;
+    -fx-background-radius: 24px;
+    -fx-border-color: #dec8ee;
+    -fx-border-radius: 24px;
+    -fx-border-width: 1px;
+    -fx-font: 15px "Trebuchet MS";
+    -fx-padding: 0 16px;
+}
+
+.button {
+    -fx-background-color: #d88ab8;
+    -fx-background-radius: 24px;
+    -fx-font: bold 15px "Trebuchet MS";
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: derive(#d88ab8, 0.2);
+}
+
+.button:pressed {
+    -fx-background-color: derive(#d88ab8, -0.2);
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #d88ab8;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

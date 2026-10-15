@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: About two years in NUS.
+* IDE and level of expertise: IntellIJ, not too familiar with it.
 
 # Guidance for interacting with users
 
@@ -28,8 +28,26 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## Java coding standard:
+
+Follow the SE-EDU Java coding standard for all existing and newly added Java code:
+
+https://se-education.org/guides/conventions/java/intermediate.html
+
+In particular:
+
+* Use four spaces for indentation and K&R-style braces.
+* Keep lines at or below 120 characters.
+* Use consistent import ordering and explicit imports.
+* Use lower-case package names and place every class in a package.
+* Use camelCase for variables and methods, and PascalCase for classes.
+* Use descriptive JavaDoc comments for all public classes and methods.
+* Use braces for all loops and conditional statements, including single-statement bodies.
+* Write comments in English using American spelling.
+
 ## Git
 
 Use lightweight tags unless the user requests an annotated tag.
+Follow the SE-EDU Git commit message standard for all commits.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
