@@ -8,6 +8,9 @@
 /build/
 src/main/resources/docs/
 
+# Compiled Java classes
+*.class
+
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
@@ -18,3 +21,6 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Saved task data created at runtime
+/data/

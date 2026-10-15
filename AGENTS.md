@@ -33,3 +33,30 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## Coding standard
+
+All Java code in this repository follows the
+[SE-EDU Java coding standard, intermediate level](https://se-education.org/guides/conventions/java/intermediate.html).
+Any new or modified code must comply with it. The rules that come up most in this project:
+
+* Keep lines under 110 characters (hard limit 120). Indent wrapped lines by 8 spaces.
+* Classes are PascalCase nouns, methods are camelCase verbs, constants are UPPER_SNAKE_CASE,
+  and booleans read as questions (`isDone`, `hasTime`).
+* An abbreviation used as part of a longer name keeps only its first letter capitalised:
+  `EvException`, not `EVException`.
+* Every `if`, `for` and `while` body is wrapped in braces, even when it is a single statement.
+* Import each class explicitly (no wildcards), `java` imports first, then project imports,
+  alphabetically within each group.
+* Class variables are never public unless they are constants.
+* Test methods are named `featureUnderTest_testScenario_expectedBehavior`.
+
+## Git commit messages
+
+Follow the [SE-EDU Git conventions](https://se-education.org/guides/conventions/git.html):
+
+* Write the subject in the imperative mood, capitalised, with no full stop, under 50
+  characters where possible and never over 72.
+* Separate subject and body with a blank line, and wrap the body at 72 characters.
+* The body says what the commit is about and why it was done that way. The diff already
+  shows how, so do not narrate the changes line by line.

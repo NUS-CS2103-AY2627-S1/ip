@@ -1,0 +1,38 @@
+/*
+ * The two speakers are styled differently on purpose: the conversation is between a
+ * person and an app, not between two people. The colours follow the avatars, so that the
+ * page reads the same way at a glance as the pictures do.
+ */
+
+/* What Peter typed: a compact dark bubble on the right, matching the spider badge. */
+.label {
+    -fx-background-color: #23262b;
+    -fx-background-radius: 12 12 2 12;
+    -fx-font: 13px "Segoe UI";
+    -fx-text-fill: white;
+}
+
+/*
+ * EV's reply: flat text across the full width behind a red rule, the colour of the mask.
+ * Replies are often numbered lists, which a bubble would squeeze into a narrow column,
+ * and a monospaced font keeps the [T][X] status boxes lined up down the page.
+ */
+.reply-label {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-border-color: #e01b1b;
+    -fx-border-width: 0 0 0 3;
+    -fx-font-family: "Consolas", "Menlo", "DejaVu Sans Mono", monospace;
+    -fx-font-size: 12.5px;
+    -fx-text-fill: #1d2b36;
+}
+
+/*
+ * A refusal. Amber rather than red: red already means "EV is speaking", so a red warning
+ * would be the one colour that says two different things.
+ */
+.error-label {
+    -fx-background-color: #fff6e0;
+    -fx-border-color: #e08b00;
+    -fx-text-fill: #7a4b00;
+}

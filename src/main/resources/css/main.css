@@ -1,0 +1,73 @@
+/*
+ * The window is likely to be narrow and the replies long, so the layout gives as much
+ * room as it can to the conversation: white behind the text, a thin divider above the
+ * input row, and a scroll bar with no end buttons.
+ */
+
+.root {
+    -fx-background-color: white;
+    -fx-background-image: url("../images/wallpaper.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 0;
+    -fx-border-color: #dde1e7;
+    -fx-border-width: 1 0 0 0;
+    -fx-font: 14px "Segoe UI";
+    -fx-prompt-text-fill: #9aa4b0;
+}
+
+.text-field:focused {
+    -fx-background-color: #f7f9fb;
+}
+
+.button {
+    -fx-background-color: #d32020;
+    -fx-background-radius: 0;
+    -fx-text-fill: white;
+    -fx-font: bold 13px "Segoe UI";
+}
+
+.button:hover {
+    -fx-background-color: #e63b3b;
+}
+
+.button:pressed {
+    -fx-background-color: #a81616;
+}
+
+.button:disabled {
+    -fx-background-color: #c3cad2;
+}
+
+/*
+ * A light veil over the wallpaper. EV's replies are plain text rather than bubbles, so
+ * without it they would sit straight on the picture and lose their contrast. The viewport
+ * stays transparent, or it would cover the veil with its own background.
+ */
+.scroll-pane {
+    -fx-background-color: rgba(255, 255, 255, 0.72);
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #d3d8df;
+    -fx-background-radius: 1em;
+}
+
+/* The end buttons cost height and do nothing a drag or a wheel cannot do. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
