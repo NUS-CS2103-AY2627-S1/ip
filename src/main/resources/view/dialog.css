@@ -1,0 +1,73 @@
+/* Bistro Kitchen Background & Global Font */
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #241411, #422019 48%, #17120f);
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 13px;
+}
+
+/* ScrollPane transparent background */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .content {
+    -fx-background-color: transparent;
+}
+
+#dialogContainer {
+    -fx-background-color: transparent;
+}
+
+/* User Speech Bubble (Copper Order Ticket) */
+.user-label {
+    -fx-background-color: linear-gradient(to bottom, #ff9b54, #c85f2f);
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.32), 10, 0.25, 0, 3);
+    -fx-background-radius: 12px 12px 2px 12px;
+    -fx-padding: 8px 12px 8px 12px;
+}
+
+/* Chef Patate Response Bubble (Charcoal Bistro Slate) */
+.reply-label {
+    -fx-background-color: linear-gradient(to bottom, #3b302b, #211b19);
+    -fx-text-fill: #fff1d6;
+    -fx-border-color: #7d4b2a;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.38), 10, 0.25, 0, 3);
+    -fx-border-radius: 12px 12px 12px 2px;
+    -fx-background-radius: 12px 12px 12px 2px;
+    -fx-padding: 8px 12px 8px 12px;
+}
+
+/* Severe Kitchen Error (Fiery Red) */
+.error-label {
+    -fx-background-color: linear-gradient(to bottom, #ff2d1f, #7c0909) !important;
+    -fx-text-fill: #fff2e8 !important;
+    -fx-border-color: #ffd166;
+    -fx-effect: dropshadow(gaussian, rgba(255, 69, 0, 0.65), 16, 0.35, 0, 0);
+    -fx-border-radius: 12px 12px 12px 2px;
+    -fx-background-radius: 12px 12px 12px 2px;
+    -fx-padding: 8px 12px 8px 12px;
+}
+
+/* Text Input & Button Styling */
+.text-field {
+    -fx-background-color: #262222;
+    -fx-text-fill: #f0e6d2;
+    -fx-prompt-text-fill: #8c7b75;
+    -fx-border-color: #3b3331;
+}
+
+.button {
+    -fx-background-color: #c86d3b;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #a8582d;
+}
