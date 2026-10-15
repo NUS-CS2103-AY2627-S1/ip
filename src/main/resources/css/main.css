@@ -1,0 +1,84 @@
+.main-window {
+    -fx-background-color: #0f172a;
+    -fx-font-family: "System";
+}
+
+.header {
+    -fx-background-color: linear-gradient(to right, #172554, #312e81);
+    -fx-padding: 16px 20px;
+}
+
+.app-title {
+    -fx-font-family: "Serif";
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #facc15;
+}
+
+.app-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #cbd5e1;
+}
+
+.conversation,
+.conversation > .viewport {
+    -fx-background-color: #0f172a;
+}
+
+.dialog-container {
+    -fx-background-color: #0f172a;
+    -fx-padding: 14px 8px;
+}
+
+.composer {
+    -fx-background-color: #111827;
+    -fx-border-color: #334155 transparent transparent transparent;
+    -fx-padding: 10px 12px;
+}
+
+.text-field {
+    -fx-background-color: #1e293b;
+    -fx-background-radius: 10px;
+    -fx-border-color: #475569;
+    -fx-border-radius: 10px;
+    -fx-padding: 10px 12px;
+    -fx-prompt-text-fill: #94a3b8;
+    -fx-text-fill: #f8fafc;
+}
+
+.text-field:focused {
+    -fx-border-color: #facc15;
+}
+
+.button {
+    -fx-background-color: #facc15;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 15px;
+    -fx-text-fill: #111827;
+}
+
+.button:hover {
+    -fx-background-color: #fde047;
+}
+
+.button:pressed {
+    -fx-background-color: #eab308;
+}
+
+.scroll-bar {
+    -fx-background-color: #0f172a;
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #475569;
+    -fx-background-radius: 5px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}

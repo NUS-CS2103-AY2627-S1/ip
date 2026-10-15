@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Moderate
+* IDE and level of expertise: Moderate
 
 # Guidance for interacting with users
 
@@ -30,6 +30,29 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 
 ## Git
 
-Use lightweight tags unless the user requests an annotated tag.
-When proposing or creating a commit message, include enough detail to explain the rationale for the change.
-Do not commit or push unless explicitly asked.
+When suggesting tag commands, use lightweight tags unless the user requests an annotated tag.
+When proposing or reviewing commit messages and branch names, follow the project-specific
+`seedu-git-standard` skill in `.agents/skills/seedu-git-standard`.
+Never create commits, tags, or pushes in this repository. The user performs all Git publication
+and history-writing actions.
+
+## Java coding standard
+
+For every Java code change or review, follow the project-specific `seedu-java-coding-standard`
+skill in `.agents/skills/seedu-java-coding-standard`. New Java code and relevant existing code
+must comply with the SE-EDU basic and intermediate Java coding standard.
+
+## Text UI testing
+
+After every code update:
+
+1. Review `test/ui-test-plan.md` and update it when the change affects commands, messages, formatting, or other observable behavior.
+2. Invoke the project-specific `test-ui` skill in `.agents/skills/test-ui`.
+3. Stop at the first failing UI test and report its actual and expected output.
+
+## JUnit testing
+
+After every code update, review and update the JUnit tests as needed to keep focused
+coverage of approximately the top 50% highest-value methods. Prioritize complex, core,
+and critical business logic over trivial accessors or console-printing methods, and run
+the JUnit suite using Gradle and Java 25.

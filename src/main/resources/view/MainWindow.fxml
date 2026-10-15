@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="640.0" prefWidth="500.0"
+            styleClass="main-window" stylesheets="@../css/main.css"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="zeus.gui.MainWindow">
+    <children>
+        <VBox prefHeight="86.0" spacing="2.0" styleClass="header"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label styleClass="app-title" text="⚡ ZEUS" />
+                <Label styleClass="app-subtitle" text="Rule your tasks from Olympus." />
+            </children>
+        </VBox>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                    styleClass="conversation" vbarPolicy="AS_NEEDED"
+                    AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="86.0">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true" spacing="8.0"
+                      styleClass="dialog-container" />
+            </content>
+        </ScrollPane>
+        <HBox alignment="CENTER" prefHeight="64.0" spacing="10.0" styleClass="composer"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <TextField fx:id="userInput" onAction="#handleUserInput"
+                           promptText="Issue a command, e.g. todo read book" HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput"
+                        text="Command ⚡" />
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
