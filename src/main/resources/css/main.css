@@ -1,0 +1,69 @@
+/*
+ * Rex's window: warm paper, a retriever's coat, and one saturated accent on
+ * the send button. The colors are named here as looked-up colors so that a
+ * change to the palette is a change in one place rather than in each rule.
+ */
+.root {
+    rex-paper: #fdf8f3;         /* Window background: warm, barely-there off-white. */
+    rex-ink: #2e2723;           /* Body text: near-black kept warm to suit the paper. */
+    rex-collar: #c8762f;        /* The one saturated accent, used for the button. */
+    rex-collar-light: #dd8a3f;  /* The same hue lifted, for hover. */
+    rex-collar-dark: #a85e22;   /* The same hue dropped, for press. */
+    rex-fur: #c4a484;           /* Muted tan, for details that should recede. */
+
+    -fx-background-color: rex-paper;
+    -fx-font-family: "Trebuchet MS";
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: rex-fur;
+    -fx-border-width: 0 0 2px 0;
+    -fx-font-size: 16px;
+    -fx-text-fill: rex-ink;
+    -fx-prompt-text-fill: rex-fur;
+}
+
+/*
+ * The button changes tone rather than hue across its states, and keeps one
+ * font size throughout: a size that grows on hover shifts everything around
+ * it, which reads as a fault rather than as feedback.
+ */
+.button {
+    -fx-background-color: rex-collar;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 0;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: rex-collar-light;
+}
+
+.button:pressed {
+    -fx-background-color: rex-collar-dark;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Sets the width of the scroll bar. */
+    -fx-background-color: rex-paper;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rex-fur;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

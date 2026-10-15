@@ -16,5 +16,8 @@ bin/
 # Temp files
 _temp/
 
+# Task data saved by the app at runtime
+/data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

@@ -1,0 +1,26 @@
+/*
+ * The two speakers are told apart by color rather than by position alone:
+ * Rex answers in the tan of his own coat, the user speaks in a cool grey.
+ * Each bubble keeps a square corner on the side it is spoken from.
+ */
+.label {
+    -fx-background-color: #e3e8ef;  /* The user's bubble: cool slate. */
+    -fx-text-fill: #2e2723;
+    -fx-font-size: 14px;
+    -fx-border-color: #cdd5e0;
+    -fx-border-width: 1px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.reply-label {
+    -fx-background-color: #f5e0c3;  /* Rex's bubble: the tan of a retriever's coat. */
+    -fx-border-color: #d9c3a5;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+}
