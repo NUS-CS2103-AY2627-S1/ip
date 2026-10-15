@@ -16,5 +16,13 @@ bin/
 # Temp files
 _temp/
 
+# Python cache files
+__pycache__/
+*.pyc
+
+# Runtime task data
+/data/dude.jsonl
+/data/dude.txt
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

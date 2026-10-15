@@ -1,0 +1,182 @@
+.window {
+    -fx-font-size: 14px;
+    -fx-background-color: #f7f8fa;
+}
+
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #243b64;
+}
+
+.task-sidebar {
+    -fx-background-color: #eef2f8;
+}
+
+.text-field,
+.scroll-pane,
+.list-view {
+    -fx-background-radius: 6px;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.conversation {
+    -fx-padding: 10px;
+    -fx-background-color: transparent;
+}
+
+.dialog-box {
+    -fx-padding: 3px 8px;
+}
+
+.message-bubble {
+    -fx-padding: 8px 12px;
+    -fx-background-radius: 10px;
+}
+
+.message-bubble .label {
+    -fx-wrap-text: true;
+}
+
+.message-bubble.user {
+    -fx-background-color: #dce8ff;
+}
+
+.message-bubble.app {
+    -fx-background-color: #e8f3e8;
+}
+
+.message-bubble.error {
+    -fx-background-color: #ffe4e4;
+    -fx-text-fill: #8b1e1e;
+}
+
+.chat-pointer.user {
+    -fx-fill: #dce8ff;
+}
+
+.chat-pointer.app {
+    -fx-fill: #e8f3e8;
+}
+
+.chat-pointer.error {
+    -fx-fill: #ffe4e4;
+}
+
+.profile-icon {
+    -fx-font-size: 20px;
+    -fx-padding: 0 3px 0 0;
+}
+
+.command-bar {
+    -fx-padding: 4px 0 0 0;
+}
+
+.task-row {
+    -fx-padding: 8px 10px;
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+}
+
+.task-row .label {
+    -fx-text-fill: #273142;
+}
+
+.list-cell {
+    -fx-padding: 3px 0;
+    -fx-background-color: transparent;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: transparent;
+    -fx-text-fill: #273142;
+}
+
+.list-cell:filled:selected .task-row {
+    -fx-background-color: #dce8ff;
+}
+
+.command-list {
+    -fx-font-size: 12px;
+}
+
+.command-list .list-cell {
+    -fx-padding: 5px 8px;
+    -fx-background-color: transparent;
+}
+
+.command-list .list-cell:hover,
+.command-list .list-cell:filled:selected {
+    -fx-background-color: #dce8ff;
+    -fx-background-radius: 5px;
+}
+
+.command-row {
+    -fx-alignment: center-left;
+    -fx-spacing: 8px;
+}
+
+.command-label {
+    -fx-text-fill: #273142;
+}
+
+.command-hint {
+    -fx-font-size: 11px;
+    -fx-text-fill: #6b7280;
+    -fx-opacity: 0;
+}
+
+.command-list .list-cell:filled:selected .command-hint {
+    -fx-opacity: 1;
+}
+
+.task-number,
+.task-status {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.task-status.done {
+    -fx-text-fill: #2e7d32;
+}
+
+.task-status.pending {
+    -fx-text-fill: #6b7280;
+}
+
+.task-type {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3b5ea7;
+}
+
+.task-description {
+    -fx-font-size: 15px;
+}
+
+.task-details {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7280;
+}
+
+.button:focused,
+.text-field:focused,
+.list-view:focused {
+    -fx-border-color: #3b5ea7;
+    -fx-border-width: 2px;
+}
+
+.command-bar .text-field {
+    -fx-background-color: #edf3ff;
+    -fx-border-color: #c1d1f2;
+    -fx-border-width: 1px;
+}
+
+.command-bar .text-field:focused {
+    -fx-background-color: #e2ebff;
+}

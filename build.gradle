@@ -1,0 +1,164 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+checkstyle {
+    toolVersion = '14.1.0'
+    configFile = file('config/checkstyle/checkstyle.xml')
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String javaFxVersion = '17.0.10'
+    ['win', 'mac', 'linux'].each { platform ->
+        ['base', 'controls', 'fxml', 'graphics'].each { module ->
+            implementation("org.openjfx:javafx-${module}:${javaFxVersion}:${platform}")
+        }
+    }
+
+    String jUnitVersion = '5.14.4'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+tasks.register('sourceConventions') {
+    description = 'Checks deterministic source rules that complement Checkstyle.'
+    group = 'verification'
+    doLast {
+        fileTree('src').matching { include '**/*.java' }.files.each { sourceFile ->
+            sourceFile.eachLine { line, lineNumber ->
+                if (line.contains('\t')) {
+                    throw new GradleException("Tab character in ${sourceFile}:${lineNumber}")
+                }
+                if (line ==~ /.*[ \t]+$/) {
+                    throw new GradleException("Trailing whitespace in ${sourceFile}:${lineNumber}")
+                }
+                if (line.length() > 120) {
+                    throw new GradleException("Line longer than 120 characters in "
+                            + "${sourceFile}:${lineNumber}")
+                }
+            }
+
+            String source = sourceFile.text
+            if (!source.contains('package ')) {
+                throw new GradleException("Java source is missing a package declaration: ${sourceFile}")
+            }
+            if (source =~ /(?m)^\s*import\s+[^;]+\.\*\s*;/) {
+                throw new GradleException("Wildcard import in ${sourceFile}")
+            }
+            if (source =~ /(?s)catch\s*\([^)]*\)\s*\{\s*\}/) {
+                throw new GradleException("Empty catch block in ${sourceFile}")
+            }
+            if (source =~ /(?m)\bassert\b/) {
+                throw new GradleException("Java assertion found in ${sourceFile}")
+            }
+        }
+    }
+}
+
+tasks.register('commentedCode') {
+    description = 'Rejects common commented-out Java code fragments.'
+    group = 'verification'
+    doLast {
+        def commentedCodePattern = /^\s*\/\/\s*(if|else|for|while|switch|return|throw|new|import|package|public|private|protected|class|interface|enum|static|final)\b/
+        def commentedStatementPattern = /^\s*\/\/.*[;{}]\s*$/
+        fileTree('src').matching { include '**/*.java' }.files.each { sourceFile ->
+            sourceFile.eachLine { line, lineNumber ->
+                if (line ==~ commentedCodePattern || line ==~ commentedStatementPattern) {
+                    throw new GradleException("Possible commented-out code in "
+                            + "${sourceFile}:${lineNumber}")
+                }
+            }
+        }
+    }
+}
+
+tasks.named('check') {
+    dependsOn tasks.named('javadoc')
+    dependsOn tasks.named('sourceConventions')
+    dependsOn tasks.named('commentedCode')
+}
+
+application {
+    mainClass = 'dude.gui.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'dude.jar'
+}
+
+tasks.register('releaseJar') {
+    description = 'Runs all checks and builds the distributable DUDE JAR.'
+    group = 'distribution'
+    dependsOn tasks.named('clean')
+    dependsOn tasks.named('check')
+    dependsOn tasks.named('shadowJar')
+    doLast {
+        File libsDirectory = layout.buildDirectory.dir('libs').get().asFile
+        Set<File> jarFiles = fileTree(libsDirectory).matching { include '*.jar' }.files
+        File distributable = new File(libsDirectory, 'dude.jar')
+        if (jarFiles.size() != 1 || !jarFiles.contains(distributable)) {
+            throw new GradleException('Expected exactly one distributable JAR named dude.jar')
+        }
+        String mainClass = new java.util.jar.JarFile(distributable).withCloseable { jarFile ->
+            jarFile.manifest.mainAttributes.getValue('Main-Class')
+        }
+        if (mainClass != 'dude.gui.Launcher') {
+            throw new GradleException("Unexpected JAR entry point: ${mainClass}")
+        }
+        Set<String> nativeNames = zipTree(distributable).files.collect { it.name } as Set
+        ['glass.dll', 'libglass.dylib', 'libglass.so'].each { nativeName ->
+            if (!nativeNames.contains(nativeName)) {
+                throw new GradleException("Missing JavaFX native library: ${nativeName}")
+            }
+        }
+        println("Distributable JAR: ${distributable}")
+    }
+}
+
+tasks.named('check') {
+    mustRunAfter tasks.named('clean')
+}
+
+tasks.named('shadowJar') {
+    mustRunAfter tasks.named('clean')
+}
+
+run {
+    standardInput = System.in
+}
