@@ -1,0 +1,99 @@
+.root {
+    -fx-background-color: #f4f1e8;
+    -fx-font-family: "Consolas";
+}
+
+.header {
+    -fx-background-color: #172a2a;
+    -fx-padding: 14 22;
+}
+
+.title {
+    -fx-font-family: "Arial Black";
+    -fx-font-size: 21px;
+    -fx-text-fill: #f4c95d;
+}
+
+.subtitle {
+    -fx-font-size: 11px;
+    -fx-text-fill: #b8c8bd;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport,
+.dialog-container {
+    -fx-background-color: #f4f1e8;
+}
+
+.dialog-container {
+    -fx-padding: 16 10;
+}
+
+.message {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 3;
+    -fx-border-color: #172a2a;
+    -fx-border-width: 1;
+    -fx-padding: 11 13;
+    -fx-text-fill: #172a2a;
+}
+
+.user-dialog .message {
+    -fx-background-color: #f4c95d;
+    -fx-border-color: transparent;
+    -fx-background-radius: 12 12 3 12;
+}
+
+.bot-dialog .message {
+    -fx-background-radius: 3 12 12 12;
+}
+
+.error-dialog .message {
+    -fx-background-color: #fff0ed;
+    -fx-background-radius: 3 12 12 12;
+    -fx-border-color: #9b3d2f;
+    -fx-border-width: 0 0 0 4;
+    -fx-text-fill: #70271f;
+}
+
+.error-dialog .avatar {
+    -fx-background-color: #9b3d2f;
+    -fx-text-fill: #ffffff;
+}
+
+.avatar {
+    -fx-background-color: #172a2a;
+    -fx-background-radius: 2;
+    -fx-font-family: "Arial Black";
+    -fx-text-fill: #f4c95d;
+}
+
+.user-dialog .avatar {
+    -fx-background-color: #9b3d2f;
+    -fx-text-fill: #ffffff;
+}
+
+.composer {
+    -fx-background-color: #d9d3c3;
+    -fx-padding: 13;
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 2;
+    -fx-border-color: #172a2a;
+    -fx-border-width: 1;
+    -fx-padding: 11;
+}
+
+.button {
+    -fx-background-color: #9b3d2f;
+    -fx-background-radius: 2;
+    -fx-font-family: "Arial Black";
+    -fx-padding: 11 18;
+    -fx-text-fill: #ffffff;
+}
+
+.button:hover {
+    -fx-background-color: #742e24;
+}

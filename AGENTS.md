@@ -32,4 +32,29 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
+Wrap every commit message body line at 72 characters or fewer, and verify the wrapping before committing.
 Do not commit or push unless explicitly asked.
+
+## Coding and Git standards (mandatory)
+
+* All Java code in this repository (including AI-generated code) must follow the SE-EDU Java coding standard (basic + intermediate). Before writing, editing, formatting, or reviewing Java code, load and follow the `seedu-java-coding-standard` skill. For topics it does not cover, use the Google Java Style Guide.
+* All commit messages and branch names in this repository must follow SE-EDU Git conventions. Before proposing or creating a commit message or branch name, load and follow the `seedu-git-standard` skill.
+
+## UI test maintenance
+
+If you change LenZaBot's console behavior, keep `test/ui-test-plan.md` in sync.
+
+Examples of changes that require updating the UI test plan:
+- new commands
+- changed command parsing
+- changed success messages
+- changed error messages
+- changed list formatting or task rendering
+
+After such changes, run the `test-ui` skill workflow or the bundled runner to verify the updated plan against the program output.
+
+## JUnit test maintenance
+
+Maintain JUnit tests for roughly the top 50% highest-value methods, prioritizing complex, core, or critical business logic.
+Update the relevant JUnit tests after every code change so that this coverage target remains satisfied.
+Keep tests under `src/test/java` using the same package structure as the production code, and run them using Gradle.
