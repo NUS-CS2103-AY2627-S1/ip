@@ -18,3 +18,9 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Runtime data file (Level-7 save file)
+/data/
+
+# Personal Claude notes (not part of the course submission)
+/CLAUDE.local.md

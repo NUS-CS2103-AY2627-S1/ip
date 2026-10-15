@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Intermediate — comfortable with Java and OOP fundamentals; this is the first larger multi-class project.
+* IDE and level of expertise: VS Code with Java extensions — comfortable with everyday editing, running, and debugging; newer to IntelliJ-specific workflows, so the setup steps below (originally written for IntelliJ) are adapted as needed.
 
 # Guidance for interacting with users
 

@@ -1,0 +1,89 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javafxVersion = '25.0.1'
+
+    // Declares JavaFX as a real Maven dependency (instead of relying on the
+    // JDK's bundled copy) so shadowJar can pack the JavaFX jars into ben.jar.
+    // A plain "javafx-controls:${javafxVersion}" dependency would resolve to
+    // whichever platform classifier matches the machine running the build,
+    // so a jar built on macOS would only contain .dylib natives and fail on
+    // Windows with "no suitable pipeline found" (and vice versa). Declaring
+    // every platform classifier here bundles all of their native libraries
+    // into ben.jar; each OS's JavaFX runtime picks out its own natives by
+    // filename (e.g. glass.dll vs libglass.dylib vs libglass.so) and ignores
+    // the rest, so the one jar runs unmodified on Windows, macOS, and Linux.
+    // A platform classifier only attaches to the exact artifact it's
+    // declared on; javafx-controls's transitive dependency on javafx-base
+    // and javafx-graphics would otherwise resolve to their default (native
+    // library-free) variant, so each module needs its own explicit,
+    // classified dependency. The GUI (see Launcher/Main) does not use FXML,
+    // so javafx.fxml is omitted.
+    for (String platform : ['win', 'mac', 'mac-aarch64', 'linux']) {
+        implementation "org.openjfx:javafx-base:${javafxVersion}:${platform}"
+        implementation "org.openjfx:javafx-graphics:${javafxVersion}:${platform}"
+        implementation "org.openjfx:javafx-controls:${javafxVersion}:${platform}"
+    }
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    // Level-10: the GUI is the app's front door now. Ben.main still runs
+    // the old console version for anyone who wants it.
+    mainClass = 'ben.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'ben.jar'
+    // Every platform classifier above contributes an identical copy of the
+    // JavaFX .class files (only their native libraries differ); keep one
+    // copy of each instead of erroring out or silently overwriting content.
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+run {
+    standardInput = System.in
+    // A-Assertions: JavaExec tasks disable assertions by default, unlike the
+    // "test" task (which Gradle already runs with them on). Turn them on
+    // here too so "gradle run" actually exercises the asserts below.
+    enableAssertions = true
+}
