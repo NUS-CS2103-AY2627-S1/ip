@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane minHeight="420.0" minWidth="360.0" prefHeight="600.0" prefWidth="480.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pebby.MainWindow">
+    <children>
+        <HBox alignment="CENTER" spacing="8.0" styleClass="composer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <TextField fx:id="userInput" HBox.hgrow="ALWAYS" onAction="#handleUserInput" promptText="Type help to view commands" />
+                <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" text="Send" />
+            </children>
+        </HBox>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" vvalue="1.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true" spacing="2.0" />
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

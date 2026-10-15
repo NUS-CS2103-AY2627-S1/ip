@@ -1,0 +1,32 @@
+.label {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #202938;
+    -fx-font: 14px "System";
+    -fx-line-spacing: 2px;
+}
+
+.reply-label {
+    -fx-effect: dropshadow(gaussian, rgba(31, 41, 55, 0.09), 5, 0.1, 0, 1);
+}
+
+.user-label {
+    -fx-background-color: #315f9f;
+    -fx-background-radius: 12px 12px 3px 12px;
+    -fx-text-fill: white;
+}
+
+.error-label {
+    -fx-background-color: #fff1f1;
+    -fx-border-color: #d74d4d;
+    -fx-border-width: 0 0 0 4px;
+    -fx-border-radius: 3px 10px 10px 3px;
+    -fx-text-fill: #922d2d;
+    -fx-font-weight: bold;
+}
+
+#displayPicture {
+    -fx-background-color: #dce7f8;
+    -fx-background-radius: 50%;
+    -fx-effect: dropshadow(gaussian, rgba(31, 41, 55, 0.12), 3, 0, 0, 1);
+}

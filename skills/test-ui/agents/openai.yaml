@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run console tests against expected output"
+  default_prompt: "Use $test-ui to run the console test cases recorded in test/ui-test-plan.md."

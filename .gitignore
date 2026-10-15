@@ -13,6 +13,9 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Pebby's local task data
+/data/
+
 # Temp files
 _temp/
 
