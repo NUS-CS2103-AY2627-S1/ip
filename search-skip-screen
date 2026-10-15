@@ -1,0 +1,106 @@
+[33m5d5803f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mbranch-A-Assertions[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mbranch-A-Streams[m[33m, [m[1;32mbranch-A-CodeQuality[m[33m)[m Add integer parsing exception handling
+[33md7794fb[m Modify JavaDoc to accurately reflect function purpose
+[33mca7e4b3[m Introduce working GUI functionality
+[33m735e376[m Rename from Duke to Janet for FX features
+[33m7d0cc4a[m Modify exception handling
+[33m6cc9fac[m Fix string constant to conform to standard
+[33mdf4f361[m Add UI elements
+[33m69c9494[m[33m ([m[1;33mtag: [m[1;33mA-JavaDoc[m[33m)[m Merge branch 'A-JavaDoc'
+[33m96a24ea[m[33m ([m[1;33mtag: [m[1;33mA-CodingStandard[m[33m, [m[1;31morigin/A-JavaDoc[m[33m, [m[1;32mA-JavaDoc[m[33m)[m Conform to style guide
+[33m45fd110[m Add javadoc
+[33mb1558fc[m Merge branch 'master' into A-JavaDoc
+[33m92d9def[m Add Task description
+[33mbc74c56[m Merge branch 'move-prints-to-ui'
+[33ma781520[m[33m ([m[1;31morigin/move-prints-to-ui[m[33m, [m[1;32mmove-prints-to-ui[m[33m)[m Move prints to UI class
+[33m3a39761[m[33m ([m[1;32mA-CodingStandard[m[33m)[m Remove banner
+[33m86f2bbe[m[33m ([m[1;33mtag: [m[1;33mv0.1[m[33m, [m[1;33mtag: [m[1;33mA-Jar[m[33m)[m Configure build.gradle for Janet
+[33m79d57f2[m[33m ([m[1;33mtag: [m[1;33mA-JUnit[m[33m)[m Merge branch 'A-JUnit'
+[33mcc966e0[m[33m ([m[1;31morigin/A-JUnit[m[33m, [m[1;32mA-JUnit[m[33m)[m Add some tests
+[33m088f4f2[m Delete ignorable file
+[33m6217682[m[33m ([m[1;33mtag: [m[1;33mLevel-9[m[33m)[m Add find function
+[33ma84eb8f[m Merge remote-tracking branch 'origin/add-gradle-support'
+[33m6df07f6[m[33m ([m[1;33mtag: [m[1;33mA-Packages[m[33m)[m Merge branch 'A-Packages'
+[33m2638d87[m[33m ([m[1;31morigin/A-Packages[m[33m, [m[1;32mA-Packages[m[33m)[m Convert to one package
+[33m39af80a[m[33m ([m[1;33mtag: [m[1;33mA-MoreOOP[m[33m, [m[1;32mbranch-Level-8[m[33m)[m Merge branch 'A-MoreOOP' into branch-Level-8
+[33mea75869[m[33m ([m[1;32mA-MoreOOP[m[33m)[m Make fields final
+[33mbb1f8a4[m Add exception handling for Storage
+[33md633fb8[m Add Storage class read functionality
+[33m3b8b79c[m[33m ([m[1;32mmove-date-handling-to-parser[m[33m)[m Move date parsing of Event to parser
+[33mca26f75[m Move date parsing of Deadline to Parser
+[33mca1153f[m Add file formatting for storage
+[33m2366812[m[33m ([m[1;33mtag: [m[1;33mLevel-8[m[33m)[m Merge branch 'branch-Level-8'
+[33ma333f49[m[33m ([m[1;31morigin/branch-Level-8[m[33m)[m Modify string representation for date formatting
+[33mafc5bf7[m Add LocalDate handling of dates
+[33mad3e02a[m[33m ([m[1;33mtag: [m[1;33mLevel-7[m[33m)[m Merge branch 'branch-Level-7'
+[33m1d6eb8f[m[33m ([m[1;31morigin/branch-Level-7[m[33m, [m[1;32mbranch-Level-7[m[33m)[m Add Storage class for file read/write
+[33m5852a60[m Use record from task list
+[33m91de571[m Add boilerplate for main
+[33m5e1127e[m Add UI, Storage, TaskList as Janet fields
+[33m8b52567[m[33m ([m[1;31morigin/use-record-as-return-after-execution[m[33m, [m[1;32muse-record-as-return-after-execution[m[33m)[m Remove unused function in main class
+[33m8c9c7bb[m Use record as return after execution
+[33mc0c8fea[m[33m ([m[1;31morigin/use-map-for-command-parsing[m[33m, [m[1;32muse-map-for-command-parsing[m[33m)[m Change Optional handling to map value existence check
+[33ma91f374[m Remove parsing function in main Janet function
+[33m96666a0[m Add fuctional interface annotation for command handler
+[33m356971d[m Add Parser class for handling commands
+[33m7d5f782[m Convert constant strings in Janet to screaming case
+[33mad85343[m[33m ([m[1;33mtag: [m[1;33mLevel-6[m[33m)[m Added more exception handling for task subclasses
+[33mec5da23[m Add more exception handling and fix bug where new tasklist was not saved
+[33mbbe30e4[m Separate main function to different functions and add experimental exception handling
+[33m7a01012[m[33m ([m[1;33mtag: [m[1;33mLevel-5[m[33m)[m Simplify delete operation on task list
+[33m0f2824f[m Add untested deletion functionality
+[33mc7d5e4b[m[33m ([m[1;33mtag: [m[1;33mLevel-4[m[33m)[m Add proper logging of task addition
+[33mca2e41e[m[33m ([m[1;33mtag: [m[1;33mLevel-3[m[33m)[m Convert Task to abstract class and adjust subclass to implement markDone()
+[33m2bf1a99[m Add parsing for Event and Deadline date strings
+[33m2fd26b4[m Add classes for sub tasks
+[33md19a570[m[33m ([m[1;33mtag: [m[1;33mLevel-2[m[33m)[m Add basic listing functionality
+[33m52c4ae9[m Change array task structure to List
+[33md2ad9d9[m Add rudimentary task list functionality
+[33m2b6a177[m[33m ([m[1;33mtag: [m[1;33mLevel-1[m[33m)[m Add final keyword to Janet fields
+[33mca64596[m Move magic string (greetings, banner) to Janet private fields
+[33mede917c[m[33m ([m[1;33mtag: [m[1;33mLevel-0[m[33m)[m Add goodbye
+[33m3eab79c[m Add greeting
+[33m8546120[m Rename Duke to Janet
+[33m57b1f2d[m Add AGENTS.md and CLAUDE.md
+[33me38f220[m[33m ([m[1;33mtag: [m[1;33mA-Gradle[m[33m, [m[1;31morigin/add-gradle-support[m[33m)[m Add Gradle support
+[33mbefbd32[m Remove text-ui-test folder
+[33m87474f1[m Duke.java: Rename logo -> banner
+[33m5988665[m README: Update the JDK version 17 -> 25
+[33m2e62cbf[m .gitignore: Ignore AI files and _temp
+[33m33ea780[m README: Use correct item number in list
+[33mad9696c[m README: Ask to keep source folder structure
+[33m173d5b3[m README: Update the JDK version 11 -> 17
+[33m55f9f9f[m docs/README.md: Tweak document template
+[33m3b83789[m .gitignore: Fix ACTUAL.txt -> ACTUAL.TXT  (#73)
+[33me698798[m README: Mention the project language level setting
+[33m7bfb6e7[m README.md: Tweak template text
+[33meabcfca[m README: Update setup instructions to match the latest IDE version
+[33m6001e2e[m Improve runtest.* scripts
+[33m87eb8b8[m README.md: Fix typo of => or
+[33mef3c8cd[m Add text-ui-test files
+[33m71d7ea8[m Remove generic tutorials
+[33m1416279[m Merge pull request #41 from jiachen247/patch-2
+[33m2697ae1[m Remove unnecessary override annotation
+[33m6f2ddfa[m Merge pull request #35 from j-lum/xplatformjfx
+[33m2ca6b28[m JavaFX tutorial: Support cross-platform JARs
+[33mfae28ab[m Merge pull request #14 from j-lum/fxml-indent
+[33m26a5013[m Change indentation in FXML samples to match AB-3
+[33mbaa18a5[m Merge pull request #8 from j-lum/tutorial-fix
+[33m5df56a8[m Remove references to DukeStub
+[33m999fa98[m Merge pull request #7 from j-lum/tutorial-fix
+[33m8d6d6f4[m Add images to JavaFX tutorial 3
+[33mb6df1a3[m Fix typo referring to `HelloWorld`
+[33md2ffa00[m Update Gradle tutorial to reflect new checkstyle config
+[33mf20d610[m Merge pull request #3 from j-lum/inline-javafx-tutorials
+[33mbad66fc[m Adapt JavaFX tutorial for Duke
+[33m5c47c23[m Specify checkstyle version
+[33ma2150c1[m textUiTestingTutorial.md: mention updating java/javac commands
+[33m2d06f90[m textUiTestingTutorial.md: add missing <br>
+[33m5c491d3[m Add a tutorial on text UI testing
+[33m53c0460[m Update list of contributors
+[33m21af6a1[m Fix typo in link to checkstyle config files
+[33m8fe8afd[m README: use numbered list for steps
+[33mf20bff2[m Tweak tutorial text
+[33m6a7120c[m Move Duke.java out of the package
+[33m6bb6b9f[m .gitignore: add *.iml
+[33m946f3bb[m Import base branch for students to start off
+[33m245013d[m Initial commit
