@@ -1,0 +1,33 @@
+/* Use a pale green user bubble with predictable dark text contrast. */
+.label {
+    -fx-background-color: #dcfce7;
+    -fx-background-radius: 12px 12px 2px 12px;
+    -fx-border-color: #86d9a5;
+    -fx-border-radius: 12px 12px 2px 12px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(20, 50, 35, 0.12), 5, 0.1, 0, 2);
+    -fx-font-family: "Consolas";
+    -fx-font-size: 14px;
+    -fx-text-fill: #153d29;
+}
+
+/* Give Cooper a related purple bubble so the two speakers are easy to distinguish. */
+.reply-label {
+    -fx-background-color: #f1e8ff;
+    -fx-background-radius: 12px 12px 12px 2px;
+    -fx-border-color: #c9adee;
+    -fx-border-radius: 12px 12px 12px 2px;
+    -fx-text-fill: #3e2759;
+}
+
+/* Pair the color with an explicit Error heading so color is not the only cue. */
+.error-label {
+    -fx-background-color: #fff1f2;
+    -fx-border-color: #be4351;
+    -fx-text-fill: #842029;
+}
+
+/* A restrained shadow separates each avatar without distracting from its message. */
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(20, 30, 25, 0.22), 6, 0.15, 0, 2);
+}

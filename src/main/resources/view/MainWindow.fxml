@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="440.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cooper.ui.MainWindow">
+    <children>
+        <HBox spacing="8.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0">
+            <TextField fx:id="userInput" minWidth="0.0" HBox.hgrow="ALWAYS" onAction="#handleUserInput" prefHeight="42.0" promptText="Enter a command..." />
+            <Button fx:id="sendButton" minWidth="76.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="42.0" text="Send" />
+        </HBox>
+        <ScrollPane fx:id="scrollPane" minWidth="0.0" fitToWidth="true" hbarPolicy="NEVER" vvalue="1.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <VBox fx:id="dialogContainer" minWidth="0.0" spacing="8.0">
+                    <padding>
+                        <Insets top="12.0" right="12.0" bottom="12.0" left="12.0" />
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

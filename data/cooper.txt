@@ -1,0 +1,3 @@
+T | 0 | buy groceries
+D | 0 | project submission | 2026-09-18T23:59
+E | 0 | hang with the boys | 2026-09-20T19:00 | 2026-09-21T01:00
