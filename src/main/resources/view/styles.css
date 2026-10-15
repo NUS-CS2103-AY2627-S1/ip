@@ -1,0 +1,162 @@
+/*
+ * "Bamboo Blush" - the look of the PanPan chat window.
+ *
+ * A cream page with white bubbles for PanPan and pink bubbles for the user.
+ * The pink is taken from the blush on both avatars, so the artwork and the
+ * window agree with each other.
+ *
+ * JavaFX CSS is not quite web CSS: every property is prefixed -fx-, and a
+ * rounded background needs BOTH -fx-background-radius and, where there is an
+ * outline, a matching -fx-border-radius.
+ */
+
+/* ------------------------------------------------------------------ palette
+ * Declared on .root so every node below can look them up by name. JavaFX
+ * resolves a leading-dash name as a "looked-up colour", inherited by children.
+ */
+.root {
+    -pan-cream: #FFF8F3;
+    -pan-white: #FFFFFF;
+    -pan-pink: #FFD8E4;
+    -pan-accent: #FF8FAB;
+    -pan-accent-dark: #EE6A8B;
+    -pan-hairline: #F6D9E2;
+    -pan-text: #4A3B38;
+    -pan-muted: #C9AFB6;
+
+    /*
+     * Rounded letterforms to match the panda. The stack degrades sanely off
+     * Windows: Comic Sans MS also ships with macOS, Chalkboard SE is the Mac
+     * equivalent, and Comic Neue is the usual Linux package. JavaFX has no
+     * @font-face, so a font must already be on the machine - hence a stack
+     * rather than a bundled file.
+     *
+     * 15px rather than 14: this face has a smaller x-height than Segoe UI, so
+     * the same nominal size reads noticeably smaller.
+     */
+    -fx-font-family: "Comic Sans MS", "Comic Neue", "Chalkboard SE", sans-serif;
+    -fx-font-size: 15px;
+    -fx-background-color: -pan-cream;
+}
+
+/* ------------------------------------------------------- the scrolling area
+ * The ScrollPane paints its own grey box by default. Clearing both the pane
+ * and its viewport lets the cream page show through, which is most of what
+ * stops the window looking like a default Java app.
+ */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* A slim thumb with no arrow buttons: the scrollbar now appears only when the
+ * conversation overflows, so it should take as little room as possible.
+ */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #E8CBD4;
+    -fx-background-radius: 5;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: -pan-accent;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button,
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-background-color: transparent;
+    -fx-pref-height: 0;
+    -fx-padding: 0;
+}
+
+/* -------------------------------------------------------------- chat bubbles
+ * .dialog-bubble is the shape shared by both speakers; .pan-bubble and
+ * .user-bubble only supply the colours, so the two can never drift apart.
+ */
+.dialog-bubble {
+    -fx-padding: 10 14 10 14;
+    -fx-background-radius: 16;
+    -fx-text-fill: -pan-text;
+    -fx-line-spacing: 2;
+}
+
+.pan-bubble {
+    -fx-background-color: -pan-white;
+    -fx-border-color: -pan-hairline;
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+}
+
+.user-bubble {
+    -fx-background-color: -pan-pink;
+}
+
+/* ------------------------------------------------------------------ avatars
+ * The circular crop itself is applied in DialogBox.java, because a clip is a
+ * shape rather than a style. That crop is also what tidies up the human
+ * picture, which is a JPEG and so carries an opaque white background it
+ * cannot shed - the circle simply cuts the square corners off.
+ *
+ * Deliberately no -fx-effect here: JavaFX applies a node's clip AFTER its
+ * effect, so a drop shadow would be sliced off at the circle's edge and show
+ * as a hard crescent rather than a soft halo.
+ */
+.avatar {
+    -fx-smooth: true;
+}
+
+/* ---------------------------------------------------------------- input row */
+.input-field {
+    -fx-background-color: -pan-white;
+    -fx-background-radius: 18;
+    -fx-border-color: -pan-hairline;
+    -fx-border-radius: 18;
+    -fx-border-width: 1;
+    -fx-padding: 8 14 8 14;
+    -fx-text-fill: -pan-text;
+    -fx-prompt-text-fill: -pan-muted;
+}
+
+.input-field:focused {
+    -fx-border-color: -pan-accent;
+}
+
+.send-button {
+    -fx-background-color: -pan-accent;
+    -fx-background-radius: 18;
+    -fx-text-fill: -pan-white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: #FF7C9C;
+}
+
+.send-button:pressed {
+    -fx-background-color: -pan-accent-dark;
+}
+
+/* Both controls are disabled together after "bye", just before the window
+ * closes; fading them makes that read as deliberate rather than broken.
+ */
+.send-button:disabled,
+.input-field:disabled {
+    -fx-opacity: 0.45;
+}
