@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI Test Runner"
+  short_description: "Run repeatable CLI interaction tests"
+  default_prompt: "Use $test-ui to run the project's documented command-line interaction tests."

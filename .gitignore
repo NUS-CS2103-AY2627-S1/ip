@@ -1,6 +1,7 @@
 # IDEA files
 /.idea/
 /out/
+/data/
 /*.iml
 
 # Gradle build files
@@ -18,3 +19,6 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Compiled java .class file
+*.class

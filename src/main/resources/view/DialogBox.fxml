@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<fx:root alignment="BOTTOM_RIGHT"
+         fillHeight="false"
+         maxWidth="1.7976931348623157E308"
+         spacing="12.0"
+         styleClass="dialog-row"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialog"
+               minHeight="-Infinity"
+               styleClass="dialog-bubble"
+               wrapText="true" />
+        <StackPane fx:id="avatar"
+                   maxHeight="42.0"
+                   maxWidth="42.0"
+                   minHeight="42.0"
+                   minWidth="42.0"
+                   prefHeight="42.0"
+                   prefWidth="42.0"
+                   styleClass="avatar">
+            <children>
+                <ImageView fx:id="avatarImage"
+                           fitHeight="40.0"
+                           fitWidth="40.0"
+                           managed="false"
+                           preserveRatio="true"
+                           smooth="false"
+                           visible="false" />
+                <Label fx:id="avatarText"
+                       alignment="CENTER"
+                       managed="false"
+                       maxHeight="1.7976931348623157E308"
+                       maxWidth="1.7976931348623157E308"
+                       styleClass="avatar-text"
+                       visible="false" />
+            </children>
+        </StackPane>
+    </children>
+    <padding>
+        <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
+    </padding>
+</fx:root>

@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: intermediate
+* IDE and level of expertise: intermediate
 
 # Guidance for interacting with users
 
@@ -24,6 +24,13 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Required project skills
+
+* Before writing, reviewing, or refactoring Java code, read and follow
+  `.agents/skills/seedu-java-coding-standard/SKILL.md`.
+* Before proposing or creating a Git commit message or branch name, read and
+  follow `.agents/skills/seedu-git-standard/SKILL.md`.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
@@ -33,3 +40,12 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## Required verification after code changes
+
+After every application code update:
+
+1. Update `test/ui-test-plan.md` when commands, output, or covered behavior changes.
+2. Invoke the project-local `test-ui` skill and resolve any failed case before considering the change complete.
+
+The UI test harness must show the console input and output for each case and stop immediately on the first failure.
