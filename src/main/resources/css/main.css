@@ -1,0 +1,108 @@
+/* The window itself: the conversation area, the input row and the send button.
+
+   The look is chosen to match how Billy talks: warm, unhurried and plain. The
+   neutrals are all slightly yellow rather than gray, the corners are generous,
+   and the one saturated color is a warm caramel (#96603a), which is what marks
+   whatever the user is doing right now. Errors bring the only other saturated
+   color, in dialog-box.css, and it is kept clearly apart from this one.
+
+   Trebuchet is asked for first because it is humanist and a little informal
+   without being a novelty face, and because it ships on both macOS and Windows,
+   so the window looks the same on either. */
+
+.root {
+    -fx-background-color: #f2ece1;
+    -fx-font-family: "Trebuchet MS", "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+}
+
+/* Transparent, so the window's own background shows through rather than the
+   scroll pane painting its default gray panel on top of it. */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* A thin scrollbar with no end buttons. The default one is about three times
+   this wide, and in a window this narrow that width is taken away from the text
+   the user is actually reading. */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #d5cab5;
+    -fx-background-radius: 4;
+}
+
+.scroll-bar:vertical .track,
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+/* An arrow with no shape and no padding takes up no room, which is how the end
+   buttons are removed without removing the scrollbar itself. */
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 0;
+    -fx-shape: " ";
+}
+
+/* The input row. A hairline divides it from the conversation, which costs one
+   pixel where a gap of empty background would cost ten. */
+.input-bar {
+    -fx-background-color: #fffcf6;
+    -fx-border-color: #e3d9c6;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 0 10 0 10;
+}
+
+.text-field {
+    -fx-background-color: #f2ece1;
+    -fx-background-radius: 20;
+    -fx-font-size: 13px;
+    -fx-padding: 8 14 8 14;
+    -fx-prompt-text-fill: #6f6656;
+    -fx-text-fill: #2f2a25;
+}
+
+/* The box the user is typing in turns white and picks up an accent outline, so
+   it is obvious which control the keyboard is talking to. */
+.text-field:focused {
+    -fx-background-color: #fffcf6;
+    -fx-border-color: #96603a;
+    -fx-border-radius: 20;
+    -fx-border-width: 1;
+}
+
+/* White on this caramel is 5.2:1, comfortably past the 4.5:1 that text of this
+   size needs to stay legible. The green it replaces managed only 3.6:1. */
+.button {
+    -fx-background-color: #96603a;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16 8 16;
+    -fx-text-fill: white;
+}
+
+/* Lightened on hover, but only as far as 4.5:1 allows. */
+.button:hover {
+    -fx-background-color: #a26a38;
+}
+
+.button:pressed {
+    -fx-background-color: #7d502f;
+}
+
+.button:disabled {
+    -fx-opacity: 0.5;
+}

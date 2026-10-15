@@ -1,0 +1,19 @@
+# Settings for the GitHub Pages site built from this folder.
+#
+# Without a title, GitHub Pages falls back to the repository name, so the page
+# was headed "ip" rather than the product's name. Naming it here puts Billy at
+# the very top, above the guide's own heading.
+title: Billy
+description: A task chatbot with rather more to say about your list than it strictly needs to.
+
+# Cayman shows the title and description as a header banner, which the
+# default theme does not, and styles the tables more legibly.
+theme: jekyll-theme-cayman
+
+# Cayman heads the page with the page title, and GitHub Pages otherwise takes
+# that from the first heading in the file -- which would print "Billy User
+# Guide" in the banner and again immediately below it. Switched off, the banner
+# falls back to the site title above, so the banner reads "Billy" and the
+# guide's own heading is not repeated.
+titles_from_headings:
+  enabled: false
