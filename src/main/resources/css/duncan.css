@@ -1,0 +1,263 @@
+/*
+ * Styling for Duncan's GUI, the "Slate" dark theme.
+ *
+ * One accent colour (-accent) does all the interactive work: the user's
+ * bubble, the focus ring, the Send button. Everything else is either a
+ * neutral surface, or a semantic colour that means something: green for
+ * done, red for errors, amber for warnings. The task types get muted hues
+ * from the families those meanings leave free.
+ *
+ * Style classes set from Java follow two patterns:
+ *   severity-normal | severity-warning | severity-error   (Ui.Severity)
+ *   kind-plain | kind-todo | kind-deadline | kind-event | kind-done
+ *       | kind-not-done | kind-date                       (TaskLineParser.Kind)
+ * severity-normal and kind-plain deliberately have no rules of their own.
+ *
+ * JavaFX applies equal-specificity rules in file order, so within each
+ * section below the general rule comes before the ones that override it.
+ */
+
+.root {
+    -page: #14181D;
+    -panel: #1B2026;
+    -border: #2A313A;
+    -field: #10141A;
+    -text: #E6EDF3;
+    -muted: #8B949E;
+
+    -accent: #2F6FEB;
+    -accent-hover: #4A85F5;
+    -accent-pressed: #2560D0;
+    -accent-dim: #47698F;
+
+    -done: #3FB950;
+
+    -error-rule: #F85149;
+    -error-background: #3A1D1D;
+    -error-text: #FFB4AB;
+
+    -warning-rule: #D29922;
+    -warning-text: #E3B341;
+
+    -type-todo: #9AA5B1;
+    -type-deadline: #B29AD6;
+    -type-event: #7AB5B8;
+
+    -scroll-thumb: #313A45;
+    -scroll-thumb-hover: #3E4854;
+
+    -fx-background-color: -page;
+    -fx-font-family: "System";
+}
+
+/* ---- Conversation area ---- */
+
+.scroll-pane {
+    -fx-background-color: -page;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: -page;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: -page;
+}
+
+.dialog-container {
+    -fx-background-color: -page;
+    -fx-padding: 12;
+    -fx-spacing: 8;
+}
+
+/* ---- Scroll bars ---- */
+
+.scroll-bar {
+    -fx-background-color: -page;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-bar:vertical {
+    -fx-pref-width: 10;
+}
+
+.scroll-bar > .track,
+.scroll-bar > .track-background {
+    -fx-background-color: -page;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar > .thumb {
+    -fx-background-color: -scroll-thumb;
+    -fx-background-insets: 2;
+    -fx-background-radius: 5;
+}
+
+.scroll-bar > .thumb:hover,
+.scroll-bar > .thumb:pressed {
+    -fx-background-color: -scroll-thumb-hover;
+}
+
+.scroll-bar > .increment-button,
+.scroll-bar > .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+}
+
+.scroll-bar > .increment-button > .increment-arrow,
+.scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-shape: "";
+    -fx-padding: 0;
+}
+
+/* ---- Logo, the first thing in the conversation ---- */
+
+.logo {
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 10px;
+    -fx-text-fill: -accent-dim;
+    /* No -fx-line-spacing: a Label leaves it out of its preferred height, which clips the last line. */
+    -fx-padding: 3 0 3 0;
+}
+
+/* ---- Bubbles ---- */
+
+.bubble-user {
+    -fx-background-color: -accent;
+    -fx-background-radius: 14;
+    -fx-padding: 8 12;
+}
+
+.bubble-user .dialog-text {
+    -fx-fill: white;
+    -fx-font-family: "System";
+    -fx-font-size: 13px;
+}
+
+.bubble-duncan {
+    -fx-background-color: -panel;
+    -fx-background-radius: 8;
+    -fx-padding: 8 12;
+    -fx-line-spacing: 3px;
+}
+
+.bubble-duncan .dialog-text {
+    -fx-fill: -text;
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 12.5px;
+}
+
+/* An error or warning keeps the bubble's shape but gets a coloured left edge. */
+.bubble-duncan.severity-warning {
+    -fx-border-color: transparent transparent transparent -warning-rule;
+    -fx-border-width: 0 0 0 3;
+    -fx-background-radius: 0 8 8 0;
+}
+
+.bubble-duncan.severity-error {
+    -fx-background-color: -error-background;
+    -fx-border-color: transparent transparent transparent -error-rule;
+    -fx-border-width: 0 0 0 3;
+    -fx-background-radius: 0 8 8 0;
+}
+
+/* Only the lines that are themselves warnings or errors change colour. */
+.bubble-duncan .severity-warning {
+    -fx-fill: -warning-text;
+}
+
+.bubble-duncan .severity-error {
+    -fx-fill: -error-text;
+}
+
+/* Parts of a task line, coloured on top of the default text colour. */
+.bubble-duncan .kind-todo {
+    -fx-fill: -type-todo;
+}
+
+.bubble-duncan .kind-deadline {
+    -fx-fill: -type-deadline;
+}
+
+.bubble-duncan .kind-event {
+    -fx-fill: -type-event;
+}
+
+.bubble-duncan .kind-done {
+    -fx-fill: -done;
+}
+
+.bubble-duncan .kind-not-done,
+.bubble-duncan .kind-date {
+    -fx-fill: -muted;
+}
+
+/* ---- Input bar ---- */
+
+.input-bar {
+    -fx-background-color: -panel;
+    -fx-border-color: -border transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 8;
+    -fx-spacing: 8;
+    -fx-alignment: center;
+}
+
+.input-field {
+    -fx-background-color: -field;
+    -fx-background-insets: 0;
+    -fx-background-radius: 6;
+    -fx-border-color: -border;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-text-fill: -text;
+    -fx-prompt-text-fill: -muted;
+    -fx-highlight-fill: -accent;
+    -fx-highlight-text-fill: white;
+    -fx-font-family: "System";
+    -fx-font-size: 13px;
+    -fx-padding: 7 10;
+}
+
+.input-field:focused {
+    -fx-border-color: -accent;
+    -fx-effect: dropshadow(gaussian, rgba(47, 111, 235, 0.35), 6, 0.4, 0, 0);
+}
+
+.input-field:disabled {
+    -fx-opacity: 0.5;
+}
+
+.send-button {
+    -fx-background-color: -accent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 6;
+    -fx-text-fill: white;
+    -fx-font-family: "System";
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 7 16;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: -accent-hover;
+}
+
+.send-button:pressed {
+    -fx-background-color: -accent-pressed;
+}
+
+.send-button:focused {
+    -fx-effect: dropshadow(gaussian, rgba(47, 111, 235, 0.45), 6, 0.4, 0, 0);
+}
+
+.send-button:disabled {
+    -fx-opacity: 0.5;
+}

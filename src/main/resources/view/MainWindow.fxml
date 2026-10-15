@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane minHeight="420.0" minWidth="460.0"
+            prefHeight="700.0" prefWidth="520.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="duncan.gui.MainWindow">
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER">
+            <content>
+                <VBox fx:id="dialogContainer" styleClass="dialog-container" />
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox styleClass="input-bar">
+            <children>
+                <TextField fx:id="userInput"
+                           onAction="#handleUserInput"
+                           promptText="type a command..."
+                           styleClass="input-field"
+                           HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton"
+                        mnemonicParsing="false"
+                        onAction="#handleUserInput"
+                        styleClass="send-button"
+                        text="Send" />
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>
