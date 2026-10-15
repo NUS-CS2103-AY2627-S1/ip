@@ -1,0 +1,66 @@
+.root-pane {
+    -fx-background-color: #fff6e9;
+    -fx-font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+.app-title {
+    -fx-background-color: #ff9800;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 0 8 14;
+    -fx-pref-height: 40;
+}
+
+.chat-scroll, .chat-scroll .viewport {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.dialog-container {
+    -fx-background-color: transparent;
+    -fx-padding: 10 10 10 10;
+    -fx-spacing: 6;
+}
+
+/* Summer's replies: left-aligned bubble in a warm sand tone. */
+.dialog-label {
+    -fx-background-color: #ffe0b2;
+    -fx-background-radius: 14;
+    -fx-padding: 10 14 10 14;
+    -fx-font-size: 13px;
+    -fx-text-fill: #4a3520;
+}
+
+/* User's messages: right-aligned bubble in ocean blue, to visually separate
+ * the user's side of the conversation from Summer's replies. */
+.user-dialog-label {
+    -fx-background-color: #4fc3d9;
+    -fx-text-fill: white;
+}
+
+.error-dialog {
+    -fx-background-color: #ffccbc;
+    -fx-text-fill: #b71c1c;
+    -fx-border-color: #e53935;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 14;
+}
+
+.user-input {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #ffb74d;
+    -fx-font-size: 13px;
+}
+
+.send-button {
+    -fx-background-color: #ff9800;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+}
+
+.send-button:hover {
+    -fx-background-color: #fb8c00;
+}

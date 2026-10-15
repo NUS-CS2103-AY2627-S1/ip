@@ -3,6 +3,9 @@
 /out/
 /*.iml
 
+# Java Class Files
+*.class
+
 # Gradle build files
 /.gradle/
 /build/
@@ -15,6 +18,13 @@ bin/
 
 # Temp files
 _temp/
+
+# Saved task data (generated at runtime)
+/data/
+
+# Codex local files
+.codex/
+.claude
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
