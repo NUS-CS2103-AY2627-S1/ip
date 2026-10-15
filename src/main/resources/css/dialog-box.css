@@ -1,0 +1,57 @@
+/* Dialog Box and Message Bubble Styles */
+.dialog-box {
+    -fx-spacing: 10px;
+}
+
+.user-dialog {
+    -fx-alignment: top-right;
+}
+
+.dave-dialog {
+    -fx-alignment: top-left;
+}
+
+/* Base dialog label */
+.label {
+    -fx-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2.5px;
+}
+
+/* User speech bubble - compact, distinct royal blue, asymmetric shape */
+.user-label {
+    -fx-background-color: #2563eb;
+    -fx-background-radius: 14px 14px 2px 14px;
+    -fx-padding: 8px 14px;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 1);
+}
+
+/* Dave assistant speech bubble - card-like, dark slate, asymmetric shape */
+.dave-label {
+    -fx-background-color: #202330;
+    -fx-background-radius: 14px 14px 14px 2px;
+    -fx-border-color: #2e3447;
+    -fx-border-radius: 14px 14px 14px 2px;
+    -fx-border-width: 1px;
+    -fx-padding: 10px 15px;
+    -fx-text-fill: #e2e8f0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 6, 0, 0, 2);
+}
+
+/* Dave error speech bubble - crimson background, red accent border, catching attention */
+.error-label {
+    -fx-background-color: #2e1319;
+    -fx-background-radius: 14px 14px 14px 2px;
+    -fx-border-color: #f43f5e;
+    -fx-border-radius: 14px 14px 14px 2px;
+    -fx-border-width: 1px;
+    -fx-padding: 10px 15px;
+    -fx-text-fill: #ffe4e6;
+    -fx-effect: dropshadow(gaussian, rgba(244, 63, 94, 0.3), 8, 0, 0, 1);
+}
+
+/* Display picture styling */
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4, 0, 0, 1);
+}
