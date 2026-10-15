@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import anders.ProfileIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<fx:root type="BorderPane" prefHeight="640.0" prefWidth="460.0" styleClass="main-window"
+         stylesheets="@main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <VBox spacing="14.0" styleClass="header">
+            <HBox alignment="CENTER_LEFT" spacing="12.0">
+                <ProfileIcon fx:id="brandIcon" />
+                <VBox spacing="2.0">
+                    <Label fx:id="appName" styleClass="app-title" />
+                    <Label fx:id="tagline" styleClass="tagline" />
+                </VBox>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="8.0">
+                <Label text="ONE STEP AT A TIME" styleClass="trail-caption" />
+                <Region minWidth="0.0" HBox.hgrow="ALWAYS" />
+                <Button fx:id="tasksButton" text="Tasks" onAction="#showTasks" styleClass="quiet-button">
+                    <tooltip><Tooltip text="Show your task list without replacing your draft" /></tooltip>
+                </Button>
+                <Button fx:id="helpButton" text="Commands" onAction="#showHelp" styleClass="quiet-button">
+                    <tooltip><Tooltip text="Light the way with command examples" /></tooltip>
+                </Button>
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED" styleClass="conversation" accessibleText="Conversation with Anders">
+            <content>
+                <VBox fx:id="messages" spacing="14.0" styleClass="messages" />
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <VBox spacing="8.0" styleClass="composer">
+            <Label text="A small step starts here." styleClass="composer-caption" />
+            <HBox alignment="CENTER" spacing="8.0">
+                <TextField fx:id="input" onAction="#handleInput" onKeyPressed="#handleHistory"
+                           promptText="Try: todo read chapter 1" accessibleText="Command"
+                           minWidth="0.0" HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton" text="Send" onAction="#handleInput"
+                        minWidth="-Infinity" styleClass="send-button">
+                    <tooltip><Tooltip text="Send command (Enter)" /></tooltip>
+                </Button>
+            </HBox>
+            <Label text="Enter to send &#183; &#8593;/&#8595; history &#183; Right-click a reply to copy"
+                   wrapText="true" styleClass="input-hint" />
+        </VBox>
+    </bottom>
+</fx:root>

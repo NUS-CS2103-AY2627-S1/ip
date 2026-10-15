@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Beginner to Intermediate, around 1 year of experience
+* IDE and level of expertise: Beginner
 
 # Guidance for interacting with users
 
@@ -24,11 +24,34 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Java coding standard
+
+All Java production and test code in this project MUST follow the project-specific
+`seedu-java-coding-standard` skill at `.codex/skills/seedu-java-coding-standard/SKILL.md`,
+which is based on the SE-EDU basic + intermediate Java coding standard. Apply it to
+new code and when modifying existing code; preserve behavior while correcting style.
+
+## Testing workflow
+
+After every code update:
+
+1. Update or add JUnit tests so that tests cover at least the top 50% highest-value methods, prioritizing complex, core, or critical business logic. JUnit tests must be updated after each code change to maintain compliance with this target.
+2. Review `test/ui-test-plan.md` and update it when the changed behavior requires new or revised UI test cases.
+3. Invoke the project-specific `test-ui` skill using `.codex/skills/test-ui/SKILL.md` and run its documented UI tests.
+4. Report the test result, including the console input/output session or the expected and actual output when a test fails.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
 ## Git
+
+All future commits and branches MUST follow the project-specific
+`seedu-git-standard` skill at `.codex/skills/seedu-git-standard/SKILL.md`,
+which is based on the SE-EDU Git conventions. Commit subjects must be imperative,
+capitalized, concise, and without a final period; non-trivial commits must include
+a 72-character-wrapped body explaining what changed and why. Branches must use
+meaningful kebab-case names.
 
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.

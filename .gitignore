@@ -13,8 +13,17 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Runtime task data
+/data/
+
 # Temp files
 _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Local Codex skills
+/.codex/skills/present-changes-visually/
+/.codex/skills/test-ui/
+/.codex/skills/seedu-git-standard/
+/.codex/skills/seedu-java-coding-standard/

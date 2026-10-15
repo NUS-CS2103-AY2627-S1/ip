@@ -1,0 +1,126 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+def javaFxVersion = '17.0.7'
+def javaFxPlatforms = ['win', 'linux', 'mac', 'mac-aarch64']
+def osName = System.getProperty('os.name').toLowerCase(Locale.ROOT)
+def architecture = System.getProperty('os.arch').toLowerCase(Locale.ROOT)
+def isArm = architecture in ['aarch64', 'arm64']
+def hostPlatform = osName.startsWith('windows') ? 'win' :
+        osName.startsWith('mac') ? (isArm ? 'mac-aarch64' : 'mac') : 'linux'
+
+configurations {
+    // Separate release dependencies from the host libraries used by run and test.
+    javafxBundle {
+        canBeConsumed = false
+        transitive = false
+    }
+}
+
+dependencies {
+    ['base', 'controls', 'fxml', 'graphics'].each { module ->
+        implementation("org.openjfx:javafx-${module}:${javaFxVersion}:${hostPlatform}") {
+            transitive = false
+        }
+        javaFxPlatforms.each { platform ->
+            javafxBundle "org.openjfx:javafx-${module}:${javaFxVersion}:${platform}"
+        }
+    }
+
+    String jUnitVersion = '5.14.4'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+sourceSets {
+    // The smoke agent is a test tool, never part of the application JAR.
+    smoke {
+        compileClasspath += sourceSets.main.output + configurations.runtimeClasspath
+    }
+    test {
+        compileClasspath += sourceSets.smoke.output
+        runtimeClasspath += sourceSets.smoke.output
+    }
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'anders.Launcher'
+}
+
+jar {
+    enabled = false
+    archiveClassifier = 'without-dependencies'
+}
+
+tasks.register('prepareJavafxBundle', Sync) {
+    into layout.buildDirectory.dir('javafx-bundle')
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    javaFxPlatforms.each { platform ->
+        from({
+            configurations.javafxBundle.files
+                    .findAll { it.name.endsWith("-${platform}.jar") }
+                    .collect { zipTree(it) }
+        }) {
+            exclude 'module-info.class', 'META-INF/MANIFEST.MF'
+            // Intel and ARM Mac libraries have identical names; keep both copies.
+            filesMatching(['*.dll', '*.so', '*.dylib']) {
+                path = "natives/${platform}/${name}"
+            }
+        }
+    }
+}
+
+shadowJar {
+    archiveFileName = 'anders.jar'
+    dependencies {
+        exclude(dependency('org.openjfx:.*'))
+    }
+    from tasks.named('prepareJavafxBundle')
+    manifest {
+        attributes 'Anders-JavaFX-Version': javaFxVersion
+    }
+    failOnDuplicateEntries = true
+}
+
+tasks.register('smokeAgentJar', Jar) {
+    archiveFileName = 'anders-smoke-agent.jar'
+    from sourceSets.smoke.output
+    manifest {
+        attributes 'Premain-Class': 'anders.smoke.SmokeAgent'
+    }
+}
+
+run {
+    standardInput = System.in
+}

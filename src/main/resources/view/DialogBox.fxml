@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import anders.ProfileIcon?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<fx:root type="HBox" alignment="TOP_LEFT" spacing="8.0" minHeight="-Infinity"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ProfileIcon fx:id="avatar" />
+        <VBox fx:id="bubble" spacing="3.0" minWidth="0.0" HBox.hgrow="ALWAYS" styleClass="bubble">
+            <children>
+                <Label fx:id="speaker" styleClass="speaker" />
+                <Label fx:id="message" wrapText="true" minWidth="0.0" minHeight="-Infinity"
+                       maxWidth="Infinity" styleClass="message-text" />
+            </children>
+        </VBox>
+    </children>
+</fx:root>
