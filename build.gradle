@@ -1,0 +1,96 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javaFxVersion = '25'
+
+    // JavaFX ships as a separate artifact per operating system and CPU, because each
+    // one carries its own native libraries. Several are listed so that the single JAR
+    // built by shadowJar runs on other machines, not just the one that built it.
+    // A dependency without a classifier would fetch an empty placeholder jar instead.
+    //
+    // Only one CPU per operating system can be included: the native libraries sit at
+    // the root of their artifact with no architecture in the file name, so adding
+    // both the Intel and the ARM build of one platform makes them collide inside the
+    // JAR and the loser is silently dropped. Chosen here are the architectures a
+    // reader of this JAR is most likely to be on: ARM for macOS, Intel elsewhere.
+    for (String platform : ['win', 'mac-aarch64', 'linux']) {
+        // graphics and base are pulled in explicitly rather than left to Gradle: the
+        // transitive versions come without a classifier, so they carry no natives.
+        implementation "org.openjfx:javafx-base:${javaFxVersion}:${platform}"
+        implementation "org.openjfx:javafx-graphics:${javaFxVersion}:${platform}"
+        implementation "org.openjfx:javafx-controls:${javaFxVersion}:${platform}"
+        implementation "org.openjfx:javafx-fxml:${javaFxVersion}:${platform}"
+    }
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    // The windowed chatbot. The console one is still there and still works: it is
+    // started by running bob.Bob, which is what the text UI test runner does.
+    //
+    // Launcher, rather than the Application subclass itself, is the entry point
+    // because JavaFX refuses to start from a class it cannot find its own runtime
+    // for on the module path — which is the situation inside a plain JAR.
+    mainClass = 'bob.Launcher'
+
+    // JavaFX loads its own native libraries, which Java now warns about unless the
+    // module doing it is named as allowed to. The warning says nothing the user of
+    // a chatbot can act on, so it is silenced rather than printed at every start.
+    // -ea turns the assert statements on. They are off by default in Java, and an
+    // assertion that never runs documents an assumption without ever checking it.
+    applicationDefaultJvmArgs = ['-ea', '--enable-native-access=javafx.graphics']
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'bob.jar'
+
+    // The same permission that applicationDefaultJvmArgs grants the `run` task, but
+    // for `java -jar`, which does not read that setting. Without it JavaFX prints
+    // four lines of warning about loading its natives before the window appears.
+    manifest {
+        attributes 'Enable-Native-Access': 'ALL-UNNAMED'
+    }
+}
+
+run {
+    standardInput = System.in
+}

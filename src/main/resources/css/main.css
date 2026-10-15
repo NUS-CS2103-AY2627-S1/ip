@@ -1,0 +1,107 @@
+/*
+ * How the chatbot's window is colored and spaced.
+ *
+ * Kept apart from the FXML for the same reason the FXML is kept apart from the
+ * Java: this is the part most often changed simply because it did not look
+ * right, and a change here needs no recompiling and touches nothing else.
+ *
+ * The colors are Bob the Minion's: the background is the denim of his overalls,
+ * and the user's bubbles and the button are the yellow of his skin, so the window
+ * looks like the Minion the chatbot speaks as.
+ */
+
+.root {
+    /*
+     * Diagonal stripes in two close shades of denim. The gradient runs along a
+     * 24px diagonal and repeats; both colors stopping at 50% gives a hard edge
+     * between them rather than a blend, which is what makes it stripes. The two
+     * shades are close so the stripes stay a texture behind the bubbles and never
+     * compete with the text.
+     */
+    -fx-background-color: linear-gradient(from 0px 0px to 24px 24px, repeat, #2f5d9e 50%, #3a69ad 50%);
+    -fx-font-family: "Helvetica Neue", "Segoe UI", sans-serif;
+    -fx-font-size: 13px;
+}
+
+/* The scrolling conversation sits directly on the window's background. */
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.scroll-pane {
+    -fx-padding: 6 0 6 0;
+}
+
+/*
+ * A speech bubble. The bubble is the label rather than the row holding it, so
+ * that it is only as wide as what was said instead of stretching across the
+ * window; the row takes care of pushing it to the correct side.
+ *
+ * Minion yellow with dark text: a blue bubble would disappear into the denim
+ * behind it, and yellow is the one color that stands out from it.
+ */
+.dialog-bubble {
+    -fx-background-color: #fce029;
+    -fx-background-radius: 14 14 2 14;
+    -fx-text-fill: #1b2145;
+    -fx-padding: 9 13 9 13;
+    -fx-line-spacing: 2;
+}
+
+/* The chatbot's bubbles: the other color, and the tail on the other corner. */
+.bob-bubble {
+    -fx-background-color: #f0ece3;
+    -fx-background-radius: 14 14 14 2;
+    -fx-text-fill: #1b2145;
+}
+
+/*
+ * A bubble holding a complaint rather than an answer, so that a mistyped command
+ * is obvious without being read.
+ *
+ * Written after .bob-bubble rather than before it: both name a single class, so
+ * neither outweighs the other and the later of the two is the one that takes
+ * effect. Only the two colors are given here, which leaves the bubble the shape
+ * and the tail it already has — an error is still the chatbot speaking, and
+ * should not look like a different kind of thing on the screen.
+ *
+ * A washed-out red rather than a strong one. The message is an explanation of
+ * what to type instead, not a warning, and it has to stay comfortable to read
+ * against the blue background around it.
+ */
+.error-bubble {
+    -fx-background-color: #f6dada;
+    -fx-text-fill: #7c2020;
+}
+
+/* A darker denim than the stripes, so the box reads as a place to type. */
+.text-field {
+    -fx-background-color: #1f3d6e;
+    -fx-background-radius: 8;
+    -fx-text-fill: #ffffff;
+    -fx-prompt-text-fill: #a9bde0;
+    -fx-padding: 0 12 0 12;
+}
+
+.text-field:focused {
+    -fx-background-color: #264a85;
+}
+
+/* The same yellow as the user's bubbles, since it is what sends them. */
+.button {
+    -fx-background-color: #fce029;
+    -fx-background-radius: 8;
+    -fx-text-fill: #1b2145;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #ffea5c;
+}
+
+.button:disabled,
+.text-field:disabled {
+    -fx-opacity: 0.5;
+}

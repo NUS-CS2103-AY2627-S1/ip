@@ -16,5 +16,12 @@ bin/
 # Temp files
 _temp/
 
+# Tasks saved by the chatbot: one user's own data, written while the program
+# runs, not part of the project's source
+/data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Claude Code personal settings (machine-specific, not shared with the project)
+/.claude/settings.local.json
