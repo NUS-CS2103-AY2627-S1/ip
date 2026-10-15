@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<!--
+  One message: the text, then the speaker's picture. No width is fixed here,
+  so the row is as wide as the conversation and the text wraps to fit it.
+-->
+<fx:root alignment="TOP_RIGHT"
+         spacing="8.0"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <Label fx:id="dialog" styleClass="bubble" text="Label" wrapText="true" minHeight="-Infinity" />
+    <ImageView fx:id="displayPicture" fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" />
+  </children>
+  <padding>
+    <Insets bottom="2.0" left="4.0" right="4.0" top="2.0" />
+  </padding>
+</fx:root>
