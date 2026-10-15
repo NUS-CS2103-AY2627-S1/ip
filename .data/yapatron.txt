@@ -1,0 +1,3 @@
+[DEADLINE] | 0 | tt | 1100
+[TASK] | 0 | tttt
+[TASK] | 0 | clear

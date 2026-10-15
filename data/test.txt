@@ -1,0 +1,2 @@
+[TASK] | 0 | same task
+[TASK] | 0 |   same task

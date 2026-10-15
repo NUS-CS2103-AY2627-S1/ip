@@ -1,25 +1,149 @@
-# Duke project template
+# Yapatron 
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Yapatron is your little task minion! Throw any task you want at it (or, the ones within our parameters) and it'll save it for you. Although, it might give you some attitude.
 
-## Setting up in Intellij
+## Getting started
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+### Requirements
+- JDK 25
+- An IDE or terminal
+- The zip file or jar, which can be found [here](https://github.com/carlyngohing/ip/releases/download/A-Release7/yapatron.jar)
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### To run the application
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+If you downloaded the zip file of the project:
+
+From the project root, run:
+```
+./gradlew run
+```
+
+With the jar file, run:
+```
+java -jar "yapatron.jar"
+```
+
+This runs the main JavaFx GUI. Type 'help' for commands.
+
+
+## Creating tasks
+
+### Todo tasks
+
+Create a simple todo task with
+```
+todo <description>
+```
+
+This adds a todo task to the list of tasks.
+
+Example:
+```
+todo sleep
+```
+
+### Deadline and Event tasks
+
+Create tasks with specific time frames.
+
+For deadline:
+```
+deadline <description> /by <d/M/yyyy HHmm>
+```
+
+This is for tasks with deadlines. 
+You can also simply just enter the date or time alone.
+
+For event:
+```
+event <description> /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>
+```
+
+This is for tasks with time frames.
+You can also simply just enter the date or time alone.
+
+
+When called, the tasks will be added to your task list.
+
+Example:
+```
+deadline werk /by 2/2/2027 2200
+event training /from 1930 /to 2200
+```
+## Marking tasks
+
+Mark or unmark specific tasks to show their completion status. The task number used below is their index in the last list.
+
+Task numbers start at 1.
+
+To mark:
+```
+mark <task number>
+```
+
+Marked tasks will have a 'X' next to them.
+
+To unmark:
+```
+unmark <task number>
+```
+
+Example:
+```
+unmark 2
+```
+## View your task list
+
+To view your task list, type:
+```
+list
+```
+Yapatron will return your entire numbered task list.
+
+## Search through your list
+
+To search through your task list, type:
+```
+find <keyword>
+```
+
+Yapatron supports partial searches, so it will still return a result even if you forget the full name of the task.
+
+Example:
+```
+find sleep
+```
+
+## Delete tasks
+
+To delete a task, type:
+```
+delete <task number>
+```
+
+This removes the task at that index from the list, and updates the list accordingly.
+
+Example:
+```
+delete 1
+```
+
+## Error messages
+
+When an invalid input is entered, Yapatron will report a message to inform you. Common errors include:
+
+- Missing task descriptions
+- Missing task timings for events and deadlines
+- Invalid task numbers (according to the list)
+- Invalid start and end times
+
+## Leave the bot
+To close the application, type:
+```
+bye
+```
+
+
+
+
+
