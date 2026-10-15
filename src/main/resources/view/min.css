@@ -1,0 +1,107 @@
+/*
+ * Min's colour scheme: warm and low-contrast, to match a relaxed voice.
+ *
+ * Palette
+ *   window      #FDFBF7   off-white
+ *   Min bubble  #E8F1EE   soft mint
+ *   user bubble #FFE6D9   warm peach
+ *   accent      #5C9E8F   muted teal
+ *   text        #2F3A38   dark slate
+ *   border      #D9D2C7   warm grey
+ */
+
+.root {
+    -fx-background-color: #FDFBF7;
+    -fx-font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+    -fx-font-size: 13px;
+}
+
+/*
+ * The scroll pane and its viewport both need a background. Styling only the
+ * scroll pane leaves JavaFX painting its default grey behind the conversation.
+ */
+.scroll-pane {
+    -fx-background-color: #FDFBF7;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #FDFBF7;
+}
+
+/* The conversation is not an input, so it should not draw a focus ring. */
+.scroll-pane:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #D9D2C7;
+    -fx-background-radius: 6;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 0;
+}
+
+.dialog-box {
+    -fx-spacing: 8;
+}
+
+/* The speech bubble itself: the label carries the background, not the row. */
+.dialog-text {
+    -fx-text-fill: #2F3A38;
+    -fx-padding: 10 14 10 14;
+    -fx-background-radius: 18;
+    -fx-line-spacing: 2;
+    -fx-effect: dropshadow(gaussian, rgba(47, 58, 56, 0.10), 6, 0, 0, 2);
+}
+
+.min-bubble {
+    -fx-background-color: #E8F1EE;
+}
+
+.user-bubble {
+    -fx-background-color: #FFE6D9;
+}
+
+.text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 18;
+    -fx-border-color: #D9D2C7;
+    -fx-border-radius: 18;
+    -fx-padding: 8 14 8 14;
+    -fx-text-fill: #2F3A38;
+    -fx-prompt-text-fill: #A8A093;
+}
+
+.text-field:focused {
+    -fx-border-color: #5C9E8F;
+}
+
+.button {
+    -fx-background-color: #5C9E8F;
+    -fx-background-radius: 18;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #4A8375;
+}
+
+.button:pressed {
+    -fx-background-color: #3E6F63;
+}
+
+.button:disabled {
+    -fx-opacity: 0.5;
+}

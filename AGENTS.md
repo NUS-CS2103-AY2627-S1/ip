@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Beginner
+* IDE and level of expertise: Beginner
 
 # Guidance for interacting with users
 
@@ -31,5 +31,16 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 ## Git
 
 Use lightweight tags unless the user requests an annotated tag.
-When proposing or creating a commit message, include enough detail to explain the rationale for the change.
+Use `seedu-git-standard` when proposing, writing, or reviewing commit messages or branch names, if the skill is available.
+Commit messages should include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+# Skill routing
+
+When the following skills are available:
+
+* Use `seedu-java-coding-standard` when implementing or reviewing Java code.
+* Use `seedu-git-standard` when proposing commit messages or branch names.
+* Use `present-changes-visually` only when the user asks for a visual review or comparison of repository changes.
+
+Load only skills relevant to the current task. Follow this `AGENTS.md` for project-wide requirements and each skill's `SKILL.md` for its specialized workflow.
