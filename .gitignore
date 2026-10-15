@@ -5,6 +5,9 @@
 
 # Gradle build files
 /.gradle/
+/.gradle-user/
+/.gradle-home/
+/.gradle-user-home/
 /build/
 src/main/resources/docs/
 
@@ -16,5 +19,13 @@ bin/
 # Temp files
 _temp/
 
+# Codex files
+/.codex/
+
+# Task save file
+tasks.txt
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+
