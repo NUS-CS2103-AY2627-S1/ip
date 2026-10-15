@@ -1,0 +1,93 @@
+.root {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+    -fx-font-size: 13px;
+}
+
+/* ScrollPane - transparent to show background */
+.scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Dialog container */
+#dialogContainer {
+    -fx-background-color: transparent;
+    -fx-padding: 8 4 8 4;
+    -fx-spacing: 6;
+}
+
+/* Base dialog box style */
+.dialog-box {
+    -fx-padding: 6 8 6 8;
+    -fx-spacing: 8;
+}
+
+/* User message bubble */
+.user-dialog .label {
+    -fx-background-color: #4a90d9;
+    -fx-background-radius: 12 12 2 12;
+    -fx-text-fill: white;
+    -fx-padding: 8 12 8 12;
+    -fx-wrap-text: true;
+}
+
+/* Bot message bubble */
+.bot-dialog .label {
+    -fx-background-color: rgba(255, 255, 255, 0.88);
+    -fx-background-radius: 12 12 12 2;
+    -fx-text-fill: #1a1a1a;
+    -fx-padding: 8 12 8 12;
+    -fx-wrap-text: true;
+}
+
+/* Error message bubble */
+.error-dialog .label {
+    -fx-background-color: rgba(220, 60, 60, 0.9);
+    -fx-background-radius: 12 12 12 2;
+    -fx-text-fill: white;
+    -fx-padding: 8 12 8 12;
+    -fx-wrap-text: true;
+    -fx-font-weight: bold;
+}
+
+/* Input bar area */
+#inputBar {
+    -fx-background-color: rgba(255, 255, 255, 0.92);
+    -fx-padding: 4 6 4 6;
+}
+
+/* Text field */
+#userInput {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 16;
+    -fx-padding: 6 12 6 12;
+    -fx-prompt-text-fill: #999999;
+}
+
+#userInput:focused {
+    -fx-border-color: #4a90d9;
+}
+
+/* Send button */
+#sendButton {
+    -fx-background-color: #4a90d9;
+    -fx-text-fill: white;
+    -fx-background-radius: 16;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-padding: 6 16 6 16;
+}
+
+#sendButton:hover {
+    -fx-background-color: #3a7bc8;
+}
+
+#sendButton:pressed {
+    -fx-background-color: #2a6ab8;
+}

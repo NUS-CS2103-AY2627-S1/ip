@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane prefHeight="600.0" prefWidth="400.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="amigobot.MainWindow"
+            stylesheets="@style.css">
+    <children>
+        <!-- Background image -->
+        <ImageView fx:id="backgroundImage" fitWidth="400.0" fitHeight="600.0"
+                   preserveRatio="false" opacity="0.25"
+                   AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0">
+            <image>
+                <Image url="@../images/capybara_bg.jpg" />
+            </image>
+        </ImageView>
+        <!-- Semi-transparent overlay for readability -->
+        <Rectangle fx:id="bgOverlay" fill="rgba(245,243,240,0.7)"
+                   AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" />
+        <ScrollPane fx:id="scrollPane"
+                    hbarPolicy="NEVER"
+                    hvalue="1.0"
+                    vvalue="1.0"
+                    fitToWidth="true"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.bottomAnchor="46.0">
+            <content>
+                <VBox fx:id="dialogContainer" />
+            </content>
+        </ScrollPane>
+        <HBox fx:id="inputBar" id="inputBar" spacing="6.0"
+              AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0">
+            <TextField fx:id="userInput"
+                       onAction="#handleUserInput"
+                       prefHeight="36.0"
+                       promptText="Type a command..."
+                       HBox.hgrow="ALWAYS" />
+            <Button fx:id="sendButton"
+                    mnemonicParsing="false"
+                    onAction="#handleUserInput"
+                    prefHeight="36.0"
+                    text="Send" />
+        </HBox>
+    </children>
+</AnchorPane>
