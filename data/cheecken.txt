@@ -1,0 +1,4 @@
+T | 0 | study
+D | 0 | study moreee | 2026-09-18
+E | 0 | study | 2026-09-18T22:59:15.305592 | 2026-09-20T22:59
+T | 0 | sleep and eat
