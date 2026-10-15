@@ -1,0 +1,54 @@
+.label {
+    /* This affects where the line is drawn */
+    -fx-border-insets: 0px 7px 0px 7px;
+    -fx-border-color: #C9A227;
+    -fx-border-width: 2px;
+    -fx-border-radius: 1em 1em 0 1em;
+
+    /* This affects what area is filled */
+    -fx-background-insets: 0px 7px 0px 7px;
+    -fx-background-color: #F8F1E3;
+    -fx-text-fill: #17213B;
+    -fx-font: 15px \"Georgia\";
+    -fx-background-radius: 1em 1em 0 1em;
+
+    -fx-padding: 6px;
+}
+
+.reply-label {
+    /* Notice how the later one in the file
+        overwrites the one in .label above. */
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-background-color: linear-gradient(
+        to bottom right,
+        #3B235A,
+        #512E6B
+    );
+    -fx-text-fill: #F8F1E3;
+    -fx-border-color: #C9A227;
+}
+
+.avatar-border {
+    -fx-fill: transparent;
+    -fx-stroke: #C9A227;
+    -fx-stroke-width: 3px;
+    -fx-stroke-type: inside;
+}
+
+/* We can declare these as many times as we want!
+    It appends them */
+.label, .avatar-border {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0.5, 2, 2);
+}
+
+
+#displayPicture {
+    /* Change size of image.*/
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}

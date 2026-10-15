@@ -1,0 +1,69 @@
+.root {
+    main-color: #17213B;
+
+    /* Shows color if cannot display image*/
+    -fx-background-color: main-color;
+
+    -fx-background-image: url("../images/DT-cannon.png");
+    -fx-background-size: 120px 120px;
+    -fx-background-repeat: repeat;
+}
+
+.text-field {
+    -fx-background-color: #F8F1E3;
+    -fx-text-fill: #17213B;
+    -fx-prompt-text-fill: #766B7D;
+    -fx-font: 20px "Georgia";
+    -fx-border-color: #C9A227;
+    -fx-border-width: 1px;
+}
+
+.button {
+    -fx-background-color: #651F32;
+    -fx-text-fill: #F8F1E3;
+    -fx-font: bold 16px "Georgia";
+    -fx-border-color: #C9A227;
+    -fx-border-width: 1px;
+}
+
+#inputContainer {
+    -fx-background-color: rgba(23, 33, 59, 0.92);
+}
+
+.button:hover {
+    -fx-background-color: #8A2F49;
+    -fx-border-color: #E2C45A;
+}
+
+.button:pressed {
+    -fx-background-color: #3B235A;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: rgba(23, 33, 59, 0.78);
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #C9A227;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.scroll-pane {
+    -fx-background-color: rgba(23, 33, 59, 0.78);
+    -fx-border-color: #C9A227;
+    -fx-border-width: 2px;
+    -fx-border-radius: 6px;
+}
