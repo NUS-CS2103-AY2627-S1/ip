@@ -1,0 +1,98 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+def javafxVersion = '25.0.1'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+    }
+
+    test {
+        java {
+            srcDirs = ['src/test/java']
+        }
+    }
+}
+
+javafx {
+    version = javafxVersion
+    modules = ['javafx.controls']
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // JavaFX native libraries for supported platforms.
+    runtimeOnly "org.openjfx:javafx-graphics:${javafxVersion}:win"
+    runtimeOnly "org.openjfx:javafx-graphics:${javafxVersion}:linux"
+    runtimeOnly "org.openjfx:javafx-graphics:${javafxVersion}:mac"
+    runtimeOnly "org.openjfx:javafx-graphics:${javafxVersion}:mac-aarch64"
+}
+
+application {
+    // Launcher must be a class that does not extend Application.
+    mainClass = 'jeremy.Launcher'
+    applicationDefaultJvmArgs = [
+        '--enable-native-access=ALL-UNNAMED'
+    ]
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 25
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+    enableAssertions = true
+}
+
+tasks.named('run') {
+    enableAssertions = true
+    jvmArgs '--enable-native-access=ALL-UNNAMED'
+}
+
+tasks.named('jar') {
+    archiveClassifier = 'plain'
+}
+
+tasks.named('shadowJar') {
+    archiveBaseName = 'jeremy'
+    archiveClassifier = ''
+    mergeServiceFiles()
+
+    manifest {
+        attributes('Main-Class': 'jeremy.Launcher')
+    }
+}
+
+tasks.named('startScripts') {
+    dependsOn tasks.named('shadowJar')
+}
+
+tasks.named('distZip') {
+    dependsOn tasks.named('shadowJar')
+}
+
+tasks.named('distTar') {
+    dependsOn tasks.named('shadowJar')
+}

@@ -1,0 +1,19 @@
+# Gradle caches and generated output
+.gradle/
+build/
+**/build/
+
+# Compiled Java output
+*.class
+out/
+
+# Runtime task data
+data/*.txt
+
+# IDE metadata
+.idea/
+*.iml
+.vscode/
+
+# Operating-system metadata
+.DS_Store
