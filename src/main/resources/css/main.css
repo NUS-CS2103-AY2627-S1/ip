@@ -1,0 +1,59 @@
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.main-window,
+.dialog-scroll-pane,
+.dialog-scroll-pane > .viewport {
+    -fx-background-color: #f3f5f8;
+}
+
+.dialog-scroll-pane {
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+}
+
+.dialog-container {
+    -fx-background-color: #f3f5f8;
+}
+
+.message-bubble {
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-effect: dropshadow(gaussian, rgba(24, 39, 75, 0.10), 8, 0.15, 0, 2);
+    -fx-font-size: 14px;
+    -fx-padding: 11 14 11 14;
+    -fx-text-fill: #172033;
+}
+
+.user-dialog .message-bubble {
+    -fx-background-color: #3559e0;
+    -fx-text-fill: white;
+}
+
+.composer {
+    -fx-background-color: white;
+    -fx-border-color: #dfe3eb;
+    -fx-border-width: 1 0 0 0;
+}
+
+.user-input {
+    -fx-background-color: #f3f5f8;
+    -fx-background-radius: 8;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-pref-height: 43px;
+}
+
+.button {
+    -fx-background-color: #3559e0;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+    -fx-pref-height: 43px;
+    -fx-pref-width: 72px;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #2948c7;
+}
