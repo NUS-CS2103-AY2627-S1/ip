@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER"
+      minHeight="420.0"
+      minWidth="360.0"
+      prefHeight="560.0"
+      prefWidth="420.0"
+      spacing="0.0"
+      styleClass="root-pane"
+      xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="wodan.gui.MainWindow">
+    <children>
+        <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="header-bar">
+            <padding>
+                <Insets bottom="10.0" left="12.0" right="12.0" top="10.0"/>
+            </padding>
+            <children>
+                <ImageView fx:id="headerPortrait"
+                           fitHeight="32.0"
+                           fitWidth="32.0"
+                           pickOnBounds="true"
+                           preserveRatio="true"
+                           smooth="true"
+                           styleClass="header-portrait"/>
+                <VBox spacing="1.0">
+                    <children>
+                        <Label styleClass="header-title" text="Wodan"/>
+                        <Label styleClass="header-subtitle" text="The ravens are listening"/>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    styleClass="chat-scroll"
+                    vbarPolicy="AS_NEEDED">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true" spacing="8.0" styleClass="dialog-list">
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </padding>
+                </VBox>
+            </content>
+            <VBox.vgrow>
+                <Priority fx:constant="ALWAYS"/>
+            </VBox.vgrow>
+        </ScrollPane>
+        <HBox alignment="CENTER" spacing="8.0" styleClass="composer-bar">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="8.0"/>
+            </padding>
+            <children>
+                <TextField fx:id="userInput"
+                           onAction="#handleUserInput"
+                           promptText="Speak a command…"
+                           styleClass="command-field">
+                    <HBox.hgrow>
+                        <Priority fx:constant="ALWAYS"/>
+                    </HBox.hgrow>
+                </TextField>
+                <Button fx:id="sendButton"
+                        mnemonicParsing="false"
+                        onAction="#handleUserInput"
+                        styleClass="send-button"
+                        text="Send"/>
+            </children>
+        </HBox>
+    </children>
+</VBox>

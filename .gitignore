@@ -13,8 +13,26 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Saved task list (created at runtime)
+/data/
+
 # Temp files
 _temp/
 
+# .cursor files (keep IDE/user state local; track mandated project skills)
+/.cursor/*
+!/.cursor/skills/
+/.cursor/skills/*
+!/.cursor/skills/seedu-java-coding-standard/
+!/.cursor/skills/seedu-java-coding-standard/**
+!/.cursor/skills/seedu-git-standard/
+!/.cursor/skills/seedu-git-standard/**
+
+# test files
+/test/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# .class files
+**/*.class

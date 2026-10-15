@@ -1,0 +1,175 @@
+.root-pane {
+    -fx-background-color: #12141a;
+    -fx-font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+}
+
+.header-bar {
+    -fx-background-color: #16181f;
+    -fx-border-color: transparent transparent #c9a22744 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.header-title {
+    -fx-font-family: "Palatino Linotype", Palatino, Georgia, serif;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f4f1ea;
+    -fx-letter-spacing: 0.6px;
+}
+
+.header-subtitle {
+    -fx-font-size: 11px;
+    -fx-text-fill: #c4bba8;
+}
+
+.chat-scroll {
+    -fx-background-color: #12141a;
+    -fx-background: #12141a;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.chat-scroll > .viewport {
+    -fx-background-color: #12141a;
+}
+
+.dialog-list {
+    -fx-background-color: #12141a;
+}
+
+.dialog-bubble {
+    -fx-padding: 8 12 8 12;
+}
+
+.dialog-text {
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2px;
+}
+
+.dialog-caption {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.user-dialog {
+    -fx-alignment: TOP_RIGHT;
+}
+
+.user-dialog .dialog-bubble {
+    -fx-background-color: #2c3342;
+    -fx-background-radius: 12 12 3 12;
+    -fx-padding: 6 10 6 10;
+}
+
+.user-dialog .dialog-text {
+    -fx-font-family: "Menlo", "SF Mono", "Consolas", "Courier New", monospace;
+    -fx-font-size: 12px;
+    -fx-text-fill: #ece6d8;
+}
+
+.wodan-dialog .dialog-bubble {
+    -fx-background-color: #1b1e27;
+    -fx-background-radius: 4 10 10 10;
+    -fx-border-color: #c9a227;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-radius: 4 10 10 10;
+    -fx-padding: 8 12 8 14;
+}
+
+.wodan-dialog .dialog-text {
+    -fx-text-fill: #f2efe6;
+}
+
+.error-dialog .dialog-bubble {
+    -fx-background-color: #3a1f1c;
+    -fx-background-radius: 4 10 10 10;
+    -fx-border-color: #e07050;
+    -fx-border-width: 0 0 0 4;
+    -fx-border-radius: 4 10 10 10;
+    -fx-padding: 8 12 8 14;
+}
+
+.error-dialog .dialog-caption {
+    -fx-text-fill: #ffb4a4;
+}
+
+.error-dialog .dialog-text {
+    -fx-text-fill: #ffe8e0;
+}
+
+.composer-bar {
+    -fx-background-color: #16181f;
+    -fx-border-color: #c9a22744 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+.command-field {
+    -fx-background-color: #1e222c;
+    -fx-control-inner-background: #1e222c;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-color: #3a3f4d;
+    -fx-border-width: 1;
+    -fx-text-fill: #f4f1ea;
+    -fx-text-inner-color: #f4f1ea;
+    -fx-prompt-text-fill: #9a9384;
+    -fx-highlight-text-fill: #1a140c;
+    -fx-padding: 8 14 8 14;
+    -fx-font-size: 13px;
+}
+
+.command-field .text {
+    -fx-fill: #f4f1ea;
+}
+
+.command-field:focused {
+    -fx-border-color: #c9a227;
+    -fx-background-color: #222632;
+}
+
+.command-field-error {
+    -fx-border-color: #e07050;
+    -fx-background-color: #2a1c1c;
+}
+
+.command-field-error:focused {
+    -fx-border-color: #e07050;
+    -fx-background-color: #2a1c1c;
+}
+
+.send-button {
+    -fx-background-color: #c9a227;
+    -fx-text-fill: #1a140c;
+    -fx-font-weight: bold;
+    -fx-background-radius: 16;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: #e2c56c;
+}
+
+.send-button:pressed {
+    -fx-background-color: #9a7620;
+}
+
+.send-button:disabled {
+    -fx-opacity: 0.45;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #c9a22755;
+    -fx-background-radius: 8;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-pref-height: 0;
+    -fx-padding: 0;
+}

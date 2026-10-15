@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_RIGHT"
+         maxHeight="Infinity"
+         maxWidth="Infinity"
+         minWidth="0.0"
+         spacing="0.0"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox fx:id="bubble" maxWidth="Infinity" minWidth="0.0" spacing="2.0" styleClass="dialog-bubble">
+            <children>
+                <Label fx:id="caption"
+                       maxWidth="Infinity"
+                       minWidth="0.0"
+                       managed="false"
+                       styleClass="dialog-caption"
+                       visible="false"
+                       wrapText="true"/>
+                <Label fx:id="dialog"
+                       maxWidth="Infinity"
+                       minWidth="0.0"
+                       styleClass="dialog-text"
+                       wrapText="true"/>
+            </children>
+        </VBox>
+    </children>
+</fx:root>
