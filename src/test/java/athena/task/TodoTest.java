@@ -1,0 +1,50 @@
+package athena.task;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import athena.exception.AthenaException;
+
+/**
+ * Tests todo construction, validation, display, and storage formatting.
+ */
+class TodoTest {
+
+    @Test
+    void constructor_description_incompleteTodoCreated() {
+        Todo todo = new Todo("Read book");
+
+        assertEquals("[T][ ] Read book", todo.toString());
+        assertEquals("T | 0 | Read book", todo.getSaveString());
+    }
+
+    @Test
+    void constructor_savedCompletedTodo_completedTodoRestored() {
+        Todo todo = new Todo(true, "Read book");
+
+        assertEquals("[T][X] Read book", todo.toString());
+        assertEquals("T | 1 | Read book", todo.getSaveString());
+    }
+
+    @Test
+    void taggedTodo_displayAndStorage_tagsFollowTaskInformation() {
+        Todo todo = new Todo("Read book");
+        todo.addTag(new Tag("#Work"));
+
+        assertEquals("[T][ ] Read book #Work", todo.toString());
+        assertEquals("T | 0 | Read book | #Work", todo.getSaveString());
+    }
+
+    @Test
+    void constructors_emptyDescription_exceptionThrown() {
+        AthenaException newTodoException = assertThrows(AthenaException.class, () ->
+                new Todo(""));
+        AthenaException savedTodoException = assertThrows(AthenaException.class, () ->
+                new Todo(true, ""));
+
+        assertEquals("Please provide a todo description, Your Majesty.", newTodoException.getMessage());
+        assertEquals("Please provide a todo description, Your Majesty.", savedTodoException.getMessage());
+    }
+}

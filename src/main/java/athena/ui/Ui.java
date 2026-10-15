@@ -1,0 +1,275 @@
+package athena.ui;
+
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.util.List;
+import java.util.Scanner;
+
+import athena.task.Task;
+
+/**
+ * Reads console input and displays Athena's user-facing messages.
+ */
+public class Ui {
+    private static final String DIVIDER = "____________________________________________________________";
+    private static final String BANNER = """
+                _  _____ _   _ _____ _   _    _   \s
+               / \\|_   _| | | | ____| \\ | |  / \\  \s
+              / _ \\ | | | |_| |  _| |  \\| | / _ \\ \s
+             / ___ \\| | |  _  | |___| |\\  |/ ___ \\\s
+            /_/   \\_\\_| |_| |_|_____|_| \\_/_/   \\_\\""";
+
+    private final PrintStream outputStream;
+    private final Scanner scanner;
+
+    /**
+     * Constructs a Ui object.
+     *
+     * @param inputStream Console input to read.
+     * @param outputStream Console output to write.
+     */
+    public Ui(InputStream inputStream, PrintStream outputStream) {
+        this.outputStream = outputStream;
+        this.scanner = new Scanner(inputStream);
+    }
+
+    /**
+     * Prints the output to the specified outputStream.
+     *
+     * @param lines Strings to be printed.
+     */
+    public void println(String... lines) {
+        for (String line : lines) {
+            outputStream.println(line);
+        }
+    }
+
+    /**
+     * Checks if the inputStream has another line.
+     *
+     * @return {@code true} if there is another line, {@code false} otherwise.
+     */
+    public boolean hasNextLine() {
+        return scanner.hasNextLine();
+    }
+
+    /**
+     * Gets the next line of the inputStream.
+     *
+     * @return The next line of the inputStream.
+     */
+    public String readNextLine() {
+        return scanner.nextLine();
+    }
+
+    /**
+     * Shows whether the saved tasks were loaded successfully.
+     *
+     * @param isLoaded {@code true} if tasks were loaded, {@code false} if no data file was found.
+     * @param path path of the data file.
+     */
+    public void showLoadingStatus(boolean isLoaded, String path) {
+        println(isLoaded
+                ? "Items successfully loaded."
+                : "File not found at: " + path);
+    }
+
+    /**
+     * Shows Athena's banner and greeting when the application starts.
+     */
+    public void showWelcome() {
+        println(DIVIDER);
+        println(BANNER);
+        println("Hello, Your Majesty! I'm Athena.");
+        println("Let us put your tasks in order.");
+        println(DIVIDER);
+    }
+
+    /**
+     * Shows a divider between commands and their responses.
+     */
+    public void showDivider() {
+        println(DIVIDER);
+    }
+
+    /**
+     * Shows Athena's farewell message.
+     */
+    public void showGoodbye() {
+        println(DIVIDER);
+        println("Farewell, Your Majesty. I hope to serve you again soon!");
+        println(DIVIDER);
+    }
+
+    /**
+     * Shows all tasks in their current order.
+     *
+     * @param tasks tasks to display.
+     */
+    public void showTaskList(List<Task> tasks) {
+        println(tasks.isEmpty() ? "Your list awaits its first task. Try todo Read a book."
+                : "Your Majesty, here are the tasks in your list:");
+        showNumberedTasks(tasks);
+    }
+
+    /**
+     * Shows matching tasks with their one-based positions in the full task list.
+     *
+     * @param tasks matching tasks to display.
+     * @param allTasks full task list containing the matching tasks in list order.
+     */
+    public void showMatchingTasks(List<Task> tasks, List<Task> allTasks) {
+        println(tasks.isEmpty() ? "No matching tasks. Try another keyword or use list to see all tasks."
+                : "Here are your matching tasks:");
+        for (Task task : tasks) {
+            println(allTasks.indexOf(task) + 1 + ". " + task);
+        }
+    }
+
+    /**
+     * Prompts the user to provide a keyword for a find command.
+     */
+    public void showMissingFindKeyword() {
+        println("What shall I search for, Your Majesty?");
+    }
+
+    /**
+     * Prompts the user to provide tags for a findtag command.
+     */
+    public void showMissingFindTags() {
+        println("Which tags shall I search for, Your Majesty?");
+    }
+
+    /**
+     * Shows the response for an unrecognized command.
+     */
+    public void showUnknownCommand() {
+        println("I didn't recognize that command, Your Majesty. Try list or todo Read a book.");
+    }
+
+    /**
+     * Shows the result of marking or unmarking a task.
+     *
+     * @param task task whose status changed.
+     * @param isMarked {@code true} if the task was marked done, {@code false} if it was unmarked.
+     */
+    public void showTaskStatusChanged(Task task, boolean isMarked) {
+        println(isMarked
+                ? "Well done, Your Majesty. This task is complete:"
+                : "Certainly. This task is back on your to-do list:");
+        showTask(task);
+    }
+
+    /**
+     * Shows the result of adding or removing task tags.
+     *
+     * @param task Task whose tags changed.
+     * @param isAdded {@code true} if tags were added, {@code false} if tags were removed.
+     */
+    public void showTaskTagsChanged(Task task, boolean isAdded) {
+        println(isAdded
+                ? "I've added the tags to this task:"
+                : "I've removed the tags from this task:");
+        showTask(task);
+    }
+
+    /**
+     * Shows the shared response for a tag command that did not change its task.
+     *
+     * @param task Task that remained unchanged.
+     */
+    public void showNoTagChanges(Task task) {
+        println("These tags need no changes:");
+        showTask(task);
+    }
+
+    /**
+     * Prompts the user to provide a task number for a mark command.
+     */
+    public void showMissingMarkIndex() {
+        println("Which task shall I mark, Your Majesty?");
+    }
+
+    /**
+     * Prompts the user to provide a task number for a tag or untag command.
+     *
+     * @param isAddCommand {@code true} for tag, {@code false} for untag.
+     */
+    public void showMissingTagIndex(boolean isAddCommand) {
+        println(isAddCommand
+                ? "Which task shall I tag, Your Majesty?"
+                : "Which task shall I untag, Your Majesty?");
+    }
+
+    /**
+     * Prompts the user to provide tags for a tag or untag command.
+     *
+     * @param isAddCommand {@code true} for tag, {@code false} for untag.
+     */
+    public void showMissingTagArguments(boolean isAddCommand) {
+        println(isAddCommand
+                ? "Which tags shall I add, Your Majesty?"
+                : "Which tags shall I remove, Your Majesty?");
+    }
+
+    /**
+     * Shows that a requested task number is outside the task list.
+     */
+    public void showInvalidTaskIndex() {
+        println("That task number isn't in your list. Use list to see the available numbers.");
+    }
+
+    /**
+     * Shows an application error to the user.
+     *
+     * @param message explanation of the error.
+     */
+    public void showError(String message) {
+        println(message);
+    }
+
+    /**
+     * Shows a newly added task and the updated task count.
+     *
+     * @param task task that was added.
+     * @param taskCount number of tasks after the addition.
+     */
+    public void showTaskAdded(Task task, int taskCount) {
+        println("As you wish. I've added this task:");
+        showTask(task);
+        showTaskCount(taskCount);
+    }
+
+    /**
+     * Shows a deleted task and the updated task count.
+     *
+     * @param task task that was deleted.
+     * @param taskCount number of tasks after the deletion.
+     */
+    public void showTaskDeleted(Task task, int taskCount) {
+        println("Certainly. I've removed this task:");
+        showTask(task);
+        showTaskCount(taskCount);
+    }
+
+    /**
+     * Prompts the user to provide a task number for a delete command.
+     */
+    public void showMissingDeleteIndex() {
+        println("Which task shall I remove, Your Majesty?");
+    }
+
+    private void showNumberedTasks(List<Task> tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            println(i + 1 + ". " + tasks.get(i));
+        }
+    }
+
+    private void showTask(Task task) {
+        println("  " + task);
+    }
+
+    private void showTaskCount(int taskCount) {
+        println("You now have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in your list.");
+    }
+}

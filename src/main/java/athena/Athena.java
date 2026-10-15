@@ -1,0 +1,88 @@
+package athena;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.List;
+
+import athena.exception.AthenaException;
+import athena.gui.CommandResponder;
+import athena.gui.CommandResponse;
+import athena.gui.GuiUi;
+import athena.parser.CommandHandler;
+import athena.parser.CommandResult;
+import athena.storage.Storage;
+import athena.task.Task;
+import athena.task.TaskList;
+import athena.ui.Ui;
+
+/**
+ * Starts and coordinates the Athena application.
+ */
+public class Athena implements CommandResponder {
+    /** Path where application data is stored */
+    public static final String DATA_FILE_PATH = "./data/athena.txt";
+
+    private CommandHandler commandHandler;
+    private final TaskList taskList;
+
+    private ByteArrayOutputStream outputBuffer;
+    private GuiUi guiUi;
+
+    /**
+     * Constructs an Athena application orchestrator.
+     */
+    public Athena() {
+        Storage storage = new Storage(DATA_FILE_PATH);
+
+        outputBuffer = new ByteArrayOutputStream();
+        PrintStream guiOut = new PrintStream(outputBuffer);
+        guiUi = new GuiUi(guiOut);
+
+        taskList = new TaskList(storage.loadTasks());
+        commandHandler = new CommandHandler(storage, guiUi, taskList);
+    }
+
+    /**
+     * Starts the Athena application and processes commands until the user exits.
+     *
+     * @param args Command-line arguments; currently unused.
+     */
+    public static void main(String[] args) {
+        Storage storage = new Storage(DATA_FILE_PATH);
+        Ui ui = new Ui(System.in, System.out);
+        TaskList taskList;
+        try {
+            taskList = new TaskList(storage.loadTasks());
+        } catch (AthenaException e) {
+            ui.showError("Cannot open Athena: " + e.getMessage());
+            ui.showError("Your saved file has not been changed. Repair it and restart Athena.");
+            return;
+        }
+        CommandHandler commandHandler = new CommandHandler(storage, ui, taskList);
+
+        ui.showLoadingStatus(storage.wasLoadSuccessful(), DATA_FILE_PATH);
+        ui.showWelcome();
+        while (ui.hasNextLine()) {
+            ui.showDivider();
+            if (commandHandler.handleCommand(ui.readNextLine()) == CommandResult.EXIT) {
+                return;
+            }
+            ui.showDivider();
+        }
+    }
+
+    @Override
+    public List<String> getTaskDescriptions() {
+        return taskList.getTasks().stream().map(Task::getDescription).toList();
+    }
+
+    @Override
+    public CommandResponse getResponse(String input) {
+        outputBuffer.reset();
+        guiUi.clearTasks();
+        CommandResult result = commandHandler.handleCommand(input);
+        assert outputBuffer.size() > 0 : "A continuing command should produce a response";
+        return new CommandResponse(outputBuffer.toString(), result == CommandResult.EXIT,
+                result == CommandResult.ERROR, guiUi.getTasks());
+    }
+}

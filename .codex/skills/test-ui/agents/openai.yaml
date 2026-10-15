@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Athena UI"
+  short_description: "Run Athena CLI tests and record the session"
+  default_prompt: "Use $test-ui to update and run test/ui-test-plan.md, then show the fail-fast console session."

@@ -1,0 +1,79 @@
+.message-timestamp {
+    -fx-font-family: "Inter 18pt";
+    -fx-font-size: 11px;
+    -fx-text-fill: #58695A;
+}
+
+.bubble {
+    -fx-background-color: #E3ECDD;
+    -fx-border-color: #000000;
+    -fx-border-width: 0.1px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-font-family: "Inter 18pt";
+    -fx-font-size: 15px;
+    -fx-text-fill: #000000;
+}
+
+.reply-label {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.bubble .label {
+    -fx-font-family: "Inter 18pt";
+    -fx-font-size: 15px;
+    -fx-text-fill: #17251D;
+}
+
+.task-rows {
+    -fx-padding: 6px 0 0 0;
+    -fx-border-color: #DFE5DF transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+}
+
+.bubble .task-description {
+    -fx-font-weight: bold;
+}
+
+.bubble .task-number,
+.bubble .task-type,
+.bubble .task-schedule,
+.bubble .task-tags,
+.bubble .task-status {
+    -fx-font-size: 13px;
+    -fx-text-fill: #46564A;
+}
+
+.bubble .task-status {
+    -fx-padding: 2px 4px;
+    -fx-background-color: #EEF2EE;
+    -fx-background-radius: 4px;
+}
+
+.bubble .task-done {
+    -fx-text-fill: #285237;
+    -fx-background-color: #E3F0E3;
+}
+
+#tailFill {
+    -fx-border-width: 0;
+    -fx-shape: "M 0 0 H 3 C 4 6 8 9 14 9 C 11 10 8 11 3 12 H 0 Z";
+}
+
+#tailOutline {
+    -fx-fill: transparent;
+    -fx-stroke: #000000;
+    -fx-stroke-line-cap: round;
+    -fx-stroke-line-join: round;
+    -fx-stroke-width: 0.1px;
+}
+
+.task-icon {
+    -fx-fill: transparent;
+    -fx-stroke: #46564A;
+    -fx-stroke-width: 1.5px;
+    -fx-stroke-line-cap: round;
+    -fx-stroke-line-join: round;
+}
