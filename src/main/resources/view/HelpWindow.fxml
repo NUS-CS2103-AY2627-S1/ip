@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            prefHeight="500.0"
+            prefWidth="600.0"
+            stylesheets="@../css/help.css">
+
+    <ScrollPane fitToWidth="true"
+                fitToHeight="true"
+                hbarPolicy="NEVER"
+                vbarPolicy="AS_NEEDED"
+                AnchorPane.topAnchor="0.0"
+                AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0">
+
+        <VBox fx:id="helpContent"
+              spacing="14.0"
+              fillWidth="true"
+              maxWidth="1.7976931348623157E308">
+
+            <Label text="Walnut Help"
+                   styleClass="help-title"
+                   wrapText="true"
+                   maxWidth="1.7976931348623157E308" />
+
+            <Label text="Commands"
+                   styleClass="help-heading"
+                   wrapText="true"
+                   maxWidth="1.7976931348623157E308" />
+
+            <VBox spacing="0.0">
+                <Label text="todo &lt;description&gt;"
+                       styleClass="command"
+                       wrapText="true"
+                       maxWidth="1.7976931348623157E308"/>
+                <Label text="Adds a new todo to the list."
+                       styleClass="description"
+                       wrapText="true"
+                       maxWidth="1.7976931348623157E308"/>
+            </VBox>
+
+            <VBox spacing="0.0">
+                <Label text="deadline &lt;description&gt; /by &lt;YYYY-mm-dd HHmm&gt;"
+                       styleClass="command"
+                       wrapText="true"
+                       maxWidth="1.7976931348623157E308"/>
+                <Label text="Adds a new deadline to the list."
+                       styleClass="description"
+                       wrapText="true"
+                       maxWidth="1.7976931348623157E308"/>
+            </VBox>
+
+            <VBox spacing="0.0">
+                <Label text="event &lt;description&gt; /from &lt;YYYY-mm-dd HHmm&gt; /to &lt;YYYY-mm-dd HHmm&gt;"
+                       styleClass="command"
+                       wrapText="true"
+                       maxWidth="1.7976931348623157E308"/>
+                <Label text="Adds a new event to the list."
+                       styleClass="description"
+                       wrapText="true"
+                       maxWidth="1.7976931348623157E308"/>
+            </VBox>
+
+            <VBox spacing="0.0">
+                <Label text="mark &lt;index&gt;"
+                       styleClass="command"
+                       wrapText="true"
+                       maxWidth="1.7976931348623157E308"/>
+                <Label text="Marks the task at the specified index as done."
+                       styleClass="description"
+                       wrapText="true"
+                       maxWidth="1.7976931348623157E308"/>
+            </VBox>
+
+            <VBox spacing="0.0">
+                <Label text="unmark &lt;index&gt;"
+                       styleClass="command"
+                       wrapText="true"
+                       maxWidth="1.7976931348623157E308"/>
+                <Label text="Unmarks the task at the specified index."
+                       styleClass="description"
+                       wrapText="true"
+                       maxWidth="1.7976931348623157E308"/>
+            </VBox>
+
+            <VBox spacing="0.0">
+                <Label text="find &lt;keyword&gt;"
+                       styleClass="command"
+                       wrapText="true"
+                       maxWidth="1.7976931348623157E308"/>
+                <Label text="Lists all tasks containing the specified keyword."
+                       styleClass="description"
+                       wrapText="true"
+                       maxWidth="1.7976931348623157E308"/>
+            </VBox>
+
+            <VBox spacing="0.0">
+                <Label text="list"
+                       styleClass="command"
+                       wrapText="true"
+                       maxWidth="1.7976931348623157E308"/>
+                <Label text="Lists all tasks."
+                       styleClass="description"
+                       wrapText="true"
+                       maxWidth="1.7976931348623157E308"/>
+            </VBox>
+
+            <VBox spacing="0.0">
+                <Label text="remove &lt;index&gt;"
+                       styleClass="command"
+                       wrapText="true"
+                       maxWidth="1.7976931348623157E308"/>
+                <Label text="Removes the task at the specified index."
+                       styleClass="description"
+                       wrapText="true"
+                       maxWidth="1.7976931348623157E308"/>
+            </VBox>
+
+            <VBox spacing="0.0">
+                <Label text="/help"
+                       styleClass="command"
+                       wrapText="true"
+                       maxWidth="1.7976931348623157E308" />
+                <Label text="Displays this help message."
+                       styleClass="description"
+                       wrapText="true"
+                       maxWidth="1.7976931348623157E308"/>
+            </VBox>
+
+            <VBox spacing="0.0">
+                <Label text="bye"
+                       styleClass="command"
+                       wrapText="true"
+                       maxWidth="1.7976931348623157E308"/>
+                <Label text="Exits the application."
+                       styleClass="description"
+                       wrapText="true"
+                       maxWidth="1.7976931348623157E308"/>
+            </VBox>
+
+        </VBox>
+
+    </ScrollPane>
+
+</AnchorPane>

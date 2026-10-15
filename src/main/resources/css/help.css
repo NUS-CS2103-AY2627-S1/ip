@@ -1,0 +1,46 @@
+.root {
+    -fx-background-color: #f4f7fb;
+    -fx-font-family: "Arial";
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.help-content {
+    -fx-padding: 24px;
+}
+
+.help-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+.help-heading {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4f46e5;
+    -fx-padding: 8px 0 2px 0;
+}
+
+.command {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e1b4b;
+    -fx-background-color: #e0e7ff;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 10px;
+}
+
+.description {
+    -fx-font-size: 14px;
+    -fx-text-fill: #475569;
+    -fx-padding: 4px 10px 8px 10px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #cbd5e1;
+    -fx-background-radius: 8px;
+}
