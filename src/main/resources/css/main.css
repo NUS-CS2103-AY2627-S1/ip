@@ -1,0 +1,62 @@
+.root-pane,
+.dialog-container,
+.conversation,
+.conversation > .viewport {
+    -fx-background-color: #101b2b;
+}
+
+.root-pane {
+    -fx-font-family: "SansSerif";
+}
+
+.conversation {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.dialog-box {
+    -fx-spacing: 10;
+}
+
+.dialog-label {
+    -fx-background-color: #233650;
+    -fx-background-radius: 12;
+    -fx-padding: 10 12;
+    -fx-text-fill: #f4f7fb;
+}
+
+.user-dialog .dialog-label {
+    -fx-background-color: #e6b84a;
+    -fx-text-fill: #152238;
+}
+
+.error-dialog .dialog-label {
+    -fx-background-color: #8f2d3d;
+    -fx-border-color: #ff9aaa;
+    -fx-border-radius: 12;
+}
+
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.28), 8, 0.15, 0, 2);
+}
+
+.command-input,
+.send-button {
+    -fx-background-radius: 0;
+    -fx-pref-height: 40;
+}
+
+.command-input {
+    -fx-background-color: #f4f7fb;
+    -fx-padding: 0 12;
+}
+
+.send-button {
+    -fx-background-color: #e6b84a;
+    -fx-font-weight: bold;
+    -fx-text-fill: #152238;
+}
+
+.send-button:hover {
+    -fx-background-color: #f0c968;
+}

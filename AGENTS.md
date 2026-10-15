@@ -8,9 +8,10 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Student profile
 
-* Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Role: Student.
+* Prior knowledge: Intermediate programming experience with Java, Rust, TypeScript, Lua, Bash, C, C++, and C#. Familiar with frameworks, game engines, and development tools including Next.js, Ratatui, Unreal Engine 5, Unity, and Arch Linux.
+* Level of programming experience: Intermediate. Comfortable learning and working across multiple languages, frameworks, and development environments.
+* IDE and level of expertise: Code OSS, used frequently. Comfortable with common editor utilities, installing and configuring plugins, and setting up formatters.
 
 # Guidance for interacting with users
 
