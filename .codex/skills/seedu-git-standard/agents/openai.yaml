@@ -1,0 +1,4 @@
+interface:
+  display_name: SE-EDU Git Standard
+  short_description: Write SE-EDU-compliant commit messages
+  default_prompt: Propose or review a commit message using the SE-EDU Git conventions.

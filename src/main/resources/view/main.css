@@ -1,0 +1,84 @@
+.root {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: #f7f4ff;
+    -fx-background-image: url("../images/quest-background.png");
+    -fx-background-repeat: repeat-x;
+    -fx-background-position: center top;
+    -fx-background-size: auto 120px;
+}
+
+.scroll-pane, .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-padding: 18px 12px 18px 12px;
+}
+
+.conversation-scroll-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.dialog-text {
+    -fx-font-size: 14px;
+    -fx-text-fill: #2d2638;
+    -fx-line-spacing: 1.5px;
+}
+
+.user-dialog .dialog-text {
+    -fx-background-color: #7652a3;
+    -fx-text-fill: white;
+    -fx-background-radius: 15px 15px 4px 15px;
+    -fx-padding: 9px 13px 9px 13px;
+}
+
+.bot-dialog .dialog-text {
+    -fx-background-color: #fffdf2;
+    -fx-background-radius: 4px 15px 15px 15px;
+    -fx-border-color: #e3d19a;
+    -fx-border-radius: 4px 15px 15px 15px;
+    -fx-border-width: 1px;
+    -fx-padding: 9px 13px 9px 13px;
+}
+
+.error-dialog .dialog-text {
+    -fx-background-color: #fff1f0;
+    -fx-border-color: #e7a09a;
+    -fx-text-fill: #8f2921;
+}
+
+.text-field {
+    -fx-font-size: 14px;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 15px;
+    -fx-border-color: #d8cfea;
+    -fx-border-radius: 15px;
+    -fx-padding: 9px 13px 9px 13px;
+}
+
+.text-field:focused {
+    -fx-border-color: #7652a3;
+    -fx-border-width: 2px;
+}
+
+.send-button {
+    -fx-background-color: #7652a3;
+    -fx-background-radius: 15px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-padding: 9px 16px 9px 16px;
+}
+
+.send-button:hover {
+    -fx-background-color: #62428b;
+}
+
+.send-button:pressed {
+    -fx-background-color: #513672;
+}
+
+.avatar {
+    -fx-padding: 3px 6px 0 6px;
+}
