@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: 1 year of experience
+* IDE and level of expertise: IntelliJ IDEA
 
 # Guidance for interacting with users
 
@@ -32,4 +32,7 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
+Before proposing or creating any commit, read and follow the project skill at
+`skills/seedu-git-standard/SKILL.md`. Its branch-naming and commit-message rules
+are mandatory for all future Git work in this repository.
 Do not commit or push unless explicitly asked.

@@ -1,0 +1,36 @@
+.label {
+    -fx-border-width: 2px;
+    -fx-font-size: 14px;
+}
+
+/* Wide response cards retain Milo's original green-and-gold palette. */
+.milo-dialog .label {
+    -fx-background-color: linear-gradient(to bottom right, #1aa85b, #007a3d);
+    -fx-border-color: #d9b239;
+    -fx-border-width: 2px;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-padding: 10px 12px;
+    -fx-text-fill: white;
+}
+
+/* Compact command bubbles remain visually distinct from the app's responses. */
+.user-dialog .label {
+    -fx-background-color: linear-gradient(to bottom right, #754229, #4b2515);
+    -fx-border-color: #d9b239;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-padding: 8px 10px;
+    -fx-text-fill: #fff7df;
+}
+
+.milo-dialog.error-dialog .label {
+    -fx-background-color: #fde8e7;
+    -fx-border-color: #b3261e;
+    -fx-text-fill: #7a1712;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.22), 8, 0.35, 2, 2);
+}

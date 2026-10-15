@@ -1,0 +1,57 @@
+.root {
+    milo-light-green: #e6f5d5;
+    milo-green: #007a3d;
+    milo-dark-green: #005b2e;
+    milo-cream: #fff7df;
+    milo-gold: #d9b239;
+    -fx-font-family: "Arial";
+    -fx-background-color: milo-light-green;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: milo-light-green;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: milo-green;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.text-field {
+    -fx-background-color: milo-cream;
+    -fx-border-color: milo-green;
+    -fx-border-width: 2px 0 0 0;
+    -fx-font-size: 15px;
+}
+
+.text-field:focused {
+    -fx-background-color: white;
+}
+
+.button {
+    -fx-background-color: milo-green;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.button:hover {
+    -fx-background-color: milo-dark-green;
+}
+
+.button:pressed {
+    -fx-background-color: milo-gold;
+    -fx-text-fill: #4b2515;
+}
