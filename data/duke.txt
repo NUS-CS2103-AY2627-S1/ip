@@ -1,0 +1,2 @@
+D | 1 | return book | 2019-12-02
+E | 0 | project meeting | 2019-12-02 | 2019-12-05

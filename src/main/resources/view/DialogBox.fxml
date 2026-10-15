@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308"
+         spacing="10.0" styleClass="dialog-row" type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialog" minHeight="-Infinity" styleClass="dialog-bubble" text="Label" wrapText="true" />
+        <Label fx:id="avatar" alignment="CENTER" minHeight="36.0" prefHeight="36.0" maxHeight="36.0"
+               minWidth="36.0" prefWidth="36.0" maxWidth="36.0" styleClass="avatar" />
+    </children>
+</fx:root>

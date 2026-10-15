@@ -1,0 +1,101 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+    id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+// Keep native libraries in platform-specific folders to avoid Mac architecture collisions.
+def releasePlatforms = ['win', 'linux', 'mac', 'mac-aarch64']
+releasePlatforms.each { platform ->
+    configurations.create("javafxRelease_${platform}") {
+        transitive = false
+    }
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+    releasePlatforms.each { platform ->
+        ['base', 'graphics', 'controls', 'fxml'].each { module ->
+            add("javafxRelease_${platform}", "org.openjfx:javafx-${module}:25.0.1:${platform}")
+        }
+    }
+}
+
+javafx {
+    version = '25.0.1'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'nutrisoy.ui.Launcher'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'nutrisoy.ui.Launcher'
+    }
+    archiveBaseName = 'nutrisoy'
+    archiveVersion = '0.1.0'
+}
+
+shadowJar {
+    archiveFileName = 'nutrisoy.jar'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    // Include the union of platform-specific JavaFX classes, but isolate natives.
+    releasePlatforms.each { platform ->
+        def platformJars = project.configurations.getByName("javafxRelease_${platform}")
+        from({ platformJars.collect { zipTree(it) } }) {
+            exclude '*.dll', '*.so', '*.dylib', 'module-info.class', 'META-INF/versions/**/module-info.class'
+        }
+        from({ platformJars.collect { zipTree(it) } }) {
+            include '*.dll', '*.so', '*.dylib'
+            into "natives/${platform}"
+        }
+    }
+    eachFile { entry ->
+        if (!entry.path.startsWith('natives/') && entry.name ==~ /.*\.(dll|so|dylib)/) {
+            entry.exclude()
+        }
+    }
+}
+
+run {
+    standardInput = System.in
+}
+
+checkstyle {
+    toolVersion = '10.12.4'
+    configFile = file("${project.rootDir}/config/checkstyle/checkstyle.xml")
+    ignoreFailures = false // Fails the build if any style violation is detected
+    showViolations = true
+}

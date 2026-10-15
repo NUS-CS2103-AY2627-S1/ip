@@ -1,25 +1,98 @@
-# Duke project template
+# NutriSoy
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+NutriSoy is a Java desktop task manager with **Soya**, a sassy but supportive
+chatbot. Keep track of todos, deadlines, and events; mark tasks complete, search
+your list, and organise tasks with tags. Tasks are saved locally between sessions.
 
-## Setting up in Intellij
+Built by [Vincent Peh (Eskalade)](https://github.com/Eskalade) for the NUS
+CS2103/T Individual Project.
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+## Getting started
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Use **JDK 25**. From the repository directory:
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+```bash
+./gradlew run
+```
+
+On Windows, use `gradlew.bat run`. Gradle downloads the configured JavaFX 25.0.1
+dependencies for the build platform. On this project's macOS development setup:
+
+```bash
+sdk use java 25.0.3.fx-zulu
+./gradlew run
+```
+
+Try `todo read a book`, then `list`. Enter commands in the text field and press
+Enter or click **Do it**. See the [product website](https://Eskalade.github.io/ip/)
+or [User Guide source](docs/README.md) for every command,
+examples, validation rules, and storage recovery instructions.
+
+## Build and test
+
+```bash
+./gradlew clean build
+```
+
+This runs JUnit tests, Checkstyle, and packaging. The executable Shadow JAR is
+`build/libs/nutrisoy.jar`; the smaller versioned JAR is not the standalone bundle.
+Run the bundle with Java 25:
+
+```bash
+java -jar build/libs/nutrisoy.jar
+```
+
+The release JAR bundles JavaFX for Windows x64, Linux x64, and macOS on Intel
+and Apple Silicon. Use Java 25 matching a supported architecture and a graphical
+desktop environment. Linux needs the system GTK 3 libraries used by JavaFX.
+Windows/Linux ARM runtimes are not supported by this bundle. Cross-platform
+packaging does not replace smoke testing on each target OS.
+The repository name remains `ip`.
+
+The [testing guide](docs/testing.md) describes automated coverage and the manual
+GUI/platform checks. JUnit results are generated in
+`build/reports/tests/test/index.html`.
+
+## Data and recovery
+
+NutriSoy uses `data/nutrisoy.txt` relative to the directory from which you launch
+it. Use the same working directory each time to see the same list. Missing data
+starts an empty list; the directory and file are created when you add a task.
+
+Back up this file before editing it or moving the application. If saved data is
+invalid or unreadable, NutriSoy displays a warning and disables task changes to
+protect the original file. Repair the file and restart; valid recovered tasks
+remain viewable with `list` and `find`.
+
+## Acknowledgements
+
+- The [NUS CS2103 iP starter](https://github.com/NUS-CS2103-AY2627-S1/ip)
+  and [SE-EDU JavaFX tutorial](https://se-education.org/guides/tutorials/javaFx.html)
+  provide the project foundation and JavaFX/FXML conversation pattern.
+- [OpenJFX](https://openjfx.io/) supplies JavaFX controls and FXML.
+  [JUnit 5](https://junit.org/junit5/) supplies automated testing.
+  [Gradle](https://gradle.org/), the
+  [JavaFX Gradle plugin](https://github.com/openjfx/javafx-gradle-plugin),
+  [Shadow](https://github.com/GradleUp/shadow), and
+  [Checkstyle](https://checkstyle.org/) support building, packaging, and checks.
+- **AI-assisted work:** Vincent Peh used OpenAI ChatGPT/Codex extensively for
+  GUI improvements, Soya's personality and wording, persistence corrections,
+  error handling, JUnit tests, documentation, and Git workflow assistance.
+  The assistant generated and modified code, explained design choices, and ran
+  automated checks. Vincent remains responsible for reviewing, understanding,
+  and verifying the submitted work. Automated checks do not establish that all
+  GUI/platform behavior has been manually tested.
+- **Avatars and screenshot:** Vincent used OpenAI's built-in image-generation
+  tool through ChatGPT/Codex to generate `src/main/resources/images/soya-carton.png`
+  for Soya. It was generated without a reference image, real brand names, or
+  logos. The You avatar is a JavaFX label styled with CSS, created with
+  ChatGPT/Codex assistance. The User Guide screenshot uses sample task data.
+  The generation prompt
+  is recorded in [the image notes](docs/avatar.md).
+  The retired bot image was sourced from the
+  [FairPrice NutriSoy product listing](https://www.fairprice.com.sg/product/f-n-nutrisoy-high-calcium-fresh-soya-milk-reduced-sugar-475ml-13053097);
+  it and the user image of unknown origin were removed because reuse permission
+  was not established.
+
+No new third-party library was introduced during submission finalisation.
+Confirm that the existing libraries satisfy the course's approval requirements.

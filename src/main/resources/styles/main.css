@@ -1,0 +1,144 @@
+.root {
+    -fx-font-family: "Trebuchet MS", "Avenir Next", "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+}
+
+.main-window {
+    -fx-background-color: #fbf6fa;
+}
+
+.app-header {
+    -fx-background-color: linear-gradient(to right, #4b183f, #7b2c63);
+    -fx-effect: dropshadow(gaussian, rgba(75, 24, 63, 0.22), 8, 0, 0, 2);
+}
+
+.app-title {
+    -fx-fill: #ffffff;
+    -fx-font-size: 21px;
+    -fx-font-weight: bold;
+}
+
+.app-subtitle {
+    -fx-fill: #f4ddec;
+    -fx-font-size: 12px;
+}
+
+.app-badge {
+    -fx-background-color: #f2c14e;
+    -fx-background-radius: 12px;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 9px 5px 9px;
+    -fx-text-fill: #4b183f;
+}
+
+.conversation-scroll,
+.conversation-scroll > .viewport {
+    -fx-background-color: #fbf6fa;
+}
+
+.conversation-scroll {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.dialog-container {
+    -fx-background-color: #fbf6fa;
+}
+
+.dialog-row {
+    -fx-padding: 2px 0 2px 0;
+}
+
+.dialog-bubble {
+    -fx-padding: 10px 13px 10px 13px;
+    -fx-background-radius: 14px;
+    -fx-border-radius: 14px;
+    -fx-line-spacing: 2px;
+}
+
+.user-dialog .dialog-bubble {
+    -fx-background-color: #7b2c63;
+    -fx-text-fill: #ffffff;
+}
+
+.nutrisoy-dialog .dialog-bubble {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ead9e6;
+    -fx-border-width: 1px;
+    -fx-text-fill: #352230;
+    -fx-effect: dropshadow(gaussian, rgba(75, 24, 63, 0.09), 5, 0, 0, 1);
+}
+
+.error-dialog .dialog-bubble {
+    -fx-background-color: #fff0f1;
+    -fx-border-color: #c33b48;
+    -fx-border-width: 1.5px;
+    -fx-text-fill: #8d2530;
+}
+
+.avatar {
+    -fx-background-radius: 18px;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+.user-dialog .avatar {
+    -fx-background-color: #7b2c63;
+    -fx-text-fill: #ffffff;
+}
+
+.nutrisoy-dialog .avatar {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4b183f;
+}
+
+.composer {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ead9e6 transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+}
+
+.command-input {
+    -fx-background-color: #fcf8fb;
+    -fx-background-radius: 9px;
+    -fx-border-color: #dbc5d5;
+    -fx-border-radius: 9px;
+    -fx-padding: 9px 12px 9px 12px;
+}
+
+.command-input:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #7b2c63;
+    -fx-effect: dropshadow(gaussian, rgba(123, 44, 99, 0.15), 5, 0, 0, 0);
+}
+
+.send-button {
+    -fx-background-color: #b64355;
+    -fx-background-radius: 9px;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-padding: 9px 18px 9px 18px;
+    -fx-text-fill: #ffffff;
+}
+
+.send-button:hover {
+    -fx-background-color: #993448;
+}
+
+.send-button:pressed {
+    -fx-background-color: #7d293b;
+}
+
+.status-text {
+    -fx-fill: #866779;
+    -fx-font-size: 11px;
+}
+
+.error-status {
+    -fx-fill: #b02f42;
+}
+
+.ready-status {
+    -fx-fill: #7b2c63;
+}
