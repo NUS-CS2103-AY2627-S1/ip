@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="680.0" prefWidth="480.0"
+            stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.MainWindow">
+    <children>
+        <VBox alignment="CENTER_LEFT" prefHeight="82.0" spacing="3.0"
+              styleClass="app-header" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label styleClass="app-title" text="CBT" />
+                <HBox alignment="CENTER_LEFT" spacing="7.0">
+                    <children>
+                        <Label styleClass="status-dot" text="✦" />
+                        <Label styleClass="app-subtitle" text="Online · Mission control for your day" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                    styleClass="chat-scroll" vbarPolicy="AS_NEEDED" vvalue="1.0"
+                    AnchorPane.bottomAnchor="78.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="82.0">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true"
+                      spacing="2.0" styleClass="dialog-container" />
+            </content>
+        </ScrollPane>
+        <HBox alignment="CENTER" prefHeight="78.0" spacing="10.0" styleClass="composer"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0">
+            <children>
+                <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="46.0"
+                           promptText="Set a course..." HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton" defaultButton="true" mnemonicParsing="false"
+                        onAction="#handleUserInput" prefHeight="46.0" prefWidth="88.0"
+                        text="Launch" />
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

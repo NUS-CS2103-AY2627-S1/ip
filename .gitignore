@@ -16,5 +16,10 @@ bin/
 # Temp files
 _temp/
 
+# Local Codex skills and configuration
+/.codex/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+/data/

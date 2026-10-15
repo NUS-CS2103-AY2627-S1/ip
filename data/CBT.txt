@@ -1,0 +1,8 @@
+DEADLINE | 0 | read book | 29/04/2025 0000
+DEADLINE | 0 | fypm T344 | 31/08/2026 0000
+EVENT | 0 | FINALS | 19/10/2026 0000 | 19/10/2026 2300
+TODO | 0 | asfdas
+TODO | 1 | read a book
+TODO | 0 | abc
+TODO | 0 | do cs
+TODO | 0 | sleep at 9pm

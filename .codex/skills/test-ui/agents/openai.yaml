@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run scripted console UI regression tests"
+  default_prompt: "Use $test-ui to run the UI test plan."

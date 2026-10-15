@@ -1,0 +1,48 @@
+.dialog-box {
+    -fx-padding: 5px 13px;
+}
+
+.dialog-label {
+    -fx-background-color: linear-gradient(to bottom right, #7c3aed, #4f46e5);
+    -fx-background-radius: 13px 13px 4px 13px;
+    -fx-effect: dropshadow(gaussian, rgba(79, 70, 229, 0.2), 8, 0.1, 0, 2);
+    -fx-font-family: "Aptos", "Segoe UI", "Arial";
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-line-spacing: 2px;
+    -fx-text-fill: white;
+}
+
+.reply-label {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 15px 15px 15px 4px;
+    -fx-border-color: #e9e7ff;
+    -fx-border-radius: 15px 15px 15px 4px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.08), 8, 0.1, 0, 2);
+    -fx-font-weight: normal;
+    -fx-text-fill: #25244f;
+}
+
+.user-dialog-box {
+    -fx-padding: 4px 13px 4px 56px;
+}
+
+.assistant-dialog-box {
+    -fx-padding: 5px 56px 5px 13px;
+}
+
+.error-label {
+    -fx-background-color: #fff7ed;
+    -fx-border-color: #fdba74;
+    -fx-effect: dropshadow(gaussian, rgba(194, 65, 12, 0.12), 8, 0.1, 0, 2);
+    -fx-text-fill: #9a3412;
+}
+
+.error-dialog-box #displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(234, 88, 12, 0.3), 7, 0.15, 0, 2);
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.2), 7, 0.15, 0, 2);
+}
