@@ -3,6 +3,9 @@
 /out/
 /*.iml
 
+# Jimbo saved data
+/data/
+
 # Gradle build files
 /.gradle/
 /build/
