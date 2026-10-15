@@ -1,0 +1,37 @@
+Alice JAR instructions
+======================
+
+Prerequisite
+------------
+Use Java 25. Check it with:
+
+java -version
+
+
+Create the fat JAR
+------------------
+From the project root, run:
+
+.\gradlew.bat shadowJar
+
+Gradle creates a self-contained (fat) JAR containing Alice and its runtime
+dependencies.
+
+
+Find the JAR
+------------
+The generated file is:
+
+build\libs\Alice.jar
+
+
+Run the JAR
+-----------
+1. Copy Alice.jar into an empty folder.
+2. Open Command Prompt or PowerShell in that folder.
+3. Run:
+
+java -jar "Alice.jar"
+
+Alice creates its runtime task-storage file at data\Alice.txt in the same
+folder as the JAR when it starts.

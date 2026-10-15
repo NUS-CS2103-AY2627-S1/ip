@@ -1,0 +1,114 @@
+.root {
+    -fx-background-color: #14172b;
+    -fx-font-family: "Segoe UI";
+}
+
+.header {
+    -fx-padding: 14 18 14 18;
+    -fx-background-color: #202646;
+    -fx-border-color: transparent transparent #616ba5 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.header-avatar {
+    -fx-min-width: 44;
+    -fx-min-height: 44;
+    -fx-alignment: center;
+    -fx-background-color: #c4c0ff;
+    -fx-background-radius: 22;
+    -fx-text-fill: #202646;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.header-title {
+    -fx-font-family: "Georgia";
+    -fx-text-fill: #fff8e7;
+    -fx-font-size: 21px;
+    -fx-font-weight: bold;
+}
+
+.header-subtitle {
+    -fx-text-fill: #c4c0ff;
+    -fx-font-size: 11px;
+}
+
+.scroll-pane {
+    -fx-background-color: #14172b;
+    -fx-background: #14172b;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #14172b;
+}
+
+.input-area {
+    -fx-padding: 10;
+    -fx-background-color: #202646;
+}
+
+.text-field {
+    -fx-background-color: #30375e;
+    -fx-background-radius: 8;
+    -fx-text-fill: #fff8e7;
+    -fx-prompt-text-fill: #c5c8dc;
+}
+
+.button {
+    -fx-background-color: #626fc1;
+    -fx-background-radius: 8;
+    -fx-text-fill: #fff8e7;
+}
+
+.button:hover {
+    -fx-background-color: #7987db;
+}
+
+.message {
+    -fx-padding: 10 14 10 14;
+    -fx-background-radius: 14;
+    -fx-font-size: 13px;
+    -fx-text-fill: #fff8e7;
+}
+
+.bot-dialog .message {
+    -fx-background-color: #30375e;
+}
+
+.error-dialog .message {
+    -fx-background-color: #713241;
+    -fx-border-color: #ffafb2;
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+    -fx-font-weight: bold;
+}
+
+.error-dialog .avatar {
+    -fx-background-color: #d85762;
+    -fx-text-fill: #ffffff;
+}
+
+.welcome-dialog .message {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 12px;
+}
+
+.user-dialog .message {
+    -fx-background-color: #5261aa;
+}
+
+.avatar {
+    -fx-min-width: 36;
+    -fx-min-height: 36;
+    -fx-alignment: center;
+    -fx-background-color: #c4c0ff;
+    -fx-background-radius: 18;
+    -fx-text-fill: #202646;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.user-dialog .avatar {
+    -fx-background-color: #5261aa;
+    -fx-text-fill: #fff8e7;
+}
