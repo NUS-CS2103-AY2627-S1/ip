@@ -1,0 +1,4 @@
+interface:
+  display_name: "SE EDU Java Standard"
+  short_description: "Apply SE EDU intermediate Java conventions"
+  default_prompt: "Use the SE EDU intermediate Java coding standard for this project."

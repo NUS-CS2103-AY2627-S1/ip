@@ -1,0 +1,40 @@
+.root,
+.anchor-pane,
+.amy-window {
+    -fx-background-color: #203a63;
+    -fx-font-family: "Arial";
+}
+
+.scroll-pane,
+.scroll-pane .viewport,
+.scroll-bar {
+    -fx-background-color: #203a63;
+}
+
+.scroll-pane .content {
+    -fx-background-color: #203a63;
+}
+
+.text-field {
+    -fx-background-color: #1b3157;
+    -fx-font: 16px "Arial";
+    -fx-text-fill: #f4f7fb;
+}
+
+.button {
+    -fx-background-color: #315f9b;
+    -fx-text-fill: white;
+    -fx-font: italic bold 17px "Arial";
+}
+
+.button:hover {
+    -fx-background-color: #3e75bd;
+}
+
+.button:pressed {
+    -fx-background-color: #244a7d;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #4677b5;
+}

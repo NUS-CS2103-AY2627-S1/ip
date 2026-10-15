@@ -1,0 +1,51 @@
+.user-message {
+    -fx-spacing: 8px;
+}
+
+.amy-message {
+    -fx-spacing: 8px;
+}
+
+.label {
+    -fx-padding: 8px 12px;
+    -fx-font: 16px "Arial";
+    -fx-text-fill: #263746;
+}
+
+.user-label {
+    -fx-background-color: #4a90e2;
+    -fx-text-fill: white;
+    -fx-background-radius: 14px 14px 3px 14px;
+    -fx-border-radius: 14px 14px 3px 14px;
+}
+
+.reply-label {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d5e0ea;
+    -fx-border-width: 1px;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.error-label {
+    -fx-background-color: #fff1ed;
+    -fx-border-color: #d98272;
+    -fx-border-width: 1px 1px 1px 4px;
+    -fx-text-fill: #8b3024;
+}
+
+.error-message {
+    -fx-padding: 8px 12px;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0.3, 1, 1);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}

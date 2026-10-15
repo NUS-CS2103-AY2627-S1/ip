@@ -1,0 +1,40 @@
+.user-message,
+.amy-message {
+    -fx-spacing: 8px;
+}
+
+.label {
+    -fx-padding: 8px 12px;
+    -fx-font: 16px "Arial";
+    -fx-text-fill: #f4f7fb;
+}
+
+.user-label {
+    -fx-background-color: #315f9b;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 14px 14px 3px 14px;
+    -fx-border-radius: 14px 14px 3px 14px;
+}
+
+.reply-label {
+    -fx-background-color: #172947;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 1px;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.error-label {
+    -fx-background-color: #7d2828;
+    -fx-border-color: #4b1515;
+    -fx-border-width: 1px 1px 1px 4px;
+    -fx-text-fill: #fff4f4;
+}
+
+.error-message {
+    -fx-padding: 8px 12px;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0.3, 1, 1);
+}

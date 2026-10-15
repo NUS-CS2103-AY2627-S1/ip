@@ -16,5 +16,11 @@ bin/
 # Temp files
 _temp/
 
+# Generated test session log
+test/ui-test-session.log
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Amy task-list save file
+data/
