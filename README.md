@@ -1,25 +1,102 @@
-# Duke project template
+# DestroyerOfWorlds User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![Product screenshot](Ui.png)
 
-## Setting up in Intellij
+DestroyerOfWorlds is a desktop chatbot for tracking your to-dos, deadlines and events.
+It's optimized for fast typists — manage your entire task list by typing simple text
+commands into a single input box, no mouse required.
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+## Adding todos
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Adds a simple to-do task with no attached date or time.
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+Example: `todo <description>`
+
+Example: `todo read book`
+
+```
+Added: [T][ ] read book
+```
+
+## Adding deadlines
+
+Adds a task that must be done by a specific date and time.
+
+Example: `deadline <description> /by <dd/MM/yyyy HH:mm>`
+
+Example: `deadline submit report /by 09/09/2026 23:59`
+
+```
+Added: [D][ ] submit report (by: 09/09/2026 23:59)
+```
+
+## Adding events
+
+Adds a task that spans a start and end date/time.
+
+Example: `event <description> /from <dd/MM/yyyy HH:mm> /to <dd/MM/yyyy HH:mm>`
+
+Example: `event team meeting /from 09/09/2026 10:00 /to 09/09/2026 11:00`
+
+```
+Added: [E][ ] team meeting (from: 09/09/2026 10:00 to: 09/09/2026 11:00)
+```
+
+## Listing all tasks
+
+Shows every task currently in your list, numbered in the order they were added.
+
+Example: `list`
+
+```
+1. [T][ ] read book
+2. [D][ ] submit report (by: 09/09/2026 23:59)
+3. [E][ ] team meeting (from: 09/09/2026 10:00 to: 09/09/2026 11:00)
+```
+
+## Marking and unmarking tasks
+
+Marks a task as done, or reverts it back to not done, using its number from `list`.
+
+Example: `mark <task number>` or `unmark <task number>`
+
+Example: `mark 1`
+
+```
+ok, marked Task1 as done
+```
+
+## Deleting tasks
+
+Removes a task from the list using its number from `list`.
+
+Example: `delete <task number>`
+
+Example: `delete 1`
+
+```
+Removed: [T][X] read book
+```
+
+## Finding tasks
+
+Searches for tasks whose description contains the given keyword (case-insensitive).
+
+Example: `find <keyword>`
+
+Example: `find report`
+
+```
+Here are the matching tasks in your list:
+2. [D][ ] submit report (by: 09/09/2026 23:59)
+```
+
+## Exiting the program
+
+Closes the application.
+
+Example: `bye`
+
+```
+seeya cutie ;)
+```

@@ -1,0 +1,71 @@
+.root {
+    -fx-background-color: #2a243f;      /* Dusk purple, shows through image edges/loading. */
+    -fx-background-image: url("/images/corruption.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-font-family: "Segoe UI", "Arial";
+}
+
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.text-field {
+    -fx-background-color: #dfe7f5;
+    -fx-text-fill: #1f1a2d;
+    -fx-prompt-text-fill: #5d5a78;
+    -fx-font-size: 14px;
+    -fx-border-color: #7f6b9f;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 4 10 4 10;
+}
+
+.text-field:focused {
+    -fx-border-color: #4cc7b4;
+}
+
+.button {
+    -fx-background-color: #4cc7b4;
+    -fx-text-fill: #172033;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-border-color: #2d6d70;
+    -fx-border-width: 2px;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #6dd8c7;
+}
+
+.button:pressed {
+    -fx-background-color: #2f9a8d;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: #352c4a;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #8aa7c7;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+

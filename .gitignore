@@ -18,3 +18,7 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+#my test files
+.vscode/settings.json
+/src/main/resources/data/tasks.txt

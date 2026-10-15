@@ -1,0 +1,64 @@
+.sender-label {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-opacity: 0.7;
+}
+
+.dialog {
+    -fx-font-size: 13px;
+}
+
+/* Compact, right-aligned bubble for the user's own messages: capped width so it
+   reads as a chat bubble, not a full-width block. */
+.user-bubble {
+    -fx-background-color: #4a3f73;
+    -fx-text-fill: white;
+    -fx-background-radius: 14 14 2 14;
+    -fx-padding: 6 10 6 10;
+}
+
+.user-bubble .sender-label,
+.user-bubble .dialog {
+    -fx-text-fill: #e9e6ff;
+}
+
+/* Near-full-width, left-aligned panel for app replies: replies (e.g. task lists) can
+   be long, so this favours reading width over a decorative avatar/bubble shape. */
+.app-bubble {
+    -fx-background-color: #ede9f7;
+    -fx-background-radius: 2 14 14 14;
+    -fx-padding: 6 10 6 10;
+}
+
+.app-bubble .sender-label {
+    -fx-text-fill: #4a3f73;
+}
+
+.app-bubble .dialog {
+    -fx-text-fill: #201a33;
+}
+
+/* Errors get a distinct colour, bold text and an accent stripe so they catch the
+   user's attention immediately, instead of blending in with normal replies. */
+.error-bubble {
+    -fx-background-color: #f6dede;
+    -fx-background-radius: 2 14 14 14;
+    -fx-border-color: #c0392b transparent transparent transparent;
+    -fx-border-width: 0 0 0 4;
+    -fx-border-radius: 2 14 14 14;
+    -fx-padding: 6 10 6 8;
+}
+
+.error-bubble .sender-label {
+    -fx-text-fill: #c0392b;
+}
+
+.error-bubble .dialog {
+    -fx-text-fill: #7a2119;
+    -fx-font-weight: bold;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(27, 20, 36, 0.45), 8, 0.4, 3, 3);
+}
+
