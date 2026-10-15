@@ -6,7 +6,11 @@
 # Gradle build files
 /.gradle/
 /build/
+gradle.properties
 src/main/resources/docs/
+
+# Local data files
+data/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
@@ -18,3 +22,5 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+.agents

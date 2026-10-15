@@ -1,0 +1,39 @@
+.label {
+    -fx-font: 13.5px "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
+    -fx-padding: 8px 14px;
+    -fx-line-spacing: 2px;
+}
+
+.user-label {
+    -fx-background-color: #1e293b;
+    -fx-text-fill: #f8fafc;
+    -fx-border-color: #334155;
+    -fx-border-width: 1px;
+    -fx-background-radius: 16px 16px 2px 16px;
+    -fx-border-radius: 16px 16px 2px 16px;
+    -fx-effect: dropshadow(three-pass-box, rgba(15, 23, 42, 0.12), 4, 0, 0, 1.5);
+}
+
+.reply-label {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #1e293b;
+    -fx-border-color: #fecdd3;
+    -fx-border-width: 1.2px;
+    -fx-background-radius: 16px 16px 16px 2px;
+    -fx-border-radius: 16px 16px 16px 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(225, 29, 72, 0.08), 6, 0, 0, 2);
+}
+
+.error-label {
+    -fx-background-color: #fff1f2;
+    -fx-text-fill: #9f1239;
+    -fx-border-color: #f43f5e;
+    -fx-border-width: 1.5px;
+    -fx-background-radius: 16px 16px 16px 2px;
+    -fx-border-radius: 16px 16px 16px 2px;
+    -fx-effect: dropshadow(three-pass-box, rgba(244, 63, 94, 0.2), 6, 0, 0, 2);
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.15), 5, 0, 0, 1.5);
+}
