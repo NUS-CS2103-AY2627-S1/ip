@@ -1,0 +1,106 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+    id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+javafx {
+    version = '21'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javaFxVersion = '21'
+
+    // JavaFX uses platform-specific native graphics libraries. Include the platforms used by
+    // the course smoke tests so the shadow JAR works regardless of which OS builds it.
+    runtimeOnly "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    runtimeOnly "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+    runtimeOnly "org.openjfx:javafx-graphics:${javaFxVersion}:mac-aarch64"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+    // Date display assertions use a fixed locale on every developer machine.
+    systemProperty 'user.language', 'en'
+    systemProperty 'user.country', 'US'
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'ubis.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'ubis.jar'
+}
+
+run {
+    standardInput = System.in
+}
+
+// Keep GUI classes out of the report; their behavior is checked manually.
+jacoco {
+    toolVersion = '0.8.14'
+}
+
+jacocoTestReport {
+    dependsOn test
+    executionData fileTree(layout.buildDirectory.dir('jacoco')) { include '*.exec' }
+    reports {
+        html.required = true
+        xml.required = true
+    }
+    classDirectories.setFrom(sourceSets.main.output.asFileTree.matching {
+        exclude 'ubis/Main.class', 'ubis/DialogBox.class', 'ubis/Launcher.class'
+    })
+}
+
+test {
+    finalizedBy jacocoTestReport
+    // Child processes use the application classpath to test console exit safely.
+    systemProperty 'ubis.test.classpath', sourceSets.test.runtimeClasspath.asPath
+    systemProperty 'ubis.test.coverage.path', layout.buildDirectory.file('jacoco/console.exec').get().asFile
+    doFirst {
+        delete layout.buildDirectory.file('jacoco/console.exec')
+    }
+}

@@ -16,5 +16,11 @@ bin/
 # Temp files
 _temp/
 
+# Any .class files at any level
+**/*.class
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# data files
+/data
