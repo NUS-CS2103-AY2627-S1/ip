@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ayre.gui.MainWindow">
+    <children>
+        <MenuBar styleClass="main-menu-bar">
+            <menus>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleHelp" text="User Guide" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" VBox.vgrow="ALWAYS" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0">
+            <content>
+                <VBox fx:id="dialogContainer" prefWidth="388.0" />
+            </content>
+        </ScrollPane>
+        <TextArea fx:id="userInput" promptText="> Message" wrapText="true" prefRowCount="1" prefHeight="25" maxHeight="120" prefWidth="400.0" />
+    </children>
+</VBox>

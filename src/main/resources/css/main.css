@@ -1,0 +1,97 @@
+.root {
+    main-color: #2a2e30;
+    -fx-background-color: main-color;
+}
+
+.main-menu-bar {
+    -fx-background-color: #191b1c;
+    -fx-padding: 4px 6px;
+}
+
+.main-menu-bar .label {
+    -fx-text-fill: #e1e1e1;
+    -fx-font-family: "Monospaced";
+    -fx-font-size: 14px;
+}
+
+.main-menu-bar .menu:hover,
+.main-menu-bar .menu:showing {
+    -fx-background-color: #454b4f;
+}
+
+.context-menu {
+    -fx-background-color: #34393c;
+}
+
+.menu-item:hover {
+    -fx-background-color: #454b4f;
+}
+
+.help-window {
+    -fx-background-color: main-color;
+    -fx-background-radius: 12px;
+    -fx-spacing: 0;
+}
+
+.help-scroll-pane,
+.help-scroll-pane .viewport {
+    -fx-background-color: transparent;
+    -fx-background-radius: 12px;
+}
+
+.help-title {
+    -fx-text-fill: #e1e1e1;
+    -fx-background-color: #202426;
+    -fx-background-radius: 12px 12px 0 0;
+    -fx-padding: 12px 16px;
+    -fx-font-family: "Monospaced";
+    -fx-font-size: 20px;
+}
+
+.help-text {
+    -fx-background-color: #b2b1b3;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-padding: 16px;
+}
+
+.help-text-content {
+    -fx-text-fill: black;
+    -fx-font-family: "Monospaced";
+    -fx-font-size: 14px;
+}
+
+.text-area {
+    -fx-font: 14px "Segoe UI";
+    -fx-prompt-text-fill: #696969;
+}
+
+.text-area .viewport,
+.text-area .content {
+    -fx-background-color: #e1e1e1;
+}
+
+.text-area .content {
+    -fx-padding: 4px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #c1cce5;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

@@ -1,0 +1,53 @@
+.label {
+    background: #97adb8;
+    -fx-background-color: background;
+    /*-fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;*/
+    /*-fx-border-width: 2px;*/
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: ladder(background, white 49%, black 50%);
+}
+
+/* Keep user input visually distinct from Ayre's replies. */
+.label.user-label {
+    -fx-background-color: #97adb8;
+    -fx-font: 12px "Segoe UI";
+}
+
+.label.reply-label {
+    -fx-background-color: #b2b1b3;
+    -fx-font-family: "Monospaced";
+    -fx-font-size: 12px;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+/* Make backend errors immediately visible with a soft warning color. */
+.label.reply-label.error-label {
+    -fx-background-color: #f4cccc;
+    -fx-text-fill: #8b0000;
+}
+
+.add-label {
+    -fx-background-color: yellow;
+}
+
+.marked-label {
+    -fx-background-color: palegreen;
+}
+
+.delete-label {
+    -fx-background-color: lightpink;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
