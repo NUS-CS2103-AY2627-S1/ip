@@ -1,0 +1,64 @@
+.root {
+    -fx-background-color: #F5EBD8;
+    -fx-font-family: "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+}
+
+.chat-scroll-pane, .chat-scroll-pane .viewport {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.chat-scroll-pane .scroll-bar:vertical {
+    -fx-pref-width: 8;
+}
+
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+/* The user's own message: plain text, no bubble - see DialogBox's Javadoc
+   for why the two sides are styled asymmetrically. */
+.user-message {
+    -fx-text-fill: #6B4A32;
+    -fx-padding: 6 2 6 2;
+}
+
+/* Coco's reply: an actual bubble, since it's the "other party" the plain
+   .label default would otherwise apply to every Label including the
+   avatar's glyph below - scoped here instead so that glyph stays plain. */
+.coco-bubble {
+    -fx-background-color: #BEE6DD;
+    -fx-text-fill: #123F39;
+    -fx-background-radius: 14;
+    -fx-padding: 8 12 8 12;
+}
+
+.avatar-glyph {
+    -fx-font-size: 14px;
+}
+
+.user-input {
+    -fx-background-radius: 18;
+    -fx-background-color: white;
+    -fx-border-color: #D9C4A0;
+    -fx-border-radius: 18;
+    -fx-padding: 6 14 6 14;
+}
+
+.send-button {
+    -fx-background-radius: 18;
+    -fx-background-color: #FF8A5B;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 6 16 6 16;
+}
+
+.send-button:hover {
+    -fx-background-color: #F4713F;
+}
+
+.send-button:pressed {
+    -fx-background-color: #D65A2D;
+}

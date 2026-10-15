@@ -1,0 +1,86 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+// The org.openjfx.javafxplugin convenience DSL only resolves JavaFX's
+// native libraries for the machine running the build, so a shadowJar built
+// with it only works on that same OS/arch - not the "cross-platform, works
+// on any computer with Java 25" jar the assignment requires. Declaring
+// every platform classifier explicitly instead means the fat jar bundles
+// Windows/Linux/macOS (Intel and Apple Silicon) native libraries together;
+// JavaFX picks the right one for whatever OS it's actually running on.
+ext.javafxVersion = '25'
+ext.javafxModules = ['base', 'graphics', 'controls', 'fxml']
+ext.javafxClassifiers = ['win', 'mac', 'mac-aarch64', 'linux', 'linux-aarch64']
+
+dependencies {
+    javafxModules.each { module ->
+        javafxClassifiers.each { classifier ->
+            implementation "org.openjfx:javafx-${module}:${javafxVersion}:${classifier}"
+        }
+    }
+
+    String jUnitVersion = '5.14.4'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'coco.Coco'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'coco.jar'
+    manifest {
+        // Package the GUI as the jar's entry point, overriding the
+        // application plugin's mainClass (which `run` still uses for
+        // the CLI) just for this task's own manifest.
+        attributes 'Main-Class': 'coco.Launcher'
+    }
+}
+
+run {
+    standardInput = System.in
+}
+
+tasks.register('runGui', JavaExec) {
+    group = 'application'
+    description = 'Runs the Coco chatbot with its JavaFX GUI.'
+    mainClass = 'coco.Launcher'
+    classpath = sourceSets.main.runtimeClasspath
+}
