@@ -1,0 +1,161 @@
+.help-window {
+    -fx-background-color: #fff9f0;
+    -fx-font-family: "Georgia";
+}
+
+.help-header {
+    -fx-background-color: #5d1f2b;
+    -fx-border-color: #3d101a;
+    -fx-border-width: 0 0 2 0;
+    -fx-padding: 11 16 11 18;
+}
+
+.help-brand {
+    -fx-font-size: 24px;
+    -fx-font-style: italic;
+    -fx-text-fill: #fff8ec;
+}
+
+.keyboard-hint {
+    -fx-font-family: "Menlo", "Monospaced";
+    -fx-font-size: 10px;
+    -fx-text-fill: #e8cabc;
+}
+
+.command-sidebar {
+    -fx-background-color: #f1dfd2;
+    -fx-border-color: transparent #e4c5b5 transparent transparent;
+    -fx-border-width: 0 1 0 0;
+    -fx-padding: 12 12 12 12;
+}
+
+.sidebar-title,
+.detail-eyebrow,
+.detail-label {
+    -fx-font-family: "Menlo", "Monospaced";
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #a65059;
+}
+
+.sidebar-subtitle {
+    -fx-font-size: 11px;
+    -fx-padding: 0 0 6 0;
+    -fx-text-fill: #8b7471;
+}
+
+.command-list {
+    -fx-padding: 2 0 0 0;
+}
+
+.command-item {
+    -fx-alignment: CENTER_LEFT;
+    -fx-background-color: transparent;
+    -fx-background-radius: 3;
+    -fx-font-family: "Menlo", "Monospaced";
+    -fx-font-size: 13px;
+    -fx-max-width: Infinity;
+    -fx-min-height: 26px;
+    -fx-padding: 0 10 0 10;
+    -fx-text-fill: #493b3c;
+}
+
+.command-item:hover {
+    -fx-background-color: #ead3c3;
+}
+
+.command-item-selected {
+    -fx-background-color: #6f2b39;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fff8ec;
+}
+
+.command-item-selected:hover {
+    -fx-background-color: #6f2b39;
+}
+
+.command-detail {
+    -fx-padding: 22 26 22 26;
+}
+
+.command-position {
+    -fx-font-family: "Menlo", "Monospaced";
+    -fx-font-size: 11px;
+    -fx-text-fill: #8b7471;
+}
+
+.detail-title {
+    -fx-font-family: "Menlo", "Monospaced";
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #5d1f2b;
+}
+
+.detail-description {
+    -fx-font-size: 16px;
+    -fx-line-spacing: 2px;
+    -fx-text-fill: #493b3c;
+}
+
+.detail-section {
+    -fx-border-color: #ead3c3 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 15 0 0 0;
+}
+
+.syntax-value {
+    -fx-background-color: #f8ede1;
+    -fx-background-radius: 3;
+    -fx-border-color: #e4c5b5;
+    -fx-border-radius: 3;
+    -fx-font-family: "Menlo", "Monospaced";
+    -fx-font-size: 13px;
+    -fx-padding: 10 12 10 12;
+    -fx-text-fill: #30282a;
+}
+
+.example-row {
+    -fx-background-color: #2f171d;
+    -fx-background-radius: 4;
+    -fx-padding: 10 12 10 12;
+}
+
+.example-value {
+    -fx-font-family: "Menlo", "Monospaced";
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2px;
+    -fx-text-fill: #fff3df;
+}
+
+.copy-button {
+    -fx-background-color: #74323d;
+    -fx-background-radius: 13;
+    -fx-font-family: "Menlo", "Monospaced";
+    -fx-font-size: 10px;
+    -fx-min-height: 26px;
+    -fx-padding: 3 10 3 10;
+    -fx-text-fill: #fff8ec;
+}
+
+.copy-button:hover {
+    -fx-background-color: #a65059;
+}
+
+.copy-status {
+    -fx-font-size: 11px;
+    -fx-text-fill: #8b7471;
+}
+
+.date-note {
+    -fx-background-color: #f1dfd2;
+    -fx-background-radius: 4;
+    -fx-border-color: #e4c5b5;
+    -fx-border-radius: 4;
+    -fx-padding: 12 14 12 14;
+}
+
+.date-note-text {
+    -fx-font-family: "Menlo", "Monospaced";
+    -fx-font-size: 11px;
+    -fx-text-fill: #6e5b59;
+}

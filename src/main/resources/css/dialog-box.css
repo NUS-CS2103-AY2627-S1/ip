@@ -1,0 +1,60 @@
+.dialog-box {
+    -fx-alignment: top-right;
+}
+
+.dialog-box .label {
+    -fx-background-color: #f8ede1;
+    -fx-background-radius: 3 15 15 15;
+    -fx-border-color: #e4c5b5;
+    -fx-border-radius: 3 15 15 15;
+    -fx-border-width: 1;
+    -fx-font-family: "Georgia";
+    -fx-font-size: 16px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 10 13 10 13;
+    -fx-text-fill: #30282a;
+}
+
+.user-dialog {
+    -fx-alignment: top-right;
+}
+
+.user-dialog .label {
+    -fx-background-color: #74323d;
+    -fx-background-radius: 15 3 15 15;
+    -fx-border-color: #74323d;
+    -fx-border-radius: 15 3 15 15;
+    -fx-text-fill: #fff7ea;
+}
+
+.samantha-dialog {
+    -fx-alignment: top-left;
+}
+
+.error-dialog .label {
+    -fx-background-color: #f4ddd4;
+    -fx-border-color: #8e2d3c;
+    -fx-border-width: 1 1 1 4;
+    -fx-text-fill: #4a1822;
+}
+
+.error-dialog .error-text {
+    -fx-fill: #4a1822;
+    -fx-font-family: "Georgia";
+    -fx-font-size: 16px;
+}
+
+.error-dialog .help-link {
+    -fx-fill: #8e2d3c;
+    -fx-underline: true;
+    -fx-cursor: hand;
+}
+
+.error-dialog .help-link:hover,
+.error-dialog .help-link-hover {
+    -fx-fill: #5d1f2b;
+}
+
+.dialog-box #displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(48, 25, 28, 0.3), 5, 0.25, 0, 1);
+}

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="helpWindow" prefHeight="520.0" prefWidth="760.0" styleClass="help-window"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="samantha.ui.HelpWindow">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="help-header">
+            <children>
+                <Label styleClass="help-brand" text="Samantha" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label styleClass="keyboard-hint" text="j/k navigate · c copy · q close" />
+            </children>
+        </HBox>
+    </top>
+    <left>
+        <VBox prefWidth="180.0" spacing="4.0" styleClass="command-sidebar">
+            <children>
+                <Label styleClass="sidebar-title" text="COMMANDS" />
+                <Label styleClass="sidebar-subtitle" text="Use j / k to move" />
+                <VBox spacing="2.0" styleClass="command-list">
+                    <children>
+                        <Button fx:id="helpButton" mnemonicParsing="false" onAction="#selectCommand"
+                                styleClass="command-item" text="help" />
+                        <Button fx:id="todoButton" mnemonicParsing="false" onAction="#selectCommand"
+                                styleClass="command-item" text="todo" />
+                        <Button fx:id="deadlineButton" mnemonicParsing="false" onAction="#selectCommand"
+                                styleClass="command-item" text="deadline" />
+                        <Button fx:id="eventButton" mnemonicParsing="false" onAction="#selectCommand"
+                                styleClass="command-item" text="event" />
+                        <Button fx:id="listButton" mnemonicParsing="false" onAction="#selectCommand"
+                                styleClass="command-item" text="list" />
+                        <Button fx:id="findButton" mnemonicParsing="false" onAction="#selectCommand"
+                                styleClass="command-item" text="find" />
+                        <Button fx:id="noteButton" mnemonicParsing="false" onAction="#selectCommand"
+                                styleClass="command-item" text="note" />
+                        <Button fx:id="notesButton" mnemonicParsing="false" onAction="#selectCommand"
+                                styleClass="command-item" text="notes" />
+                        <Button fx:id="editNoteButton" mnemonicParsing="false" onAction="#selectCommand"
+                                styleClass="command-item" text="edit-note" />
+                        <Button fx:id="deleteNoteButton" mnemonicParsing="false" onAction="#selectCommand"
+                                styleClass="command-item" text="delete-note" />
+                        <Button fx:id="markButton" mnemonicParsing="false" onAction="#selectCommand"
+                                styleClass="command-item" text="mark" />
+                        <Button fx:id="unmarkButton" mnemonicParsing="false" onAction="#selectCommand"
+                                styleClass="command-item" text="unmark" />
+                        <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#selectCommand"
+                                styleClass="command-item" text="delete" />
+                        <Button fx:id="undoButton" mnemonicParsing="false" onAction="#selectCommand"
+                                styleClass="command-item" text="undo" />
+                        <Button fx:id="byeButton" mnemonicParsing="false" onAction="#selectCommand"
+                                styleClass="command-item" text="bye" />
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </left>
+    <center>
+        <VBox spacing="18.0" styleClass="command-detail">
+            <children>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Label styleClass="detail-eyebrow" text="COMMAND REFERENCE" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="commandPosition" styleClass="command-position" />
+                    </children>
+                </HBox>
+                <VBox spacing="7.0">
+                    <children>
+                        <Label fx:id="commandTitle" styleClass="detail-title" />
+                        <Label fx:id="commandDescription" styleClass="detail-description" wrapText="true" />
+                    </children>
+                </VBox>
+                <VBox spacing="6.0" styleClass="detail-section">
+                    <children>
+                        <Label styleClass="detail-label" text="SYNTAX" />
+                        <Label fx:id="commandSyntax" styleClass="syntax-value" wrapText="true" />
+                    </children>
+                </VBox>
+                <VBox spacing="6.0" styleClass="detail-section">
+                    <children>
+                        <Label styleClass="detail-label" text="EXAMPLE" />
+                        <VBox spacing="8.0" styleClass="example-row">
+                            <children>
+                                <Label fx:id="commandExample" styleClass="example-value" wrapText="true" />
+                                <HBox alignment="CENTER_RIGHT">
+                                    <children>
+                                        <Button fx:id="copyButton" mnemonicParsing="false" onAction="#copyCommand"
+                                                styleClass="copy-button" text="Copy example" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                        <Label fx:id="copyStatus" styleClass="copy-status" />
+                    </children>
+                </VBox>
+                <VBox fx:id="formatNote" spacing="5.0" styleClass="date-note">
+                    <children>
+                        <Label fx:id="formatHeading" styleClass="detail-label" />
+                        <Label fx:id="formatText" styleClass="date-note-text" wrapText="true" />
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </center>
+    <stylesheets>
+        <URL value="@../css/help.css" />
+    </stylesheets>
+</BorderPane>
