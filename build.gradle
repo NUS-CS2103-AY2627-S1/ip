@@ -1,0 +1,77 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
+javafx {
+    version = '25'
+    modules = [ 'javafx.controls' ]
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+
+    // Package the JavaFX native libraries for every supported desktop platform.
+    // The JavaFX Gradle plugin adds the host platform automatically; Shadow then
+    // includes these additional Linux and macOS libraries in the release JAR.
+    [ 'win', 'linux', 'mac' ].each { platform ->
+        runtimeOnly "org.openjfx:javafx-base:25:${platform}"
+        runtimeOnly "org.openjfx:javafx-graphics:25:${platform}"
+        runtimeOnly "org.openjfx:javafx-controls:25:${platform}"
+    }
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'bloop.gui.BloopLauncher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'orbit.jar'
+}
+
+run {
+    standardInput = System.in
+}
