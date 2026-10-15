@@ -33,3 +33,18 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## Required conventions
+
+Follow the SE-EDU Java coding standard (basic + intermediate) for new and
+modified code: https://se-education.org/guides/conventions/java/intermediate.html
+Consult that guide before making code changes; use its stated Google Java
+style fallback for topics it does not cover. Keep Javadoc accurate when
+changing a documented API. Use American English, a concise summary sentence,
+and parameter, return, and exception descriptions where useful.
+
+Follow https://se-education.org/guides/conventions/git.html for proposed and
+authorized commits. Use an imperative, capitalized subject without a final
+period; aim for 50 characters and never exceed 72. For non-trivial changes,
+add a body separated by a blank line and wrapped at 72 characters. Explain
+the problem, why it matters, and what the change achieves.

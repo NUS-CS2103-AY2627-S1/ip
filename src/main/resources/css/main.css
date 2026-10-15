@@ -1,0 +1,34 @@
+.main-window {
+    -fx-background-color: #f5f6fa;
+    -fx-padding: 12;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.user-bubble,
+.bubba-bubble,
+.error-bubble {
+    -fx-background-radius: 12;
+    -fx-padding: 9 12;
+    -fx-font-size: 14;
+}
+
+.user-bubble {
+    -fx-background-color: #3367d6;
+    -fx-text-fill: white;
+}
+
+.bubba-bubble {
+    -fx-background-color: white;
+    -fx-text-fill: #202124;
+}
+
+.error-bubble {
+    -fx-background-color: #fde7e9;
+    -fx-border-color: #d93025;
+    -fx-border-radius: 12;
+    -fx-text-fill: #a50e0e;
+}
