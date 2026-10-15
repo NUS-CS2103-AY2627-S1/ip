@@ -1,0 +1,17 @@
+#!/bin/sh
+
+message_file=$1
+
+if awk '
+    length($0) > 72 {
+        printf "Commit message line %d exceeds 72 characters.\n", NR
+        is_invalid = 1
+    }
+    END {
+        exit is_invalid
+    }
+' "$message_file"; then
+    exit 0
+fi
+
+exit 1

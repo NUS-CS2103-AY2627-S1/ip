@@ -16,5 +16,14 @@ bin/
 # Temp files
 _temp/
 
+# .class files
+*.class
+
+# data files
+data/
+
+# .vscode
+/.vscode/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

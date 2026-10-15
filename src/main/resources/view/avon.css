@@ -1,0 +1,92 @@
+.root {
+    -fx-background-color: #f7f1e3;
+    -fx-font-family: "Georgia";
+}
+
+.title-bar {
+    -fx-background-color: linear-gradient(to right, #321823, #6d1830);
+    -fx-padding: 12 18 10 18;
+}
+
+.title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fff8e7;
+}
+
+.subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #dbc9b4;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: #f7f1e3;
+}
+
+.dialog-box {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-padding: 10 4 10 4;
+}
+
+.dialog-text {
+    -fx-background-color: #ead8b0;
+    -fx-background-radius: 12 12 2 12;
+    -fx-border-color: #d3bc8d;
+    -fx-border-radius: 12 12 2 12;
+    -fx-font-size: 15px;
+    -fx-line-spacing: 3px;
+    -fx-padding: 9 12 9 12;
+}
+
+.avon-dialog .dialog-text {
+    -fx-background-color: #fffaf0;
+    -fx-background-radius: 12 12 12 2;
+    -fx-border-color: #dcccb0;
+    -fx-border-radius: 12 12 12 2;
+}
+
+.error-dialog .dialog-text {
+    -fx-background-color: #fff0ed;
+    -fx-border-color: #a63f49;
+    -fx-border-width: 0 0 0 4;
+}
+
+.list-number {
+    -fx-font-weight: bold;
+}
+
+.speaker-badge {
+    -fx-background-color: #6d1830;
+    -fx-background-radius: 12;
+    -fx-padding: 8;
+}
+
+.speaker-icon {
+    -fx-background-color: #fff8e7;
+}
+
+.input-bar {
+    -fx-background-color: #2f1720;
+    -fx-padding: 10;
+}
+
+.text-field {
+    -fx-background-radius: 6;
+    -fx-padding: 8 10 8 10;
+}
+
+.button {
+    -fx-background-color: #8a2945;
+    -fx-background-radius: 6;
+    -fx-font-weight: bold;
+    -fx-padding: 8 14 8 14;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #a23858;
+}

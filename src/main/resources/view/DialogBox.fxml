@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.TextFlow?>
+
+<fx:root alignment="TOP_RIGHT" fillHeight="false"
+         maxWidth="1.7976931348623157E308" spacing="8.0"
+         styleClass="dialog-box" type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <TextFlow fx:id="dialog" maxWidth="1.7976931348623157E308"
+                  styleClass="dialog-text" />
+        <StackPane fx:id="speakerBadge" maxHeight="44.0" maxWidth="44.0"
+                   minHeight="44.0" minWidth="44.0" prefHeight="44.0"
+                   prefWidth="44.0" styleClass="speaker-badge" />
+    </children>
+    <padding>
+        <Insets bottom="4.0" left="12.0" right="12.0" top="4.0" />
+    </padding>
+</fx:root>
