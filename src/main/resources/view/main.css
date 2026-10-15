@@ -1,0 +1,45 @@
+.root {
+    -fx-font-family: "System";
+    -fx-background-color: #f6f7fb;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 12px;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.input-bar {
+    -fx-alignment: center;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d9dce5;
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 10px 12px;
+}
+
+.input-bar .text-field {
+    -fx-background-radius: 18px;
+    -fx-padding: 9px 14px;
+}
+
+.input-bar .button {
+    -fx-background-color: #4255d4;
+    -fx-background-radius: 18px;
+    -fx-text-fill: white;
+    -fx-padding: 9px 18px;
+}
+
+.speaker-label {
+    -fx-font-weight: bold;
+    -fx-padding: 8px 10px;
+}
+
+.dialog-label {
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    -fx-padding: 10px 14px;
+    -fx-text-fill: #242735;
+}
