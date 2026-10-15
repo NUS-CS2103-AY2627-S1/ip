@@ -1,0 +1,19 @@
+.label {
+    -fx-background-color: rgba(215, 232, 255, 0.9);
+    -fx-background-radius: 12px 12px 0 12px;
+    -fx-padding: 8px;
+}
+
+.reply-divider {
+    -fx-background-color: #d5d9df;
+}
+
+.reply-label {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 1, 1);
+}

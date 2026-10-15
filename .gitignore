@@ -16,5 +16,12 @@ bin/
 # Temp files
 _temp/
 
+# Test files
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Saved files
+data/
+
+#JAR files
+build/libs/lumine.jar
