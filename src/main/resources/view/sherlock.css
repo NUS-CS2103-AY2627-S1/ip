@@ -1,0 +1,57 @@
+.root {
+    -fx-background-color: #f4f1ea;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.chat-scroll-pane {
+    -fx-background: #f4f1ea;
+    -fx-background-color: transparent;
+}
+
+.chat-scroll-pane > .viewport {
+    -fx-background-color: #f4f1ea;
+}
+
+.dialog-label {
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-font-size: 13px;
+    -fx-padding: 10 12 10 12;
+}
+
+.user-dialog-box .dialog-label {
+    -fx-background-color: #334155;
+    -fx-border-color: #334155;
+    -fx-text-fill: white;
+}
+
+.sherlock-dialog-box .dialog-label {
+    -fx-background-color: white;
+    -fx-border-color: #c9bda7;
+    -fx-text-fill: #292524;
+}
+
+.error-dialog-box .dialog-label {
+    -fx-background-color: #fee2e2;
+    -fx-border-color: #dc2626;
+    -fx-border-width: 2;
+    -fx-text-fill: #991b1b;
+}
+
+.command-input {
+    -fx-background-radius: 8;
+    -fx-border-color: #c9bda7;
+    -fx-border-radius: 8;
+    -fx-font-size: 14px;
+}
+
+.send-button {
+    -fx-background-color: #7c2d12;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.send-button:hover {
+    -fx-background-color: #9a3412;
+}
