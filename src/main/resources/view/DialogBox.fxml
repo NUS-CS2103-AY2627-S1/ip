@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<fx:root type="javafx.scene.layout.HBox" spacing="10" stylesheets="@../css/dialogbox.css"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox fx:id="message" styleClass="message" spacing="5" minWidth="0">
+        <Label fx:id="speaker" styleClass="speaker" />
+        <Label fx:id="dialog" styleClass="dialog" wrapText="true" maxWidth="Infinity" />
+    </VBox>
+</fx:root>

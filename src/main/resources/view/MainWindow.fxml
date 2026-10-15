@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane prefHeight="680" prefWidth="520" stylesheets="@../css/main.css"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pip.gui.MainWindow">
+    <VBox AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"
+          AnchorPane.rightAnchor="0">
+        <HBox fx:id="header" styleClass="header" alignment="CENTER_LEFT" spacing="10">
+            <Label text="Pip" styleClass="title" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="Small paws. Big plans." styleClass="subtitle" />
+        </HBox>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS" minHeight="0">
+            <content><VBox fx:id="dialogContainer" styleClass="conversation" spacing="20" /></content>
+        </ScrollPane>
+        <VBox styleClass="composer-area" spacing="8">
+            <HBox styleClass="composer" alignment="CENTER" spacing="8">
+                <TextField fx:id="userInput" onAction="#handleUserInput" promptText="What shall we chip away at?"
+                           HBox.hgrow="ALWAYS" minWidth="0" accessibleText="Command" />
+                <Button fx:id="sendButton" onAction="#handleUserInput" text="Send &#8593;" minWidth="76"
+                        accessibleText="Send command" />
+            </HBox>
+            <Label text="gather = todo  ·  stash = list  ·  sniff = find" styleClass="hint" wrapText="true" />
+        </VBox>
+    </VBox>
+</AnchorPane>
