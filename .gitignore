@@ -7,6 +7,7 @@
 /.gradle/
 /build/
 src/main/resources/docs/
+/jar_output/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
@@ -16,5 +17,14 @@ bin/
 # Temp files
 _temp/
 
+# Codex project-local skills and metadata
+/.codex/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Class files
+/src/main/java/*.class
+
+# Data file for local testing
+/data/

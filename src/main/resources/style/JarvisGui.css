@@ -1,0 +1,240 @@
+.root {
+    /* J.A.R.V.I.S. Stark-tech palette */
+    main-color: #050A0E;
+    accent-color: #00E5FF;
+    glow-color: #00BCD4;
+    panel-color: #0B2029;
+    text-color: #E0FBFF;
+
+    -fx-background-color: main-color;
+}
+
+/* =========================
+   JARVIS HEADER
+   ========================= */
+
+.jarvis-header {
+    -fx-padding: 5px 10px 5px 10px;
+    -fx-border-color: transparent transparent #007C91 transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.jarvis-title {
+    -fx-text-fill: #E0FBFF;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(0, 229, 255, 0.75),
+        10,
+        0.25,
+        0,
+        0
+    );
+}
+
+.system-status {
+    -fx-text-fill: #4DFFB5;
+    -fx-font-family: "Consolas";
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.system-info {
+    -fx-padding: 3px 8px 3px 8px;
+    -fx-text-fill: #00BCD4;
+    -fx-font-family: "Consolas";
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+
+    -fx-border-color: #007C91;
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
+
+    -fx-background-color: rgba(0, 188, 212, 0.05);
+
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(0, 229, 255, 0.6),
+        6,
+        0.2,
+        0,
+        0
+    );
+}
+
+
+/* =========================
+TEXT FIELD
+========================= */
+
+.text-field {
+    -fx-background-color: #081820;
+    -fx-text-fill: #E0FBFF;
+    -fx-prompt-text-fill: #547985;
+
+    -fx-font-family: "Consolas";
+    -fx-font-size: 14px;
+
+    -fx-border-color: #00BCD4;
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
+
+    -fx-background-radius: 3px;
+
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(0, 229, 255, 0.35),
+        8,
+        0.2,
+        0,
+        0
+    );
+}
+
+.text-field:focused {
+-fx-border-color: #ffffff;
+
+-fx-effect: dropshadow(
+    gaussian,
+    rgba(0, 229, 255, 0.75),
+    12,
+    0.35,
+    0,
+    0
+);
+
+
+}
+
+/* =========================
+BUTTON
+========================= */
+
+.button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #00E5FF;
+
+    -fx-font-family: "Consolas";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+
+    -fx-border-color: #00E5FF;
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
+
+    -fx-background-radius: 3px;
+
+    -fx-cursor: hand;
+
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(0, 229, 255, 0.40),
+        7,
+        0.2,
+        0,
+        0
+    );
+}
+
+.button:hover {
+    -fx-background-color: rgba(0, 229, 255, 0.15);
+    -fx-text-fill: white;
+
+    -fx-border-color: white;
+
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(0, 229, 255, 0.9),
+        14,
+        0.3,
+        0,
+        0
+    );
+}
+
+.button:pressed {
+    -fx-background-color: rgba(0, 229, 255, 0.30);
+    -fx-text-fill: white;
+
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(0, 229, 255, 1.0),
+        18,
+        0.45,
+        0,
+        0
+    );
+}
+
+/* =========================
+SCROLL PANE
+========================= */
+
+.scroll-pane,
+.scroll-pane .viewport {
+-fx-background-color: transparent;
+}
+
+.scroll-bar {
+-fx-font-size: 8px;
+-fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+-fx-background-color: accent-color;
+-fx-background-radius: 0.5em;
+
+-fx-effect: dropshadow(
+    gaussian,
+    rgba(0, 229, 255, 0.6),
+    6,
+    0.2,
+    0,
+    0
+);
+
+
+}
+
+.scroll-bar .thumb:hover {
+-fx-background-color: #ffffff;
+}
+
+/* Hides increment/decrement buttons */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+-fx-pref-height: 0;
+-fx-opacity: 0;
+}
+
+/* =========================
+JARVIS CHAT REPLY
+========================= */
+
+.reply-label {
+-fx-background-color: #0d1b24;
+
+-fx-text-fill: text-color;
+
+-fx-background-radius: 1em 1em 1em 0;
+-fx-border-radius: 1em 1em 1em 0;
+
+-fx-border-color: #00bcd4;
+-fx-border-width: 1px;
+
+-fx-padding: 10px 14px;
+
+-fx-effect: dropshadow(
+    gaussian,
+    rgba(0, 229, 255, 0.35),
+    10,
+    0.2,
+    0,
+    0
+);
+
+
+}
