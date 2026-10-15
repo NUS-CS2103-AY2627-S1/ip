@@ -1,0 +1,36 @@
+.root {
+    -fx-background-image: url("../images/RomanBackground.png");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+.scroll-pane {
+    -fx-background-color: rgba(255, 248, 230, 0.30);
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.text-field {
+    -fx-background-color: rgba(255, 250, 240, 0.95);
+    -fx-text-fill: #2f2116;
+    -fx-border-color: #a87532;
+    -fx-border-width: 1px;
+    -fx-font-size: 14px;
+}
+
+.button {
+    -fx-background-color: #7b241c;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #943126;
+}
+
+.button:pressed {
+    -fx-background-color: #641e16;
+}
