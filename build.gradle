@@ -1,0 +1,204 @@
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
+
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+def javaFxVersion = '25.0.2'
+
+configurations {
+    macIntelJavaFx
+    macArmJavaFx
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:mac-aarch64")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:mac-aarch64")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:mac-aarch64")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:mac-aarch64")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:linux")
+
+    macIntelJavaFx("org.openjfx:javafx-graphics:${javaFxVersion}:mac") {
+        transitive = false
+    }
+    macArmJavaFx("org.openjfx:javafx-graphics:${javaFxVersion}:mac-aarch64") {
+        transitive = false
+    }
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'benbot.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+def macIntelNativeDirectory = layout.buildDirectory.dir('javafx-natives/mac-intel')
+def macArmNativeDirectory = layout.buildDirectory.dir('javafx-natives/mac-arm')
+def universalMacNativeDirectory = layout.buildDirectory.dir('javafx-natives/mac-universal')
+
+tasks.register('extractMacIntelJavaFxNatives', Sync) {
+    from({ configurations.macIntelJavaFx.collect { zipTree(it) } })
+    include '*.dylib'
+    into macIntelNativeDirectory
+}
+
+tasks.register('extractMacArmJavaFxNatives', Sync) {
+    from({ configurations.macArmJavaFx.collect { zipTree(it) } })
+    include '*.dylib'
+    into macArmNativeDirectory
+}
+
+/** Combines equivalent Intel and Arm Mach-O files into one universal binary. */
+def createUniversalMacBinary = { File intelFile, File armFile, File outputFile ->
+    byte[] intelBytes = intelFile.bytes
+    byte[] armBytes = armFile.bytes
+
+    def readMachOHeader = { byte[] bytes, String fileName ->
+        if (bytes.length < 12) {
+            throw new GradleException("${fileName} is too short to be a Mach-O binary")
+        }
+        ByteBuffer header = ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN)
+        if (header.getInt(0) != (int) 0xfeedfacf) {
+            throw new GradleException("${fileName} is not a 64-bit Mach-O binary")
+        }
+        [cpuType: header.getInt(4), cpuSubtype: header.getInt(8)]
+    }
+
+    def intelHeader = readMachOHeader(intelBytes, intelFile.name)
+    def armHeader = readMachOHeader(armBytes, armFile.name)
+    int alignmentPower = 14
+    int alignment = 1 << alignmentPower
+    def align = { int value -> (value + alignment - 1) & -alignment }
+    int intelOffset = align(8 + 2 * 20)
+    int armOffset = align(intelOffset + intelBytes.length)
+
+    outputFile.parentFile.mkdirs()
+    RandomAccessFile output = new RandomAccessFile(outputFile, 'rw')
+    try {
+        output.setLength(0)
+        output.writeInt((int) 0xcafebabe)
+        output.writeInt(2)
+        output.writeInt(intelHeader.cpuType)
+        output.writeInt(intelHeader.cpuSubtype)
+        output.writeInt(intelOffset)
+        output.writeInt(intelBytes.length)
+        output.writeInt(alignmentPower)
+        output.writeInt(armHeader.cpuType)
+        output.writeInt(armHeader.cpuSubtype)
+        output.writeInt(armOffset)
+        output.writeInt(armBytes.length)
+        output.writeInt(alignmentPower)
+        output.seek(intelOffset)
+        output.write(intelBytes)
+        output.seek(armOffset)
+        output.write(armBytes)
+    } finally {
+        output.close()
+    }
+}
+
+tasks.register('mergeMacJavaFxNatives') {
+    dependsOn 'extractMacIntelJavaFxNatives', 'extractMacArmJavaFxNatives'
+    inputs.dir macIntelNativeDirectory
+    inputs.dir macArmNativeDirectory
+    outputs.dir universalMacNativeDirectory
+
+    doLast {
+        File intelDirectory = macIntelNativeDirectory.get().asFile
+        File armDirectory = macArmNativeDirectory.get().asFile
+        File outputDirectory = universalMacNativeDirectory.get().asFile
+        delete outputDirectory
+        outputDirectory.mkdirs()
+
+        Set<File> intelLibraries = fileTree(intelDirectory) {
+            include '*.dylib'
+        }.files
+        if (intelLibraries.isEmpty()) {
+            throw new GradleException('No Intel macOS JavaFX native libraries were found')
+        }
+
+        intelLibraries.each { File intelLibrary ->
+            File armLibrary = new File(armDirectory, intelLibrary.name)
+            if (!armLibrary.isFile()) {
+                throw new GradleException("Missing Arm macOS library ${armLibrary.name}")
+            }
+            createUniversalMacBinary(
+                    intelLibrary,
+                    armLibrary,
+                    new File(outputDirectory, intelLibrary.name))
+        }
+    }
+}
+
+shadowJar {
+    archiveFileName = 'benbot.jar'
+    dependsOn 'mergeMacJavaFxNatives'
+    inputs.dir universalMacNativeDirectory
+    exclude '*.dylib'
+
+    doLast {
+        ant.jar(
+                destfile: archiveFile.get().asFile,
+                update: true,
+                basedir: universalMacNativeDirectory.get().asFile)
+    }
+}
+
+run {
+    standardInput = System.in
+}

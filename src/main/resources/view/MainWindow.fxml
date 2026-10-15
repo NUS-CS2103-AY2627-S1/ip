@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane minHeight="520.0" minWidth="420.0" prefHeight="680.0" prefWidth="520.0"
+            styleClass="app-shell" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="benbot.MainWindow">
+    <top>
+        <VBox spacing="3.0" styleClass="app-header">
+            <padding>
+                <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+            </padding>
+            <Label styleClass="app-title" text="BenBot" />
+            <Label styleClass="app-subtitle" text="A calm place to organise what matters" />
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                    pannable="true" styleClass="conversation-scroll" vbarPolicy="AS_NEEDED">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true" spacing="11.0"
+                      styleClass="dialog-container">
+                    <padding>
+                        <Insets bottom="18.0" left="16.0" right="16.0" top="18.0" />
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER" spacing="10.0" styleClass="composer">
+            <padding>
+                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+            </padding>
+            <TextField fx:id="userInput" onAction="#handleUserInput"
+                       promptText="Type a command…" styleClass="command-input"
+                       HBox.hgrow="ALWAYS" />
+            <Button fx:id="sendButton" defaultButton="true" mnemonicParsing="false"
+                    onAction="#handleUserInput" styleClass="send-button" text="Send" />
+        </HBox>
+    </bottom>
+</BorderPane>

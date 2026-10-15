@@ -1,0 +1,105 @@
+.root {
+    -fx-font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+    -fx-font-size: 14px;
+}
+
+.app-shell {
+    -fx-background-color: #f7f5fb;
+}
+
+.app-header {
+    -fx-background-color: linear-gradient(to right, #2e2358, #5b3fa3);
+}
+
+.app-title {
+    -fx-font-size: 25px;
+    -fx-font-weight: 800;
+    -fx-text-fill: white;
+}
+
+.app-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #ddd4ff;
+}
+
+.conversation-scroll,
+.conversation-scroll > .viewport,
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.conversation-scroll {
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.dialog-box {
+    -fx-padding: 2 0;
+}
+
+.dialog-label {
+    -fx-background-color: white;
+    -fx-background-radius: 16 16 16 4;
+    -fx-border-color: #e7e2f1;
+    -fx-border-radius: 16 16 16 4;
+    -fx-effect: dropshadow(gaussian, rgba(43, 32, 72, 0.10), 8, 0.12, 0, 2);
+    -fx-padding: 11 14;
+    -fx-text-fill: #2d2940;
+}
+
+.avatar-label {
+    -fx-background-color: #e9e2ff;
+    -fx-background-radius: 24;
+    -fx-font-size: 10px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #503795;
+}
+
+.user-dialog .dialog-label {
+    -fx-background-color: #5b3fa3;
+    -fx-background-radius: 16 16 4 16;
+    -fx-border-color: #5b3fa3;
+    -fx-border-radius: 16 16 4 16;
+    -fx-text-fill: white;
+}
+
+.user-dialog .avatar-label {
+    -fx-background-color: #d9f5ec;
+    -fx-text-fill: #16664e;
+}
+
+.composer {
+    -fx-background-color: white;
+    -fx-border-color: #e3deed transparent transparent transparent;
+}
+
+.command-input {
+    -fx-background-color: #f4f1f8;
+    -fx-background-radius: 10;
+    -fx-border-color: transparent;
+    -fx-padding: 10 12;
+}
+
+.command-input:focused {
+    -fx-background-color: white;
+    -fx-border-color: #765bc0;
+    -fx-border-radius: 10;
+}
+
+.send-button {
+    -fx-background-color: #5b3fa3;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-font-weight: 700;
+    -fx-padding: 10 18;
+    -fx-text-fill: white;
+}
+
+.send-button:hover {
+    -fx-background-color: #6d4fbb;
+}
+
+.send-button:disabled,
+.command-input:disabled {
+    -fx-opacity: 0.55;
+}
