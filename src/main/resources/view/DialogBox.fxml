@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root alignment="TOP_RIGHT"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         prefWidth="388.0"
+         spacing="10.0"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialog"
+               maxWidth="280.0"
+               minHeight="-Infinity"
+               style="-fx-background-color: #e8eef9; -fx-background-radius: 8; -fx-padding: 10;"
+               text="Message"
+               wrapText="true" />
+        <Label fx:id="avatar"
+               alignment="CENTER"
+               minHeight="48.0"
+               minWidth="48.0"
+               style="-fx-background-color: #5b6f9d; -fx-background-radius: 24; -fx-text-fill: white; -fx-font-weight: bold;"
+               text="Eva" />
+    </children>
+    <padding>
+        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+    </padding>
+</fx:root>
