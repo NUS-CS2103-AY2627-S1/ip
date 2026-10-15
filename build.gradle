@@ -1,0 +1,95 @@
+plugins {
+    id 'application'
+    id 'checkstyle'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+application {
+    mainClass = 'jaylen.Launcher'
+}
+
+checkstyle {
+    toolVersion = '14.1.0'
+}
+
+dependencies {
+    String javaFxVersion = '17.0.7'
+    String junitVersion = '5.14.4'
+
+    // Use the native JavaFX runtime that matches this project's Apple Silicon release build.
+    // Windows and Linux runtimes remain bundled so the resulting fat JAR works on those OSes too.
+    String macClassifier = 'mac-aarch64'
+
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:${macClassifier}"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:${macClassifier}"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:${macClassifier}"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:${macClassifier}"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.named('jar', Jar) {
+    manifest {
+        attributes('Main-Class': 'jaylen.Launcher')
+    }
+}
+
+tasks.named('shadowJar') {
+    archiveFileName = 'jaylen.jar'
+    manifest {
+        attributes('Main-Class': 'jaylen.Launcher')
+    }
+}
+
+tasks.named('test', Test) {
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+tasks.named('run', JavaExec) {
+    enableAssertions = true
+    systemProperty 'jaylen.storage', System.getProperty('jaylen.storage', 'data/jaylen.txt')
+    jvmArgs '-Dfile.encoding=UTF-8', '-Dstdout.encoding=UTF-8'
+}
+
+tasks.register('runConsole', JavaExec) {
+    group = 'application'
+    description = 'Runs the original console interface for testing.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'jaylen.Jaylen'
+    standardInput = System.in
+    enableAssertions = true
+    systemProperty 'jaylen.storage', System.getProperty('jaylen.storage', 'data/jaylen.txt')
+    jvmArgs '-Dfile.encoding=UTF-8', '-Dstdout.encoding=UTF-8'
+}
