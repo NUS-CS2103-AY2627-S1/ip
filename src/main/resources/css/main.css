@@ -1,0 +1,68 @@
+/* Erina's look: a composed perfectionist, so warm cream paper, plum accents
+   and a serif voice for her replies, like a neatly kept notebook. The user
+   speaks in a plain sans-serif, which keeps the two speakers distinct. */
+
+.root {
+    -fx-background-color: #faf6f0;
+    -fx-font-family: "Helvetica Neue", "Segoe UI", "Arial", sans-serif;
+}
+
+/* The user's messages. */
+.dialog-label {
+    -fx-background-color: #e9dfd3;
+    -fx-background-radius: 14;
+    -fx-padding: 10 14 10 14;
+    -fx-font-size: 13px;
+    -fx-text-fill: #3a2a1f;
+}
+
+/* Erina's replies, set apart from the user's by colour, typeface and side. */
+.reply-label {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d9c7b8;
+    -fx-border-radius: 14;
+    -fx-font-family: "Georgia", "Times New Roman", serif;
+    -fx-text-fill: #4a1a2b;
+}
+
+/* Problems Erina reports, such as a mistyped command. Tinted red with a
+   heavier left edge, so a command that did not work is noticed instead of
+   being mistaken for an ordinary reply. Declared after .reply-label so that
+   its colours take precedence. */
+.error-label {
+    -fx-background-color: #fbecec;
+    -fx-border-color: #c2485a;
+    -fx-border-width: 1 1 1 4;
+    -fx-text-fill: #8a1c2e;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.text-field {
+    -fx-font-size: 13px;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 0;
+    -fx-border-color: #d9c7b8 transparent transparent transparent;
+    -fx-prompt-text-fill: #9c8a7a;
+}
+
+.text-field:focused {
+    -fx-border-color: #7b2d43 transparent transparent transparent;
+}
+
+.button {
+    -fx-background-radius: 0;
+    -fx-background-color: #7b2d43;
+    -fx-text-fill: #faf6f0;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #93405a;
+}

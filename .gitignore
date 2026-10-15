@@ -18,3 +18,6 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Save file created at runtime; user data, not source
+/data/
