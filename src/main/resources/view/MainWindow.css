@@ -1,0 +1,83 @@
+#mainWindow {
+    -fx-background-color: linear-gradient(to bottom, #f8f5ef, #eee8dc);
+    -fx-font-family: "Arial";
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.dialog-container {
+    -fx-padding: 18px;
+    -fx-spacing: 14px;
+}
+
+.dialog-box {
+    -fx-spacing: 10px;
+}
+
+.dialog-box .label {
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 11px 14px;
+    -fx-background-radius: 14px;
+}
+
+.dialog-box .display-picture-container {
+    -fx-effect: dropshadow(gaussian, rgba(45, 35, 25, 0.18), 7, 0.15, 0, 2);
+}
+
+.remy-bubble {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #332c25;
+    -fx-border-color: #ded6ca;
+    -fx-border-radius: 14px;
+}
+
+.user-bubble {
+    -fx-background-color: #7a3f2b;
+    -fx-text-fill: #ffffff;
+}
+
+.composer {
+    -fx-background-color: rgba(255, 255, 255, 0.94);
+    -fx-border-color: #d8d0c4 transparent transparent transparent;
+    -fx-padding: 12px 14px;
+}
+
+.composer .text-field {
+    -fx-background-color: #f7f4ee;
+    -fx-background-radius: 9px;
+    -fx-border-color: #cfc5b7;
+    -fx-border-radius: 9px;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 12px;
+}
+
+.composer .text-field:focused {
+    -fx-border-color: #7a3f2b;
+}
+
+.composer .button {
+    -fx-background-color: #7a3f2b;
+    -fx-background-radius: 9px;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 18px;
+    -fx-text-fill: #ffffff;
+}
+
+.composer .button:hover {
+    -fx-background-color: #633220;
+}
+
+.composer .button:disabled {
+    -fx-opacity: 0.55;
+}

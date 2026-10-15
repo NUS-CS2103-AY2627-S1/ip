@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Intermediate
+* IDE and level of expertise: Intermediate
 
 # Guidance for interacting with users
 
@@ -24,11 +24,24 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Java coding standard
+
+For every Java source or test change in this project, use the `seedu-java-coding-standard` skill at
+`/Users/lwz/.codex/skills/seedu-java-coding-standard`. Its SE-EDU basic + intermediate rules are mandatory for
+all Java code in this repository, including code reviews and style-only maintenance.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## Testing
+
+Maintain JUnit coverage for approximately the top 50% highest-value methods, prioritizing complex, core, and critical business logic. Update or add the relevant JUnit tests after every code change so the test suite continues to meet this target.
+
 ## Git
+
+For every future commit, use the `seedu-git-standard` skill at
+`/Users/lwz/.codex/skills/seedu-git-standard`. Its SE-EDU rules for commit messages and branch names are mandatory.
 
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.

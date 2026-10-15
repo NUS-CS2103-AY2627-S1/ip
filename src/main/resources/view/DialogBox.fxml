@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<fx:root alignment="TOP_RIGHT"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         spacing="10.0"
+         styleClass="dialog-box"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialog"
+               minHeight="-Infinity"
+               minWidth="0.0"
+               text="Label"
+               wrapText="true" />
+        <StackPane minHeight="52.0"
+                   minWidth="52.0"
+                   prefHeight="52.0"
+                   prefWidth="52.0"
+                   maxHeight="52.0"
+                   maxWidth="52.0"
+                   styleClass="display-picture-container">
+            <children>
+                <ImageView fx:id="displayPicture"
+                           fitHeight="52.0"
+                           fitWidth="52.0"
+                           pickOnBounds="true"
+                           preserveRatio="true" />
+            </children>
+        </StackPane>
+    </children>
+    <padding>
+        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+    </padding>
+</fx:root>
