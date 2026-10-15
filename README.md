@@ -23,3 +23,21 @@ Prerequisites: JDK 25, update Intellij to the most recent version.
    ```
 
 **Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+
+## Creating and running a fat JAR
+
+The project uses the Shadow Gradle plugin to package Rocky and its runtime dependencies into one runnable JAR file. Use JDK 25 and run these commands from the project root:
+
+```bash
+source ~/.sdkman/bin/sdkman-init.sh
+sdk use java 25.0.3.fx-zulu
+./gradlew shadowJar
+```
+
+The generated fat JAR is located at `build/libs/rocky-all.jar`. Run it with:
+
+```bash
+java -jar build/libs/rocky-all.jar
+```
+
+Run the JAR from the project root if you want Rocky to use the default task file at `./data/rocky.txt`. On Windows, use `gradlew.bat shadowJar` to create the JAR.

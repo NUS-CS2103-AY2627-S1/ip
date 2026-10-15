@@ -1,0 +1,60 @@
+.conversation-scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+}
+
+.conversation-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.conversation-scroll-pane > .corner {
+    -fx-background-color: transparent;
+}
+
+.message-bubble {
+    -fx-padding: 12;
+}
+
+.user-message-bubble {
+    -fx-background-color: rgba(219, 234, 254, 0.96);
+    -fx-background-radius: 16 16 4 16;
+    -fx-border-color: #93c5fd;
+    -fx-border-radius: 16 16 4 16;
+    -fx-border-width: 1;
+}
+
+.rocky-message-bubble {
+    -fx-background-color: rgba(35, 20, 28, 0.93);
+    -fx-background-radius: 6 16 16 16;
+    -fx-border-color: #fb7185;
+    -fx-border-radius: 6 16 16 16;
+    -fx-border-width: 0 0 0 4;
+    -fx-effect: dropshadow(gaussian, rgba(20, 0, 5, 0.75), 10, 0.35, 0, 2);
+}
+
+.sender-label {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.user-sender-label {
+    -fx-text-fill: #1e3a8a;
+}
+
+.rocky-sender-label {
+    -fx-text-fill: #fda4af;
+}
+
+.message-content {
+    -fx-font-size: 14px;
+}
+
+.user-message-content {
+    -fx-text-fill: #172554;
+}
+
+.rocky-message-content {
+    -fx-font-family: "Monospaced";
+    -fx-font-weight: bold;
+    -fx-text-fill: #fff7ed;
+}
