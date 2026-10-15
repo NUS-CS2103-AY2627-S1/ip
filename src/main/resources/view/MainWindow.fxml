@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Reused from https://se-education.org/guides/tutorials/javaFx.html with minor modifications. -->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="600.0" prefWidth="400.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="odysseus.ui.MainWindow">
+    <children>
+        <!-- Chat area: anchored on all four sides so it grows with the window,
+             leaving 42px at the bottom for the input row. -->
+        <ScrollPane fx:id="scrollPane"
+                    hbarPolicy="NEVER"
+                    fitToWidth="true"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.bottomAnchor="42.0">
+            <content>
+                <VBox fx:id="dialogContainer" spacing="10.0">
+                    <padding>
+                        <Insets top="10.0" right="10.0" bottom="10.0" left="10.0" />
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+
+        <!-- Input row: pinned to the bottom. The text field stretches to fill
+             the width (right-anchored to the button); the button stays fixed. -->
+        <TextField fx:id="userInput"
+                   onAction="#handleUserInput"
+                   prefHeight="41.0"
+                   promptText="Type a message"
+                   AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="76.0" />
+        <Button fx:id="sendButton"
+                mnemonicParsing="false"
+                onAction="#handleUserInput"
+                prefHeight="41.0"
+                prefWidth="76.0"
+                text="Send"
+                AnchorPane.bottomAnchor="0.0"
+                AnchorPane.rightAnchor="0.0" />
+    </children>
+</AnchorPane>

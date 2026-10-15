@@ -1,0 +1,121 @@
+/*
+ * Cinematic dark theme for Odysseus, graded after Nolan's Odyssey:
+ * cold sea-black vs weathered bronze firelight (teal/orange contrast).
+ * Palette:
+ *   background       #0c1116  cold near-black (the sea at night)
+ *   Odysseus bubble  #1b2733  cold slate (incoming — the weary hero)
+ *   user bubble      #7a5a34  weathered bronze (outgoing — you/the crew)
+ *   error bubble     #3a201c  dark rust (a warning, blood on bronze)
+ *   accent           #8a6a3f  bronze (button / input)
+ */
+
+/* The scene root (the AnchorPane) — overall background. */
+.root {
+    -fx-background-color: #0c1116;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+}
+
+/* Make the ScrollPane and its viewport transparent so the background shows. */
+.scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane:focused {
+    -fx-background-color: transparent;
+}
+
+/* Slim, dark scrollbar to match the theme. */
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #33404d;
+    -fx-background-radius: 4;
+}
+
+.scroll-pane .scroll-bar .increment-button,
+.scroll-pane .scroll-bar .decrement-button,
+.scroll-pane .scroll-bar .increment-arrow,
+.scroll-pane .scroll-bar .decrement-arrow {
+    -fx-background-color: transparent;
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+}
+
+/* Base chat bubble (applied to every message label). */
+.bubble {
+    -fx-padding: 10 14 10 14;
+    -fx-background-radius: 14;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+    -fx-text-fill: #ffffff;
+}
+
+/*
+ * Odysseus (incoming) — cold slate, with the tail flattened toward the
+ * avatar on the LEFT (top-left corner squared off).
+ */
+.odysseus-bubble {
+    -fx-background-color: #1b2733;
+    -fx-text-fill: #d4dce3;
+    -fx-background-radius: 4 14 14 14;
+}
+
+/*
+ * User (outgoing) — weathered bronze, tail flattened toward the avatar on
+ * the RIGHT (top-right corner squared off).
+ */
+.user-bubble {
+    -fx-background-color: #7a5a34;
+    -fx-text-fill: #f4ead9;
+    -fx-background-radius: 14 4 14 14;
+}
+
+/*
+ * Error reply — dark rust with a warm border so failures read at a glance,
+ * distinct from Odysseus's normal cold slate. Also an incoming (left) bubble.
+ */
+.error-bubble {
+    -fx-background-color: #3a201c;
+    -fx-text-fill: #eab5a8;
+    -fx-background-radius: 4 14 14 14;
+    -fx-border-color: #c0483a;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-radius: 4 14 14 14;
+}
+
+/* Message input field. */
+.text-field {
+    -fx-background-color: #1a2330;
+    -fx-text-fill: #ffffff;
+    -fx-prompt-text-fill: #7d8b99;
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
+    -fx-font-size: 14px;
+    -fx-padding: 0 12 0 12;
+}
+
+/* Send button — bronze accent. */
+.button {
+    -fx-background-color: #8a6a3f;
+    -fx-text-fill: #f4ead9;
+    -fx-background-radius: 0;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #a07f4d;
+}
+
+.button:pressed {
+    -fx-background-color: #6f5432;
+}
