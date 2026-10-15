@@ -1,0 +1,74 @@
+.root {
+    main-color: #181a1f;
+    surface-color: #24272e;
+    border-color: #3a3f4b;
+    accent-color: #7289da;
+    text-color: #f2f3f5;
+    -fx-background-color: main-color;
+}
+
+#dialogContainer {
+    -fx-padding: 11px;
+}
+
+.text-area {
+    -fx-background-color: surface-color;
+    -fx-background-radius: 0.5em;
+    -fx-border-color: border-color;
+    -fx-border-radius: 0.5em;
+    -fx-text-fill: text-color;
+    -fx-prompt-text-fill: #9da3ae;
+    -fx-highlight-fill: accent-color;
+    -fx-font: 16px "Arial";
+    -fx-padding: 6px 10px;
+}
+
+.button {
+    -fx-background-color: accent-color;
+    -fx-background-radius: 0.5em;
+    -fx-text-fill: white;
+    -fx-font: bold 16px "Segoe UI";
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #8ea1e1;
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color: #5865a8;
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #4b5160;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #626978;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+
+.text-area .content {
+    -fx-background-color: surface-color;
+    -fx-padding: 0;
+}

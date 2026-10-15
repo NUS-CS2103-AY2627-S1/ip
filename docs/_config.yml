@@ -1,0 +1,8 @@
+title: Kafka
+description: "Your tasks. Your kitten. Your user guide, meow."
+remote_theme: pages-themes/architect@v0.2.0
+plugins:
+  - jekyll-remote-theme
+show_downloads: false
+exclude:
+  - desktop.ini
