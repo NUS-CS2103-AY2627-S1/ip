@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Intermediate (know fundamental concepts but have not done big projects)
+* IDE and level of expertise: Using IntelliJ for this project, not very familiar with it
 
 # Guidance for interacting with users
 
@@ -33,3 +33,11 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## Testing
+
+Test coverage target: JUnit tests should focus on the top ~50% highest-value methods in the codebase, prioritizing complex, core, or critical business logic over trivial getters/setters, thin delegations, or presentation-only code (e.g. plain `println` calls).
+
+JUnit tests must be kept up to date with that target as the code evolves: after any code change (new method, changed behavior, new class), check whether the change affects a high-value method and update or add JUnit tests accordingly as part of that same change, rather than as a separate follow-up step. Do not let the test suite drift out of sync with the ~50% target.
+
+Follow Gradle and JUnit conventions for test file location and naming (e.g. `seedu.duke.Todo` in `src/main/java/seedu/duke/Todo.java` is tested by `seedu.duke.TodoTest` in `src/test/java/seedu/duke/TodoTest.java`). For long test method names, the convention `featureUnderTest_testScenario_expectedBehavior()` may be used, e.g. `sortList_emptyList_exceptionThrown()`.

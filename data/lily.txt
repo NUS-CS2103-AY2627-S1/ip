@@ -1,0 +1,8 @@
+T | 0 | homework
+T | 0 | homework1
+D | 0 | hello | 2026-08-12T00:00
+D | 0 | work | 2012-09-15T00:00
+T | 0 | taskssss
+T | 0 | task123
+T | 0 | math hw
+T | 0 | project

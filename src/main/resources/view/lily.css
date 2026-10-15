@@ -1,0 +1,93 @@
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: #FFF9F0;
+}
+
+.main-window {
+    -fx-background-color: #FFF9F0;
+}
+
+/* Kept outside the scroll pane so Lily's identity remains visible while chatting. */
+.app-header {
+    -fx-background-color: #EEE6F7;
+    -fx-padding: 8 18;
+    -fx-border-color: transparent transparent #B7D3B1 transparent;
+    -fx-border-width: 0 0 2 0;
+}
+
+.header-title {
+    -fx-font-family: Georgia, serif;
+    -fx-font-size: 27px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #463456;
+}
+
+.chat-scroll-pane,
+.chat-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-background-color: #FFF9F0;
+    -fx-padding: 8;
+    -fx-spacing: 2;
+}
+
+.lily-dialog,
+.user-dialog {
+    -fx-padding: 6 2;
+    -fx-spacing: 7;
+}
+
+.lily-message,
+.user-message {
+    -fx-padding: 9 11;
+    -fx-background-radius: 12;
+    -fx-text-fill: #2D3A2E;
+    -fx-font-size: 15px;
+    -fx-line-spacing: 2px;
+}
+
+.lily-message {
+    -fx-background-color: #EEE6F7;
+}
+
+/* A warm red reply bubble makes a command error easy to spot without relying on colour alone. */
+.error-message {
+    -fx-background-color: #FDE2E2;
+    -fx-text-fill: #A61B1B;
+    -fx-border-color: #D64545;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-font-weight: normal;
+}
+
+.user-message {
+    -fx-background-color: #DDEDDC;
+}
+
+.lily-avatar {
+    -fx-text-fill: #8B6FA8;
+    -fx-font-size: 20px;
+    -fx-padding: 5 0 0 2;
+}
+
+.command-input {
+    -fx-background-color: white;
+    -fx-border-color: #8B6FA8;
+    -fx-border-radius: 7;
+    -fx-background-radius: 7;
+    -fx-text-fill: #2D3A2E;
+    -fx-prompt-text-fill: #708070;
+}
+
+.send-button {
+    -fx-background-color: #5C8D5A;
+    -fx-background-radius: 7;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.send-button:hover {
+    -fx-background-color: #4D794C;
+}
