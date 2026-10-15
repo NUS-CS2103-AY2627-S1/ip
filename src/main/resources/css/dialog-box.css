@@ -1,0 +1,27 @@
+.label {
+    -fx-font: 15px "Arial";
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.user-label {
+    -fx-background-color: #ffd9e8;
+    -fx-border-color: #d65c8a;
+    -fx-text-fill: #5c1732;
+}
+
+.reply-label {
+    -fx-background-color: #eadcff;
+    -fx-border-color: #8559bd;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-text-fill: #382052;
+}
+
+.error-label {
+    -fx-background-color: #ffe1e1;
+    -fx-border-color: #cf3f4f;
+    -fx-font-weight: bold;
+    -fx-text-fill: #7a1421;
+}
