@@ -1,0 +1,65 @@
+.root {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-background-color: #eef1f5;
+}
+
+.chat-scroll {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+.chat-scroll .viewport { -fx-background-color: transparent; }
+
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.dialog-box {
+    -fx-min-width: -1;
+}
+
+.avatar {
+    -fx-background-radius: 20;
+}
+
+.dialog-label {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 14;
+    -fx-text-fill: #222222;
+    -fx-font-size: 13px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 4, 0, 0, 1);
+}
+
+/* user bubbles: right-aligned, accent color */
+.dialog-box:user .dialog-label {
+    -fx-background-color: #4a7cfe;
+    -fx-text-fill: white;
+}
+
+.input-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dcdfe4;
+    -fx-border-width: 1 0 0 0;
+    -fx-alignment: center;
+}
+
+.user-input {
+    -fx-background-radius: 20;
+    -fx-background-color: #f0f2f5;
+    -fx-padding: 8 14 8 14;
+    -fx-font-size: 13px;
+}
+.user-input:focused {
+    -fx-background-color: #e8ecf3;
+}
+
+.send-button {
+    -fx-background-radius: 20;
+    -fx-background-color: #4a7cfe;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 18 8 18;
+    -fx-cursor: hand;
+}
+.send-button:hover {
+    -fx-background-color: #3a6cf0;
+}
