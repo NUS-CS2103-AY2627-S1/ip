@@ -1,0 +1,45 @@
+/* General message text */
+.dialog-label {
+    -fx-font-family: "SF Pro Text";
+    -fx-font-size: 15px;
+    -fx-font-weight: normal;
+    -fx-text-fill: white;
+
+    -fx-padding: 11px 15px;
+    -fx-wrap-text: true;
+
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+
+    -fx-max-width: 280px;
+}
+
+/* User's message */
+.user-label {
+    -fx-background-color: rgba(45, 125, 185, 0.95);
+    -fx-border-color: #75c7ff;
+
+    -fx-background-radius: 16px 16px 4px 16px;
+    -fx-border-radius: 16px 16px 4px 16px;
+}
+
+/* Sioet's message */
+.reply-label {
+    -fx-background-color: rgba(20, 45, 75, 0.96);
+    -fx-border-color: #477da8;
+
+    -fx-background-radius: 16px 16px 16px 4px;
+    -fx-border-radius: 16px 16px 16px 4px;
+}
+
+/* Profile pictures */
+#displayPicture {
+    -fx-fit-width: 45px;
+    -fx-fit-height: 45px;
+}
+
+/* Spacing around each message */
+.dialog-box {
+    -fx-spacing: 12px;
+    -fx-padding: 10px 14px;
+}

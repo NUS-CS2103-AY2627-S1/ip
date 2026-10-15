@@ -1,0 +1,140 @@
+/* ================================
+   Main application styling
+   ================================ */
+
+.root {
+    -fx-background-color: #071426;
+    -fx-background-image: url("../images/background.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+    -fx-background-size: cover;
+}
+
+/* ================================
+   Chat area
+   ================================ */
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .content {
+    -fx-background-color: transparent;
+}
+
+/* ================================
+   Scroll bar
+   ================================ */
+
+.scroll-bar {
+    -fx-background-color: #0b1d35;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #315f91;
+    -fx-background-radius: 10px;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #4d82b8;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+    -fx-opacity: 0;
+}
+
+
+/* ================================
+   Text input
+   ================================ */
+
+.text-field {
+    -fx-background-color: #102642;
+    -fx-text-fill: #eaf6ff;
+    -fx-prompt-text-fill: #7290ae;
+
+    -fx-font-size: 15px;
+
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+
+    -fx-border-color: #23486e;
+    -fx-border-width: 1px;
+
+    -fx-padding: 8px 16px;
+
+    -fx-font-family: "SF Pro Text";
+    -fx-font-size: 16px;
+}
+
+.text-field:focused {
+    -fx-border-color: #67c9ff;
+    -fx-border-width: 1.5px;
+
+    -fx-background-color: #122b4a;
+}
+
+
+/* ================================
+   Send button
+   ================================ */
+
+.button {
+    -fx-background-color: #4bb8f5;
+
+    -fx-text-fill: #061321;
+
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+
+    -fx-background-radius: 20px;
+
+    -fx-padding: 8px 18px;
+
+    -fx-cursor: hand;
+
+    -fx-font-family: "SF Pro Text";
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #79d5ff;
+}
+
+.button:pressed {
+    -fx-background-color: #3298d4;
+}
+
+
+/* ================================
+   Small glow effect
+   ================================ */
+
+.button:hover {
+    -fx-effect: dropshadow(
+            gaussian,
+            rgba(103, 201, 255, 0.45),
+            10,
+            0.3,
+            0,
+            0
+    );
+}
+
+.error-label {
+    -fx-background-color: #5a2020;
+    -fx-text-fill: #ffb3b3;
+    -fx-border-color: #ff6b6b;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
