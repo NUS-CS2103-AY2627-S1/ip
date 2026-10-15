@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="640.0" prefWidth="760.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="niulai.gui.MainWindow">
+    <top>
+        <VBox styleClass="header">
+            <children>
+                <Label styleClass="title" text="NiuLai" />
+                <Label styleClass="subtitle" text="Your friendly task companion" />
+            </children>
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED" styleClass="chat-scroll-pane">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true" spacing="10.0"
+                      styleClass="dialog-container">
+                    <padding>
+                        <Insets bottom="16.0" left="18.0" right="18.0" top="16.0" />
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox spacing="10.0" styleClass="input-bar">
+            <padding>
+                <Insets bottom="16.0" left="18.0" right="18.0" top="12.0" />
+            </padding>
+            <children>
+                <TextField fx:id="userInput" onAction="#handleUserInput"
+                           promptText="Type a command, such as: todo read book">
+                    <HBox.hgrow>
+                        <Priority fx:constant="ALWAYS" />
+                    </HBox.hgrow>
+                </TextField>
+                <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput"
+                        text="Send" />
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>

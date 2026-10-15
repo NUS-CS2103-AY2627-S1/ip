@@ -1,0 +1,110 @@
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: #aeb9c4;
+}
+
+.header {
+    -fx-background-color: linear-gradient(to right, #c95f43, #e48655);
+    -fx-border-color: transparent transparent #7a765f transparent;
+    -fx-border-width: 0 0 2 0;
+    -fx-padding: 18 24 16 24;
+}
+
+.title {
+    -fx-text-fill: #fff0cf;
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+}
+
+.subtitle {
+    -fx-text-fill: #f7d9ae;
+    -fx-font-size: 13px;
+}
+
+.chat-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: #aeb9c4;
+    -fx-border-color: transparent;
+}
+
+.chat-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-background-color: linear-gradient(to bottom, #aeb9c4, #c7c09d);
+}
+
+.input-bar {
+    -fx-background-color: #66715e;
+    -fx-border-color: #4f5d4e transparent transparent transparent;
+}
+
+.text-field {
+    -fx-background-color: #fff0cf;
+    -fx-border-color: #d39a6a;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-prompt-text-fill: #8d7665;
+    -fx-text-fill: #493b34;
+    -fx-padding: 10 12;
+}
+
+.text-field:focused {
+    -fx-border-color: #d96f49;
+    -fx-border-width: 2;
+}
+
+.button {
+    -fx-background-color: #d96f49;
+    -fx-background-radius: 6;
+    -fx-border-color: #ef9a62;
+    -fx-border-radius: 6;
+    -fx-text-fill: #fff0cf;
+    -fx-font-weight: bold;
+    -fx-padding: 10 18;
+}
+
+.button:hover {
+    -fx-background-color: #e48655;
+}
+
+.button:pressed {
+    -fx-background-color: #b9563e;
+}
+
+.dialog-message {
+    -fx-font-family: "Monospaced";
+    -fx-background-color: #f5d6ad;
+    -fx-background-radius: 12;
+    -fx-border-color: #d39a6a;
+    -fx-border-radius: 12;
+    -fx-padding: 10 14;
+    -fx-text-fill: #493b34;
+}
+
+.speaker {
+    -fx-alignment: center;
+    -fx-background-color: #d96f49;
+    -fx-background-radius: 21;
+    -fx-border-color: #f5d6ad;
+    -fx-border-radius: 21;
+    -fx-border-width: 2;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fff0cf;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: #8e9984;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #d96f49;
+    -fx-background-radius: 8;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color: #66715e;
+}
