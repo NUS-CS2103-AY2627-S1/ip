@@ -1,0 +1,21 @@
+.speech-bubble {
+    -fx-padding: 10;
+}
+
+.user-bubble {
+    -fx-background-color: #1D82F5;
+    -fx-text-fill: white;
+    -fx-background-radius: 15 0 15 15;
+}
+
+.orion-bubble {
+    -fx-background-color: #E5E5EA;
+    -fx-text-fill: black;
+    -fx-background-radius: 0 15 15 15;
+}
+
+.orion-error-bubble {
+    -fx-background-color: #E5E5EA;
+    -fx-text-fill: #FF5555;
+    -fx-background-radius: 0 15 15 15;
+}
