@@ -1,0 +1,5 @@
+[D][ ] return book (by: 2 Dec 2019, 6:00PM)
+[D][ ] submit form (by: 3 Dec 2019, 12:00AM)
+Gongrilla cannot understand that date and time. Use D/M/YYYY with optional HHMM, like 2/12/2019 1800.
+[E][ ] project meeting (from: 3 Dec 2019, 9:00AM to: 3 Dec 2019, 5:00PM)
+Start time cannot be after or equal to end time. Give event some time.

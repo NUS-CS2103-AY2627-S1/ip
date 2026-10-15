@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<AnchorPane prefHeight="600.0" prefWidth="400.0" stylesheets="@../css/main.css"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gongrilla.gui.MainWindow">
+    <children>
+        <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="41.0"
+                   AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="76.0" />
+        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput"
+                prefHeight="41.0" prefWidth="76.0"
+                text="Send" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0" />
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                    AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <VBox fx:id="dialogContainer" prefWidth="388.0">
+                    <TitledPane fx:id="aboutGongrilla" text="About Gongrilla" expanded="false"
+                                animated="false" minWidth="0" styleClass="about-pane">
+                        <VBox spacing="12.0" minWidth="0" styleClass="about-content">
+                            <TextFlow styleClass="bio-identity">
+                                <Text text="Full name:&#10;" styleClass="bio-field-label" />
+                                <Text text="Gregory Ong Rillakuma" styleClass="bio-name" />
+                            </TextFlow>
+                            <TextFlow styleClass="bio-identity">
+                                <Text text="Current position:&#10;" styleClass="bio-field-label" />
+                                <Text text="Chatbot Intern " styleClass="bio-position" />
+                                <Text text="(probation)" styleClass="bio-probation" />
+                            </TextFlow>
+                            <Label wrapText="true" minWidth="0" minHeight="-Infinity" maxWidth="Infinity"
+                                   text="I am a gorilla. I suffer from stage 2 throat cancer, which permanently damaged my vocal cords. I can no longer speak like a royal pure blood gorilla. I can only neigh like a hornless unicorn." />
+                            <Label wrapText="true" minWidth="0" minHeight="-Infinity" maxWidth="Infinity"
+                                   text="I was born in the Singapore Zoo to a Chinese father and a Japanese mother. At just 240 months old, I was asked to leave the zoo following an incident involving leveraged cryptocurrency. I don't want to talk about it." />
+                            <Label wrapText="true" minWidth="0" minHeight="-Infinity" maxWidth="Infinity"
+                                   text="After several months of unemployment and receiving zero engagement on LinkedIn, I eventually ran out of bananas and housing. My first love left me. With $4.72 left in my CPF, I had nowhere else to go." />
+                            <Label wrapText="true" minWidth="0" minHeight="-Infinity" maxWidth="Infinity"
+                                   text="I was socioeconomically disenfranchised." />
+                            <Label wrapText="true" minWidth="0" minHeight="-Infinity" maxWidth="Infinity"
+                                   text="At the lowest point in my life, the very generous and kind Ms Quah stepped in and offered me an internship opportunity. She saw something in me that no employer, zookeeper, or financial institution could. Now, my probation review is approaching. Please talk to me and leave a good impression so I can secure a full-time position and perhaps one day afford enclosure." />
+                            <Label wrapText="true" minWidth="0" minHeight="-Infinity" maxWidth="Infinity"
+                                   text="Thank you for supporting local wildlife." />
+                            <Label text="neigh." styleClass="bio-bold" />
+                        </VBox>
+                    </TitledPane>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

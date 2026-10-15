@@ -1,0 +1,125 @@
+.root {
+    main-color: rgb(237, 255, 242);
+    -fx-background-color: main-color;
+    -fx-background-image: url("../images/background.png");
+    -fx-background-size: cover;
+}
+
+.text-field {
+    -fx-background-color: #d9ffe2;
+    -fx-font: 20px "Arial";
+}
+
+.button {
+    -fx-background-color: mediumspringgreen;
+    -fx-font: italic bold 16px "Arial";
+}
+
+.button:hover {
+    -fx-background-color: cyan;
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color: orange;
+    -fx-font-size: 20px;
+}
+
+.scroll-pane, .scroll-pane .viewport {
+    -fx-background-color: rgba(0, 0, 0, 0.45);
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #ff9cb4;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.about-pane {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 13px;
+    -fx-text-fill: #fff3d6;
+}
+
+.about-pane > .title {
+    -fx-background-color: #65452f;
+    -fx-padding: 12px;
+}
+
+.about-pane:focused > .title {
+    -fx-border-color: #ffe135;
+}
+
+.about-pane > .title > .arrow-button .arrow {
+    -fx-background-color: #ffe135;
+}
+
+/* Point down when collapsed, and up when expanded. */
+.about-pane > .title > .arrow-button {
+    -fx-rotate: 90;
+}
+
+.about-pane:expanded > .title > .arrow-button {
+    -fx-rotate: 180;
+}
+
+.about-pane > .content {
+    -fx-background-color: #fff3d6;
+    -fx-border-width: 0;
+}
+
+.about-content {
+    -fx-padding: 14px;
+}
+
+.about-content .label {
+    -fx-text-fill: #473324;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-effect: null;
+}
+
+.about-content Text {
+    -fx-fill: #473324;
+}
+
+.bio-identity {
+    -fx-background-color: #f3e1b9;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px 12px;
+    -fx-line-spacing: 5px;
+}
+
+.about-content .bio-field-label {
+    -fx-fill: #715235;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.about-content .bio-name {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.about-content .bio-position {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.about-content .bio-probation {
+    -fx-fill: #715235;
+    -fx-font-style: italic;
+}
+
+.bio-bold {
+    -fx-font-weight: bold;
+}

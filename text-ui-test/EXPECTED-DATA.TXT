@@ -1,0 +1,7 @@
+A | T2 | 0 | read+book
+A | D2 | 0 | return+book | 2019-12-02T18%3A00
+A | D2 | 0 | submit+form | 2019-12-03T00%3A00
+A | E2 | 0 | project+meeting | 2019-12-03T09%3A00 | 2019-12-03T17%3A00
+M | 0
+X | 1
+U | 0
