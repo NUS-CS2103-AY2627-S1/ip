@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="740.0" prefWidth="580.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="nori.ui.MainWindow">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="14.0" styleClass="header">
+            <padding>
+                <Insets bottom="20.0" left="22.0" right="22.0" top="20.0" />
+            </padding>
+            <Label styleClass="brand-mark" text="N" />
+            <VBox spacing="3.0">
+                <Label styleClass="title" text="Nori" />
+                <Label styleClass="subtitle" text="A little order for your day." />
+            </VBox>
+            <Region HBox.hgrow="ALWAYS" />
+            <Label styleClass="header-badge" text="TASK COMPANION" />
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                    pannable="true" styleClass="chat-scroll">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true" spacing="14.0"
+                      styleClass="dialog-container">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <VBox spacing="9.0" styleClass="input-bar">
+            <padding>
+                <Insets bottom="16.0" left="20.0" right="20.0" top="14.0" />
+            </padding>
+            <Label styleClass="input-hint" text="Type help for commands. Press Enter to send." />
+            <HBox alignment="CENTER" spacing="10.0">
+                <TextField fx:id="userInput" HBox.hgrow="ALWAYS" minWidth="0.0"
+                           accessibleText="Command" onAction="#handleUserInput"
+                           promptText="Try: todo read a book" />
+                <Button fx:id="sendButton" defaultButton="true" minWidth="76.0"
+                        onAction="#handleUserInput" text="Send" />
+            </HBox>
+        </VBox>
+    </bottom>
+</BorderPane>

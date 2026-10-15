@@ -1,0 +1,129 @@
+.root {
+    -fx-background-color: #f3f5f2;
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #253b35;
+}
+
+.header {
+    -fx-background-color: #183f35;
+}
+
+.brand-mark {
+    -fx-background-color: #cdeacb;
+    -fx-background-radius: 14px;
+    -fx-text-fill: #183f35;
+    -fx-font-size: 23px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 15px;
+}
+
+.title {
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.subtitle {
+    -fx-text-fill: #d0e0d9;
+    -fx-font-size: 12px;
+}
+
+.header-badge {
+    -fx-text-fill: #d0e0d9;
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+}
+
+.chat-scroll,
+.chat-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.chat-scroll {
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+.message-card {
+    -fx-padding: 12px 15px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+}
+
+.speaker {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #53675e;
+}
+
+.dialog-message {
+    -fx-text-fill: #253b35;
+    -fx-line-spacing: 3px;
+}
+
+.user-message {
+    -fx-background-color: #e2ece6;
+    -fx-border-color: #d6e3da;
+}
+
+.user-message .dialog-message {
+    -fx-font-family: "Consolas", monospace;
+    -fx-font-size: 13px;
+}
+
+.nori-message {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dfe6e0;
+}
+
+.error-message {
+    -fx-background-color: #fff1e9;
+    -fx-border-color: #c16b45;
+    -fx-border-width: 1px 1px 1px 4px;
+}
+
+.error-message .speaker,
+.error-message .dialog-message {
+    -fx-text-fill: #873b20;
+}
+
+.input-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dfe6e0 transparent transparent transparent;
+}
+
+.input-hint {
+    -fx-text-fill: #53675e;
+    -fx-font-size: 12px;
+}
+
+.text-field {
+    -fx-background-color: #f3f5f2;
+    -fx-background-radius: 8px;
+    -fx-border-color: #cbd7cf;
+    -fx-border-radius: 8px;
+    -fx-padding: 11px;
+    -fx-prompt-text-fill: #607267;
+}
+
+.text-field:focused {
+    -fx-border-color: #347b5d;
+    -fx-border-width: 2px;
+    -fx-padding: 10px;
+}
+
+.button {
+    -fx-background-color: #245b47;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px 18px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button:hover,
+.button:focused {
+    -fx-background-color: #183f35;
+}

@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Intermediate; more than 10,000 LoC overall and 2,000-5,000 LoC in Java.
+* IDE and level of expertise: IntelliJ IDEA; comfortable with core editing and run/debug workflows.
 
 # Guidance for interacting with users
 
