@@ -1,0 +1,44 @@
+.scroll-pane, .scroll-pane .viewport {
+    -fx-background-color: #f5f5f5;
+}
+
+.scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+/*
+ * Label's default style class is "label", so this rule styles the
+ * user's chat bubble without needing an extra class on it.
+ */
+.label {
+    -fx-background-color: #29abe2;
+    -fx-background-radius: 15;
+    -fx-text-fill: white;
+    -fx-padding: 8 12 8 12;
+    -fx-font-size: 13px;
+}
+
+/* Applied only to Botzilla's replies (see DialogBox#flip). */
+.reply-label {
+    -fx-background-color: #e0e0e0;
+    -fx-background-radius: 15;
+    -fx-text-fill: #202020;
+    -fx-padding: 8 12 8 12;
+    -fx-font-size: 13px;
+}
+
+#userInput {
+    -fx-background-radius: 0;
+    -fx-font-size: 13px;
+}
+
+#sendButton {
+    -fx-background-color: #29abe2;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 0;
+}
+
+#sendButton:hover {
+    -fx-background-color: #1f8bc0;
+}
