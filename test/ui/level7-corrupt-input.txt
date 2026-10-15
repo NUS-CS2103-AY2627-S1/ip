@@ -1,0 +1,10 @@
+--- DATA FILE ---
+T | 1 | valid task
+D | 0 | missing due time
+--- START ---
+list
+todo recovered task
+bye
+--- RESTART ---
+list
+bye

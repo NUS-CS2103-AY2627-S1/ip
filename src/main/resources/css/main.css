@@ -1,0 +1,40 @@
+.root {
+    -fx-background-color: #f4f6fb;
+    -fx-font-family: "Arial";
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 21px;
+    -fx-border-color: #d4d9e6;
+    -fx-border-radius: 21px;
+    -fx-font-size: 15px;
+    -fx-pref-height: 42px;
+    -fx-padding: 0 12px;
+    -fx-effect: dropshadow(gaussian, rgba(30, 38, 80, 0.16), 10, 0.2, 0, 3);
+}
+
+.button {
+    -fx-background-color: #5865f2;
+    -fx-background-radius: 21px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(30, 38, 80, 0.24), 10, 0.25, 0, 3);
+}
+
+.button:hover {
+    -fx-background-color: #4752c4;
+}
+
+.button:pressed {
+    -fx-background-color: #3c46a8;
+    -fx-translate-y: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(30, 38, 80, 0.18), 6, 0.2, 0, 1);
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}

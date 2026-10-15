@@ -1,0 +1,31 @@
+ _______             _    _
+|__   __|           | |  (_)
+   | |_ __ __ _  ___| | ___  ___
+   | | '__/ _` |/ __| |/ / |/ _ \
+   | | | | (_| | (__|   <| |  __/
+   |_|_|  \__,_|\___|_|\_\_|\___|
+
+Hi! I'm Trackie, your task-tracking fox.
+Ready to stay on track?
+Oops! Use: within DESCRIPTION /from START_DATE /to END_DATE
+Oops! A within-period task needs a description.
+Oops! Use within-period dates in yyyy-MM-dd format.
+Oops! The end date cannot be before the start date.
+You're on track! I've added this task:
+  [W][ ] collect certificate (from: Sep 15 2026 to: Sep 25 2026)
+Now you have 1 task in the list.
+Nice progress! This task is complete:
+  [W][X] collect certificate (from: Sep 15 2026 to: Sep 25 2026)
+Great tracking today! See you on the next trail!
+ _______             _    _
+|__   __|           | |  (_)
+   | |_ __ __ _  ___| | ___  ___
+   | | '__/ _` |/ __| |/ / |/ _ \
+   | | | | (_| | (__|   <| |  __/
+   |_|_|  \__,_|\___|_|\_\_|\___|
+
+Hi! I'm Trackie, your task-tracking fox.
+Ready to stay on track?
+Here's your trail of tasks:
+1.[W][X] collect certificate (from: Sep 15 2026 to: Sep 25 2026)
+Great tracking today! See you on the next trail!

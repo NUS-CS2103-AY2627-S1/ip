@@ -1,0 +1,30 @@
+ _______             _    _
+|__   __|           | |  (_)
+   | |_ __ __ _  ___| | ___  ___
+   | | '__/ _` |/ __| |/ / |/ _ \
+   | | | | (_| | (__|   <| |  __/
+   |_|_|  \__,_|\___|_|\_\_|\___|
+
+Hi! I'm Trackie, your task-tracking fox.
+Ready to stay on track?
+Oops! There are no tasks to delete.
+You're on track! I've added this task:
+  [T][ ] read book
+Now you have 1 task in the list.
+You're on track! I've added this task:
+  [D][ ] return book (by: Sep 15 2026)
+Now you have 2 tasks in the list.
+You're on track! I've added this task:
+  [E][ ] project meeting (from: Sep 20 2026 to: Sep 21 2026)
+Now you have 3 tasks in the list.
+Nice progress! This task is complete:
+  [D][X] return book (by: Sep 15 2026)
+Cleared from the trail! I've removed this task:
+  [D][X] return book (by: Sep 15 2026)
+Now you have 2 tasks in the list.
+Here's your trail of tasks:
+1.[T][ ] read book
+2.[E][ ] project meeting (from: Sep 20 2026 to: Sep 21 2026)
+Oops! The task number must be a whole number.
+Oops! Choose a task number between 1 and 2.
+Great tracking today! See you on the next trail!

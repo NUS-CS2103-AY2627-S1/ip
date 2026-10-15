@@ -1,0 +1,10 @@
+within
+within /from 2026-09-15 /to 2026-09-25
+within collect certificate /from 15-09-2026 /to 2026-09-25
+within collect certificate /from 2026-09-25 /to 2026-09-15
+within collect certificate /from 2026-09-15 /to 2026-09-25
+mark 1
+bye
+--- RESTART ---
+list
+bye

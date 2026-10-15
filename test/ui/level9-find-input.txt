@@ -1,0 +1,8 @@
+todo read book
+deadline return book /by 2026-09-15
+event book club /from 2026-09-20 /to 2026-09-21
+find book
+find BOOK
+find zzzzz
+find
+bye

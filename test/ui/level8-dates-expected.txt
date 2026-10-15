@@ -1,0 +1,34 @@
+ _______             _    _
+|__   __|           | |  (_)
+   | |_ __ __ _  ___| | ___  ___
+   | | '__/ _` |/ __| |/ / |/ _ \
+   | | | | (_| | (__|   <| |  __/
+   |_|_|  \__,_|\___|_|\_\_|\___|
+
+Hi! I'm Trackie, your task-tracking fox.
+Ready to stay on track?
+Oops! Use a deadline date in yyyy-MM-dd format.
+Oops! Use event dates in yyyy-MM-dd format.
+Oops! Enter a valid deadline date.
+Oops! Enter valid event dates.
+Oops! The end date cannot be before the start date.
+You're on track! I've added this task:
+  [D][ ] submit report (by: Sep 15 2026)
+Now you have 1 task in the list.
+You're on track! I've added this task:
+  [E][ ] project demo (from: Sep 20 2026 to: Sep 21 2026)
+Now you have 2 tasks in the list.
+Great tracking today! See you on the next trail!
+ _______             _    _
+|__   __|           | |  (_)
+   | |_ __ __ _  ___| | ___  ___
+   | | '__/ _` |/ __| |/ / |/ _ \
+   | | | | (_| | (__|   <| |  __/
+   |_|_|  \__,_|\___|_|\_\_|\___|
+
+Hi! I'm Trackie, your task-tracking fox.
+Ready to stay on track?
+Here's your trail of tasks:
+1.[D][ ] submit report (by: Sep 15 2026)
+2.[E][ ] project demo (from: Sep 20 2026 to: Sep 21 2026)
+Great tracking today! See you on the next trail!

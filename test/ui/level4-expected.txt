@@ -1,0 +1,37 @@
+ _______             _    _
+|__   __|           | |  (_)
+   | |_ __ __ _  ___| | ___  ___
+   | | '__/ _` |/ __| |/ / |/ _ \
+   | | | | (_| | (__|   <| |  __/
+   |_|_|  \__,_|\___|_|\_\_|\___|
+
+Hi! I'm Trackie, your task-tracking fox.
+Ready to stay on track?
+You're on track! I've added this task:
+  [T][ ] borrow book
+Now you have 1 task in the list.
+You're on track! I've added this task:
+  [D][ ] return book (by: Sep 15 2026)
+Now you have 2 tasks in the list.
+You're on track! I've added this task:
+  [E][ ] project meeting (from: Sep 20 2026 to: Sep 21 2026)
+Now you have 3 tasks in the list.
+Here's your trail of tasks:
+1.[T][ ] borrow book
+2.[D][ ] return book (by: Sep 15 2026)
+3.[E][ ] project meeting (from: Sep 20 2026 to: Sep 21 2026)
+Nice progress! This task is complete:
+  [D][X] return book (by: Sep 15 2026)
+Nice progress! This task is complete:
+  [E][X] project meeting (from: Sep 20 2026 to: Sep 21 2026)
+Here's your trail of tasks:
+1.[T][ ] borrow book
+2.[D][X] return book (by: Sep 15 2026)
+3.[E][X] project meeting (from: Sep 20 2026 to: Sep 21 2026)
+No worries! This task is back on your trail:
+  [E][ ] project meeting (from: Sep 20 2026 to: Sep 21 2026)
+Here's your trail of tasks:
+1.[T][ ] borrow book
+2.[D][X] return book (by: Sep 15 2026)
+3.[E][ ] project meeting (from: Sep 20 2026 to: Sep 21 2026)
+Great tracking today! See you on the next trail!

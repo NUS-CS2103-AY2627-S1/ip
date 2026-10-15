@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Trackie UI"
+  short_description: "Run text UI regression tests"
+  default_prompt: "Use $test-ui to run Trackie's text UI regression tests."

@@ -1,0 +1,30 @@
+ _______             _    _
+|__   __|           | |  (_)
+   | |_ __ __ _  ___| | ___  ___
+   | | '__/ _` |/ __| |/ / |/ _ \
+   | | | | (_| | (__|   <| |  __/
+   |_|_|  \__,_|\___|_|\_\_|\___|
+
+Hi! I'm Trackie, your task-tracking fox.
+Ready to stay on track?
+You're on track! I've added this task:
+  [T][ ] read book
+Now you have 1 task in the list.
+You're on track! I've added this task:
+  [D][ ] return book (by: Sep 15 2026)
+Now you have 2 tasks in the list.
+You're on track! I've added this task:
+  [E][ ] book club (from: Sep 20 2026 to: Sep 21 2026)
+Now you have 3 tasks in the list.
+Here's what I found on the trail:
+1.[T][ ] read book
+2.[D][ ] return book (by: Sep 15 2026)
+3.[E][ ] book club (from: Sep 20 2026 to: Sep 21 2026)
+Here's what I found on the trail:
+1.[T][ ] read book
+2.[D][ ] return book (by: Sep 15 2026)
+3.[E][ ] book club (from: Sep 20 2026 to: Sep 21 2026)
+Here's what I found on the trail:
+No matching tasks found.
+Oops! Please specify a keyword after find.
+Great tracking today! See you on the next trail!

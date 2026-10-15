@@ -1,0 +1,39 @@
+ _______             _    _
+|__   __|           | |  (_)
+   | |_ __ __ _  ___| | ___  ___
+   | | '__/ _` |/ __| |/ / |/ _ \
+   | | | | (_| | (__|   <| |  __/
+   |_|_|  \__,_|\___|_|\_\_|\___|
+
+Hi! I'm Trackie, your task-tracking fox.
+Ready to stay on track?
+Oops! There are no tasks to mark.
+Oops! Use: deadline DESCRIPTION /by DATE
+Oops! Use: deadline DESCRIPTION /by DATE
+Oops! A deadline needs a description.
+Oops! A deadline needs a due date after /by.
+Oops! Use: event DESCRIPTION /from START_DATE /to END_DATE
+Oops! Use: event DESCRIPTION /from START_DATE /to END_DATE
+Oops! An event needs a start date after /from.
+Oops! An event needs an end date after /to.
+Oops! Task descriptions cannot contain the | character.
+Oops! Use: deadline DESCRIPTION /by DATE
+Oops! Use: event DESCRIPTION /from START_DATE /to END_DATE
+You're on track! I've added this task:
+  [T][ ] spaced task
+Now you have 1 task in the list.
+You're on track! I've added this task:
+  [T][ ] read book
+Now you have 2 tasks in the list.
+Oops! The task number must be a whole number.
+Oops! Choose a task number between 1 and 2.
+Oops! Choose a task number between 1 and 2.
+Nice progress! This task is complete:
+  [T][X] spaced task
+Oops! The task number must be a whole number.
+No worries! This task is back on your trail:
+  [T][ ] spaced task
+Here's your trail of tasks:
+1.[T][ ] spaced task
+2.[T][ ] read book
+Great tracking today! See you on the next trail!

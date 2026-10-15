@@ -1,0 +1,17 @@
+ _______             _    _
+|__   __|           | |  (_)
+   | |_ __ __ _  ___| | ___  ___
+   | | '__/ _` |/ __| |/ / |/ _ \
+   | | | | (_| | (__|   <| |  __/
+   |_|_|  \__,_|\___|_|\_\_|\___|
+
+Hi! I'm Trackie, your task-tracking fox.
+Ready to stay on track?
+Oops! A todo needs a description.
+You're on track! I've added this task:
+  [T][ ] read book
+Now you have 1 task in the list.
+Oops! I don't recognize that command.
+Here's your trail of tasks:
+1.[T][ ] read book
+Great tracking today! See you on the next trail!

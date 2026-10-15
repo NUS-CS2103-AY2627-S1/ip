@@ -1,0 +1,27 @@
+ _______             _    _
+|__   __|           | |  (_)
+   | |_ __ __ _  ___| | ___  ___
+   | | '__/ _` |/ __| |/ / |/ _ \
+   | | | | (_| | (__|   <| |  __/
+   |_|_|  \__,_|\___|_|\_\_|\___|
+
+Hi! I'm Trackie, your task-tracking fox.
+Ready to stay on track?
+Oops! Saved task data is corrupted at line 2.
+Here's your trail of tasks:
+You're on track! I've added this task:
+  [T][ ] recovered task
+Now you have 1 task in the list.
+Great tracking today! See you on the next trail!
+ _______             _    _
+|__   __|           | |  (_)
+   | |_ __ __ _  ___| | ___  ___
+   | | '__/ _` |/ __| |/ / |/ _ \
+   | | | | (_| | (__|   <| |  __/
+   |_|_|  \__,_|\___|_|\_\_|\___|
+
+Hi! I'm Trackie, your task-tracking fox.
+Ready to stay on track?
+Here's your trail of tasks:
+1.[T][ ] recovered task
+Great tracking today! See you on the next trail!
