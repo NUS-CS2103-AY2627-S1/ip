@@ -24,6 +24,15 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Java coding standard
+
+All Java source and test code in this repository MUST follow the project-specific
+`seedu-java-coding-standard` skill in `.agents/skills/seedu-java-coding-standard`.
+Use that skill for every Java change and verify the changed files against its
+checklist before finishing. Its source of truth is the SE-EDUCATION basic and
+intermediate Java coding standard:
+https://se-education.org/guides/conventions/java/intermediate.html
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
@@ -33,3 +42,6 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+All commits must follow the project-specific `seedu-git-standard` skill at
+`.agents/skills/seedu-git-standard/SKILL.md`, including its subject, body, and
+branch naming conventions.

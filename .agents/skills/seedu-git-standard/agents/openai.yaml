@@ -1,0 +1,3 @@
+interface:
+  display_name: "SE-EDUCATION Git Standard"
+  short_description: "Apply SE-EDUCATION Git commit conventions"

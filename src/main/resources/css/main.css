@@ -1,0 +1,120 @@
+.root {
+    -fx-font-family: "System";
+    -fx-background-color: #f4f7fb;
+}
+
+.main-window {
+    -fx-background-color: #f4f7fb;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 12px 0 0 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 12px 0;
+}
+
+.dialog-container .label {
+    -fx-font-size: 14px;
+}
+
+.am-dialog,
+.user-dialog {
+    -fx-spacing: 10px;
+}
+
+.am-dialog #avatarLabel,
+.user-dialog #avatarLabel {
+    -fx-alignment: center;
+    -fx-background-radius: 18px;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-min-height: 36px;
+    -fx-min-width: 36px;
+    -fx-padding: 0;
+    -fx-text-alignment: center;
+}
+
+.user-dialog #avatarLabel {
+    -fx-background-color: #dbeafe;
+    -fx-text-fill: #1d4ed8;
+}
+
+.user-dialog #dialog {
+    -fx-background-radius: 12px;
+    -fx-padding: 8px 12px;
+}
+
+.am-dialog #dialog {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-color: #cbd8e8;
+    -fx-border-width: 1px 1px 1px 3px;
+    -fx-border-radius: 8px;
+    -fx-font-size: 14px;
+    -fx-padding: 12px 14px;
+    -fx-text-fill: #172033;
+}
+
+.am-dialog.error-dialog #dialog {
+    -fx-background-color: #fff1ef;
+    -fx-text-fill: #912b20;
+    -fx-border-color: #c44836;
+    -fx-border-width: 1px 1px 1px 3px;
+    -fx-border-radius: 8px;
+}
+
+.user-dialog #dialog {
+    -fx-background-color: #e7effb;
+    -fx-font-size: 13px;
+    -fx-text-fill: #254d83;
+}
+
+#userInput {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 8px;
+    -fx-padding: 0;
+}
+
+#userInput .content {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 12px;
+}
+
+#userInput .scroll-pane {
+    -fx-padding: 0;
+}
+
+#sendButton {
+    -fx-background-color: #2563eb;
+    -fx-background-radius: 8px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+#sendButton:hover {
+    -fx-background-color: #1d4ed8;
+}
+
+.session-end-hint {
+    -fx-font-size: 12px;
+    -fx-text-fill: #52647d;
+}
+
+.window-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-padding: 14px 16px 0 16px;
+    -fx-text-fill: #172033;
+}
