@@ -1,0 +1,73 @@
+.main-window {
+    -fx-background-color: #f8fafc;
+    -fx-font-family: "System";
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-padding: 12px;
+    -fx-spacing: 8px;
+}
+
+.dialog-box {
+    -fx-alignment: top-right;
+}
+
+.dialog-label {
+    -fx-background-radius: 10px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #1f2937;
+}
+
+.user-dialog {
+    -fx-alignment: top-right;
+}
+
+.user-dialog .dialog-label {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: white;
+}
+
+.gunna-dialog,
+.error-dialog {
+    -fx-alignment: top-left;
+}
+
+.gunna-dialog .dialog-label {
+    -fx-background-color: #e2e8f0;
+}
+
+.error-dialog .dialog-label {
+    -fx-background-color: #fff1f2;
+    -fx-border-color: #be123c;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px 1px 1px 4px;
+    -fx-text-fill: #881337;
+}
+
+.input-bar {
+    -fx-alignment: center;
+    -fx-background-color: white;
+    -fx-border-color: #d1d5db transparent transparent transparent;
+    -fx-padding: 10px 12px;
+}
+
+.input-bar .text-field,
+.input-bar .button {
+    -fx-font-size: 14px;
+    -fx-min-height: 36px;
+}
+
+.input-bar .button {
+    -fx-background-color: #2563eb;
+    -fx-background-radius: 6px;
+    -fx-text-fill: white;
+}

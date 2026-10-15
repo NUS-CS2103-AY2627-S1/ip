@@ -13,6 +13,9 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# AI Agents
+/.claude/
+
 # Temp files
 _temp/
 
