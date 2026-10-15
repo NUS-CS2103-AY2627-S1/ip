@@ -1,0 +1,90 @@
+.root {
+    -fx-font-family: "System";
+    -fx-font-size: 14px;
+}
+
+.dialog-container {
+    -fx-background-color: #f4f6fa;
+    -fx-padding: 22px;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: #f4f6fa;
+}
+
+.input-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e3e3e3 transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 12px;
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 6px;
+    -fx-border-color: #d6d6d6;
+    -fx-border-radius: 6px;
+    -fx-padding: 8px 10px;
+}
+
+.text-field:focused {
+    -fx-border-color: #737373;
+}
+
+.send-button {
+    -fx-background-color: #262626;
+    -fx-background-radius: 6px;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 8px 16px;
+}
+
+.send-button:hover {
+    -fx-background-color: #111111;
+}
+
+.user-dialog {
+    -fx-padding: 0 0 0 72px;
+}
+
+.user-bubble {
+    -fx-background-color: #293241;
+    -fx-background-radius: 18px 18px 4px 18px;
+    -fx-padding: 9px 14px;
+    -fx-text-fill: #ffffff;
+}
+
+.nob-dialog {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 4px 12px 12px 4px;
+    -fx-border-color: #4f6bed transparent transparent #4f6bed;
+    -fx-border-radius: 4px 12px 12px 4px;
+    -fx-border-width: 0 0 0 4px;
+    -fx-padding: 14px 18px 16px 14px;
+    -fx-spacing: 12px;
+}
+
+.nob-response-content {
+    -fx-spacing: 4px;
+}
+
+.nob-name {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4f6bed;
+}
+
+.nob-response {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-text-fill: #262626;
+}
+
+.avatar-fallback {
+    -fx-alignment: center;
+    -fx-background-color: #e8ecff;
+    -fx-background-radius: 20px;
+    -fx-font-size: 19px;
+    -fx-min-height: 40px;
+    -fx-min-width: 40px;
+}

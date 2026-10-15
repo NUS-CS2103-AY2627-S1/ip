@@ -1,0 +1,85 @@
+name: Cross-platform smoke tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke-test:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Java 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Build and run automated checks
+        shell: bash
+        run: ./gradlew clean check shadowJar
+
+      - name: Run console UI tests on Linux
+        if: runner.os == 'Linux'
+        shell: bash
+        run: bash .codex/skills/test-ui/scripts/run-ui-tests.sh
+
+      - name: Install Linux virtual display
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes xvfb
+
+      - name: Smoke-test GUI JAR on Linux
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          set +e
+          timeout 10s xvfb-run --auto-servernum java -jar build/libs/nob.jar > "$RUNNER_TEMP/nob-gui.log" 2>&1
+          status=$?
+          set -e
+
+          if [ "$status" -ne 124 ]; then
+            cat "$RUNNER_TEMP/nob-gui.log"
+            echo "Nob exited before the 10-second startup check completed."
+            exit 1
+          fi
+
+          cat "$RUNNER_TEMP/nob-gui.log"
+
+      - name: Smoke-test GUI JAR on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $stdout = Join-Path $env:RUNNER_TEMP 'nob-gui.out.log'
+          $stderr = Join-Path $env:RUNNER_TEMP 'nob-gui.err.log'
+          $process = Start-Process java `
+            -ArgumentList '-jar', 'build/libs/nob.jar' `
+            -RedirectStandardOutput $stdout `
+            -RedirectStandardError $stderr `
+            -PassThru
+
+          Start-Sleep -Seconds 10
+          $process.Refresh()
+
+          if ($process.HasExited) {
+            Get-Content $stdout, $stderr
+            throw "Nob exited before the 10-second startup check completed."
+          }
+
+          Stop-Process -Id $process.Id
+          Get-Content $stdout, $stderr

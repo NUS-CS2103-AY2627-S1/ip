@@ -1,0 +1,751 @@
+=== Exits politely ===
+Command:
+rm -rf data && javac -d out $(find src/main/java -name '*.java' ! -name 'GuiNob.java' ! -name 'Launcher.java' ! -name 'DialogBox.java' ! -name 'MainWindow.java') && java -cp out nob.Nob
+
+Console input:
+bye
+
+Console output:
+____________________________________________________________
+ _   _       _
+| \ | | ___ | |__
+|  \| |/ _ \| '_ \
+| |\  | (_) | |_) |
+|_| \_|\___/|_.__/
+
+  (•_•)
+  ( •_•)>⌐■-■
+  (⌐■_■)
+
+WASSUP! I'm Nob :)
+How can I help you?
+____________________________________________________________
+
+____________________________________________________________
+Goodbye! Hope to see you soon mate!
+____________________________________________________________
+RESULT: PASSED
+=== Starts without a data file ===
+Command:
+rm -rf data && javac -d out $(find src/main/java -name '*.java' ! -name 'GuiNob.java' ! -name 'Launcher.java' ! -name 'DialogBox.java' ! -name 'MainWindow.java') && printf 'list\nbye\n' | java -cp out nob.Nob
+
+Console input:
+
+Console output:
+____________________________________________________________
+ _   _       _
+| \ | | ___ | |__
+|  \| |/ _ \| '_ \
+| |\  | (_) | |_) |
+|_| \_|\___/|_.__/
+
+  (•_•)
+  ( •_•)>⌐■-■
+  (⌐■_■)
+
+WASSUP! I'm Nob :)
+How can I help you?
+____________________________________________________________
+
+____________________________________________________________
+Your task list is empty right now. Add a task using the 'todo', 'deadline' or 'event' commands.
+____________________________________________________________
+
+
+____________________________________________________________
+Goodbye! Hope to see you soon mate!
+____________________________________________________________
+RESULT: PASSED
+=== Saves tasks after each change ===
+Command:
+rm -rf data && javac -d out $(find src/main/java -name '*.java' ! -name 'GuiNob.java' ! -name 'Launcher.java' ! -name 'DialogBox.java' ! -name 'MainWindow.java') && java -cp out nob.Nob && cat data/nob.txt
+
+Console input:
+todo read book
+deadline return book /by Friday
+mark 1
+delete 2
+bye
+
+Console output:
+____________________________________________________________
+ _   _       _
+| \ | | ___ | |__
+|  \| |/ _ \| '_ \
+| |\  | (_) | |_) |
+|_| \_|\___/|_.__/
+
+  (•_•)
+  ( •_•)>⌐■-■
+  (⌐■_■)
+
+WASSUP! I'm Nob :)
+How can I help you?
+____________________________________________________________
+
+____________________________________________________________
+Alrighty. I've added this task:
+  [T] read book [ ]
+Now you have 1 tasks in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+Alrighty. I've added this task:
+  [D: Friday] return book [ ]
+Now you have 2 tasks in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+LET'S GOOO! I've marked this task as done:
+  [T] read book [✓]
+____________________________________________________________
+
+
+____________________________________________________________
+Noted. I've removed the task:
+  [D: Friday] return book [ ]
+Now you have 1 tasks left in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+Goodbye! Hope to see you soon mate!
+____________________________________________________________
+[T] read book [✓]
+RESULT: PASSED
+=== Loads tasks after restarting ===
+Command:
+rm -rf data && javac -d out $(find src/main/java -name '*.java' ! -name 'GuiNob.java' ! -name 'Launcher.java' ! -name 'DialogBox.java' ! -name 'MainWindow.java') && printf 'todo read book\nmark 1\nbye\n' | java -cp out nob.Nob >/dev/null && printf 'list\nbye\n' | java -cp out nob.Nob
+
+Console input:
+
+Console output:
+____________________________________________________________
+ _   _       _
+| \ | | ___ | |__
+|  \| |/ _ \| '_ \
+| |\  | (_) | |_) |
+|_| \_|\___/|_.__/
+
+  (•_•)
+  ( •_•)>⌐■-■
+  (⌐■_■)
+
+WASSUP! I'm Nob :)
+How can I help you?
+____________________________________________________________
+
+____________________________________________________________
+Here are the tasks in your list:
+1.[T] read book [✓]
+____________________________________________________________
+
+
+____________________________________________________________
+Goodbye! Hope to see you soon mate!
+____________________________________________________________
+RESULT: PASSED
+=== Ignores malformed saved tasks ===
+Command:
+rm -rf data && mkdir data && printf '%s\n' '[T] [ ]' '[D: ] task [ ]' 'not a task' > data/nob.txt && javac -d out $(find src/main/java -name '*.java' ! -name 'GuiNob.java' ! -name 'Launcher.java' ! -name 'DialogBox.java' ! -name 'MainWindow.java') && printf 'list\nbye\n' | java -cp out nob.Nob
+
+Console input:
+
+Console output:
+____________________________________________________________
+ _   _       _
+| \ | | ___ | |__
+|  \| |/ _ \| '_ \
+| |\  | (_) | |_) |
+|_| \_|\___/|_.__/
+
+  (•_•)
+  ( •_•)>⌐■-■
+  (⌐■_■)
+
+WASSUP! I'm Nob :)
+How can I help you?
+____________________________________________________________
+
+____________________________________________________________
+Your task list is empty right now. Add a task using the 'todo', 'deadline' or 'event' commands.
+____________________________________________________________
+
+
+____________________________________________________________
+Goodbye! Hope to see you soon mate!
+____________________________________________________________
+RESULT: PASSED
+=== Unknown commands should not show raw terminal input artifacts ===
+Command:
+rm -rf data && javac -d out $(find src/main/java -name '*.java' ! -name 'GuiNob.java' ! -name 'Launcher.java' ! -name 'DialogBox.java' ! -name 'MainWindow.java') && java -cp out nob.Nob
+
+Console input:
+hello
+bye
+
+Console output:
+____________________________________________________________
+ _   _       _
+| \ | | ___ | |__
+|  \| |/ _ \| '_ \
+| |\  | (_) | |_) |
+|_| \_|\___/|_.__/
+
+  (•_•)
+  ( •_•)>⌐■-■
+  (⌐■_■)
+
+WASSUP! I'm Nob :)
+How can I help you?
+____________________________________________________________
+
+____________________________________________________________
+That isn't any of the commands I know. Did you mean one of these?
+  todo DESCRIPTION
+  deadline DESCRIPTION /by DATE_OR_TIME
+  event DESCRIPTION /from START /to END
+____________________________________________________________
+
+
+____________________________________________________________
+Goodbye! Hope to see you soon mate!
+____________________________________________________________
+RESULT: PASSED
+=== Handles invalid task numbers ===
+Command:
+rm -rf data && javac -d out $(find src/main/java -name '*.java' ! -name 'GuiNob.java' ! -name 'Launcher.java' ! -name 'DialogBox.java' ! -name 'MainWindow.java') && java -cp out nob.Nob
+
+Console input:
+todo borrow book
+mark zebra
+mark 1
+list
+bye
+
+Console output:
+____________________________________________________________
+ _   _       _
+| \ | | ___ | |__
+|  \| |/ _ \| '_ \
+| |\  | (_) | |_) |
+|_| \_|\___/|_.__/
+
+  (•_•)
+  ( •_•)>⌐■-■
+  (⌐■_■)
+
+WASSUP! I'm Nob :)
+How can I help you?
+____________________________________________________________
+
+____________________________________________________________
+Alrighty. I've added this task:
+  [T] borrow book [ ]
+Now you have 1 tasks in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+Please enter a valid task number.
+____________________________________________________________
+
+
+____________________________________________________________
+LET'S GOOO! I've marked this task as done:
+  [T] borrow book [✓]
+____________________________________________________________
+
+
+____________________________________________________________
+Here are the tasks in your list:
+1.[T] borrow book [✓]
+____________________________________________________________
+
+
+____________________________________________________________
+Goodbye! Hope to see you soon mate!
+____________________________________________________________
+RESULT: PASSED
+=== Parses date and time inputs for deadlines and events ===
+Command:
+rm -rf data && javac -d out $(find src/main/java -name '*.java' ! -name 'GuiNob.java' ! -name 'Launcher.java' ! -name 'DialogBox.java' ! -name 'MainWindow.java') && java -cp out nob.Nob
+
+Console input:
+deadline return book /by 2/12/2019 1800
+event team sync /from 2019-12-02 1800 /to 2019-12-02 1900
+list
+bye
+
+Console output:
+____________________________________________________________
+ _   _       _
+| \ | | ___ | |__
+|  \| |/ _ \| '_ \
+| |\  | (_) | |_) |
+|_| \_|\___/|_.__/
+
+  (•_•)
+  ( •_•)>⌐■-■
+  (⌐■_■)
+
+WASSUP! I'm Nob :)
+How can I help you?
+____________________________________________________________
+
+____________________________________________________________
+Alrighty. I've added this task:
+  [D: Dec 02 2019, 6:00PM] return book [ ]
+Now you have 1 tasks in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+Alrighty. I've added this task:
+  [E: Dec 02 2019, 6:00PM to Dec 02 2019, 7:00PM] team sync [ ]
+Now you have 2 tasks in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+Here are the tasks in your list:
+1.[D: Dec 02 2019, 6:00PM] return book [ ]
+2.[E: Dec 02 2019, 6:00PM to Dec 02 2019, 7:00PM] team sync [ ]
+____________________________________________________________
+
+
+____________________________________________________________
+Goodbye! Hope to see you soon mate!
+____________________________________________________________
+RESULT: PASSED
+=== Rejects malformed deadline syntax without losing valid state ===
+Command:
+rm -rf data && javac -d out $(find src/main/java -name '*.java' ! -name 'GuiNob.java' ! -name 'Launcher.java' ! -name 'DialogBox.java' ! -name 'MainWindow.java') && java -cp out nob.Nob
+
+Console input:
+deadline return book /bySunday
+deadline finish draft /by Friday
+list
+bye
+
+Console output:
+____________________________________________________________
+ _   _       _
+| \ | | ___ | |__
+|  \| |/ _ \| '_ \
+| |\  | (_) | |_) |
+|_| \_|\___/|_.__/
+
+  (•_•)
+  ( •_•)>⌐■-■
+  (⌐■_■)
+
+WASSUP! I'm Nob :)
+How can I help you?
+____________________________________________________________
+
+____________________________________________________________
+Check that there is a space before and after '/by'.
+Use: deadline DESCRIPTION /by DATE_OR_TIME
+(eg., deadline return book /by Sunday)
+____________________________________________________________
+
+
+____________________________________________________________
+Alrighty. I've added this task:
+  [D: Friday] finish draft [ ]
+Now you have 1 tasks in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+Here are the tasks in your list:
+1.[D: Friday] finish draft [ ]
+____________________________________________________________
+
+
+____________________________________________________________
+Goodbye! Hope to see you soon mate!
+____________________________________________________________
+RESULT: PASSED
+=== Rejects malformed event syntax without losing valid state ===
+Command:
+rm -rf data && javac -d out $(find src/main/java -name '*.java' ! -name 'GuiNob.java' ! -name 'Launcher.java' ! -name 'DialogBox.java' ! -name 'MainWindow.java') && java -cp out nob.Nob
+
+Console input:
+event project meeting /from Mon 2pm /to 4pm
+event bad /from Mon 2pm
+list
+bye
+
+Console output:
+____________________________________________________________
+ _   _       _
+| \ | | ___ | |__
+|  \| |/ _ \| '_ \
+| |\  | (_) | |_) |
+|_| \_|\___/|_.__/
+
+  (•_•)
+  ( •_•)>⌐■-■
+  (⌐■_■)
+
+WASSUP! I'm Nob :)
+How can I help you?
+____________________________________________________________
+
+____________________________________________________________
+Alrighty. I've added this task:
+  [E: Mon 2pm to 4pm] project meeting [ ]
+Now you have 1 tasks in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+Check that there is a space before and after '/from' and '/to'.
+Use: event DESCRIPTION /from START /to END
+(eg., event project meeting /from Mon 2pm /to 4pm)
+____________________________________________________________
+
+
+____________________________________________________________
+Here are the tasks in your list:
+1.[E: Mon 2pm to 4pm] project meeting [ ]
+____________________________________________________________
+
+
+____________________________________________________________
+Goodbye! Hope to see you soon mate!
+____________________________________________________________
+RESULT: PASSED
+=== Handles empty todo and later valid todo without corrupting state ===
+Command:
+rm -rf data && javac -d out $(find src/main/java -name '*.java' ! -name 'GuiNob.java' ! -name 'Launcher.java' ! -name 'DialogBox.java' ! -name 'MainWindow.java') && java -cp out nob.Nob
+
+Console input:
+todo
+todo read book
+list
+bye
+
+Console output:
+____________________________________________________________
+ _   _       _
+| \ | | ___ | |__
+|  \| |/ _ \| '_ \
+| |\  | (_) | |_) |
+|_| \_|\___/|_.__/
+
+  (•_•)
+  ( •_•)>⌐■-■
+  (⌐■_■)
+
+WASSUP! I'm Nob :)
+How can I help you?
+____________________________________________________________
+
+____________________________________________________________
+Use: todo DESCRIPTION
+(eg., todo borrow book)
+____________________________________________________________
+
+
+____________________________________________________________
+Alrighty. I've added this task:
+  [T] read book [ ]
+Now you have 1 tasks in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+Here are the tasks in your list:
+1.[T] read book [ ]
+____________________________________________________________
+
+
+____________________________________________________________
+Goodbye! Hope to see you soon mate!
+____________________________________________________________
+RESULT: PASSED
+=== Rejects empty deadline description ===
+Command:
+rm -rf data && javac -d out $(find src/main/java -name '*.java' ! -name 'GuiNob.java' ! -name 'Launcher.java' ! -name 'DialogBox.java' ! -name 'MainWindow.java') && java -cp out nob.Nob
+
+Console input:
+deadline /by 2
+bye
+
+Console output:
+____________________________________________________________
+ _   _       _
+| \ | | ___ | |__
+|  \| |/ _ \| '_ \
+| |\  | (_) | |_) |
+|_| \_|\___/|_.__/
+
+  (•_•)
+  ( •_•)>⌐■-■
+  (⌐■_■)
+
+WASSUP! I'm Nob :)
+How can I help you?
+____________________________________________________________
+
+____________________________________________________________
+Description should not be empty.
+Use: deadline DESCRIPTION /by DATE_OR_TIME
+(eg., deadline return book /by Sunday)
+____________________________________________________________
+
+
+____________________________________________________________
+Goodbye! Hope to see you soon mate!
+____________________________________________________________
+RESULT: PASSED
+=== Rejects empty event description ===
+Command:
+rm -rf data && javac -d out $(find src/main/java -name '*.java' ! -name 'GuiNob.java' ! -name 'Launcher.java' ! -name 'DialogBox.java' ! -name 'MainWindow.java') && java -cp out nob.Nob
+
+Console input:
+event /from Mon 2pm /to 4pm
+bye
+
+Console output:
+____________________________________________________________
+ _   _       _
+| \ | | ___ | |__
+|  \| |/ _ \| '_ \
+| |\  | (_) | |_) |
+|_| \_|\___/|_.__/
+
+  (•_•)
+  ( •_•)>⌐■-■
+  (⌐■_■)
+
+WASSUP! I'm Nob :)
+How can I help you?
+____________________________________________________________
+
+____________________________________________________________
+Description should not be empty.
+Use: event DESCRIPTION /from START /to END
+(eg., event project meeting /from Mon 2pm /to 4pm)
+____________________________________________________________
+
+
+____________________________________________________________
+Goodbye! Hope to see you soon mate!
+____________________________________________________________
+RESULT: PASSED
+=== Shows available commands with help ===
+Command:
+rm -rf data && javac -d out $(find src/main/java -name '*.java' ! -name 'GuiNob.java' ! -name 'Launcher.java' ! -name 'DialogBox.java' ! -name 'MainWindow.java') && java -cp out nob.Nob
+
+Console input:
+help
+bye
+
+Console output:
+____________________________________________________________
+ _   _       _
+| \ | | ___ | |__
+|  \| |/ _ \| '_ \
+| |\  | (_) | |_) |
+|_| \_|\___/|_.__/
+
+  (•_•)
+  ( •_•)>⌐■-■
+  (⌐■_■)
+
+WASSUP! I'm Nob :)
+How can I help you?
+____________________________________________________________
+
+____________________________________________________________
+Here are the commands you can use:
+  list
+  todo DESCRIPTION
+  deadline DESCRIPTION /by DATE_OR_TIME
+  event DESCRIPTION /from START /to END
+  find KEYWORD
+  mark TASK_NUMBER
+  unmark TASK_NUMBER
+  delete TASK_NUMBER
+  clear
+  bye
+____________________________________________________________
+
+
+____________________________________________________________
+Goodbye! Hope to see you soon mate!
+____________________________________________________________
+RESULT: PASSED
+=== Finds tasks by a keyword ===
+Command:
+rm -rf data && javac -d out $(find src/main/java -name '*.java' ! -name 'GuiNob.java' ! -name 'Launcher.java' ! -name 'DialogBox.java' ! -name 'MainWindow.java') && java -cp out nob.Nob
+
+Console input:
+todo read book
+deadline return book /by Friday
+event team meeting /from Mon /to Tue
+find BOOK
+bye
+
+Console output:
+____________________________________________________________
+ _   _       _
+| \ | | ___ | |__
+|  \| |/ _ \| '_ \
+| |\  | (_) | |_) |
+|_| \_|\___/|_.__/
+
+  (•_•)
+  ( •_•)>⌐■-■
+  (⌐■_■)
+
+WASSUP! I'm Nob :)
+How can I help you?
+____________________________________________________________
+
+____________________________________________________________
+Alrighty. I've added this task:
+  [T] read book [ ]
+Now you have 1 tasks in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+Alrighty. I've added this task:
+  [D: Friday] return book [ ]
+Now you have 2 tasks in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+Alrighty. I've added this task:
+  [E: Mon to Tue] team meeting [ ]
+Now you have 3 tasks in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+Here are the matching tasks in your list:
+1.[T] read book [ ]
+2.[D: Friday] return book [ ]
+____________________________________________________________
+
+
+____________________________________________________________
+Goodbye! Hope to see you soon mate!
+____________________________________________________________
+RESULT: PASSED
+=== Deletes a task from the list ===
+Command:
+rm -rf data && javac -d out $(find src/main/java -name '*.java' ! -name 'GuiNob.java' ! -name 'Launcher.java' ! -name 'DialogBox.java' ! -name 'MainWindow.java') && java -cp out nob.Nob
+
+Console input:
+todo first task
+todo second task
+todo third task
+delete 2
+list
+bye
+
+Console output:
+____________________________________________________________
+ _   _       _
+| \ | | ___ | |__
+|  \| |/ _ \| '_ \
+| |\  | (_) | |_) |
+|_| \_|\___/|_.__/
+
+  (•_•)
+  ( •_•)>⌐■-■
+  (⌐■_■)
+
+WASSUP! I'm Nob :)
+How can I help you?
+____________________________________________________________
+
+____________________________________________________________
+Alrighty. I've added this task:
+  [T] first task [ ]
+Now you have 1 tasks in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+Alrighty. I've added this task:
+  [T] second task [ ]
+Now you have 2 tasks in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+Alrighty. I've added this task:
+  [T] third task [ ]
+Now you have 3 tasks in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+Noted. I've removed the task:
+  [T] second task [ ]
+Now you have 2 tasks left in the list.
+____________________________________________________________
+
+
+____________________________________________________________
+Here are the tasks in your list:
+1.[T] first task [ ]
+2.[T] third task [ ]
+____________________________________________________________
+
+
+____________________________________________________________
+Goodbye! Hope to see you soon mate!
+____________________________________________________________
+RESULT: PASSED
+=== Rejects an event whose end is before its start ===
+Command:
+rm -rf data && javac -d out $(find src/main/java -name '*.java' ! -name 'GuiNob.java' ! -name 'Launcher.java' ! -name 'DialogBox.java' ! -name 'MainWindow.java') && java -cp out nob.Nob
+
+Console input:
+event backwards meeting /from 2019-12-02 1900 /to 2019-12-02 1800
+list
+bye
+
+Console output:
+____________________________________________________________
+ _   _       _
+| \ | | ___ | |__
+|  \| |/ _ \| '_ \
+| |\  | (_) | |_) |
+|_| \_|\___/|_.__/
+
+  (•_•)
+  ( •_•)>⌐■-■
+  (⌐■_■)
+
+WASSUP! I'm Nob :)
+How can I help you?
+____________________________________________________________
+
+____________________________________________________________
+Event end time should not be before its start time.
+Use: event DESCRIPTION /from START /to END
+____________________________________________________________
+
+
+____________________________________________________________
+Your task list is empty right now. Add a task using the 'todo', 'deadline' or 'event' commands.
+____________________________________________________________
+
+
+____________________________________________________________
+Goodbye! Hope to see you soon mate!
+____________________________________________________________
+RESULT: PASSED
+All 17 UI test case(s) passed.

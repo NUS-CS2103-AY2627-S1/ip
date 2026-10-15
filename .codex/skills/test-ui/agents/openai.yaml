@@ -1,0 +1,3 @@
+interface:
+  display_name: "UI Test Runner"
+  short_description: "Run planned console UI tests"
