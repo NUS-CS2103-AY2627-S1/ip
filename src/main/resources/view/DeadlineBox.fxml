@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<fx:root style="-fx-background-color: azure;" type="javafx.scene.layout.VBox" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="272.0" spacing="5.0" style="-fx-background-color: lightblue;">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <children>
+            <ImageView fx:id="mark" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="time" alignment="CENTER" minHeight="40.0" minWidth="60.0" style="-fx-background-color: #4C7A97; -fx-background-radius: 5;" text="time" textFill="WHITE" textOverrun="CLIP">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </HBox>
+      <Label fx:id="description" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="30.0" prefWidth="200.0" text="description" textOverrun="CLIP" wrapText="true">
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets left="50.0" />
+         </VBox.margin>
+      </Label>
+   </children>
+</fx:root>

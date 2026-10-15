@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- Preserve the preferred height at the assigned width so wrapped text remains fully visible. -->
+<fx:root type="javafx.scene.layout.VBox" spacing="2.0" alignment="TOP_LEFT"
+         minWidth="0.0" minHeight="-Infinity" maxWidth="1.7976931348623157E308" maxHeight="1.7976931348623157E308"
+         styleClass="schedule-card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane.margin>
+        <Insets top="2.0" right="3.0" bottom="2.0" left="3.0" />
+    </GridPane.margin>
+    <children>
+        <Label fx:id="description" minWidth="0.0" minHeight="-Infinity" maxWidth="1.7976931348623157E308"
+               wrapText="true"
+               styleClass="schedule-task-name" />
+        <Label fx:id="time" minWidth="0.0" minHeight="-Infinity" maxWidth="1.7976931348623157E308"
+               wrapText="true"
+               styleClass="schedule-task-time" />
+    </children>
+</fx:root>

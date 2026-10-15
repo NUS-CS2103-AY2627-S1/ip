@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- Java adds the undated task cards below the section heading. -->
+<fx:root type="javafx.scene.layout.VBox" spacing="6.0"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label text="Undated" styleClass="schedule-date" />
+    </children>
+</fx:root>

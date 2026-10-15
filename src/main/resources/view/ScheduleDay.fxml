@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- Loaded separately for each day; Java supplies the date and its task sections. -->
+<fx:root type="javafx.scene.layout.VBox" spacing="8.0" styleClass="schedule-day"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <fx:define>
+        <Label fx:id="otherTasksHeading" text="All day, deadlines &amp; reminders" styleClass="schedule-section" />
+        <Label fx:id="timetableHeading" text="Timetable" styleClass="schedule-section" />
+        <Label fx:id="emptyDay" text="No tasks on this day." />
+    </fx:define>
+    <children>
+        <Label fx:id="dateHeading" styleClass="schedule-date" />
+    </children>
+</fx:root>

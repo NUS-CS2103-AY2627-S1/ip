@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<!-- Loaded separately for each day; Java aligns the existing hourly labels with task boundaries. -->
+<fx:root type="javafx.scene.layout.GridPane" fx:id="timetable" styleClass="schedule-grid"
+          minWidth="-Infinity" minHeight="-Infinity"
+          maxWidth="1.7976931348623157E308"
+          xmlns="http://javafx.com/javafx/17"
+          xmlns:fx="http://javafx.com/fxml/1">
+    <fx:define>
+        <Insets fx:id="timeLabelPadding" top="3.0" right="4.0" bottom="0.0" left="0.0" />
+    </fx:define>
+    <columnConstraints>
+        <ColumnConstraints minWidth="54.0" prefWidth="54.0" maxWidth="54.0" />
+        <fx:include source="ScheduleTaskColumn.fxml" />
+        <!-- Absorb spare width without stretching task columns, extending the row backgrounds instead. -->
+        <ColumnConstraints minWidth="0.0" prefWidth="0.0" maxWidth="1.7976931348623157E308" hgrow="ALWAYS" />
+    </columnConstraints>
+    <rowConstraints>
+        <!-- Keep short events readable and allow taller rows for wrapped task descriptions. -->
+        <RowConstraints minHeight="52.0" prefHeight="-1.0" maxHeight="1.7976931348623157E308" />
+    </rowConstraints>
+    <!-- Initial row indices identify the hour, including the final 24:00 boundary. -->
+    <children>
+        <Label text="00:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.valignment="TOP" />
+        <Label text="01:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+        <Label text="02:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+        <Label text="03:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+        <Label text="04:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.valignment="TOP" />
+        <Label text="05:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.valignment="TOP" />
+        <Label text="06:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="6" GridPane.valignment="TOP" />
+        <Label text="07:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.valignment="TOP" />
+        <Label text="08:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="8" GridPane.valignment="TOP" />
+        <Label text="09:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="9" GridPane.valignment="TOP" />
+        <Label text="10:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="10" GridPane.valignment="TOP" />
+        <Label text="11:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="11" GridPane.valignment="TOP" />
+        <Label text="12:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="12" GridPane.valignment="TOP" />
+        <Label text="13:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="13" GridPane.valignment="TOP" />
+        <Label text="14:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="14" GridPane.valignment="TOP" />
+        <Label text="15:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="15" GridPane.valignment="TOP" />
+        <Label text="16:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="16" GridPane.valignment="TOP" />
+        <Label text="17:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="17" GridPane.valignment="TOP" />
+        <Label text="18:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="18" GridPane.valignment="TOP" />
+        <Label text="19:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="19" GridPane.valignment="TOP" />
+        <Label text="20:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="20" GridPane.valignment="TOP" />
+        <Label text="21:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="21" GridPane.valignment="TOP" />
+        <Label text="22:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="22" GridPane.valignment="TOP" />
+        <Label text="23:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="23" GridPane.valignment="TOP" />
+        <Label text="24:00" styleClass="schedule-time" padding="$timeLabelPadding"
+               GridPane.columnIndex="0" GridPane.rowIndex="24" GridPane.valignment="TOP" />
+    </children>
+</fx:root>

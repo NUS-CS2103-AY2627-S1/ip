@@ -1,0 +1,73 @@
+.schedule-scroll {
+    -fx-background-color: white;
+    -fx-border-color: #e4ddd2;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-vbar-policy: NEVER;
+}
+
+.schedule-scroll > .viewport {
+    -fx-background-color: white;
+}
+
+.schedule-content {
+    -fx-padding: 12;
+    -fx-background-color: white;
+    -fx-font-size: 12px;
+}
+
+.schedule-date {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #6C6835;
+}
+
+.schedule-section {
+    -fx-font-weight: bold;
+    -fx-text-fill: #6C6835;
+}
+
+.schedule-time {
+    -fx-font-size: 11px;
+    -fx-text-fill: #526779;
+}
+
+.schedule-row {
+    -fx-background-color: #fcfaf8;
+    -fx-border-color: #dce5ed transparent transparent #dce5ed;
+    -fx-border-width: 1;
+}
+
+.schedule-card {
+    -fx-padding: 5 7 5 10;
+    -fx-background-color: #D47F49, #F2EBDE;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-background-insets: 0, 1 1 1 5;
+}
+
+.schedule-task-name {
+    -fx-font-weight: bold;
+    -fx-text-fill: #6C6835;
+}
+
+.schedule-task-time {
+    -fx-font-size: 11px;
+    -fx-text-fill: #AB8543;
+}
+
+.schedule-completed {
+    -fx-background-color: #D4BB91, #F2EBDE;
+}
+
+.schedule-completed .text {
+    -fx-strikethrough: true;
+}
+
+.schedule-completed > .schedule-task-name {
+    -fx-text-fill: #D4BB91;
+}
+
+.schedule-completed > .schedule-task-time {
+    -fx-text-fill: #D4BB91;
+}

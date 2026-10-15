@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.ColumnConstraints?>
+
+<!-- Grow to fit task text up to 250 pixels, then let the card wrap vertically. -->
+<ColumnConstraints minWidth="150.0" prefWidth="-1.0" maxWidth="250.0" hgrow="NEVER"
+                   xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" />

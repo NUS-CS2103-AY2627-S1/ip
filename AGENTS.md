@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: 2 years
+* IDE and level of expertise: IntelliJ, 2 years
 
 # Guidance for interacting with users
 
@@ -23,6 +23,15 @@ Unless the user says otherwise, assume that you are assisting a student working 
   * When faced with a design choice, choose the simplest option that is sufficient for the requirements, while briefly explaining relevant more advanced alternatives.
 
 # Project-specific requirements
+
+## Java coding standard
+
+All Java source code and tests in this project MUST follow the project skill
+`.agents/skills/seedu-java-coding-standard/SKILL.md`, which is based on the
+SE-EDU Java coding standard. Apply it to every new or modified Java file,
+including naming, layout, imports, declaration order, braces, visibility, and
+Javadocs. Run the relevant Checkstyle tasks and fix violations rather than
+weakening the checks.
 
 ## Java version:
 
