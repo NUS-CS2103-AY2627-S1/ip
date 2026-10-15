@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<!-- fx:root construct so food.DialogBox can load this as its own layout. -->
+<fx:root alignment="TOP_RIGHT" spacing="10.0" type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="5" left="5" right="5" top="5"/>
+    </padding>
+    <children>
+        <!-- The "dialog-label" class gives both speakers the same bubble shape; DialogBox.java adds
+             "user-label" or "chef-label" on top to pick the colour and font. -->
+        <Label fx:id="dialog" minHeight="-Infinity" prefWidth="260.0" wrapText="true" styleClass="dialog-label"/>
+        <ImageView fx:id="displayPicture" fitHeight="64.0" fitWidth="64.0" preserveRatio="true"
+                   styleClass="avatar"/>
+    </children>
+</fx:root>

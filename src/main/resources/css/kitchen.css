@@ -1,0 +1,95 @@
+/*
+ * Chef Food's kitchen theme.
+ *
+ * The chat window is styled as a kitchen: a cream tiled wall for the background, the user's
+ * messages as tomato-red speech bubbles, and Chef Food's replies as the paper order tickets that
+ * a kitchen printer spits out (white, monospace, with a perforated-looking dashed edge).
+ *
+ * JavaFX CSS uses the same syntax as web CSS but its own property names, all prefixed with -fx-.
+ * Selectors starting with "." match a node's style classes, which DialogBox.java assigns.
+ */
+
+/* --- palette ------------------------------------------------------------------------------ */
+* {
+    -kitchen-cream: #FBF3E4;
+    -kitchen-tile: #F1E4CC;
+    -kitchen-tomato: #C8402A;
+    -kitchen-tomato-dark: #A5321F;
+    -kitchen-ticket: #FFFDF7;
+    -kitchen-ink: #2B2118;
+    -kitchen-olive: #6B7A3A;
+}
+
+/* --- window --------------------------------------------------------------------------------- */
+.root {
+    -fx-background-color: -kitchen-cream;
+    -fx-font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+    -fx-font-size: 13px;
+}
+
+/* The scroll pane and its viewport would otherwise paint their own grey backgrounds over ours. */
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-border-color: -kitchen-tile;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* --- chat bubbles --------------------------------------------------------------------------- */
+/* Shared shape for both speakers; the two classes below only change colour and font. */
+.dialog-label {
+    -fx-padding: 10 14 10 14;
+    -fx-background-radius: 12;
+    -fx-line-spacing: 2;
+}
+
+.user-label {
+    -fx-background-color: -kitchen-tomato;
+    -fx-text-fill: white;
+}
+
+/* Chef Food's replies look like kitchen order tickets: paper white, monospace, dashed edge. */
+.chef-label {
+    -fx-background-color: -kitchen-ticket;
+    -fx-text-fill: -kitchen-ink;
+    -fx-font-family: "Menlo", "Consolas", "Courier New", monospace;
+    -fx-font-size: 12px;
+    -fx-background-radius: 2;
+    -fx-border-color: -kitchen-tomato;
+    -fx-border-style: dashed;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 2;
+    -fx-effect: dropshadow(gaussian, rgba(43, 33, 24, 0.25), 6, 0, 2, 2);
+}
+
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(43, 33, 24, 0.3), 4, 0, 1, 1);
+}
+
+/* --- input row ------------------------------------------------------------------------------ */
+.text-field {
+    -fx-background-color: -kitchen-ticket;
+    -fx-background-radius: 6;
+    -fx-border-color: -kitchen-tomato;
+    -fx-border-radius: 6;
+    -fx-border-width: 1.5;
+    -fx-text-fill: -kitchen-ink;
+    -fx-prompt-text-fill: derive(-kitchen-ink, 55%);
+    -fx-padding: 7 10 7 10;
+}
+
+.button {
+    -fx-background-color: -kitchen-tomato;
+    -fx-background-radius: 6;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 7 14 7 14;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: -kitchen-tomato-dark;
+}

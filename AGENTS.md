@@ -28,6 +28,21 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## Coding standard
+
+All Java code in this repository **must** follow the SE-EDU Java coding standard (basic and
+intermediate levels), captured as the project skill `seedu-java-coding-standard`
+(`.claude/skills/seedu-java-coding-standard/SKILL.md`).
+
+* Invoke that skill before writing, editing, or reviewing any `.java` file in this project, and
+  whenever asked to check or fix style or coding-standard violations.
+* This applies to test code as well as production code, and to code written from scratch as well
+  as code being modified.
+* Where the standard is silent, fall back to the
+  [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html).
+* Before reporting Java work as finished, run the compliance checks at the end of that skill, plus
+  `./gradlew test javadoc`.
+
 ## Git
 
 Use lightweight tags unless the user requests an annotated tag.
