@@ -1,0 +1,63 @@
+/*
+ * "Blood God" theme: near-black background, blood-red TBlade dialog bubbles with gold
+ * trim (crown/"Potato King" accent colour), slate-grey user bubbles, gold send button.
+ */
+
+.root {
+    -fx-background-color: #141414;
+    -fx-font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+.scroll-pane,
+.scroll-pane .viewport,
+.scroll-pane .content {
+    -fx-background-color: transparent;
+}
+
+.text-field {
+    -fx-background-color: #1e1e1e;
+    -fx-text-fill: #f5f5f5;
+    -fx-prompt-text-fill: #8a8a8a;
+    -fx-background-radius: 6;
+    -fx-border-color: #d4af37;
+    -fx-border-radius: 6;
+    -fx-border-width: 1.5;
+    -fx-font-size: 13px;
+}
+
+.button {
+    -fx-background-color: #d4af37;
+    -fx-text-fill: #2b0000;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #e8c158;
+}
+
+.button:pressed {
+    -fx-background-color: #b8912b;
+}
+
+.label {
+    -fx-text-fill: #f5f5f5;
+    -fx-font-size: 13px;
+    -fx-background-radius: 12;
+    -fx-padding: 8 12 8 12;
+}
+
+.tblade-dialog .label {
+    -fx-background-color: linear-gradient(to bottom right, #6e0f0f, #3d0808);
+    -fx-border-color: #d4af37;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 12;
+}
+
+.user-dialog .label {
+    -fx-background-color: #37474f;
+    -fx-border-color: #55636b;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+}

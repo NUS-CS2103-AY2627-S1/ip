@@ -1,0 +1,14 @@
+#!/bin/sh
+# Runs Checkstyle before allowing a commit to complete.
+# Installed via: git config core.hooksPath .githooks
+# (see README.md's "Developer setup" section)
+
+echo "Running Checkstyle before commit..."
+./gradlew checkstyleMain checkstyleTest --console=plain
+
+if [ $? -ne 0 ]; then
+    echo ""
+    echo "Commit blocked: Checkstyle found violations (see output above)."
+    echo "Fix them, or run 'git commit --no-verify' to skip this check just this once."
+    exit 1
+fi
