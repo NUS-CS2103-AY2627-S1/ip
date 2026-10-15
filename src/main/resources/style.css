@@ -1,0 +1,72 @@
+.root {
+    -fx-background-color: #f4f6f8;
+    -fx-font-family: "System";
+    -fx-font-size: 14px;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-padding: 12px;
+}
+
+.button {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 9px 16px;
+    -fx-background-radius: 7px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #1d4ed8;
+}
+
+.button:pressed {
+    -fx-background-color: #1e40af;
+}
+
+.text-field {
+    -fx-padding: 9px 12px;
+    -fx-background-radius: 7px;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 7px;
+}
+
+.text-field:focused {
+    -fx-border-color: #2563eb;
+    -fx-border-width: 2px;
+}
+
+.input-bar {
+    -fx-padding: 0 12px 12px 12px;
+}
+
+.bot-message {
+    -fx-background-color: #e2e8f0;
+    -fx-text-fill: #1e293b;
+    -fx-background-radius: 4px 14px 14px 14px;
+}
+
+.ascii-message {
+    -fx-font-family: "Monospaced";
+}
+
+.user-message {
+    -fx-background-color: #dbeafe;
+    -fx-text-fill: #1e3a8a;
+    -fx-background-radius: 14px 4px 14px 14px;
+}
+
+.error-message {
+    -fx-background-color: #fee2e2;
+    -fx-text-fill: #991b1b;
+    -fx-border-color: #f87171;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px 14px 14px 14px;
+    -fx-background-radius: 4px 14px 14px 14px;
+}

@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug KDB GUI",
+            "request": "launch",
+            "mainClass": "kdb.Launcher",
+            "projectName": "ip"
+        },
+        {
+            "type": "java",
+            "name": "Attach to KDB Gradle",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 5005
+        }
+    ]
+}

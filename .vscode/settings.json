@@ -1,0 +1,6 @@
+{
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.debug.settings.onBuildFailureProceed": true,
+    "java.jdt.ls.java.home": "/Library/Java/JavaVirtualMachines/jdk-25.jdk/Contents/Home",
+    "java.import.gradle.java.home": "/Library/Java/JavaVirtualMachines/jdk-25.jdk/Contents/Home"
+}

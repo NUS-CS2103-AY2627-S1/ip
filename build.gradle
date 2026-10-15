@@ -1,0 +1,154 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+    id 'checkstyle'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+String operatingSystem = System.getProperty('os.name').toLowerCase(Locale.ROOT)
+String architecture = System.getProperty('os.arch').toLowerCase(Locale.ROOT)
+String javaFxPlatform
+
+if (operatingSystem.contains('mac')) {
+    javaFxPlatform = architecture.contains('aarch64') || architecture.contains('arm64')
+            ? 'mac-aarch64' : 'mac'
+} else if (operatingSystem.contains('win')) {
+    javaFxPlatform = 'win'
+} else {
+    javaFxPlatform = 'linux'
+}
+
+configurations {
+    javafxCurrentNatives
+    javafxWinNatives
+    javafxLinuxNatives
+    javafxMacNatives
+    javafxMacAarch64Natives
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    String javaFxVersion = '17.0.7'
+
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:${javaFxPlatform}")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:${javaFxPlatform}")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:${javaFxPlatform}")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:${javaFxPlatform}")
+
+    javafxCurrentNatives("org.openjfx:javafx-graphics:${javaFxVersion}:${javaFxPlatform}")
+    javafxWinNatives("org.openjfx:javafx-graphics:${javaFxVersion}:win")
+    javafxLinuxNatives("org.openjfx:javafx-graphics:${javaFxVersion}:linux")
+    javafxMacNatives("org.openjfx:javafx-graphics:${javaFxVersion}:mac")
+    javafxMacAarch64Natives("org.openjfx:javafx-graphics:${javaFxVersion}:mac-aarch64")
+}
+
+def nativePlatforms = [
+    win: configurations.javafxWinNatives,
+    linux: configurations.javafxLinuxNatives,
+    mac: configurations.javafxMacNatives,
+    'mac-aarch64': configurations.javafxMacAarch64Natives
+]
+
+test {
+    useJUnitPlatform()
+    dependsOn shadowJar
+    inputs.file(tasks.shadowJar.archiveFile)
+    doFirst {
+        systemProperty 'kdb.releaseJar', tasks.shadowJar.archiveFile.get().asFile.absolutePath
+    }
+    nativePlatforms.each { platform, configuration ->
+        systemProperty "kdb.graphics.${platform}", configuration.files.find {
+            it.name == "javafx-graphics-17.0.7-${platform}.jar"
+        }.absolutePath
+    }
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'kdb.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'Kdb.jar'
+    // Common JavaFX classes occur in several platform artifacts; retain one copy.
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    nativePlatforms.each { platform, configuration ->
+        // Each graphics artifact also contains platform-specific Java classes and resources.
+        from(configuration.collect { zipTree(it) }) {
+            include 'com/**', 'javafx/**'
+        }
+        from(configuration.collect { zipTree(it) }) {
+            include '*.dll', '*.so', '*.dylib'
+            into "kdb/natives/${platform}"
+        }
+    }
+
+    doLast {
+        File originalJar = archiveFile.get().asFile
+        File filteredJar = new File(originalJar.parentFile, "${originalJar.name}.tmp")
+        java.util.jar.JarFile input = new java.util.jar.JarFile(originalJar)
+        java.util.jar.JarOutputStream output = new java.util.jar.JarOutputStream(
+                new FileOutputStream(filteredJar))
+
+        try {
+            input.entries().each { entry ->
+                boolean isRootNativeLibrary = !entry.name.contains('/')
+                        && (entry.name.endsWith('.dll')
+                        || entry.name.endsWith('.so')
+                        || entry.name.endsWith('.dylib'))
+                if (!isRootNativeLibrary) {
+                    output.putNextEntry(new java.util.jar.JarEntry(entry.name))
+                    input.getInputStream(entry).withCloseable { stream -> stream.transferTo(output) }
+                    output.closeEntry()
+                }
+            }
+        } finally {
+            output.close()
+            input.close()
+        }
+
+        java.nio.file.Files.move(filteredJar.toPath(), originalJar.toPath(),
+                java.nio.file.StandardCopyOption.REPLACE_EXISTING)
+    }
+}
+
+run {
+    standardInput = System.in
+    classpath += configurations.javafxCurrentNatives
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
