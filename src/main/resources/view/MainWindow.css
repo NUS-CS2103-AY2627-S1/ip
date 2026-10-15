@@ -1,0 +1,92 @@
+.chat-window {
+    -fx-font-family: "System";
+    -fx-font-size: 14px;
+    -fx-background-color: #f3f6f4;
+}
+.app-header {
+    -fx-padding: 16 20;
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #dce5df transparent;
+}
+.app-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #244b3b;
+}
+.app-subtitle, .command-hint {
+    -fx-text-fill: #52675c;
+    -fx-font-size: 12px;
+}
+.conversation, .conversation > .viewport {
+    -fx-background-color: #f3f6f4;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+.message-list {
+    -fx-padding: 16;
+}
+.message-card {
+    -fx-padding: 12 14;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+}
+.message-heading {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #52675c;
+}
+.message-body {
+    -fx-font-family: "Menlo", "Consolas", "Courier New", monospace;
+    -fx-text-fill: #233d30;
+    -fx-line-spacing: 3px;
+}
+.bot-message {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dce5df;
+}
+.user-message {
+    -fx-background-color: #dcebe2;
+    -fx-border-color: #c6dccf;
+}
+.error-message {
+    -fx-background-color: #fff1f0;
+    -fx-border-color: #c66760;
+    -fx-border-width: 1 1 1 4;
+}
+.error-message .message-heading, .error-message .message-body {
+    -fx-text-fill: #8a2923;
+}
+.composer {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dce5df transparent transparent transparent;
+}
+.text-field {
+    -fx-background-color: #f3f6f4;
+    -fx-background-radius: 8;
+    -fx-border-color: #ccd9d0;
+    -fx-border-radius: 8;
+    -fx-padding: 10;
+    -fx-text-fill: #233d30;
+    -fx-prompt-text-fill: #52675c;
+}
+.text-field:focused {
+    -fx-border-color: #2e6b4f;
+}
+.button {
+    -fx-background-color: #2e6b4f;
+    -fx-background-radius: 8;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-padding: 11 16;
+    -fx-cursor: hand;
+}
+.button:hover {
+    -fx-background-color: #24553e;
+}
+.button:focused {
+    -fx-border-color: #193f2c;
+    -fx-border-radius: 8;
+}
+.button:disabled {
+    -fx-opacity: 0.55;
+}

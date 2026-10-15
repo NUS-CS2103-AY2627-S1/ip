@@ -1,0 +1,107 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javaFxVersion = '17.0.7'
+
+    // Include JavaFX for all three operating systems so the fat JAR is cross-platform.
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform {
+        // Native JavaFX tests run separately so normal builds work without a display.
+        excludeTags 'gui'
+    }
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+tasks.register('guiTest', Test) {
+    group = 'verification'
+    description = 'Tests JavaFX layout and interaction (requires a display).'
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    useJUnitPlatform {
+        includeTags 'gui'
+    }
+    jvmArgs '--enable-native-access=ALL-UNNAMED,javafx.graphics'
+    testLogging {
+        events 'passed', 'failed'
+    }
+}
+
+application {
+    mainClass = 'duke.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'geen.jar'
+}
+
+run {
+    enableAssertions = true
+    jvmArgs '--enable-native-access=javafx.graphics'
+}
+
+tasks.register('runCli', JavaExec) {
+    group = 'application'
+    description = 'Runs the command-line chatbot.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'duke.Duke'
+    enableAssertions = true
+    standardInput = System.in
+}
+
+tasks.register('runGui', JavaExec) {
+    group = 'application'
+    description = 'Runs the JavaFX chatbot GUI.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'duke.Launcher'
+    enableAssertions = true
+    jvmArgs '--enable-native-access=javafx.graphics'
+}

@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: beginner
+* IDE and level of expertise: intellij
 
 # Guidance for interacting with users
 
@@ -27,6 +27,11 @@ Unless the user says otherwise, assume that you are assisting a student working 
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+
+## Testing:
+
+After each code update, update `test/ui-test-plan.md` if command behavior or expected output changes, then run the project-specific `test-ui` workflow using `python3 test/run-ui-tests.py`.
+If a UI test fails, stop and fix the behavior or the expected output before continuing.
 
 ## Git
 

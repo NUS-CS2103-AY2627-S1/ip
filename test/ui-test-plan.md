@@ -1,0 +1,436 @@
+# UI Test Plan
+
+Each transcript runs in a temporary folder, leaving the user's saved tasks untouched.
+For JavaFX layout and interaction checks, also run `./gradlew guiTest` on a machine with a display.
+
+## Test Case: invalid input is recoverable and surrounding whitespace is ignored
+Aim: Verify blank input, impossible event ranges, and invalid calendar dates give actionable errors without adding tasks; valid same-day events and whitespace-padded commands still work.
+
+### Inputs
+```text
+
+event backwards /from 2019-10-16 /to 2019-10-15
+deadline impossible /by 2019-02-29
+  todo read book
+event meeting /from 2019-10-15 /to 2019-10-15
+  list
+  bye
+todo must not be added
+```
+
+### Expected Output
+```text
+____________________________________________________________
+  ____ _____ _____ _   _
+ / ___| ____| ____| \ | |
+| |  _|  _| |  _| |  \| |
+| |_| | |___| |___| |\  |
+ \____|_____|_____|_| \_|
+Hello! I'm geen.
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+OOPS!!! Please type a command. For example: todo read book
+____________________________________________________________
+____________________________________________________________
+OOPS!!! An event's end date cannot be before its start date. Check /from and /to.
+____________________________________________________________
+____________________________________________________________
+OOPS!!! Dates must be in yyyy-MM-dd format. For example: deadline submit report /by 2019-10-15
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] read book
+Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [E][ ] meeting (from: Oct 15 2019 to: Oct 15 2019)
+Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] read book
+2.[E][ ] meeting (from: Oct 15 2019 to: Oct 15 2019)
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
+### Expected Data File
+```text
+T | 0 | read book
+E | 0 | meeting | 2019-10-15 | 2019-10-15
+```
+
+## Test Case: typed tasks can be added, listed, marked, unmarked, and deleted
+Aim: Verify todo, deadline, and event tasks use inherited formatting, keep correct done status, and renumber correctly after deletion.
+
+### Inputs
+```text
+todo read book
+deadline return book /by 2019-10-15
+event project meeting /from 2019-10-15 /to 2019-10-16
+mark 1
+list
+find book
+find movie
+delete 2
+unmark 1
+list
+bye
+```
+
+### Expected Output
+```text
+____________________________________________________________
+  ____ _____ _____ _   _
+ / ___| ____| ____| \ | |
+| |  _|  _| |  _| |  \| |
+| |_| | |___| |___| |\  |
+ \____|_____|_____|_| \_|
+Hello! I'm geen.
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] read book
+Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [D][ ] return book (by: Oct 15 2019)
+Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [E][ ] project meeting (from: Oct 15 2019 to: Oct 16 2019)
+Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this task as done:
+  [T][X] read book
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by: Oct 15 2019)
+3.[E][ ] project meeting (from: Oct 15 2019 to: Oct 16 2019)
+____________________________________________________________
+____________________________________________________________
+Here are the matching tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by: Oct 15 2019)
+____________________________________________________________
+____________________________________________________________
+Here are the matching tasks in your list:
+____________________________________________________________
+____________________________________________________________
+Noted. I've removed this task:
+  [D][ ] return book (by: Oct 15 2019)
+Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+OK, I've marked this task as not done yet:
+  [T][ ] read book
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] read book
+2.[E][ ] project meeting (from: Oct 15 2019 to: Oct 16 2019)
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
+### Expected Data File
+```text
+T | 0 | read book
+E | 0 | project meeting | 2019-10-15 | 2019-10-16
+```
+
+## Test Case: schedules show dated tasks for a requested day
+Aim: Verify schedules include deadlines and multi-day events, preserve completion status and insertion order, exclude todos, and reject invalid dates.
+
+### Setup Data File
+```text
+T | 0 | unscheduled task
+D | 1 | submit report | 2019-10-15
+D | 0 | pay bill | 2019-10-17
+E | 0 | conference | 2019-10-14 | 2019-10-16
+E | 0 | holiday | 2019-10-16 | 2019-10-18
+```
+
+### Inputs
+```text
+schedule 2019-10-15
+schedule 2019-10-16
+schedule 2019-10-19
+schedule
+schedule next Monday
+bye
+```
+
+### Expected Output
+```text
+____________________________________________________________
+  ____ _____ _____ _   _
+ / ___| ____| ____| \ | |
+| |  _|  _| |  _| |  \| |
+| |_| | |___| |___| |\  |
+ \____|_____|_____|_| \_|
+Hello! I'm geen.
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+Schedule for Oct 15 2019:
+1.[D][X] submit report (by: Oct 15 2019)
+2.[E][ ] conference (from: Oct 14 2019 to: Oct 16 2019)
+____________________________________________________________
+____________________________________________________________
+Schedule for Oct 16 2019:
+1.[E][ ] conference (from: Oct 14 2019 to: Oct 16 2019)
+2.[E][ ] holiday (from: Oct 16 2019 to: Oct 18 2019)
+____________________________________________________________
+____________________________________________________________
+There are no scheduled tasks on Oct 19 2019.
+____________________________________________________________
+____________________________________________________________
+OOPS!!! A schedule command needs a date. For example: schedule 2019-10-15
+____________________________________________________________
+____________________________________________________________
+OOPS!!! Dates must be in yyyy-MM-dd format. For example: schedule 2019-10-15
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
+### Expected Data File
+```text
+T | 0 | unscheduled task
+D | 1 | submit report | 2019-10-15
+D | 0 | pay bill | 2019-10-17
+E | 0 | conference | 2019-10-14 | 2019-10-16
+E | 0 | holiday | 2019-10-16 | 2019-10-18
+```
+
+## Test Case: corrupted saved dates report errors
+Aim: Verify an invalid saved deadline date is reported without crashing the chatbot.
+
+### Setup Data File
+```text
+D | 0 | return book | Sunday
+```
+
+### Inputs
+```text
+bye
+```
+
+### Expected Output
+```text
+____________________________________________________________
+OOPS!!! The saved deadline on line 1 has an invalid date.
+____________________________________________________________
+____________________________________________________________
+  ____ _____ _____ _   _
+ / ___| ____| ____| \ | |
+| |  _|  _| |  _| |  \| |
+| |_| | |___| |___| |\  |
+ \____|_____|_____|_| \_|
+Hello! I'm geen.
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
+## Test Case: invalid commands report errors and preserve valid task state
+Aim: Verify incorrect inputs do not crash the chatbot and do not create accidental tasks.
+
+### Inputs
+```text
+todo
+blah
+find
+deadline return book
+deadline /by Sunday
+deadline return book /by
+deadline return book /by Sunday
+event meeting /from Mon 2pm
+event meeting /to 4pm
+event /from Mon /to Tue
+event project meeting /from Mon /to Tue
+mark
+mark two
+mark 1
+unmark
+unmark two
+unmark 1
+delete
+delete two
+delete 0
+delete -1
+delete 1
+todo valid
+mark 2
+delete 2
+todo remove
+delete 2
+list
+bye
+```
+
+### Expected Output
+```text
+____________________________________________________________
+  ____ _____ _____ _   _
+ / ___| ____| ____| \ | |
+| |  _|  _| |  _| |  \| |
+| |_| | |___| |___| |\  |
+ \____|_____|_____|_| \_|
+Hello! I'm geen.
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+OOPS!!! A todo needs a description. For example: todo read book
+____________________________________________________________
+____________________________________________________________
+OOPS!!! Sorry, I don't understand that command. Try todo, deadline, event, list, mark, unmark, delete, find, schedule, or bye.
+____________________________________________________________
+____________________________________________________________
+OOPS!!! A find command needs a keyword. For example: find book
+____________________________________________________________
+____________________________________________________________
+OOPS!!! A deadline needs /by. For example: deadline submit report /by 2019-10-15
+____________________________________________________________
+____________________________________________________________
+OOPS!!! A deadline needs a description before /by.
+____________________________________________________________
+____________________________________________________________
+OOPS!!! A deadline needs a date after /by.
+____________________________________________________________
+____________________________________________________________
+OOPS!!! Dates must be in yyyy-MM-dd format. For example: deadline submit report /by 2019-10-15
+____________________________________________________________
+____________________________________________________________
+OOPS!!! An event needs /from and /to. For example: event meeting /from 2019-10-15 /to 2019-10-16
+____________________________________________________________
+____________________________________________________________
+OOPS!!! An event needs /from and /to. For example: event meeting /from 2019-10-15 /to 2019-10-16
+____________________________________________________________
+____________________________________________________________
+OOPS!!! An event needs a description before /from.
+____________________________________________________________
+____________________________________________________________
+OOPS!!! Dates must be in yyyy-MM-dd format. For example: event meeting /from 2019-10-15 /to 2019-10-16
+____________________________________________________________
+____________________________________________________________
+OOPS!!! Please include a task number. For example: mark 2
+____________________________________________________________
+____________________________________________________________
+OOPS!!! Task numbers must be whole numbers. For example: mark 2
+____________________________________________________________
+____________________________________________________________
+OOPS!!! Task 1 does not exist. Use list to see the available task numbers.
+____________________________________________________________
+____________________________________________________________
+OOPS!!! Please include a task number. For example: unmark 2
+____________________________________________________________
+____________________________________________________________
+OOPS!!! Task numbers must be whole numbers. For example: unmark 2
+____________________________________________________________
+____________________________________________________________
+OOPS!!! Task 1 does not exist. Use list to see the available task numbers.
+____________________________________________________________
+____________________________________________________________
+OOPS!!! Please include a task number. For example: delete 2
+____________________________________________________________
+____________________________________________________________
+OOPS!!! Task numbers must be whole numbers. For example: delete 2
+____________________________________________________________
+____________________________________________________________
+OOPS!!! Task 0 does not exist. Use list to see the available task numbers.
+____________________________________________________________
+____________________________________________________________
+OOPS!!! Task -1 does not exist. Use list to see the available task numbers.
+____________________________________________________________
+____________________________________________________________
+OOPS!!! Task 1 does not exist. Use list to see the available task numbers.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] valid
+Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+OOPS!!! Task 2 does not exist. Use list to see the available task numbers.
+____________________________________________________________
+____________________________________________________________
+OOPS!!! Task 2 does not exist. Use list to see the available task numbers.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] remove
+Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Noted. I've removed this task:
+  [T][ ] remove
+Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] valid
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+```
+
+### Expected Data File
+```text
+T | 0 | valid
+```
+
+## Test Case: saved tasks are loaded at startup
+Aim: Verify tasks saved in the data file are available when the chatbot starts again.
+
+### Setup Data File
+```text
+T | 1 | read book
+D | 0 | return book | 2019-10-15
+E | 0 | project meeting | 2019-10-15 | 2019-10-16
+```
+
+### Inputs
+```text
+list
+bye
+```
+
+### Expected Output
+```text
+____________________________________________________________
+  ____ _____ _____ _   _
+ / ___| ____| ____| \ | |
+| |  _|  _| |  _| |  \| |
+| |_| | |___| |___| |\  |
+ \____|_____|_____|_| \_|
+Hello! I'm geen.
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by: Oct 15 2019)
+3.[E][ ] project meeting (from: Oct 15 2019 to: Oct 16 2019)
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+```
