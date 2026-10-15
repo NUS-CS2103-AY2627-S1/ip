@@ -1,0 +1,26 @@
+.dialog-label {
+    -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-padding: 8px 12px;
+    -fx-text-fill: black;
+}
+
+.dialog-label.reply-label {
+    -fx-background-color: #e5e5ea;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-text-fill: black;
+}
+
+/*
+ * Overrides reply-label's color for an error response, so it stands out from
+ * a normal Ace reply. Declared after .reply-label, and with equal selector
+ * specificity (two classes each), so this wins the two properties they both
+ * set (background-color, text-fill) via CSS's cascade order — everything
+ * else (padding, corner rounding) still comes from the rules above.
+ */
+.dialog-label.error-label {
+    -fx-background-color: #dc3545;
+    -fx-text-fill: white;
+}

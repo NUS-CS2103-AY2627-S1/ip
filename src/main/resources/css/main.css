@@ -1,0 +1,8 @@
+.root {
+    -fx-background-image: url("../images/Ace-Background.png");
+    -fx-background-size: stretch;
+}
+
+.scroll-pane, .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
