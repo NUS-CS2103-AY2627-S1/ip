@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane minHeight="400.0"
+            minWidth="360.0"
+            prefHeight="600.0"
+            prefWidth="460.0"
+            styleClass="app-root"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="koara.gui.MainWindow">
+    <children>
+        <AnchorPane prefHeight="54.0"
+                    styleClass="brand-bar"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="0.0">
+            <children>
+                <Label styleClass="brand-mark"
+                       text="KOARA"
+                       AnchorPane.bottomAnchor="13.0"
+                       AnchorPane.leftAnchor="14.0" />
+                <Label styleClass="brand-status"
+                       text="● STEADY MODE"
+                       AnchorPane.bottomAnchor="15.0"
+                       AnchorPane.rightAnchor="14.0" />
+            </children>
+        </AnchorPane>
+        <TextField fx:id="userInput"
+                   accessibleHelp="Type a Koara command and press Enter or Send"
+                   accessibleText="Command input"
+                   onAction="#handleUserInput"
+                   prefHeight="52.0"
+                   promptText="What are we locking in today?"
+                   styleClass="command-input"
+                   AnchorPane.bottomAnchor="12.0"
+                   AnchorPane.leftAnchor="12.0"
+                   AnchorPane.rightAnchor="102.0" />
+        <Button fx:id="sendButton"
+                accessibleText="Send command"
+                mnemonicParsing="false"
+                onAction="#handleUserInput"
+                prefHeight="52.0"
+                prefWidth="84.0"
+                styleClass="send-button"
+                text="LOCK IN"
+                AnchorPane.bottomAnchor="12.0"
+                AnchorPane.rightAnchor="12.0" />
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    styleClass="conversation-scroll"
+                    AnchorPane.bottomAnchor="76.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="54.0">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true" styleClass="dialog-container" />
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run fail-fast console UI test sessions"
+  default_prompt: "Use $test-ui to run these commands and verify their expected outputs."
+

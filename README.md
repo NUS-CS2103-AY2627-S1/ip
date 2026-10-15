@@ -1,25 +1,36 @@
-# Duke project template
+# Koara
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![Koara's desktop interface](docs/Ui.png)
 
-## Setting up in Intellij
+Koara is a modern desktop chatbot for managing personal tasks and training-client records. It combines fast command-based interaction with automatic local storage, clear error feedback, and a focused JavaFX interface.
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+## Features
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+- Create to-dos, deadlines, and events using validated ISO dates.
+- List, search, mark, unmark, and delete tasks.
+- Add, list, search, edit, and delete client records.
+- Save tasks and clients automatically and recover gracefully from missing or invalid data files.
+- Highlight invalid commands without ending the session or corrupting in-memory data.
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+See the **[Koara User Guide](https://itzkhoadao.github.io/ip/)** for every command, example, and data-file detail.
+
+## Run from source
+
+Koara requires **Java 25**.
+
+1. Clone this repository and open a terminal in the project root.
+2. Build the cross-platform application JAR:
+   - Windows: `gradlew.bat clean shadowJar`
+   - macOS/Linux: `./gradlew clean shadowJar`
+3. Start Koara with `java -jar build/libs/koara.jar`.
+
+In IntelliJ IDEA, configure the project SDK and language level as Java 25, then run `koara.gui.Launcher`.
+
+## Development checks
+
+Run the complete automated test and code-quality suite before committing:
+
+- Windows: `gradlew.bat check`
+- macOS/Linux: `./gradlew check`
+
+The GitHub Actions workflow runs the same checks with Java 25 on Windows, macOS, and Ubuntu.
