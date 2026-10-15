@@ -1,0 +1,54 @@
+name: Java CI
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    # Match the Windows JavaFX runtime and CLI classpath used by this project.
+    runs-on: windows-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Validate Gradle wrapper
+        uses: gradle/actions/wrapper-validation@v6
+
+      - name: Set up Java 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: zulu
+          java-version: '25'
+
+      - name: Set up Python for CLI tests
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+
+      - name: Build JAR and run JUnit and Checkstyle
+        run: .\gradlew.bat --no-daemon build
+
+      - name: Run recorded CLI tests
+        run: |
+          python .codex/skills/test-ui/scripts/run-ui-tests.py test/ui-test-plan.md | Tee-Object -FilePath build/ui-test-transcript.txt
+          exit $LASTEXITCODE
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-reports
+          path: |
+            build/reports/
+            build/ui-test-transcript.txt
+
+      - name: Upload executable JAR
+        uses: actions/upload-artifact@v7
+        with:
+          name: rei-jar
+          path: build/libs/rei.jar
+          if-no-files-found: error

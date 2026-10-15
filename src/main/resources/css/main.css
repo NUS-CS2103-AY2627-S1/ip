@@ -1,0 +1,98 @@
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+}
+
+.main-window {
+    -fx-background-color: #f4f7fb;
+}
+
+.header {
+    -fx-background-color: linear-gradient(to right, #273c75, #40739e);
+    -fx-padding: 0 22 0 22;
+}
+
+.title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #dfe6e9;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.conversation {
+    -fx-padding: 18;
+}
+
+.message-bubble {
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-effect: dropshadow(gaussian, rgba(39, 60, 117, 0.12), 12, 0.1, 0, 3);
+    -fx-padding: 12 15 12 15;
+    -fx-text-fill: #2f3640;
+}
+
+.avatar {
+    -fx-background-color: #273c75;
+    -fx-background-radius: 23;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.user-dialog .message-bubble {
+    -fx-background-color: #dff4ff;
+}
+
+.user-dialog .avatar {
+    -fx-background-color: #00a8ff;
+}
+
+.rei-dialog .message-bubble {
+    -fx-background-color: white;
+    -fx-background-radius: 2 14 14 14;
+    -fx-border-color: #d8e2ef;
+    -fx-border-radius: 2 14 14 14;
+}
+
+.error-dialog .message-bubble {
+    -fx-background-color: #fff1ee;
+    -fx-border-color: #be4734;
+    -fx-text-fill: #852e20;
+}
+
+.error-dialog .avatar {
+    -fx-background-color: #a53928;
+}
+
+.composer {
+    -fx-background-color: white;
+    -fx-padding: 10 14 10 14;
+}
+
+.text-field {
+    -fx-background-color: #eef2f7;
+    -fx-background-radius: 18;
+    -fx-padding: 10 14 10 14;
+}
+
+.button {
+    -fx-background-color: #273c75;
+    -fx-background-radius: 18;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-padding: 10 18 10 18;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #40739e;
+}
