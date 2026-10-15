@@ -12,9 +12,13 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
+/data/
 
 # Temp files
 _temp/
+
+# Project-specific Codex skill (keep local)
+/.codex/skills/present-changes-visually/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

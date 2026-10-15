@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root alignment="TOP_RIGHT"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         prefWidth="428.0"
+         spacing="10.0"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialog"
+               maxWidth="326.0"
+               minHeight="-Infinity"
+               text="Message"
+               wrapText="true" />
+        <Label fx:id="avatar"
+               alignment="CENTER"
+               minHeight="56.0"
+               minWidth="56.0"
+               prefHeight="56.0"
+               prefWidth="56.0"
+               text="Avatar" />
+    </children>
+    <padding>
+        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+    </padding>
+</fx:root>
