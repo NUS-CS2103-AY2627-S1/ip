@@ -1,0 +1,105 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+javafx {
+    version = '17.0.8'
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+checkstyle {
+    toolVersion = '14.1.0'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    javafxWin
+    javafxLinux
+    javafxMac
+    javafxMacArm
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    def javafxVersion = '17.0.8'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    ['base', 'graphics', 'controls', 'fxml'].each { module ->
+        javafxWin("org.openjfx:javafx-${module}:${javafxVersion}:win@jar") {
+            transitive = false
+        }
+
+        javafxLinux("org.openjfx:javafx-${module}:${javafxVersion}:linux@jar") {
+            transitive = false
+        }
+
+        javafxMac("org.openjfx:javafx-${module}:${javafxVersion}:mac@jar") {
+            transitive = false
+        }
+
+        javafxMacArm("org.openjfx:javafx-${module}:${javafxVersion}:mac-aarch64@jar") {
+            transitive = false
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'larry.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file,
+    // even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'larry.jar'
+
+    configurations = [
+            project.configurations.runtimeClasspath,
+            project.configurations.javafxWin,
+            project.configurations.javafxLinux,
+            project.configurations.javafxMac,
+            project.configurations.javafxMacArm
+    ]
+
+    mergeServiceFiles()
+}
+
+run {
+    standardInput = System.in
+}
