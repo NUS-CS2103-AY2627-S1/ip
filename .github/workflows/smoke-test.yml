@@ -1,0 +1,101 @@
+name: Smoke test a release
+
+# Runs the released jar the way a grader will: a plain JDK 25 with no JavaFX of
+# its own, the jar alone in an empty folder, started with java -jar. Checked on
+# all three operating systems, because the jar bundles a native library set for
+# each and only the one for the machine running it gets exercised.
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to test (blank = latest)'
+        required: false
+        default: ''
+
+jobs:
+  smoke:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@v7
+
+      # A plain JDK, with no JavaFX of its own, is the stricter case: the GUI can
+      # then only run on the natives inside the jar. macOS is the exception: the
+      # jar carries Intel natives (the course template's "mac" classifier), and
+      # the runner is Apple Silicon, so it gets the JDK+FX build the course
+      # recommends for Macs, whose own JavaFX takes precedence over the jar's.
+      - name: Setup JDK 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: '25'
+          java-package: ${{ runner.os == 'macOS' && 'jdk+fx' || 'jdk' }}
+
+      - name: Download the release jar into an empty folder
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir smoke
+          if [ -n "${{ inputs.tag }}" ]; then
+            gh release download "${{ inputs.tag }}" --repo "$GITHUB_REPOSITORY" --pattern '*.jar' --dir smoke
+          else
+            gh release download --repo "$GITHUB_REPOSITORY" --pattern '*.jar' --dir smoke
+          fi
+          ls -la smoke
+          [ "$(ls smoke/*.jar | wc -l)" -eq 1 ] || { echo "expected exactly one jar"; exit 1; }
+          jar=$(ls smoke/*.jar)
+          [ "$jar" = "smoke/ff15.jar" ] || mv "$jar" smoke/ff15.jar
+          java -version
+
+      - name: Every command and error case, through the console entry point
+        shell: bash
+        working-directory: smoke
+        run: python3 ../.claude/skills/test-ui/scripts/run-ui-tests.py ../test/ui-test-plan.md --jar ff15.jar
+
+      - name: Data files land next to the jar and survive a restart
+        shell: bash
+        working-directory: smoke
+        run: |
+          rm -rf data
+          printf 'todo smoke test\ncontact add Pam /phone 91234567\nbye\n' | java -cp ff15.jar ff15.FF15 > /dev/null
+          ls data/ff15.txt data/contacts.txt
+          printf 'list\ncontact list\nbye\n' | java -cp ff15.jar ff15.FF15 | tee reload.txt
+          grep -q 'smoke test' reload.txt && grep -q 'Pam' reload.txt
+
+      - name: A corrupt save file is reported and skipped, not fatal
+        shell: bash
+        working-directory: smoke
+        run: |
+          printf 'T | 0 | kept\nthis line is garbage\nD | 0 | also kept | 2026-09-20\n' > data/ff15.txt
+          printf 'list\nbye\n' | java -cp ff15.jar ff15.FF15 | tee corrupt.txt
+          grep -q 'skipped' corrupt.txt
+          grep -q '1.\[T\]\[ \] kept' corrupt.txt
+          grep -q '2.\[D\]\[ \] also kept' corrupt.txt
+
+      - name: The GUI starts with java -jar and stays up
+        shell: bash
+        working-directory: smoke
+        run: |
+          if [ "$RUNNER_OS" = "Linux" ]; then
+            sudo apt-get update -qq && sudo apt-get install -y -qq xvfb > /dev/null
+            xvfb-run -a java -jar ff15.jar > gui.out 2> gui.err &
+          else
+            java -jar ff15.jar > gui.out 2> gui.err &
+          fi
+          pid=$!
+          sleep 25
+          echo "--- stderr ---"; cat gui.err; echo "--- stdout ---"; cat gui.out
+          if ! kill -0 $pid 2> /dev/null; then
+            echo "the GUI process exited within 25 seconds"; exit 1
+          fi
+          if grep -q -i 'exception' gui.err; then
+            echo "the GUI logged an exception"; exit 1
+          fi
+          kill $pid || true
+          echo "GUI ran for 25 seconds on $RUNNER_OS with no exception"

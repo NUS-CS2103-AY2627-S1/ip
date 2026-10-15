@@ -1,0 +1,45 @@
+/* Shared shape of every bubble: compact padding and a slightly open line height,
+   since replies often run to several lines of task listings. */
+.label {
+    -fx-font-size: 13.5px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 8 12 8 12;
+}
+
+/* Your messages: Dunder Mifflin blue, tail on the bottom right, no picture. */
+.user-label {
+    -fx-background-color: linear-gradient(to bottom right, #1d4ed8, #3b82f6);
+    -fx-background-radius: 16 16 4 16;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.35), 10, 0.15, 0, 2);
+}
+
+/* Michael's replies: a paper-cream panel beside his face, tail on the bottom
+   left. Muted on purpose, so the program reads as the other party rather than
+   as a second copy of you -- and cream, because he runs a paper company. */
+.reply-label {
+    -fx-background-color: rgba(250, 245, 230, 0.09);
+    -fx-background-radius: 16 16 16 4;
+    -fx-border-color: rgba(250, 245, 230, 0.16);
+    -fx-border-radius: 16 16 16 4;
+    -fx-border-width: 1;
+    -fx-text-fill: #f5f0e1;
+}
+
+/* A reply still on its way: the same panel, faded and in italics, so it reads
+   as a placeholder about to be replaced rather than as something FF15 said. */
+.thinking-label {
+    -fx-font-style: italic;
+    -fx-opacity: 0.6;
+}
+
+/* An error from FF15: same panel, but in warning colours with a firmer edge,
+   so it cannot be skimmed past as one more reply. Applied on top of
+   .reply-label, so anything not overridden here is inherited from it. */
+.error-label {
+    -fx-background-color: rgba(251, 113, 133, 0.14);
+    -fx-border-color: #fb7185;
+    -fx-border-width: 1.5;
+    -fx-text-fill: #ffe4e8;
+    -fx-effect: dropshadow(gaussian, rgba(251, 113, 133, 0.40), 10, 0.2, 0, 2);
+}

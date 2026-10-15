@@ -1,0 +1,87 @@
+/* Window shell: near-black slate with a faint lift toward the bottom, so long
+   sessions are easy on the eyes and the Dunder Mifflin blue has room to pop. */
+.root {
+    -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #0b0f19, #111827);
+    -fx-font-family: "Inter", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+    -fx-font-size: 13.5px;
+}
+
+/* Let the background show through the chat log. */
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* A hairline scroll bar with no end buttons, so it costs almost no width. */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 6;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.18);
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.36);
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+/* Composer: a low pill that brightens and takes the accent when focused. */
+.text-field {
+    -fx-background-color: rgba(255, 255, 255, 0.06);
+    -fx-background-radius: 20;
+    -fx-border-color: rgba(255, 255, 255, 0.12);
+    -fx-border-radius: 20;
+    -fx-border-width: 1;
+    -fx-text-fill: #f3f4f6;
+    -fx-prompt-text-fill: rgba(243, 244, 246, 0.38);
+    -fx-font-size: 14px;
+    -fx-padding: 0 16 0 16;
+}
+
+.text-field:focused {
+    -fx-background-color: rgba(255, 255, 255, 0.10);
+    -fx-border-color: #3b82f6;
+}
+
+/* Send button: Dunder Mifflin blue, the colour of the logo on every ream. */
+.button {
+    -fx-background-color: linear-gradient(to bottom right, #1d4ed8, #3b82f6);
+    -fx-background-radius: 20;
+    -fx-text-fill: white;
+    -fx-font-size: 13.5px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.40), 12, 0.2, 0, 2);
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom right, #2563eb, #60a5fa);
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.60), 16, 0.3, 0, 3);
+}
+
+.button:pressed {
+    -fx-background-color: linear-gradient(to bottom right, #1e40af, #2563eb);
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.25), 6, 0.2, 0, 1);
+}
+
+.button:disabled,
+.text-field:disabled {
+    -fx-opacity: 0.45;
+}
