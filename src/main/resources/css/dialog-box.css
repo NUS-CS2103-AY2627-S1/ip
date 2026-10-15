@@ -1,0 +1,29 @@
+.label {
+    -fx-background-color: ghostwhite;
+    -fx-border-color: derive(black, -10%);
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: ladder(background, white 49%, black 50%);
+    -fx-padding: 6px;
+    -fx-border-insets: 0px 7px 0px 7px;
+    -fx-background-insets: 0px 7px 0px 7px;
+    -fx-font-family: "Chalkboard SE", "Chalkboard", "Comic Neue", sans-serif;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-font-family: "Chalkboard SE", "Chalkboard", "Comic Neue", sans-serif;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-rotate: 0;
+}
