@@ -1,0 +1,55 @@
+.root {
+    -fx-background-color: linear-gradient(to bottom, #07111f, #0b1f33);
+    -fx-background-image: url("../images/orbit-starfield.png");
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-font-family: "Avenir Next", "Arial";
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-color: rgba(3, 12, 24, 0.36);
+    -fx-padding: 8px 0 8px 0;
+}
+
+.text-field {
+    -fx-background-color: #0d2136;
+    -fx-background-radius: 0;
+    -fx-border-color: #1d4966;
+    -fx-border-width: 1px 0 0 0;
+    -fx-font-size: 15px;
+    -fx-padding: 0 16px;
+    -fx-prompt-text-fill: #7795aa;
+    -fx-text-fill: #e7f8ff;
+}
+
+.button {
+    -fx-background-color: #22d3ee;
+    -fx-background-radius: 0;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #062033;
+}
+
+.button:hover {
+    -fx-background-color: #67e8f9;
+}
+
+.button:pressed {
+    -fx-background-color: #0891b2;
+}
+
+.button:disabled {
+    -fx-background-color: #35526a;
+    -fx-text-fill: #91aabd;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #315a73;
+    -fx-background-radius: 8px;
+}

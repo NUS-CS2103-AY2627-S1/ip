@@ -1,0 +1,45 @@
+.label {
+    -fx-background-color: #1d4ed8;
+    -fx-background-radius: 14px 14px 3px 14px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #f0f9ff;
+}
+
+.reply-label {
+    -fx-background-color: #102a43;
+    -fx-background-radius: 14px 14px 14px 3px;
+    -fx-border-color: #22d3ee;
+    -fx-border-radius: 14px 14px 14px 3px;
+    -fx-effect: dropshadow(gaussian, rgba(34, 211, 238, 0.16), 10, 0, 0, 2);
+    -fx-text-fill: #e7f8ff;
+}
+
+#avatar {
+    -fx-background-color: #1e3a5f;
+    -fx-background-radius: 20px;
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+#avatar.orbit-avatar {
+    -fx-background-color: transparent;
+    -fx-background-image: url("../images/orbit-avatar.png");
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-text-fill: transparent;
+}
+
+.error-label {
+    -fx-background-color: #451a24;
+    -fx-border-color: #fb7185;
+    -fx-border-radius: 14px 14px 14px 3px;
+    -fx-text-fill: #ffe4e6;
+}
+
+#avatar.error-avatar {
+    -fx-background-image: none;
+    -fx-background-color: #e11d48;
+    -fx-text-fill: white;
+}
