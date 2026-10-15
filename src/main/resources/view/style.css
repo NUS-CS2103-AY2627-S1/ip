@@ -1,0 +1,64 @@
+* {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 13px;
+}
+
+.root {
+    -fx-background-color: #F0F0F3;
+}
+
+#scrollPane, #scrollPane .viewport {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+#dialogContainer {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+    -fx-spacing: 10;
+}
+
+.dialog-label {
+    -fx-background-radius: 14;
+    -fx-padding: 8 12 8 12;
+}
+
+/* User bubbles: green, right-aligned (see DialogBox#getUserDialog) */
+.user-dialog-box .dialog-label {
+    -fx-background-color: #DCF8C6;
+    -fx-text-fill: #1B1B1B;
+}
+
+/* WALLE's bubbles: white with a light border, left-aligned (see DialogBox#getWalleDialog) */
+.walle-dialog-box .dialog-label {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #1B1B1B;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+}
+
+/* Error replies: red border/text so mistakes catch the user's attention */
+.error-dialog-box .dialog-label {
+    -fx-background-color: #FDECEA;
+    -fx-text-fill: #B3261E;
+    -fx-border-color: #B3261E;
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+}
+
+#userInput {
+    -fx-background-radius: 8;
+    -fx-padding: 8;
+}
+
+#sendButton {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+}
+
+#sendButton:hover {
+    -fx-background-color: #43A047;
+}

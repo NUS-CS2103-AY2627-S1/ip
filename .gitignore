@@ -13,8 +13,14 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# VSCode config
+.vscode
+
 # Temp files
 _temp/
+
+# WALLE's memory
+src/main/data
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
