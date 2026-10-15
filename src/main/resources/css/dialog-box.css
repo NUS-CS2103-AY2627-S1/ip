@@ -1,0 +1,87 @@
+.dialog-box {
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.dialog-label {
+    -fx-font-size: 13px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 9 11 9 11;
+}
+
+.duke-dialog .dialog-label {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 4 12 12 12;
+    -fx-border-color: #d9dee5;
+    -fx-border-radius: 4 12 12 12;
+}
+
+.user-dialog .dialog-label {
+    -fx-background-color: #3568d4;
+    -fx-background-radius: 12 4 12 12;
+}
+
+.success-dialog .dialog-label {
+    -fx-background-color: #edf9f0;
+    -fx-background-radius: 4 12 12 12;
+    -fx-border-color: #2f8a4c;
+    -fx-border-radius: 4 12 12 12;
+    -fx-border-width: 1 1 1 4;
+}
+
+.error-dialog .dialog-label {
+    -fx-background-color: #fff1f0;
+    -fx-background-radius: 4 12 12 12;
+    -fx-border-color: #c9362b;
+    -fx-border-radius: 4 12 12 12;
+    -fx-border-width: 1 1 1 4;
+}
+
+.dialog-text {
+    -fx-fill: #1f2937;
+}
+
+.user-dialog .dialog-text {
+    -fx-fill: #ffffff;
+}
+
+.error-dialog .dialog-text {
+    -fx-fill: #8f211a;
+}
+
+.success-dialog .dialog-text {
+    -fx-fill: #205f35;
+}
+
+.duke-dialog .priority-extreme,
+.success-dialog .priority-extreme {
+    -fx-fill: #7627a8;
+    -fx-font-weight: bold;
+}
+
+.duke-dialog .priority-high,
+.success-dialog .priority-high {
+    -fx-fill: #c62828;
+    -fx-font-weight: bold;
+}
+
+.duke-dialog .priority-medium,
+.success-dialog .priority-medium {
+    -fx-fill: #9a6700;
+    -fx-font-weight: bold;
+}
+
+.duke-dialog .priority-low,
+.success-dialog .priority-low {
+    -fx-fill: #21833b;
+    -fx-font-weight: bold;
+}
+
+.duke-dialog .priority-none,
+.success-dialog .priority-none {
+    -fx-fill: #667085;
+    -fx-font-weight: bold;
+}
+
+.display-picture {
+    -fx-opacity: 0.92;
+}

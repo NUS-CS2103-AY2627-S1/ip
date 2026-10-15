@@ -16,5 +16,22 @@ bin/
 # Temp files
 _temp/
 
-/text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+# Project-specific Codex skill
+/.codex/skills/present-changes-visually/
+
+# Data
+data/*
+
+# Codex Tests
+/test/
+/.codex/*
+!/.codex/skills/
+!/.codex/skills/seedu-java-coding-standard/
+!/.codex/skills/seedu-java-coding-standard/**
+!/.codex/skills/seedu-git-standard/
+!/.codex/skills/seedu-git-standard/**
+
+# Gradle
+.gradle/
+.gradle-user-home/
+build/

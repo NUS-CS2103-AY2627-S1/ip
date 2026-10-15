@@ -1,0 +1,58 @@
+.root-pane {
+    -fx-background-color: #f3f5f7;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.conversation-scroll-pane,
+.conversation-scroll-pane > .viewport {
+    -fx-background-color: #f3f5f7;
+}
+
+.conversation-scroll-pane {
+    -fx-background-insets: 0;
+    -fx-border-color: transparent transparent #d9dee5 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 0;
+}
+
+.dialog-container {
+    -fx-background-color: #f3f5f7;
+    -fx-padding: 8 0 10 0;
+}
+
+.command-input {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8 0 0 8;
+    -fx-border-color: #c7ced8;
+    -fx-border-radius: 8 0 0 8;
+    -fx-font-size: 13px;
+    -fx-padding: 0 12 0 12;
+}
+
+.command-input:focused {
+    -fx-border-color: #3568d4;
+    -fx-effect: dropshadow(gaussian, rgba(53, 104, 212, 0.18), 5, 0, 0, 0);
+}
+
+.send-button {
+    -fx-background-color: #3568d4;
+    -fx-background-radius: 0 8 8 0;
+    -fx-border-color: #3568d4;
+    -fx-border-radius: 0 8 8 0;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.send-button:hover {
+    -fx-background-color: #2857b8;
+}
+
+.send-button:pressed {
+    -fx-background-color: #1f4698;
+}
+
+.send-button:disabled,
+.command-input:disabled {
+    -fx-opacity: 0.6;
+}
