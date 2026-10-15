@@ -18,3 +18,9 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+data/
+.codex/*
+!.codex/skills/
+.codex/skills/*
+!.codex/skills/test-ui/
+!.codex/skills/test-ui/**

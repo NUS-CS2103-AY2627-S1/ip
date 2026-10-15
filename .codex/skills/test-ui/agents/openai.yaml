@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run Clover console UI test-plan cases"
+  default_prompt: "Use $test-ui to run the console cases in test/ui-test-plan.md."

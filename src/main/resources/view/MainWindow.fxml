@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="clover.ui.MainWindow">
+    <children>
+        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="app-header">
+                    <children>
+                        <VBox spacing="1.0">
+                            <children>
+                                <Label styleClass="header-title" text="Clover" />
+                                <Label styleClass="header-subtitle" text="Forest sprite study guide" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0"
+                            vvalue="1.0" VBox.vgrow="ALWAYS">
+                    <content>
+                        <VBox fx:id="dialogContainer" spacing="8.0" styleClass="dialog-container" />
+                    </content>
+                </ScrollPane>
+                <HBox alignment="CENTER" spacing="8.0" styleClass="input-bar">
+                    <children>
+                        <TextField fx:id="userInput" onAction="#handleUserInput"
+                                   promptText="Try: todo prepare worksheet /for Alice Tan"
+                                   HBox.hgrow="ALWAYS" />
+                        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" text="Send" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+    <stylesheets>
+        <URL value="@../css/main.css" />
+    </stylesheets>
+</AnchorPane>
