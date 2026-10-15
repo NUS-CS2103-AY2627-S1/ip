@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+
+<fx:root type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+         alignment="TOP_RIGHT" spacing="8.0">
+    <padding>
+        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+    </padding>
+    <ImageView fx:id="displayPicture" fitHeight="40.0" fitWidth="40.0" preserveRatio="true" />
+    <Label fx:id="dialog" minHeight="-Infinity" text="Label" wrapText="true" />
+</fx:root>

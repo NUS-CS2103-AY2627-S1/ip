@@ -1,0 +1,119 @@
+/*
+ * Elora's visual theme: soft lavender/purple, echoing the mascot artwork
+ * (elora mascot.png). Custom named colors (the "-elora-*" properties) are
+ * JavaFX "looked-up colors": defined once on .root and referenced by name
+ * everywhere else, so the palette only needs to change in one place.
+ */
+
+.root {
+    -elora-purple: #7C6BAF;
+    -elora-purple-dark: #5F4E92;
+    -elora-purple-light: #C9BFEA;
+    -elora-lavender-bg: #F4F1FB;
+    -elora-ink: #2E2A3D;
+    -elora-muted: #6E6880;
+    -elora-error-bg: #FBEAEA;
+    -elora-error-border: #D9534F;
+    -elora-error-text: #7A1F1F;
+
+    -fx-background-color: -elora-lavender-bg;
+    -fx-font-family: "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 13px;
+}
+
+#header {
+    -fx-background-color: linear-gradient(to right, -elora-purple-dark, -elora-purple);
+    -fx-padding: 12 16 12 16;
+    -fx-spacing: 10;
+}
+
+#headerTitle {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+#headerSubtitle {
+    -fx-text-fill: rgba(255, 255, 255, 0.82);
+    -fx-font-size: 11px;
+}
+
+.scroll-pane, .scroll-pane > .viewport {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: -elora-purple-light;
+    -fx-background-radius: 6;
+}
+
+#dialogContainer {
+    -fx-background-color: transparent;
+}
+
+.user-bubble {
+    -fx-background-color: -elora-purple;
+    -fx-text-fill: white;
+    -fx-background-radius: 16 16 4 16;
+    -fx-padding: 10 14 10 14;
+}
+
+.elora-bubble {
+    -fx-background-color: white;
+    -fx-text-fill: -elora-ink;
+    -fx-background-radius: 16 16 16 4;
+    -fx-border-color: -elora-purple-light;
+    -fx-border-radius: 16 16 16 4;
+    -fx-border-width: 1;
+    -fx-padding: 10 14 10 14;
+}
+
+.elora-bubble-error {
+    -fx-background-color: -elora-error-bg;
+    -fx-text-fill: -elora-error-text;
+    -fx-background-radius: 16 16 16 4;
+    -fx-border-color: -elora-error-border;
+    -fx-border-radius: 16 16 16 4;
+    -fx-border-width: 1.5;
+    -fx-padding: 10 14 10 14;
+    -fx-font-weight: bold;
+}
+
+#inputBar {
+    -fx-background-color: white;
+    -fx-padding: 10 12 10 12;
+    -fx-spacing: 8;
+    -fx-border-color: -elora-purple-light transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+#userInput {
+    -fx-background-color: -elora-lavender-bg;
+    -fx-background-radius: 18;
+    -fx-border-color: -elora-purple-light;
+    -fx-border-radius: 18;
+    -fx-padding: 8 14 8 14;
+    -fx-prompt-text-fill: -elora-muted;
+}
+
+#userInput:focused {
+    -fx-border-color: -elora-purple;
+}
+
+#sendButton {
+    -fx-background-color: -elora-purple;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 18;
+    -fx-padding: 8 18 8 18;
+    -fx-cursor: hand;
+}
+
+#sendButton:hover {
+    -fx-background-color: -elora-purple-dark;
+}
+
+#sendButton:armed {
+    -fx-background-color: derive(-elora-purple-dark, -10%);
+}
