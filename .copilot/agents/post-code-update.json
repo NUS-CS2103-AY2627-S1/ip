@@ -1,0 +1,7 @@
+{
+  "id": "post-code-update",
+  "description": "Agent metadata: after code updates run the test-ui skill. This file documents the trigger and the command to execute.",
+  "trigger": "code-update",
+  "command": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\.copilot\\skills\\test-ui\\update-and-run.ps1 --PlanPath test\\ui-test-plan.md",
+  "notes": "This file is metadata/instructional. To activate automatically, add a git hook that calls the above command after successful code updates."
+}

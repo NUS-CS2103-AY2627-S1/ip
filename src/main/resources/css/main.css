@@ -1,0 +1,92 @@
+.root {
+    main-color: #fff1e6;
+    -fx-background-color: main-color;
+}
+
+.app-header {
+    -fx-background-color: #d97757;
+    -fx-padding: 12px 22px 10px 22px;
+}
+
+.app-header .app-title {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+    -fx-text-fill: #ffe2a6;
+    -fx-font: bold 21px "Arial";
+}
+
+.app-header .app-subtitle {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
+    -fx-text-fill: #f7d9ce;
+    -fx-font: 12px "Arial";
+}
+
+.text-field {
+    -fx-background-color: #fffaf5;
+    -fx-border-color: #e8b27d;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-font: 14px "Arial";
+    -fx-padding: 10px 12px;
+}
+
+.text-field:focused {
+    -fx-border-color: #d97757;
+    -fx-background-color: #fffaf5;
+}
+
+.button {
+    -fx-background-color: #d97757;
+    -fx-background-radius: 8px;
+    -fx-text-fill: white;
+    -fx-font: bold 14px "Arial";
+}
+.button:hover { -fx-background-color: #bd5943; }
+.button:pressed { -fx-background-color: #984331; }
+
+.scroll-pane, .scroll-pane .viewport, .scroll-pane .content {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.scroll-pane {
+    -fx-padding: 0;
+}
+.scroll-pane .viewport {
+    -fx-padding: 0;
+}
+.scroll-pane .content {
+    -fx-padding: 4px 0;
+}
+.scroll-bar { -fx-font-size: 10px; -fx-background-color: main-color; }
+.scroll-bar .thumb { -fx-background-color: #e8b27d; -fx-background-radius: 1em; }
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.label {
+    -fx-background-color: #ffe0c2;
+    -fx-text-fill: #5c4033;
+    -fx-font: 14px "Arial";
+    -fx-background-radius: 12px 12px 2px 12px;
+}
+.reply-label {
+    -fx-background-color: #ffe0c2;
+    -fx-background-radius: 0 12px 12px 12px;
+    -fx-border-color: #e8a24d;
+    -fx-border-width: 0 0 0 2px;
+    -fx-border-radius: 0;
+}
+.error-label {
+    -fx-background-color: #fff0ed;
+    -fx-text-fill: #a33b32;
+    -fx-border-color: #d9786e;
+    -fx-border-width: 1px;
+    -fx-border-radius: 0;
+}
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 5, 0.4, 1, 1);
+}

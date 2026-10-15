@@ -1,0 +1,8 @@
+{
+  "name": "test-ui",
+  "description": "Project skill to run UI-oriented command tests defined in test/ui-test-plan.md",
+  "run": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\.copilot\\skills\\test-ui\\run.ps1 --PlanPath test\\ui-test-plan.md",
+  "hooks": {
+    "postCodeUpdate": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\.copilot\\skills\\test-ui\\update-and-run.ps1 --PlanPath test\\ui-test-plan.md"
+  }
+}

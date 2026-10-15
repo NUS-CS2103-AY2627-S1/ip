@@ -1,0 +1,20 @@
+list
+todo
+todo Buy milk
+todo    Read book
+deadline
+deadline Submit report /by 2023-10-10 1800
+deadline Invalid date /by 2023-02-30
+event
+event Party /from 2023-10-10 1400 /to 2023-10-10 1600
+mark
+mark 100
+mark two
+mark 2
+unmark 2
+delete
+delete 0
+delete two
+delete 3
+list
+bye

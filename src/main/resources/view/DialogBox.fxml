@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" spacing="10.0" stylesheets="@../css/dialog-box.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox fx:id="messageColumn" alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" minHeight="-Infinity" spacing="4.0">
+            <children>
+                <Label fx:id="speakerName" text="Speaker" />
+                <TextFlow fx:id="dialog" minHeight="-Infinity">
+                    <children>
+                        <Text fx:id="dialogText" text="Label" />
+                    </children>
+                    <padding>
+                        <Insets bottom="8.0" left="12.0" right="12.0" top="8.0" />
+                    </padding>
+                </TextFlow>
+            </children>
+        </VBox>
+        <ImageView fx:id="displayPicture" fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" />
+    </children>
+    <padding>
+        <Insets bottom="8.0" left="18.0" right="18.0" top="8.0" />
+    </padding>
+</fx:root>
