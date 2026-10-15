@@ -13,6 +13,9 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Runtime task data
+/data/nova.txt
+
 # Temp files
 _temp/
 
