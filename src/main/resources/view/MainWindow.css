@@ -1,0 +1,14 @@
+.root,
+#scrollPane,
+#scrollPane > .viewport,
+#dialogContainer {
+    -fx-background-color: -wally-background;
+}
+
+#dialogContainer .label {
+    -fx-text-fill: -wally-text;
+}
+.root {
+    -wally-background: lightblue;
+    -wally-text: black;
+}

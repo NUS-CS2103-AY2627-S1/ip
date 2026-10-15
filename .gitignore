@@ -18,3 +18,9 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Class files
+*.class 
+
+# Jar files
+*.jar 
