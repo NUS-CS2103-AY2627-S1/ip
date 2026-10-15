@@ -1,0 +1,3 @@
+
+T | 1 | compare \| alternatives
+D | 0 | use C:\\temp | 2019-12-06

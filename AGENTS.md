@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Beginner undergraduate programmer.
+* IDE and level of expertise: IntelliJ IDEA, beginner level.
 
 # Guidance for interacting with users
 
@@ -24,12 +24,30 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Java coding standard
+
+For every Java code creation, edit, refactor, or review in this repository, load and follow the project-specific `seedu-java-coding-standard` skill at `.codex/skills/seedu-java-coding-standard/SKILL.md`. All Java code must comply with its SE-EDU basic and intermediate coding conventions.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## UI testing
+
+After every update to application code:
+
+1. Review `test/ui-test-plan.md` and update it when the changed behavior requires new or revised test cases.
+2. Invoke the project-specific `test-ui` skill to run the documented UI tests and record the test session.
+
+## JUnit testing
+
+Maintain JUnit coverage for approximately the top 50% highest-value methods in the codebase, prioritizing complex, core, and business-critical logic over trivial getters, constructors, or thin delegating methods.
+
+After every code change, review the affected behavior and add or update JUnit tests as needed to continue meeting this coverage target. Run the complete JUnit suite with Gradle to verify that all tests pass.
+
 ## Git
 
+For every future commit or branch-name proposal in this repository, load and follow the project-specific `seedu-git-standard` skill at `.codex/skills/seedu-git-standard/SKILL.md`.
+
 Use lightweight tags unless the user requests an annotated tag.
-When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.

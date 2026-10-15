@@ -1,0 +1,4 @@
+T | 0 | undated task
+D | 0 | due task | 2019-10-15
+D | 1 | later task | 2019-10-17
+E | 0 | conference | 2019-10-14 | 2019-10-16

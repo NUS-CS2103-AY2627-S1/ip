@@ -1,0 +1,167 @@
+.root {
+    -fx-background-color: #f3faf7;
+    -fx-background-image: url("../images/minty-background.png");
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-font-family: "Nunito";
+    -fx-font-size: 15px;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+/* Soften the conversation's center while retaining foliage at the edges. */
+.scroll-pane > .viewport {
+    -fx-background-color: linear-gradient(to right,
+            rgba(251, 252, 242, 0) 0%,
+            rgba(251, 252, 242, 0.55) 25%,
+            rgba(251, 252, 242, 0.78) 50%,
+            rgba(251, 252, 242, 0.55) 75%,
+            rgba(251, 252, 242, 0) 100%);
+}
+
+.dialog-container {
+    -fx-background-color: transparent;
+    -fx-padding: 12px 0;
+}
+
+.dialog-box {
+    -fx-padding: 12px 12px 18px 12px;
+    -fx-border-color: transparent transparent #b5d5c3 transparent;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-insets: 0 12px;
+}
+
+.user-message,
+.minty-message {
+    -fx-background-radius: 12px;
+    -fx-padding: 12px 14px;
+    -fx-line-spacing: 4px;
+}
+
+.user-message {
+    -fx-background-color: #d5efe2;
+    -fx-text-fill: #243e32;
+}
+
+.minty-message {
+    -fx-background-color: #fbfcf2;
+    -fx-text-fill: #243e32;
+    -fx-border-color: #6aa889;
+    -fx-border-radius: 12px;
+}
+
+.text-field {
+    -fx-font-size: 14px;
+    -fx-background-color: #ffffff;
+    -fx-background-insets: 0;
+    -fx-background-radius: 10px;
+    -fx-border-color: #8cb8a2;
+    -fx-border-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-padding: 10px 12px;
+    -fx-text-fill: #243e32;
+    -fx-prompt-text-fill: #567363;
+    -fx-highlight-fill: #c4e8d5;
+    -fx-highlight-text-fill: #243e32;
+    -fx-pref-height: 46px;
+    -fx-min-width: 0;
+}
+
+.text-field:focused {
+    -fx-border-color: #26734d;
+    -fx-effect: dropshadow(gaussian, rgba(38, 115, 77, 0.2), 5, 0, 0, 0);
+}
+
+.button {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-color: #26734d;
+    -fx-background-radius: 10px;
+    -fx-text-fill: white;
+    -fx-pref-height: 46px;
+    -fx-pref-width: 72px;
+    -fx-min-width: 72px;
+}
+
+.button:hover {
+    -fx-background-color: #205e40;
+}
+
+.button:pressed {
+    -fx-background-color: #184b32;
+}
+
+.button:focused {
+    -fx-border-color: #b5dec6;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+}
+
+.input-bar {
+    -fx-background-color: #f7faf5;
+    -fx-border-color: #b5d5c3 transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 12px 10px 13px 10px;
+}
+
+.identity-bar {
+    -fx-background-color: #f7faf5;
+    -fx-border-color: transparent transparent #87b99b transparent;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 10px 16px;
+}
+
+.identity-title {
+    -fx-font-family: "Nunito ExtraBold";
+    -fx-font-size: 23px;
+    -fx-font-weight: normal;
+    -fx-text-fill: #205e40;
+}
+
+.identity-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #42775b;
+}
+
+.minty-tail {
+    -fx-fill: #fbfcf2;
+    -fx-stroke: #6aa889;
+    -fx-stroke-width: 1px;
+}
+
+/* Match bubble tails to the outcome colors as well as the message background. */
+.response-error .minty-message {
+    -fx-background-color: #fce8e6;
+    -fx-border-color: #bd554e;
+    -fx-text-fill: #792b26;
+}
+
+.response-error .minty-tail {
+    -fx-fill: #fce8e6;
+    -fx-stroke: #bd554e;
+}
+
+.response-success .minty-message {
+    -fx-background-color: #e4f4e8;
+    -fx-border-color: #619b73;
+    -fx-text-fill: #234c30;
+}
+
+.response-success .minty-tail {
+    -fx-fill: #e4f4e8;
+    -fx-stroke: #619b73;
+}
+
+.response-reminder .minty-message {
+    -fx-background-color: #e6f2f8;
+    -fx-border-color: #669bb5;
+    -fx-text-fill: #254d61;
+}
+
+.response-reminder .minty-tail {
+    -fx-fill: #e6f2f8;
+    -fx-stroke: #669bb5;
+}
