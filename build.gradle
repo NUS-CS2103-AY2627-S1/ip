@@ -1,0 +1,110 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+String javafxVersion = '21.0.2'
+
+javafx {
+    version = javafxVersion
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String testFxVersion = '4.0.18'
+
+    // The javafx plugin above only resolves natives for the machine doing
+    // the build (Windows here), so the shadow jar would only run on
+    // Windows. iP JARs get peer-graded on graders' own machines, which may
+    // be Mac or Linux, so every platform's natives must be bundled in.
+    // NativeLibLoader then picks the right one at runtime automatically.
+    for (String platform : ['win', 'mac', 'mac-aarch64', 'linux']) {
+        implementation "org.openjfx:javafx-base:${javafxVersion}:${platform}"
+        implementation "org.openjfx:javafx-graphics:${javafxVersion}:${platform}"
+        implementation "org.openjfx:javafx-controls:${javafxVersion}:${platform}"
+        implementation "org.openjfx:javafx-fxml:${javafxVersion}:${platform}"
+    }
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+    testImplementation "org.testfx:testfx-core:${testFxVersion}"
+    testImplementation "org.testfx:testfx-junit5:${testFxVersion}"
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    // MainWindowTestFX drives a real JavaFX window and needs an interactive
+    // desktop session; it's not reliable in headless/non-interactive
+    // environments, so it's run separately via the guiTest task instead.
+    exclude '**/MainWindowTestFX.class'
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+tasks.register('guiTest', Test) {
+    description = 'Runs the TestFX GUI tests. Needs a real, focused desktop session to pass.'
+    group = 'verification'
+
+    useJUnitPlatform()
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    include '**/MainWindowTestFX.class'
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showStandardStreams = false
+    }
+}
+
+application {
+    // Launches the JavaFX GUI by default; the console entry point
+    // (yapbot.YapBot) is still directly runnable from an IDE or via
+    // `./gradlew run --args=...`-style overrides if ever needed.
+    mainClass = 'yapbot.gui.Launcher'
+
+    // The JVM disables assert statements by default; without -ea they
+    // are silently skipped, so this turns them on for `./gradlew run`.
+    applicationDefaultJvmArgs = ['-ea']
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'yapBot.jar'
+}
+
+run {
+    standardInput = System.in
+}

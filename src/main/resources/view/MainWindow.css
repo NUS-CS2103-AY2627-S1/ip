@@ -1,0 +1,62 @@
+/*
+ * YapBot's colour theme: maroon and cream, matching its warm,
+ * encouraging "accountability buddy" personality.
+ */
+
+.root {
+    -fx-font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+    -fx-font-size: 13px;
+    -fx-base: #7A2E2E;
+    -fx-background-color: #FBF3E6;
+}
+
+.scroll-pane, .scroll-pane .viewport {
+    -fx-background-color: #FBF3E6;
+}
+
+#dialogContainer {
+    -fx-background-color: #FBF3E6;
+}
+
+.chat-bubble {
+    -fx-padding: 8 12 8 12;
+    -fx-background-radius: 12;
+    -fx-font-size: 13px;
+}
+
+.user-bubble {
+    -fx-background-color: #7A2E2E;
+    -fx-text-fill: #FBF3E6;
+}
+
+.bot-bubble {
+    -fx-background-color: #F0E4CB;
+    -fx-text-fill: #5C1A1D;
+    -fx-border-color: #7A2E2E;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+}
+
+#userInput {
+    -fx-background-color: #FBF3E6;
+    -fx-text-fill: #5C1A1D;
+    -fx-border-color: #7A2E2E;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-prompt-text-fill: #9C7E5A;
+}
+
+#sendButton {
+    -fx-background-color: #7A2E2E;
+    -fx-text-fill: #FBF3E6;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+}
+
+#sendButton:hover {
+    -fx-background-color: #5C1A1D;
+}
+
+#sendButton:pressed {
+    -fx-background-color: #4A1517;
+}
