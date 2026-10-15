@@ -1,0 +1,5 @@
+E | 0 | lecture | 2019-12-02 1400 | 2019-12-02 1600
+E | 0 | CS lecture | 2026-09-02 1000 | 2026-09-02 1200
+T | 0 | read book
+T | 0 | buy groceries
+D | 0 | return book | 2026-09-01 1800

@@ -9,14 +9,13 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Low
+* IDE and level of expertise: Low
 
 # Guidance for interacting with users
 
 * Explain the rationale for significant actions: what you did and why.
 * Keep explanations brief but instructive, supporting learning through responsible use of AI. For example:
-
   * When suggesting a Git command, briefly explain what it does.
   * Add explanatory Javadoc comments to all classes and to nontrivial methods and fields when their purpose or behavior is not obvious.
   * Make generated code as self-explanatory as possible, and include explanatory comments where they improve understanding.
@@ -24,12 +23,32 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
-## Java version:
+## Java version
 
-Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+Ensure that Java 25 is used when running the application or build tasks. On macOS, use:
 
-## Git
+sdk use java 25.0.3.fx-zulu
+
+## Console UI testing
+
+After every code update, review test/ui-test-plan.md and update it when the change affects the console interface, including its commands, inputs, or output. Then invoke the project-specific test-ui skill to run the documented console UI test cases. Do this before reporting the code update as complete; if a test fails, stop the test session and report the actual and expected output as required by the skill.
+
+## Java coding standard
+
+All Java code added or modified in this project must follow the project-specific seedu-java-coding-standard skill, which is based on the SE-EDU Java coding conventions.
+
+## Git standard
+
+All commits created for this project must follow the project-specific seedu-git-standard skill, which is based on the SE-EDU Git conventions.
 
 Use lightweight tags unless the user requests an annotated tag.
+
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
+
 Do not commit or push unless explicitly asked.
+
+## Project-specific skills
+
+Before making Java code changes, consult .agents/skills/seedu-java-coding-standard/SKILL.md.
+
+Before creating commits, consult .agents/skills/seedu-git-standard/SKILL.md.
