@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.SVGPath?>
+
+<BorderPane minHeight="420.0" minWidth="320.0"
+            prefHeight="600.0" prefWidth="400.0"
+            stylesheets="@../css/main.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="xiaozhi.gui.MainWindow">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="header-bar" BorderPane.alignment="CENTER">
+            <children>
+                <Circle radius="13.0" styleClass="mz-avatar" />
+                <VBox>
+                    <children>
+                        <Label styleClass="header-title" text="Master Zhi" />
+                        <Label styleClass="header-subtitle" text="wisdom for your tasks" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                    styleClass="chat-scroll" vvalue="1.0" BorderPane.alignment="CENTER">
+            <content>
+                <VBox fx:id="dialogContainer" spacing="10.0" styleClass="chat-container">
+                    <padding>
+                        <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER" spacing="10.0" styleClass="input-bar" BorderPane.alignment="CENTER">
+            <children>
+                <TextField fx:id="userInput" onAction="#handleUserInput"
+                           promptText="Speak your intention…" styleClass="input-field"
+                           HBox.hgrow="ALWAYS" />
+                <Button fx:id="sendButton" mnemonicParsing="false"
+                        onAction="#handleUserInput" styleClass="send-button">
+                    <graphic>
+                        <SVGPath content="M4 12l16-7-7 16-2-7-7-2z" styleClass="send-icon" />
+                    </graphic>
+                </Button>
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>

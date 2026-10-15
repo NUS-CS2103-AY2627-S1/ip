@@ -28,6 +28,21 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## Testing
+
+After any code change that affects XiaoZhi's console behavior (a new
+command, changed message wording, changed parsing, a new Task type, etc.):
+
+1. Update `test/ui-test-plan.md` if the change affects an existing test
+   case's expected output, or add a new test case if it isn't covered yet.
+2. Invoke the `test-ui` skill (see `.claude/skills/test-ui/SKILL.md`, run
+   via `python3 test/run_ui_tests.py`) and confirm every test case passes
+   before considering the change done.
+
+If the skill reports a failing test case, stop and resolve it — either fix
+the code, or, if the new output is the intended behavior, update the test
+plan's expected output to match — before moving on or committing.
+
 ## Git
 
 Use lightweight tags unless the user requests an annotated tag.

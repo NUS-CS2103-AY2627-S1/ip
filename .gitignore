@@ -18,3 +18,9 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# test-ui skill's compiled build output
+test/_build/
+
+# Save data (generated at runtime)
+/data/

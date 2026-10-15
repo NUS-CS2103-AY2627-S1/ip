@@ -1,0 +1,54 @@
+.user-bubble {
+    -fx-background-color: rgba(201, 168, 106, 0.22);
+    -fx-border-color: rgba(201, 168, 106, 0.4);
+    -fx-border-radius: 16 16 4 16;
+    -fx-background-radius: 16 16 4 16;
+    -fx-text-fill: #f3ead3;
+    -fx-padding: 9 14 9 14;
+    -fx-font-size: 13.5px;
+}
+
+.bot-card {
+    -fx-background-color: rgba(255, 255, 255, 0.03);
+    -fx-border-color: rgba(201, 168, 106, 0.22);
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+    -fx-text-fill: #dfe8de;
+    -fx-padding: 10 14 10 14;
+    -fx-font-size: 13.5px;
+}
+
+.add-label {
+    -fx-background-color: rgba(201, 168, 106, 0.16);
+    -fx-border-color: rgba(201, 168, 106, 0.4);
+    -fx-text-fill: #f3ead3;
+}
+
+.marked-label {
+    -fx-background-color: rgba(143, 174, 149, 0.16);
+    -fx-border-color: rgba(143, 174, 149, 0.4);
+    -fx-text-fill: #e2ede2;
+}
+
+.delete-label {
+    -fx-background-color: rgba(198, 138, 120, 0.16);
+    -fx-border-color: rgba(198, 138, 120, 0.4);
+    -fx-text-fill: #f2ded4;
+}
+
+.undo-label {
+    -fx-background-color: rgba(140, 170, 180, 0.16);
+    -fx-border-color: rgba(140, 170, 180, 0.4);
+    -fx-text-fill: #dde8ea;
+}
+
+.error-label {
+    -fx-background-color: rgba(180, 120, 90, 0.20);
+    -fx-border-color: rgba(216, 150, 120, 0.45);
+    -fx-border-width: 1.5;
+    -fx-text-fill: #f2e2d8;
+}
+
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(201, 168, 106, 0.35), 6, 0.3, 0, 0);
+}
