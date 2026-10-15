@@ -1,0 +1,105 @@
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #fff9ed 0%, #edf5ff 55%, #fff0f0 100%);
+    -fx-font-family: "System";
+}
+
+.chat-area {
+    -fx-background-color: linear-gradient(to bottom right, #fffdf7 0%, #f3f8ff 55%, #fff7f7 100%);
+}
+
+.chat-scroll-pane,
+.chat-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.chat-watermark {
+    -fx-alignment: center;
+    -fx-mouse-transparent: true;
+}
+
+.watermark-title {
+    -fx-font-size: 54px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #17365d;
+    -fx-opacity: 0.08;
+}
+
+.watermark-tagline {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #b33a3a;
+    -fx-opacity: 0.18;
+}
+
+.watermark-footnote {
+    -fx-font-size: 11px;
+    -fx-font-style: italic;
+    -fx-text-fill: #17365d;
+    -fx-opacity: 0.18;
+}
+
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.dialog-box {
+    -fx-spacing: 8px;
+}
+
+.dialog-box .label {
+    -fx-max-width: 390px;
+    -fx-padding: 10px 14px;
+    -fx-background-radius: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(23, 54, 93, 0.18), 8, 0.2, 0, 3);
+    -fx-text-fill: #1f2933;
+}
+
+.user-dialog .label {
+    -fx-background-color: #cfe8ff;
+}
+
+.bot-dialog .label {
+    -fx-background-color: #ffffff;
+}
+
+.error-dialog .label {
+    -fx-background-color: #ffe1e1;
+    -fx-border-color: #d64545;
+    -fx-border-radius: 14px;
+    -fx-border-width: 2px;
+    -fx-text-fill: #8b1e1e;
+    -fx-font-weight: bold;
+}
+
+.avatar-container {
+    -fx-alignment: center;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 40px;
+    -fx-border-color: #b8c2cc;
+    -fx-border-radius: 40px;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-min-height: 80px;
+    -fx-min-width: 80px;
+    -fx-max-height: 80px;
+    -fx-max-width: 80px;
+    -fx-pref-height: 80px;
+    -fx-pref-width: 80px;
+}
+
+.input-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d8dee4 transparent transparent transparent;
+}
+
+.input-bar .text-field {
+    -fx-background-radius: 8px;
+    -fx-border-color: #c7d0d9;
+    -fx-border-radius: 8px;
+}
+
+.input-bar .button {
+    -fx-background-color: #2f80ed;
+    -fx-background-radius: 8px;
+    -fx-text-fill: white;
+}

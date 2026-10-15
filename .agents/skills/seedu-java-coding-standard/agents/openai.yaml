@@ -1,0 +1,4 @@
+﻿interface:
+  display_name: 'SeEDU Java Coding Standard'
+  short_description: 'Enforce SE-EDU Java coding conventions for all Java code'
+  default_prompt: 'Use -java-coding-standard to ensure Java code follows SE-EDU conventions.'

@@ -1,0 +1,4 @@
+﻿interface:
+  display_name: 'SeEDU Git Standard'
+  short_description: 'Enforce SE-EDU git conventions for commits, branches, and tags'
+  default_prompt: 'Use -git-standard to ensure commits follow SE-EDU conventions.'

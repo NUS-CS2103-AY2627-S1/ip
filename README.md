@@ -1,25 +1,77 @@
-# Duke project template
+# CharlieK
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+CharlieK is a friendly Java 25 task manager with a JavaFX chat-style interface. Add to-dos, deadlines, and events, then find, sort, complete, or delete them with short commands.
 
-## Setting up in Intellij
+![CharlieK task manager](docs/Ui.png)
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+## Highlights
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+- Add to-dos, deadlines, and events.
+- Accept common date and time formats such as `2/12/2019`, `2019-12-2`, `1800`, and `6pm`.
+- View tasks in insertion order or chronologically with `list time`.
+- Search task descriptions with case-insensitive `find`.
+- Save changes automatically to a local CSV file.
+- Continue safely after invalid commands, malformed dates, duplicate tasks, and damaged saved rows.
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## Quick start
+
+Install JDK 25 or later, then run the following from the project folder.
+
+macOS or Linux:
+
+```text
+./gradlew run
+```
+
+Windows PowerShell:
+
+```text
+.\gradlew.bat run
+```
+
+Type a command in the input box and press **Enter** or **Send**. Use `help` if you need a reminder. On the first run, CharlieK creates `data/charliek.csv` with sample tasks.
+
+## Commands
+
+| Action | Format | Example |
+| --- | --- | --- |
+| Add a to-do | `todo <description>` | `todo buy milk` |
+| Add a deadline | `deadline <description> /by <date/time>` | `deadline submit report /by 2/12/2019` |
+| Add an event | `event <description> /from <date/time> /to <date/time>` | `event meeting /from 2026-08-06 2pm /to 2026-08-06 4pm` |
+| List tasks | `list` | `list` |
+| Sort by time | `list time` | `list time` |
+| Find tasks | `find <keyword>` | `find report` |
+| Mark complete | `mark <number>` | `mark 1` |
+| Mark incomplete | `unmark <number>` | `unmark 1` |
+| Delete a task | `delete <number>` | `delete 1` |
+| Show help | `help [command]` | `help deadline` |
+| Exit | `bye` | `bye` |
+
+Task numbers start at `1` and refer to the order shown by `list`. Search results are for viewing; run `list` before editing or deleting a task found by `find`.
+
+## Saving and errors
+
+Tasks are saved automatically after successful additions, status changes, and deletions. The file is stored at `data/charliek.csv`, relative to the folder from which the application is started.
+
+- Missing data files are created with the starter tasks.
+- Existing files, including empty files, are loaded as-is.
+- Malformed CSV rows are skipped when possible so valid tasks remain available.
+- Unreadable or unwritable data paths produce a helpful message instead of silently losing the session.
+
+For the complete command guide, date/time reference, and troubleshooting notes, see the [user guide](docs/README.md).
+
+## Build and test
+
+Run the full verification suite, including compilation, Checkstyle, and JUnit tests:
+
+```text
+./gradlew check
+```
+
+On Windows PowerShell:
+
+```text
+.\gradlew.bat check
+```
+
+The end-to-end console cases are documented in the [UI test plan](test/ui-test-plan.md).
