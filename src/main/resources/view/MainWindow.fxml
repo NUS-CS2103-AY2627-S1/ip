@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane minHeight="500.0" minWidth="400.0" prefHeight="600.0" prefWidth="400.0"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="alexa.MainWindow">
+    <children>
+        <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="42.0"
+                   promptText="Enter a command..." AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="76.0" />
+        <Button mnemonicParsing="false" onAction="#handleUserInput" prefHeight="42.0" prefWidth="76.0"
+                text="Send" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                    AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true" />
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Low
+* IDE and level of expertise: IntelliJ 2026.2.1 and low
 
 # Guidance for interacting with users
 
@@ -28,6 +28,15 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## Testing
+
+Maintain JUnit tests for approximately the top 50% of highest-value methods, prioritizing complex, core, and critical business logic. Update the relevant JUnit tests after every code change so this coverage target continues to be met.
+
+## Coding standards
+
+All production and test Java code in this project must follow the project-local `seedu-java-coding-standard` skill at `.codex/skills/seedu-java-coding-standard/SKILL.md`. Apply it to every new or modified Java file.
+
+Every future Git commit must follow the project-local `seedu-git-standard` skill at `.codex/skills/seedu-git-standard/SKILL.md`. This does not override the requirement to obtain explicit authorization before committing or pushing.
 ## Git
 
 Use lightweight tags unless the user requests an annotated tag.

@@ -1,0 +1,49 @@
+/*.root {*/
+/*    -fx-background-color: #f7f9fc;*/
+/*    -fx-font-family: "Segoe UI", Arial, sans-serif;*/
+/*}*/
+
+.root {
+    -fx-background-image: url("../images/Background.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: cover;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-label {
+    -fx-background-color: #e8f0fe;
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+    -fx-text-fill: #1f2937;
+}
+
+.error-dialog .dialog-label {
+    -fx-background-color: #fee2e2;
+    -fx-border-color: #dc2626;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-font-weight: bold;
+    -fx-text-fill: #991b1b;
+}
+
+.text-field {
+    -fx-background-radius: 0;
+    -fx-border-color: #cbd5e1;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 10;
+}
+
+.button {
+    -fx-background-color: #2563eb;
+    -fx-background-radius: 0;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #1d4ed8;
+}
