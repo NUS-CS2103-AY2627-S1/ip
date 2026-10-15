@@ -1,0 +1,235 @@
+package bola.task;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * Tests task collection ownership, mutation, and upcoming-task selection.
+ */
+public class TaskListTest {
+    /**
+     * Checks that callers cannot structurally modify the task collection.
+     */
+    @Test
+    void constructorAndGetTasks_externalMutation_doesNotChangeTaskList() {
+        ArrayList<Task> initialTasks = new ArrayList<>(List.of(new Todo("first")));
+        TaskList tasks = new TaskList(initialTasks);
+        initialTasks.clear();
+
+        assertEquals(1, tasks.size(), "The constructor must copy its input list");
+        assertThrows(UnsupportedOperationException.class,
+                () -> tasks.getTasks().add(new Todo("unauthorised")));
+    }
+
+    /**
+     * Checks adding, marking, unmarking, and deleting tasks at different indexes.
+     */
+    @Test
+    void taskOperations_validIndexes_mutateAndReturnExpectedTasks() {
+        Task firstTask = new Todo("first");
+        Task secondTask = new Todo("second");
+        TaskList tasks = new TaskList();
+
+        tasks.add(firstTask);
+        tasks.add(secondTask);
+
+        assertAll(
+                () -> assertEquals(2, tasks.size()),
+                () -> assertSame(secondTask, tasks.mark(1)),
+                () -> assertEquals("T | 1 | second", secondTask.toDataString()),
+                () -> assertSame(secondTask, tasks.unmark(1)),
+                () -> assertEquals("T | 0 | second", secondTask.toDataString()),
+                () -> assertSame(firstTask, tasks.delete(0)),
+                () -> assertEquals(List.of(secondTask), tasks.getTasks()));
+    }
+
+    /**
+     * Checks that task types use descriptive names in user-facing output.
+     */
+    @Test
+    void taskDisplay_mixedTypes_usesDescriptiveTypeNamesAndDetails() {
+        Task genericTask = new Task("generic task");
+        Todo todo = new Todo("read book");
+        Deadline deadline = new Deadline("submit report", "2026-09-20");
+        Event event = new Event("consultation", "2026-09-21 1400", "2026-09-21 1500");
+        deadline.markAsDone();
+
+        assertAll(
+                () -> assertEquals("[Task][ ] generic task", genericTask.toString()),
+                () -> assertEquals("T | 0 | generic task", genericTask.toDataString()),
+                () -> assertEquals("Task", genericTask.getTypeName()),
+                () -> assertEquals("generic task", genericTask.getDisplayDetails()),
+                () -> assertEquals("[To-do][ ] read book", todo.toString()),
+                () -> assertEquals("[Deadline][X] submit report (By: Sep 20 2026)",
+                        deadline.toString()),
+                () -> assertEquals("[Event][ ] consultation (Sep 21 2026 2:00 PM – "
+                                + "Sep 21 2026 3:00 PM)", event.toString()),
+                () -> assertEquals("To-do", todo.getTypeName()),
+                () -> assertEquals("read book", todo.getDisplayDetails()),
+                () -> assertEquals(true, deadline.isDone()));
+    }
+
+    /**
+     * Checks that task mutations document their validated-index precondition.
+     */
+    @Test
+    void taskOperations_invalidIndexes_throwAssertionError() {
+        TaskList tasks = new TaskList(List.of(new Todo("first")));
+
+        assertAll(
+                () -> assertThrows(AssertionError.class, () -> tasks.mark(-1)),
+                () -> assertThrows(AssertionError.class, () -> tasks.unmark(1)),
+                () -> assertThrows(AssertionError.class, () -> tasks.delete(2)));
+    }
+
+    /**
+     * Checks bulk mutations preserve original order and avoid deletion index shifts.
+     */
+    @Test
+    void bulkTaskOperations_validIndexes_mutateEachSelectedTaskOnce() {
+        Task firstTask = new Todo("first");
+        Task secondTask = new Todo("second");
+        Task thirdTask = new Todo("third");
+        Task fourthTask = new Todo("fourth");
+        TaskList tasks = new TaskList(List.of(firstTask, secondTask, thirdTask, fourthTask));
+
+        assertEquals(List.of(firstTask, thirdTask), tasks.mark(List.of(0, 2)));
+        assertEquals(List.of(firstTask, thirdTask), tasks.unmark(List.of(0, 2)));
+        assertEquals(List.of(secondTask, fourthTask), tasks.delete(List.of(1, 3)));
+        assertAll(
+                () -> assertEquals(List.of(firstTask, thirdTask), tasks.getTasks()),
+                () -> assertEquals("T | 0 | first", firstTask.toDataString()),
+                () -> assertEquals("T | 0 | third", thirdTask.toDataString()));
+    }
+
+    /**
+     * Checks bulk operations reject empty, unordered, duplicate, and invalid indexes.
+     */
+    @Test
+    void bulkTaskOperations_invalidIndexes_throwAssertionError() {
+        TaskList tasks = new TaskList(List.of(new Todo("first"), new Todo("second")));
+
+        assertAll(
+                () -> assertThrows(AssertionError.class, () -> tasks.mark(List.of())),
+                () -> assertThrows(AssertionError.class, () -> tasks.mark(List.of(1, 0))),
+                () -> assertThrows(AssertionError.class, () -> tasks.unmark(List.of(0, 0))),
+                () -> assertThrows(AssertionError.class, () -> tasks.delete(List.of(0, 2))));
+    }
+
+    /**
+     * Checks case-insensitive substring matching and preservation of stored task order.
+     */
+    @Test
+    void findTasks_mixedDescriptions_returnsMatchesWithoutChangingStoredOrder() {
+        Task firstMatch = new Todo("Read Book");
+        Task nonMatch = new Deadline("submit report", "2026-09-02");
+        Task secondMatch = new Event(
+                "return book", "2026-09-03 1400", "2026-09-03 1500");
+        List<Task> originalOrder = List.of(firstMatch, nonMatch, secondMatch);
+        TaskList tasks = new TaskList(originalOrder);
+
+        List<Task> matches = tasks.findTasks("book");
+
+        assertAll(
+                () -> assertEquals(List.of(firstMatch, secondMatch), matches),
+                () -> assertEquals(List.of(firstMatch, secondMatch), tasks.findTasks("BOOK")),
+                () -> assertEquals(originalOrder, tasks.getTasks(),
+                        "Finding tasks must not reorder stored tasks"),
+                () -> assertEquals(List.of(), tasks.findTasks("exercise")));
+    }
+
+    /**
+     * Checks both inclusive date boundaries, chronological sorting, and exclusion rules.
+     */
+    @Test
+    void findUpcomingTasks_mixedTasks_filtersAndSortsWithoutChangingStoredOrder() {
+        LocalDate today = LocalDate.of(2026, 8, 28);
+        Task boundaryDeadline = new Deadline("boundary", "2026-09-04");
+        Task pastDeadline = new Deadline("past", "2026-08-27");
+        Task upcomingDeadline = new Deadline("submit report", "2026-09-02");
+        Task todayDeadline = new Deadline("due today", "2026-08-28");
+        Task upcomingEvent = new Event(
+                "consultation", "2026-08-30 1400", "2026-08-30 1500");
+        Task outsideDeadline = new Deadline("outside range", "2026-09-05");
+        Task todo = new Todo("undated task");
+        List<Task> originalOrder = List.of(boundaryDeadline, pastDeadline, upcomingDeadline,
+                todayDeadline, upcomingEvent, outsideDeadline, todo);
+        TaskList tasks = new TaskList(originalOrder);
+
+        List<Task> upcomingTasks = tasks.findUpcomingTasks(today, 7);
+
+        assertAll(
+                () -> assertEquals(List.of(
+                        todayDeadline, upcomingEvent, upcomingDeadline, boundaryDeadline),
+                        upcomingTasks),
+                () -> assertEquals(originalOrder, tasks.getTasks(),
+                        "Finding upcoming tasks must not reorder stored tasks"));
+    }
+
+    /**
+     * Checks invalid day ranges and lists with no matching dated tasks.
+     */
+    @Test
+    void findUpcomingTasks_invalidDayRangeOrNoDatedTasks_returnsExpectedResult() {
+        LocalDate today = LocalDate.of(2026, 8, 28);
+        TaskList datedTasks = new TaskList(List.of(
+                new Deadline("tomorrow", "2026-08-29")));
+        TaskList undatedTasks = new TaskList(List.of(new Todo("read")));
+
+        assertAll(
+                () -> assertThrows(AssertionError.class,
+                        () -> datedTasks.findUpcomingTasks(today, 0)),
+                () -> assertThrows(AssertionError.class,
+                        () -> datedTasks.findUpcomingTasks(null, 7)),
+                () -> assertEquals(List.of(), undatedTasks.findUpcomingTasks(today, 7)),
+                () -> assertEquals(List.of(), new TaskList().findUpcomingTasks(today, 7)));
+    }
+
+    /**
+     * Checks null values are rejected at the collection boundary.
+     */
+    @Test
+    void constructorAndAdd_nullTask_throwsNullPointerException() {
+        TaskList tasks = new TaskList();
+
+        assertAll(
+                () -> assertThrows(NullPointerException.class, () -> new TaskList(null)),
+                () -> assertThrows(NullPointerException.class, () -> tasks.add(null)));
+    }
+
+    /**
+     * Checks duplicate detection across task types, dates, and completion states.
+     */
+    @Test
+    void containsDuplicateOf_variedTasks_comparesIdentityFieldsOnly() {
+        Todo completedTodo = new Todo("read");
+        completedTodo.markAsDone();
+        TaskList tasks = new TaskList(List.of(
+                completedTodo,
+                new Deadline("submit", "2026-09-20"),
+                new Event("meeting", "2026-09-21 1400", "2026-09-21 1500")));
+
+        assertAll(
+                () -> assertEquals(true, tasks.containsDuplicateOf(new Todo("read"))),
+                () -> assertEquals(false, tasks.containsDuplicateOf(new Deadline(
+                        "read", "2026-09-20"))),
+                () -> assertEquals(true, tasks.containsDuplicateOf(new Deadline(
+                        "submit", "2026-09-20"))),
+                () -> assertEquals(false, tasks.containsDuplicateOf(new Deadline(
+                        "submit", "2026-09-21"))),
+                () -> assertEquals(true, tasks.containsDuplicateOf(new Event(
+                        "meeting", "2026-09-21 1400", "2026-09-21 1500"))),
+                () -> assertEquals(false, tasks.containsDuplicateOf(new Event(
+                        "meeting", "2026-09-21 1400", "2026-09-21 1600"))),
+                () -> assertThrows(NullPointerException.class,
+                        () -> tasks.containsDuplicateOf(null)));
+    }
+}

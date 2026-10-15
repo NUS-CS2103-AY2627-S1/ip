@@ -1,0 +1,330 @@
+package bola.ui;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+
+/**
+ * Checks bubble appearance and actual layout after JavaFX applies its styles.
+ */
+public class DialogBoxTest {
+    @BeforeAll
+    static void startJavaFx() throws Exception {
+        FxTestSupport.start();
+    }
+
+    @Test
+    void userDialog_shortMessage_hasSquareBottomRightAndCompactHeight() throws Exception {
+        FxTestSupport.run(() -> checkBubble("list", true));
+    }
+
+    @Test
+    void bolaDialog_shortMessage_hasSquareBottomLeftAndCompactHeight() throws Exception {
+        FxTestSupport.run(() -> checkBubble("Hello!", false));
+    }
+
+    @Test
+    void bolaDialog_errorAndWarning_useAttentionStyles() throws Exception {
+        FxTestSupport.run(() -> {
+            assertAttentionStyle(ResponseType.ERROR, "error-dialog", "#fde8e7", "#7f1d1d");
+            assertAttentionStyle(ResponseType.WARNING, "warning-dialog", "#fff3cd", "#664d03");
+        });
+    }
+
+    @Test
+    void bothDialogs_longMessage_wrapWithinRowAndStayTopAligned() throws Exception {
+        FxTestSupport.run(() -> {
+            String message = "A long task description with several words that must wrap. ".repeat(8)
+                    + "\nA second line.";
+            checkBubble(message, true);
+            checkBubble(message, false);
+        });
+    }
+
+    @Test
+    void bothDialogs_wideWindow_keepStableMaximumBubbleWidthAndEqualAvatarSize() throws Exception {
+        FxTestSupport.run(() -> {
+            String message = "This message is long enough to reach the stable width cap. ".repeat(5);
+            assertStableWideLayout(DialogBox.getUserDialog(message, loadAvatar(true)), true);
+            assertStableWideLayout(DialogBox.getBolaDialog(message, loadAvatar(false)), false);
+        });
+    }
+
+    @Test
+    void taskList_mixedTypes_usesEqualBadgeWidthsAndAlignedCheckboxes() throws Exception {
+        FxTestSupport.run(() -> {
+            UiResponse response = new UiResponse("Bola: Your tasks all here:",
+                    ResponseType.NORMAL, List.of(
+                            new TaskView(1, "To-do", "read book", false),
+                            new TaskView(2, "Deadline", "submit report", false),
+                            new TaskView(3, "Event", "team meeting", false)));
+            DialogBox dialog = DialogBox.getBolaDialog(response, loadAvatar(false));
+            VBox root = new VBox(dialog);
+            new Scene(root, 380, 600);
+            root.applyCss();
+            root.layout();
+
+            List<Label> badges = dialog.lookupAll(".task-type").stream()
+                    .map(Label.class::cast)
+                    .toList();
+            List<CheckBox> checkBoxes = dialog.lookupAll(".task-checkbox").stream()
+                    .map(CheckBox.class::cast)
+                    .toList();
+            assertEquals(3, badges.size());
+            assertTrue(badges.stream().allMatch(badge -> badge.getWidth() == 64));
+            assertEquals(3, checkBoxes.size());
+            assertTrue(checkBoxes.stream().allMatch(checkBox -> checkBox.getMaxWidth() == 267));
+            double firstCheckboxPosition = checkBoxes.getFirst().getLayoutX();
+            assertTrue(checkBoxes.stream()
+                    .allMatch(checkBox -> checkBox.getLayoutX() == firstCheckboxPosition));
+        });
+    }
+
+    @Test
+    void taskList_resize_wrapsRowsAndFooterInsideBubble() throws Exception {
+        FxTestSupport.run(() -> {
+            UiResponse response = new UiResponse(
+                    "Bola: Your tasks all here:\nTask row\nNow got 1 task in your list.",
+                    ResponseType.NORMAL, List.of(new TaskView(1, "Event",
+                            "tutorial (Sep 01 2026 2:00 PM – Sep 01 2026 4:00 PM)", false)));
+            DialogBox dialog = DialogBox.getBolaDialog(response, loadAvatar(false));
+            VBox root = new VBox(dialog);
+            new Scene(root, 800, 1000);
+            root.applyCss();
+            root.layout();
+            Label bubble = (Label) dialog.lookup(".chat-bubble");
+            root.layout();
+            CheckBox completion = (CheckBox) dialog.lookup(".task-checkbox");
+            double wideHeight = completion.getHeight();
+
+            for (double width : new double[] {380, 300, 800}) {
+                root.resize(width, 1000);
+                root.layout();
+                root.requestLayout();
+                root.layout();
+                double rightEdge = bubble.localToScene(bubble.getLayoutBounds()).getMaxX()
+                        - bubble.getInsets().getRight();
+                for (String selector : List.of(".task-checkbox", ".task-footer")) {
+                    Node node = dialog.lookup(selector);
+                    assertTrue(node.localToScene(node.getLayoutBounds()).getMaxX() <= rightEdge + 1,
+                            selector + " must stay within the bubble at width " + width);
+                }
+                assertTrue(bubble.getGraphic().getLayoutBounds().getHeight()
+                        <= bubble.getHeight() - bubble.getInsets().getTop() - bubble.getInsets().getBottom());
+                if (width < 800) {
+                    assertTrue(completion.getHeight() >= wideHeight);
+                    if (width == 300) {
+                        assertTrue(completion.getHeight() > wideHeight, "Narrow rows must wrap to more lines");
+                    }
+                } else {
+                    assertEquals(wideHeight, completion.getHeight(), 1);
+                    assertEquals(360, bubble.getWidth());
+                }
+            }
+        });
+    }
+
+    @Test
+    void taskList_rejectedCheckboxChange_restoresPreviousState() throws Exception {
+        FxTestSupport.run(() -> {
+            UiResponse response = new UiResponse("Bola: Your tasks all here:",
+                    ResponseType.NORMAL,
+                    List.of(new TaskView(1, "To-do", "read book", false)));
+            DialogBox dialog = DialogBox.getBolaDialog(response, loadAvatar(false),
+                    (taskNumber, isDone) -> false);
+            VBox root = new VBox(dialog);
+            new Scene(root, 380, 600);
+            root.applyCss();
+            root.layout();
+            CheckBox taskControl = (CheckBox) dialog.lookup(".task-checkbox");
+
+            taskControl.fire();
+
+            assertFalse(taskControl.isSelected());
+        });
+    }
+
+    @Test
+    void deletedTask_withFooter_keepsCountAndDisablesCheckbox() throws Exception {
+        FxTestSupport.run(() -> {
+            UiResponse response = new UiResponse(
+                    "Bola: Okay, removed already:\n"
+                            + "    2. [Deadline][ ] submit report (by: Sep 10 2026)\n"
+                            + "Now got 1 task in your list.",
+                    ResponseType.NORMAL,
+                    List.of(new TaskView(2, "Deadline",
+                            "submit report (by: Sep 10 2026)", false, false)));
+            DialogBox dialog = DialogBox.getBolaDialog(response, loadAvatar(false),
+                    (taskNumber, isDone) -> true);
+            VBox root = new VBox(dialog);
+            new Scene(root, 380, 600);
+            root.applyCss();
+            root.layout();
+
+            CheckBox taskControl = (CheckBox) dialog.lookup(".task-checkbox");
+            Label footer = (Label) dialog.lookup(".task-footer");
+            assertTrue(taskControl.isDisabled());
+            assertEquals("Now got 1 task in your list.", footer.getText());
+        });
+    }
+
+    @Test
+    void userDialog_transparentAvatar_keepsOriginalBounds() throws Exception {
+        FxTestSupport.run(() -> {
+            DialogBox dialog = DialogBox.getUserDialog("list", new WritableImage(100, 100));
+            ImageView picture = (ImageView) dialog.getChildren().getLast();
+            assertEquals(null, picture.getViewport());
+        });
+    }
+
+    @Test
+    void userDialog_faintPixelsOutsideArtwork_ignoresExportArtifacts() throws Exception {
+        FxTestSupport.run(() -> {
+            WritableImage avatar = new WritableImage(100, 100);
+            avatar.getPixelWriter().setArgb(0, 0, 0x01000000);
+            avatar.getPixelWriter().setArgb(99, 99, 0x01000000);
+            for (int y = 20; y < 80; y++) {
+                for (int x = 10; x < 90; x++) {
+                    avatar.getPixelWriter().setColor(x, y, Color.BROWN);
+                }
+            }
+            DialogBox dialog = DialogBox.getUserDialog("okay", avatar);
+            ImageView picture = (ImageView) dialog.getChildren().getLast();
+            assertEquals(new Rectangle2D(10, 20, 80, 60), picture.getViewport());
+        });
+    }
+
+    private void checkBubble(String message, boolean isUser) {
+        Image avatar = loadAvatar(isUser);
+        DialogBox dialog = isUser ? DialogBox.getUserDialog(message, avatar)
+                : DialogBox.getBolaDialog(message, avatar);
+        VBox root = new VBox(dialog);
+        new Scene(root, 380, 600);
+        root.applyCss();
+        root.layout();
+
+        Label text = (Label) dialog.getChildren().get(isUser ? 0 : 1);
+        ImageView picture = (ImageView) dialog.getChildren().get(isUser ? 1 : 0);
+        assertTrue(picture.getViewport().getMinY() > 0, "The real avatars have transparent top padding");
+        assertEquals(getExpectedArtworkBounds(isUser), picture.getViewport());
+        assertEquals(message, text.getText());
+
+        assertBubbleStyle(text, isUser);
+        assertBubbleLayout(dialog, text, picture);
+        assertMessageSizing(message, text, picture);
+    }
+
+    /**
+     * Loads the bundled avatar for one side of the conversation.
+     */
+    private Image loadAvatar(boolean isUser) {
+        return new Image(getClass().getResourceAsStream(
+                isUser ? "/images/DaUser.png" : "/images/DaBola.png"));
+    }
+
+    /**
+     * Checks that widening the window does not stretch a message beyond its fixed width cap.
+     */
+    private void assertStableWideLayout(DialogBox dialog, boolean isUser) {
+        VBox root = new VBox(dialog);
+        new Scene(root, 800, 600);
+        root.applyCss();
+        root.layout();
+
+        Label text = (Label) dialog.getChildren().get(isUser ? 0 : 1);
+        ImageView picture = (ImageView) dialog.getChildren().get(isUser ? 1 : 0);
+        double expectedWidth = isUser ? 270 : 360;
+        assertEquals(expectedWidth, text.getMaxWidth());
+        assertEquals(expectedWidth, text.getWidth());
+        assertEquals(80, picture.getFitWidth());
+        assertEquals(80, picture.getFitHeight());
+    }
+
+    /**
+     * Returns the visible artwork bounds in the bundled avatar images.
+     */
+    private Rectangle2D getExpectedArtworkBounds(boolean isUser) {
+        return isUser ? new Rectangle2D(120, 197, 773, 625)
+                : new Rectangle2D(145, 176, 826, 635);
+    }
+
+    /**
+     * Checks the colors, border, and speaker-specific corners of a chat bubble.
+     */
+    private void assertBubbleStyle(Label text, boolean isUser) {
+        assertEquals(Color.web(isUser ? "#dcebe2" : "#fff8e8"),
+                text.getBackground().getFills().getFirst().getFill());
+        assertEquals(Color.web(isUser ? "#a8c7b2" : "#d8c9a7"),
+                text.getBorder().getStrokes().getFirst().getTopStroke());
+        assertEquals(Color.web(isUser ? "#26352d" : "#40382b"), text.getTextFill());
+        CornerRadii corners = text.getBorder().getStrokes().getFirst().getRadii();
+        assertEquals(16, corners.getTopLeftHorizontalRadius());
+        assertEquals(16, corners.getTopRightHorizontalRadius());
+        assertEquals(isUser ? 0 : 16, corners.getBottomRightHorizontalRadius());
+        assertEquals(isUser ? 16 : 0, corners.getBottomLeftHorizontalRadius());
+        assertEquals(corners, text.getBackground().getFills().getFirst().getRadii());
+    }
+
+    /**
+     * Checks the semantic class and accessible colors of one attention response.
+     */
+    private void assertAttentionStyle(ResponseType type, String styleClass,
+            String backgroundColor, String textColor) {
+        Image avatar = new Image(getClass().getResourceAsStream("/images/DaBola.png"));
+        DialogBox dialog = DialogBox.getBolaDialog(new UiResponse("Look here", type), avatar);
+        VBox root = new VBox(dialog);
+        new Scene(root, 380, 600);
+        root.applyCss();
+        root.layout();
+
+        Label text = (Label) dialog.getChildren().get(1);
+        assertTrue(dialog.getStyleClass().contains(styleClass));
+        assertEquals(Color.web(backgroundColor),
+                text.getBackground().getFills().getFirst().getFill());
+        assertEquals(Color.web(textColor), text.getTextFill());
+        assertEquals(4, text.getBorder().getStrokes().getFirst().getWidths().getLeft());
+    }
+
+    /**
+     * Checks that a bubble and avatar remain within their dialog row.
+     */
+    private void assertBubbleLayout(DialogBox dialog, Label text, ImageView picture) {
+        assertEquals(picture.getBoundsInParent().getMinY(), text.getBoundsInParent().getMinY());
+        assertTrue(text.getBoundsInParent().getMinX() >= 0);
+        assertTrue(text.getBoundsInParent().getMaxX() <= dialog.getWidth());
+        assertTrue(text.getWidth() + picture.getBoundsInParent().getWidth()
+                + dialog.getSpacing() <= dialog.getWidth());
+    }
+
+    /**
+     * Checks that short and long messages use the appropriate bubble height.
+     */
+    private void assertMessageSizing(String message, Label text, ImageView picture) {
+        if (message.length() < 20) {
+            assertTrue(text.getHeight() < picture.getBoundsInParent().getHeight());
+        } else {
+            assertTrue(text.isWrapText());
+            assertTrue(text.getHeight() > picture.getBoundsInParent().getHeight());
+            assertTrue(text.getBoundsInParent().getMaxY() > picture.getBoundsInParent().getMaxY());
+            assertTrue(text.getHeight() >= text.prefHeight(text.getWidth()));
+        }
+    }
+
+}

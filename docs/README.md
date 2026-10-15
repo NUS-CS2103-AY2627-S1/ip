@@ -1,30 +1,293 @@
-# Duke User Guide
+# Bola User Guide
 
-// Update the title above to match the actual product name
+![Bola's Kopitiam task-management chatbot](Ui.png)
 
-// Product screenshot goes here
+**Bola** is a friendly task-management chatbot with a Singapore kopitiam personality. Use its
+graphical interface to add, view, find, update, and save to-dos, deadlines, and events.
 
-// Product intro goes here
+## Contents
 
-## Adding deadlines
+- [Quick start](#quick-start)
+- [Command format](#command-format)
+- [Adding tasks](#adding-tasks)
+- [Viewing and finding tasks](#viewing-and-finding-tasks)
+- [Updating tasks](#updating-tasks)
+- [Getting help](#getting-help)
+- [Asking AI for help](#asking-ai-for-help)
+- [Saving and recovering data](#saving-and-recovering-data)
+- [Exiting Bola](#exiting-bola)
+- [Command summary](#command-summary)
 
-// Describe the action and its outcome.
+## Quick start
 
-// Give examples of usage
+1. Install Java 25.
+2. Download `bola.jar` from the latest GitHub release.
+3. Put the JAR in the folder where you want Bola to store its data.
+4. Open a terminal in that folder and run:
 
-Example: `keyword (optional arguments)`
+   ```shell
+   java -jar bola.jar
+   ```
 
-// A description of the expected outcome goes here
+5. Type a command into the box at the bottom of the window.
+6. Press <kbd>Enter</kbd> or click **Settle**.
 
+To use the console interface instead, run:
+
+```shell
+java -jar bola.jar --cli
 ```
-expected output
+
+## Command format
+
+Examples in this guide use the following notation:
+
+- Words in `UPPER_CASE` are parameters that you replace, such as a task description.
+- Words beginning with `/`, such as `/by`, are literal separators that must be included.
+- The command words and separators are case-sensitive and must be typed in lowercase.
+- Confirmation answers, `Yes` and `No`, are not case-sensitive.
+
+> [!TIP]
+> Enter `help` whenever Bola is not waiting for confirmation to see a quick command reference.
+
+## Adding tasks
+
+Bola rejects impossible dates and duplicate tasks with an explanation. A valid task is saved
+automatically.
+
+### Adding a to-do: `todo`
+
+Adds a task without a date.
+
+**Format:** `todo DESCRIPTION`
+
+```text
+todo buy coffee beans
 ```
 
-## Feature ABC
+### Adding a deadline: `deadline`
 
-// Feature details
+Adds a task that must be completed by a date or time.
 
+**Format:** `deadline DESCRIPTION /by DATE`
 
-## Feature XYZ
+```text
+deadline submit project report /by 2026-09-20
+deadline send presentation slides /by 20/9/2026 1800
+```
 
-// Feature details
+### Adding an event: `event`
+
+Adds an activity with a start and end. The end must be later than the start.
+
+**Format:** `event DESCRIPTION /from START /to END`
+
+```text
+event project demonstration /from 20/9/2026 1400 /to 20/9/2026 1500
+```
+
+### Date and time formats
+
+Use one of these formats:
+
+| Input | Format | Example |
+| --- | --- | --- |
+| Date only | `yyyy-MM-dd` | `2026-09-20` |
+| Date and time | `yyyy-MM-dd HHmm` | `2026-09-20 1800` |
+| Date and time | `d/M/yyyy HHmm` | `20/9/2026 1800` |
+
+Times use the 24-hour clock. For example, `0900` is 9:00 AM and `1800` is 6:00 PM.
+
+## Viewing and finding tasks
+
+### Listing all tasks: `list`
+
+Shows every task and its task number.
+
+```text
+list
+```
+
+Completed tasks contain `[X]`; incomplete tasks contain `[ ]`. In the graphical interface, you
+can also select a task's checkbox to mark or unmark it immediately.
+
+### Finding tasks: `find`
+
+Finds tasks whose descriptions contain a keyword. Matching is not case-sensitive.
+
+**Format:** `find KEYWORD`
+
+```text
+find report
+```
+
+The search-result numbers only number the results. To mark, unmark, or delete a task, use its
+number from `list`.
+
+### Viewing upcoming tasks: `upcoming`
+
+Shows dated tasks from today through the requested number of days ahead, inclusive. Results are
+sorted by deadline or event start time; undated to-dos are omitted.
+
+**Format:** `upcoming DAYS`
+
+```text
+upcoming 7
+```
+
+`DAYS` must be a positive whole number. Upcoming results keep their task numbers from `list`.
+
+## Updating tasks
+
+### Selecting tasks
+
+The `mark`, `unmark`, and `delete` commands accept:
+
+- One task number: `2`
+- Several numbers separated by spaces or commas: `1, 3 5`
+- An inclusive range: `3-6`
+- A mixture of numbers and ranges: `1, 3-5 8`
+- Every task: `all`
+
+Task numbers always refer to the full task list before the operation begins. Repeated or
+overlapping selections are processed once. If any selection is invalid, Bola rejects the entire
+command without changing any tasks.
+
+### Marking tasks as complete: `mark`
+
+**Format:** `mark SELECTION`
+
+```text
+mark 1
+mark 1, 3-5
+mark all
+```
+
+### Marking tasks as incomplete: `unmark`
+
+**Format:** `unmark SELECTION`
+
+```text
+unmark 2
+unmark 2 4-6
+```
+
+### Deleting tasks: `delete`
+
+**Format:** `delete SELECTION`
+
+```text
+delete 1
+delete 1, 3
+delete all
+```
+
+Deleting two or more tasks requires confirmation. Every operation using `all` also requires
+confirmation, even when the list contains only one task. Enter `Yes` to continue or `No` to
+cancel. While confirmation is pending, Bola accepts only those two answers.
+
+## Getting help
+
+Enter `help` to display all supported commands, selection syntax, and date formats.
+
+```text
+help
+```
+
+## Asking AI for help
+
+The optional `@ai` command answers natural-language questions about Bola's features and command
+syntax. It provides help only: it does not execute commands or change tasks.
+
+**Format:** `@ai QUESTION`
+
+```text
+@ai how do I add a new deadline task?
+@ai is there a command to add priorities to tasks?
+```
+
+The second example should explain that Bola does not support priorities. AI answers can be
+incorrect, so check the [command summary](#command-summary) before acting on important advice.
+
+### Configuring AI help
+
+AI help uses Groq's hosted `openai/gpt-oss-120b` model. It does not use your ChatGPT account
+or an OpenAI API key. Create a key from the [Groq API Keys page](https://console.groq.com/keys),
+then set it as the `LLM_API_KEY` environment variable before starting Bola.
+
+On macOS or Linux:
+
+```shell
+export LLM_API_KEY="your_api_key_here"
+java -jar bola.jar
+```
+
+On Windows PowerShell:
+
+```powershell
+$env:LLM_API_KEY="your_api_key_here"
+java -jar bola.jar
+```
+
+If you run Bola from IntelliJ IDEA, restart the IDE after setting the environment variable or
+add `LLM_API_KEY` to the application's run configuration. Never paste the key into source code,
+documentation, or a committed configuration file.
+
+Questions entered with `@ai` are sent to Groq for processing. Do not include private or sensitive
+information. If no API key is configured, or the remote service cannot be reached, Bola shows a
+warning; task management and every other command remain available.
+
+## Saving and recovering data
+
+Bola stores changes automatically in `data/bola.txt`, relative to the folder from which you
+launch the JAR. Start Bola from the same folder to restore your tasks in the next session.
+
+On first use, a missing data file is normal. Bola starts with an empty list and creates the
+`data` folder and `bola.txt` when it first saves a task.
+
+If an existing file cannot be read or contains invalid records, Bola shows a storage warning,
+starts with an empty in-memory list, and does not overwrite that file during the session. If a
+save later fails, Bola warns that further changes in that session will not be saved. Fix the file
+or folder permissions and restart Bola before relying on persistence again.
+
+## Exiting Bola
+
+Enter `bye` to end the session.
+
+```text
+bye
+```
+
+The graphical interface disables further input, displays a short closing countdown, and closes
+automatically.
+
+## Command summary
+
+| Action | Format | Example |
+| --- | --- | --- |
+| Add a to-do | `todo DESCRIPTION` | `todo buy coffee beans` |
+| Add a deadline | `deadline DESCRIPTION /by DATE` | `deadline submit report /by 2026-09-20` |
+| Add an event | `event DESCRIPTION /from START /to END` | `event demo /from 20/9/2026 1400 /to 20/9/2026 1500` |
+| Show all tasks | `list` | `list` |
+| Find tasks | `find KEYWORD` | `find report` |
+| Show upcoming tasks | `upcoming DAYS` | `upcoming 7` |
+| Mark tasks complete | `mark SELECTION` | `mark 1, 3-5` |
+| Mark tasks incomplete | `unmark SELECTION` | `unmark 2` |
+| Delete tasks | `delete SELECTION` | `delete all` |
+| Ask AI about Bola | `@ai QUESTION` | `@ai how do I add a deadline?` |
+| Show command help | `help` | `help` |
+| Exit | `bye` | `bye` |
+
+## Acknowledgements
+
+- This project started from the [SE-EDU iP starter repository](https://github.com/NUS-CS2103-AY2627-S1/ip).
+- The optional AI help feature follows the SE-EDU guide
+  [Adding AI Features to a Java App](https://se-education.org/guides/tutorials/addingAiToJavaApp.html)
+  and uses [LangChain4j](https://docs.langchain4j.dev/).
+- The JavaFX application structure was adapted from the
+  [SE-EDU JavaFX tutorial](https://se-education.org/guides/tutorials/javaFxPart1.html).
+- OpenAI Codex was used throughout much of Bola's development as an AI coding collaborator for
+  brainstorming, implementation, debugging, testing, review, UI refinement, and documentation.
+  I remained responsible for the project's direction, final decisions, and verification.
+- The kopitiam background and the Bola/user avatar artwork were generated with OpenAI's image
+  generation tool. The generation prompts are retained in the repository under `output/`.

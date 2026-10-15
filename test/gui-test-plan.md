@@ -1,0 +1,82 @@
+# FXML JavaFX GUI test plan (Parts 4 and 5)
+
+Use Java 25 with JavaFX. Build with `./gradlew shadowJar`, copy `build/libs/bola.jar`
+to a fresh temporary directory, and run `java -jar bola.jar` there to protect real task data.
+
+1. Check the 400-by-600 window, `Bola's Kopitiam` title, greeting with a left avatar, input,
+   and Settle button. Check that the cream-and-green identity bar reads `BOLA'S KOPITIAM`
+   with the orange `Your friendly task kaki` tagline. Both lines must use the same informal
+   system font family as the chat, with 22-pixel title text and 14-pixel tagline text. The
+   80-pixel-tall bar must leave comfortable padding around both lines. An additional 8-pixel
+   inset must separate the header from Bola's first response without interrupting the background.
+   Bola's avatar must be the cheerful kopi cup; user messages must use the smiling kaya toast.
+   The greeting must show `Bola: Eh hello! I'm Bola, your task kaki.` on the first line and
+   `What needs settling today?` on the next line. The input hint must read
+   `What needs settling?`. The input and Settle button must sit in a solid cream toolbar,
+   use rounded corners, and remain legible over the background.
+2. Submit `todo read book` with Enter. Check the right user dialog and left task-added response.
+   The added task must use the same `To-do` badge and real checkbox as a list row, and the task-count
+   line must remain visible below it.
+   User messages must have muted sage bubbles and Bola replies must have warm cream bubbles,
+   each with a subtle matching border and dark, readable text. Round all corners except the
+   bottom-right corner for the user and the
+   bottom-left corner for Bola. The bubble's top edge must align with the visible artwork's top edge,
+   excluding transparent margins and nearly invisible export artifacts in the avatar PNG.
+   Check this for both the cup and toast, including a short user message such as `okay`.
+   Both avatars must use the same 80-by-80 fit area. The user and Bola rows must have a clear
+   vertical gap while remaining visually grouped as one exchange.
+   Short bubbles must fit their text instead of stretching to the avatar's height.
+   The input should clear and retain focus.
+3. Submit `list` with Settle. Check that the saved task appears once in Bola's response.
+   Each task must appear as its own row with a descriptive `To-do`, `Deadline`, or `Event`
+   badge rather than a one-letter marker. All badges must have the same width and centered text,
+   so every checkbox begins at the same horizontal position. Each row must have a real checkbox reflecting its
+   completion status. Click the first task's checkbox and verify that it becomes selected,
+   the normal marked confirmation appears, and the change is saved. Click it again and verify
+   that it becomes unselected, the unmarked confirmation appears, and that change is saved too.
+   After submitting another typed command, controls in older list responses must be disabled so
+   stale task numbers cannot modify a different task.
+4. Add a dated task, then submit `mark 1`, `unmark 1`, `find book`, `upcoming 7`, and `delete 1`.
+   Check that every task in these responses uses the same descriptive badge and checkbox as the
+   list. Search and upcoming checkboxes must retain the task's original list number. Added, marked,
+   unmarked, search, and upcoming tasks must remain interactive; a deleted task's checkbox must be
+   disabled because it no longer exists. Task-count lines must remain visible below task rows.
+   Submit an invalid command and check that normal confirmations appear as cream Bola replies.
+   Validation errors must use a
+   pale red bubble, dark red text, and a stronger red left border. Storage warnings must use the
+   corresponding amber warning treatment rather than the error treatment.
+5. Submit a long task description and enough `list` commands to fill the window.
+   Check wrapping, visible avatars, no horizontal scrollbar, and automatic scrolling to the newest reply.
+   User bubbles must stop growing at 270 pixels and Bola bubbles at 360 pixels rather than
+   stretching indefinitely as the window becomes wider. The wider Bola cap must give task
+   descriptions noticeably more room beside their badges and checkboxes.
+   Long and multiline messages must stay inside their bubble borders with padding on every side;
+   their top edges must still align with the visible avatars and extend below them.
+   The supplied kopitiam PNG must be visible behind the messages and stay fixed while scrolling.
+   Its proportions must stay unchanged, with centered cropping to fill the chat area at every size.
+   Check that the translucent white viewport wash softens the image without hiding it and that
+   every bubble color remains readable.
+   Enlarge and shrink the window horizontally and vertically. The input must stretch within its
+   bottom toolbar, Settle must stay at the bottom right, the identity bar must span the window,
+   and the chat area must fill the remaining space.
+   Messages must rewrap to the viewport width without a horizontal scrollbar or overlapping controls.
+   In particular, list an event with a long date range, shrink from a wide window to the minimum
+   width, and widen it again. Task descriptions and count footers must remain inside the cream
+   bubble's padding, with all wrapped lines visible. Badges and avatars must retain their sizes.
+   The window must not shrink below 400 pixels wide or 220 pixels high.
+6. Submit whitespace only. No dialog should be added.
+7. Submit `bye`. Check the farewell appears immediately and both input and Settle are disabled.
+   After three seconds, a separate Bola dialog must read `[Closing in 5 seconds...]`.
+   The farewell must remain in the chat throughout the eight-second closing sequence.
+   After five more seconds (eight seconds after `bye`), the window must close automatically.
+   Repeat in a fresh session using the other input method (Enter/Settle).
+8. Reopen the JAR from the same temporary directory. `list` should retain the task.
+
+The packaged JAR must include `view/MainWindow.fxml`, `view/DialogBox.fxml`,
+`styles/dialog.css`, `styles/main-window.css`, `images/bola-kopitiam-background.png`,
+and both avatar PNGs. Launch it outside the repository to verify that
+FXML, CSS, and image paths resolve from the JAR. No FXML loading or injection errors should appear.
+Both Enter and Settle must invoke the controller handler declared in `MainWindow.fxml`.
+
+Automated checks: `./gradlew check jacocoTestReport` loads the FXML views on the JavaFX thread,
+exercises both input handlers and the closing schedule, and checks bubble styling and layout.

@@ -1,0 +1,382 @@
+package bola.ui;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import bola.Bola;
+import bola.Main;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+/**
+ * Tests FXML loading, command handlers, and the closing sequence with isolated storage.
+ */
+public class MainWindowTest {
+    @TempDir
+    Path temporaryDirectory;
+
+    @BeforeAll
+    static void startJavaFx() throws Exception {
+        FxTestSupport.start();
+    }
+
+    @Test
+    void mainWindow_initialState_loadsGreetingAndControls() throws Exception {
+        FxTestSupport.run(() -> {
+            MainWindowFixture fixture = createWindow("initial-bola.txt");
+            assertEquals(400, fixture.root().getPrefWidth());
+            assertEquals(600, fixture.root().getPrefHeight());
+            assertTrue(fixture.scroll().isFitToWidth());
+            assertEquals(ScrollPane.ScrollBarPolicy.NEVER, fixture.scroll().getHbarPolicy());
+            assertEquals(8, fixture.dialogs().getPadding().getTop(), 0.01);
+            VBox identityBar = (VBox) fixture.root().lookup(".identity-bar");
+            Label identityName = (Label) fixture.root().lookup(".identity-name");
+            Label identityTagline = (Label) fixture.root().lookup(".identity-tagline");
+            assertEquals(80, identityBar.getHeight(), 0.01);
+            assertEquals("BOLA'S KOPITIAM", identityName.getText());
+            assertEquals("System", identityName.getFont().getFamily());
+            assertEquals(22, identityName.getFont().getSize(), 0.01);
+            assertEquals("Your friendly task kaki", identityTagline.getText());
+            assertEquals("System", identityTagline.getFont().getFamily());
+            assertEquals(14, identityTagline.getFont().getSize(), 0.01);
+            assertEquals("What needs settling?", fixture.input().getPromptText());
+            assertEquals("Settle", fixture.send().getText());
+            assertEquals(1, fixture.dialogs().getChildren().size());
+            assertEquals("Bola: Eh hello! I'm Bola, your task kaki.\nWhat needs settling today?",
+                    messageAt(fixture.dialogs(), 0));
+            ImageView bolaPicture = (ImageView) ((DialogBox) fixture.dialogs()
+                    .getChildren().getFirst())
+                    .getChildren().getFirst();
+            assertFalse(bolaPicture.getImage().isError());
+            assertTrue(bolaPicture.getImage().getUrl().endsWith("DaBola.png"));
+            return null;
+        });
+    }
+
+    @Test
+    void mainWindow_inputHandlers_addAndListTask() throws Exception {
+        FxTestSupport.run(() -> {
+            MainWindowFixture fixture = createWindow("input-bola.txt");
+            TextField input = fixture.input();
+
+            input.setText("   ");
+            input.fireEvent(new ActionEvent());
+            assertEquals(1, fixture.dialogs().getChildren().size());
+
+            input.setText("todo read book");
+            input.fireEvent(new ActionEvent());
+            assertEquals(3, fixture.dialogs().getChildren().size());
+            assertEquals("todo read book", messageAt(fixture.dialogs(), 1));
+            assertEquals("Bola: Can! I've added this task:", messageAt(fixture.dialogs(), 2));
+            CheckBox addedTaskControl = taskControlsAt(fixture.dialogs(), 2).getFirst();
+            assertEquals("1. read book", addedTaskControl.getText());
+            assertFalse(addedTaskControl.isSelected());
+            Label addedTaskFooter = (Label) ((DialogBox) fixture.dialogs().getChildren().get(2))
+                    .lookup(".task-footer");
+            assertEquals("Now got 1 task in your list.", addedTaskFooter.getText());
+            assertEquals("", input.getText());
+            assertTrue(Files.readString(fixture.storage()).contains("read book"));
+            ImageView userPicture = (ImageView) ((DialogBox) fixture.dialogs().getChildren().get(1))
+                    .getChildren().getLast();
+            assertFalse(userPicture.getImage().isError());
+            assertTrue(userPicture.getImage().getUrl().endsWith("DaUser.png"));
+
+            input.setText("list");
+            fixture.send().fire();
+            assertEquals(5, fixture.dialogs().getChildren().size());
+            assertEquals("Bola: Your tasks all here:", messageAt(fixture.dialogs(), 4));
+            CheckBox taskControl = taskControlsAt(fixture.dialogs(), 4).getFirst();
+            assertEquals("1. read book", taskControl.getText());
+            assertFalse(taskControl.isSelected());
+            Label typeBadge = (Label) ((DialogBox) fixture.dialogs().getChildren().get(4))
+                    .lookup(".task-type");
+            assertEquals("To-do", typeBadge.getText());
+            assertEquals("", input.getText());
+            fixture.root().applyCss();
+            fixture.root().layout();
+            assertEquals(1.0, fixture.scroll().getVvalue());
+            return null;
+        });
+    }
+
+    @Test
+    void mainWindow_taskCheckbox_marksUnmarksAndPersistsTask() throws Exception {
+        FxTestSupport.run(() -> {
+            MainWindowFixture fixture = createWindow("checkbox-bola.txt");
+            for (String command : List.of("todo read book", "list")) {
+                fixture.input().setText(command);
+                fixture.input().fireEvent(new ActionEvent());
+            }
+
+            CheckBox taskControl = taskControlsAt(fixture.dialogs(), 4).getFirst();
+            taskControl.fire();
+            assertTrue(taskControl.isSelected());
+            assertTrue(messageAt(fixture.dialogs(), 5).contains("settled liao"));
+            assertTrue(new Bola(fixture.storage().toString()).getResponse("list")
+                    .contains("[To-do][X] read book"));
+
+            taskControl.fire();
+            assertFalse(taskControl.isSelected());
+            assertTrue(messageAt(fixture.dialogs(), 6).contains("not settled yet"));
+            assertTrue(new Bola(fixture.storage().toString()).getResponse("list")
+                    .contains("[To-do][ ] read book"));
+            return null;
+        });
+    }
+
+    @Test
+    void mainWindow_newCommand_disablesOldTaskCheckboxes() throws Exception {
+        FxTestSupport.run(() -> {
+            MainWindowFixture fixture = createWindow("stale-checkbox-bola.txt");
+            for (String command : List.of("todo read book", "list")) {
+                fixture.input().setText(command);
+                fixture.input().fireEvent(new ActionEvent());
+            }
+            CheckBox oldTaskControl = taskControlsAt(fixture.dialogs(), 4).getFirst();
+
+            fixture.input().setText("todo buy kopi");
+            fixture.input().fireEvent(new ActionEvent());
+
+            assertTrue(oldTaskControl.isDisabled());
+            return null;
+        });
+    }
+
+    @Test
+    void mainWindow_invalidCommand_addsErrorDialog() throws Exception {
+        FxTestSupport.run(() -> {
+            MainWindowFixture fixture = createWindow("error-bola.txt");
+            fixture.input().setText("nonsense");
+            fixture.send().fire();
+
+            DialogBox response = (DialogBox) fixture.dialogs().getChildren().getLast();
+            assertTrue(response.getStyleClass().contains("error-dialog"));
+            assertTrue(messageAt(fixture.dialogs(), 2).startsWith("Bola: Aiyo,"));
+            return null;
+        });
+    }
+
+    @Test
+    void mainWindow_bye_disablesFurtherInput() throws Exception {
+        FxTestSupport.run(() -> {
+            MainWindowFixture fixture = createWindow("exit-bola.txt");
+            fixture.input().setText("bye");
+            fixture.send().fire();
+            try {
+                assertEquals(3, fixture.dialogs().getChildren().size());
+                assertTrue(messageAt(fixture.dialogs(), 2).contains("All settled?"));
+                assertTrue(fixture.input().isDisabled());
+                assertTrue(fixture.send().isDisabled());
+                fixture.input().setText("list");
+                fixture.input().fireEvent(new ActionEvent());
+                assertEquals(3, fixture.dialogs().getChildren().size());
+            } finally {
+                fixture.controller().stop();
+            }
+            return null;
+        });
+    }
+
+    @Test
+    void mainWindow_massDeleteConfirmation_usesSharedCommandState() throws Exception {
+        FxTestSupport.run(() -> {
+            MainWindowFixture fixture = createWindow("mass-bola.txt");
+            for (String command : List.of("todo first", "todo second", "delete 1 2")) {
+                fixture.input().setText(command);
+                fixture.input().fireEvent(new ActionEvent());
+            }
+            assertEquals("Bola: U sure u want to delete these 2 tasks? (Yes/No)",
+                    messageAt(fixture.dialogs(), 6));
+
+            fixture.input().setText("yes");
+            fixture.input().fireEvent(new ActionEvent());
+            DialogBox deletionDialog = (DialogBox) fixture.dialogs().getChildren().get(8);
+            List<CheckBox> deletedTaskControls = taskControlsAt(fixture.dialogs(), 8);
+            Label deletionFooter = (Label) deletionDialog.lookup(".task-footer");
+            assertEquals("Bo lah! No more tasks in your list. 🎉", deletionFooter.getText());
+            assertTrue(deletedTaskControls.stream().allMatch(CheckBox::isDisabled));
+            assertEquals("", fixture.input().getText());
+            fixture.controller().stop();
+            return null;
+        });
+    }
+
+    /**
+     * Loads and lays out an isolated main window for one test.
+     */
+    private MainWindowFixture createWindow(String storageFileName) throws IOException {
+        FXMLLoader loader = new FXMLLoader(MainWindow.class.getResource("/view/MainWindow.fxml"));
+        AnchorPane root = loader.load();
+        MainWindow controller = loader.getController();
+        Path storage = temporaryDirectory.resolve(storageFileName);
+        controller.setBola(new Bola(storage.toString()));
+        new Scene(root);
+        root.applyCss();
+        root.layout();
+        return new MainWindowFixture(root, controller, storage,
+                (TextField) loader.getNamespace().get("userInput"),
+                (Button) loader.getNamespace().get("sendButton"),
+                (VBox) loader.getNamespace().get("dialogContainer"),
+                (ScrollPane) loader.getNamespace().get("scrollPane"));
+    }
+
+    private String messageAt(VBox dialogs, int index) {
+        DialogBox dialog = (DialogBox) dialogs.getChildren().get(index);
+        return dialog.getChildren().stream().filter(Label.class::isInstance)
+                .map(Label.class::cast).findFirst().orElseThrow().getText();
+    }
+
+    /**
+     * Returns the interactive task controls displayed by one Bola dialog.
+     */
+    private List<CheckBox> taskControlsAt(VBox dialogs, int index) {
+        DialogBox dialog = (DialogBox) dialogs.getChildren().get(index);
+        dialog.applyCss();
+        dialog.layout();
+        return dialog.lookupAll(".task-checkbox").stream()
+                .filter(CheckBox.class::isInstance)
+                .map(CheckBox.class::cast)
+                .toList();
+    }
+
+    @Test
+    void mainWindow_resize_keepsControlsAnchored() throws Exception {
+        FxTestSupport.run(() -> {
+            Platform.setImplicitExit(false);
+            Main application = new Main();
+            Stage stage = new Stage();
+            try {
+                application.start(stage);
+                assertEquals("Bola's Kopitiam", stage.getTitle());
+                assertTrue(stage.isResizable());
+                assertEquals(400, stage.getMinWidth());
+                assertEquals(220, stage.getMinHeight());
+                AnchorPane root = (AnchorPane) stage.getScene().getRoot();
+                TextField input = (TextField) root.lookup("#userInput");
+                Button send = (Button) root.lookup("#sendButton");
+                ScrollPane scroll = (ScrollPane) root.lookup("#scrollPane");
+                VBox dialogs = (VBox) root.lookup("#dialogContainer");
+                HBox inputBar = (HBox) root.lookup("#inputBar");
+
+                for (double[] size : new double[][] {{800, 900}, {400, 220}, {600, 600}}) {
+                    assertResponsiveLayout(root, input, send, scroll, dialogs, inputBar, size);
+                }
+            } finally {
+                application.stop();
+                stage.hide();
+            }
+            return null;
+        });
+    }
+
+    /**
+     * Checks control anchoring and background behavior at one window size.
+     */
+    private void assertResponsiveLayout(AnchorPane root, TextField input, Button send,
+            ScrollPane scroll, VBox dialogs, HBox inputBar, double[] size) {
+        root.resize(size[0], size[1]);
+        root.applyCss();
+        root.layout();
+
+        assertEquals(size[0], inputBar.getWidth(), 0.01);
+        assertEquals(size[1], inputBar.getLayoutY() + inputBar.getHeight(), 0.01);
+        assertEquals(8, input.getLayoutX(), 0.01);
+        assertEquals(36, input.getHeight(), 0.01);
+        assertEquals(72, send.getWidth(), 0.01);
+        assertEquals(36, send.getHeight(), 0.01);
+        assertEquals(size[0] - 8, send.getLayoutX() + send.getWidth(), 0.01);
+        assertTrue(input.getBoundsInParent().getMaxX() < send.getLayoutX());
+        assertEquals(1, scroll.getLayoutX(), 0.01);
+        assertEquals(81, scroll.getLayoutY(), 0.01);
+        assertEquals(size[0] - 2, scroll.getWidth(), 0.01);
+        assertEquals(size[1] - 134, scroll.getHeight(), 0.01);
+        assertTrue(scroll.getBoundsInParent().getMaxY() <= inputBar.getLayoutY() + 0.01,
+                "Scroll bottom " + scroll.getBoundsInParent().getMaxY()
+                        + " must not pass toolbar top " + inputBar.getLayoutY());
+        assertEquals(scroll.getViewportBounds().getWidth(), dialogs.getWidth(), 1);
+        assertBackground(scroll, dialogs);
+    }
+
+    /**
+     * Checks that the responsive background remains visible and transparent.
+     */
+    private void assertBackground(ScrollPane scroll, VBox dialogs) {
+        BackgroundImage background = scroll.getBackground().getImages().getFirst();
+        assertFalse(background.getImage().isError());
+        assertTrue(background.getImage().getUrl().endsWith("bola-kopitiam-background.png"));
+        assertTrue(background.getSize().isCover());
+        assertEquals(BackgroundPosition.CENTER, background.getPosition());
+        assertEquals(BackgroundRepeat.NO_REPEAT, background.getRepeatX());
+        assertEquals(BackgroundRepeat.NO_REPEAT, background.getRepeatY());
+        Region viewport = (Region) scroll.lookup(".viewport");
+        assertEquals(Color.rgb(255, 255, 255, 0.18),
+                viewport.getBackground().getFills().getFirst().getFill());
+        assertFalse(viewport.getBackground().getFills().stream()
+                .anyMatch(fill -> fill.getFill().isOpaque()));
+        assertFalse(dialogs.getBackground().getFills().stream()
+                .anyMatch(fill -> fill.getFill().isOpaque()));
+    }
+
+    @Test
+    void closingNotice_matchesRequestedText() {
+        assertEquals("[Closing in 5 seconds...]", MainWindow.CLOSING_NOTICE);
+    }
+
+    @Test
+    void createClosingTimeline_eightSeconds_countsDownBeforeClosing() {
+        List<String> events = new ArrayList<>();
+        Timeline timeline = MainWindow.createClosingTimeline(
+                () -> events.add("countdown"), () -> events.add("close"));
+
+        assertTrue(events.isEmpty());
+        assertEquals(1, timeline.getCycleCount());
+        assertEquals(2, timeline.getKeyFrames().size());
+        assertEquals(Duration.seconds(3), timeline.getKeyFrames().get(0).getTime());
+        assertEquals(Duration.seconds(8), timeline.getKeyFrames().get(1).getTime());
+        assertEquals(Duration.seconds(5), timeline.getKeyFrames().get(1).getTime()
+                .subtract(timeline.getKeyFrames().get(0).getTime()));
+        assertEquals(Duration.seconds(8), timeline.getTotalDuration());
+
+        timeline.getKeyFrames().get(0).getOnFinished().handle(new ActionEvent());
+        assertEquals(List.of("countdown"), events);
+        timeline.getKeyFrames().get(1).getOnFinished().handle(new ActionEvent());
+        assertEquals(List.of("countdown", "close"), events);
+    }
+
+    /**
+     * Holds the controls loaded for one isolated main-window test.
+     */
+    private record MainWindowFixture(AnchorPane root, MainWindow controller, Path storage,
+            TextField input, Button send, VBox dialogs, ScrollPane scroll) {
+    }
+}

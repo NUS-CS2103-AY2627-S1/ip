@@ -1,0 +1,329 @@
+package bola.ui;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import bola.command.CommandType;
+import bola.task.Deadline;
+import bola.task.Task;
+import bola.task.Todo;
+
+/**
+ * Tests Bola's user-facing responses for successful, empty, and failed outcomes.
+ */
+public class UiTest {
+    /**
+     * Checks grouped lines retain console spacing and order, including the closing divider.
+     */
+    @Test
+    void multilineResponses_console_preserveExactFormatting() {
+        Ui ui = new Ui();
+        String separator = System.lineSeparator();
+
+        assertAll(
+                () -> assertEquals(
+                        "     Bola: Eh hello! I'm Bola, your task kaki." + separator
+                                + "     What needs settling today?" + separator,
+                        captureOutput(() -> ui.showGreeting(true, ""))),
+                () -> assertEquals(
+                        "     Bola: Alamak, I couldn't save your tasks." + separator
+                                + "     Any more changes in this session won't be saved, okay?" + separator,
+                        captureOutput(ui::showSavingError)),
+                () -> assertEquals(
+                        "     Bola: All settled? Steady lah. See you again! 👋" + separator
+                                + "================================================================" + separator,
+                        captureOutput(ui::showGoodbye)));
+    }
+
+    /**
+     * Checks grouped GUI responses retain all lines while removing console indentation and dividers.
+     */
+    @Test
+    void multilineResponses_gui_preserveExactFormatting() {
+        Ui ui = new Ui();
+
+        assertAll(
+                () -> assertEquals(
+                        "Bola: Eh hello! I'm Bola, your task kaki.\n"
+                                + "What needs settling today?\n"
+                                + "Bola: Alamak, I couldn't load your saved tasks. Permission denied.\n"
+                                + "Don't worry—I won't overwrite your data file during this session.",
+                        ui.captureResponse(() -> ui.showGreeting(false, "Permission denied."))),
+                () -> assertEquals(
+                        "Bola: Can! I've added this task:\n"
+                                + "    [To-do][ ] buy kopi\n"
+                                + "Now got 1 task in your list.",
+                        ui.captureResponse(() -> ui.showTaskAdded(new Todo("buy kopi"), 1))),
+                () -> assertEquals("Bola: All settled? Steady lah. See you again! 👋",
+                        ui.captureResponse(ui::showGoodbye)));
+    }
+
+    /**
+     * Checks the normal greeting, storage warning, and farewell messages.
+     */
+    @Test
+    void welcomeAndGoodbye_allStates_showSingaporeanPersona() {
+        Ui ui = new Ui();
+
+        String availableOutput = captureOutput(() -> ui.showWelcome(true, ""));
+        String unavailableOutput = captureOutput(
+                () -> ui.showWelcome(false, "Permission denied."));
+        String goodbyeOutput = captureOutput(ui::showGoodbye);
+
+        assertAll(
+                () -> assertTrue(availableOutput.contains(
+                        "Bola: Eh hello! I'm Bola, your task kaki." + System.lineSeparator()
+                                + "     What needs settling today?")),
+                () -> assertTrue(availableOutput.contains("What needs settling today?")),
+                () -> assertTrue(unavailableOutput.contains(
+                        "Bola: Alamak, I couldn't load your saved tasks. Permission denied.")),
+                () -> assertTrue(unavailableOutput.contains(
+                        "Don't worry—I won't overwrite your data file during this session.")),
+                () -> assertTrue(goodbyeOutput.contains(
+                        "Bola: All settled? Steady lah. See you again! 👋")));
+    }
+
+    /**
+     * Checks populated and empty output for listing, searching, and upcoming tasks.
+     */
+    @Test
+    void taskQueries_populatedAndEmptyResults_showContextualResponses() {
+        Ui ui = new Ui();
+        Task todo = new Todo("buy kopi");
+        Task deadline = new Deadline("submit report", "2026-09-10");
+        List<Task> allTasks = List.of(todo, deadline);
+
+        String populatedList = captureOutput(() -> ui.showTaskList(allTasks));
+        String emptyList = captureOutput(() -> ui.showTaskList(List.of()));
+        String matchingTasks = captureOutput(
+                () -> ui.showMatchingTasks(List.of(deadline), allTasks, "report"));
+        String noMatches = captureOutput(
+                () -> ui.showMatchingTasks(List.of(), allTasks, "exercise"));
+
+        assertAll(
+                () -> assertTrue(populatedList.contains("Bola: Your tasks all here:")),
+                () -> assertTrue(populatedList.contains("1. [To-do][ ] buy kopi")),
+                () -> assertTrue(emptyList.contains(
+                        "Bola: Bo lah! Your task list is empty. 😌")),
+                () -> assertTrue(matchingTasks.contains(
+                        "Bola: Can, found these matching tasks:")),
+                () -> assertTrue(noMatches.contains(
+                        "Bola: Bo lah! No tasks matching \"exercise\".")));
+    }
+
+    /**
+     * Checks populated and empty output for upcoming tasks.
+     */
+    @Test
+    void upcomingTasks_populatedAndEmptyResults_showContextualResponses() {
+        Ui ui = new Ui();
+        Task deadline = new Deadline("submit report", "2026-09-10");
+        List<Task> allTasks = List.of(new Todo("buy kopi"), deadline);
+        String upcomingTasks = captureOutput(
+                () -> ui.showUpcomingTasks(List.of(deadline), allTasks, 7));
+        String noUpcomingTask = captureOutput(
+                () -> ui.showUpcomingTasks(List.of(), allTasks, 1));
+
+        assertAll(
+                () -> assertTrue(upcomingTasks.contains(
+                        "Bola: Next 7 days got these tasks:")),
+                () -> assertTrue(noUpcomingTask.contains(
+                        "Bola: Bo lah! No dated tasks coming up in the next 1 day. 😌")));
+    }
+
+    /**
+     * Checks that upcoming-task output documents the assumptions made by its numbering logic.
+     */
+    @Test
+    void showUpcomingTasks_invalidContext_throwsAssertionError() {
+        Ui ui = new Ui();
+        Task deadline = new Deadline("submit report", "2026-09-10");
+
+        assertAll(
+                () -> assertThrows(AssertionError.class,
+                        () -> ui.showUpcomingTasks(List.of(), List.of(), 0)),
+                () -> assertThrows(AssertionError.class,
+                        () -> ui.showUpcomingTasks(List.of(deadline), List.of(), 7)));
+    }
+
+    /**
+     * Checks mutation confirmations and singular, plural, and empty task counts.
+     */
+    @Test
+    void taskChanges_allCounts_showSingaporeanConfirmations() {
+        Ui ui = new Ui();
+        Task task = new Todo("buy kopi");
+        task.markAsDone();
+
+        String markedOutput = captureOutput(() -> ui.showTaskMarked(task, 1));
+        String unmarkedOutput = captureOutput(() -> ui.showTaskUnmarked(task, 1));
+        String oneTaskOutput = captureOutput(() -> ui.showTaskAdded(task, 1));
+        String severalTasksOutput = captureOutput(() -> ui.showTaskAdded(task, 3));
+        String deletedOutput = captureOutput(() -> ui.showTaskDeleted(task, 1, 2));
+        String emptyOutput = captureOutput(() -> ui.showTaskDeleted(task, 1, 0));
+
+        assertAll(
+                () -> assertTrue(markedOutput.contains(
+                        "Bola: Nice, one task settled liao! ✅")),
+                () -> assertTrue(unmarkedOutput.contains(
+                        "Bola: Okay, this one not settled yet.")),
+                () -> assertTrue(oneTaskOutput.contains(
+                        "Bola: Can! I've added this task:")),
+                () -> assertTrue(oneTaskOutput.contains("Now got 1 task in your list.")),
+                () -> assertTrue(severalTasksOutput.contains("Now got 3 tasks in your list.")),
+                () -> assertTrue(deletedOutput.contains("Bola: Okay, removed already:")),
+                () -> assertTrue(deletedOutput.contains("Now got 2 tasks in your list.")),
+                () -> assertTrue(emptyOutput.contains(
+                        "Bo lah! No more tasks in your list. 🎉")));
+    }
+
+    /**
+     * Checks help, confirmation, cancellation, and exact mass-operation responses.
+     */
+    @Test
+    void massOperationPrompts_allResponses_preserveExactFormatting() {
+        Ui ui = new Ui();
+
+        assertAll(
+                () -> assertEquals(
+                        "Bola: U sure u want to delete these 2 tasks? (Yes/No)",
+                        ui.captureResponse(() -> ui.showMassOperationConfirmation(
+                                CommandType.DELETE, 2, false))),
+                () -> assertEquals(
+                        "Bola: U sure u want to mark all 1 task? (Yes/No)",
+                        ui.captureResponse(() -> ui.showMassOperationConfirmation(
+                                CommandType.MARK, 1, true))),
+                () -> assertEquals("Bola: Okay, cancelled. No tasks changed.",
+                        ui.captureResponse(ui::showOperationCancelled)),
+                () -> assertEquals("Bola: Aiyo, please answer Yes or No, can?",
+                        ui.captureResponse(ui::showConfirmationAnswerError)),
+                () -> assertTrue(ui.captureResponse(ui::showHelp)
+                        .contains("Selection can use task numbers, inclusive ranges, or all.")));
+    }
+
+    /**
+     * Checks exact responses for completed mass operations.
+     */
+    @Test
+    void massOperationResults_allResponses_preserveExactFormatting() {
+        Ui ui = new Ui();
+        Task firstTask = new Todo("first");
+        Task thirdTask = new Todo("third");
+        firstTask.markAsDone();
+        thirdTask.markAsDone();
+
+        assertAll(
+                () -> assertEquals(
+                        "Bola: Nice, 2 tasks settled liao! ✅\n"
+                                + "    1. [To-do][X] first\n"
+                                + "    3. [To-do][X] third\n"
+                                + "Now got 3 tasks in your list.",
+                        ui.captureResponse(() -> ui.showTasksMarked(
+                                List.of(firstTask, thirdTask), List.of(0, 2), 3))),
+                () -> assertEquals(
+                        "Bola: Okay, removed these 2 tasks already:\n"
+                                + "    1. [To-do][X] first\n"
+                                + "    3. [To-do][X] third\n"
+                                + "Bo lah! No more tasks in your list. 🎉",
+                        ui.captureResponse(() -> ui.showTasksDeleted(
+                                List.of(firstTask, thirdTask), List.of(0, 2), 0))));
+    }
+
+    /**
+     * Checks task-bearing GUI responses expose badges, correct task numbers, and safe controls.
+     */
+    @Test
+    void taskResponses_guiCapture_includeStructuredTaskRows() {
+        Ui ui = new Ui();
+        Task todo = new Todo("buy kopi");
+        Task deadline = new Deadline("submit report", "2026-09-10");
+        List<Task> allTasks = List.of(todo, deadline);
+
+        UiResponse matchingResponse = ui.captureUiResponse(
+                () -> ui.showMatchingTasks(List.of(deadline), allTasks, "report"));
+        UiResponse addedResponse = ui.captureUiResponse(() -> ui.showTaskAdded(deadline, 2));
+        UiResponse deletedResponse = ui.captureUiResponse(
+                () -> ui.showTaskDeleted(deadline, 2, 1));
+
+        assertAll(
+                () -> assertEquals(List.of(
+                        new TaskView(2, "Deadline", "submit report (By: Sep 10 2026)", false)),
+                        matchingResponse.taskViews()),
+                () -> assertEquals(2, addedResponse.taskViews().getFirst().number()),
+                () -> assertTrue(addedResponse.taskViews().getFirst().isInteractive()),
+                () -> assertFalse(deletedResponse.taskViews().getFirst().isInteractive()),
+                () -> assertTrue(deletedResponse.text().endsWith("Now got 1 task in your list.")));
+    }
+
+    /**
+     * Checks command and storage failure prefixes and the two-line saving warning.
+     */
+    @Test
+    void failures_commandAndStorageProblems_showHelpfulResponses() {
+        Ui ui = new Ui();
+
+        String commandError = captureOutput(
+                () -> ui.showError("I don't understand that command leh."));
+        String savingError = captureOutput(ui::showSavingError);
+
+        assertAll(
+                () -> assertTrue(commandError.contains(
+                        "Bola: Aiyo, I don't understand that command leh.")),
+                () -> assertTrue(savingError.contains(
+                        "Bola: Alamak, I couldn't save your tasks.")),
+                () -> assertTrue(savingError.contains(
+                        "Any more changes in this session won't be saved, okay?")));
+    }
+
+    /**
+     * Checks AI answers and availability warnings retain their distinct labels and types.
+     */
+    @Test
+    void aiResponses_successAndFailure_showAiIdentityAndWarnings() {
+        Ui ui = new Ui();
+
+        UiResponse answer = ui.captureUiResponse(
+                () -> ui.showAiResponse("Use deadline DESCRIPTION /by DATE."));
+        UiResponse unavailable = ui.captureUiResponse(ui::showAiUnavailable);
+        UiResponse failed = ui.captureUiResponse(ui::showAiServiceError);
+
+        assertAll(
+                () -> assertEquals("AI: Use deadline DESCRIPTION /by DATE.", answer.text()),
+                () -> assertEquals(ResponseType.NORMAL, answer.type()),
+                () -> assertTrue(unavailable.text().contains("LLM_API_KEY")),
+                () -> assertTrue(unavailable.text().contains("https://console.groq.com/keys")),
+                () -> assertTrue(unavailable.text().contains("never commit it to Git")),
+                () -> assertEquals(ResponseType.WARNING, unavailable.type()),
+                () -> assertTrue(failed.text().contains("other commands still work")),
+                () -> assertEquals(ResponseType.WARNING, failed.type()));
+    }
+
+    /**
+     * Captures console output produced by one UI operation.
+     *
+     * @param operation UI operation to invoke.
+     * @return text printed by the operation.
+     */
+    private static String captureOutput(Runnable operation) {
+        PrintStream originalOutput = System.out;
+        ByteArrayOutputStream capturedBytes = new ByteArrayOutputStream();
+        try (PrintStream capturedOutput = new PrintStream(
+                capturedBytes, true, StandardCharsets.UTF_8)) {
+            System.setOut(capturedOutput);
+            operation.run();
+        } finally {
+            System.setOut(originalOutput);
+        }
+        return capturedBytes.toString(StandardCharsets.UTF_8);
+    }
+}
