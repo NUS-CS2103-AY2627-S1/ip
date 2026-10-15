@@ -1,0 +1,44 @@
+.main-window {
+    -fx-background-color: #f4f6fb;
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-label {
+    -fx-background-radius: 12px;
+    -fx-padding: 10px 12px;
+    -fx-text-fill: #172033;
+}
+
+.avatar {
+    -fx-background-radius: 21px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.user-dialog .dialog-label {
+    -fx-background-color: #dce8ff;
+}
+
+.user-dialog .avatar {
+    -fx-background-color: #4f73d9;
+}
+
+.nova-dialog .dialog-label {
+    -fx-background-color: #e7e9ee;
+}
+
+.nova-dialog .avatar {
+    -fx-background-color: #596174;
+}
+
+.button {
+    -fx-background-color: #4f73d9;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
