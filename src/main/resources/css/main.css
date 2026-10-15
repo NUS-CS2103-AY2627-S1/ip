@@ -1,0 +1,101 @@
+.root {
+    main-color: #f4efe4;
+    accent-color: #416c63;
+    -fx-background-color: main-color;
+    -fx-background-image: url("../images/chat-background.png");
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-font-family: "System";
+}
+
+.app-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #294a43;
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.7), 2, 0, 0, 1);
+}
+
+.header-bar {
+    -fx-background-color: rgba(250, 248, 242, 0.72);
+    -fx-border-color: transparent transparent rgba(65, 108, 99, 0.16) transparent;
+}
+
+.app-subtitle {
+    -fx-font-size: 11px;
+    -fx-text-fill: #667b75;
+}
+
+.composer-bar {
+    -fx-background-color: rgba(250, 248, 242, 0.92);
+    -fx-border-color: rgba(65, 108, 99, 0.16) transparent transparent transparent;
+}
+
+.command-hint {
+    -fx-font-size: 11px;
+    -fx-text-fill: #667b75;
+}
+
+.text-field {
+    -fx-background-color: rgba(255, 253, 248, 0.95);
+    -fx-background-radius: 9px;
+    -fx-border-color: #aebdb7;
+    -fx-border-radius: 9px;
+    -fx-border-width: 1px;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 11px;
+    -fx-prompt-text-fill: #899690;
+}
+
+.text-field:focused {
+    -fx-border-color: accent-color;
+    -fx-effect: dropshadow(gaussian, rgba(65, 108, 99, 0.22), 5, 0.2, 0, 1);
+}
+
+.button {
+    -fx-background-color: accent-color;
+    -fx-background-radius: 9px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: derive(accent-color, 12%);
+}
+
+.button:pressed {
+    -fx-background-color: derive(accent-color, -12%);
+}
+
+.button:disabled {
+    -fx-opacity: 0.55;
+}
+
+.scroll-pane {
+    -fx-background-color: rgba(250, 248, 242, 0.62);
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane .viewport,
+.scroll-pane .corner {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-font-size: 8px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: rgba(65, 108, 99, 0.45);
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

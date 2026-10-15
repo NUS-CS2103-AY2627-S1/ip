@@ -1,0 +1,45 @@
+.label {
+    -fx-background-color: rgba(217, 235, 230, 0.96);
+    -fx-background-insets: 0 7px 0 7px;
+    -fx-background-radius: 14px 14px 3px 14px;
+    -fx-border-color: rgba(80, 124, 114, 0.42);
+    -fx-border-insets: 0 7px 0 7px;
+    -fx-border-radius: 14px 14px 3px 14px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(38, 54, 50, 0.12), 6, 0.1, 0, 2);
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+    -fx-padding: 10px 12px;
+    -fx-text-fill: #263a35;
+}
+
+.reply-label {
+    -fx-background-color: rgba(255, 252, 245, 0.97);
+    -fx-background-radius: 14px 14px 14px 3px;
+    -fx-border-color: rgba(139, 125, 101, 0.38);
+    -fx-border-radius: 14px 14px 14px 3px;
+}
+
+.user-dialog {
+    -fx-padding: 5px 8px 5px 54px;
+}
+
+.zikiai-dialog {
+    -fx-padding: 5px 54px 5px 6px;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(38, 54, 50, 0.24), 7, 0.2, 0, 2);
+}
+
+.add-label {
+    -fx-background-color: #fff3bd;
+}
+
+.marked-label {
+    -fx-background-color: #dcefd8;
+}
+
+.delete-label {
+    -fx-background-color: #f3d9d2;
+}
