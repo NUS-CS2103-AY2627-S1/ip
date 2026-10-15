@@ -28,8 +28,22 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## Java coding standard
+
+All Java code must follow the project-specific `/seedu-java-coding-standard` skill.
+
+## Testing after code changes
+
+After every code update:
+
+1. Review `test/ui-test-plan.md` and update it when the change affects console behavior, changes expected output, or introduces behavior that needs UI test coverage.
+2. Invoke the project-specific `/test-ui` skill, even when the test plan does not need updating. Run its recorded test cases in order and stop immediately on the first failure, as required by the skill.
+
+Do not consider a code update complete until this review and test run have been performed. Report whether the test plan changed and include the `/test-ui` result in the final response.
+
 ## Git
 
+All commits and proposed commit messages must follow the project-specific `/seedu-git-standard` skill.
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.

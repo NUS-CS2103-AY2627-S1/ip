@@ -1,0 +1,52 @@
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-image: url("../images/BobBackground.png");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+
+#dialogContainer {
+    -fx-background-color: transparent;
+}
+
+#dialog {
+    -fx-background-color: #ffe8f3;
+    -fx-background-radius: 24;
+    -fx-border-color: #ffb9d6;
+    -fx-border-width: 3;
+    -fx-border-radius: 24;
+    -fx-padding: 12 15 12 15;
+    -fx-font-family: "Arial";
+    -fx-font-size: 16px;
+    -fx-text-fill: #333333;
+}
+
+#dialog.user-bubble {
+    -fx-background-color: #fff0f7;
+}
+
+#dialog.bob-bubble {
+    -fx-background-color: #e4f2ff;
+    -fx-border-color: #6b9cc6;
+    -fx-border-style: segments(8, 8) line-cap round;
+}
+
+#dialog.error-bubble {
+    -fx-background-color: #ffe1e5;
+    -fx-border-color: #df7295;
+    -fx-border-style: solid;
+}
+
+#userInput {
+    -fx-background-color: #fff3f9;
+    -fx-font-size: 15px;
+    -fx-prompt-text-fill: #777777;
+}
+
+#sendButton {
+    -fx-background-color: #ffb9d6;
+    -fx-font-size: 15px;
+}
