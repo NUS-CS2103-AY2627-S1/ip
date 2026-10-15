@@ -1,0 +1,4 @@
+interface:
+  display_name: "Seedu Git Standard"
+  short_description: "Review commits using SE-EDU Git conventions"
+  default_prompt: "Use $seedu-git-standard to review or write a Git commit for this project."

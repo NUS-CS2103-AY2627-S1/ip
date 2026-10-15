@@ -1,0 +1,293 @@
+/*
+ * Personality-owned visual resources.
+ *
+ * BetterGUI applies these selectors to its semantic nodes during controlled
+ * integration. Keep behavior, semantics, and layout ownership in BetterGUI.
+ */
+
+/* Branded header component selectors. */
+.brand-header {
+    -fx-background-color: #f6d365;
+    -fx-border-color: #2f855a;
+    -fx-border-width: 0 0 2px 0;
+    -fx-padding: 10px 14px;
+}
+
+.brand-avatar {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0.3, 0, 1);
+}
+
+.brand-title {
+    -fx-font-family: "Patrick Hand";
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #8a5300;
+}
+
+.brand-tagline {
+    -fx-font-family: "Patrick Hand";
+    -fx-font-size: 16px;
+    -fx-text-fill: #3d2b1f;
+}
+
+/* Shared typography selectors. */
+.personality-interface-text {
+    -fx-font-family: "Patrick Hand";
+    -fx-font-size: 16px;
+}
+
+.personality-prose {
+    -fx-font-family: "Patrick Hand";
+    -fx-font-size: 16px;
+}
+
+/* Semantic response tokens. BetterGUI owns the mapping to these selectors. */
+.personality-response-neutral {
+    -fx-background-color: #fff4b7;
+    -fx-border-color: #e3ba38;
+}
+
+.personality-response-neutral-label {
+    -fx-text-fill: #d38b08;
+}
+
+.personality-response-success {
+    -fx-background-color: #dcf4df;
+    -fx-border-color: #62a87a;
+}
+
+.personality-response-success-label {
+    -fx-text-fill: #2f855a;
+}
+
+.personality-response-information {
+    -fx-background-color: #fff9de;
+    -fx-border-color: #e7d87a;
+}
+
+.personality-response-information-label {
+    -fx-text-fill: #d38b08;
+}
+
+.personality-response-warning {
+    -fx-background-color: #ffe2d8;
+    -fx-border-color: #d76a5d;
+}
+
+.personality-response-warning-label {
+    -fx-text-fill: #b94a3f;
+}
+
+.personality-response-system-error {
+    -fx-background-color: #fcdede;
+    -fx-border-color: #a8322b;
+}
+
+.personality-response-system-error-label {
+    -fx-text-fill: #a8322b;
+}
+
+.personality-user-message {
+    -fx-background-color: #e3f2fd;
+    -fx-border-color: #93c5fd;
+}
+
+.personality-user-label {
+    -fx-font-family: "Patrick Hand";
+    -fx-font-size: 16px;
+    -fx-text-fill: #2563a8;
+}
+
+.chatbot-dialogue .message-content.personality-response-neutral {
+    -fx-background-color: #fff4b7;
+    -fx-border-color: #e3ba38;
+}
+
+.chatbot-dialogue .message-content.personality-response-success {
+    -fx-background-color: #dcf4df;
+    -fx-border-color: #62a87a;
+}
+
+.chatbot-dialogue .message-content.personality-response-information {
+    -fx-background-color: #fff9de;
+    -fx-border-color: #e7d87a;
+}
+
+.chatbot-dialogue .message-content.personality-response-warning {
+    -fx-background-color: #ffe2d8;
+    -fx-border-color: #d76a5d;
+}
+
+.chatbot-dialogue .message-content.personality-response-system-error {
+    -fx-background-color: #fcdede;
+    -fx-border-color: #a8322b;
+}
+
+/* Task-card presentation selectors. */
+.personality-task-list {
+    -fx-spacing: 8px;
+}
+
+.personality-task-card {
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-width: 2px;
+    -fx-padding: 8px 10px;
+    -fx-spacing: 3px;
+}
+
+.personality-task-card-todo {
+    -fx-background-color: #eaf3ff;
+    -fx-border-color: #2f80ed;
+}
+
+.personality-task-card-deadline {
+    -fx-background-color: #fff1e3;
+    -fx-border-color: #e67e22;
+}
+
+.personality-task-card-event {
+    -fx-background-color: #f3e8ff;
+    -fx-border-color: #8e44ad;
+}
+
+.personality-task-type {
+    -fx-font-family: "Roboto Mono";
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.personality-task-type-row {
+    -fx-alignment: CENTER_LEFT;
+    -fx-spacing: 6px;
+}
+
+.personality-task-number {
+    -fx-font-family: "Roboto Mono";
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #5f6368;
+}
+
+.personality-task-title-row {
+    -fx-alignment: CENTER_LEFT;
+    -fx-spacing: 8px;
+}
+
+.personality-task-status {
+    -fx-font-size: 19px;
+}
+
+.personality-task-title {
+    -fx-font-family: "Patrick Hand";
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.personality-task-details {
+    -fx-font-family: "Patrick Hand";
+    -fx-font-size: 15px;
+    -fx-font-style: italic;
+    -fx-padding: 0 0 0 28px;
+}
+
+/* Conversation background selector for the BetterGUI viewport. */
+.personality-background {
+    -fx-background-color: #edf3ed;
+    -fx-background-image: url("../images/clover-pattern.png");
+    -fx-background-position: 0 0;
+    -fx-background-repeat: repeat;
+}
+
+.personality-background-layer {
+    -fx-background-color: #edf3ed;
+    -fx-opacity: 0.82;
+}
+
+/* Input and Send-control tokens. */
+.personality-input-field {
+    -fx-font-family: "Patrick Hand";
+    -fx-font-size: 16px;
+    -fx-background-radius: 4px;
+    -fx-background-color: #fffef3;
+    -fx-border-color: #d8c26a;
+    -fx-border-radius: 4px;
+    -fx-border-width: 1px;
+}
+
+.personality-input-field-focused {
+    -fx-border-color: #d38b08;
+}
+
+.personality-input-field:focused {
+    -fx-border-color: #d38b08;
+}
+
+.personality-send-button {
+    -fx-background-color: #174ea6;
+    -fx-background-radius: 4px;
+    -fx-font-family: "Patrick Hand";
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+}
+
+.personality-send-button-hover {
+    -fx-background-color: #123b82;
+}
+
+.personality-send-button:hover,
+.personality-send-button:focused {
+    -fx-background-color: #123b82;
+}
+
+.personality-send-button-pressed {
+    -fx-background-color: #0f3069;
+}
+
+.personality-send-button:pressed {
+    -fx-background-color: #0f3069;
+}
+
+/* Conversation avatar treatment selectors. */
+.personality-avatar-frame {
+    -fx-background-color: transparent;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0.3, 0, 1);
+    -fx-min-width: 48px;
+    -fx-min-height: 48px;
+    -fx-pref-width: 48px;
+    -fx-pref-height: 48px;
+    -fx-max-width: 48px;
+    -fx-max-height: 48px;
+    -fx-mouse-transparent: true;
+}
+
+.personality-avatar-image {
+    -fx-background-radius: 50%;
+    -fx-fit-width: 40px;
+    -fx-fit-height: 40px;
+    -fx-preserve-ratio: true;
+    -fx-smooth: true;
+}
+
+.personality-chatbot-avatar-frame {
+    -fx-border-color: #d38b08;
+    -fx-border-width: 2px;
+    -fx-padding: 2px;
+}
+
+.personality-chatbot-avatar-accent {
+    -fx-background-color: transparent;
+    -fx-background-radius: 50%;
+    -fx-border-color: #2f855a;
+    -fx-border-radius: 50%;
+    -fx-border-width: 1px;
+    -fx-padding: 1px;
+}
+
+.personality-user-avatar-frame {
+    -fx-border-color: #93c5fd;
+    -fx-border-width: 2px;
+    -fx-padding: 2px;
+}

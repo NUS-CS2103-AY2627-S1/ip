@@ -1,0 +1,311 @@
+import org.gradle.process.ExecOperations
+
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'jacoco'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+String javaFxVersion = '17.0.7'
+List<String> javaFxPlatforms = ['win', 'mac', 'mac-aarch64', 'linux']
+ExecOperations execOperations = services.get(ExecOperations)
+List<String> macNativeLibraryNames = [
+        'libdecora_sse.dylib',
+        'libglass.dylib',
+        'libjavafx_font.dylib',
+        'libjavafx_iio.dylib',
+        'libprism_common.dylib',
+        'libprism_es2.dylib',
+        'libprism_sw.dylib'
+]
+
+configurations {
+    javaFxMacIntelGraphics {
+        canBeConsumed = false
+        canBeResolved = true
+    }
+    javaFxMacArmGraphics {
+        canBeConsumed = false
+        canBeResolved = true
+    }
+}
+
+dependencies {
+    implementation 'org.apache.commons:commons-csv:1.14.1'
+
+    String junitVersion = '5.14.4'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:${junitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+    testImplementation 'org.testfx:testfx-junit5:4.0.18'
+    testImplementation 'org.testfx:openjfx-monocle:17.0.10'
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+
+    javaFxPlatforms.each { platform ->
+        implementation("org.openjfx:javafx-base:${javaFxVersion}:${platform}")
+        implementation("org.openjfx:javafx-controls:${javaFxVersion}:${platform}")
+        implementation("org.openjfx:javafx-fxml:${javaFxVersion}:${platform}")
+        implementation("org.openjfx:javafx-graphics:${javaFxVersion}:${platform}")
+    }
+
+    javaFxMacIntelGraphics(
+            "org.openjfx:javafx-graphics:${javaFxVersion}:mac") {
+        transitive = false
+    }
+    javaFxMacArmGraphics(
+            "org.openjfx:javafx-graphics:${javaFxVersion}:mac-aarch64") {
+        transitive = false
+    }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
+jacoco {
+    toolVersion = '0.8.15'
+}
+
+def javaFxTestJvmArgs = [
+        '--add-exports=javafx.graphics/com.sun.glass.ui=ALL-UNNAMED',
+        '--add-exports=javafx.graphics/com.sun.javafx.application=ALL-UNNAMED',
+        '--add-exports=javafx.graphics/com.sun.javafx.util=ALL-UNNAMED',
+        '--add-exports=javafx.base/com.sun.javafx.logging=ALL-UNNAMED',
+        '--add-opens=javafx.graphics/com.sun.glass.ui=ALL-UNNAMED',
+        '--add-opens=javafx.graphics/javafx.stage=ALL-UNNAMED',
+        '--add-opens=javafx.graphics/javafx.scene=ALL-UNNAMED',
+        '--enable-native-access=javafx.graphics'
+]
+
+def configureJavaFxTest = { Test testTask ->
+    testTask.useJUnitPlatform()
+    testTask.systemProperty 'test.runtime.classpath', [
+            sourceSets.main.output.classesDirs.asPath,
+            sourceSets.main.output.resourcesDir.absolutePath,
+            sourceSets.test.output.classesDirs.asPath,
+            configurations.testRuntimeClasspath.asPath
+    ].join(File.pathSeparator)
+    testTask.systemProperty 'test.monocle.path', configurations.testRuntimeClasspath
+            .find { it.name.startsWith('openjfx-monocle-') }?.absolutePath
+    testTask.systemProperty 'testfx.headless', 'true'
+    testTask.systemProperty 'glass.platform', 'Monocle'
+    testTask.systemProperty 'monocle.platform', 'Headless'
+    testTask.systemProperty 'prism.order', 'sw'
+    testTask.jvmArgs = javaFxTestJvmArgs
+}
+
+test {
+    configureJavaFxTest(it)
+    enableAssertions = true
+    exclude '**/CliIntegrationTest.class'
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+tasks.register('clitest', Test) {
+    group = 'verification'
+    description = 'Runs the documented command-line regression tests.'
+    dependsOn testClasses
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    failFast = true
+    configureJavaFxTest(it)
+    enableAssertions = true
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = true
+    }
+    filter {
+        includeTestsMatching 'luckynoslacky.luckyui.CliIntegrationTest'
+    }
+}
+
+tasks.named('check') {
+    dependsOn tasks.named('clitest')
+}
+
+tasks.register('guiTest', Test) {
+    group = 'verification'
+    description = 'Runs the deterministic JavaFX GUI regression tests.'
+    dependsOn testClasses
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    failFast = true
+    configureJavaFxTest(it)
+    enableAssertions = true
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+    filter {
+        includeTestsMatching 'luckynoslacky.luckyui.gui.*Test'
+    }
+}
+
+def coverageTestTasks = [
+        tasks.named('test').get(),
+        tasks.named('clitest').get(),
+        tasks.named('guiTest').get()
+]
+def coverageExecutionData = files(
+        "$buildDir/jacoco/test.exec",
+        "$buildDir/jacoco/clitest.exec",
+        "$buildDir/jacoco/guiTest.exec")
+
+tasks.register('coverageReport', JacocoReport) {
+    group = 'verification'
+    description = 'Generates the aggregate JaCoCo coverage report.'
+    dependsOn coverageTestTasks
+    executionData coverageExecutionData
+    sourceSets sourceSets.main
+    reports {
+        html.required = true
+        xml.required = true
+        csv.required = false
+    }
+}
+
+tasks.register('coverageVerification', JacocoCoverageVerification) {
+    group = 'verification'
+    description = 'Checks aggregate JaCoCo coverage against minimum thresholds.'
+    dependsOn coverageTestTasks
+    executionData coverageExecutionData
+    sourceSets sourceSets.main
+    violationRules {
+        rule {
+            element = 'BUNDLE'
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.90
+            }
+            limit {
+                counter = 'BRANCH'
+                value = 'COVEREDRATIO'
+                minimum = 0.80
+            }
+            limit {
+                counter = 'METHOD'
+                value = 'COVEREDRATIO'
+                minimum = 0.95
+            }
+        }
+    }
+}
+
+application {
+    mainClass = 'luckynoslacky.LuckyNoSlacky'
+}
+
+jar {
+    // A lean JAR file is not needed because the shadow JAR includes dependencies.
+    enabled = false
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'luckyNoSlacky.jar'
+    mergeServiceFiles()
+
+    manifest {
+        attributes 'Main-Class': 'luckynoslacky.luckyui.gui.Launcher'
+    }
+}
+
+tasks.register('mergeMacJavaFxNatives') {
+    group = 'build'
+    description = 'Merges macOS JavaFX native libraries for Intel and Apple Silicon.'
+    onlyIf {
+        System.getProperty('os.name').toLowerCase(java.util.Locale.ROOT)
+                .contains('mac')
+    }
+    outputs.upToDateWhen { false }
+
+    doLast {
+        File stagingDirectory = layout.buildDirectory.dir(
+                'generated/universal-javafx-mac').get().asFile
+        File intelDirectory = new File(stagingDirectory, 'intel')
+        File armDirectory = new File(stagingDirectory, 'arm')
+        File universalDirectory = new File(stagingDirectory, 'universal')
+        delete(stagingDirectory)
+        universalDirectory.mkdirs()
+
+        copy {
+            from zipTree(configurations.javaFxMacIntelGraphics.singleFile)
+            include macNativeLibraryNames
+            into intelDirectory
+        }
+        copy {
+            from zipTree(configurations.javaFxMacArmGraphics.singleFile)
+            include macNativeLibraryNames
+            into armDirectory
+        }
+
+        macNativeLibraryNames.each { libraryName ->
+            File intelLibrary = new File(intelDirectory, libraryName)
+            File armLibrary = new File(armDirectory, libraryName)
+            if (!intelLibrary.isFile() || !armLibrary.isFile()) {
+                throw new GradleException(
+                        "Missing JavaFX macOS native library: ${libraryName}")
+            }
+            execOperations.exec {
+                commandLine 'lipo', '-create', intelLibrary.absolutePath,
+                        armLibrary.absolutePath, '-output',
+                        new File(universalDirectory, libraryName).absolutePath
+            }
+        }
+
+        File shadowArchive = tasks.named('shadowJar').get().archiveFile.get().asFile
+        execOperations.exec {
+            commandLine 'jar', '--update', '--file', shadowArchive.absolutePath,
+                    '-C', universalDirectory.absolutePath, '.'
+        }
+    }
+}
+
+tasks.named('shadowJar') {
+    finalizedBy tasks.named('mergeMacJavaFxNatives')
+}
+
+run {
+    standardInput = System.in
+    enableAssertions = true
+}
+
+tasks.register('runGui', JavaExec) {
+    group = 'application'
+    description = 'Runs the LuckyNoSlacky JavaFX interface.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'luckynoslacky.luckyui.gui.Launcher'
+    javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}

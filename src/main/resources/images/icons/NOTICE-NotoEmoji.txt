@@ -1,0 +1,15 @@
+The following user-interface image assets are adapted from Noto Emoji:
+
+- task-completed.png (U+2705)
+- task-incomplete.png (U+2757)
+- task-todo.png (U+1F4CC)
+- task-deadline.png (U+23F3)
+- task-event.png (U+1F4C6)
+- response-success.png (U+1F340)
+- response-warning.png (U+26A0)
+- response-system-error.png (U+26D4)
+
+Source: https://github.com/googlefonts/noto-emoji/tree/main/png/128
+Copyright 2013 Google LLC.
+Licensed under the SIL Open Font License, Version 1.1. The complete license is
+provided in OFL-NotoEmoji.txt in this directory.

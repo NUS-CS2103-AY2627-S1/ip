@@ -1,0 +1,48 @@
+.dialogue-box {
+    -fx-padding: 6px 0;
+}
+
+.message-content {
+    -fx-padding: 10px 12px;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+    -fx-text-fill: #1f2937;
+}
+
+.user-dialogue .message-content {
+    -fx-background-color: #e3f2fd;
+    -fx-border-color: #90caf9;
+}
+
+.chatbot-dialogue .message-content {
+    -fx-background-color: #fff3bf;
+    -fx-border-color: #e0a11a;
+}
+
+.success-dialogue .message-content {
+    -fx-background-color: #e6f4ea;
+    -fx-border-color: #74a878;
+    -fx-border-width: 1px 1px 1px 4px;
+}
+
+.info-dialogue .message-content {
+    -fx-background-color: #fff8e1;
+    -fx-border-color: #e6c96a;
+}
+
+.warning-dialogue .message-content {
+    -fx-background-color: #fff4d6;
+    -fx-border-color: #f0b429;
+    -fx-border-width: 1px 1px 1px 4px;
+}
+
+.system-error-dialogue .message-content {
+    -fx-background-color: #fde8e8;
+    -fx-border-color: #c53030;
+    -fx-border-width: 1px 1px 1px 4px;
+}
+
+.avatar {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0.3, 0, 1);
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "SE-EDU Code Quality"
+  short_description: "Review Java code for maintainability and readability"
+  default_prompt: "Review the current Java code against the project code-quality guidelines and identify the highest-priority refactoring opportunity."

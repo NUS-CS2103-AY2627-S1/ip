@@ -1,0 +1,4 @@
+interface:
+  display_name: "Present Changes Visually"
+  short_description: "Create split-view HTML diffs for repository changes"
+  default_prompt: "Use $present-changes-visually to create a visual diff for the current repository changes."

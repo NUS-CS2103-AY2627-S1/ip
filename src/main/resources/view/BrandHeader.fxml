@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<HBox alignment="CENTER_LEFT" mouseTransparent="true" spacing="12.0"
+      styleClass="brand-header" xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="10.0" left="14.0" right="14.0" top="10.0" />
+    </padding>
+    <children>
+        <ImageView fx:id="brandAvatar" fitHeight="56.0" fitWidth="56.0"
+                   preserveRatio="true" styleClass="brand-avatar"
+                   accessibleText="" focusTraversable="false">
+            <image>
+                <Image url="@../images/luckynoslacky.jpg" />
+            </image>
+            <clip>
+                <Circle centerX="28.0" centerY="28.0" radius="28.0" />
+            </clip>
+        </ImageView>
+        <VBox alignment="CENTER_LEFT" spacing="1.0">
+            <children>
+                <Label fx:id="brandTitle" styleClass="brand-title"
+                       text="LuckyNoSlacky" />
+                <Label fx:id="brandTagline" styleClass="brand-tagline"
+                       text="Your lucky task buddy" wrapText="true" />
+                <ImageView fitHeight="22.0" fitWidth="22.0"
+                           mouseTransparent="true" preserveRatio="true"
+                           accessibleText="" focusTraversable="false">
+                    <image>
+                        <Image url="@../images/icons/response-success.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </VBox>
+    </children>
+</HBox>

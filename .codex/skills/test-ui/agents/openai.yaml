@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run scripted CLI tests and compare output"
+  default_prompt: "Use $test-ui after a code update to review or update test/ui-test-plan.md, run the documented command-line UI tests, and report the console session."
