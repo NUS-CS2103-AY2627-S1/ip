@@ -1,0 +1,181 @@
+/* Stylesheet for the Dingleberry JavaFX chatbot window. */
+
+.root {
+    -fx-background-color: #20232b;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.title-label {
+    -fx-text-fill: #f2f3f5;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.header-bar {
+    -fx-background-color: #292d38;
+    -fx-background-radius: 14;
+    -fx-padding: 8 14 8 14;
+    -fx-border-color: #75ddea;
+    -fx-border-width: 0 0 2 0;
+}
+
+.subtitle-label {
+    -fx-text-fill: #cbb8f6;
+    -fx-font-size: 11px;
+}
+
+.chat-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.chat-scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.dialog-box {
+    -fx-padding: 2 8 2 8;
+}
+
+.bubble {
+    -fx-padding: 10 14 10 14;
+    -fx-background-radius: 14;
+    -fx-font-size: 15px;
+    -fx-text-fill: #20232b;
+    -fx-text-alignment: left;
+}
+
+.user-bubble {
+    -fx-background-color: #75ddea;
+}
+
+.bot-bubble {
+    -fx-background-color: #f6f1ff;
+    -fx-line-spacing: 3;
+}
+
+.welcome-dialog .message-body {
+    -fx-font-family: "Consolas", "Courier New", monospace;
+}
+
+.bot-avatar {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 3, 0, 0, 1);
+}
+
+/*
+ * Shared structure for every non-user reply: a narrow accent bar plus a
+ * rounded card with a heading above its body text. Only the accent and
+ * card background colors differ between the success, information, and
+ * error variants below, so headings, body text, padding, spacing, and
+ * corner radii always stay consistent.
+ */
+.message-accent {
+    -fx-background-radius: 14 0 0 14;
+}
+
+.message-card {
+    -fx-background-radius: 0 14 14 0;
+    -fx-padding: 10 14 10 14;
+}
+
+.message-heading {
+    -fx-text-fill: #20232b;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+}
+
+.message-body {
+    -fx-text-fill: #20232b;
+    -fx-font-size: 15px;
+    -fx-line-spacing: 3;
+}
+
+.success-message.message-card {
+    -fx-background-color: #eaf9fb;
+}
+
+.success-message.message-accent {
+    -fx-background-color: #75ddea;
+}
+
+.information-message.message-card {
+    -fx-background-color: #f6f1ff;
+}
+
+.information-message.message-accent {
+    -fx-background-color: #cbb8f6;
+}
+
+.error-message.message-card {
+    -fx-background-color: #ffe1e8;
+}
+
+.error-message.message-accent {
+    -fx-background-color: #d94b72;
+}
+
+.warning-icon {
+    -fx-background-color: #d94b72;
+    -fx-background-radius: 14;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.composer-bar {
+    -fx-background-color: #292d38;
+    -fx-background-radius: 14;
+    -fx-padding: 8 10 8 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 6, 0, 0, 2);
+}
+
+.input-field {
+    -fx-background-color: #20232b;
+    -fx-background-radius: 12;
+    -fx-padding: 8 14 8 14;
+    -fx-font-size: 14px;
+    -fx-text-fill: #f2f3f5;
+    -fx-prompt-text-fill: #717687;
+}
+
+.input-field:focused {
+    -fx-background-color: #20232b;
+    -fx-border-color: #75ddea;
+    -fx-border-width: 2;
+    -fx-border-radius: 12;
+}
+
+.send-button {
+    -fx-background-color: #75ddea;
+    -fx-text-fill: #20232b;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 14;
+    -fx-padding: 8 20 8 20;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: #5bc9d9;
+}
+
+.send-button:pressed {
+    -fx-background-color: #45b4c4;
+}
+
+.send-button:focused {
+    -fx-border-color: #75ddea;
+    -fx-border-width: 2;
+    -fx-border-radius: 14;
+}
+
+.send-button:disabled {
+    -fx-background-color: #3a3d45;
+    -fx-text-fill: #717687;
+    -fx-cursor: default;
+    -fx-opacity: 1;
+}

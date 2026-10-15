@@ -1,0 +1,5 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.debug.settings.forceBuildBeforeLaunch": false,
+    "terminal.integrated.defaultProfile.windows": "Command Prompt"
+}
