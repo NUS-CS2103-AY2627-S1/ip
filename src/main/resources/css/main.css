@@ -1,0 +1,122 @@
+/* Main window theme for Atlas: cream parchment base with a prussian blue
+   accent, matching the gotham-gold-light Ghostty theme. Every colour in the
+   theme is declared once on .root below, so retuning the look means editing
+   that one block instead of hunting for hex values across two stylesheets. */
+@font-face {
+    font-family: 'Cinzel Decorative';
+    src: url('../fonts/CinzelDecorative-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Cinzel Decorative';
+    font-weight: bold;
+    src: url('../fonts/CinzelDecorative-Bold.ttf');
+}
+
+/* --- Palette ---
+   JavaFX resolves these by walking up from a node to the nearest ancestor that
+   declares the name, so the dialog bubbles can use them too even though they
+   carry a stylesheet of their own. */
+.root {
+    -fx-atlas-cream: #f5efe1;          /* window base */
+    -fx-atlas-prussian: #2e6496;       /* primary accent */
+    -fx-atlas-accent: #4286bf;         /* accent, hover */
+    -fx-atlas-deep: #1f4a73;           /* accent, pressed and the header rule */
+    -fx-atlas-line: #e0d9c8;           /* hairline borders */
+    -fx-atlas-ink: #2a2622;            /* body text on a light bubble */
+    -fx-atlas-white: #ffffff;          /* reply bubble fill */
+    -fx-atlas-thumb: #cdc5b4;          /* scrollbar thumb */
+    -fx-atlas-field: #fffdf8;          /* command box fill */
+    -fx-atlas-field-line: #d8d2c8;     /* command box border */
+    -fx-atlas-muted: #8a8478;          /* prompt text */
+    -fx-atlas-focus-faint: rgba(46, 100, 150, 0.2);
+    -fx-atlas-error-bg: #fdf3f1;       /* error bubble fill */
+    -fx-atlas-error-line: #a3312a;     /* error bubble frame */
+    -fx-atlas-error-ink: #5c1a14;      /* error text */
+
+    -fx-background-color: -fx-atlas-cream;
+}
+
+/* --- Header --- */
+.header-label {
+    -fx-background-color: -fx-atlas-prussian;
+    -fx-background-image: url('../images/atlas-header-background.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+    -fx-background-size: cover;
+    -fx-text-fill: -fx-atlas-cream;
+    -fx-font-family: 'Cinzel Decorative';
+    -fx-font-weight: bold;
+    -fx-font-size: 40px;
+    -fx-alignment: center;
+    -fx-border-color: transparent transparent -fx-atlas-deep transparent;
+    -fx-border-width: 0 0 2px 0;
+}
+
+/* Fixed artwork behind the conversation and input row. Cover preserves its
+   proportions; bottom-right anchoring favours the mountains and column. */
+.chat-background {
+    -fx-background-color: -fx-atlas-cream;
+    -fx-background-image: url('../images/atlas-chat-background.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: right bottom;
+    -fx-background-size: cover;
+}
+
+/* --- Chat canvas --- */
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: -fx-atlas-thumb;
+    -fx-background-radius: 5px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button,
+.scroll-bar .corner {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+/* --- Input row --- */
+.text-field {
+    -fx-background-color: -fx-atlas-field;
+    -fx-background-radius: 8px;
+    -fx-border-color: -fx-atlas-field-line;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-font-size: 18px;
+    -fx-prompt-text-fill: -fx-atlas-muted;
+    -fx-padding: 6px 10px;
+    -fx-focus-color: -fx-atlas-prussian;
+    -fx-faint-focus-color: -fx-atlas-focus-faint;
+}
+
+.button {
+    -fx-background-color: -fx-atlas-prussian;
+    -fx-background-radius: 8px;
+    -fx-text-fill: -fx-atlas-cream;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.button:hover {
+    -fx-background-color: -fx-atlas-accent;
+}
+
+.button:pressed {
+    -fx-background-color: -fx-atlas-deep;
+}

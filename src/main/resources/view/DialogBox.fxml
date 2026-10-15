@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<!-- One chat row: the avatar picture, then the bubble, spaced like a messaging
+     app. The fxml order suits Atlas's replies; DialogBox moves the avatar after
+     the bubble for the user's own messages. No size is stated here: DialogBox
+     fits the picture to the avatar square that the stylesheet declares and clips
+     it to a circle. -->
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308" spacing="8.0"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <StackPane fx:id="avatar" maxHeight="-Infinity" maxWidth="-Infinity"
+                   styleClass="avatar">
+            <children>
+                <ImageView fx:id="avatarPicture" preserveRatio="true" smooth="true"/>
+            </children>
+        </StackPane>
+        <StackPane fx:id="bubble">
+            <children>
+                <TextFlow fx:id="flow" styleClass="bubble-flow">
+                    <children>
+                        <Text fx:id="dialog" styleClass="bubble-text"/>
+                    </children>
+                </TextFlow>
+            </children>
+        </StackPane>
+    </children>
+    <stylesheets>
+        <URL value="@../css/dialog-box.css"/>
+    </stylesheets>
+</fx:root>

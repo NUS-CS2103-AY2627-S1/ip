@@ -1,0 +1,15 @@
+client
+client foo
+client add
+client add /phone 91234567
+client add Bob /phone
+client add Bob /email
+client add B /phone /email x@y.com
+client add A /email /phone 2
+client delete
+client delete abc
+client delete 0
+client delete 99
+client find
+client list
+bye

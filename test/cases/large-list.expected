@@ -1,0 +1,9 @@
+1.[T][ ] task 1
+100.[T][ ] task 100
+101.[T][ ] task 101
+Now you have 101 tasks in the list.
+Nice! I've marked this task as done:
+[T][X] task 101
+Now you have 100 tasks in the list.
+1.[T][ ] task 2
+100.[T][X] task 101

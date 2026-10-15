@@ -1,0 +1,9 @@
+The Fates weave on schedule. Use: deadline <desc> /by <when>
+No such task in the pantheon. Use: mark <number>
+No such task in the pantheon. Use: delete <number>
+1.[T][ ] keep
+2.[D][ ] due (by: Dec 02 2019)
+3.[E][ ] meet (from: 10am to: 11am)
+1.[D][X] due (by: Dec 02 2019)
+2.[E][ ] meet (from: 10am to: 11am)
+1.[D][ ] due (by: Dec 02 2019)

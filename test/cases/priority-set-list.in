@@ -1,0 +1,13 @@
+todo buy milk
+deadline submit report /by 2019-10-15
+event project meeting /from 2pm /to 4pm
+priority 1 high
+priority 2 low
+priority 3 medium
+list
+find milk
+priority 3 none
+list
+priority 2 high
+list
+bye

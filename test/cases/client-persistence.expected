@@ -1,0 +1,8 @@
+Here are your clients:
+1.[C] Bob (phone: 91234567)
+2.[C] Odd|Name (email: odd\name@x.com)
+1.[T][ ] buy milk
+Got it. I've removed this client:
+  [C] Bob (phone: 91234567)
+Now you have 1 client in the list.
+1.[C] Odd|Name (email: odd\name@x.com)

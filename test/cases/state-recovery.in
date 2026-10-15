@@ -1,0 +1,13 @@
+todo keep
+deadline due /by 2019-12-02
+event meet /from 10am /to 11am
+deadline broken
+mark 99
+delete 99
+list
+mark 2
+delete 1
+list
+unmark 1
+list
+bye

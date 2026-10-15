@@ -1,0 +1,5 @@
+Name your labour, mortal: todo <desc>
+The Fates weave on schedule. Use: deadline <desc> /by <when>
+Even Icarus launched from somewhere. Use: event <desc> /from <start> /to <end>
+Icarus never planned a landing either. Use: event <desc> /from <start> /to <end>
+Your list is empty.

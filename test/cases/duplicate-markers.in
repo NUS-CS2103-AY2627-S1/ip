@@ -1,0 +1,9 @@
+todo seed
+event a /from 1pm /from 2pm /to 3pm
+event b /from 1pm /to 2pm /to 3pm
+deadline d /by 2026-09-01 /by 2026-09-02
+client add Bob /phone 1 /phone 2
+client add Ann /email a@b.com /email c@d.com
+list
+client list
+bye

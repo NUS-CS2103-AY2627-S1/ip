@@ -1,0 +1,4 @@
+event ritual /from /to 4pm
+event /from /to 4pm
+list
+bye

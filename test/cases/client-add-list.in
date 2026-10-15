@@ -1,0 +1,6 @@
+client add Bob
+client add Mary Jane /phone 91234567
+client add Chen Wei /email wei@example.com
+client add Dara /phone 8123 4567 /email dara@example.com
+client list
+bye

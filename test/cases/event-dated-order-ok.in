@@ -1,0 +1,8 @@
+event same-day later hour /from 2026-12-01 1400 /to 2026-12-01 1600
+event day-first same day /from 18/9/2026 1000am /to 18/9/2026 1200pm
+event past midnight /from 2026-12-01 2300 /to 2026-12-02 0100
+event same date no hours /from 2026-12-01 /to 2026-12-01
+event clock only /from 2pm /to 1pm
+event free text /from 7pm at marina /to later that night
+list
+bye

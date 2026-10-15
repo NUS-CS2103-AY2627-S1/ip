@@ -1,0 +1,10 @@
+Here are the matching clients:
+1.[C] Mary Jane (email: mary@x.com)
+The Oracle found no matching clients.
+Got it. I've removed this client:
+  [C] Mary Jane (email: mary@x.com)
+Now you have 2 clients in the list.
+1.[C] Bob (phone: 91234567)
+2.[C] Chen Wei (phone: 8123)
+1.[T][ ] buy milk
+No such client in the pantheon. Use: client delete <number>

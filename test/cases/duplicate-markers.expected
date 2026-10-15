@@ -1,0 +1,8 @@
+One departure is enough, mortal. Use: event <desc> /from <start> /to <end>
+One landing is enough, mortal. Use: event <desc> /from <start> /to <end>
+One reckoning is enough, mortal. Use: deadline <desc> /by <when>
+One number is enough, mortal. Use: client add <name> [/phone <number>] [/email <address>]
+One address is enough, mortal. Use: client add <name> [/phone <number>] [/email <address>]
+1.[T][ ] seed
+Your client list is empty.
+Goodbye. Atlas signing off. See you soon!

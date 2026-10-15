@@ -1,0 +1,8 @@
+event badday /from 32/9/2026 /to 1/10/2026
+event badfeb /from 31/2/2026 /to 1/3/2026
+event badiso /from 2026-02-30 /to 2026-03-01
+event badmonth /from 13/13/2026 /to 1/1/2027
+event leap /from 29/2/2024 /to 1/3/2024
+event noleap /from 29/2/2026 /to 1/3/2026
+list
+bye

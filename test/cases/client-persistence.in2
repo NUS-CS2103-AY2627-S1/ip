@@ -1,0 +1,5 @@
+client list
+list
+client delete 1
+client list
+bye

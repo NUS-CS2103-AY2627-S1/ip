@@ -1,0 +1,19 @@
+Got it. I've added this task:
+  [T][ ] buy milk
+  [D][ ] submit report (by: Oct 15 2019)
+  [E][ ] project meeting (from: 2pm to: 4pm)
+Now you have 3 tasks in the list.
+Noted. I've ranked this task:
+  [T][ ][HIGH] buy milk
+  [E][ ][LOW] project meeting (from: 2pm to: 4pm)
+  [D][ ][MEDIUM] submit report (by: Oct 15 2019)
+Got it. I've added this client:
+  [C] Bob (phone: 91234567)
+Now you have 1 client in the list.
+1.[T][ ][HIGH] buy milk
+2.[D][ ][MEDIUM] submit report (by: Oct 15 2019)
+3.[E][ ][LOW] project meeting (from: 2pm to: 4pm)
+1.[C] Bob (phone: 91234567)
+Noted. I've cleared this task's rank:
+  [T][ ] buy milk
+1.[T][ ] buy milk

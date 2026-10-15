@@ -1,0 +1,11 @@
+todo buy milk
+client add Bob /phone 91234567
+client add Mary Jane /email mary@x.com
+client add Chen Wei /phone 8123
+client find x.com
+client delete 2
+client list
+list
+client delete abc
+client find zzz
+bye

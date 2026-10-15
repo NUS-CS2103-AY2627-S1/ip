@@ -1,0 +1,4 @@
+client add Bob /phone 91234567
+client add Odd|Name /email odd\name@x.com
+todo buy milk
+bye

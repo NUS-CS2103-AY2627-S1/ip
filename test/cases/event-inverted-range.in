@@ -1,0 +1,10 @@
+event x /from 2026-12-01 /to 2026-11-01
+event y /from 2026-12-01 1400 /to 2026-11-01 1400
+event z /from 2026-12-01 1400 /to 2026-12-01 1000
+event w /from 2026-12-01 1400 /to 2026-12-01 1400
+event v /from 18/9/2026 1000am /to 17/9/2026 1000am
+event u /from 1-12-2026 1400 /to 1-12-2026 1300
+event q /from 18/9/2026 1000am /to 18/9/2026 1000am
+event r /from 18/9/2026 1000am /to 18/9/2026 0900am
+list
+bye

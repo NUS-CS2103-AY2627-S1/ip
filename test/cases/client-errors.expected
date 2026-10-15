@@ -1,0 +1,8 @@
+The Oracle is silent on that client command. Use: client add <name> [/phone <number>] [/email <address>], client list, client find <keyword>, client delete <number>
+Name your client, mortal: client add <name> [/phone <number>] [/email <address>]
+A number must follow /phone. Use: client add <name> [/phone <number>] [/email <address>]
+An address must follow /email. Use: client add <name> [/phone <number>] [/email <address>]
+Which client shall I release? Use: client delete <number>
+No such client in the pantheon. Use: client delete <number>
+Whom shall I seek, mortal? Use: client find <keyword>
+Your client list is empty.
