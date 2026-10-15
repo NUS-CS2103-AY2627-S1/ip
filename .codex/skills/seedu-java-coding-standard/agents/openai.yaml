@@ -1,0 +1,4 @@
+interface:
+  display_name: "SE-EDU Java Coding Standard"
+  short_description: "Apply the SE-EDU Java coding standard used by CS2103/T."
+  default_prompt: "Apply the SE-EDU Java coding standard to this project."

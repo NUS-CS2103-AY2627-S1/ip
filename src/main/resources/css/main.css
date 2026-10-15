@@ -1,0 +1,69 @@
+.root {
+    -fx-background-color: #f5f7fb;
+    -fx-background-image: url("../images/StarrySky.png");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.title-bar {
+    -fx-background-color: rgba(248, 250, 252, 0.95);
+    -fx-border-color: transparent transparent #d8e0ec transparent;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 8px 12px;
+    -fx-spacing: 8px;
+}
+
+.app-title {
+    -fx-font: bold 17px "Arial";
+    -fx-text-fill: #0f172a;
+}
+
+.app-tagline {
+    -fx-font: 12px "Arial";
+    -fx-text-fill: #64748b;
+}
+
+#dialogContainer {
+    -fx-padding: 10px 4px 10px 4px;
+}
+
+.input-bar {
+    -fx-background-color: rgba(248, 250, 252, 0.96);
+    -fx-border-color: #d8e0ec transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 8px;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #c7d2e0;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-font: 15px "Arial";
+    -fx-prompt-text-fill: #64748b;
+}
+
+.button {
+    -fx-background-color: #2563eb;
+    -fx-background-radius: 6px;
+    -fx-text-fill: white;
+    -fx-font: bold 14px "Arial";
+}
+
+.button:hover {
+    -fx-background-color: #1d4ed8;
+}
+
+.button:disabled,
+.text-field:disabled {
+    -fx-opacity: 0.6;
+}
