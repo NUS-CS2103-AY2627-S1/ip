@@ -1,0 +1,88 @@
+.root {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-background-color: #f7efe0;
+    -fx-background-image: url("../images/background.png");
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+}
+
+/* Header */
+
+.header {
+    -fx-background-color: rgba(250, 245, 234, 0.94);
+    -fx-border-color: transparent transparent #d5c8ac transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.header-copy {
+    -fx-padding: 0 0 1px 0;
+}
+
+.header-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1f2933;
+}
+
+.header-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #53636f;
+}
+
+/* Conversation */
+
+.scroll-pane,
+.scroll-pane .viewport,
+#dialogContainer {
+    -fx-background-color: transparent;
+}
+
+#dialogContainer {
+    -fx-fill-width: true;
+    -fx-spacing: 4px;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: rgba(250, 245, 234, 0.78);
+}
+
+/* Input */
+.input-area {
+    -fx-background-color: rgba(250, 245, 234, 0.96);
+    -fx-border-color: #d5c8ac transparent transparent transparent;
+    -fx-border-width: 1px 0 0 0;
+}
+
+.text-field {
+    -fx-background-color: #fffdf8;
+    -fx-border-color: #cbbd9e;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 12px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #1f2933;
+    -fx-prompt-text-fill: #7b8790;
+}
+
+.text-field:focused {
+    -fx-border-color: #4d748d;
+}
+
+/* Send button */
+
+.button {
+    -fx-background-color: #4d748d;
+    -fx-background-radius: 8px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #42657c;
+}
+
+.button:pressed {
+    -fx-background-color: #304d62;
+}

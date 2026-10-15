@@ -1,0 +1,3 @@
+interface:
+  display_name: "Test Ui"
+  short_description: "Run command-line Ui tests and record transcripts"

@@ -1,25 +1,114 @@
-# Duke project template
+# Gnaix
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Gnaix is a Java/JavaFX task-management assistant for tracking todos,
+deadlines, events, dates, search results, and tags.
 
-## Setting up in Intellij
+```text
+  ____ _   _    _    _____  __
+ / ___| \ | |  / \  |_ _\ \/ /
+| |  _|  \| | / _ \  | | \  /
+| |_| | |\  |/ ___ \ | | /  \
+ \____|_| \_/_/   \_\___/_/\_\
+```
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+## Requirements
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+- JDK 25
+- Gradle wrapper included in this repository
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## Running the application
+
+To run the JavaFX GUI:
+
+```bash
+./gradlew run
+```
+
+On Windows:
+
+```bash
+.\gradlew.bat run
+```
+
+To build the executable JAR:
+
+```bash
+./gradlew build
+```
+
+On Windows:
+
+```bash
+.\gradlew.bat build
+```
+
+The shaded executable JAR is generated at:
+
+```text
+build/libs/gnaix.jar
+```
+
+Run it with:
+
+```bash
+java -jar build/libs/gnaix.jar
+```
+
+## Commands
+
+| Command | Example |
+| --- | --- |
+| Add a todo | `todo read notes` |
+| Add a deadline | `deadline submit quiz /by 2026-09-10` |
+| Add an event | `event team meeting /from 2026-09-15 1000 /to 2026-09-15 1100` |
+| List tasks | `list` |
+| Mark done | `mark 1` |
+| Unmark | `unmark 1` |
+| Delete | `delete 1` |
+| Find by keyword | `find quiz` |
+| Find by date | `date 2026-09-10` |
+| Find by tag | `tag #school #urgent` |
+| Exit | `bye` |
+
+Tags can be added to todos, deadlines, and events by placing them at the end
+of the command, such as:
+
+```text
+todo revise CS2103T #school #urgent
+```
+
+## Testing
+
+Run the automated tests:
+
+```bash
+./gradlew clean test
+```
+
+Run Checkstyle:
+
+```bash
+./gradlew checkstyleMain checkstyleTest
+```
+
+Run the full build:
+
+```bash
+./gradlew build
+```
+
+## Project structure
+
+- `src/main/java/gnaix`: application, parser, storage, GUI, and command logic
+- `src/main/java/gnaix/task`: task model classes
+- `src/main/resources`: JavaFX FXML, CSS, and image resources
+- `src/test/java`: JUnit tests
+- `docs`: user-facing and feature documentation
+
+Keep `src/main/java` as the Java source root so Gradle and the IDE can locate
+the source files correctly.
+
+## Credits
+
+Character-style GUI images are credited to *Family Guy* and used for this
+non-commercial educational project.
