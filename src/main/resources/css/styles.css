@@ -1,0 +1,89 @@
+.root {
+    -fx-background-color: #1E1F22;
+}
+.scroll-pane {
+    -fx-background-color: #1E1F22;
+    -fx-background-inline: #1E1F22;
+}
+.scroll-pane .viewport {
+    -fx-background-color: #1E1F22;
+}
+
+.dialog-box {
+    -fx-padding: 14px;
+    -fx-spacing: 14px;
+}
+
+.user-label {
+    -fx-background-color: #5865F2;
+    -fx-background-radius: 18px 18px 2px 18px;
+    -fx-padding: 10px 16px 10px 16px;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.2), 4, 0, 0, 2);
+}
+
+.chatbot-label {
+    -fx-background-color: #2B2D31;
+    -fx-background-radius: 18px 18px 18px 2px;
+    -fx-padding: 10px 16px 10px 16px;
+    -fx-text-fill: #DBDEE1;
+    -fx-font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.15), 6, 0, 0, 2);
+}
+
+.text-field {
+    -fx-background-color: #383A40;
+    -fx-background-radius: 20px;
+    -fx-border-color: #383A40;
+    -fx-border-radius: 20px;
+    -fx-padding: 10px 16px 10px 16px;
+    -fx-font-family: "Inter", "Helvetica Neue", sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #F2F3F5;
+}
+.text-field:focused {
+    -fx-border-color: #5865F2;
+}
+
+.button {
+    -fx-background-color: #383A40;
+    -fx-background-radius: 20px;
+    -fx-text-fill: #B5BAC1;
+    -fx-font-family: "Inter", "Helvetica Neue", sans-serif;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-pref-height: 38px;
+    -fx-alignment: center;
+}
+.button:hover {
+    -fx-background-color: #404249;
+    -fx-text-fill: #FFFFFF;
+}
+
+.error-label {
+    -fx-background-color: #942B2B;
+    -fx-background-radius: 18px 18px 18px 2px;
+    -fx-padding: 10px 16px 10px 16px;
+    -fx-text-fill: #FFD2D2;
+    -fx-font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.25), 6, 0, 0, 2);
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: #1E1F22;
+}
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #2B2D31;
+    -fx-background-radius: 4px;
+}
+.scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #383A40;
+}
