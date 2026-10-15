@@ -1,0 +1,77 @@
+.root {
+    -fx-background-color:
+            radial-gradient(center 18% 18%, radius 58%, rgba(236, 72, 153, 0.45), transparent),
+            radial-gradient(center 82% 75%, radius 65%, rgba(59, 130, 246, 0.50), transparent),
+            linear-gradient(to bottom right, #160b35, #24115c 46%, #101d4f 72%, #4c174f);
+    -fx-font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport,
+.dialog-container {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-insets: 0;
+    -fx-border-color: rgba(226, 232, 255, 0.22);
+    -fx-border-radius: 16px;
+    -fx-background-radius: 16px;
+    -fx-padding: 4px;
+}
+
+.dialog-container {
+    -fx-padding: 8px 4px 12px 4px;
+}
+
+.text-field {
+    -fx-background-color: rgba(247, 244, 255, 0.94);
+    -fx-background-radius: 14px;
+    -fx-border-color: rgba(216, 180, 254, 0.75);
+    -fx-border-radius: 14px;
+    -fx-border-width: 1px;
+    -fx-font-size: 14px;
+    -fx-padding: 0 14px;
+    -fx-prompt-text-fill: #75658f;
+    -fx-text-fill: #21123f;
+}
+
+.text-field:focused {
+    -fx-border-color: #f0abfc;
+    -fx-effect: dropshadow(gaussian, rgba(232, 121, 249, 0.45), 10, 0.2, 0, 0);
+}
+
+.button {
+    -fx-background-color: linear-gradient(to bottom right, #8b5cf6, #ec4899);
+    -fx-background-radius: 14px;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom right, #a78bfa, #f472b6);
+    -fx-effect: dropshadow(gaussian, rgba(236, 72, 153, 0.45), 10, 0.2, 0, 2);
+}
+
+.button:pressed {
+    -fx-background-color: linear-gradient(to bottom right, #7c3aed, #db2777);
+    -fx-translate-y: 1px;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: linear-gradient(to bottom, #a78bfa, #f472b6);
+    -fx-background-radius: 8px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}
