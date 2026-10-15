@@ -1,0 +1,114 @@
+.root {
+    -doe-cream: #f7f0dc;
+    -doe-paper: #fffaf0;
+    -doe-sage: #778957;
+    -doe-olive: #526236;
+    -doe-brown: #4a2d1b;
+    -doe-peach: #e9a65d;
+    -fx-background-color: -doe-cream;
+    -fx-font-family: "Menlo", "Monaco", "Courier New", monospace;
+}
+
+#terminal {
+    -fx-background-color: linear-gradient(to bottom, #fffaf0, #f4ecd5);
+    -fx-border-color: -doe-olive;
+    -fx-border-width: 3px;
+}
+
+.terminal-header {
+    -fx-background-color: #f4ecd5;
+    -fx-border-color: transparent transparent -doe-sage transparent;
+    -fx-border-width: 0 0 2px 0;
+}
+
+.terminal-title {
+    -fx-text-fill: -doe-olive;
+    -fx-font-size: 23px;
+    -fx-font-weight: bold;
+}
+
+.ascii-panel {
+    -fx-background-color: #fffaf0;
+}
+
+.chat-scroll {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.chat-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: #ece4c9;
+    -fx-pref-width: 14px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #9aa678;
+    -fx-background-radius: 0;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: #ece4c9;
+}
+
+.command-bar {
+    -fx-background-color: #fffaf0;
+    -fx-border-color: -doe-sage;
+    -fx-border-width: 2px;
+}
+
+.prompt-symbol {
+    -fx-text-fill: -doe-olive;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+.command-input {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: -doe-brown;
+    -fx-prompt-text-fill: #8f856d;
+    -fx-font-size: 19px;
+}
+
+.send-button {
+    -fx-background-color: #f7c783;
+    -fx-border-color: #c77a2b;
+    -fx-border-width: 2px;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-text-fill: -doe-brown;
+    -fx-font-size: 21px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: #efb363;
+}
+
+.send-button:pressed {
+    -fx-background-color: #dfa053;
+    -fx-translate-y: 1px;
+}
+
+.root:compact .terminal-title {
+    -fx-font-size: 18px;
+}
+
+.root:compact .terminal-header {
+    -fx-padding: 10px 14px;
+}
+
+.root:compact .command-bar {
+    -fx-padding: 8px;
+}
+
+.root:compact .command-input,
+.root:compact .send-button {
+    -fx-font-size: 16px;
+}

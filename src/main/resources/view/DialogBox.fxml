@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308"
+         minWidth="0.0" minHeight="-Infinity" maxWidth="1.7976931348623157E308" prefWidth="540.0"
+         stylesheets="@../css/dialog-box.css" type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox minWidth="0.0" styleClass="message-card">
+            <children>
+                <HBox alignment="CENTER_LEFT" styleClass="message-header">
+                    <children>
+                        <Label fx:id="speaker" text="YOU" styleClass="speaker-label" />
+                        <Label fx:id="timestamp" text="10:25 AM" styleClass="timestamp-label">
+                            <HBox.hgrow><Priority fx:constant="ALWAYS" /></HBox.hgrow>
+                        </Label>
+                    </children>
+                    <padding><Insets bottom="7.0" left="12.0" right="12.0" top="7.0" /></padding>
+                </HBox>
+                <Label fx:id="dialog" minWidth="0.0" minHeight="-Infinity"
+                       maxWidth="1.7976931348623157E308" text="Label" wrapText="true"
+                       styleClass="message-text">
+                    <padding><Insets bottom="14.0" left="12.0" right="12.0" top="13.0" /></padding>
+                </Label>
+            </children>
+            <HBox.hgrow><Priority fx:constant="ALWAYS" /></HBox.hgrow>
+        </VBox>
+        <ImageView fx:id="displayPicture" fitHeight="88.0" fitWidth="88.0"
+                   pickOnBounds="true" preserveRatio="true" styleClass="avatar" />
+    </children>
+    <padding><Insets bottom="10.0" left="4.0" right="4.0" top="10.0" /></padding>
+    <spacing>12.0</spacing>
+</fx:root>

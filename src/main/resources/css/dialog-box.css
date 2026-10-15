@@ -1,0 +1,70 @@
+.root {
+    -fx-font-family: "Menlo", "Monaco", "Courier New", monospace;
+}
+
+.message-card {
+    -fx-background-color: rgba(255, 250, 240, 0.78);
+    -fx-border-color: #7d8c5b;
+    -fx-border-width: 2px;
+}
+
+.message-header {
+    -fx-border-color: transparent transparent #9aa678 transparent;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.speaker-label {
+    -fx-text-fill: #4a2d1b;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.doe-dialog .speaker-label {
+    -fx-font-size: 16px;
+}
+
+.timestamp-label {
+    -fx-text-fill: #68774a;
+    -fx-font-size: 12px;
+    -fx-alignment: center-right;
+    -fx-max-width: Infinity;
+}
+
+.message-text {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4a2d1b;
+    -fx-font-size: 16px;
+    -fx-line-spacing: 3px;
+}
+
+.avatar {
+    -fx-effect: dropshadow(one-pass-box, rgba(74, 45, 27, 0.22), 0, 0, 2, 2);
+}
+
+.user-dialog .message-card {
+    -fx-background-color: #fff0dd;
+    -fx-border-color: #d8893e;
+}
+
+.user-dialog .message-header {
+    -fx-border-color: transparent transparent #e4a665 transparent;
+}
+
+.user-dialog .speaker-label,
+.user-dialog .timestamp-label {
+    -fx-text-fill: #b96325;
+}
+
+.warning-dialog .message-card {
+    -fx-background-color: #fff4d6;
+    -fx-border-color: #c77a2b;
+}
+
+.warning-dialog .message-header {
+    -fx-border-color: transparent transparent #e4a665 transparent;
+}
+
+.warning-dialog .speaker-label,
+.warning-dialog .timestamp-label {
+    -fx-text-fill: #9a4f18;
+}
