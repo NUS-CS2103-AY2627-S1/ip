@@ -1,0 +1,91 @@
+.label {
+    -fx-background-color: linear-gradient(to bottom right, #5dcdcb, #7bc1e4);
+    -fx-border-color: #7bc1e4;
+    -fx-border-width: 2px;
+    -fx-background-radius: 8px 0 0 8px;
+    -fx-border-radius: 8px 0 0 8px;
+    -fx-text-fill: #101d3b;
+    -fx-font-family: "Consolas", "Menlo", "Courier New", monospace;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(123, 193, 228, 0.55), 8, 0.3, 0, 0);
+}
+
+.banner-label {
+    -fx-border-width: 2px;
+    -fx-background-color: #5dcdcb;
+    -fx-border-color: #f2a23e;
+    -fx-background-radius: 5px 14px 14px 5px;
+    -fx-border-radius: 5px 14px 14px 5px;
+    -fx-font-family: "Consolas", "Menlo", "Courier New", monospace;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(242, 162, 62, 0.55), 8, 0.3, 0, 0);
+}
+
+.help-label {
+    -fx-background-color: #f2f2e8;
+    -fx-border-color: #5dcdcb;
+    -fx-text-fill: #32527f;
+    -fx-background-radius: 5px 14px 14px 5px;
+    -fx-border-radius: 5px 14px 14px 5px;
+    -fx-font-family: "Consolas", "Menlo", "Courier New", monospace;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(93, 205, 203, 0.45), 8, 0.3, 0, 0);
+}
+
+.reply-label {
+    -fx-background-color: linear-gradient(to bottom right, #7bc1e4, #f2a23e);
+    -fx-background-radius: 0 8px 8px 0;
+    -fx-border-radius: 0 8px 8px 0;
+    -fx-border-color: #5dcdcb;
+    -fx-effect: dropshadow(gaussian, rgba(93, 205, 203, 0.55), 8, 0.3, 0, 0);
+}
+
+.reply-label .text {
+    -fx-fill: #101d3b;
+    -fx-font-family: "Consolas", "Menlo", "Courier New", monospace;
+    -fx-font-weight: bold;
+}
+
+.error-label {
+    -fx-background-color: linear-gradient(to bottom right, #7bc1e4, #f2a23e);
+    -fx-border-color: #A01A7D;
+    -fx-border-width: 2px;
+    -fx-background-radius: 0 8px 8px 0;
+    -fx-border-radius: 0 8px 8px 0;
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(229, 53, 40, 0.85), 12, 0.4, 0, 0);
+}
+
+.error-label .text {
+    -fx-fill: #101d3b;
+    -fx-font-family: "Consolas", "Menlo", "Courier New", monospace;
+    -fx-font-weight: bold;
+}
+
+.dialog-text {
+    -fx-fill: #101d3b;
+    -fx-font-family: "Consolas", "Menlo", "Courier New", monospace;
+    -fx-font-weight: bold;
+}
+
+.error-highlight {
+    -fx-fill: #A01A7D;
+    -fx-font-weight: bold;
+    -fx-underline: true;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+
