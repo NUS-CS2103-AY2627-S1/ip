@@ -1,0 +1,103 @@
+.root {
+    -fx-background-color: #f7f5eb;
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+    -fx-focus-color: #668568;
+    -fx-faint-focus-color: transparent;
+}
+
+.label {
+    -fx-text-fill: #294536;
+}
+
+.garden-emblem {
+    -fx-background-color: #dce8d3;
+    -fx-background-radius: 16px;
+}
+
+.sprout {
+    -fx-fill: #426449;
+}
+
+.app-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.app-subtitle,
+.input-hint {
+    -fx-text-fill: #596d58;
+    -fx-font-size: 12px;
+}
+
+.text-field {
+    -fx-background-color: #fffdf7;
+    -fx-background-radius: 14px;
+    -fx-border-color: #acbda4;
+    -fx-border-radius: 14px;
+    -fx-padding: 10px 12px;
+    -fx-text-fill: #294536;
+    -fx-prompt-text-fill: #687663;
+    -fx-highlight-fill: #dce8d3;
+    -fx-highlight-text-fill: #294536;
+}
+
+.text-field:focused {
+    -fx-border-color: #426449;
+}
+
+.button {
+    -fx-background-color: #48684c;
+    -fx-background-radius: 14px;
+    -fx-text-fill: #fffdf7;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #3c5940;
+}
+
+.button:pressed {
+    -fx-background-color: #2c4430;
+}
+
+.button:focused {
+    -fx-border-color: #294536;
+    -fx-border-radius: 14px;
+    -fx-border-insets: -3px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-padding: 0;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-pref-width: 9px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #b0c1a5;
+    -fx-background-radius: 8px;
+}
+
+.scroll-bar .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-padding: 0;
+    -fx-opacity: 0;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-padding: 0;
+}

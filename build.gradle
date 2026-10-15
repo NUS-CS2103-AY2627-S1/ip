@@ -1,0 +1,110 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+    id 'checkstyle'
+    id 'jacoco'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    String javaFxVersion = '17.0.7'
+
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-base:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-controls:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-fxml:${javaFxVersion}:linux")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:win")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:mac")
+    implementation("org.openjfx:javafx-graphics:${javaFxVersion}:linux")
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+    // Storage requires relative paths, so JUnit temporary files must share the project's drive.
+    def testTempDirectory = layout.buildDirectory.dir('tmp/tests').get().asFile
+    systemProperty 'java.io.tmpdir', testTempDirectory.absolutePath
+    doFirst {
+        testTempDirectory.mkdirs()
+    }
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'jassabot.Launcher'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'jassabot.jar'
+}
+
+run {
+    standardInput = System.in
+}
+
+checkstyle {
+    toolVersion = '14.1.0'
+}
+
+// Keep the original text interface available alongside the default GUI.
+tasks.register('runConsole', JavaExec) {
+    group = 'application'
+    description = 'Runs JassaBot in the console.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'jassabot.JassaBot'
+    standardInput = System.in
+}
+
+jacoco {
+    toolVersion = '0.8.14'
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        html.required = true
+        xml.required = true
+    }
+    // Exclude JavaFX rendering and launchers; see test/manual-test-plan.md.
+    classDirectories.setFrom(sourceSets.main.output.asFileTree.matching {
+        exclude 'jassabot/Main.class', 'jassabot/Launcher.class',
+                'jassabot/MainWindow.class', 'jassabot/DialogBox.class'
+    })
+}

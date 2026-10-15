@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="680.0" prefWidth="520.0"
+            stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="jassabot.MainWindow">
+    <children>
+        <HBox alignment="CENTER_LEFT" spacing="14.0" styleClass="garden-header"
+              AnchorPane.topAnchor="18.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+            <children>
+                <StackPane minWidth="44.0" prefWidth="44.0" minHeight="44.0" prefHeight="44.0"
+                           maxHeight="44.0" styleClass="garden-emblem">
+                    <children>
+                        <SVGPath styleClass="sprout" content="M11 22 V13 C5 14 1 10 2 4 C8 3 12 7 12 11 C12 5 16 1 22 2 C23 8 19 12 13 12 V22 Z" />
+                    </children>
+                </StackPane>
+                <VBox alignment="CENTER_LEFT" spacing="3.0">
+                    <children>
+                        <Label text="JassaBot" styleClass="app-title" />
+                        <Label text="A little progress, a little growth." styleClass="app-subtitle" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" vvalue="1.0"
+                    AnchorPane.topAnchor="90.0" AnchorPane.bottomAnchor="100.0"
+                    AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+            <content>
+                <VBox fx:id="dialogContainer" fillWidth="true" />
+            </content>
+        </ScrollPane>
+        <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="44.0"
+                   promptText="Type a command, or help" accessibleText="Command input"
+                   AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="108.0" />
+        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput"
+                prefHeight="44.0" prefWidth="76.0" text="Send"
+                AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="20.0" />
+        <Label text="One task at a time. Press Enter to send." styleClass="input-hint"
+               AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="22.0" />
+    </children>
+</AnchorPane>
