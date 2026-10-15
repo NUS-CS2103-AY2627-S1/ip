@@ -1,0 +1,12 @@
+{
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-25",
+      "path": "/Users/foongyueru/.sdkman/candidates/java/25.0.3.fx-zulu",
+      "default": true
+    }
+  ],
+  "java.import.gradle.java.home": "/Users/foongyueru/.sdkman/candidates/java/25.0.3.fx-zulu",
+  "java.import.gradle.wrapper.enabled": true,
+  "java.configuration.updateBuildConfiguration": "automatic"
+}
