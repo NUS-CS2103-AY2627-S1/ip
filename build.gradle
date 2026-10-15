@@ -1,0 +1,124 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
+javafx {
+    version = '21.0.7'
+    modules = ['javafx.controls']
+}
+
+repositories {
+    mavenCentral()
+}
+
+// Every platform's JavaFX native libraries, so shadowJar (see below) can bundle them
+// all into one cross-platform fat jar, instead of only the one Gradle happened to run
+// on. The 'javafx' block above already resolves the *current* platform's javafx onto
+// the normal runtime classpath, which is all the local run/runGui/test tasks need.
+//
+// A single Configuration can't hold more than one platform classifier of the same
+// module (org.openjfx publishes them as alternatives for the same capability, so
+// Gradle rejects asking for two at once), so this creates one configuration per
+// platform instead - each resolves cleanly on its own - purely to feed shadowJar.
+//
+// JavaFX 21.0.7 publishes four platform classifiers: win, mac, mac-aarch64, and linux
+// (no linux-aarch64 for this version). "mac" (Intel) is deliberately left out: its
+// native libraries (e.g. libglass.dylib) share the exact same path inside the jar as
+// mac-aarch64's, so shadowJar can only keep one - and Apple has sold Apple Silicon
+// Macs exclusively since 2023, so mac-aarch64 covers far more current machines.
+List<String> javafxPlatforms = ['win', 'mac-aarch64', 'linux']
+Map<String, Configuration> javafxPlatformConfigurations = javafxPlatforms.collectEntries { platform ->
+    String configurationName = 'javafx' + platform.split('-').collect { it.capitalize() }.join('')
+    [(platform): configurations.create(configurationName)]
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javafxVersion = '21.0.7'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    javafxPlatforms.each { platform ->
+        String configurationName = javafxPlatformConfigurations[platform].name
+        ['javafx-base', 'javafx-graphics', 'javafx-controls'].each { module ->
+            // transitive = false: each module is added explicitly below anyway, and
+            // without this, resolving e.g. javafx-controls would also try to resolve
+            // its transitive dependency on javafx-graphics *without* a platform
+            // classifier attached, which is ambiguous once more than one platform's
+            // artifacts are candidates.
+            add(configurationName, "org.openjfx:${module}:${javafxVersion}:${platform}") {
+                transitive = false
+            }
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass = 'jeff.Jeff'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'jeff.jar'
+    configurations = [project.configurations.runtimeClasspath] + javafxPlatformConfigurations.values()
+    // The distributable jar launches the GUI by default (its whole point is being
+    // double-clickable on any machine with Java 25), unlike the 'application' plugin's
+    // mainClass above, which './gradlew run' uses to launch the console version. The
+    // console version is still reachable from the jar via
+    // `java -cp jeff.jar jeff.Jeff`.
+    manifest {
+        attributes 'Main-Class': 'jeff.gui.Main'
+    }
+}
+
+run {
+    standardInput = System.in
+    // The JVM ignores `assert` statements unless assertions are explicitly enabled, so
+    // turn them on here; otherwise the assertions added throughout the code would never
+    // actually run when launched via Gradle.
+    enableAssertions = true
+}
+
+tasks.register('runGui', JavaExec) {
+    group = 'application'
+    description = 'Runs the JavaFX GUI for Jeff.'
+    mainClass = 'jeff.gui.Main'
+    classpath = sourceSets.main.runtimeClasspath
+    enableAssertions = true
+}

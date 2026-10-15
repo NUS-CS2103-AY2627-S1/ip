@@ -8,21 +8,43 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Student profile
 
-* Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+- Prior knowledge: Basic Java and OOP concepts.
+- Level of programming experience: Intermediate
+- IDE and level of expertise: Intermediate
 
 # Guidance for interacting with users
 
-* Explain the rationale for significant actions: what you did and why.
-* Keep explanations brief but instructive, supporting learning through responsible use of AI. For example:
-
-  * When suggesting a Git command, briefly explain what it does.
-  * Add explanatory Javadoc comments to all classes and to nontrivial methods and fields when their purpose or behavior is not obvious.
-  * Make generated code as self-explanatory as possible, and include explanatory comments where they improve understanding.
-  * When faced with a design choice, choose the simplest option that is sufficient for the requirements, while briefly explaining relevant more advanced alternatives.
+- Explain the rationale for significant actions: what you did and why.
+- Keep explanations brief but instructive, supporting learning through responsible use of AI. For example:
+  - When suggesting a Git command, briefly explain what it does.
+  - Add explanatory Javadoc comments to all classes and to nontrivial methods and fields when their purpose or behavior is not obvious.
+  - Make generated code as self-explanatory as possible, and include explanatory comments where they improve understanding.
+  - When faced with a design choice, choose the simplest option that is sufficient for the requirements, while briefly explaining relevant more advanced alternatives.
 
 # Project-specific requirements
+
+## Coding and Git conventions
+
+Follow the [SE-EDU Java coding standard](https://se-education.org/guides/conventions/java/intermediate.html)
+for every Java edit in this repository. In particular:
+
+- Put every class in a meaningful, lowercase package.
+- Use PascalCase for classes, camelCase for variables and methods, and
+  SCREAMING_SNAKE_CASE for constants.
+- Use four spaces for indentation, K&R braces, spaces around operators, and
+  keep lines within 120 characters where practical.
+- Use explicit, consistently ordered imports and avoid wildcard imports.
+- Initialize variables at declaration when possible, keep them in the smallest
+  possible scope, and always use braces for loops and conditionals.
+- Add descriptive English Javadoc to public classes and public methods, except
+  where the standard permits omitting it.
+
+Follow the [SE-EDU Git conventions](https://se-education.org/guides/conventions/git.html)
+for every commit message and branch name. Commit subjects must be imperative,
+capitalized, free of a trailing period, and no longer than 72 characters
+(preferably 50). Non-trivial commits must include a body separated by a blank
+line, wrapped at 72 characters, explaining what changed and why. Use meaningful
+kebab-case branch names, or the issue-number format when applicable.
 
 ## Java version:
 

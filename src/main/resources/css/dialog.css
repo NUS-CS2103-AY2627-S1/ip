@@ -1,0 +1,97 @@
+/*
+ * Styles for Jeff's message-page-style GUI: chat bubbles for the transcript
+ * (jeff.gui.DialogBox) and the text bar used to type commands (jeff.gui.MainApp).
+ */
+
+.root {
+    -fx-background-color: #eef1fb;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.transcript-scroll,
+.transcript-scroll .viewport {
+    -fx-background-color: transparent;
+}
+
+/* The header bar at the top of the window: Jeff's avatar, name, and tagline. */
+.app-header {
+    -fx-background-color: linear-gradient(to right, #4f46e5, #3b82f6);
+    -fx-padding: 14 18 14 18;
+}
+
+.app-title {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.app-subtitle {
+    -fx-text-fill: #dbe3ff;
+    -fx-font-size: 11px;
+}
+
+/* Jeff's ordinary replies: a neutral bubble, with a colored accent stripe, that
+ * reads as "incoming message". */
+.reply-label {
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-padding: 10 14 10 14;
+    -fx-text-fill: #202124;
+    -fx-font-size: 13px;
+    -fx-border-color: #c7d2fe;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-radius: 14;
+}
+
+/* The user's own typed commands: an accent-colored bubble that reads as "outgoing message". */
+.user-label {
+    -fx-background-color: linear-gradient(to right, #4f46e5, #3b82f6);
+    -fx-background-radius: 14;
+    -fx-padding: 10 14 10 14;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+}
+
+/* Error replies (Jeff's "OOPS!!!" messages): visually distinct from ordinary
+ * replies so mistakes catch the user's eye instead of blending into the transcript. */
+.error-label {
+    -fx-background-color: #fdecea;
+    -fx-background-radius: 14;
+    -fx-border-color: #e57373;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 14;
+    -fx-padding: 8.5 12.5 8.5 12.5;
+    -fx-text-fill: #b3261e;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.input-field {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-border-color: #d0d5dd;
+    -fx-border-radius: 20;
+    -fx-padding: 8 14 8 14;
+    -fx-font-size: 13px;
+}
+
+.input-field:focused {
+    -fx-border-color: #3b82f6;
+}
+
+.send-button {
+    -fx-background-color: linear-gradient(to right, #4f46e5, #3b82f6);
+    -fx-background-radius: 20;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 18 8 18;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: linear-gradient(to right, #4338ca, #2563eb);
+}
+
+.send-button:pressed {
+    -fx-background-color: linear-gradient(to right, #3730a3, #1d4ed8);
+}
