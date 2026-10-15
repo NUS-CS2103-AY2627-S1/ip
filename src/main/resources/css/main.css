@@ -1,0 +1,134 @@
+.root {
+    -app-background: #e9edf0;
+    -app-surface: #fffdf7;
+    -app-text: #17212b;
+    -app-muted: #56616d;
+    -app-border: #aeb8c2;
+    -app-primary: #173a5e;
+    -app-accent: #f2b705;
+    -app-accent-hover: #d9a300;
+    -app-focus: #805f00;
+    -app-error: #9e2f2a;
+    -app-error-background: #fff0ed;
+    -fx-font-family: "System";
+    -fx-font-size: 13px;
+}
+
+.app-root,
+.conversation-scroll,
+.conversation-scroll > .viewport,
+.conversation {
+    -fx-background-color: -app-background;
+}
+
+.conversation-scroll {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.conversation-scroll:focused {
+    -fx-background-insets: 0;
+}
+
+.message-row {
+    -fx-padding: 2px 0;
+}
+
+.message-card {
+    -fx-background-color: -app-surface;
+    -fx-background-radius: 3px;
+    -fx-border-color: -app-border;
+    -fx-border-radius: 3px;
+    -fx-border-width: 1px;
+    -fx-padding: 8px 12px;
+    -fx-spacing: 3px;
+}
+
+.bot-message .message-card {
+    -fx-border-color: -app-accent -app-border -app-border -app-accent;
+    -fx-border-width: 1px 1px 1px 4px;
+    -fx-padding: 8px 12px 8px 9px;
+}
+
+.message-sender {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -app-primary;
+}
+
+.message-text {
+    -fx-line-spacing: 2px;
+    -fx-text-fill: -app-text;
+}
+
+.user-message .message-card {
+    -fx-background-color: -app-primary;
+    -fx-border-color: -app-primary;
+}
+
+.user-message .message-text {
+    -fx-text-fill: white;
+}
+
+.error-message .message-card {
+    -fx-background-color: -app-error-background;
+    -fx-border-color: -app-error;
+    -fx-border-width: 1px 1px 1px 4px;
+    -fx-padding: 8px 12px 8px 9px;
+}
+
+.error-message .message-sender,
+.error-message .message-text {
+    -fx-text-fill: -app-error;
+}
+
+.avatar {
+    -fx-effect: dropshadow(gaussian, -app-accent, 2, 0.85, 0, 0);
+    -fx-opacity: 1;
+}
+
+.composer {
+    -fx-background-color: -app-surface;
+    -fx-border-color: -app-accent transparent transparent transparent;
+    -fx-border-width: 3px 0 0 0;
+}
+
+.command-input {
+    -fx-background-color: #f6f8f9;
+    -fx-background-radius: 3px;
+    -fx-border-color: -app-border;
+    -fx-border-radius: 3px;
+    -fx-border-width: 1px;
+    -fx-min-height: 36px;
+    -fx-padding: 7px 10px;
+    -fx-prompt-text-fill: -app-muted;
+    -fx-text-fill: -app-text;
+}
+
+.command-input:focused {
+    -fx-background-color: -app-surface;
+    -fx-border-color: -app-primary;
+    -fx-border-width: 2px;
+    -fx-padding: 6px 9px;
+}
+
+.send-button {
+    -fx-background-color: -app-accent;
+    -fx-background-radius: 3px;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-min-height: 36px;
+    -fx-min-width: 72px;
+    -fx-padding: 7px 14px;
+    -fx-text-fill: -app-text;
+}
+
+.send-button:hover {
+    -fx-background-color: -app-accent-hover;
+}
+
+.send-button:focused {
+    -fx-border-color: -app-focus;
+    -fx-border-radius: 3px;
+    -fx-border-width: 2px;
+}

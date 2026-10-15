@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="620.0"
+            prefWidth="440.0"
+            styleClass="app-root"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="bob.gui.MainWindow">
+    <center>
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    pannable="true"
+                    styleClass="conversation-scroll"
+                    vbarPolicy="AS_NEEDED">
+            <content>
+                <VBox fx:id="dialogContainer"
+                      alignment="TOP_CENTER"
+                      fillWidth="true"
+                      spacing="8.0"
+                      styleClass="conversation">
+                    <padding>
+                        <Insets bottom="12.0" left="12.0" right="12.0" top="12.0" />
+                    </padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER"
+              spacing="8.0"
+              styleClass="composer">
+            <children>
+                <TextField fx:id="userInput"
+                           accessibleText="Task command input"
+                           onAction="#handleUserInput"
+                           promptText="Enter a job command..."
+                           styleClass="command-input"
+                           HBox.hgrow="ALWAYS" />
+                <Button accessibleText="Run task command"
+                        mnemonicParsing="false"
+                        onAction="#handleUserInput"
+                        styleClass="send-button"
+                        text="Run" />
+            </children>
+            <padding>
+                <Insets bottom="8.0" left="12.0" right="12.0" top="8.0" />
+            </padding>
+        </HBox>
+    </bottom>
+</BorderPane>

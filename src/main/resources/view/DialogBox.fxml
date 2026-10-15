@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_LEFT"
+         maxWidth="1.7976931348623157E308"
+         minWidth="0.0"
+         spacing="8.0"
+         styleClass="message-row"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ImageView fx:id="displayPicture"
+                   fitHeight="36.0"
+                   fitWidth="36.0"
+                   pickOnBounds="true"
+                   preserveRatio="true"
+                   styleClass="avatar" />
+        <VBox fx:id="messageContainer"
+              minWidth="0.0"
+              styleClass="message-card"
+              HBox.hgrow="ALWAYS">
+            <children>
+                <Label fx:id="senderLabel"
+                       text="BOB"
+                       styleClass="message-sender" />
+                <Label fx:id="dialog"
+                       maxWidth="1.7976931348623157E308"
+                       minWidth="0.0"
+                       text="Label"
+                       wrapText="true"
+                       styleClass="message-text" />
+            </children>
+        </VBox>
+    </children>
+</fx:root>
