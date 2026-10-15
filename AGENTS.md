@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: ~7 months experience with Java, but decently skilled. 10+ yrs programming experience
+* IDE and level of expertise: Familiar with IntelliJ IDEA
 
 # Guidance for interacting with users
 
@@ -28,8 +28,18 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
 
+## Java coding standard
+
+For every Java code addition, modification, review, or refactoring, invoke and follow the project-specific `seedu-java-coding-standard` skill in `.codex/skills/seedu-java-coding-standard`. All Java code in this repository must conform to the SE-EDU basic and intermediate Java coding standard.
+
+## Post-code-update UI verification
+
+After every code update, review `test/ui-test-plan.md` and update it when the change adds, removes, or intentionally changes console UI behaviour. Keep existing cases when their behaviour is still valid; do not change expected output merely to conceal a regression.
+
+Then invoke the `test-ui` skill and run its documented UI test command from the repository root. Do this even when no update to the UI test plan is needed, and report any test failure before considering the code update complete.
+
 ## Git
 
 Use lightweight tags unless the user requests an annotated tag.
-When proposing or creating a commit message, include enough detail to explain the rationale for the change.
+For every future commit message that you propose, review, or create, invoke and follow the project-specific `seedu-git-standard` skill in `.codex/skills/seedu-git-standard`. Do not alter past commit messages merely to apply that standard.
 Do not commit or push unless explicitly asked.

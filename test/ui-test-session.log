@@ -1,0 +1,198 @@
+===== Impossible dates are denied and midnight overflows correctly =====
+Console input:
+deadline work /by 2026-2-30
+pending work /after 2026-4-31
+event work /from 2026-2-29 /to 2026-3-1
+date 2026-13-1
+list
+deadline work /by 2026-12-31 24:00
+list
+Console output:
+OH, HOW VERY SMART OF YOU TO PROPOSE THAT DATE. DENIED.
+OH, HOW VERY SMART OF YOU TO PROPOSE THAT DATE. DENIED.
+OH, HOW VERY SMART OF YOU TO PROPOSE THAT DATE. DENIED.
+OH, HOW VERY SMART OF YOU TO PROPOSE THAT DATE. DENIED.
+VERY WELL. HERE IS YOUR LIST:
+BUT, THERE WAS NOTHING TO READ.
+ORDER PROCESSED: [D][ ] WORK (BY: JAN 01 2027, 0:00)
+VERY WELL. HERE IS YOUR LIST:
+1.[D][ ] work (by: Jan 01 2027, 0:00)
+WELL, THAT IS NO LONGER A COMMAND.
+RESULT: PASSED
+===== Pipes and escape-like text remain visible in descriptions =====
+Console input:
+todo read | write \| %7C
+list
+bye
+Console output:
+ORDER PROCESSED: [T][ ] READ | WRITE \| %7C
+VERY WELL. HERE IS YOUR LIST:
+1.[T][ ] read | write \| %7C
+RESULT: PASSED
+===== Find lists only matching tasks =====
+Console input:
+todo read book
+todo buy groceries
+deadline return BOOK /by 2026-6-6
+find book
+find phone
+find
+bye
+Console output:
+ORDER PROCESSED: [T][ ] READ BOOK
+ORDER PROCESSED: [T][ ] BUY GROCERIES
+ORDER PROCESSED: [D][ ] RETURN BOOK (BY: JUN 06 2026, 0:00)
+VERY WELL. HERE IS YOUR MATCHING LIST:
+1.[T][ ] read book
+2.[D][ ] return BOOK (by: Jun 06 2026, 0:00)
+BUT, THERE WAS NOTHING THAT CONFORMS TO THE TERM.
+BUT, THERE WAS NOTHING TO LOCATE.
+RESULT: PASSED
+===== Valid tasks remain correct after an unknown command =====
+Console input:
+todo borrow book
+abracadabra
+list
+deadline submit report /by 2026-8-24 17:30
+list
+event project meeting /from 2026-8-25 14:00 /to 2026-8-25 16:00
+list
+bye
+Console output:
+ORDER PROCESSED: [T][ ] BORROW BOOK
+WELL, THAT IS NO LONGER A COMMAND.
+VERY WELL. HERE IS YOUR LIST:
+1.[T][ ] borrow book
+ORDER PROCESSED: [D][ ] SUBMIT REPORT (BY: AUG 24 2026, 5:30 PM)
+VERY WELL. HERE IS YOUR LIST:
+1.[T][ ] borrow book
+2.[D][ ] submit report (by: Aug 24 2026, 5:30 PM)
+ORDER PROCESSED: [E][ ] PROJECT MEETING (FROM: AUG 25 2026, 2:00 PM TO: AUG 25 2026, 4:00 PM)
+VERY WELL. HERE IS YOUR LIST:
+1.[T][ ] borrow book
+2.[D][ ] submit report (by: Aug 24 2026, 5:30 PM)
+3.[E][ ] project meeting (from: Aug 25 2026, 2:00 PM to: Aug 25 2026, 4:00 PM)
+RESULT: PASSED
+===== Invalid task details preserve the documented fallback state =====
+Console input:
+todo 
+list
+deadline revise notes
+list
+event orientation /from Monday
+list
+bye
+Console output:
+IT IS BARREN AND CANNOT BE CREATED.
+VERY WELL. HERE IS YOUR LIST:
+BUT, THERE WAS NOTHING TO READ.
+YOU MUST BE
+MISTAKEN.
+
+HERE.
+ORDER PROCESSED: [T][ ] REVISE NOTES
+VERY WELL. HERE IS YOUR LIST:
+1.[T][ ] revise notes
+BUT, AN EVENT NEEDS EXACTLY ONE /FROM AND ONE /TO.
+VERY WELL. HERE IS YOUR LIST:
+1.[T][ ] revise notes
+RESULT: PASSED
+===== Invalid marking leaves task state unchanged =====
+Console input:
+todo write tests
+mark not-a-number
+list
+mark 1
+list
+unmark 1
+list
+bye
+Console output:
+ORDER PROCESSED: [T][ ] WRITE TESTS
+BUT, IT IS INVALID.
+VERY WELL. HERE IS YOUR LIST:
+1.[T][ ] write tests
+THEN, IT IS DONE.
+[T][X] write tests
+VERY WELL. HERE IS YOUR LIST:
+1.[T][X] write tests
+THEN, IT WAS AS IF IT WAS NEVER DONE.
+[T][ ] write tests
+VERY WELL. HERE IS YOUR LIST:
+1.[T][ ] write tests
+RESULT: PASSED
+===== Missing mark argument leaves an empty list unchanged =====
+Console input:
+mark 
+list
+bye
+Console output:
+BUT, THE OBJECT IS NOT SPECIFIED.
+VERY WELL. HERE IS YOUR LIST:
+BUT, THERE WAS NOTHING TO READ.
+RESULT: PASSED
+===== After-tasks unlock and cascade with their parent =====
+Console input:
+pending already available /after 2026-9-1
+mark 1
+todo finish exam
+pending return book /aftertask 2
+mark 3
+mark 2
+mark 3
+unmark 2
+list
+delete 2
+list
+bye
+Console output:
+ORDER PROCESSED: [A][ ] ALREADY AVAILABLE (AFTER: SEP 01 2026, 0:00)
+THEN, IT IS DONE.
+[A][X] already available (after: Sep 01 2026, 0:00)
+ORDER PROCESSED: [T][ ] FINISH EXAM
+ORDER PROCESSED: [A][L][ ] RETURN BOOK (AFTER TASK: FINISH EXAM)
+BUT, ITS CONDITIONS ARE NOT SATISFIED.
+THEN, IT IS DONE.
+[T][X] finish exam
+THEN, IT IS DONE.
+[A][X] return book (after task: finish exam)
+THEN, IT WAS AS IF IT WAS NEVER DONE.
+[T][ ] finish exam
+VERY WELL. HERE IS YOUR LIST:
+1.[A][X] already available (after: Sep 01 2026, 0:00)
+2.[T][ ] finish exam
+3.[A][L][ ] return book (after task: finish exam)
+[T][ ] finish exam
+IT WAS AS IF IT WAS NEVER THERE
+AT ALL.
+AS WITH ITS 1 CHILDREN.
+VERY WELL. HERE IS YOUR LIST:
+1.[A][X] already available (after: Sep 01 2026, 0:00)
+RESULT: PASSED
+===== Invalid event ranges and extra conditions do not create tasks =====
+Console input:
+event meeting /from 2026-9-17 /to 2026-9-16
+event meeting /from 2026-9-16 /to 2026-9-16
+event meeting /from 2026-9-16 /from 2026-9-17
+pending work /after 2026-9-17 /aftertask 1
+pending work /aftertask 1 /after 2026-9-17
+pending work /after 2026-9-17 /after 2026-9-18
+pending work /aftertask 1 /aftertask 2
+list
+event meeting /TO 2026-9-17 /FROM 2026-9-16
+list
+bye
+Console output:
+BUT, THE EVENT MUST START BEFORE IT ENDS.
+BUT, THE EVENT MUST START BEFORE IT ENDS.
+BUT, AN EVENT NEEDS EXACTLY ONE /FROM AND ONE /TO.
+BUT, A PENDING TASK CAN HAVE ONLY ONE CONDITION.
+BUT, A PENDING TASK CAN HAVE ONLY ONE CONDITION.
+BUT, A PENDING TASK CAN HAVE ONLY ONE CONDITION.
+BUT, A PENDING TASK CAN HAVE ONLY ONE CONDITION.
+VERY WELL. HERE IS YOUR LIST:
+BUT, THERE WAS NOTHING TO READ.
+ORDER PROCESSED: [E][ ] MEETING (FROM: SEP 16 2026, 0:00 TO: SEP 17 2026, 0:00)
+VERY WELL. HERE IS YOUR LIST:
+1.[E][ ] meeting (from: Sep 16 2026, 0:00 to: Sep 17 2026, 0:00)
+RESULT: PASSED

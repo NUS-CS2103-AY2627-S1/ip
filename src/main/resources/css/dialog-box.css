@@ -1,0 +1,90 @@
+.label {
+    -fx-background-color: #75fbed;
+    -fx-font-family: "Roboto";
+    -fx-text-fill: #0b0b3b;
+    -fx-border-color: linear-gradient(
+        from 0% 0% to 100% 100%,
+        repeat,
+        #EFBCF9 0%,
+        #E79DF7 15%,
+        #9699ED 32%,
+        #4E88D8 45%,
+        #6CBAEC 60%,
+        #A4EEFA 78%,
+        #C9F6FC 100%
+    );
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.reply-label {
+    reply-background: #75fbed;
+    -fx-background-color: reply-background;
+    -fx-border-color: derive(reply-background, -20%);
+    -fx-font-family: "System";
+    -fx-text-fill: ladder(reply-background, white 49%, black 50%);
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.black-green-label {
+    -fx-background-color: #000000;
+    -fx-border-color: #00c000;
+    -fx-font-family: "Consolas";
+    -fx-text-fill: #00c000;
+}
+
+.palette-reply {
+    -fx-background-color: reply-background;
+    -fx-border-color: derive(reply-background, -0.8);
+    -fx-text-fill: ladder(reply-background, white 49%, black 50%);
+}
+
+.task-created-label {
+    reply-background: #ffb000;
+}
+
+.list-label {
+    reply-background: #e6e6e6;
+}
+
+.find-label {
+    reply-background: #c77dff;
+}
+
+.mark-completed-label {
+    reply-background: #39ff14;
+}
+
+.unmarked-label {
+    reply-background: #ffd166;
+}
+
+.deleted-label {
+    reply-background: #ff6b6b;
+}
+
+.date-query-label {
+    reply-background: #4cc9f0;
+}
+
+.error-label {
+    reply-background: #ff1744;
+}
+
+.empty-label {
+    reply-background: #8d99ae;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
