@@ -1,0 +1,8 @@
+T | 0 | Read software engineering notes
+D | 0 | Submit project proposal | 2026-10-02 2359
+E | 0 | Team consultation | 2026-09-24 1400 | 2026-09-24 1530
+T | 1 | Install Java 25
+D | 1 | Complete tutorial worksheet | 2026-09-21 1800
+E | 1 | Attend project briefing | 2026-09-19 1000 | 2026-09-19 1130
+D | 0 | Prepare presentation slides | 2026-11-05 0900
+E | 0 | Final rehearsal | 2026-10-30 1600 | 2026-10-30 1730

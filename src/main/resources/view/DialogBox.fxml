@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+
+<fx:root alignment="TOP_RIGHT"
+         fillHeight="false"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         spacing="10.0"
+         styleClass="dialog-row"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="dialogText"
+               maxWidth="330.0"
+               minHeight="-Infinity"
+               minWidth="0.0"
+               styleClass="dialog-bubble"
+               text="Label"
+               wrapText="true" />
+        <StackPane maxHeight="58.0"
+                   maxWidth="58.0"
+                   minHeight="58.0"
+                   minWidth="58.0"
+                   prefHeight="58.0"
+                   prefWidth="58.0"
+                   styleClass="avatar-frame">
+            <children>
+                <ImageView fx:id="displayPicture"
+                           fitHeight="52.0"
+                           fitWidth="52.0"
+                           pickOnBounds="true"
+                           preserveRatio="true">
+                    <clip>
+                        <Circle centerX="26.0" centerY="26.0" radius="26.0" />
+                    </clip>
+                </ImageView>
+            </children>
+        </StackPane>
+    </children>
+    <padding>
+        <Insets bottom="6.0" left="2.0" right="2.0" top="6.0" />
+    </padding>
+</fx:root>

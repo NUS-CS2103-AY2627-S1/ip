@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Some experience in Java
+* IDE and level of expertise: Beginner
 
 # Guidance for interacting with users
 
@@ -27,6 +27,12 @@ Unless the user says otherwise, assume that you are assisting a student working 
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.
+
+## Java coding standard
+
+All Java code in this project must follow the project-specific `seedu-java-coding-standard` skill at
+`.agents/skills/seedu-java-coding-standard/SKILL.md`. Read and apply the skill whenever writing, modifying,
+refactoring, or reviewing Java source or test code.
 
 ## Git
 
