@@ -1,0 +1,11 @@
+/*
+ * Colour scheme for the main window.
+ *
+ * The chat area is a ScrollPane. Its visible region is drawn by an inner node with the style class
+ * "viewport", which must be coloured as well, or it keeps JavaFX's default light grey.
+ */
+.main-window,
+.main-window .scroll-pane,
+.main-window .scroll-pane > .viewport {
+    -fx-background-color: #FFF5C2; /* pastel yellow */
+}

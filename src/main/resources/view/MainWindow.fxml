@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- Every child is positioned with anchors rather than fixed coordinates, so the layout follows
+     the window when the user resizes it: the chat area fills the space above the input row, and
+     the input row stays at the bottom with the Send button pinned to the right. -->
+<AnchorPane prefHeight="600.0" prefWidth="400.0"
+            styleClass="main-window"
+            stylesheets="@../css/main.css"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="quackers.MainWindow">
+    <children>
+        <ScrollPane fx:id="scrollPane"
+                    hbarPolicy="NEVER"
+                    hvalue="1.0"
+                    vvalue="1.0"
+                    fitToWidth="true"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.bottomAnchor="42.0">
+            <content>
+                <VBox fx:id="dialogContainer" />
+            </content>
+        </ScrollPane>
+        <TextField fx:id="userInput"
+                   onAction="#handleUserInput"
+                   prefHeight="41.0"
+                   promptText="Type a command, e.g. todo read book"
+                   AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="77.0"
+                   AnchorPane.bottomAnchor="1.0" />
+        <Button fx:id="sendButton"
+                mnemonicParsing="false"
+                onAction="#handleUserInput"
+                prefHeight="41.0"
+                prefWidth="76.0"
+                AnchorPane.rightAnchor="0.0"
+                AnchorPane.bottomAnchor="1.0"
+                text="Send" />
+    </children>
+</AnchorPane>
