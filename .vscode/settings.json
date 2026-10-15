@@ -1,0 +1,11 @@
+{
+    "java.test.config": {
+        "vmArgs": [
+            "-ea",
+            "--enable-native-access=javafx.graphics"
+        ],
+        "coverage": {
+            "appendResult": true
+        }
+    }
+}

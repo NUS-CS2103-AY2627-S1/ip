@@ -1,0 +1,215 @@
+/* Window-wide visual system for the SevenSix GUI. */
+
+.root {
+    -fx-font-family: "System";
+    -fx-font-size: 13px;
+    -fx-background-color: #f3f4f8;
+}
+
+.app-shell {
+    -fx-background-color: #f3f4f8;
+}
+
+/* The dark header creates a strong visual anchor for the workspace. */
+.header {
+    -fx-background-color: linear-gradient(to bottom right, #171b35, #272453);
+    -fx-padding: 24 32 27 32;
+    -fx-spacing: 27;
+}
+
+.brand-row {
+    -fx-spacing: 11;
+}
+
+.brand-mark {
+    -fx-fill: #9084ff;
+    -fx-effect: dropshadow(gaussian, #090b1d99, 8, 0.25, 0, 3);
+}
+
+.brand-mark-text {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.identity {
+    -fx-spacing: 1;
+}
+
+.title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.subtitle {
+    -fx-text-fill: #aaa9c4;
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+}
+
+.status-pill {
+    -fx-background-color: #263b43;
+    -fx-background-radius: 20;
+    -fx-border-color: #3b6062;
+    -fx-border-radius: 20;
+    -fx-text-fill: #a9efcf;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 6 10 6 10;
+}
+
+.header-copy {
+    -fx-spacing: 5;
+}
+
+.eyebrow,
+.composer-label {
+    -fx-text-fill: #938cff;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
+
+.hero-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 27px;
+    -fx-font-weight: bold;
+}
+
+.hero-subtitle {
+    -fx-text-fill: #c1c1d3;
+    -fx-font-size: 13px;
+}
+
+/* Conversation messages sit in a quiet, card-like workspace. */
+.conversation,
+.conversation > .viewport {
+    -fx-background-color: #f3f4f8;
+    -fx-border-color: transparent;
+}
+
+.conversation {
+    -fx-padding: 15 23 15 23;
+}
+
+.conversation .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-padding: 0 4 0 0;
+}
+
+.conversation .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.conversation .scroll-bar:vertical .thumb {
+    -fx-background-color: #c8cad6;
+    -fx-background-radius: 8;
+}
+
+.conversation .scroll-bar:vertical .increment-button,
+.conversation .scroll-bar:vertical .decrement-button {
+    -fx-padding: 0;
+}
+
+.dialog-container {
+    -fx-padding: 5 4 16 4;
+    -fx-spacing: 12;
+}
+
+.dialog-row {
+    -fx-spacing: 9;
+}
+
+.message {
+    -fx-font-size: 13px;
+    -fx-line-spacing: 3;
+}
+
+.user-message {
+    -fx-background-color: #7165dc;
+    -fx-background-radius: 16 16 5 16;
+    -fx-effect: dropshadow(gaussian, #5850a033, 9, 0.16, 0, 3);
+    -fx-text-fill: #ffffff;
+    -fx-padding: 10 14 10 14;
+}
+
+.bot-message {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 15;
+    -fx-border-color: #e3e5ed;
+    -fx-border-radius: 15;
+    -fx-effect: dropshadow(gaussian, #71748714, 9, 0.1, 0, 3);
+    -fx-text-fill: #282b3a;
+    -fx-padding: 11 14 11 14;
+}
+
+.error-message {
+    -fx-background-color: #fff5f5;
+    -fx-background-radius: 15;
+    -fx-border-color: #f1caca #f1caca #f1caca #e36d77;
+    -fx-border-width: 1 1 1 4;
+    -fx-border-radius: 15;
+    -fx-text-fill: #9e3744;
+    -fx-padding: 11 14 11 11;
+}
+
+.avatar-circle {
+    -fx-fill: #e6e2ff;
+}
+
+.avatar-text {
+    -fx-text-fill: #6155c8;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
+
+/* The composer is separated from the conversation like a focused input tray. */
+.input-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e2eb;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 15 28 17 28;
+    -fx-spacing: 8;
+}
+
+.control-row {
+    -fx-spacing: 10;
+}
+
+.command-field {
+    -fx-background-color: #f8f9fc;
+    -fx-background-radius: 12;
+    -fx-border-color: #dcdfea;
+    -fx-border-radius: 12;
+    -fx-font-size: 13px;
+    -fx-padding: 11 14 11 14;
+}
+
+.command-field:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #776be3;
+    -fx-effect: dropshadow(gaussian, #776be333, 9, 0.18, 0, 0);
+}
+
+.send-button {
+    -fx-background-color: #7165dc;
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 11 17 11 17;
+    -fx-text-fill: #ffffff;
+}
+
+.send-button:hover {
+    -fx-background-color: #5f54c7;
+}
+
+.send-button:pressed {
+    -fx-background-color: #5046b1;
+}
+
+.composer-hint {
+    -fx-text-fill: #676c80;
+    -fx-font-size: 11px;
+}

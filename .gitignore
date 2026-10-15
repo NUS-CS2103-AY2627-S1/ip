@@ -18,3 +18,6 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Claude Code mirror of the .codex skills, kept out of version control.
+.claude/

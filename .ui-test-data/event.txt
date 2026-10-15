@@ -1,0 +1,2 @@
+E | 0 | project meeting | 2019-08-06T14:00 | 2019-08-06T16:00
+E | 0 | orientation week | 2019-10-04 | 2019-10-11

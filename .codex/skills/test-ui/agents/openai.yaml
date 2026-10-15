@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Console UI"
+  short_description: "Run the recorded console UI tests"
+  default_prompt: "Use $test-ui to update the console UI test plan if needed and run all recorded tests."
