@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI Test Runner"
+  short_description: "Run documented console UI test cases"
+  default_prompt: "Use $test-ui to run the cases in test/ui-test-plan.md."
