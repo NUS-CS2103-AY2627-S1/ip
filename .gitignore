@@ -16,5 +16,9 @@ bin/
 # Temp files
 _temp/
 
+# Local save data - runtime state, not source. Also prevents accidental
+# git reset/checkout from clobbering the user's real saved tasks.
+/data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

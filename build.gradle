@@ -1,0 +1,81 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.5.1'
+    id 'checkstyle'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+javafx {
+    version = '21.0.4'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+    String javafxVersion = '21.0.4'
+
+    // The javafx {} block above only bundles natives for THIS build machine's
+    // platform (e.g. mac-aarch64), so the shadow jar built here would crash
+    // with "no suitable pipeline found" on any other OS - it'd be missing
+    // that OS's native rendering libraries entirely. Add every other
+    // platform's classified artifacts explicitly so the fat jar carries
+    // natives for all of them and actually runs cross-platform.
+    ['javafx-base', 'javafx-graphics', 'javafx-controls', 'javafx-fxml'].each { module ->
+        ['win', 'mac', 'mac-aarch64', 'linux'].each { platform ->
+            implementation "org.openjfx:${module}:${javafxVersion}:${platform}"
+        }
+    }
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    // Launcher is the JavaFX workaround entry point (see src/main/java/taterror/Launcher.java).
+    mainClass = 'taterror.Launcher'
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'taterror.jar'
+}
+
+run {
+    standardInput = System.in
+}

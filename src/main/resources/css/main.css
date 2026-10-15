@@ -1,0 +1,31 @@
+.root, .anchor-pane {
+    -fx-background-color: #1e1e1e;
+}
+
+.label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13pt;
+    -fx-text-fill: #f2f2f2;
+}
+
+.scroll-pane, .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.text-field {
+    -fx-background-color: #2b2b2b;
+    -fx-text-fill: #f2f2f2;
+    -fx-prompt-text-fill: #888888;
+    -fx-font-size: 12pt;
+}
+
+.button {
+    -fx-background-color: #b0262c;
+    -fx-text-fill: white;
+    -fx-font-size: 12pt;
+    -fx-background-radius: 4;
+}
+
+.button:hover {
+    -fx-background-color: #d32f2f;
+}
