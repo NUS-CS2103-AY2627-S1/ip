@@ -1,0 +1,98 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.gradleup.shadow' version '9.5.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+checkstyle {
+    // Pins the Checkstyle engine version. The rules themselves live in
+    // config/checkstyle/checkstyle.xml (Gradle's default config location),
+    // which is the SE-EDU config for the intermediate Java coding standard.
+    toolVersion = '11.0.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String javaFxVersion = '17.0.7'
+
+    // JavaFX is published as platform-specific artifacts. Declaring the win,
+    // mac, and linux classifiers for every module keeps the build resolvable
+    // and runnable on any of those operating systems.
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:linux"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:win"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:mac"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:linux"
+
+    String jUnitVersion = '5.14.4'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+application {
+    // `./gradlew run` starts the JavaFX GUI. The console version is still
+    // available via the `runCli` task below and via dennis.Dennis.main().
+    mainClass = 'dennis.gui.Launcher'
+}
+
+tasks.register('runCli', JavaExec) {
+    group = 'application'
+    description = 'Runs the text/console version of Dennis.'
+    mainClass = 'dennis.Dennis'
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    // JavaExec disables assertions by default; turn them on so the assert
+    // statements in the code are checked when running from Gradle.
+    enableAssertions = true
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = false
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'dennis.jar'
+}
+
+run {
+    standardInput = System.in
+    // JavaExec disables assertions by default; turn them on so the assert
+    // statements in the code are checked when running the GUI from Gradle.
+    enableAssertions = true
+}

@@ -1,0 +1,16 @@
+.dialog-label {
+    -fx-background-color: #2b2f33;
+    -fx-background-radius: 12;
+    -fx-text-fill: #f2f2f2;
+    -fx-padding: 8 12 8 12;
+}
+
+.dennis-label {
+    -fx-background-color: #3b6ea5;
+}
+
+.error-label {
+    -fx-background-color: #5c1f1f;
+    -fx-text-fill: #ffd6d6;
+    -fx-font-weight: bold;
+}

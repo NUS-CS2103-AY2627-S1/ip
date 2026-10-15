@@ -8,6 +8,9 @@
 /build/
 src/main/resources/docs/
 
+# Local Gradle settings (machine-specific JDK path)
+/gradle.properties
+
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
@@ -15,6 +18,9 @@ bin/
 
 # Temp files
 _temp/
+
+# Task save file generated at runtime (Level 7)
+/data/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
