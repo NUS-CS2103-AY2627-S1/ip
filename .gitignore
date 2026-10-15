@@ -3,6 +3,9 @@
 /out/
 /*.iml
 
+# Java build files
+*.class
+
 # Gradle build files
 /.gradle/
 /build/
@@ -18,3 +21,38 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Compiled Java files
+*.class
+
+# Environment variables
+.env
+.env.*
+!.env.example
+!.env.template
+
+# Credentials and private keys
+credentials*.json
+service-account*.json
+secrets*.properties
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# Local configuration
+application-local.properties
+application-local.yml
+application-local.yaml
+
+# Logs, databases, and application user data
+*.log
+*.db
+*.sqlite
+*.sqlite3
+/data/
+
+
+GUI-implementation-guide.txt

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root alignment="TOP_RIGHT" fillHeight="true" maxWidth="Infinity" spacing="10.0"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/25"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label fx:id="messageLabel" minHeight="-Infinity" minWidth="0.0"
+               styleClass="message-bubble" wrapText="true" />
+        <ImageView fx:id="profilePicture" fitHeight="52.0" fitWidth="52.0"
+                   pickOnBounds="true" preserveRatio="true" smooth="true" />
+    </children>
+</fx:root>

@@ -1,0 +1,57 @@
+.main-window {
+    -fx-background-color: #f5f7fa;
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-container {
+    -fx-background-color: #f5f7fa;
+}
+
+.input-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d7dce2 transparent transparent transparent;
+}
+
+.text-field {
+    -fx-background-radius: 6px;
+    -fx-border-color: #c7cdd4;
+    -fx-border-radius: 6px;
+    -fx-padding: 9px 10px;
+}
+
+.button {
+    -fx-background-color: #2f6fed;
+    -fx-background-radius: 6px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-padding: 9px 16px;
+}
+
+.button:hover {
+    -fx-background-color: #255dca;
+}
+
+.button:disabled {
+    -fx-opacity: 0.55;
+}
+
+.message-bubble {
+    -fx-background-radius: 10px;
+    -fx-padding: 9px 12px;
+}
+
+.user-message-bubble {
+    -fx-background-color: #2f6fed;
+    -fx-text-fill: #ffffff;
+}
+
+.olaf-message-bubble {
+    -fx-background-color: #e2e6eb;
+    -fx-text-fill: #20242a;
+}
