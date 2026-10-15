@@ -1,0 +1,275 @@
+/*
+ * Styles for the Carlo app.
+ *
+ * Colours are defined once on .root as "looked-up colours" and reused below,
+ * so changing the theme only means editing this first block.
+ */
+.root {
+    -carlo-bg: #f7f5f0;
+    -carlo-surface: #ffffff;
+    -carlo-sidebar: #efe9dd;
+    -carlo-border: #e3ddd0;
+    -carlo-text: #2c2c2a;
+    -carlo-muted: #77746b;
+    -carlo-gold: #c9971c;
+    -carlo-amber: #e08a1e;
+    -carlo-red: #d0555a;
+    -carlo-green: #4e9a3f;
+
+    -fx-font-family: "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: -carlo-bg;
+    -fx-text-fill: -carlo-text;
+}
+
+.label {
+    -fx-text-fill: -carlo-text;
+}
+
+/* ---------- Buttons and inputs ---------- */
+
+.button {
+    -fx-background-color: -carlo-surface;
+    -fx-border-color: -carlo-border;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 6 12;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #f2eee6;
+}
+
+.text-field, .date-picker > .text-field {
+    -fx-background-color: -carlo-surface;
+    -fx-border-color: -carlo-border;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 6 10;
+}
+
+.text-field:focused {
+    -fx-border-color: -carlo-gold;
+    /* JavaFX hides placeholder text in a focused field by default; keep it visible as an example. */
+    -fx-prompt-text-fill: #b4b2a9;
+}
+
+.date-picker {
+    -fx-background-color: transparent;
+}
+
+/* ---------- Sidebar ---------- */
+
+.sidebar {
+    -fx-background-color: -carlo-sidebar;
+    -fx-padding: 20 16 16 16;
+    -fx-pref-width: 270;
+    -fx-min-width: 240;
+    -fx-max-width: 300;
+    -fx-border-color: transparent -carlo-border transparent transparent;
+}
+
+.speech-bubble {
+    -fx-background-color: -carlo-surface;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-width: 2;
+    -fx-padding: 12 14;
+}
+
+.speech-text {
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2;
+}
+
+.speech-tail {
+    -fx-fill: -carlo-surface;
+    -fx-stroke-width: 2;
+}
+
+.mood-ring {
+    -fx-fill: transparent;
+    -fx-stroke-width: 4;
+}
+
+/* Carlo's mood recolours the ring around his photo and his speech bubble. */
+.sidebar.mood-cheerful .mood-ring, .sidebar.mood-cheerful .speech-tail { -fx-stroke: -carlo-gold; }
+.sidebar.mood-cheerful .speech-bubble { -fx-border-color: -carlo-gold; }
+
+.sidebar.mood-heads-up .mood-ring, .sidebar.mood-heads-up .speech-tail { -fx-stroke: -carlo-amber; }
+.sidebar.mood-heads-up .speech-bubble { -fx-border-color: -carlo-amber; }
+
+.sidebar.mood-concerned .mood-ring, .sidebar.mood-concerned .speech-tail { -fx-stroke: -carlo-red; }
+.sidebar.mood-concerned .speech-bubble { -fx-border-color: -carlo-red; }
+
+.stat-tile {
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-background-radius: 8;
+    -fx-padding: 8 10;
+}
+
+.stat-title {
+    -fx-font-size: 11px;
+    -fx-text-fill: -carlo-muted;
+}
+
+.stat-value {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.form-button {
+    -fx-font-size: 15px;
+    -fx-padding: 4 12;
+}
+
+.hint {
+    -fx-font-size: 11px;
+    -fx-text-fill: -carlo-muted;
+}
+
+/* ---------- Task list ---------- */
+
+.task-pane {
+    -fx-background-color: -carlo-bg;
+}
+
+.top-bar {
+    -fx-padding: 16 20 8 20;
+}
+
+.pane-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.scroll-pane, .scroll-pane > .viewport {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.groups {
+    -fx-padding: 4 20 20 20;
+    -fx-spacing: 16;
+}
+
+.group-header {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -carlo-muted;
+}
+
+.group-overdue .group-header { -fx-text-fill: -carlo-red; }
+.group-soon .group-header { -fx-text-fill: -carlo-amber; }
+
+.clickable {
+    -fx-cursor: hand;
+}
+
+.group-box {
+    -fx-background-color: -carlo-surface;
+    -fx-background-radius: 8;
+    -fx-border-color: -carlo-border;
+    -fx-border-radius: 8;
+}
+
+.group-overdue .group-box {
+    -fx-border-color: #f0b8b9;
+}
+
+.task-row {
+    -fx-padding: 8 10;
+    -fx-border-color: transparent transparent -carlo-border transparent;
+}
+
+.task-row:hover {
+    -fx-background-color: #faf8f3;
+}
+
+.task-description {
+    -fx-font-size: 13.5px;
+}
+
+.task-row.done .task-description {
+    -fx-text-fill: -carlo-muted;
+}
+
+/* A Label draws its text with an inner Text node, which is what supports strikethrough. */
+.task-row.done .task-description .text {
+    -fx-strikethrough: true;
+}
+
+.type-tag {
+    -fx-font-size: 11px;
+    -fx-text-fill: -carlo-muted;
+}
+
+.check-box:selected > .box {
+    -fx-background-color: -carlo-green;
+}
+
+.check-box:selected > .box > .mark {
+    -fx-background-color: white;
+}
+
+.pill {
+    -fx-font-size: 11px;
+    -fx-padding: 2 8;
+    -fx-background-radius: 8;
+    -fx-background-color: #efede7;
+    -fx-text-fill: -carlo-muted;
+}
+
+.pill-overdue {
+    -fx-background-color: #fcebeb;
+    -fx-text-fill: #a32d2d;
+}
+
+.pill-soon {
+    -fx-background-color: #faeeda;
+    -fx-text-fill: #854f0b;
+}
+
+.delete-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: #b4b2a9;
+    -fx-padding: 2 6;
+}
+
+.delete-button:hover {
+    -fx-background-color: #fcebeb;
+    -fx-text-fill: -carlo-red;
+}
+
+.empty-message {
+    -fx-text-fill: -carlo-muted;
+    -fx-font-size: 14px;
+    -fx-padding: 24 0;
+}
+
+/* ---------- Add and edit task form ---------- */
+
+.task-form-dialog {
+    -fx-background-color: -carlo-bg;
+    -fx-padding: 8;
+}
+
+/* ---------- Undo ---------- */
+
+/* Styled as a small link so it doesn't compete with Carlo's message. */
+.undo-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -carlo-gold;
+}
+
+.undo-button:hover {
+    -fx-background-color: transparent;
+    -fx-underline: true;
+}
