@@ -13,7 +13,13 @@ src/main/resources/docs/
 *.iml
 bin/
 
-# Temp files
+# Java Class Files
+*.class
+
+# Data Save File
+data/tasks.txt
+
+# Temp files\
 _temp/
 
 /text-ui-test/ACTUAL.TXT

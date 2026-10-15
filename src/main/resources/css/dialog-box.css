@@ -1,0 +1,41 @@
+.dialog-box {
+    -fx-alignment: center-left;
+}
+
+.message-content {
+    -fx-max-width: 700px;
+}
+
+.dialog-box .avatar {
+    -fx-effect: dropshadow(gaussian, rgba(75, 57, 29, 0.18), 4, 0.2, 0, 1);
+}
+
+.dialog-label {
+    -fx-background-color: #fffdf5;
+    -fx-background-radius: 4px 16px 16px 16px;
+    -fx-border-color: #eadcae;
+    -fx-border-radius: 4px 16px 16px 16px;
+    -fx-border-width: 1px;
+    -fx-padding: 10px 14px;
+    -fx-text-fill: #4d4027;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2px;
+}
+
+.user-message {
+    -fx-alignment: center-right;
+}
+
+.user-message .dialog-label {
+    -fx-background-color: #f5d76e;
+    -fx-background-radius: 16px 4px 16px 16px;
+    -fx-border-color: #e5bd45;
+    -fx-border-radius: 16px 4px 16px 16px;
+    -fx-text-fill: #4b391d;
+}
+
+.error-message .dialog-label {
+    -fx-background-color: #fff0e8;
+    -fx-border-color: #e28a68;
+    -fx-text-fill: #9a3f25;
+}

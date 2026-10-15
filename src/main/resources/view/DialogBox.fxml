@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@../css/dialog-box.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox styleClass="message-content" spacing="6.0">
+            <ImageView fx:id="avatar" fitHeight="80.0" fitWidth="80.0" preserveRatio="true">
+                <image>
+                    <Image url="@../images/DaDoge.jpg" />
+                </image>
+            </ImageView>
+            <Label fx:id="dialog" maxWidth="1.7976931348623157E308" styleClass="dialog-label" text="Label" wrapText="true" />
+        </VBox>
+    </children>
+</fx:root>
