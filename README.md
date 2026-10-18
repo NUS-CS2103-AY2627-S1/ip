@@ -1,138 +1,54 @@
 # Kiki
 
-Kiki is a command-line task chatbot for keeping track of simple tasks. It can add todos,
-deadlines, and events, show your task list, mark tasks as done or not done, delete tasks,
-sort dated tasks, and exit with a goodbye message.
+**A JavaFX task assistant with typed commands and local storage.** Add to-dos, deadlines and events; find and sort tasks; set priorities; and track completion from a desktop conversation interface.
 
-This project is based on the CS2103 iP Java starter template.
+[User guide](docs/README.md) · [Source](src/main/java/kiki) · [Tests](src/test)
 
-## Requirements
+<img src="docs/Ui.png" alt="Kiki desktop interface showing example tasks and command responses" width="520">
 
-- JDK 25
-- IntelliJ IDEA, or a terminal that can run `javac` and `java`
+## Features
 
-On macOS, you can switch to the project Java version with:
+- To-dos, deadlines and events with validated command input.
+- Completion tracking, deletion, search, date filters and sorting.
+- Task priorities and a local text-file store.
+- Optional `@ai` command help through an OpenAI-compatible provider; the assistant's help is read-only.
 
-```bash
-sdk use java 25.0.3.fx-zulu
-```
+## Build and run
 
-## Running Kiki
-
-### IntelliJ IDEA
-
-1. Open this project folder in IntelliJ.
-2. Configure the project SDK to use JDK 25.
-3. Open `src/main/java/kiki/Kiki.java`.
-4. Run `Kiki.main()`.
-
-### Terminal
-
-From the project root, compile the Java files and run Kiki:
+Requires **Java 25**. Use the included Gradle wrapper:
 
 ```bash
-find src/main/java -name "*.java" > sources.txt
-javac -d out @sources.txt
-java -cp out kiki.Kiki
-```
-
-### Fat JAR (Gradle)
-
-Build a standalone, runnable JAR (with all dependencies bundled in) using the `shadowJar` task:
-
-```bash
-./gradlew shadowJar
-```
-
-The JAR is created at `build/libs/kiki.jar`. Run it directly with:
-
-```bash
+./gradlew clean shadowJar
 java -jar build/libs/kiki.jar
 ```
 
-## Commands
+Kiki stores tasks in `data/kiki.txt` relative to the working directory. See the [user guide](docs/README.md) for the command reference, examples and storage behaviour.
 
-Kiki reads one command per line.
+### Optional AI help
 
-| Command | Format | Example |
-| --- | --- | --- |
-| Add a todo | `todo DESCRIPTION` | `todo read book` |
-| Add a deadline | `deadline DESCRIPTION /by yyyy-MM-dd HHmm` | `deadline return book /by 2019-12-01 1800` |
-| Add an event | `event DESCRIPTION /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm` | `event project meeting /from 2019-12-02 1400 /to 2019-12-02 1600` |
-| List tasks | `list` | `list` |
-| Find tasks by keyword | `find KEYWORD` | `find book` |
-| Check a day's tasks | `check day DATE` | `check day 21 August` |
-| Check a week's tasks | `check week DATE` | `check week 21 August` |
-| Sort tasks by date/time | `sort` | `sort` |
-| Mark a task as done | `mark NUMBER` | `mark 1` |
-| Mark a task as not done | `unmark NUMBER` | `unmark 1` |
-| Delete a task | `delete NUMBER` | `delete 2` |
-| Exit Kiki | `bye` | `bye` |
+Core task management works without an API key. To use AI help, configure `LLM_API_KEY` in your local environment. `LLM_BASE_URL` and `LLM_MODEL` select the compatible provider and model. Do not commit credentials. Review the user guide before enabling an external provider.
 
-Task numbers come from the `list` command. For example, `mark 2` marks the second task in the current list.
-The `sort` command places deadlines and events with earlier date/times first, followed by todos.
+## Code structure
 
-## Task Display
+| Path | Responsibility |
+| --- | --- |
+| [parser](src/main/java/kiki/parser) | Command parsing and input handling |
+| [task](src/main/java/kiki/task) | Task types and task-list behaviour |
+| [storage](src/main/java/kiki/storage) | Local persistence |
+| [gui](src/main/java/kiki/gui) | JavaFX application and dialogue components |
+| [ai](src/main/java/kiki/ai) | Optional command-help integration |
+| [src/test](src/test) | JUnit tests |
 
-Kiki shows each task with a task type and completion status:
+The project separates parsing, task logic, persistence and the interface so each responsibility can be developed and checked independently. Gradle packages the desktop application into a runnable JAR.
 
-```text
-[T][ ] read book
-[D][X] return book (by: Sunday)
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
+## Checks available
+
+```bash
+./gradlew test
 ```
 
-- `[T]` means todo.
-- `[D]` means deadline.
-- `[E]` means event.
-- `[ ]` means not done.
-- `[X]` means done.
+The repository includes unit tests, a [UI test plan](test/ui-test-plan.md) and a Gradle CI workflow. 
 
-## Example Session
+## Project context
 
-```text
-todo read book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
-list
-mark 1
-delete 2
-bye
-```
-
-After these commands, Kiki adds three tasks, prints the list, marks the first task as done,
-removes the second task, and exits.
-
-## Error Handling
-
-Kiki prints friendly error messages when a command is missing required information or uses
-an invalid task number. For example:
-
-```text
-todo
-OOPS!!! The description of a todo cannot be empty.
-
-mark abc
-OOPS!!! Task number must be a whole number.
-
-mark 99
-OOPS!!! That task number is not in your list.
-```
-
-## Current Limitations
-
-- Kiki saves task changes to `data/kiki.txt` and loads that file when the program starts.
-- Kiki can hold up to 100 tasks in one run.
-- Deadline and event times are stored as plain text.
-
-Saved tasks use this format:
-
-```text
-T | 1 | read book
-D | 0 | return book | Sunday
-E | 0 | project meeting | Mon 2pm | 4pm
-```
-
-## UI Test Plan
-
-The working command behavior is documented in `test/ui-test-plan.md`.
+Developed as an individual NUS CS2103T project using the [course starter repository](https://github.com/NUS-CS2103-AY2627-S1/ip) and SE-EDU conventions. Kiki is a local, single-user desktop application; optional AI help requires an external service.
