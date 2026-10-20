@@ -1,25 +1,44 @@
-# Duke project template
+# Yapper
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Yapper is a JavaFX task companion with a conversational interface. Add to-dos,
+deadlines and events, search your tasks, and track completed and pending work.
 
-## Setting up in Intellij
+See the [user guide](docs/README.md) for commands and examples.
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+## Run
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Install **Java 25** and check `java -version`. Build from the project folder:
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+```powershell
+.\gradlew.bat clean build
+java -jar build/libs/yapper.jar
+```
+
+On macOS/Linux, use `./gradlew clean build`. The JAR bundles JavaFX; a separate
+JavaFX installation is unnecessary. A desktop environment is required.
+Type a command into the window and press Enter or click **Send**.
+
+## Develop
+
+Open this folder as a Gradle project in IntelliJ. Set both the project SDK and
+Gradle JVM to JDK 25, then reload Gradle. Run the Gradle `run` task to start the
+GUI; its entry point is `yapper.Launcher`. The `runCli` task starts the console
+interface. Keep production sources in `src/main/java` and resources in
+`src/main/resources` so Gradle finds them.
+
+- [Build and test instructions](docs/gradle.md)
+- [JAR packaging and smoke tests](docs/jar.md)
+- [Remaining course checks](docs/remaining-course-work.md)
+
+Tasks are saved in `data/yapper.txt` relative to the working folder.
+
+## Acknowledgements
+
+Yapper began from the NUS CS2103 individual-project starter. Its JavaFX setup and
+FXML conversation interface follow concepts from the
+[SE-EDU JavaFX tutorial](https://se-education.org/guides/tutorials/javaFx.html).
+OpenAI Codex assisted with implementation, refactoring, tests, documentation,
+and course-requirement checks; the student remains responsible for reviewing
+and understanding the submitted work.
+
+Download the [latest executable release](https://github.com/sheeppocket/ip/releases/latest) and read the [published user guide](https://sheeppocket.github.io/ip/). The bundled native libraries target Windows, Linux, and macOS x64; ARM64 is not bundled.

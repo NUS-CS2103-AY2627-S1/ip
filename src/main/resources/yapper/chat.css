@@ -1,0 +1,24 @@
+.root {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #f4f6fa;
+}
+.heading { -fx-padding: 24 28 22 28; -fx-background-color: #172a43; }
+.heading .title { -fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white; }
+.heading .subtitle { -fx-text-fill: #c5d7eb; }
+.scroll-pane, .scroll-pane > .viewport { -fx-background-color: #f4f6fa; }
+.scroll-pane { -fx-background-insets: 0; -fx-padding: 0; }
+.bubble { -fx-padding: 15 18; -fx-background-radius: 14; }
+.bot-bubble { -fx-background-color: white; -fx-border-color: #dce3ed; -fx-border-radius: 14; }
+.user-bubble { -fx-background-color: #dcebed; }
+.label { -fx-text-fill: #172a43; }
+.speaker { -fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #48647d; }
+.footer { -fx-padding: 18 24 20 24; -fx-background-color: white; }
+.text-field { -fx-padding: 12; -fx-background-radius: 8; -fx-border-radius: 8;
+    -fx-background-color: #f4f6fa; -fx-border-color: #aab9cc; }
+.text-field:focused { -fx-border-color: #246b85; -fx-border-width: 2; }
+.button { -fx-padding: 12 20; -fx-background-radius: 8; -fx-background-color: #246b85;
+    -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; }
+.button:hover { -fx-background-color: #19546b; }
+.button:focused { -fx-border-color: #172a43; -fx-border-width: 2; -fx-border-radius: 8; }
+.hint { -fx-font-size: 11px; -fx-text-fill: #586b80; }

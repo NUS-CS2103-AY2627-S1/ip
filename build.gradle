@@ -1,0 +1,72 @@
+plugins {
+    id 'application'
+    id 'checkstyle'
+}
+
+apply from: 'gradle/jar.gradle'
+
+checkstyle {
+    toolVersion = '14.3.0'
+    ignoreFailures = false
+    maxWarnings = 0
+}
+
+tasks.withType(Checkstyle).configureEach {
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+application {
+    mainClass = 'yapper.Launcher'
+}
+
+dependencies {
+    ['win', 'linux', 'mac'].each { platform ->
+        ['base', 'graphics', 'controls', 'fxml', 'swing'].each { module ->
+            implementation "org.openjfx:javafx-${module}:17.0.7:${platform}"
+        }
+    }
+    testImplementation platform('org.junit:junit-bom:5.13.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+tasks.named('run') {
+    standardInput = System.in
+}
+
+tasks.register('runCli', JavaExec) {
+    group = 'application'
+    description = 'Runs the console interface.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'yapper.Yapper'
+    standardInput = System.in
+}
+
+tasks.register('guiSmoke', JavaExec) {
+    group = 'verification'
+    description = 'Opens the GUI, tests sending commands, and captures docs/Ui.png.'
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'yapper.GuiSmoke'
+}

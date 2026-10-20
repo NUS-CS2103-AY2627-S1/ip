@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <VBox spacing="5" styleClass="heading">
+            <Label text="Yapper" styleClass="title"/>
+            <Label text="A little conversation. A clearer day." styleClass="subtitle"/>
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="scroll" fitToWidth="true" hbarPolicy="NEVER">
+            <content>
+                <VBox fx:id="messages" id="messages" spacing="14">
+                    <padding><Insets top="24" right="24" bottom="24" left="24"/></padding>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <VBox spacing="10" styleClass="footer">
+            <HBox spacing="12" alignment="CENTER">
+                <TextField fx:id="input" id="commandInput" promptText="Try: todo read a book"
+                           accessibleText="Task command" HBox.hgrow="ALWAYS" onAction="#submit"/>
+                <Button fx:id="send" id="sendButton" text="Send" accessibleText="Send command" onAction="#submit"/>
+            </HBox>
+            <Label text="Enter to send  ·  Type help for commands  ·  Tasks save automatically" styleClass="hint"/>
+        </VBox>
+    </bottom>
+</BorderPane>

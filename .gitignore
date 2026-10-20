@@ -16,5 +16,8 @@ bin/
 # Temp files
 _temp/
 
+# User task data generated at runtime
+/data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
