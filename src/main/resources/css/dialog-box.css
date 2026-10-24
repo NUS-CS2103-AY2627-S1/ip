@@ -1,0 +1,46 @@
+.label {
+    background:white;
+    -fx-background-color: background;
+    -fx-border-color: #0072b2;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: ladder(background, white 49%, black 50%);
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 16px;
+}
+
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.add-label {
+    -fx-background-color: #efe3a8;
+}
+
+.marked-label {
+    -fx-background-color: #b9c9a0;
+}
+
+.delete-label {
+    -fx-background-color: #b8a8c9;
+}
+
+.error-label {
+    -fx-background-color: #c77b6f;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}

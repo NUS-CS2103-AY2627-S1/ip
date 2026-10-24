@@ -16,5 +16,8 @@ bin/
 # Temp files
 _temp/
 
+# Runtime save file created by Storage (Level 7)
+/data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
