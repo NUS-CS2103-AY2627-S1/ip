@@ -9,8 +9,8 @@ Unless the user says otherwise, assume that you are assisting a student working 
 # Student profile
 
 * Prior knowledge: Basic Java and OOP concepts.
-* Level of programming experience: [to be filled]
-* IDE and level of expertise: [to be filled]
+* Level of programming experience: Basic Java and OOP; developing confidence with larger multi-class programs.
+* IDE and level of expertise: IntelliJ IDEA; beginner-to-intermediate.
 
 # Guidance for interacting with users
 
@@ -33,3 +33,7 @@ Ensure that Java 25 is used when running the application or build tasks. On macO
 Use lightweight tags unless the user requests an annotated tag.
 When proposing or creating a commit message, include enough detail to explain the rationale for the change.
 Do not commit or push unless explicitly asked.
+
+## Testing
+
+After every code update, review `test/ui-test-plan.md` and update it when behavior changes. Then invoke the project-specific `test-ui` skill. All UI tests must pass with Java 25 before committing code.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test UI"
+  short_description: "Run the Orbit console acceptance plan"
+  default_prompt: "Use $test-ui to update the UI test plan if needed and run every console test with Java 25."

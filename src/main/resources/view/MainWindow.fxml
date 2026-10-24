@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefWidth="740.0" prefHeight="780.0" stylesheets="@../css/orbit.css"
+            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="orbit.gui.MainWindow">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="14.0" styleClass="header">
+            <Label text="O" styleClass="brand-mark" />
+            <VBox spacing="3.0">
+                <Label text="ORBIT" styleClass="brand-title" />
+                <Label text="Your personal task assistant" styleClass="subtitle" />
+            </VBox>
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="LOCAL • PRIVATE" styleClass="status" />
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED" vvalue="1.0" styleClass="conversation">
+            <content>
+                <VBox fx:id="dialogContainer" spacing="14.0" styleClass="dialog-container" />
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <VBox spacing="12.0" styleClass="composer">
+            <Label text="A little less to remember." styleClass="composer-heading" />
+            <HBox spacing="10.0" alignment="CENTER">
+                <TextField fx:id="userInput" promptText="Try: todo Read CS2103 notes"
+                           onAction="#handleUserInput" HBox.hgrow="ALWAYS"
+                           accessibleText="Command" />
+                <Button fx:id="sendButton" text="Send" onAction="#handleUserInput"
+                        mnemonicParsing="false" prefWidth="82.0" accessibleText="Send command" />
+            </HBox>
+            <Label text="todo · deadline · event · list · find · sort · mark · unmark · delete · bye"
+                   wrapText="true" styleClass="hint" />
+            <Label text="Dates: yyyy-MM-dd   •   Changes save automatically on success."
+                   wrapText="true" styleClass="hint" />
+        </VBox>
+    </bottom>
+</BorderPane>
