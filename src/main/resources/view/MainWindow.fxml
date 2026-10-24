@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- AI-assisted JavaFX GUI implementation. See CITATIONS.md [C-013]. -->
+<!-- AI-assisted GUI polish. See CITATIONS.md [C-019]. -->
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0"
+            prefWidth="400.0"
+            xmlns="http://javafx.com/javafx/17"
+            fx:controller="clara.gui.MainWindow">
+    <children>
+        <HBox id="appHeader" alignment="CENTER_LEFT" spacing="8.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label id="appTitle" text="Clara"/>
+                <Label id="appSubtitle" text="Task assistant"/>
+            </children>
+        </HBox>
+        <ScrollPane fx:id="scrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vvalue="1.0"
+                    AnchorPane.bottomAnchor="64.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="52.0">
+            <content>
+                <VBox fx:id="dialogContainer"/>
+            </content>
+        </ScrollPane>
+        <HBox id="composer" alignment="CENTER" spacing="8.0"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <TextField fx:id="userInput" onAction="#handleUserInput" promptText="Enter a command...">
+                    <HBox.hgrow>
+                        <Priority fx:constant="ALWAYS"/>
+                    </HBox.hgrow>
+                </TextField>
+                <Button mnemonicParsing="false" onAction="#handleUserInput" text="Send"/>
+            </children>
+        </HBox>
+    </children>
+    <stylesheets>
+        <URL value="@../css/main.css"/>
+    </stylesheets>
+</AnchorPane>

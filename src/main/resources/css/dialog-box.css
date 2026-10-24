@@ -1,0 +1,29 @@
+/* AI-assisted JavaFX GUI implementation. See CITATIONS.md [C-013]. */
+/* AI-assisted GUI polish. See CITATIONS.md [C-019]. */
+.label {
+    -fx-background-color: #4f46e5;
+    -fx-background-radius: 12px 12px 2px 12px;
+    -fx-font-size: 13px;
+    -fx-padding: 8px 10px;
+    -fx-text-fill: white;
+}
+
+.reply-label {
+    -fx-background-color: #eef2ff;
+    -fx-background-radius: 12px 12px 12px 2px;
+    -fx-text-fill: #1e293b;
+}
+
+.error-label {
+    -fx-background-color: #fef2f2;
+    -fx-background-insets: 0, 0, 0, 3px;
+    -fx-background-radius: 8px;
+    -fx-border-color: #fca5a5;
+    -fx-border-radius: 8px;
+    -fx-border-width: 0 0 0 3px;
+    -fx-text-fill: #991b1b;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.14), 3, 0.25, 0, 1);
+}

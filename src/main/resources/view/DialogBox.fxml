@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- AI-assisted JavaFX GUI implementation. See CITATIONS.md [C-013]. -->
+<!-- AI-assisted GUI polish. See CITATIONS.md [C-019]. -->
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root xmlns:fx="http://javafx.com/fxml/1"
+         alignment="TOP_RIGHT"
+         maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17">
+    <children>
+        <Label fx:id="dialog" minHeight="-Infinity" wrapText="true"/>
+        <ImageView fx:id="displayPicture"
+                   fitHeight="48.0"
+                   fitWidth="48.0"
+                   pickOnBounds="true"
+                   preserveRatio="true"/>
+    </children>
+    <padding>
+        <Insets bottom="6.0" left="12.0" right="12.0" top="6.0"/>
+    </padding>
+    <stylesheets>
+        <URL value="@../css/dialog-box.css"/>
+    </stylesheets>
+</fx:root>
