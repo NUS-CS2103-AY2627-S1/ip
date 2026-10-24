@@ -1,25 +1,54 @@
-# Duke project template
+# Kiki
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+**A JavaFX task assistant with typed commands and local storage.** Add to-dos, deadlines and events; find and sort tasks; set priorities; and track completion from a desktop conversation interface.
 
-## Setting up in Intellij
+[User guide](docs/README.md) · [Source](src/main/java/kiki) · [Tests](src/test)
 
-Prerequisites: JDK 25, update Intellij to the most recent version.
+<img src="docs/Ui.png" alt="Kiki desktop interface showing example tasks and command responses" width="520">
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Features
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+- To-dos, deadlines and events with validated command input.
+- Completion tracking, deletion, search, date filters and sorting.
+- Task priorities and a local text-file store.
+- Optional `@ai` command help through an OpenAI-compatible provider; the assistant's help is read-only.
+
+## Build and run
+
+Requires **Java 25**. Use the included Gradle wrapper:
+
+```bash
+./gradlew clean shadowJar
+java -jar build/libs/kiki.jar
+```
+
+Kiki stores tasks in `data/kiki.txt` relative to the working directory. See the [user guide](docs/README.md) for the command reference, examples and storage behaviour.
+
+### Optional AI help
+
+Core task management works without an API key. To use AI help, configure `LLM_API_KEY` in your local environment. `LLM_BASE_URL` and `LLM_MODEL` select the compatible provider and model. Do not commit credentials. Review the user guide before enabling an external provider.
+
+## Code structure
+
+| Path | Responsibility |
+| --- | --- |
+| [parser](src/main/java/kiki/parser) | Command parsing and input handling |
+| [task](src/main/java/kiki/task) | Task types and task-list behaviour |
+| [storage](src/main/java/kiki/storage) | Local persistence |
+| [gui](src/main/java/kiki/gui) | JavaFX application and dialogue components |
+| [ai](src/main/java/kiki/ai) | Optional command-help integration |
+| [src/test](src/test) | JUnit tests |
+
+The project separates parsing, task logic, persistence and the interface so each responsibility can be developed and checked independently. Gradle packages the desktop application into a runnable JAR.
+
+## Checks available
+
+```bash
+./gradlew test
+```
+
+The repository includes unit tests, a [UI test plan](test/ui-test-plan.md) and a Gradle CI workflow. 
+
+## Project context
+
+Developed as an individual NUS CS2103T project using the [course starter repository](https://github.com/NUS-CS2103-AY2627-S1/ip) and SE-EDU conventions. Kiki is a local, single-user desktop application; optional AI help requires an external service.

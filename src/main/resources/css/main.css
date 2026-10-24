@@ -1,0 +1,77 @@
+.root {
+    -fx-background-color: #f5f7f4;
+    -fx-font-family: "Avenir Next", "Segoe UI", sans-serif;
+}
+
+.scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.command-hint {
+    -fx-padding: 0 4 0 4;
+    -fx-text-fill: #607067;
+    -fx-font-size: 11;
+}
+
+.message-bubble {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 6;
+    -fx-border-color: #dce3dc;
+    -fx-border-radius: 6;
+    -fx-padding: 9 12;
+    -fx-text-fill: #26352d;
+}
+
+.speaker-label {
+    -fx-alignment: center;
+    -fx-background-radius: 4;
+    -fx-min-height: 26;
+    -fx-min-width: 38;
+    -fx-pref-height: 26;
+    -fx-pref-width: 38;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 10;
+}
+
+.kiki-avatar {
+    -fx-background-color: #397956;
+}
+
+.user-avatar {
+    -fx-background-color: #586e8b;
+}
+
+.user-message-bubble {
+    -fx-background-color: #e8eef5;
+    -fx-border-color: #d2dce8;
+}
+
+.error-message {
+    -fx-background-color: #fff0ec;
+    -fx-border-color: #d97757;
+    -fx-text-fill: #762d1d;
+}
+
+.text-field {
+    -fx-background-radius: 6;
+    -fx-border-color: #cbd5cf;
+    -fx-border-radius: 6;
+    -fx-min-height: 38;
+    -fx-padding: 9 10;
+}
+
+.button {
+    -fx-background-color: #293b31;
+    -fx-background-radius: 6;
+    -fx-min-height: 38;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 9 16;
+}

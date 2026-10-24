@@ -7,6 +7,7 @@
 /.gradle/
 /build/
 src/main/resources/docs/
+/data/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
@@ -18,3 +19,4 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+docs/CODINGSTANDARDS.md
