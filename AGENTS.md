@@ -24,6 +24,23 @@ Unless the user says otherwise, assume that you are assisting a student working 
 
 # Project-specific requirements
 
+## Java coding standard (mandatory)
+
+All Java code in this repository MUST follow the SE-EDU Java coding standard
+(basic + intermediate rules): <https://se-education.org/guides/conventions/java/intermediate.html>
+
+The standard is packaged as the project skill **`seedu-java-coding-standard`**
+(`.claude/skills/seedu-java-coding-standard/SKILL.md`).
+
+* Invoke that skill BEFORE writing, editing, generating, or reviewing any `.java` file in this
+  repository - including new classes, new methods, refactors, and code review. Do not rely on
+  recollection of the rules; read the skill.
+* Code that violates the standard is not finished. Before reporting a Java change as done, run
+  the checks in the skill's "Verifying compliance" section and fix everything they report.
+* If a rule appears to conflict with a request, follow the standard and say so; only depart from
+  it when the user explicitly asks.
+* For anything the standard does not cover, follow the Google Java Style Guide.
+
 ## Java version:
 
 Ensure that Java 25 is used when running the application or build tasks. On macOS, use `sdk use java 25.0.3.fx-zulu` to switch to Java 25 if needed.

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<!--
+  fx:root rather than a named class: the object this describes already exists (the DialogBox
+  that is loading this file), so the loader is told to decorate that object instead of
+  creating a new one. That is what lets DialogBox both be an HBox and be built from FXML.
+
+  The avatar is 26 pixels, not the 99 it used to be. There are only ever two speakers and they
+  never change, so a large portrait tells the user nothing they do not already know after the
+  first message - it only pushes the text into a narrow column and leaves empty space beside
+  every short reply. preserveRatio="false" fills the square exactly, which matters because
+  DialogBox clips the picture to a circle of that size.
+-->
+<fx:root alignment="TOP_RIGHT"
+         maxWidth="1.7976931348623157E308"
+         spacing="7.0"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <!-- minHeight="-Infinity" together with wrapText lets the label grow downwards
+         instead of clipping long replies to a single line. -->
+    <Label fx:id="dialog" minHeight="-Infinity" styleClass="dialog-text" text="Label" wrapText="true" />
+    <ImageView fx:id="displayPicture" fitHeight="26.0" fitWidth="26.0"
+               pickOnBounds="true" preserveRatio="false" />
+  </children>
+</fx:root>

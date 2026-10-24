@@ -1,0 +1,181 @@
+/*
+ * How the chat window looks. Keeping it here rather than in the FXML or in Java means the
+ * appearance can be changed without recompiling, and one rule can restyle every dialog box at
+ * once instead of each being dressed by hand as it is created.
+ *
+ * The palette, in one place so it stays consistent:
+ *   #f5f6f8  window background      #ffffff  input bar
+ *   #16191d  body text              #5c636b  muted text
+ *   #2f6fd0  accent (user, buttons) #b3261e  error accent
+ *
+ * Two settings below do most of the work for legibility, and are easy to get wrong:
+ *   -fx-font-family      Helvetica Neue, the obvious choice on a Mac, has very light stems and
+ *                        reads as washed out at this size. "System" asks JavaFX for whatever
+ *                        the platform's own interface font is, which is designed for exactly
+ *                        this job and is properly weighted on every platform.
+ *   -fx-font-smoothing-type  JavaFX defaults to "gray", which thins text out on a high-density
+ *                        display. "lcd" uses subpixel rendering, so the strokes keep their
+ *                        weight. It is set on the text itself, not on a container, because the
+ *                        property is only honored by controls that draw text.
+ */
+
+/* ---------------------------------------------------------------- the window as a whole */
+
+.root-pane {
+    -fx-background-color: #f5f6f8;
+    /* "System" is the platform's own interface font; the rest are named fallbacks. */
+    -fx-font-family: "System", "Segoe UI", "Arial", sans-serif;
+}
+
+/* ------------------------------------------------------------------- conversation area */
+
+/*
+ * A ScrollPane paints its own grey panel behind the content and draws a border around it.
+ * Both are turned off so the conversation sits directly on the window background: two extra
+ * frames around the text add nothing but clutter and lost pixels.
+ */
+.chat-scroll,
+.chat-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.chat-scroll {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* A slim, flat scrollbar. The default one is wide and boxed, and steals width from the text. */
+.chat-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8;
+    -fx-padding: 0 2 0 0;
+}
+
+.chat-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: #c9ccd4;
+    -fx-background-radius: 4;
+}
+
+.chat-scroll .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #aab0bb;
+}
+
+/* The arrow buttons at each end are removed; dragging and the scroll wheel are enough. */
+.chat-scroll .scroll-bar .increment-button,
+.chat-scroll .scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-padding: 0;
+}
+
+.chat-scroll .scroll-bar .increment-arrow,
+.chat-scroll .scroll-bar .decrement-arrow {
+    -fx-shape: "";
+    -fx-padding: 0;
+}
+
+/* The column of bubbles. Tight spacing, because a reply may be twenty lines long. */
+.dialog-container {
+    -fx-padding: 10 10 10 10;
+    -fx-spacing: 8;
+}
+
+/* ------------------------------------------------------------------------- what is said */
+
+/* Shared by both speakers: only the size and rhythm of the text, not its color or backing. */
+.dialog-text {
+    -fx-font-size: 14px;
+    -fx-line-spacing: 2.5px;
+    -fx-font-smoothing-type: lcd;
+}
+
+/*
+ * Shannon speaks in plain text on the window background, marked only by a thin accent rule.
+ * The conversation is not between two people, so the two sides should not look alike: the app's
+ * replies are the long ones, and wrapping them in a bubble would cost padding on all four sides
+ * and box in text that is often a whole task list.
+ */
+.shannon-text {
+    -fx-text-fill: #16191d;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent transparent #2f6fd0;
+    -fx-border-width: 0 0 0 3;
+    -fx-padding: 1 4 1 9;
+}
+
+/*
+ * What the user typed: short, so it can afford to be a filled bubble. Being right-aligned,
+ * colored and rounded, it is told apart from Shannon's replies at a glance, without reading.
+ * The one square corner points at the sender, the usual convention in chat apps.
+ */
+.user-bubble {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #2f6fd0;
+    -fx-background-radius: 12 12 3 12;
+    -fx-padding: 6 11 6 11;
+    /* Light text on a dark fill always looks thinner than the reverse, so it is nudged back. */
+    -fx-font-weight: bold;
+    -fx-font-smoothing-type: gray;
+}
+
+/*
+ * An error. Three signals at once - red text, a tinted panel and a heavier left rule - so it is
+ * noticed even by someone skimming, while the panel stays pale enough to read dark text on.
+ */
+.error-text {
+    -fx-text-fill: #8c1d18;
+    -fx-background-color: #fdeceb;
+    -fx-background-radius: 0 6 6 0;
+    -fx-border-color: transparent transparent transparent #b3261e;
+    -fx-border-width: 0 0 0 4;
+    -fx-padding: 7 11 7 9;
+    -fx-font-weight: bold;
+}
+
+/* ---------------------------------------------------------------------------- input bar */
+
+/* White against the grey conversation, so the place to type is obvious without a heavy frame. */
+.input-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e1e4e8 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 8 10 8 10;
+    -fx-spacing: 8;
+}
+
+.input-field {
+    -fx-background-color: #f0f1f4;
+    -fx-background-radius: 16;
+    -fx-border-color: transparent;
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+    -fx-padding: 7 12 7 12;
+    -fx-font-size: 14px;
+    -fx-text-fill: #16191d;
+    -fx-prompt-text-fill: #7a828b;
+    -fx-font-smoothing-type: lcd;
+}
+
+/* The focus ring is drawn by hand, because the default one is square and ignores the rounding. */
+.input-field:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #2f6fd0;
+}
+
+.send-button {
+    -fx-background-color: #2f6fd0;
+    -fx-background-radius: 16;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-font-smoothing-type: gray;
+    -fx-padding: 7 16 7 16;
+    -fx-cursor: hand;
+}
+
+.send-button:hover {
+    -fx-background-color: #2a63ba;
+}
+
+.send-button:pressed {
+    -fx-background-color: #24559f;
+}

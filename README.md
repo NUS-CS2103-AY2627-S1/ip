@@ -1,6 +1,6 @@
-# Duke project template
+# Shannon
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is a greenfield Java project, started from a project template named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
 ## Setting up in Intellij
 
@@ -13,13 +13,37 @@ Prerequisites: JDK 25, update Intellij to the most recent version.
    1. If there are any further prompts, accept the defaults.
 1. Configure the project to use **JDK 25** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+1. After that, locate the `src/main/java/shannon/Shannon.java` file, right-click it, and choose `Run Shannon.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+      oo_    \\  //       \\\  ///\\\  ///   .-.   \\\  ///
+     /  _)-< (o)(o)   /)  ((O)(O))((O)(O)) c(O_O)c ((O)(O))
+     \__ `.  ||  || (o)(O) | \ ||  | \ || ,'.---.`, | \ ||
+        `. | |(__)|  //\\  ||\\||  ||\\||/ /|_|_|\ \||\\||
+        _| | /.--.\ |(__)| || \ |  || \ || \_____/ ||| \ |
+     ,-'   |-'    `-/,-. | ||  ||  ||  ||'. `---' .`||  ||
+    (_..--'        -'   ''(_/  \_)(_/  \_) `-...-' (_/  \_)
    ```
 
 **Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+
+
+## Acknowledgements
+
+### Third-party libraries
+- [JavaFX](https://openjfx.io/): graphical user interface
+- [JUnit 5](https://junit.org/junit5/): unit testing
+- [Shadow Gradle plugin](https://gradleup.com/shadow/): packaging the runnable JAR
+- [Checkstyle](https://checkstyle.org/): coding standard checks
+
+The avatar images (`DaUser.png`, and `Shannon.png`, renamed from `DaDuke.png`) come from the
+SE-EDU JavaFX tutorial.
+
+### Use of AI tools
+- **Tool:** [Claude Code](https://claude.com/claude-code), Anthropic's AI coding agent,
+  running Claude Opus 5.
+- **Used by:** Ravan ([@ravanc](https://github.com/ravanc))
+- **Extent:** Claude Code wrote almost all of the code in this repository, including the
+  task logic, parsing, storage, error handling and JavaFX GUI. It also wrote most commit
+  messages and parts of the documentation, including sections of the User Guide. I decided
+  what to build, prompted and directed each change, and reviewed the results before
+  committing.

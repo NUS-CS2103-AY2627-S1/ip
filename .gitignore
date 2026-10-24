@@ -15,6 +15,13 @@ bin/
 
 # Temp files
 _temp/
+*.swp
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Python virtual environment (used only for helper scripts)
+/.venv/
+
+# Task list saved by the app: personal data that changes on every run
+/data/
