@@ -139,8 +139,18 @@ class CommandExecutorTest {
     }
 
     @Test
+    void execute_failedMark_preservesCompletionStateForAlreadyDoneTask() throws Exception {
+        assertFailedMutationPreservesState("mark 2");
+    }
+
+    @Test
     void execute_failedUnmark_preservesTasksOrderingCompletionAndIds() throws Exception {
         assertFailedMutationPreservesState("unmark 2");
+    }
+
+    @Test
+    void execute_failedUnmark_preservesCompletionStateForIncompleteTask() throws Exception {
+        assertFailedMutationPreservesState("unmark 1");
     }
 
     @Test

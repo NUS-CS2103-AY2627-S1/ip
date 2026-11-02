@@ -172,7 +172,7 @@ public class TaskStorage extends Storage<Task> implements Iterable<Task> {
      * @return Matching task.
      * @throws TaskNotFoundException If the task ID does not exist.
      */
-    private Task getTaskById(int taskId, String operation) throws TaskNotFoundException {
+    public Task getTaskById(int taskId, String operation) throws TaskNotFoundException {
         return items.get(getTaskIndex(taskId, operation));
     }
 

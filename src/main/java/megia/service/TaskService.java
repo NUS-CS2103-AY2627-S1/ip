@@ -96,6 +96,8 @@ public final class TaskService {
     private CommandResult executeTaskMutation(ParsedCommand command) throws MegiaException {
         int taskId = taskParser.parseTaskId(command);
         int originalTaskCount = taskStorage.getTaskCount();
+        Task taskBeforeMutation = taskStorage.getTaskById(taskId, command.commandName());
+        boolean originalCompletionState = taskBeforeMutation.isDone();
         Task task = switch (command.commandName()) {
             case "mark" -> taskStorage.markTask(taskId);
             case "unmark" -> taskStorage.unmarkTask(taskId);
@@ -109,7 +111,7 @@ public final class TaskService {
         try {
             localStorageService.saveTaskData(taskStorage);
         } catch (StorageException exception) {
-            rollbackMutation(command.commandName(), taskId, task);
+            rollbackMutation(command.commandName(), taskId, task, originalCompletionState);
             assert taskStorage.getTaskCount() == originalTaskCount
                     : "Rolling back a task mutation must restore the task count";
             throw exception;
@@ -120,10 +122,16 @@ public final class TaskService {
                 taskStorage.getTaskCount());
     }
 
-    private void rollbackMutation(String commandName, int taskId, Task task) {
+    private void rollbackMutation(String commandName, int taskId, Task task,
+            boolean originalCompletionState) {
         switch (commandName) {
-            case "mark" -> task.markAsNotDone();
-            case "unmark" -> task.markAsDone();
+            case "mark", "unmark" -> {
+                if (originalCompletionState) {
+                    task.markAsDone();
+                } else {
+                    task.markAsNotDone();
+                }
+            }
             case "delete" -> taskStorage.restoreTask(taskId, task);
             default -> throw new IllegalArgumentException("Unsupported mutation: " + commandName);
         }
