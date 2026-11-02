@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="megia.ui.MainController" styleClass="chat-shell">
+    <top>
+        <VBox spacing="4" styleClass="header">
+            <padding>
+                <Insets top="24" right="28" bottom="20" left="28" />
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="16">
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label fx:id="titleLabel" styleClass="title" />
+                    <Label fx:id="subtitleLabel" styleClass="subtitle" />
+                </VBox>
+                <HBox alignment="CENTER_RIGHT" spacing="8">
+                    <Label fx:id="languageLabel" styleClass="language-label" />
+                    <ComboBox fx:id="languageChoiceBox" prefWidth="96"
+                              styleClass="language-choice" />
+                    <Button fx:id="userImageButton" onAction="#handleChooseUserImage"
+                            styleClass="profile-button" />
+                </HBox>
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <ListView fx:id="transcriptList" focusTraversable="false" styleClass="transcript" />
+    </center>
+    <bottom>
+        <VBox spacing="12" styleClass="composer-area">
+            <padding>
+                <Insets top="12" right="28" bottom="24" left="28" />
+            </padding>
+            <FlowPane hgap="8" vgap="8" styleClass="starter-actions">
+                <Button fx:id="starterHelpButton" onAction="#handleStarterHelp" />
+                <Button fx:id="starterTodoButton" onAction="#handleStarterTodo" />
+                <Button fx:id="starterListButton" onAction="#handleStarterList" />
+                <Button fx:id="starterFindButton" onAction="#handleStarterFind" />
+            </FlowPane>
+            <HBox spacing="10">
+                <TextField fx:id="commandInput" HBox.hgrow="ALWAYS"
+                           promptText="Type a command, for example: todo read book"
+                           onAction="#handleSend" />
+                <Button fx:id="sendButton" defaultButton="true"
+                        onAction="#handleSend" />
+            </HBox>
+        </VBox>
+    </bottom>
+</BorderPane>

@@ -1,30 +1,7 @@
-# Duke User Guide
+# Megia user guide
 
-// Update the title above to match the actual product name
+The canonical, GitHub Pages-ready guide is [docs/index.md](index.md).
 
-// Product screenshot goes here
-
-// Product intro goes here
-
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+It contains the final GUI screenshot, packaged-JAR and source launch steps,
+command reference, localization details, storage rules, recovery behavior, and
+public links. Keep this file as a pointer so the guide has one maintained home.

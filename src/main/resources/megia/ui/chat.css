@@ -1,0 +1,178 @@
+.root {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: #f6f7fb;
+}
+
+.chat-shell {
+    -fx-background-color: #f6f7fb;
+}
+
+.header {
+    -fx-background-color: #24213b;
+}
+
+.title {
+    -fx-text-fill: white;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+.subtitle {
+    -fx-text-fill: #c9c5e8;
+    -fx-font-size: 14px;
+}
+
+.language-label {
+    -fx-text-fill: #c9c5e8;
+    -fx-font-size: 12px;
+}
+
+.language-choice {
+    -fx-background-color: #3b365f;
+    -fx-border-color: #716ba4;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.transcript {
+    -fx-background-color: transparent;
+    -fx-padding: 20px 28px;
+    -fx-border-color: transparent;
+}
+
+.transcript .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 6px 0;
+}
+
+.transcript .list-cell:filled:selected {
+    -fx-background-color: transparent;
+}
+
+.message-row {
+    -fx-padding: 0;
+}
+
+.assistant-row {
+    -fx-alignment: top-left;
+}
+
+.user-row {
+    -fx-alignment: top-right;
+}
+
+.message-bubble {
+    -fx-padding: 12px 16px;
+    -fx-background-radius: 14px;
+}
+
+.user-message,
+.assistant-message {
+    -fx-alignment: center-left;
+}
+
+.user-message {
+    -fx-background-color: #ded9ff;
+}
+
+.assistant-message {
+    -fx-background-color: white;
+    -fx-border-color: #e4e5ef;
+    -fx-border-radius: 14px;
+}
+
+.error-message {
+    -fx-background-color: #fff1f1;
+    -fx-border-color: #a53232;
+    -fx-border-radius: 14px;
+    -fx-border-width: 2px;
+}
+
+.error-label {
+    -fx-text-fill: #8b1f1f;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.user-avatar,
+.assistant-avatar {
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-border-width: 2px;
+    -fx-padding: 2px;
+}
+
+.user-avatar {
+    -fx-background-color: #ded9ff;
+    -fx-border-color: #aaa4e8;
+}
+
+.assistant-avatar {
+    -fx-background-color: #e4f5f2;
+    -fx-border-color: #8bc9c1;
+}
+
+.task-card {
+    -fx-background-color: #f1f2f8;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+}
+
+.task-id {
+    -fx-text-fill: #5c56a6;
+    -fx-font-weight: bold;
+}
+
+.task-type {
+    -fx-text-fill: #6c6d7d;
+    -fx-font-weight: bold;
+}
+
+.task-description {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.task-meta {
+    -fx-text-fill: #6c6d7d;
+    -fx-font-size: 12px;
+}
+
+.task-actions .button {
+    -fx-background-color: white;
+    -fx-border-color: #d5d6e4;
+    -fx-border-radius: 8px;
+    -fx-padding: 6px 10px;
+}
+
+.composer-area {
+    -fx-background-color: white;
+    -fx-border-color: #e4e5ef transparent transparent transparent;
+}
+
+.profile-button {
+    -fx-background-color: #3b365f;
+    -fx-text-fill: white;
+    -fx-background-radius: 10px;
+    -fx-border-color: #716ba4;
+    -fx-border-radius: 10px;
+}
+
+.starter-actions .button {
+    -fx-background-color: #eeedff;
+    -fx-text-fill: #504a93;
+    -fx-background-radius: 14px;
+}
+
+.text-field {
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #d5d6e4;
+    -fx-padding: 10px;
+}
+
+.button {
+    -fx-background-radius: 10px;
+    -fx-padding: 10px 16px;
+    -fx-cursor: hand;
+}

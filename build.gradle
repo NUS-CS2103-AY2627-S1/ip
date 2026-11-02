@@ -1,0 +1,180 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.gradleup.shadow' version '9.5.1'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+def javaFxVersion = '25'
+def javaFxModules = ['base', 'graphics', 'controls', 'fxml']
+def javaFxPlatformConfigurations = [
+    guiJarLinuxRuntime: [os: 'linux', arch: 'x86-64'],
+    guiJarLinuxArm64Runtime: [os: 'linux', arch: 'aarch64'],
+    guiJarWindowsRuntime: [os: 'windows', arch: 'x86-64'],
+    guiJarMacRuntime: [os: 'macos', arch: 'x86-64'],
+    guiJarMacArm64Runtime: [os: 'macos', arch: 'aarch64']
+]
+
+javaFxPlatformConfigurations.each { configurationName, platform ->
+    def configuration = configurations.create(configurationName)
+    configuration.attributes.attribute(
+            org.gradle.nativeplatform.OperatingSystemFamily.OPERATING_SYSTEM_ATTRIBUTE,
+            objects.named(org.gradle.nativeplatform.OperatingSystemFamily, platform.os))
+    configuration.attributes.attribute(
+            org.gradle.nativeplatform.MachineArchitecture.ARCHITECTURE_ATTRIBUTE,
+            objects.named(org.gradle.nativeplatform.MachineArchitecture, platform.arch))
+    configuration.attributes.attribute(
+            org.gradle.api.attributes.Category.CATEGORY_ATTRIBUTE,
+            objects.named(org.gradle.api.attributes.Category, org.gradle.api.attributes.Category.LIBRARY))
+    configuration.attributes.attribute(
+            org.gradle.api.attributes.LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE,
+            objects.named(org.gradle.api.attributes.LibraryElements,
+                    org.gradle.api.attributes.LibraryElements.JAR))
+    configuration.attributes.attribute(
+            org.gradle.api.attributes.Usage.USAGE_ATTRIBUTE,
+            objects.named(org.gradle.api.attributes.Usage, org.gradle.api.attributes.Usage.JAVA_RUNTIME))
+}
+def guiJarRuntimeConfigurations = javaFxPlatformConfigurations.keySet().collect {
+    configurationName -> project.configurations.getByName(configurationName)
+}
+
+dependencies {
+    String jUnitVersion = '5.14.4'
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${jUnitVersion}"
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.14.4'
+
+    javaFxPlatformConfigurations.each { configurationName, ignoredPlatform ->
+        javaFxModules.each { module ->
+            add(configurationName, "org.openjfx:javafx-${module}:${javaFxVersion}")
+        }
+    }
+}
+
+javafx {
+    version = javaFxVersion
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java', 'src/gui/java']
+        }
+    }
+}
+
+test {
+    useJUnitPlatform {
+        excludeTags 'gui'
+    }
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+
+        showExceptions = true
+        exceptionFormat = 'full'
+        showCauses = true
+        showStackTraces = true
+        showStandardStreams = false
+    }
+}
+
+tasks.register('guiTest', Test) {
+    group = 'verification'
+    description = 'Runs desktop-capable JavaFX GUI smoke tests.'
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
+    useJUnitPlatform {
+        includeTags 'gui'
+    }
+    shouldRunAfter test
+}
+
+application {
+    mainClass = 'megia.Megia'
+}
+
+jar {
+    // A lean JAR file (i.e., without the dependencies packaged inside) is not needed.
+    enabled = true
+    // Rename its output anyway; Gradle forbids it clashing with the shadowJar output file, even for a disabled task.
+    archiveClassifier = 'without-dependencies'
+}
+
+shadowJar {
+    archiveFileName = 'megia.jar'
+    configurations = [project.configurations.runtimeClasspath] + guiJarRuntimeConfigurations
+    manifest {
+        attributes 'Main-Class': 'megia.ui.GuiLauncher'
+    }
+}
+
+def guiJarNativeEntries = [
+    'linux-x86-64': ['libglassgtk3.so', 'libprism_es2.so'],
+    'linux-arm64': ['libglassgtk3.so', 'libprism_es2.so'],
+    'windows-x86-64': ['glass.dll', 'prism_d3d.dll'],
+    'macos-x86-64': ['libglass.dylib', 'libprism_es2.dylib'],
+    'macos-arm64': ['libglass.dylib', 'libprism_es2.dylib']
+]
+
+tasks.register('verifyGuiJar') {
+    group = 'verification'
+    description = 'Verifies the standalone GUI JAR entry point and native runtimes.'
+    dependsOn shadowJar
+
+    doLast {
+        def jarFile = shadowJar.archiveFile.get().asFile
+        def archiveEntries = [] as Set
+        zipTree(jarFile).visit { details ->
+            if (!details.isDirectory()) {
+                archiveEntries.add(details.relativePath.pathString)
+            }
+        }
+
+        def mainClass
+        new java.util.jar.JarFile(jarFile).withCloseable { jar ->
+            mainClass = jar.manifest.mainAttributes.getValue('Main-Class')
+        }
+        if (mainClass != 'megia.ui.GuiLauncher') {
+            throw new GradleException('megia.jar must launch megia.ui.GuiLauncher')
+        }
+        guiJarNativeEntries.each { platform, nativeEntries ->
+            nativeEntries.each { nativeEntry ->
+                if (!archiveEntries.contains(nativeEntry)) {
+                    throw new GradleException(
+                            "megia.jar is missing ${nativeEntry} for ${platform}")
+                }
+            }
+        }
+    }
+}
+
+check.dependsOn verifyGuiJar
+
+run {
+    standardInput = System.in
+}
+
+tasks.register('runGui', JavaExec) {
+    group = 'application'
+    description = 'Launches the JavaFX chatbot interface.'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'megia.ui.GuiLauncher'
+}
