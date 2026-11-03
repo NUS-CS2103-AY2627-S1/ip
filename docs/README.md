@@ -148,3 +148,8 @@ startup error dialog asking the user to try again.
 | Dark theme | `dark mode` |
 | Light theme | `light mode` |
 | Exit | `bye` |
+
+## AI Acknowledgement 
+OpenAI Codex was used throughout the project to assist with code generation, 
+debugging, documentation, and refinement. All AI-generated suggestions were 
+reviewed, tested, and adapted by me. 
