@@ -34,3 +34,22 @@ Run the complete automated test and code-quality suite before committing:
 - macOS/Linux: `./gradlew check`
 
 The GitHub Actions workflow runs the same checks with Java 25 on Windows, macOS, and Ubuntu.
+
+## Acknowledgements
+
+### AI assistance
+
+Dao Anh Khoa ([@itzkhoadao](https://github.com/itzkhoadao)) used **OpenAI Codex with the GPT-5.6 Sol model** extensively throughout the development of Koara. Approximately **90–95% of the development work involved AI assistance**. This is an estimate of the extent of AI involvement, rather than a measured percentage of AI-generated source lines.
+
+Codex assisted with:
+
+- **Implementation and command handling:** developing and refining the task model, to-do, deadline and event commands, task listing and searching, completion status changes, deletion, and validation of command arguments, dates and indexes.
+- **Client management:** implementing and refining client creation, listing, searching, editing and deletion, including client fields, duplicate checks and phone-number validation.
+- **Storage and error handling:** developing and debugging task and client persistence, automatic saving and loading, handling missing or malformed data files, and reporting read/write failures while preserving application state.
+- **JavaFX interface and personality:** creating and refining the conversational interface, layouts and styling, window resizing, user/application message presentation, highlighted error feedback and Koara's response wording.
+- **Testing and debugging:** writing and expanding JUnit tests for commands, parsing, task/client behaviour and storage; investigating failures and edge cases; preparing manual UI testing instructions; and running automated tests and code-quality checks.
+- **Documentation:** drafting and revising the README, User Guide, command examples, launch instructions, storage descriptions and code documentation.
+- **Build and release preparation:** configuring and refining the Java 25 Gradle build, GitHub Actions checks and cross-platform executable JAR packaging.
+- **Development workflow:** planning implementation steps, reviewing proposed changes, and preparing Git commits, branches and merges.
+
+Dao Anh Khoa remains responsible for understanding, reviewing and validating Koara's code, tests, documentation and submitted deliverables, including work produced or refined with AI assistance.
