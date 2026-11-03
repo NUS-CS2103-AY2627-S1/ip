@@ -2,6 +2,12 @@
 
 This is a project template for the Soar chatbot. Given below are instructions on how to use it.
 
+## AI declaration and acknowledgements
+
+[OpenAI Codex](https://openai.com/codex/) was used to assist with the development and implementation of all features in this project.
+
+This project builds on the original [Duke starter repository by SE-EDU](https://github.com/se-edu/duke), provided through the [NUS CS2103/T individual project template](https://github.com/NUS-CS2103-AY2627-S1/ip).
+
 ## Setting up in Intellij
 
 Prerequisites: JDK 25, update Intellij to the most recent version.
