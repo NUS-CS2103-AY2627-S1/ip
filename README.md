@@ -66,3 +66,12 @@ docs/                      user guide (published with GitHub Pages)
 
 - Based on the [se-edu Duke project template](https://github.com/se-edu/ip).
 - The GUI follows the [se-edu JavaFX tutorial](https://se-education.org/guides/tutorials/javaFx.html).
+
+### Use of AI tools
+
+Notable uses of AI:
+
+- [Claude Code](https://claude.com/claude-code) (Anthropic) was used by me, @ThaiNguyen0806, throughout this iP. It was the only AI tool used.
+- Most of the code was written with it, across all increments (`Level-0` to `Level-10` and the `A-*` tasks), including the JavaFX GUI and its stylesheet, the command and task classes, and the JUnit tests.
+- It was also used to write the user guide (`docs/README.md`) and this README, to review the app for bugs, and to build and smoke-test the released JAR.
+- I reviewed, tested and accepted all generated changes, and I am responsible for the final submission.
