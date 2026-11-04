@@ -1,0 +1,10 @@
+.label {
+    -fx-background-color: white;
+    -fx-background-radius: 21px 2px 21px 21px;
+    -fx-text-fill: #1f2937;
+}
+
+.reply-label {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
