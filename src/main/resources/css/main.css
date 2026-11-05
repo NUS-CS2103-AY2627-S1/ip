@@ -1,0 +1,137 @@
+.root {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #20251c;
+}
+
+.main-window {
+    -fx-background-color: #ffffff;
+}
+
+.app-header {
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #dfe5d8 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.app-title {
+    -fx-font-size: 25px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #26320e;
+}
+
+.app-subtitle,
+.command-hint {
+    -fx-font-size: 12px;
+    -fx-text-fill: #59624f;
+}
+
+.conversation-scroll,
+.conversation-scroll > .viewport {
+    -fx-background-color: #f5f7f2;
+}
+
+.conversation-scroll {
+    -fx-border-width: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.dialog-container {
+    -fx-background-color: #f5f7f2;
+}
+
+.dialog-row {
+    -fx-min-height: 36px;
+}
+
+.speaker-badge {
+    -fx-background-color: #dfe6d4;
+    -fx-background-radius: 18px;
+    -fx-font-size: 11px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #344019;
+}
+
+.message-bubble {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12px;
+    -fx-border-color: #dfe5d8;
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+    -fx-text-fill: #20251c;
+}
+
+.user-dialog .speaker-badge {
+    -fx-background-color: #607a16;
+    -fx-text-fill: #ffffff;
+}
+
+.user-dialog .message-bubble {
+    -fx-background-color: #607a16;
+    -fx-border-color: #607a16;
+    -fx-text-fill: #ffffff;
+}
+
+.error-dialog .speaker-badge {
+    -fx-background-color: #7f1d1d;
+    -fx-text-fill: #ffffff;
+}
+
+.error-dialog .message-bubble {
+    -fx-background-color: #fff3f2;
+    -fx-border-color: #d7847f;
+    -fx-text-fill: #651515;
+}
+
+.composer {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dfe5d8 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8px;
+    -fx-border-color: #aab49f;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-padding: 11px 12px;
+    -fx-prompt-text-fill: #5d6655;
+}
+
+.text-field:focused {
+    -fx-border-color: #607a16;
+    -fx-border-width: 2px;
+    -fx-padding: 10px 11px;
+}
+
+.button {
+    -fx-background-color: #607a16;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+    -fx-font-weight: 700;
+    -fx-padding: 11px 16px;
+    -fx-text-fill: #ffffff;
+}
+
+.button:hover {
+    -fx-background-color: #506713;
+}
+
+.button:focused {
+    -fx-border-color: #26320e;
+    -fx-border-radius: 8px;
+    -fx-border-width: 2px;
+    -fx-border-insets: -3px;
+}
+
+.button:pressed {
+    -fx-background-color: #40520f;
+}
+
+.button:disabled {
+    -fx-background-color: #c8cec1;
+    -fx-opacity: 1;
+    -fx-text-fill: #59624f;
+}
