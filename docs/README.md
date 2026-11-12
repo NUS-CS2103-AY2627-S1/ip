@@ -60,3 +60,8 @@ Sorts tasks alphabetically by description, ignoring letter case, and saves the n
 Format: `bye`
 
 Closes the application after displaying the goodbye message.
+
+
+## AI Usage Declaration
+
+Liu Junhan (ZachL1113) used Claude (Anthropic) and OpenAI Codex to generate most of the code, tests and documentation in this project. I directed the work, reviewed the generated changes and tested them before submission. The `CLAUDE.md` and `AGENTS.md` files in this repository are the instruction files used with these tools.
