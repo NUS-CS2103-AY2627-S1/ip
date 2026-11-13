@@ -1,30 +1,67 @@
-# Duke User Guide
+# Nova User Guide
 
-// Update the title above to match the actual product name
+Nova is a desktop task-management chatbot. Type commands into the input box and Nova will maintain your task list and save it between sessions.
 
-// Product screenshot goes here
+## Adding a todo
 
-// Product intro goes here
+Format: `todo DESCRIPTION`
 
-## Adding deadlines
+Example: `todo read book`
 
-// Describe the action and its outcome.
+## Adding a deadline
 
-// Give examples of usage
+Format: `deadline DESCRIPTION /by YYYY-MM-DD`
 
-Example: `keyword (optional arguments)`
+Example: `deadline submit report /by 2026-09-18`
 
-// A description of the expected outcome goes here
+## Adding an event
 
-```
-expected output
-```
+Format: `event DESCRIPTION /from YYYY-MM-DD /to YYYY-MM-DD`
 
-## Feature ABC
+Example: `event project meeting /from 2026-09-18 /to 2026-09-19`
 
-// Feature details
+## Listing tasks
+
+Format: `list`
+
+Displays all tasks in their current order.
+
+## Marking and unmarking tasks
+
+Formats:
+
+- `mark TASK_NUMBER`
+- `unmark TASK_NUMBER`
+
+Example: `mark 2`
+
+## Deleting a task
+
+Format: `delete TASK_NUMBER`
+
+Example: `delete 2`
+
+## Finding tasks
+
+Format: `find KEYWORD`
+
+Example: `find report`
+
+The search is case-insensitive and matches the keyword anywhere in the task description.
+
+## Sorting tasks
+
+Format: `sort`
+
+Sorts tasks alphabetically by description, ignoring letter case, and saves the new order.
+
+## Exiting Nova
+
+Format: `bye`
+
+Closes the application after displaying the goodbye message.
 
 
-## Feature XYZ
+## AI Usage Declaration
 
-// Feature details
+Liu Junhan (ZachL1113) used Claude (Anthropic) and OpenAI Codex to generate most of the code, tests and documentation in this project. I directed the work, reviewed the generated changes and tested them before submission. The `CLAUDE.md` and `AGENTS.md` files in this repository are the instruction files used with these tools.
